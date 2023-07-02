@@ -3637,6 +3637,7 @@ __metadata:
     react-redux: ^8.1.1
     redux: ^4.2.1
     styled-components: ^6.0.1
+    styled-reset: ^4.5.1
     typescript: 5.1.6
   languageName: unknown
   linkType: soft
@@ -6958,6 +6959,15 @@ __metadata:
     babel-plugin-macros:
       optional: true
   checksum: 523a33b38603492547e861b98e29c873939b04e15fbe5ef16132c6f1e15958126647983c7d4675325038b428a5e91183d996e90141b18bdd1bbadf6e2c45b2fa
+  languageName: node
+  linkType: hard
+
+"styled-reset@npm:^4.5.1":
+  version: 4.5.1
+  resolution: "styled-reset@npm:4.5.1"
+  peerDependencies:
+    styled-components: ">=4.0.0 || >=5.0.0 || >=6.0.0"
+  checksum: ff6c5bbc738017a535a5e74cc3b2e7112652691c8e4acae700fe3d051f870035e2d911e6629a9a626349ccc58ba9842b83793bd9111f4e1c9e1fa695f773d2b8
   languageName: node
   linkType: hard
 
