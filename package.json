@@ -39,6 +39,7 @@
   "devDependencies": {
     "@babel/runtime": "^7.22.5",
     "@emotion/babel-plugin": "^11.11.0",
-    "@yarnpkg/pnpify": "^4.0.0-rc.47"
+    "@yarnpkg/pnpify": "^4.0.0-rc.47",
+    "babel-plugin-styled-components": "^2.1.4"
   }
 }

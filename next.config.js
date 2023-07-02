@@ -4,6 +4,15 @@ const path = require("path");
 
 module.exports = {
   reactStrictMode: true,
+  poweredByHeader: false,
+  compiler: {
+    styledComponents: {
+      fileName: true,
+      displayName: true,
+      pure: true,
+    },
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
