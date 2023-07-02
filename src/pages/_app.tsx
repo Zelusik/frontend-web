@@ -1,10 +1,16 @@
+import wrapper from "@/store";
 import GlobalStyles from "@/styles/global";
 import { cache } from "@emotion/css";
 import { CacheProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Provider } from "react-redux";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, ...rest }: AppProps) => {
+  const {
+    store,
+    props: { pageProps },
+  } = wrapper.useWrappedStore(rest);
   const queryClient = new QueryClient();
 
   return (
@@ -16,7 +22,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       <QueryClientProvider client={queryClient}>
         <CacheProvider value={cache}>
           <GlobalStyles />
-          <Component {...pageProps} />
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
         </CacheProvider>
       </QueryClientProvider>
     </>
