@@ -1,4 +1,4 @@
-import MapTemplate from "@/components/map/MapTemplate";
+import MapTemplate from "components/map/MapTemplate";
 import React from "react";
 
 const MapPage = () => {

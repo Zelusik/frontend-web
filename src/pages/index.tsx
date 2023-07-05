@@ -1,4 +1,4 @@
-import HomeTemplate from "@/components/home/HomeTemplate";
+import HomeTemplate from "components/home/HomeTemplate";
 import React from "react";
 
 const index = () => {

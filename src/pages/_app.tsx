@@ -1,5 +1,5 @@
-import wrapper from "@/store";
-import GlobalStyles from "@/styles/global";
+import wrapper from "store";
+import GlobalStyles from "styles/global";
 import { cache } from "@emotion/css";
 import { CacheProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
