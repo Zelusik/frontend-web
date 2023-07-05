@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { ClickedHome, UnClickedHome } from "../Icon/HomeIcon";
 import { ClickedMy, UnClickedMy } from "../Icon/MyIcon";
 import { ClickedMark, UnClickedMark } from "../Icon/MarkIcon";
-import { ReviewIcon } from "../Icon/ReviewIcon";
+import { ClickedReview, UnClickedReview } from "../Icon/ReviewIcon";
 import { ClickedMap, UnClickedMap } from "../Icon/MapIcon";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -27,7 +27,7 @@ const BottomNavigation = () => {
         </Link>
         <Link href="/review">
           <Menu clicked={pathname === "/review" ? "true" : "false"}>
-            <ReviewIcon />
+            {pathname === "/review" ? <ClickedReview /> : <UnClickedReview />}
             리뷰쓰기
           </Menu>
         </Link>
@@ -59,20 +59,21 @@ const MenuList = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-bottom: 10px;
 `;
 
 const Menu = styled.li<{ clicked: string }>`
   display: flex;
   flex-direction: column;
+  gap: 8px;
+
   text-align: center;
   align-items: center;
-  font-size: 10px;
-  line-height: 16px;
+  font-size: 12px;
+  line-height: 24px;
   font-weight: 500;
 
   cursor: pointer;
 
-  color: ${(props) => (props.clicked === "true" ? "#4C5061" : "#999CA8")};
+  color: ${(props) => (props.clicked === "true" ? "#F59300" : "#343434")};
 `;
 export default BottomNavigation;
