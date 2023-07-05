@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ClickedMy = () => {
+export const ClickedMypage = () => {
   return (
     <svg
       width="28"
@@ -19,7 +19,7 @@ export const ClickedMy = () => {
   );
 };
 
-export const UnClickedMy = () => {
+export const UnClickedMypage = () => {
   return (
     <svg
       width="28"

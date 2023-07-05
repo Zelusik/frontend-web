@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import * as icons from "components/common/Icon/icons";
+import * as icons from "components/Icon/icons";
 
 interface IconProps {
   icon: string;

@@ -39,7 +39,8 @@ export default class CustomDocument extends Document {
       sheet.seal();
     }
   }
-  render() {
+
+  public render() {
     return (
       <Html lang="ko">
         <Head>
