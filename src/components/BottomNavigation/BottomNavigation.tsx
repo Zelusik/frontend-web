@@ -14,12 +14,15 @@ import MapNone from "assets/BottomNavigation/map_none_28.svg";
 import ReviewNone from "assets/BottomNavigation/review_none_28.svg";
 import MarkNone from "assets/BottomNavigation/mark_none_28.svg";
 import MypageNone from "assets/BottomNavigation/mypage_none_28.svg";
+import { colors } from "constants/colors";
+import Spacing from "components/Spacing";
 
 const BottomNavigation = () => {
   const { pathname } = useRouter();
 
   return (
     <BottomNavigationWrapper>
+      <Spacing size={10} />
       <MenuList>
         <Link href="/">
           <Menu clicked={pathname === "/" ? "true" : "false"}>
@@ -57,9 +60,13 @@ const BottomNavigation = () => {
 
 const BottomNavigationWrapper = styled.div`
   width: 100%;
-  background-color: white;
+  max-width: 820px;
+  height: 88px;
+
   position: fixed;
   bottom: 0;
+  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
+  background-color: ${colors.N0};
 `;
 
 const MenuList = styled.ul`
