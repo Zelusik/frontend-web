@@ -16,8 +16,9 @@ export default function LogoTitle() {
 const TitleWrapper = styled.div`
   width: 100%;
   height: 50px;
-  display: flex;
-`;
+  padding: 0 20px;
+`
+
 
 const MenuList = styled.ul`
   width: 100%;

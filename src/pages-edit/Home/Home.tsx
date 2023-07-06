@@ -5,7 +5,6 @@ import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 import LogoTitle from "./components/LogoTitle";
 import StoreBox from "./components/StoreBox/StoreBox";
-import { useState } from "react";
 
 export default function Home() {
   const router = useRouter();
