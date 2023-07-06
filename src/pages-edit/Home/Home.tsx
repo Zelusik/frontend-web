@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import styled from "@emotion/styled";
+
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 import LogoTitle from "./components/LogoTitle";
@@ -9,23 +11,29 @@ export default function Home() {
 
   return (
     <>
-      <Spacing size={45} />
-      <LogoTitle />
-      <Spacing size={20} />
-      <div style={{ height: "68px" }}>
-        오늘은
-        <br />
-        어디로 갈까요?
-      </div>
-      <Spacing size={30} />
-      {HomeDatas.map((data: any) => {
-        return <StoreBox key={data.id} />;
-      })}
-      <Spacing size={88} />
+      <HomeWrapper>
+        <Spacing size={45} />
+        <LogoTitle />
+        <Spacing size={20} />
+        <div style={{ height: "68px" }}>
+          오늘은
+          <br />
+          어디로 갈까요?
+        </div>
+        <Spacing size={30} />
+        {HomeDatas.map((data: any) => {
+          return <StoreBox key={data.id} />;
+        })}
+        <Spacing size={88} />
+      </HomeWrapper>
       <BottomNavigation />
     </>
   );
 }
+
+const HomeWrapper = styled.div`
+  padding: 0 20px;
+`;
 
 const HomeDatas = [
   {

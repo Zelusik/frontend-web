@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import Spacing from "components/Spacing";
@@ -11,7 +12,11 @@ export default function StoreBox() {
     <BoxWrapper>
       <ProfileTitle />
       <Spacing size={16} />
-      <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" radius={20} />
+      <Image
+        src="https://i.ibb.co/0Z6FNN7/60pt.png"
+        ratio={8 / 9}
+        radius={20}
+      />
       <Spacing size={30} />
     </BoxWrapper>
   );
@@ -19,5 +24,4 @@ export default function StoreBox() {
 
 const BoxWrapper = styled.div`
   width: 100%;
-  padding: 0 20px;
 `;

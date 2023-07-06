@@ -10,6 +10,8 @@ const globalCss = css`
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     user-select: none;
     -webkit-touch-callout: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   body,
@@ -26,6 +28,9 @@ const globalCss = css`
     background-color: ${colors.N0};
     color: ${colors.N100};
     min-height: 100dvh;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 
   a {
