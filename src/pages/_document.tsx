@@ -1,4 +1,4 @@
-import { renderStatic } from "@/utils/renderer";
+import { renderStatic } from "utils/renderer";
 import Document, {
   Html,
   Head,
@@ -18,7 +18,8 @@ export default class CustomDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
         });
       const initialProps = await Document.getInitialProps(ctx);
       return {
@@ -38,7 +39,8 @@ export default class CustomDocument extends Document {
       sheet.seal();
     }
   }
-  render() {
+
+  public render() {
     return (
       <Html lang="ko">
         <Head>
