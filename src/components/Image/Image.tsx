@@ -9,7 +9,7 @@ interface Props {
 export default function Image({
   src,
   width = "100%",
-  height = "100%",
+  height,
   ratio = 9 / 16,
   radius = 0,
 }: Props) {

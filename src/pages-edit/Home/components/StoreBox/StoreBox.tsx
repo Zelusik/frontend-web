@@ -2,15 +2,16 @@ import { useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import Spacing from "components/Spacing";
-import ProfileTitle from "./ProfileTitle";
+import ProfileTitle from "components/Title/ProfileTitle";
 import Image from "components/Image";
+import Setting from "components/Setting";
 
 export default function StoreBox() {
   const router = useRouter();
 
   return (
     <BoxWrapper>
-      <ProfileTitle />
+      <ProfileTitle backIcon={<Setting />} />
       <Spacing size={16} />
       <Image
         src="https://i.ibb.co/0Z6FNN7/60pt.png"
