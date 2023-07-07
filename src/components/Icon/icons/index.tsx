@@ -14,3 +14,10 @@ export { default as PlusButton } from "./PlusButton";
 export { default as Sort } from "./Sort";
 
 export { default as Setting } from "./Setting";
+
+//bottom navigation
+export { default as Home } from "./Home";
+export { default as Map } from "./Map";
+export { default as Review } from "./Review";
+export { default as Mark } from "./Mark";
+export { default as My } from "./My";
