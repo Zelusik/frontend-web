@@ -3,19 +3,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "@emotion/styled";
 
-import HomeAct from "assets/BottomNavigation/home_act_28.svg";
-import MapAct from "assets/BottomNavigation/map_act_28.svg";
-import ReviewAct from "assets/BottomNavigation/review_act_28.svg";
-import MarkAct from "assets/BottomNavigation/mark_act_28.svg";
-import MypageAct from "assets/BottomNavigation/mypage_act_28.svg";
-
-import HomeNone from "assets/BottomNavigation/home_none_28.svg";
-import MapNone from "assets/BottomNavigation/map_none_28.svg";
-import ReviewNone from "assets/BottomNavigation/review_none_28.svg";
-import MarkNone from "assets/BottomNavigation/mark_none_28.svg";
-import MypageNone from "assets/BottomNavigation/mypage_none_28.svg";
 import { colors } from "constants/colors";
 import Spacing from "components/Spacing";
+import Icon from "components/Icon";
 
 const BottomNavigation = () => {
   const { pathname } = useRouter();
@@ -26,30 +16,33 @@ const BottomNavigation = () => {
       <MenuList>
         <Link href="/">
           <Menu clicked={pathname === "/" ? "true" : "false"}>
-            {pathname === "/" ? <HomeAct /> : <HomeNone />}홈
+            <Icon icon="Home" color={pathname === "/" ? "#FF9E0C" : "#BDBEC7"} />홈
           </Menu>
         </Link>
         <Link href="/map">
           <Menu clicked={pathname === "/map" ? "true" : "false"}>
-            {pathname === "/map" ? <MapAct /> : <MapNone />}
+            <Icon icon="Map" color={pathname === "/map" ? "#FF9E0C" : "#BDBEC7"} />
             지도
           </Menu>
         </Link>
         <Link href="/review">
           <Menu clicked={pathname === "/review" ? "true" : "false"}>
-            {pathname === "/review" ? <ReviewAct /> : <ReviewNone />}
+            <Icon
+              icon="Review"
+              color={pathname === "/review" ? "#FF9E0C" : "#BDBEC7"}
+            />
             리뷰쓰기
           </Menu>
         </Link>
         <Link href="/mark">
           <Menu clicked={pathname === "/mark" ? "true" : "false"}>
-            {pathname === "/mark" ? <MarkAct /> : <MarkNone />}
+            <Icon icon="Mark" color={pathname === "/mark" ? "#FF9E0C" : "#BDBEC7"} />
             저장
           </Menu>
         </Link>
         <Link href="/mypage">
           <Menu clicked={pathname === "/mypage" ? "true" : "false"}>
-            {pathname === "/mypage" ? <MypageAct /> : <MypageNone />}
+            <Icon icon="My" color={pathname === "/mypage" ? "#FF9E0C" : "#BDBEC7"} />
             마이
           </Menu>
         </Link>
