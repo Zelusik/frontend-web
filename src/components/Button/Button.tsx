@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { colors } from "constants/colors";
 
@@ -15,6 +14,8 @@ interface Props {
   margin?: any;
   fontMargin?: any;
   fontPadding?: any;
+
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -29,9 +30,10 @@ export default function Button({
   margin,
   fontMargin,
   fontPadding,
+  disabled,
 }: Props) {
   return (
-    <div
+    <button
       style={{
         width: width,
         height: height,
@@ -41,6 +43,7 @@ export default function Button({
         color: color,
         backgroundColor: backgroundColor,
       }}
+      disabled={disabled}
     >
       <div
         style={{
@@ -52,7 +55,7 @@ export default function Button({
         <span style={{ margin: fontMargin }}>{text}</span>
         {backIcon}
       </div>
-    </div>
+    </button>
   );
 }
 
