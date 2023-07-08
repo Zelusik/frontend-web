@@ -12,6 +12,7 @@ const globalCss = css`
     -webkit-touch-callout: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    box-sizing: border-box;
   }
 
   body,
