@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Button from "components/Button/Button";
 import { ArrowLeft } from "components/Icon/Arrow";
 import { colors } from "constants/colors";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Spacing from "components/Spacing/Spacing";
 
@@ -19,6 +19,17 @@ const TermsPage = () => {
     router.back();
   };
   const { terms } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    termsData.map((term) =>
+      dispatch(
+        changeAuthTermsInfo({
+          type: term.key,
+          value: false,
+        })
+      )
+    );
+  }, [dispatch]);
 
   const handleClickAllTerms = () => {
     const trueCount = Object.values(terms).filter((value) => value === true).length;
