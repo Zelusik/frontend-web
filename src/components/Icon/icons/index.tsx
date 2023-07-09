@@ -23,3 +23,9 @@ export { default as Map } from "./bottomNavigation/Map";
 export { default as Review } from "./bottomNavigation/Review";
 export { default as Mark } from "./bottomNavigation/Mark";
 export { default as My } from "./bottomNavigation/My";
+
+// login
+export { default as AuthLogo } from "./auth/AuthLogo";
+export { default as AuthDescription } from "./auth/AuthDescription";
+export { default as AuthKakao } from "./auth/AuthKakao";
+export { default as AuthApple } from "./auth/AuthApple";

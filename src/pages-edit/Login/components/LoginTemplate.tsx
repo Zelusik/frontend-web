@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import AuthApple from "components/Icon/icons/AuthApple";
-import AuthDescription from "components/Icon/icons/AuthDescription";
-import AuthKakao from "components/Icon/icons/AuthKakao";
-import AuthLogo from "components/Icon/icons/AuthLogo";
-import { colors } from "constants/colors";
+import Icon from "components/Icon";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const LoginTemplate = () => {
+  const redirectUrl = process.env.KAKAO_REDIRECT_URI;
+  const kakaoUrl = `${process.env.KAKAO_AUTH_URL}/oauth/authorize?client_id=${process.env.KAKAO_REST_API_KEY}&redirect_uri=${redirectUrl}&response_type=code`;
+
   const [userAgent, setUserAgent] = useState("");
 
   useEffect(() => {
@@ -18,12 +18,14 @@ const LoginTemplate = () => {
   return (
     <LoginTemplateWrapper>
       <LogoWrapper>
-        <AuthLogo />
-        <AuthDescription />
+        <Icon icon="AuthLogo" />
+        <Icon icon="AuthDescription" />
       </LogoWrapper>
       <ButtonWrapper>
-        <AuthKakao />
-        {userAgent.indexOf("android") === -1 && <AuthApple />}
+        <Link href={kakaoUrl}>
+          <Icon icon="AuthKakao" />
+        </Link>
+        {userAgent.indexOf("android") === -1 && <Icon icon="AuthApple" />}
       </ButtonWrapper>
     </LoginTemplateWrapper>
   );
