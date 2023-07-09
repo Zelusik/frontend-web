@@ -16,12 +16,12 @@ const BottomNavigation = () => {
       <MenuList>
         <Link href="/">
           <Menu clicked={pathname === "/" ? "true" : "false"}>
-            <Icon icon="Home" color={pathname === "/" ? "#FF9E0C" : "#BDBEC7"} />홈
+            <Icon icon="Home" fill={pathname === "/" ? "#FF9E0C" : "#BDBEC7"} />홈
           </Menu>
         </Link>
         <Link href="/map">
           <Menu clicked={pathname === "/map" ? "true" : "false"}>
-            <Icon icon="Map" color={pathname === "/map" ? "#FF9E0C" : "#BDBEC7"} />
+            <Icon icon="Map" fill={pathname === "/map" ? "#FF9E0C" : "#BDBEC7"} />
             지도
           </Menu>
         </Link>
@@ -29,20 +29,20 @@ const BottomNavigation = () => {
           <Menu clicked={pathname === "/review" ? "true" : "false"}>
             <Icon
               icon="Review"
-              color={pathname === "/review" ? "#FF9E0C" : "#BDBEC7"}
+              fill={pathname === "/review" ? "#FF9E0C" : "#BDBEC7"}
             />
             리뷰쓰기
           </Menu>
         </Link>
         <Link href="/mark">
           <Menu clicked={pathname === "/mark" ? "true" : "false"}>
-            <Icon icon="Mark" color={pathname === "/mark" ? "#FF9E0C" : "#BDBEC7"} />
+            <Icon icon="Mark" fill={pathname === "/mark" ? "#FF9E0C" : "#BDBEC7"} />
             저장
           </Menu>
         </Link>
         <Link href="/mypage">
           <Menu clicked={pathname === "/mypage" ? "true" : "false"}>
-            <Icon icon="My" color={pathname === "/mypage" ? "#FF9E0C" : "#BDBEC7"} />
+            <Icon icon="My" fill={pathname === "/mypage" ? "#FF9E0C" : "#BDBEC7"} />
             마이
           </Menu>
         </Link>
