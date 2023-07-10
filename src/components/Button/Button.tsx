@@ -28,6 +28,7 @@ export default function Button({
   radius = 0,
   color = colors.N0,
   backgroundColor = colors.N100,
+
   margin,
   fontMargin,
   fontPadding,

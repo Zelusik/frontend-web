@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Image from "components/Image";
-import DotSvg from "assets/dots_20.svg";
 import Button from "components/Button";
 import Spacing from "components/Spacing";
 
@@ -8,7 +7,7 @@ import CheckSvg from "assets/check_12.svg";
 import PlusSvg from "assets/plus_12.svg";
 import { colors } from "constants/colors";
 
-export default function ProfileTitle() {
+export default function ProfileTitle({ backIcon }: any) {
   return (
     <TitleWrapper>
       <MenuList>
@@ -37,7 +36,7 @@ export default function ProfileTitle() {
             margin="0 4px 0 0"
             fontMargin="0 0 0 4px"
           />
-          <DotSvg />
+          {backIcon}
         </Menu>
       </MenuList>
     </TitleWrapper>
