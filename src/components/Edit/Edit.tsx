@@ -1,4 +1,4 @@
-import DotSvg from "assets/dots_20.svg";
+import EditSvg from "assets/edit_28.svg";
 
 interface Props {
   src: any;
@@ -8,10 +8,10 @@ interface Props {
   radius?: number | string;
 }
 
-export default function Setting({ margin }: any) {
+export default function Edit({ margin }: any) {
   return (
     <div style={{ margin: margin }}>
-      <DotSvg />
+      <EditSvg />
     </div>
   );
 }

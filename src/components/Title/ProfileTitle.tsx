@@ -7,37 +7,30 @@ import CheckSvg from "assets/check_12.svg";
 import PlusSvg from "assets/plus_12.svg";
 import { colors } from "constants/colors";
 
-export default function ProfileTitle({ backIcon }: any) {
+export default function ProfileTitle({
+  imageSide,
+  title,
+  subTitle,
+  backIcon,
+}: any) {
   return (
     <TitleWrapper>
       <MenuList>
         <Menu>
           <Image
             src="https://i.ibb.co/0Z6FNN7/60pt.png"
-            width={30}
-            height={30}
+            width={imageSide}
+            height={imageSide}
             radius={10}
+            margin={"0 8px 0 0"}
           />
           <div>
-            <div>고작가</div>
-            <div>21시간 전에 방문</div>
+            {title && <div>{title}</div>}
+            {subTitle && <div>{subTitle}</div>}
           </div>
         </Menu>
 
-        <Menu>
-          <Button
-            frontIcon={<CheckSvg />}
-            text="팔로잉"
-            width={74}
-            height={34}
-            radius={100}
-            color={colors.N0}
-            backgroundColor={colors.N100}
-            margin="0 4px 0 0"
-            fontMargin="0 0 0 4px"
-          />
-          {backIcon}
-        </Menu>
+        <Menu>{backIcon}</Menu>
       </MenuList>
     </TitleWrapper>
   );

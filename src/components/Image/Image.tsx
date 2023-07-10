@@ -4,6 +4,9 @@ interface Props {
   height?: number | string;
   ratio?: number;
   radius?: number | string;
+
+  margin?: string;
+  padding?: string;
 }
 
 export default function Image({
@@ -12,6 +15,8 @@ export default function Image({
   height,
   ratio = 9 / 16,
   radius = 0,
+  margin,
+  padding,
 }: Props) {
   return (
     <img
@@ -19,6 +24,9 @@ export default function Image({
       style={{
         width: width,
         height: height,
+        margin: margin,
+        padding: padding,
+
         aspectRatio: ratio,
         borderRadius: radius,
       }}
