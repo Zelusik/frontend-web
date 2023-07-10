@@ -13,6 +13,13 @@ module.exports = {
     },
     removeConsole: process.env.NODE_ENV === "production",
   },
+  // 환경변수
+  env: {
+    KAKAO_AUTH_URL: process.env.KAKAO_AUTH_URL,
+    KAKAO_REST_API_KEY: process.env.KAKAO_REST_API_KEY,
+    KAKAO_REDIRECT_URI: process.env.KAKAO_REDIRECT_URI,
+    BASE_URL: process.env.BASE_URL,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
