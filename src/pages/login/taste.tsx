@@ -9,6 +9,7 @@ import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthState } from "reducer/slices/auth/authSlice";
 import { tasteData } from "data/tasteData";
+import { PostTerms, PutTaste } from "api/auth";
 
 const TastePage = () => {
   const router = useRouter();
@@ -16,7 +17,9 @@ const TastePage = () => {
   const handleClickBackBtn = () => {
     router.back();
   };
-  const { favoriteFoodCategories } = useAppSelector((state) => state.auth);
+  const { accessToken, favoriteFoodCategories, terms } = useAppSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     dispatch(
@@ -48,7 +51,11 @@ const TastePage = () => {
     }
   };
 
-  const handleClickStart = () => {};
+  const handleClickStart = () => {
+    PostTerms(accessToken, terms);
+    PutTaste(accessToken, favoriteFoodCategories);
+    router.push("/");
+  };
 
   return (
     <TasteWrapper>
