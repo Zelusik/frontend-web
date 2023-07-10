@@ -21,12 +21,6 @@
       }
     ]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/icons/*.svg"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/icons/*.svg"],
   "exclude": ["node_modules"]
 }

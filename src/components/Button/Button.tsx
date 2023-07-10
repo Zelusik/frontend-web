@@ -16,6 +16,7 @@ interface Props {
   fontPadding?: any;
 
   disabled?: boolean;
+  onClick?: any;
 }
 
 export default function Button({
@@ -31,6 +32,7 @@ export default function Button({
   fontMargin,
   fontPadding,
   disabled,
+  onClick,
 }: Props) {
   return (
     <button
@@ -44,6 +46,7 @@ export default function Button({
         backgroundColor: backgroundColor,
       }}
       disabled={disabled}
+      onClick={onClick}
     >
       <div
         style={{
