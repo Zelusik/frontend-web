@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Edit from "components/Edit";
 import { colors } from "constants/colors";
@@ -7,8 +8,11 @@ export default function TextTitle({
   subtitle,
   backIcon,
 
+  titleColor,
   titleTypo,
   titleMargin,
+
+  subTitleColor,
   subTitleTypo,
   subTitleMargin,
 }: any) {
@@ -17,9 +21,19 @@ export default function TextTitle({
       <MenuList>
         <Menu>
           <div>
-            {title && <div style={{ margin: titleMargin }}>{title}</div>}
+            {title && (
+              <Title typo={titleTypo} color={titleColor} margin={titleMargin}>
+                {title}
+              </Title>
+            )}
             {subtitle && (
-              <div style={{ margin: subTitleMargin }}>{subtitle}</div>
+              <SubTitle
+                typo={subTitleTypo}
+                color={subTitleColor}
+                margin={subTitleMargin}
+              >
+                {subtitle}
+              </SubTitle>
             )}
           </div>
         </Menu>
@@ -49,4 +63,24 @@ const Menu = styled.li`
 
   display: flex;
   align-items: center;
+`;
+
+const Title = styled.div<{ typo: any; color: any; margin: any }>`
+  margin: ${({ margin }) => margin};
+  ${({ typo }) =>
+    typo &&
+    css`
+      ${typo}
+    `}
+  color: ${({ color }) => color}
+`;
+
+const SubTitle = styled.div<{ typo: any; color: any; margin: any }>`
+  margin: ${({ margin }) => margin};
+  ${({ typo }) =>
+    typo &&
+    css`
+      ${typo}
+    `}
+  color: ${({ color }) => color}
 `;

@@ -4,4 +4,5 @@ export const Route = {
   REVIEW: () => "/review",
   MARK: () => "/mark",
   MYPAGE: () => "/mypage",
+  HOME_DETAIL: () => "/home-detail",
 };

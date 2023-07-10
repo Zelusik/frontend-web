@@ -5,6 +5,8 @@ import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 import LogoTitle from "./components/LogoTitle";
 import StoreBox from "./components/StoreBox/StoreBox";
+import { typography } from "constants/typography";
+import { Route } from "constants/Route";
 
 export default function Home() {
   const router = useRouter();
@@ -15,14 +17,14 @@ export default function Home() {
         <Spacing size={45} />
         <LogoTitle />
         <Spacing size={20} />
-        <div style={{ height: "68px" }}>
+        <HomeTitle style={typography.Headline6}>
           오늘은
           <br />
           어디로 갈까요?
-        </div>
+        </HomeTitle>
         <Spacing size={30} />
         {HomeDatas.map((data: any) => {
-          return <StoreBox key={data.id} />;
+          return <StoreBox key={data.id} id={0} />;
         })}
         <Spacing size={88} />
       </HomeWrapper>
@@ -34,6 +36,8 @@ export default function Home() {
 const HomeWrapper = styled.div`
   padding: 0 20px;
 `;
+
+const HomeTitle = styled.div``;
 
 const HomeDatas = [
   {

@@ -1,17 +1,17 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "components/Image";
-import Button from "components/Button";
-import Spacing from "components/Spacing";
-
-import CheckSvg from "assets/check_12.svg";
-import PlusSvg from "assets/plus_12.svg";
-import { colors } from "constants/colors";
 
 export default function ProfileTitle({
   imageSide,
   title,
   subTitle,
   backIcon,
+
+  titleColor,
+  titleTypo,
+  subTitleColor,
+  subTitleTypo,
 }: any) {
   return (
     <TitleWrapper>
@@ -25,8 +25,16 @@ export default function ProfileTitle({
             margin={"0 8px 0 0"}
           />
           <div>
-            {title && <div>{title}</div>}
-            {subTitle && <div>{subTitle}</div>}
+            {title && (
+              <FontTitle typo={titleTypo} color={titleColor}>
+                {title}
+              </FontTitle>
+            )}
+            {subTitle && (
+              <FontSubTitle typo={subTitleTypo} color={subTitleColor}>
+                {subTitle}
+              </FontSubTitle>
+            )}
           </div>
         </Menu>
 
@@ -55,4 +63,22 @@ const Menu = styled.li`
 
   display: flex;
   align-items: center;
+`;
+
+const FontTitle = styled.div<{ typo: any; color: any }>`
+  ${({ typo }) =>
+    typo &&
+    css`
+      ${typo}
+    `}
+  color: ${({ color }) => color}
+`;
+
+const FontSubTitle = styled.div<{ typo: any; color: any }>`
+  ${({ typo }) =>
+    typo &&
+    css`
+      ${typo}
+    `}
+  color: ${({ color }) => color}
 `;

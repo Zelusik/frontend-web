@@ -9,9 +9,5 @@ interface Props {
 }
 
 export default function Setting({ margin }: any) {
-  return (
-    <div style={{ margin: margin }}>
-      <DotSvg />
-    </div>
-  );
+  return <DotSvg style={{ margin: margin }} />;
 }

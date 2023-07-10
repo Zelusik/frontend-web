@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
+import { css } from "@emotion/react";
 
-export default function Hashtags({ hashtags }: any) {
+export default function Hashtags({ typo, hashtags }: any) {
   const router = useRouter();
 
   return (
@@ -15,7 +16,9 @@ export default function Hashtags({ hashtags }: any) {
               marginLeft={idx === 0}
               marginRight={idx === hashtags.length - 1}
             >
-              <Menu># {data}</Menu>
+              <Menu typo={typo}>
+                <span style={{ color: colors.Orange300 }}>#&nbsp;</span> {data}
+              </Menu>
             </MenuWrapper>
           );
         })}
@@ -44,9 +47,14 @@ const MenuWrapper = styled.div<{ marginLeft: boolean; marginRight: boolean }>`
   background-color: ${colors.Orange100};
 `;
 
-const Menu = styled.div`
+const Menu = styled.div<{ typo: any }>`
   height: 100%;
   margin: auto;
   display: flex;
   align-items: center;
+  ${({ typo }) =>
+    typo &&
+    css`
+      ${typo}
+    `}
 `;
