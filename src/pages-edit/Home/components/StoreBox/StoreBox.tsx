@@ -9,16 +9,24 @@ import Button from "components/Button";
 import { colors } from "constants/colors";
 
 import CheckSvg from "assets/check_12.svg";
+import { typography } from "constants/typography";
+import { Route } from "constants/Route";
 
-export default function StoreBox() {
+export default function StoreBox({ id }: any) {
   const router = useRouter();
 
   return (
-    <BoxWrapper>
+    <BoxWrapper
+      onClick={() => {
+        router.push(Route.HOME_DETAIL());
+      }}
+    >
       <ProfileTitle
         imageSide={30}
         title="고작가"
+        titleTypo={typography.Headline2}
         subTitle="움맘마"
+        subTitleTypo={typography.Paragraph2}
         backIcon={
           <>
             <Button
@@ -29,7 +37,9 @@ export default function StoreBox() {
               radius={100}
               color={colors.N0}
               backgroundColor={colors.N100}
-              fontMargin="0 0 0 4px"
+              fontColor="white"
+              fontTypo={typography.Paragraph2}
+              fontMargin="auto 0 auto 4px"
             />
             <Setting margin={"0 0 0 4px"} />
           </>

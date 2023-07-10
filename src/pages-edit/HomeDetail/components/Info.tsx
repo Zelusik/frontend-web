@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 import Spacing from "components/Spacing";
+import { css } from "@emotion/react";
+import { typography } from "constants/typography";
 
 export default function Info() {
   const router = useRouter();
@@ -26,17 +28,25 @@ export default function Info() {
   );
 }
 
-const Title = styled.div``;
+const Title = styled.div`
+  ${css`
+    ${typography.Headline4}
+  `}
+`;
 
 const DescriptionWrapper = styled.ul``;
 
 const Description = styled.ul`
   display: flex;
+  ${css`
+    ${typography.Paragraph3}
+  `}
 `;
 
 const ItemTitle = styled.div`
   width: 56px;
   margin-right: 20px;
+  color: ${colors.N80};
 `;
 
 const ItemDescription = styled.div``;

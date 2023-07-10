@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { colors } from "constants/colors";
 import { useRef, useState } from "react";
 import { styled } from "styled-components";
@@ -10,7 +11,7 @@ interface Props {
   radius?: number | string;
 }
 
-export default function Description({ text = "" }: any) {
+export default function Description({ text = "", typo }: any) {
   const [limit, setLimit] = useState(120);
   const toggleEllipsis = (str: any, limit: any) => {
     return {
@@ -26,15 +27,24 @@ export default function Description({ text = "" }: any) {
 
   return (
     <div style={{ position: "relative" }}>
-      <span onClick={onClickMore(text)}>
+      <Text onClick={onClickMore(text)} typo={typo}>
         {toggleEllipsis(text, limit).string}
-      </span>
+      </Text>
       {toggleEllipsis(text, limit).isShowMore && (
         <MoreButton onClick={onClickMore(text)}> 더보기</MoreButton>
       )}
     </div>
   );
 }
+
+const Text = styled.span<{ typo: any }>`
+  // color: ${colors.N60};
+  ${({ typo }) =>
+    typo &&
+    css`
+      ${typo}
+    `}
+`;
 
 const MoreButton = styled.span`
   color: ${colors.N60};

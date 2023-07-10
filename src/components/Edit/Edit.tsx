@@ -9,9 +9,5 @@ interface Props {
 }
 
 export default function Edit({ margin }: any) {
-  return (
-    <div style={{ margin: margin }}>
-      <EditSvg />
-    </div>
-  );
+  return <EditSvg style={{ margin: margin }} />;
 }

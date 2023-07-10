@@ -6,6 +6,27 @@ export default function GlobalStyle() {
 }
 
 const globalCss = css`
+  @font-face {
+    font-family: "SpoqaHanSansNeoBold";
+    src: url(/fonts/SpoqaHanSansNeo-Bold.ttf);
+  }
+  @font-face {
+    font-family: "SpoqaHanSansNeoLight";
+    src: url(/fonts/SpoqaHanSansNeo-Light.ttf);
+  }
+  @font-face {
+    font-family: "SpoqaHanSansNeoMedium";
+    src: url(/fonts/SpoqaHanSansNeo-Medium.ttf);
+  }
+  @font-face {
+    font-family: "SpoqaHanSansNeoRegular";
+    src: url(/fonts/SpoqaHanSansNeo-Regular.ttf);
+  }
+  @font-face {
+    font-family: "SpoqaHanSansNeoThin";
+    src: url(/fonts/SpoqaHanSansNeo-Thin.ttf);
+  }
+
   * {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     user-select: none;
