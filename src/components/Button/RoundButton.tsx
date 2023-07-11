@@ -71,7 +71,6 @@ const RoundButton = forwardRef(function Button(
                 width={12}
                 height={12}
                 color={act ? colors.N0 : colors.N100}
-                fill={act ? colors.N0 : colors.N100}
               />
             ))
             .with("default", () => (act ? colors.N20 : colors.N40))

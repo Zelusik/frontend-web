@@ -9,7 +9,7 @@ import Info from "./components/Info";
 import Description from "components/Description";
 import TextTitle from "components/Title/TextTitle";
 import Edit from "components/Edit";
-import Mark from "components/Heart";
+import Heart from "components/Heart";
 import Hr from "components/Hr";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -24,7 +24,10 @@ export default function HomeDetail() {
     <>
       <HomeDetailWrapper style={{ width: "100%", position: "absolute" }}>
         <Spacing size={45} />
-        <BackTitle height={50} backIcon={<Setting />} />
+        <BackTitle
+          height={50}
+          backIcon={<Setting size={20} color={colors.N0} />}
+        />
       </HomeDetailWrapper>
 
       <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={9 / 10} />
@@ -37,8 +40,8 @@ export default function HomeDetail() {
           subTitleTypo={typography.Paragraph1}
           backIcon={
             <>
-              <Edit />
-              <Mark margin={"0 0 0 20px"} />
+              <Edit size={28} />
+              <Heart size={28} margin={"0 0 0 20px"} />
             </>
           }
         />

@@ -1,18 +1,17 @@
 import Icon from "components/Icon";
 
 interface Props {
-  width?: number;
-  height?: number;
   margin?: string;
+  size?: number;
   color?: any;
 }
 
-export default function Setting({ width, height, margin, color }: Props) {
+export default function Setting({ margin, size, color }: Props) {
   return (
     <Icon
       icon="Dots"
-      width={width}
-      height={height}
+      width={size}
+      height={size}
       margin={margin}
       color={color}
       fill={color}

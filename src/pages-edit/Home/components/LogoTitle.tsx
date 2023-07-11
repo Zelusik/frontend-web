@@ -1,13 +1,20 @@
 import styled from "@emotion/styled";
 import LogoSvg from "assets/logo.svg";
-import SearchSvg from "assets/search_24.svg";
+import Icon from "components/Icon";
 
 export default function LogoTitle() {
   return (
     <TitleWrapper>
       <MenuList>
         <LogoSvg />
-        <SearchSvg />
+        <Icon
+          icon="Search"
+          width={24}
+          height={24}
+          onClick={() => {
+            alert("search");
+          }}
+        />
       </MenuList>
     </TitleWrapper>
   );

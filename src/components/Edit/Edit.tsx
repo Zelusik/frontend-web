@@ -1,13 +1,23 @@
-import EditSvg from "assets/edit_28.svg";
+import Icon from "components/Icon";
 
 interface Props {
-  src: any;
-  width?: number | string;
-  height?: number | string;
-  ratio?: number;
-  radius?: number | string;
+  margin?: string;
+  size?: number;
+  color?: any;
 }
 
-export default function Edit({ margin }: any) {
-  return <EditSvg style={{ margin: margin }} />;
+export default function Edit({ margin, size, color }: Props) {
+  return (
+    <Icon
+      icon="Edit"
+      width={size}
+      height={size}
+      margin={margin}
+      color={color}
+      fill={color}
+      onClick={() => {
+        alert("setting");
+      }}
+    />
+  );
 }
