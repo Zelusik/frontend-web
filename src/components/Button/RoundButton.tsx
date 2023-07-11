@@ -6,29 +6,15 @@ import { colors } from "constants/colors";
 import Icon from "components/Icon";
 import { typography } from "constants/typography";
 
-interface Props {
-  width?: number;
-  height?: number;
-  margin?: string;
-  padding?: string;
-  color?: any;
-  borderColor?: any;
-
-  text?: string;
-  textColor?: any;
-  textTypo?: any;
-  textPadding?: string;
-
-  icon?: any;
-  onClick?: any;
-}
+interface Props {}
 
 const RoundButton = forwardRef(function Button(
   {
     children,
-    type = "following",
-    width,
+    type = "follow",
+    width = "auto",
     height = 37,
+    padding = "0 12px",
     onClick,
     act = true,
     ...props
@@ -37,60 +23,93 @@ const RoundButton = forwardRef(function Button(
 ) {
   return (
     <ButtonWrapper
+      onClick={onClick}
       style={{
         width: width,
-        height: height,
+        height: type === "follow" ? 31 : type === "icon" ? 42 : 38,
         margin: props.margin,
-        padding: props.padding,
+        padding: padding,
       }}
       color={match(type)
-        .with("following", () => (act ? colors.N100 : colors.N0))
-        .with("default", () => (act ? colors.N20 : colors.N40))
+        .with("follow", () => (act ? colors.N100 : colors.N0))
+        .with("icon", () => (act ? colors.Orange600 : colors.N0))
+        .with("map-icon", () => colors.N0)
+        .with("map-text", () => (act ? colors.Orange600 : colors.N0))
         .exhaustive()}
       borderColor={match(type)
-        .with("following", () => (act ? colors.N100 : colors.N40))
-        .with("default", () => (act ? colors.N20 : colors.N40))
+        .with("follow", () => (act ? colors.N100 : colors.N40))
+        .with("icon", () => (act ? colors.Orange600 : colors.N20))
+        .with("map-icon", () => colors.N0)
+        .with("map-text", () => (act ? colors.Orange600 : colors.N0))
         .exhaustive()}
-      onClick={onClick}
+      shadow={match(type)
+        .with("follow", () => false)
+        .with("icon", () => false)
+        .with("map-icon", () => true)
+        .with("map-text", () => true)
+        .exhaustive()}
     >
       <ButtonInner
         color={match(type)
-          .with("following", () => act && colors.N0)
-          .with("default", () => (act ? colors.N20 : colors.N40))
+          .with("follow", () => act && colors.N0)
+          .with("icon", () => (act ? colors.N0 : colors.N80))
+          .with("map-icon", () => colors.N80)
+          .with("map-text", () => (act ? colors.N0 : colors.N80))
           .exhaustive()}
         typo={match(type)
-          .with("following", () => typography.Paragraph2)
-          .with("default", () => (act ? colors.N20 : colors.N40))
+          .with("follow", () => typography.Paragraph2)
+          .with("icon", () => typography.Paragraph4)
+          .with("map-icon", () => typography.Heading2)
+          .with("map-text", () => typography.Heading2)
           .exhaustive()}
       >
-        <ButtonSpan>
-          {match(type)
-            .with("following", () => (
-              <Icon
-                icon={act ? "Check" : "Plus"}
-                width={12}
-                height={12}
-                color={act ? colors.N0 : colors.N100}
-              />
-            ))
-            .with("default", () => (act ? colors.N20 : colors.N40))
-            .exhaustive()}
-        </ButtonSpan>
+        {type !== "map-text" && (
+          <ButtonSpan>
+            <Icon
+              icon={match(type)
+                .with("follow", () => (act ? "Check" : "Plus"))
+                .with("icon", () => props.icon)
+                .with("map-icon", () => (act ? "Location" : "Bookmark"))
+                .exhaustive()}
+              width={match(type)
+                .with("follow", () => 12)
+                .with("icon", () => 24)
+                .with("map-icon", () => 16)
+                .exhaustive()}
+              height={match(type)
+                .with("follow", () => 12)
+                .with("icon", () => 24)
+                .with("map-icon", () => 16)
+                .exhaustive()}
+              color={match(type)
+                .with("follow", () => (act ? colors.N0 : colors.N100))
+                .with("icon", () => {})
+                .with("map-icon", () => (act ? colors.Orange600 : colors.Mint))
+                .exhaustive()}
+            />
+          </ButtonSpan>
+        )}
         <ButtonSpan style={{ padding: props.textPadding }}>
           {match(type)
-            .with("following", () => (act ? "팔로잉" : "팔로우"))
-            .with("default", () => (act ? colors.N20 : colors.N40))
+            .with("follow", () => (act ? "팔로잉" : "팔로우"))
+            .with("icon", () => props.text)
+            .with("map-icon", () => (act ? "내 주변" : "저장"))
+            .with("map-text", () => props.text)
             .exhaustive()}
         </ButtonSpan>
       </ButtonInner>
     </ButtonWrapper>
   );
 });
-export default RoundButton;
 
-const ButtonWrapper = styled.button<{ color: any; borderColor: any }>`
+const ButtonWrapper = styled.button<{
+  color: any;
+  borderColor: any;
+  shadow: any;
+}>`
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
   border-radius: 999px;
+  box-shadow: ${({ shadow }) => shadow && `0px 0px 4px rgba(0, 0, 0, 0.1)`};
   background-color: ${({ color }) => color};
 `;
 
@@ -110,3 +129,5 @@ const ButtonSpan = styled.span`
   margin: auto;
   display: flex;
 `;
+
+export default RoundButton;

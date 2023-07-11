@@ -28,9 +28,8 @@ export default function StoreBox({ id }: any) {
         backIcon={
           <>
             <RoundButton
-              type="following"
+              type="follow"
               act={act}
-              padding="0 12px"
               textPadding="0 0 0 4px"
               onClick={() => {
                 alert(act);
