@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { match } from "ts-pattern";
 
 import { colors } from "constants/colors";
+import { typography } from "constants/typography";
 
 interface Props {
   type: "primary" | "default";
@@ -15,7 +16,7 @@ interface Props {
 export default function BottomButton({
   type = "primary",
   width = "100%",
-  height = 54,
+  height = 52,
   disabled,
   onClick,
   ...props
@@ -28,20 +29,23 @@ export default function BottomButton({
         margin: props.margin,
         padding: props.padding,
       }}
-      borderColor={props.borderColor}
+      borderColor={match(type)
+        .with("primary", () => (disabled ? colors.Orange200 : colors.Orange400))
+        .with("default", () => colors.N40)
+        .exhaustive()}
       onClick={onClick}
       color={match(type)
         .with("primary", () => (disabled ? colors.Orange200 : colors.Orange400))
-        .with("default", () => (disabled ? colors.N20 : colors.N40))
+        .with("default", () => colors.N0)
         .exhaustive()}
       disabled={disabled}
     >
       <ButtonInner
         color={match(type)
           .with("primary", () => colors.N0)
-          .with("default", () => colors.N100)
+          .with("default", () => colors.N80)
           .exhaustive()}
-        typo={props.textTypo}
+        typo={typography.Headline3}
       >
         <ButtonSpan style={{ padding: props.textPadding }}>
           {props.text}
