@@ -11,10 +11,8 @@ interface Props {}
 const RoundButton = forwardRef(function Button(
   {
     children,
-    type = "follow",
-    width = "auto",
+    type = "primary",
     height = 37,
-    padding = "0 12px",
     onClick,
     act = true,
     ...props
@@ -25,76 +23,75 @@ const RoundButton = forwardRef(function Button(
     <ButtonWrapper
       onClick={onClick}
       style={{
-        width: width,
-        height: type === "follow" ? 31 : type === "icon" ? 42 : 38,
-        margin: props.margin,
-        padding: padding,
+        width: "auto",
+        height: type === "default" ? 31 : type === "primary" ? 42 : 38,
+        padding: "0 12px",
       }}
       color={match(type)
-        .with("follow", () => (act ? colors.N100 : colors.N0))
-        .with("icon", () => (act ? colors.Orange600 : colors.N0))
-        .with("map-icon", () => colors.N0)
-        .with("map-text", () => (act ? colors.Orange600 : colors.N0))
+        .with("primary", () => (act ? colors.Orange600 : colors.N0))
+        .with("secondary", () => colors.N0)
+        .with("tertiary", () => (act ? colors.Orange600 : colors.N0))
+        .with("default", () => (act ? colors.N100 : colors.N0))
         .exhaustive()}
       borderColor={match(type)
-        .with("follow", () => (act ? colors.N100 : colors.N40))
-        .with("icon", () => (act ? colors.Orange600 : colors.N20))
-        .with("map-icon", () => colors.N0)
-        .with("map-text", () => (act ? colors.Orange600 : colors.N0))
+        .with("primary", () => (act ? colors.Orange600 : colors.N20))
+        .with("secondary", () => colors.N0)
+        .with("tertiary", () => (act ? colors.Orange600 : colors.N0))
+        .with("default", () => (act ? colors.N100 : colors.N40))
         .exhaustive()}
       shadow={match(type)
-        .with("follow", () => false)
-        .with("icon", () => false)
-        .with("map-icon", () => true)
-        .with("map-text", () => true)
+        .with("primary", () => false)
+        .with("secondary", () => true)
+        .with("tertiary", () => true)
+        .with("default", () => false)
         .exhaustive()}
     >
       <ButtonInner
         color={match(type)
-          .with("follow", () => act && colors.N0)
-          .with("icon", () => (act ? colors.N0 : colors.N80))
-          .with("map-icon", () => colors.N80)
-          .with("map-text", () => (act ? colors.N0 : colors.N80))
+          .with("primary", () => (act ? colors.N0 : colors.N80))
+          .with("secondary", () => colors.N80)
+          .with("tertiary", () => (act ? colors.N0 : colors.N80))
+          .with("default", () => act && colors.N0)
           .exhaustive()}
         typo={match(type)
-          .with("follow", () => typography.Paragraph2)
-          .with("icon", () => typography.Paragraph4)
-          .with("map-icon", () => typography.Heading2)
-          .with("map-text", () => typography.Heading2)
+          .with("primary", () => typography.Paragraph4)
+          .with("secondary", () => typography.Heading2)
+          .with("tertiary", () => typography.Heading2)
+          .with("default", () => typography.Paragraph2)
           .exhaustive()}
       >
-        {type !== "map-text" && (
+        {type !== "tertiary" && (
           <ButtonSpan>
             <Icon
               icon={match(type)
-                .with("follow", () => (act ? "Check" : "Plus"))
-                .with("icon", () => props.icon)
-                .with("map-icon", () => (act ? "Location" : "Bookmark"))
+                .with("primary", () => props.icon)
+                .with("secondary", () => (act ? "Location" : "Bookmark"))
+                .with("default", () => (act ? "Check" : "Plus"))
                 .exhaustive()}
               width={match(type)
-                .with("follow", () => 12)
-                .with("icon", () => 24)
-                .with("map-icon", () => 16)
+                .with("primary", () => 24)
+                .with("secondary", () => 16)
+                .with("default", () => 12)
                 .exhaustive()}
               height={match(type)
-                .with("follow", () => 12)
-                .with("icon", () => 24)
-                .with("map-icon", () => 16)
+                .with("primary", () => 24)
+                .with("secondary", () => 16)
+                .with("default", () => 12)
                 .exhaustive()}
               color={match(type)
-                .with("follow", () => (act ? colors.N0 : colors.N100))
-                .with("icon", () => {})
-                .with("map-icon", () => (act ? colors.Orange600 : colors.Mint))
+                .with("primary", () => {})
+                .with("secondary", () => (act ? colors.Orange600 : colors.Mint))
+                .with("default", () => (act ? colors.N0 : colors.N100))
                 .exhaustive()}
             />
           </ButtonSpan>
         )}
         <ButtonSpan style={{ padding: props.textPadding }}>
           {match(type)
-            .with("follow", () => (act ? "팔로잉" : "팔로우"))
-            .with("icon", () => props.text)
-            .with("map-icon", () => (act ? "내 주변" : "저장"))
-            .with("map-text", () => props.text)
+            .with("primary", () => props.text)
+            .with("secondary", () => (act ? "내 주변" : "저장"))
+            .with("tertiary", () => props.text)
+            .with("default", () => (act ? "팔로잉" : "팔로우"))
             .exhaustive()}
         </ButtonSpan>
       </ButtonInner>
