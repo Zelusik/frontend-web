@@ -3,11 +3,9 @@ import styled from "@emotion/styled";
 
 import Spacing from "components/Spacing";
 import Image from "components/Image";
-import ProfileTitle from "components/Title/ProfileTitle";
 import Hashtags from "./components/Hashtags";
 import Info from "./components/Info";
 import Description from "components/Description";
-import TextTitle from "components/Title/TextTitle";
 import Edit from "components/Edit";
 import Heart from "components/Heart";
 import Hr from "components/Hr";
@@ -16,6 +14,7 @@ import { typography } from "constants/typography";
 import BackTitle from "components/Title/BackTitle";
 import Setting from "components/Setting";
 import BottomButton from "components/Button/BottomButton";
+import StoreTitle from "components/Title/StoreTitle";
 
 export default function HomeDetail() {
   const router = useRouter();
@@ -24,16 +23,13 @@ export default function HomeDetail() {
     <>
       <HomeDetailWrapper style={{ width: "100%", position: "absolute" }}>
         <Spacing size={45} />
-        <BackTitle
-          height={50}
-          backIcon={<Setting size={20} color={colors.N0} />}
-        />
+        <BackTitle type="primary" />
       </HomeDetailWrapper>
 
       <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={9 / 10} />
       <HomeDetailWrapper>
         <Spacing size={20} />
-        <TextTitle
+        <StoreTitle
           title="소이연남"
           titleTypo={typography.Headline5}
           subtitle="음식 카테고리 지역"
@@ -67,12 +63,12 @@ export default function HomeDetail() {
         <Spacing size={15} />
         <Hr height={1} color={colors.N20} />
         <Spacing size={16} />
-        <ProfileTitle
+        {/* <ProfileTitle
           imageSide={24}
           title="고작가"
           titleColor={colors.N80}
           titleTypo={typography.Paragraph2}
-        />
+        /> */}
       </HomeDetailWrapper>
 
       <Spacing size={40} />

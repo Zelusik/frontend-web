@@ -1,52 +1,46 @@
 import { useRouter } from "next/router";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import ArrowSvg from "assets/arrow_24.svg";
+import { css } from "@emotion/react";
+import { match } from "ts-pattern";
 
-export default function BackTitle({
-  width,
-  height,
-  style,
+import Setting from "components/Setting";
+import Icon from "components/Icon";
+import { colors } from "constants/colors";
+import { typography } from "constants/typography";
 
-  text,
-  backIcon,
-
-  textColor,
-  textTypo,
-  textMargin,
-}: any) {
+export default function BackTitle({ type = "primary", style, text }: any) {
   const router = useRouter();
 
   return (
-    <TitleWrapper style={{ width: width, height: height }} styles={style}>
+    <TitleWrapper styles={style}>
       <MenuList>
         <Menu
           onClick={() => {
             router.back();
           }}
         >
-          <ArrowSvg />
+          <Icon
+            icon="Arrow"
+            width={24}
+            height={24}
+            color={match(type)
+              .with("primary", () => colors.N0)
+              .with("default", () => colors.N100)
+              .exhaustive()}
+          />
         </Menu>
-        <Menu>
-          <div>
-            {text && (
-              <Title color={textColor} typo={textTypo} margin={textMargin}>
-                {text}
-              </Title>
-            )}
-          </div>
+        <Menu>{text && <Title typo={typography.Headline4}>{text}</Title>}</Menu>
+        <Menu style={{ width: "24px" }}>
+          {type === "primary" && <Setting size={20} color={colors.N0} />}
         </Menu>
-        <Menu>{backIcon}</Menu>
       </MenuList>
     </TitleWrapper>
   );
 }
 
 const TitleWrapper = styled.div<{ styles: any }>`
+  height: 50px;
   display: flex;
-  ${({ styles }) => css`
-    ${styles}
-  `}
 `;
 
 const MenuList = styled.ul`
@@ -64,22 +58,10 @@ const Menu = styled.li`
   align-items: center;
 `;
 
-const Title = styled.div<{ typo: any; color: any; margin: any }>`
-  margin: ${({ margin }) => margin};
+const Title = styled.div<{ typo: any }>`
   ${({ typo }) =>
     typo &&
     css`
       ${typo}
     `}
-  color: ${({ color }) => color}
-`;
-
-const SubTitle = styled.div<{ typo: any; color: any; margin: any }>`
-  margin: ${({ margin }) => margin};
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color}
 `;

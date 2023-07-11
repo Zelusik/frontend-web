@@ -7,6 +7,7 @@ interface Props {
 
   margin?: string;
   padding?: string;
+  onClick?: any;
 }
 
 export default function Image({
@@ -17,9 +18,11 @@ export default function Image({
   radius = 0,
   margin,
   padding,
+  onClick,
 }: Props) {
   return (
     <img
+      onClick={onClick}
       src={src}
       style={{
         width: width,

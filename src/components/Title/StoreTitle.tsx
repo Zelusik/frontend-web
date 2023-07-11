@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Edit from "components/Edit";
 import { colors } from "constants/colors";
 
-export default function TextTitle({
+export default function StoreTitle({
   title,
   subtitle,
   backIcon,

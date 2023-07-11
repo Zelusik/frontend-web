@@ -20,6 +20,7 @@ export { default as Edit } from "./Edit";
 export { default as Heart } from "./Heart";
 export { default as Location } from "./Location";
 export { default as Bookmark } from "./Bookmark";
+export { default as Arrow } from "./Arrow";
 
 // bottom navigation
 export { default as Home } from "./bottomNavigation/Home";
