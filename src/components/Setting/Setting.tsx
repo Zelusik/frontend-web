@@ -1,13 +1,24 @@
-import DotSvg from "assets/dots_20.svg";
+import Icon from "components/Icon";
 
 interface Props {
-  src: any;
-  width?: number | string;
-  height?: number | string;
-  ratio?: number;
-  radius?: number | string;
+  width?: number;
+  height?: number;
+  margin?: string;
+  color?: any;
 }
 
-export default function Setting({ margin }: any) {
-  return <DotSvg style={{ margin: margin }} />;
+export default function Setting({ width, height, margin, color }: Props) {
+  return (
+    <Icon
+      icon="Dots"
+      width={width}
+      height={height}
+      margin={margin}
+      color={color}
+      fill={color}
+      onClick={() => {
+        alert("setting");
+      }}
+    />
+  );
 }

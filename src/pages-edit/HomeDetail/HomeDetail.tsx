@@ -10,16 +10,22 @@ import Description from "components/Description";
 import TextTitle from "components/Title/TextTitle";
 import Edit from "components/Edit";
 import Mark from "components/Heart";
-import EditSvg from "assets/edit_28.svg";
 import Hr from "components/Hr";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import BackTitle from "components/Title/BackTitle";
+import Setting from "components/Setting";
 
 export default function HomeDetail() {
   const router = useRouter();
 
   return (
     <>
+      <HomeDetailWrapper style={{ width: "100%", position: "absolute" }}>
+        <Spacing size={45} />
+        <BackTitle height={50} backIcon={<Setting />} />
+      </HomeDetailWrapper>
+
       <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={9 / 10} />
       <HomeDetailWrapper>
         <Spacing size={20} />

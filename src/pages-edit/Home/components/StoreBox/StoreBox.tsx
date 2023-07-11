@@ -1,27 +1,25 @@
-import { useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import Spacing from "components/Spacing";
 import ProfileTitle from "components/Title/ProfileTitle";
 import Image from "components/Image";
 import Setting from "components/Setting";
-import Button from "components/Button";
 import { colors } from "constants/colors";
 
-import CheckSvg from "assets/check_12.svg";
 import { typography } from "constants/typography";
 import { Route } from "constants/Route";
+import RoundButton from "components/Button/RoundButton";
 
 export default function StoreBox({ id }: any) {
   const router = useRouter();
+  const act = true;
 
   return (
-    <BoxWrapper
-      onClick={() => {
-        router.push(Route.HOME_DETAIL());
-      }}
-    >
+    <BoxWrapper>
       <ProfileTitle
+        onClick={() => {
+          router.push(Route.HOME_DETAIL());
+        }}
         imageSide={30}
         title="고작가"
         titleTypo={typography.Headline2}
@@ -29,19 +27,16 @@ export default function StoreBox({ id }: any) {
         subTitleTypo={typography.Paragraph2}
         backIcon={
           <>
-            <Button
-              frontIcon={<CheckSvg />}
-              text="팔로잉"
-              width={74}
-              height={34}
-              radius={100}
-              color={colors.N0}
-              backgroundColor={colors.N100}
-              fontColor="white"
-              fontTypo={typography.Paragraph2}
-              fontMargin="auto 0 auto 4px"
+            <RoundButton
+              type="following"
+              act={act}
+              padding="0 12px"
+              textPadding="0 0 0 4px"
+              onClick={() => {
+                alert(act);
+              }}
             />
-            <Setting margin={"0 0 0 4px"} />
+            <Setting margin="0 0 0 4px" color={colors.N80} />
           </>
         }
       />
