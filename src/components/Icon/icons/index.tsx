@@ -9,10 +9,10 @@ export { default as CircleXButton } from "./CircleXButton";
 export { default as Category } from "./Category";
 
 export { default as Chevron } from "./Chevron";
-export { default as CheckButton } from "./CheckButton";
+export { default as Check } from "./Check";
 export { default as Select } from "./Select";
 export { default as Trash } from "./Trash";
-export { default as PlusButton } from "./PlusButton";
+export { default as Plus } from "./Plus";
 export { default as Sort } from "./Sort";
 
 export { default as Setting } from "./Setting";

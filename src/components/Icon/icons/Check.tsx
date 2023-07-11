@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckButton = () => {
+const Check = () => {
   return (
     <svg
       width="20"
@@ -20,4 +20,4 @@ const CheckButton = () => {
   );
 };
 
-export default CheckButton;
+export default Check;

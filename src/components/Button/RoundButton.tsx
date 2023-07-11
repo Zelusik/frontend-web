@@ -67,7 +67,7 @@ const RoundButton = forwardRef(function Button(
           {match(type)
             .with("following", () => (
               <Icon
-                icon={act ? "CheckButton" : "PlusButton"}
+                icon={act ? "Check" : "Plus"}
                 width={12}
                 height={12}
                 color={act ? colors.N0 : colors.N100}

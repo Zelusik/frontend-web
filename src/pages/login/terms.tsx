@@ -32,7 +32,9 @@ const TermsPage = () => {
   }, [dispatch]);
 
   const handleClickAllTerms = () => {
-    const trueCount = Object.values(terms).filter((value) => value === true).length;
+    const trueCount = Object.values(terms).filter(
+      (value) => value === true
+    ).length;
     if (trueCount === 5) {
       termsData.map((term) =>
         dispatch(
@@ -82,12 +84,14 @@ const TermsPage = () => {
           <Icon
             icon="Select"
             color={
-              Object.values(terms).filter((value) => value === true).length === 5
+              Object.values(terms).filter((value) => value === true).length ===
+              5
                 ? colors.N0
                 : colors.N50
             }
             fill={
-              Object.values(terms).filter((value) => value === true).length === 5
+              Object.values(terms).filter((value) => value === true).length ===
+              5
                 ? colors.N100
                 : colors.N20
             }
@@ -101,7 +105,7 @@ const TermsPage = () => {
               <TermContainer key={term.key}>
                 <div>
                   <Icon
-                    icon="CheckButton"
+                    icon="Check"
                     onClick={() => handleClickTerms(term)}
                     color={terms[term.key] ? colors.N80 : colors.N40}
                   />
