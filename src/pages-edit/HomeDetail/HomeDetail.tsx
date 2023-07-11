@@ -15,6 +15,7 @@ import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import BackTitle from "components/Title/BackTitle";
 import Setting from "components/Setting";
+import BottomButton from "components/Button/BottomButton";
 
 export default function HomeDetail() {
   const router = useRouter();
