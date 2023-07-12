@@ -16,8 +16,8 @@ export default function Image({
   height,
   ratio = 9 / 16,
   radius = 0,
-  margin,
-  padding,
+  margin = "0",
+  padding = "0",
   onClick,
 }: Props) {
   return (

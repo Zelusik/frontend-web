@@ -12,8 +12,6 @@ import Hr from "components/Hr";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import BackTitle from "components/Title/BackTitle";
-import Setting from "components/Setting";
-import BottomButton from "components/Button/BottomButton";
 import StoreTitle from "components/Title/StoreTitle";
 
 export default function HomeDetail() {
@@ -30,16 +28,9 @@ export default function HomeDetail() {
       <HomeDetailWrapper>
         <Spacing size={20} />
         <StoreTitle
+          type="primary"
           title="소이연남"
-          titleTypo={typography.Headline5}
           subtitle="음식 카테고리 지역"
-          subTitleTypo={typography.Paragraph1}
-          backIcon={
-            <>
-              <Edit size={28} />
-              <Heart size={28} margin={"0 0 0 20px"} />
-            </>
-          }
         />
       </HomeDetailWrapper>
 
