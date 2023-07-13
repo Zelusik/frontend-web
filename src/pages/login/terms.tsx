@@ -11,6 +11,7 @@ import { termsData } from "data/termsData";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthTermsInfo } from "reducer/slices/auth/authSlice";
 import { typography } from "constants/typography";
+import Link from "next/link";
 
 const TermsPage = () => {
   const dispatch = useAppDispatch();
@@ -107,7 +108,11 @@ const TermsPage = () => {
                   />
                   <p>{term.val}</p>
                 </div>
-                <Icon icon="Chevron" rotate={90} />
+                {term.link && (
+                  <Link href={term.link} target="_blank">
+                    <Icon icon="Chevron" rotate={90} />
+                  </Link>
+                )}
               </TermContainer>
             );
           })}
