@@ -12,35 +12,57 @@ import { typography } from "constants/typography";
 import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
 import Profile from "./components/Profile";
+import Icon from "components/Icon";
+import FoodTag from "components/FoodTag";
 
 export default function HomeDetail() {
   const router = useRouter();
 
   return (
     <>
-      <HomeDetailWrapper style={{ width: "100%", position: "absolute" }}>
+      <div style={{ position: "relative" }}>
+        {/* 이거 컴포넌트화 */}
+        <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={1} />
+        <FoodTagWrapper>
+          <FoodTag
+            onClick={() => {
+              alert("foodtag");
+            }}
+          />
+        </FoodTagWrapper>
+        {/* 이거 컴포넌트화 */}
+        <div
+          style={{
+            width: "100%",
+            height: 4,
+            position: "absolute",
+            bottom: 2,
+            background: "red",
+          }}
+        />
+      </div>
+      {/* 6 */}
+
+      <BackTitleWrapper>
         <Spacing size={45} />
         <BackTitle type="primary" />
-      </HomeDetailWrapper>
+      </BackTitleWrapper>
 
-      <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={9 / 10} />
-      <HomeDetailWrapper>
-        <Spacing size={20} />
+      <HomeDetailWrapper position="relative">
+        <Spacing size={14} />
         <StoreTitle
           type="primary"
           title="소이연남"
           subtitle="음식 카테고리 지역"
         />
       </HomeDetailWrapper>
-
       <Spacing size={30} />
       <Hashtags
         typo={typography.Paragraph4}
         hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]}
       />
       <Spacing size={16} />
-
-      <HomeDetailWrapper>
+      <HomeDetailWrapper position="relative">
         <Description
           text={`그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
           열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
@@ -55,12 +77,10 @@ export default function HomeDetail() {
         <Spacing size={16} />
         <Profile />
       </HomeDetailWrapper>
-
       <Spacing size={16} />
       <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={36 / 23} />
       <Spacing size={40} />
-
-      <HomeDetailWrapper>
+      <HomeDetailWrapper position="relative">
         {["", ""].map((data: any, idx: number) => {
           return <Info key={idx} />;
         })}
@@ -69,6 +89,20 @@ export default function HomeDetail() {
   );
 }
 
-const HomeDetailWrapper = styled.div`
+const HomeDetailWrapper = styled.div<{ position: any }>`
   padding: 0 20px;
+  position: ${({ position }) => position};
+`;
+
+const BackTitleWrapper = styled.div`
+  width: 100%;
+  padding: 0 20px;
+  position: absolute;
+  top: 0;
+`;
+
+const FoodTagWrapper = styled.div`
+  padding: 0 20px;
+  position: absolute;
+  bottom: 21px;
 `;

@@ -1,19 +1,32 @@
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const Description = ({ text = "", typo }: any) => {
   const contentRef = useRef(null);
+  const contentRef2 = useRef(null);
   const onClick = (e: any) => {
     contentRef.current.classList.add("show");
-    e.currentTarget.classList.add("hide");
+    contentRef2.current.classList.add("hide");
+    setLimit(text.length);
   };
+
+  const [limit, setLimit] = useState(120);
+  const toggleEllipsis = (str: any, limit: any) => {
+    return {
+      string: str.slice(0, limit),
+      isShowMore: str.length > limit,
+    };
+  };
+
   return (
     <TextWrapper onClick={onClick}>
-      <Ellipsis ref={contentRef}>{text}</Ellipsis>
-      <Button>
-        <span>...</span>
-        <span style={{ height: "100%" }}>
+      <Ellipsis ref={contentRef}>
+        {toggleEllipsis(text, limit).string}
+        {limit !== text.length && <>...</>}
+      </Ellipsis>
+      <Button ref={contentRef2}>
+        <span>
           <Icon icon="BottomArrow" width={16} height={16} />
         </span>
       </Button>
@@ -26,42 +39,30 @@ const TextWrapper = styled.div`
 `;
 
 const Ellipsis = styled.div`
-  position: relative;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  word-break: break-word;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 4; // 원하는 라인수
-  -webkit-box-orient: vertical;
-  line-height: 170%;
-
-  // position: relative;
-  // display: -webkit-box;
-  // max-height: 6rem;
-  // line-height: 2rem;
   // overflow: hidden;
-  // -webkit-line-clamp: 3;
+  // word-break: break-word;
+
+  // display: -webkit-box;
+  // -webkit-line-clamp: 4; // 원하는 라인수
+  // -webkit-box-orient: vertical;
+  line-height: 170%;
+  // text-overflow: clip;
+
   &.show {
     display: block;
-    max-height: none;
-    overflow: auto;
-    -webkit-line-clamp: unset;
   }
 `;
 
 const Button = styled.button`
+  height: 20%;
   display: flex;
-  // line-height: 170%;
+  line-height: 170%;
 
-  // background: rgb(255, 255, 255);
-  // background: rgb(2, 0, 36);
-  // background: linear-gradient(
-  //   90deg,
-  //   rgba(2, 0, 36, 1) 0%,
-  //   rgba(255, 255, 255, 0) 0%,
-  //   rgba(255, 255, 255, 1) 18%
-  // );
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  background: rgb(255, 255, 255);
   &.hide {
     display: none;
   }
