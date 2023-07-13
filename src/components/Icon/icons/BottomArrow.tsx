@@ -1,18 +1,18 @@
 import React from "react";
 
-const CheckButton = () => {
+const BottomArrow = () => {
   return (
     <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M4 10L8 14L16 6"
-        stroke="#4C5061"
-        strokeWidth="2"
+        d="M3 5.5L8 10.5L13 5.5"
+        stroke="#8F95B2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -20,4 +20,4 @@ const CheckButton = () => {
   );
 };
 
-export default CheckButton;
+export default BottomArrow;

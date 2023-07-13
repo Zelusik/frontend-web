@@ -7,6 +7,14 @@ import { colors } from "constants/colors";
 import Spacing from "components/Spacing";
 import Icon from "components/Icon";
 
+const navigationDatas = [
+  { route: "/", en: "Home", kr: "홈" },
+  { route: "/map", en: "Map", kr: "지도" },
+  { route: "/review", en: "Review", kr: "리뷰쓰기" },
+  { route: "/mark", en: "Mark", kr: "저장" },
+  { route: "/mypage", en: "Mypage", kr: "마이" },
+];
+
 const BottomNavigation = () => {
   const { pathname } = useRouter();
 
@@ -14,38 +22,19 @@ const BottomNavigation = () => {
     <BottomNavigationWrapper>
       <Spacing size={10} />
       <MenuList>
-        <Link href="/">
-          <Menu clicked={pathname === "/" ? "true" : "false"}>
-            <Icon icon="Home" fill={pathname === "/" ? "#FF9E0C" : "#BDBEC7"} />홈
-          </Menu>
-        </Link>
-        <Link href="/map">
-          <Menu clicked={pathname === "/map" ? "true" : "false"}>
-            <Icon icon="Map" fill={pathname === "/map" ? "#FF9E0C" : "#BDBEC7"} />
-            지도
-          </Menu>
-        </Link>
-        <Link href="/review">
-          <Menu clicked={pathname === "/review" ? "true" : "false"}>
-            <Icon
-              icon="Review"
-              fill={pathname === "/review" ? "#FF9E0C" : "#BDBEC7"}
-            />
-            리뷰쓰기
-          </Menu>
-        </Link>
-        <Link href="/mark">
-          <Menu clicked={pathname === "/mark" ? "true" : "false"}>
-            <Icon icon="Mark" fill={pathname === "/mark" ? "#FF9E0C" : "#BDBEC7"} />
-            저장
-          </Menu>
-        </Link>
-        <Link href="/mypage">
-          <Menu clicked={pathname === "/mypage" ? "true" : "false"}>
-            <Icon icon="My" fill={pathname === "/mypage" ? "#FF9E0C" : "#BDBEC7"} />
-            마이
-          </Menu>
-        </Link>
+        {navigationDatas.map((data: any, idx: number) => {
+          return (
+            <Link href={data.route} key={idx}>
+              <Menu clicked={pathname === data.route ? "true" : "false"}>
+                <Icon
+                  icon={data.en}
+                  fill={pathname === data.route ? colors.Orange500 : colors.N50}
+                />
+                {data.kr}
+              </Menu>
+            </Link>
+          );
+        })}
       </MenuList>
     </BottomNavigationWrapper>
   );

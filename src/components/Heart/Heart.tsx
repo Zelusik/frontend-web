@@ -1,13 +1,23 @@
-import MarkSvg from "assets/mark_28.svg";
+import Icon from "components/Icon";
 
 interface Props {
-  src: any;
-  width?: number | string;
-  height?: number | string;
-  ratio?: number;
-  radius?: number | string;
+  margin?: string;
+  size?: number;
+  color?: any;
 }
 
-export default function Heart({ margin }: any) {
-  return <MarkSvg style={{ margin: margin }} />;
+export default function Heart({ margin, size, color }: Props) {
+  return (
+    <Icon
+      icon="Heart"
+      width={size}
+      height={size}
+      margin={margin}
+      color={color}
+      fill={color}
+      onClick={() => {
+        alert("heart");
+      }}
+    />
+  );
 }

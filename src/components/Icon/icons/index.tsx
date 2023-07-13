@@ -7,22 +7,30 @@ export { default as Report } from "./Report";
 export { default as XButton } from "./XButton";
 export { default as CircleXButton } from "./CircleXButton";
 export { default as Category } from "./Category";
+export { default as FoodTag } from "./FoodTag";
 
 export { default as Chevron } from "./Chevron";
-export { default as CheckButton } from "./CheckButton";
+export { default as Check } from "./Check";
 export { default as Select } from "./Select";
 export { default as Trash } from "./Trash";
-export { default as PlusButton } from "./PlusButton";
+export { default as Plus } from "./Plus";
 export { default as Sort } from "./Sort";
-
 export { default as Setting } from "./Setting";
+
+export { default as Edit } from "./Edit";
+export { default as Heart } from "./Heart";
+export { default as Location } from "./Location";
+export { default as Bookmark } from "./Bookmark";
+export { default as Copy } from "./Copy";
+export { default as Arrow } from "./Arrow";
+export { default as BottomArrow } from "./BottomArrow";
 
 // bottom navigation
 export { default as Home } from "./bottomNavigation/Home";
 export { default as Map } from "./bottomNavigation/Map";
 export { default as Review } from "./bottomNavigation/Review";
 export { default as Mark } from "./bottomNavigation/Mark";
-export { default as My } from "./bottomNavigation/My";
+export { default as Mypage } from "./bottomNavigation/Mypage";
 
 // login
 export { default as AuthLogo } from "./auth/AuthLogo";

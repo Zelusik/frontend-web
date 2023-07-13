@@ -1,6 +1,6 @@
 import React from "react";
 
-const My = () => {
+const Mypage = () => {
   return (
     <svg
       width="28"
@@ -19,4 +19,4 @@ const My = () => {
   );
 };
 
-export default My;
+export default Mypage;

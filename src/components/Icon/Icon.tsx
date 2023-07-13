@@ -1,29 +1,46 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import * as icons from "components/Icon/icons";
 
-interface IconProps {
+interface Props {
   icon: string;
   width?: number;
   height?: number;
+  margin?: string;
+  style?: any;
+
   rotate?: number;
   fill?: string;
   color?: string;
+
   onClick?: any;
 }
 
-const Icon = ({ icon, width, height, rotate, fill, color, onClick }: IconProps) => {
+const Icon = ({
+  icon,
+  width,
+  height,
+  margin,
+  style,
+
+  rotate,
+  fill,
+  color,
+
+  onClick,
+}: Props) => {
   const IconComponent = icons[icon as keyof typeof icons];
 
   return (
     <IconWrapper
-      width={width}
-      height={height}
+      onClick={onClick}
+      style={{ width: width, height: height, margin: margin }}
       rotate={rotate}
       fill={fill}
       color={color}
-      onClick={onClick}
+      styles={style}
     >
       <IconComponent />
     </IconWrapper>
@@ -36,6 +53,7 @@ const IconWrapper = styled.div<{
   rotate?: number;
   fill?: string;
   color?: string;
+  styles?: any;
 }>`
   display: flex;
   justify-content: center;
@@ -52,13 +70,17 @@ const IconWrapper = styled.div<{
     width: ${({ width }) => width}px;
     height: ${({ height }) => height}px;
 
-    path:last-child {
+    path {
       stroke: ${({ color }) => color};
     }
     path {
       fill: ${({ fill }) => fill};
     }
   }
+
+  ${({ styles }) => css`
+    ${styles}
+  `}
 `;
 
 export default Icon;
