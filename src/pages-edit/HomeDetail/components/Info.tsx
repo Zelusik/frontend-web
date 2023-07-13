@@ -4,6 +4,7 @@ import { colors } from "constants/colors";
 import Spacing from "components/Spacing";
 import { css } from "@emotion/react";
 import { typography } from "constants/typography";
+import Copy from "components/Copy";
 
 export default function Info() {
   const router = useRouter();
@@ -16,8 +17,13 @@ export default function Info() {
         return (
           <DescriptionWrapper key={idx}>
             <Description>
-              <ItemTitle>{data}</ItemTitle>
-              <ItemDescription>11:30-22:00</ItemDescription>
+              <ItemSpan>
+                <ItemTitle>{data}</ItemTitle>
+              </ItemSpan>
+              <ItemSpan style={{ marginRight: 10 }}>11:30-22:00</ItemSpan>
+              <ItemSpan>
+                <Copy />
+              </ItemSpan>
             </Description>
             <Spacing size={8} />
           </DescriptionWrapper>
@@ -34,19 +40,20 @@ const Title = styled.div`
   `}
 `;
 
-const DescriptionWrapper = styled.ul``;
+const DescriptionWrapper = styled.div``;
 
-const Description = styled.ul`
+const Description = styled.div`
+  width: 100%;
   display: flex;
   ${css`
     ${typography.Paragraph3}
-  `}
+  `};
 `;
+
+const ItemSpan = styled.span``;
 
 const ItemTitle = styled.div`
   width: 56px;
   margin-right: 20px;
   color: ${colors.N80};
 `;
-
-const ItemDescription = styled.div``;

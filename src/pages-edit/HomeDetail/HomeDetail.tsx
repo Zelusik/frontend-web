@@ -6,13 +6,12 @@ import Image from "components/Image";
 import Hashtags from "./components/Hashtags";
 import Info from "./components/Info";
 import Description from "components/Description";
-import Edit from "components/Edit";
-import Heart from "components/Heart";
 import Hr from "components/Hr";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
+import Profile from "./components/Profile";
 
 export default function HomeDetail() {
   const router = useRouter();
@@ -54,15 +53,10 @@ export default function HomeDetail() {
         <Spacing size={15} />
         <Hr height={1} color={colors.N20} />
         <Spacing size={16} />
-        {/* <ProfileTitle
-          imageSide={24}
-          title="고작가"
-          titleColor={colors.N80}
-          titleTypo={typography.Paragraph2}
-        /> */}
+        <Profile />
       </HomeDetailWrapper>
 
-      <Spacing size={40} />
+      <Spacing size={16} />
       <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={36 / 23} />
       <Spacing size={40} />
 

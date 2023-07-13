@@ -7,6 +7,7 @@ export { default as Report } from "./Report";
 export { default as XButton } from "./XButton";
 export { default as CircleXButton } from "./CircleXButton";
 export { default as Category } from "./Category";
+export { default as FoodTag } from "./FoodTag";
 
 export { default as Chevron } from "./Chevron";
 export { default as Check } from "./Check";
@@ -20,7 +21,9 @@ export { default as Edit } from "./Edit";
 export { default as Heart } from "./Heart";
 export { default as Location } from "./Location";
 export { default as Bookmark } from "./Bookmark";
+export { default as Copy } from "./Copy";
 export { default as Arrow } from "./Arrow";
+export { default as BottomArrow } from "./BottomArrow";
 
 // bottom navigation
 export { default as Home } from "./bottomNavigation/Home";

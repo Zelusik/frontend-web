@@ -16,7 +16,7 @@ export default function Heart({ margin, size, color }: Props) {
       color={color}
       fill={color}
       onClick={() => {
-        alert("setting");
+        alert("heart");
       }}
     />
   );

@@ -16,7 +16,7 @@ export default function Edit({ margin, size, color }: Props) {
       color={color}
       fill={color}
       onClick={() => {
-        alert("setting");
+        alert("edit");
       }}
     />
   );
