@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Button from "components/Button/Button";
+
 import { ArrowLeft } from "components/Icon/Arrow";
 import { colors } from "constants/colors";
 import React, { useEffect } from "react";
@@ -11,6 +11,8 @@ import { termsData } from "data/termsData";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthTermsInfo } from "reducer/slices/auth/authSlice";
 import { typography } from "constants/typography";
+import Link from "next/link";
+import BottomButton from "components/Button/BottomButton";
 
 const TermsPage = () => {
   const dispatch = useAppDispatch();
@@ -32,9 +34,7 @@ const TermsPage = () => {
   }, [dispatch]);
 
   const handleClickAllTerms = () => {
-    const trueCount = Object.values(terms).filter(
-      (value) => value === true
-    ).length;
+    const trueCount = Object.values(terms).filter((value) => value === true).length;
     if (trueCount === 5) {
       termsData.map((term) =>
         dispatch(
@@ -84,14 +84,12 @@ const TermsPage = () => {
           <Icon
             icon="Select"
             color={
-              Object.values(terms).filter((value) => value === true).length ===
-              5
+              Object.values(terms).filter((value) => value === true).length === 5
                 ? colors.N0
                 : colors.N50
             }
             fill={
-              Object.values(terms).filter((value) => value === true).length ===
-              5
+              Object.values(terms).filter((value) => value === true).length === 5
                 ? colors.N100
                 : colors.N20
             }
@@ -111,14 +109,18 @@ const TermsPage = () => {
                   />
                   <p>{term.val}</p>
                 </div>
-                <Icon icon="Chevron" rotate={90} />
+                {term.link && (
+                  <Link href={term.link} target="_blank">
+                    <Icon icon="Chevron" rotate={90} />
+                  </Link>
+                )}
               </TermContainer>
             );
           })}
         </TermsContainer>
       </MainWrapper>
       <ButtonWrapper>
-        <Button
+        <BottomButton
           text="다음으로"
           radius={8}
           backgroundColor={
