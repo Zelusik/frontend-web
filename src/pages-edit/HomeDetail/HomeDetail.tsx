@@ -12,36 +12,14 @@ import { typography } from "constants/typography";
 import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
 import Profile from "./components/Profile";
-import Icon from "components/Icon";
-import FoodTag from "components/FoodTag";
+import FoodTagImages from "components/FoodTagImages";
 
 export default function HomeDetail() {
   const router = useRouter();
 
   return (
     <>
-      <div style={{ position: "relative" }}>
-        {/* 이거 컴포넌트화 */}
-        <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={1} />
-        <FoodTagWrapper>
-          <FoodTag
-            onClick={() => {
-              alert("foodtag");
-            }}
-          />
-        </FoodTagWrapper>
-        {/* 이거 컴포넌트화 */}
-        <div
-          style={{
-            width: "100%",
-            height: 4,
-            position: "absolute",
-            bottom: 2,
-            background: "red",
-          }}
-        />
-      </div>
-      {/* 6 */}
+      <FoodTagImages />
 
       <BackTitleWrapper>
         <Spacing size={45} />
@@ -99,10 +77,5 @@ const BackTitleWrapper = styled.div`
   padding: 0 20px;
   position: absolute;
   top: 0;
-`;
-
-const FoodTagWrapper = styled.div`
-  padding: 0 20px;
-  position: absolute;
-  bottom: 21px;
+  z-index: 999;
 `;
