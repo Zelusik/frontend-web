@@ -11,6 +11,7 @@ import { changeAuthState } from "reducer/slices/auth/authSlice";
 import { tasteData } from "data/tasteData";
 import { PostTerms, PutTaste } from "api/auth";
 import BottomButton from "components/Button/BottomButton";
+import RoundButton from "components/Button/RoundButton";
 
 const TastePage = () => {
   const router = useRouter();
@@ -71,14 +72,14 @@ const TastePage = () => {
         <Spacing size={30} />
         <TasteButtonContainer>
           {tasteData.map((taste) => (
-            <TasteButton
+            <RoundButton
               key={taste.val}
+              type="taste"
+              text={taste.val}
+              icon={<taste.icon />}
               onClick={() => handleClickTaste(taste.val)}
-              clicked={favoriteFoodCategories.includes(taste.val)}
-            >
-              <taste.icon />
-              <span>{taste.val}</span>
-            </TasteButton>
+              act={favoriteFoodCategories.includes(taste.val)}
+            />
           ))}
         </TasteButtonContainer>
       </MainWrapper>
@@ -111,21 +112,7 @@ const TasteButtonContainer = styled.div`
   flex-wrap: wrap;
   gap: 8px;
 `;
-const TasteButton = styled.div<{ clicked: boolean }>`
-  display: flex;
-  flex-direction: row;
-  padding: 10px 14px 10px 12px;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid ${({ clicked }) => (clicked ? colors.Orange400 : colors.N20)};
-  background-color: ${({ clicked }) => (clicked ? colors.Orange400 : colors.N0)};
-  border-radius: 999px;
 
-  span {
-    ${typography.Paragraph4}
-    color: ${({ clicked }) => (clicked ? colors.N0 : colors.N80)};
-  }
-`;
 const ButtonWrapper = styled.div`
   position: absolute;
   bottom: 0;
