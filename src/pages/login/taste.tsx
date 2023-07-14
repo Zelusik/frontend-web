@@ -3,13 +3,14 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { ArrowLeft } from "components/Icon/Arrow";
 import { colors } from "constants/colors";
-import Button from "components/Button/Button";
+
 import Spacing from "components/Spacing/Spacing";
 import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthState } from "reducer/slices/auth/authSlice";
 import { tasteData } from "data/tasteData";
 import { PostTerms, PutTaste } from "api/auth";
+import BottomButton from "components/Button/BottomButton";
 
 const TastePage = () => {
   const router = useRouter();
@@ -82,7 +83,7 @@ const TastePage = () => {
         </TasteButtonContainer>
       </MainWrapper>
       <ButtonWrapper>
-        <Button
+        <BottomButton
           text="잇터리 시작하기"
           radius={8}
           backgroundColor={
