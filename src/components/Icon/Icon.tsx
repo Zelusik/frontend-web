@@ -70,7 +70,7 @@ const IconWrapper = styled.div<{
     width: ${({ width }) => width}px;
     height: ${({ height }) => height}px;
 
-    path {
+    path:last-child {
       stroke: ${({ color }) => color};
     }
     path {
