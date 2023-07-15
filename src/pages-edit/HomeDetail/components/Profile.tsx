@@ -8,22 +8,29 @@ import Image from "components/Image";
 export default function Profile() {
   const router = useRouter();
 
+  const viewProfile = () => {
+    alert("profile");
+  };
+
   return (
     <ProfileWrapper>
       <MenuList>
-        <Menu style={{ marginRight: 10 }} typo={{}}>
-          <Image
-            src="https://i.ibb.co/0Z6FNN7/60pt.png"
-            width={24}
-            height={24}
-            radius={10}
-          />
-        </Menu>
-        <Menu typo={typography.Paragraph5}>고작가</Menu>
-        <Menu typo={{}}>
-          <Dot />
-        </Menu>
-        <Menu typo={typography.Paragraph4}>21시간 전에 방문</Menu>
+        <div style={{ display: "flex" }} onClick={viewProfile}>
+          <Menu style={{ marginRight: 10 }} typo={{}}>
+            <Image
+              src="https://i.ibb.co/0Z6FNN7/60pt.png"
+              width={24}
+              height={24}
+              radius={10}
+            />
+          </Menu>
+          <Menu typo={typography.Paragraph5}>고작가</Menu>
+
+          <Menu typo={{}}>
+            <Dot />
+          </Menu>
+          <Menu typo={typography.Paragraph4}>21시간 전에 방문</Menu>
+        </div>
       </MenuList>
     </ProfileWrapper>
   );

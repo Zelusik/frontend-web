@@ -32,11 +32,11 @@ export default function FoodTagImages({}: any) {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ width: "100%", position: "fixed", top: 0 }}>
       <Swiper spaceBetween={0} onSlideChange={onSlideChange}>
         {images.map((src: any, idx: number) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={idx}>
               <TagImage key={idx} src={src} ratio={1} />
             </SwiperSlide>
           );
