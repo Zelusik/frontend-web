@@ -34,12 +34,14 @@ export default function HomeDetail() {
           subtitle="음식 카테고리 지역"
         />
       </HomeDetailWrapper>
+
       <Spacing size={30} />
       <Hashtags
         typo={typography.Paragraph4}
         hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]}
       />
       <Spacing size={16} />
+
       <HomeDetailWrapper position="relative">
         <Description
           text={`그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
@@ -55,9 +57,11 @@ export default function HomeDetail() {
         <Spacing size={16} />
         <Profile />
       </HomeDetailWrapper>
+
       <Spacing size={16} />
       <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={36 / 23} />
       <Spacing size={40} />
+
       <HomeDetailWrapper position="relative">
         {["", ""].map((data: any, idx: number) => {
           return <Info key={idx} />;

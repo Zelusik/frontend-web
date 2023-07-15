@@ -9,7 +9,7 @@ const Arrow = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_767_1443)">
+      <g clipPath="url(#clip0_767_1443)">
         <path
           d="M19 13.6364L5 13.6364"
           stroke="white"

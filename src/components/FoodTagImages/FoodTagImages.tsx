@@ -36,7 +36,7 @@ export default function FoodTagImages({}: any) {
       <Swiper spaceBetween={0} onSlideChange={onSlideChange}>
         {images.map((src: any, idx: number) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={idx}>
               <TagImage key={idx} src={src} ratio={1} />
             </SwiperSlide>
           );
