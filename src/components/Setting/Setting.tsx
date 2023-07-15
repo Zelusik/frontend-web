@@ -13,6 +13,7 @@ export default function Setting({ margin, size, color }: Props) {
       width={size}
       height={size}
       margin={margin}
+      fill={color}
       color={color}
       onClick={() => {
         alert("setting");
