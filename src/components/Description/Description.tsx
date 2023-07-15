@@ -4,10 +4,8 @@ import { useRef, useState } from "react";
 
 const Description = ({ text = "", typo }: any) => {
   const contentRef = useRef(null);
-  const contentRef2 = useRef(null);
   const onClick = (e: any) => {
-    contentRef.current.classList.add("show");
-    contentRef2.current.classList.add("hide");
+    contentRef.current.classList.add("hide");
     setLimit(text.length);
   };
 
@@ -21,11 +19,11 @@ const Description = ({ text = "", typo }: any) => {
 
   return (
     <TextWrapper onClick={onClick}>
-      <Ellipsis ref={contentRef}>
+      <Ellipsis>
         {toggleEllipsis(text, limit).string}
         {limit !== text.length && <>...</>}
       </Ellipsis>
-      <Button ref={contentRef2}>
+      <Button ref={contentRef}>
         <span>
           <Icon icon="BottomArrow" width={16} height={16} />
         </span>
@@ -39,14 +37,7 @@ const TextWrapper = styled.div`
 `;
 
 const Ellipsis = styled.div`
-  // overflow: hidden;
-  // word-break: break-word;
-
-  // display: -webkit-box;
-  // -webkit-line-clamp: 4; // 원하는 라인수
-  // -webkit-box-orient: vertical;
   line-height: 170%;
-  // text-overflow: clip;
 
   &.show {
     display: block;
