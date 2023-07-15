@@ -14,7 +14,6 @@ export default function Home() {
   return (
     <>
       <HomeWrapper>
-        <Spacing size={45} />
         <LogoTitle />
         <Spacing size={20} />
         <HomeTitle style={typography.Headline6}>

@@ -8,7 +8,12 @@ import Icon from "components/Icon";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 
-export default function BackTitle({ type = "primary", style, text }: any) {
+export default function BackTitle({
+  type = "primary",
+  style,
+  text,
+  ...props
+}: any) {
   const router = useRouter();
 
   return (
@@ -25,9 +30,11 @@ export default function BackTitle({ type = "primary", style, text }: any) {
             height={24}
             color={match(type)
               .with("primary", () => colors.N0)
+              .with("secondary", () => colors.N100)
               .with("default", () => colors.N100)
               .exhaustive()}
           />
+          <TitleSide typo={typography.Headline5}>{props.titleText}</TitleSide>
         </Menu>
         <Menu>{text && <Title typo={typography.Headline4}>{text}</Title>}</Menu>
         <Menu style={{ width: "24px" }}>
@@ -56,6 +63,15 @@ const Menu = styled.li`
 
   display: flex;
   align-items: center;
+`;
+
+const TitleSide = styled.div<{ typo: any }>`
+  margin-left: 6px;
+  ${({ typo }) =>
+    typo &&
+    css`
+      ${typo}
+    `}
 `;
 
 const Title = styled.div<{ typo: any }>`

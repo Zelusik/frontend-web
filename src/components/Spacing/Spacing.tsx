@@ -1,3 +1,13 @@
+import { colors } from "constants/colors";
+
 export default function Spacing({ size }: any) {
-  return <div style={{ width: "100%", height: `${size}px` }} />;
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: `${size}px`,
+        backgroundColor: `${colors.N0}`,
+      }}
+    />
+  );
 }
