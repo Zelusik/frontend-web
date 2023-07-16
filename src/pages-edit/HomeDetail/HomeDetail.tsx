@@ -19,15 +19,13 @@ import { keyframes } from "@emotion/react";
 export default function HomeDetail() {
   const router = useRouter();
   const [WINDOW_WIDTH, setWindow] = useState<number>(0);
-  const [titleChange, setTitleChange] = useState<boolean[]>([false, false]);
+  const [titleChange, setTitleChange] = useState<boolean>(false);
 
   function onScroll(width: number) {
-    if (window.scrollY >= width + 6 + 62 - 50) {
-      setTitleChange([true, true]);
-    } else if (window.scrollY >= width / 10) {
-      setTitleChange([true, false]);
-    } else if (window.scrollY === 0) {
-      setTitleChange([false, false]);
+    if (window.scrollY >= width + 6 - 20) {
+      setTitleChange(true);
+    } else {
+      setTitleChange(false);
     }
   }
 
@@ -46,8 +44,8 @@ export default function HomeDetail() {
 
       <BackTitleWrapper visible={titleChange}>
         <BackTitle
-          type={titleChange[0] ? "secondary" : "primary"}
-          titleText={titleChange[1] && "소이연남"}
+          type={titleChange ? "secondary" : "primary"}
+          titleText={titleChange && "소이연남"}
         />
       </BackTitleWrapper>
 
@@ -102,10 +100,12 @@ export default function HomeDetail() {
 
 const fade = (visible: boolean) => keyframes`
   from {
-    opacity: ${visible ? 0 : 1};
+    opacity: ${visible && 0};
+    background-color: ${visible ? `transparent` : `${colors.N0}`};
   }
   to {
-    opacity: ${visible ? 1 : 0};
+    opacity: ${visible && 1};
+    background-color: ${visible ? `${colors.N0}` : `transparent`};
   }
 `;
 
@@ -115,12 +115,13 @@ const HomeDetailWrapper = styled.div<{ position: any }>`
   background-color: ${colors.N0};
 `;
 
-const BackTitleWrapper = styled.div<{ visible: boolean[] }>`
+const BackTitleWrapper = styled.div<{ visible: boolean }>`
   width: 100%;
   padding: 0 20px;
   position: fixed;
   top: 0;
   z-index: 999;
   background-color: ${({ visible }) =>
-    visible[0] ? `${colors.N0}` : `transparents`};
+    visible ? `${colors.N0}` : `transparents`};
+  animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
