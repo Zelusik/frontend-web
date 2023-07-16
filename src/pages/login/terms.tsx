@@ -83,16 +83,21 @@ const TermsPage = () => {
         <AllCheckContainer onClick={handleClickAllTerms}>
           <Icon
             icon="Select"
-            color={
-              Object.values(terms).filter((value) => value === true).length === 5
-                ? colors.N0
-                : colors.N50
-            }
-            fill={
-              Object.values(terms).filter((value) => value === true).length === 5
-                ? colors.N100
-                : colors.N20
-            }
+            style={{
+              path: {
+                fill:
+                  Object.values(terms).filter((value) => value === true).length === 5
+                    ? colors.N100
+                    : colors.N20,
+                stroke: "none",
+              },
+              "path:last-child": {
+                stroke:
+                  Object.values(terms).filter((value) => value === true).length === 5
+                    ? colors.N0
+                    : colors.N50,
+              },
+            }}
           />
           <div style={typography.Headline4}>전체 동의하기</div>
         </AllCheckContainer>
@@ -158,6 +163,7 @@ const AllCheckContainer = styled.div`
   align-items: center;
   padding: 0 25px;
 `;
+
 const TermsContainer = styled.div`
   display: flex;
   flex-direction: column;

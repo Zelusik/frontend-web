@@ -66,14 +66,12 @@ const IconWrapper = styled.div<{
     rotate && {
       transform: `rotate(${rotate}deg)`,
     }}
-  >svg {
+  svg {
     width: ${({ width }) => width}px;
     height: ${({ height }) => height}px;
 
-    path:last-child {
-      stroke: ${({ color }) => color};
-    }
     path {
+      stroke: ${({ color }) => color};
       fill: ${({ fill }) => fill};
     }
   }
