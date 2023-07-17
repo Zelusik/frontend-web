@@ -51,32 +51,39 @@ export const typography = {
     lineHeight: "140%",
     fontWeight: 500,
   },
-  Heading1: {
-    fontSize: 10,
-    color: colors.N100,
-    fontFamily: "SpoqaHanSansNeoMedium",
-    lineHeight: "140%",
-    fontWeight: 500,
-  },
+  // Heading1: {
+  //   fontSize: 10,
+  //   color: colors.N100,
+  //   fontFamily: "SpoqaHanSansNeoMedium",
+  //   lineHeight: "140%",
+  //   fontWeight: 500,
+  // },
 
-  Paragraph5: {
+  Paragraph6: {
     fontSize: 16,
     color: colors.N100,
     fontFamily: "SpoqaHanSansNeoRegular",
     lineHeight: "140%",
     fontWeight: 400,
   },
-  Paragraph4: {
+  Paragraph5: {
     fontSize: 14,
     color: colors.N100,
     fontFamily: "SpoqaHanSansNeoMedium",
     lineHeight: "140%",
-    fontWeight: 500,
+    fontWeight: 400,
   },
-  Paragraph3: {
+  Paragraph4: {
     fontSize: 14,
     color: colors.N100,
     fontFamily: "SpoqaHanSansNeoRegular",
+    lineHeight: "140%",
+    fontWeight: 500,
+  },
+  Paragraph3: {
+    fontSize: 13,
+    color: colors.N100,
+    fontFamily: "SpoqaHanSansNeoMedium",
     lineHeight: "140%",
     fontWeight: 400,
   },
