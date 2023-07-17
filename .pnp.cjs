@@ -51,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-plugin-styled-components", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:2.1.4"],\
             ["eslint", "npm:8.44.0"],\
             ["eslint-config-next", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:13.4.7"],\
+            ["exifr", "npm:7.1.3"],\
             ["next", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:13.4.7"],\
             ["next-redux-wrapper", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:8.1.0"],\
             ["polished", "npm:4.2.2"],\
@@ -5528,6 +5529,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-plugin-styled-components", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:2.1.4"],\
             ["eslint", "npm:8.44.0"],\
             ["eslint-config-next", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:13.4.7"],\
+            ["exifr", "npm:7.1.3"],\
             ["next", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:13.4.7"],\
             ["next-redux-wrapper", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:8.1.0"],\
             ["polished", "npm:4.2.2"],\
@@ -6187,6 +6189,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["onetime", "npm:6.0.0"],\
             ["signal-exit", "npm:3.0.7"],\
             ["strip-final-newline", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["exifr", [\
+        ["npm:7.1.3", {\
+          "packageLocation": "./.yarn/cache/exifr-npm-7.1.3-e3f1c7a57d-c75a21e700.zip/node_modules/exifr/",\
+          "packageDependencies": [\
+            ["exifr", "npm:7.1.3"]\
           ],\
           "linkType": "HARD"\
         }]\

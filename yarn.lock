@@ -3726,6 +3726,7 @@ __metadata:
     babel-plugin-styled-components: ^2.1.4
     eslint: 8.44.0
     eslint-config-next: 13.4.7
+    exifr: ^7.1.3
     next: 13.4.7
     next-redux-wrapper: ^8.1.0
     polished: ^4.2.2
@@ -4217,6 +4218,13 @@ __metadata:
     signal-exit: ^3.0.7
     strip-final-newline: ^3.0.0
   checksum: 21fa46fc69314ace4068cf820142bdde5b643a5d89831c2c9349479c1555bff137a291b8e749e7efca36535e4e0a8c772c11008ca2e84d2cbd6ca141a3c8f937
+  languageName: node
+  linkType: hard
+
+"exifr@npm:^7.1.3":
+  version: 7.1.3
+  resolution: "exifr@npm:7.1.3"
+  checksum: c75a21e700378a29d226dd2c102d43679a68539ff1774b05ca19acce366ad47d056985e4f497afe7da6d0d8966d7dc73efb51acc11ff84fa57c9467e630c67ff
   languageName: node
   linkType: hard
 
