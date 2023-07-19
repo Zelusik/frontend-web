@@ -12,16 +12,16 @@ import { tasteData } from "data/tasteData";
 import { PostTerms, PutTaste } from "api/auth";
 import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
+import { getCookie } from "utils/cookie";
 
 const TastePage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const accessToken = getCookie("accessToken");
   const handleClickBackBtn = () => {
     router.back();
   };
-  const { accessToken, favoriteFoodCategories, terms } = useAppSelector(
-    (state) => state.auth
-  );
+  const { favoriteFoodCategories, terms } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(
@@ -53,10 +53,17 @@ const TastePage = () => {
     }
   };
 
-  const handleClickStart = () => {
-    PostTerms(accessToken, terms);
-    PutTaste(accessToken, favoriteFoodCategories);
-    router.push("/");
+  const handleClickStart = async () => {
+    if (accessToken !== null) {
+      const termsRes = await PostTerms(accessToken, terms);
+      const tasteRes = await PutTaste(accessToken, favoriteFoodCategories);
+
+      // refresh token 만료 시 로그인 페이지로
+      if (termsRes.data?.code === 1502 || tasteRes.data?.code === 1502) {
+        router.push("/login");
+      }
+      router.push("/");
+    }
   };
 
   return (
