@@ -1,6 +1,4 @@
-import { changeAuthState } from "../reducer/slices/auth/authSlice";
 import axios from "axios";
-import { useAppDispatch } from "hooks/useReduxHooks";
 import { getCookie, setCookie } from "utils/cookie";
 
 const client = axios.create({
@@ -18,6 +16,7 @@ client.interceptors.response.use(
     if (response.data.code === 1502) {
       const refreshToken = getCookie("refreshToken");
       const originalRequest = config;
+
       await axios({
         headers: {
           "Content-Type": "application/json",
@@ -29,25 +28,12 @@ client.interceptors.response.use(
         },
       })
         .then(({ data }) => {
-          const dispatch = useAppDispatch();
-          dispatch(
-            changeAuthState({
-              type: "accessToken",
-              value: data.accessToken,
-            })
-          );
-          dispatch(
-            changeAuthState({
-              type: "refreshToken",
-              value: data.refreshToken,
-            })
-          );
           setCookie("accessToken", data.accessToken, 1);
           setCookie("refreshToken", data.refreshToken, 30);
           originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
         })
         .catch((err) => {
-          console.log("/auth/token err");
+          console.log("/auth/token err", err);
           return Promise.reject(err);
         });
       return axios(originalRequest);

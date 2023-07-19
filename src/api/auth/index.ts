@@ -13,7 +13,7 @@ export const PostTerms = async (token: string, termsData: TermsType) =>
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(({ data }) => data)
-    .catch((err) => console.log(err.response));
+    .catch((err) => err.response);
 
 export const PutTaste = async (token: string, favoriteFoodCategories: string[]) =>
   await client
@@ -25,4 +25,4 @@ export const PutTaste = async (token: string, favoriteFoodCategories: string[]) 
       }
     )
     .then(({ data }) => data)
-    .catch((err) => console.log(err.response));
+    .catch((err) => err.response);
