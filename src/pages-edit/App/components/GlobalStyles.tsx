@@ -1,10 +1,9 @@
 import { css, Global } from "@emotion/react";
 import { colors } from "constants/colors";
 
-export default function GlobalStyle() {
+export default function GlobalStyle({ modal }: any) {
   return <Global styles={globalCss} />;
 }
-
 const globalCss = css`
   @font-face {
     font-family: "SpoqaHanSansNeoBold";

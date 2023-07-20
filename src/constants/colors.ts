@@ -22,4 +22,5 @@ export const colors = {
   LightOrange: "#FFEFD6",
   LightYellow: "#FFFAD6",
   Mint: "#2BD9BA",
+  Shadow: "#000000",
 } as const;
