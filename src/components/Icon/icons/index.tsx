@@ -25,6 +25,8 @@ export { default as Copy } from "./Copy";
 export { default as Arrow } from "./Arrow";
 export { default as BottomArrow } from "./BottomArrow";
 
+export { default as FindLocation } from "./FindLocation";
+
 // bottom navigation
 export { default as Home } from "./bottomNavigation/Home";
 export { default as Map } from "./bottomNavigation/Map";

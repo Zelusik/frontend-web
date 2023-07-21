@@ -37,19 +37,19 @@ export default function Selections({}: any) {
 }
 
 const HashtagsWrapper = styled.div`
-  height: 44px;
+  height: 42px;
   display: flex;
   white-space: nowrap;
 `;
 
 const HashtagsInner = styled.div`
-  height: 44px;
+  height: 42px;
   display: flex;
   overflow: auto;
 `;
 
 const MenuWrapper = styled.div<{ marginLeft: boolean; marginRight: boolean }>`
-  height: 40px;
+  height: 38px;
   margin: auto;
   margin-left: ${({ marginLeft }) => (marginLeft ? "15px" : "0")};
   margin-right: ${({ marginRight }) => (marginRight ? "15px" : "6px")};

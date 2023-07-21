@@ -1,90 +1,34 @@
-import { css, keyframes } from "@emotion/react";
+import { forwardRef } from "react";
 import styled from "@emotion/styled";
-import Icon from "components/Icon";
-import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { useState } from "react";
+import { BOTTOM_SHEET_HEIGHT } from "./BottomSheetOption";
+import useBottomSheet from "hooks/useBottomSheet";
+import { globalValue } from "constants/globalValue";
+import { keyframes } from "@emotion/react";
 
-const Type: any = {
-  primary: [
-    {
-      icon: "Share",
-      text: "공유하기",
-      onClick: () => {
-        alert("공유하기");
-      },
-    },
-    {
-      icon: "Report",
-      text: "신고하기",
-      onClick: () => {
-        alert("신고하기");
-      },
-    },
-  ],
-  secondary: [
-    {
-      icon: "Share",
-      text: "공유하기",
-      onClick: () => {
-        alert("공유하기");
-      },
-    },
-    {
-      icon: "Report",
-      text: "신고하기",
-      onClick: () => {
-        alert("신고하기");
-      },
-    },
-    {
-      icon: "Report",
-      text: "신고하기",
-      onClick: () => {
-        alert("신고하기");
-      },
-    },
-  ],
-};
+const BottomSheet = forwardRef(function Div(
+  { children, ...props }: any,
+  forwardedRef
+) {
+  const MIN_Y = globalValue.BOTTOM_NAVIGATION_HEIGHT + 844 * 0.24 + 82; //132
+  const MAX_Y = 844 - 0;
+  const BOTTOM_SHEET_HEIGHT = 844 - (globalValue.BOTTOM_NAVIGATION_HEIGHT + 82);
 
-export default function BottomSheet({ type, visible }: any) {
-  const [testVisible, setTestVisible] = useState(visible);
-  const backgroundClick = () => {
-    setTestVisible(false);
-    alert("background");
-  };
+  const { sheet, content } = useBottomSheet({ MIN_Y, MAX_Y });
 
   return (
-    <Wrapper>
-      <Background visible={testVisible} onClick={backgroundClick} />
-
-      <BottomSheetWrapper
-        visible={testVisible}
-        bottom={-(20 + Type[type].length * 46 + 34)}
-      >
-        <TopBarWrapper>
-          <TopBar />
-        </TopBarWrapper>
-
-        <ButtonWrapper>
-          {Type[type].map((data: any, idx: number) => {
-            return (
-              <div key={idx} onClick={data.onClick}>
-                <Box>
-                  <Icon icon={data.icon} width={20} height={20} />
-                  <Text typo={typography.Headline2}>{data.text}</Text>
-                </Box>
-                <Spacing size={6} />
-              </div>
-            );
-          })}
-        </ButtonWrapper>
-        <Spacing size={34} />
-      </BottomSheetWrapper>
-    </Wrapper>
+    <>
+      {/* <Background visible={true} /> */}
+      <Wrapper ref={sheet}>
+        <HandleWrapper>
+          <Handle />
+        </HandleWrapper>
+        <BottomSheetContent>{children}</BottomSheetContent>
+      </Wrapper>
+    </>
   );
-}
+  // <Wrapper>{children}</Wrapper>;
+});
 
 const fade = (visible: boolean) => keyframes`
   from {
@@ -95,49 +39,45 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const moveBottom = (visible: boolean, bottom: number) => keyframes`
-  from {
-    bottom:  ${visible ? bottom + `px` : 0};
-  }
-  to {
-    bottom:  ${visible ? 0 : bottom + `px`};
-  }
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-  top: 0;
-  z-index: 999;
-`;
-
 const Background = styled.div<{ visible: boolean }>`
   width: 100%;
   max-width: 820px;
   height: 100%;
+
+  position: absolute;
+  top: 0;
 
   opacity: 0;
   background-color: ${colors.Shadow};
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
 
-const BottomSheetWrapper = styled.div<{ visible: boolean; bottom: number }>`
+const Wrapper = styled.div`
   width: 100%;
-  position: absolute;
+  max-width: ${globalValue.MAX_WIDTH}px;
+  height: ${BOTTOM_SHEET_HEIGHT}px;
+
+  position: fixed;
+  top: calc(100% - ${globalValue.BOTTOM_NAVIGATION_HEIGHT}px - 24%);
 
   border-radius: 16px 16px 0 0;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.12);
   background-color: ${colors.N0};
-  animation: ${(props) => moveBottom(props.visible, props.bottom)} 0.3s forwards;
+
+  transition: transform 0.3s ease-out;
 `;
 
-const TopBarWrapper = styled.div`
+const BottomSheetContent = styled.div`
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+`;
+
+const HandleWrapper = styled.div`
   width: 100%;
   height: 20px;
   display: flex;
 `;
-const TopBar = styled.div`
+const Handle = styled.div`
   width: 36px;
   height: 4px;
   margin: auto;
@@ -146,19 +86,4 @@ const TopBar = styled.div`
   background-color: ${colors.N40};
 `;
 
-const ButtonWrapper = styled.div`
-  padding: 0 20px;
-`;
-const Box = styled.div`
-  width: 100%;
-  margin: 10px 0;
-  display: flex;
-`;
-const Text = styled.div<{ typo: any }>`
-  margin-left: 6px;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-`;
+export default BottomSheet;
