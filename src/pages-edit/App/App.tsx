@@ -5,6 +5,8 @@ import { CacheProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
+import BottomSheet from "components/BottomSheet";
+import { useState } from "react";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
@@ -12,6 +14,7 @@ const App = ({ Component, ...rest }: AppProps) => {
     props: { pageProps },
   } = wrapper.useWrappedStore(rest);
   const queryClient = new QueryClient();
+  const [modal, setModal] = useState(true);
 
   return (
     <>
@@ -21,10 +24,11 @@ const App = ({ Component, ...rest }: AppProps) => {
       />
       <QueryClientProvider client={queryClient}>
         <CacheProvider value={cache}>
-          <GlobalStyles />
+          <GlobalStyles modal={modal} />
           <Hydrate state={pageProps.dehydratedState}>
             <Provider store={store}>
               <Component {...pageProps} />
+              {/* {modal && <BottomSheet type="primary" visible={true} />} */}
             </Provider>
           </Hydrate>
         </CacheProvider>
