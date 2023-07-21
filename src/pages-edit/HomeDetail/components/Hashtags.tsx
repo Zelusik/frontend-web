@@ -23,7 +23,7 @@ export default function Hashtags({ typo, hashtags }: any) {
                   style={{ color: colors.Orange300 }}
                 >
                   #&nbsp;
-                </Menuspan>{" "}
+                </Menuspan>
                 {data}
               </Menu>
             </MenuWrapper>

@@ -17,7 +17,7 @@ const RoundButton = forwardRef(function Button(
       onClick={onClick}
       style={{
         width: "auto",
-        height: type === "follow" ? 31 : type === "taste" ? 46 : 38,
+        height: type === "follow" ? 31 : type === "taste" ? 46 : 40,
         padding: type === "taste" ? "10px 14px 10px 12px" : "0 12px",
         alignItems: "center",
       }}
