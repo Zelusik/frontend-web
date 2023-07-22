@@ -1,45 +1,56 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
-import { BOTTOM_SHEET_HEIGHT } from "./BottomSheetOption";
 import useBottomSheet from "hooks/useBottomSheet";
 import { globalValue } from "constants/globalValue";
 import { keyframes } from "@emotion/react";
+import { match } from "ts-pattern";
 
 const BottomSheet = forwardRef(function Div(
-  { children, ...props }: any,
+  { children, type = "setting", state, ...props }: any,
   forwardedRef
 ) {
-  const MIN_Y = globalValue.BOTTOM_NAVIGATION_HEIGHT + 844 * 0.24 + 82; //132
-  const MAX_Y = 844 - 0;
-  const BOTTOM_SHEET_HEIGHT = 844 - (globalValue.BOTTOM_NAVIGATION_HEIGHT + 82);
+  // const { MIN_Y, MAX_Y, BOTTOM_SHEET_HEIGHT } = BottomSheetOption();
 
-  const { sheet, content } = useBottomSheet({ MIN_Y, MAX_Y });
+  const [MIN_Y, setMIN] = useState<number>(
+    globalValue.BOTTOM_NAVIGATION_HEIGHT + 844 * 0.24 + 82
+  );
+  const [MAX_Y, setMAX] = useState<number>(844);
+  const [BOTTOM_SHEET_HEIGHT, setBottomSheetHeight] = useState<number>(
+    844 - (globalValue.BOTTOM_NAVIGATION_HEIGHT + 82)
+  );
+
+  const { sheet, content } = useBottomSheet({ state, MIN_Y, MAX_Y });
 
   return (
     <>
-      {/* <Background visible={true} /> */}
-      <Wrapper ref={sheet}>
+      <Background
+        visible={state.action}
+        shadow={match(type)
+          .with("setting", () => 0.7)
+          .with("map", () => 0.4)
+          .exhaustive()}
+      />
+      <Wrapper ref={sheet} BOTTOM_SHEET_HEIGHT={BOTTOM_SHEET_HEIGHT}>
         <HandleWrapper>
           <Handle />
         </HandleWrapper>
-        <BottomSheetContent>{children}</BottomSheetContent>
+        <BottomSheetContent ref={content}>{children}</BottomSheetContent>
       </Wrapper>
     </>
   );
-  // <Wrapper>{children}</Wrapper>;
 });
 
-const fade = (visible: boolean) => keyframes`
+const fade = (visible: boolean, shadow: number) => keyframes`
   from {
-    opacity: ${visible ? 0 : 0.7};
+    opacity: ${visible ? 0 : shadow};
   }
   to {
-    opacity: ${visible ? 0.7 : 0};
+    opacity: ${visible ? shadow : 0};
   }
 `;
 
-const Background = styled.div<{ visible: boolean }>`
+const Background = styled.div<{ visible: boolean; shadow: number }>`
   width: 100%;
   max-width: 820px;
   height: 100%;
@@ -49,13 +60,16 @@ const Background = styled.div<{ visible: boolean }>`
 
   opacity: 0;
   background-color: ${colors.Shadow};
-  animation: ${(props) => fade(props.visible)} 0.3s forwards;
+  animation: ${(props) => fade(props.visible, props.shadow)} 0.3s forwards;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ BOTTOM_SHEET_HEIGHT: number }>`
   width: 100%;
   max-width: ${globalValue.MAX_WIDTH}px;
-  height: ${BOTTOM_SHEET_HEIGHT}px;
+  height: ${({ BOTTOM_SHEET_HEIGHT }) => BOTTOM_SHEET_HEIGHT}px;
+
+  display: flex;
+  flex-direction: column;
 
   position: fixed;
   top: calc(100% - ${globalValue.BOTTOM_NAVIGATION_HEIGHT}px - 24%);
@@ -67,23 +81,22 @@ const Wrapper = styled.div`
   transition: transform 0.3s ease-out;
 `;
 
-const BottomSheetContent = styled.div`
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-`;
-
 const HandleWrapper = styled.div`
   width: 100%;
-  height: 20px;
   display: flex;
 `;
 const Handle = styled.div`
   width: 36px;
   height: 4px;
-  margin: auto;
+  margin: 8px auto;
 
   border-radius: 2px;
   background-color: ${colors.N40};
+`;
+
+const BottomSheetContent = styled.div`
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
 export default BottomSheet;

@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { colors } from "constants/colors";
 import BottomSheet from "components/BottomSheet";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
@@ -7,18 +10,23 @@ import Input from "components/Input";
 import Selections from "./components/Selections";
 import KakaoMap from "./components/KakaoMap";
 import FindLocationButton from "./components/FindLocationButton";
-import { colors } from "constants/colors";
-import { keyframes } from "@emotion/react";
+import { useAppDispatch } from "hooks/useReduxHooks";
+import { changeDisplayState } from "reducer/slices/global/globalSlice";
 
 export default function Map() {
   const router = useRouter();
+  const [action, setAction] = useState<boolean>(false);
+
+  const bottomSheetMove = (newAction: boolean) => {
+    setAction(newAction);
+  };
 
   return (
     <>
       <KakaoMap />
       <FindLocationButton />
 
-      <BottomSheet>
+      <BottomSheet type="map" state={{ action, bottomSheetMove }}>
         {["", "", "", "", ""].map((data: any, idx: number) => {
           return <Box key={idx}>Hi</Box>;
         })}
@@ -31,7 +39,7 @@ export default function Map() {
         </InputWrapper>
         <Spacing size={8} />
 
-        <Selections />
+        <Selections state={{ action, bottomSheetMove }} />
       </HeaderWrapper>
 
       <BottomNavigation />
