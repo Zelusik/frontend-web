@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 
 import Spacing from "components/Spacing";
 import Image from "components/Image";
-import Hashtags from "./components/Hashtags";
 import Info from "./components/Info";
 import Description from "components/Description";
 import Hr from "components/Hr";
@@ -15,6 +14,7 @@ import Profile from "./components/Profile";
 import FoodTagImages from "components/FoodTagImages";
 import { useEffect, useState } from "react";
 import { keyframes } from "@emotion/react";
+import Hashtags from "components/Hashtags";
 
 export default function HomeDetail() {
   const router = useRouter();
@@ -62,7 +62,6 @@ export default function HomeDetail() {
         <div style={{ background: "white" }}>
           <Spacing size={30} />
           <Hashtags
-            typo={typography.Paragraph4}
             hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]}
           />
           <Spacing size={16} />

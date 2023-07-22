@@ -21,7 +21,7 @@ export default function StoreTitle({
               position: "absolute",
               bottom: 34, // + 28
             }
-          : {}
+          : { padding: type === "secondary" ? "0 15px" : "0" }
       }
     >
       <MenuList>
@@ -29,23 +29,32 @@ export default function StoreTitle({
           <div>
             {title && (
               <Title
+                style={{ display: "flex" }}
                 height={match(type)
                   .with("primary", () => 58)
+                  .with("secondary", () => 25)
                   .with("default", () => 49)
                   .exhaustive()}
                 typo={match(type)
                   .with("primary", () => typography.Headline5)
+                  .with("secondary", () => typography.Headline4)
                   .with("default", () => typography.Headline6)
                   .exhaustive()}
                 color={match(type)
                   .with("primary", () => colors.N100)
+                  .with("secondary", () => colors.N100)
                   .with("default", () => colors.N0)
                   .exhaustive()}
               >
                 {title}
+                {type === "secondary" && (
+                  <SideTitle typo={typography.Paragraph1} color={colors.N60}>
+                    {subtitle}
+                  </SideTitle>
+                )}
               </Title>
             )}
-            {subtitle && (
+            {type !== "secondary" && subtitle && (
               <SubTitle
                 typo={match(type)
                   .with("primary", () => typography.Paragraph1)
@@ -67,6 +76,7 @@ export default function StoreTitle({
             <Edit
               size={match(type)
                 .with("primary", () => 28)
+                .with("secondary", () => 24)
                 .with("default", () => 28)
                 .exhaustive()}
             />
@@ -74,6 +84,7 @@ export default function StoreTitle({
           <Heart
             size={match(type)
               .with("primary", () => 28)
+              .with("secondary", () => 24)
               .with("default", () => 28)
               .exhaustive()}
             margin={"0 0 0 20px"}
@@ -113,6 +124,16 @@ const Title = styled.div<{ height: any; typo: any; color: any }>`
       ${typo}
     `}
   color: ${({ color }) => color};
+`;
+const SideTitle = styled.div<{ typo: any; color: any }>`
+  margin: auto 0;
+  margin-left: 5px;
+  ${({ typo }) =>
+    typo &&
+    css`
+      ${typo}
+    `}
+  color: ${({ color }) => color}
 `;
 
 const SubTitle = styled.div<{ typo: any; color: any }>`

@@ -26,6 +26,7 @@ export { default as Arrow } from "./Arrow";
 export { default as BottomArrow } from "./BottomArrow";
 
 export { default as FindLocation } from "./FindLocation";
+export { default as StoreMarker } from "./StoreMarker";
 
 // bottom navigation
 export { default as Home } from "./bottomNavigation/Home";

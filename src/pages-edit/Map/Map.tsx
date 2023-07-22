@@ -12,6 +12,8 @@ import KakaoMap from "./components/KakaoMap";
 import FindLocationButton from "./components/FindLocationButton";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { changeDisplayState } from "reducer/slices/global/globalSlice";
+import StoreBox from "./components/StoreBox/StoreBox";
+import LocationTitle from "./components/LocationTitle";
 
 export default function Map() {
   const router = useRouter();
@@ -27,8 +29,10 @@ export default function Map() {
       <FindLocationButton />
 
       <BottomSheet type="map" state={{ action, bottomSheetMove }}>
+        <LocationTitle />
+        <Spacing size={14} />
         {["", "", "", "", ""].map((data: any, idx: number) => {
-          return <Box key={idx}>Hi</Box>;
+          return <StoreBox key={idx} />;
         })}
       </BottomSheet>
 
@@ -56,32 +60,4 @@ const InputWrapper = styled.div`
   height: 52px;
   padding: 0 15px;
   display: flex;
-`;
-
-const Box = styled.div`
-  width: 100%;
-  height: 500px;
-  margin-bottom: 30px;
-`;
-
-const fade = (visible: boolean) => keyframes`
-  from {
-    opacity: ${visible ? 0 : 0.7};
-  }
-  to {
-    opacity: ${visible ? 0.7 : 0};
-  }
-`;
-
-const Background = styled.div<{ visible: boolean }>`
-  width: 100%;
-  max-width: 820px;
-  height: 100%;
-
-  position: absolute;
-  top: 0;
-
-  opacity: 0;
-  background-color: ${colors.Shadow};
-  animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
