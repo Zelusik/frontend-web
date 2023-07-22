@@ -22,15 +22,15 @@ const App = ({ Component, ...rest }: AppProps) => {
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
       />
       <QueryClientProvider client={queryClient}>
-        <CacheProvider value={cache}>
-          <GlobalStyles modal={modal} />
-          <Hydrate state={pageProps.dehydratedState}>
-            <Provider store={store}>
+        <Provider store={store}>
+          <CacheProvider value={cache}>
+            <GlobalStyles modal={modal} />
+            <Hydrate state={pageProps.dehydratedState}>
               <Component {...pageProps} />
               {/* {modal && <BottomSheet type="primary" visible={true} />} */}
-            </Provider>
-          </Hydrate>
-        </CacheProvider>
+            </Hydrate>
+          </CacheProvider>
+        </Provider>
       </QueryClientProvider>
     </>
   );

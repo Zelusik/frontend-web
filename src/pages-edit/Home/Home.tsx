@@ -12,25 +12,6 @@ import { changeDisplayState } from "reducer/slices/global/globalSlice";
 
 export default function Home() {
   const router = useRouter();
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(
-      changeDisplayState({
-        type: "display",
-        value: [0, 0],
-      })
-    );
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(
-      changeDisplayState({
-        type: "display",
-        value: [window.innerWidth, window.innerHeight],
-      })
-    );
-  }, []);
 
   return (
     <>

@@ -15,11 +15,10 @@ import Profile from "./components/Profile";
 import FoodTagImages from "components/FoodTagImages";
 import { useEffect, useState } from "react";
 import { keyframes } from "@emotion/react";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 
 export default function HomeDetail() {
   const router = useRouter();
-  const { display } = useAppSelector((state) => state.global);
+  const [WINDOW_WIDTH, setWindow] = useState<number>(0);
   const [titleChange, setTitleChange] = useState<boolean>(false);
 
   function onScroll(width: number) {
@@ -31,6 +30,7 @@ export default function HomeDetail() {
   }
 
   useEffect(() => {
+    setWindow(window.innerWidth);
     window.addEventListener("scroll", () => onScroll(window.innerWidth));
     return () => {
       window.removeEventListener("scroll", () => onScroll(window.innerWidth));
@@ -39,7 +39,7 @@ export default function HomeDetail() {
 
   return (
     <>
-      <Spacing size={display.width + 6} />
+      <Spacing size={WINDOW_WIDTH + 6} />
       <FoodTagImages />
 
       <BackTitleWrapper visible={titleChange}>
