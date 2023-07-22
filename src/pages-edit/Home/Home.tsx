@@ -1,15 +1,36 @@
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-
+import { typography } from "constants/typography";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 import LogoTitle from "./components/LogoTitle";
 import StoreBox from "./components/StoreBox/StoreBox";
-import { typography } from "constants/typography";
-import { Route } from "constants/Route";
+
+import { useAppDispatch } from "hooks/useReduxHooks";
+import { changeDisplayState } from "reducer/slices/global/globalSlice";
 
 export default function Home() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(
+      changeDisplayState({
+        type: "display",
+        value: [0, 0],
+      })
+    );
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      changeDisplayState({
+        type: "display",
+        value: [window.innerWidth, window.innerHeight],
+      })
+    );
+  }, []);
 
   return (
     <>

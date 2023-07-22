@@ -1,3 +1,4 @@
+import { useState } from "react";
 import wrapper from "store";
 import GlobalStyles from "./components/GlobalStyles";
 import { cache } from "@emotion/css";
@@ -5,8 +6,6 @@ import { CacheProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
-import BottomSheet from "components/BottomSheet";
-import { useState } from "react";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
