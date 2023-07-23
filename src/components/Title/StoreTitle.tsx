@@ -14,6 +14,11 @@ export default function StoreTitle({
 }: any) {
   return (
     <TitleWrapper
+      height={match(type)
+        .with("primary", () => 49)
+        .with("secondary", () => 25)
+        .with("default", () => 58)
+        .exhaustive()}
       style={
         type === "default"
           ? {
@@ -30,11 +35,6 @@ export default function StoreTitle({
             {title && (
               <Title
                 style={{ display: "flex" }}
-                height={match(type)
-                  .with("primary", () => 58)
-                  .with("secondary", () => 25)
-                  .with("default", () => 49)
-                  .exhaustive()}
                 typo={match(type)
                   .with("primary", () => typography.Headline5)
                   .with("secondary", () => typography.Headline4)
@@ -95,8 +95,9 @@ export default function StoreTitle({
   );
 }
 
-const TitleWrapper = styled.div`
+const TitleWrapper = styled.div<{ height: number }>`
   width: 100%;
+  height: ${({ height }) => height + "px"};
   display: flex;
 `;
 
@@ -115,8 +116,7 @@ const Menu = styled.li`
   align-items: center;
 `;
 
-const Title = styled.div<{ height: any; typo: any; color: any }>`
-  height: ${({ height }) => height};
+const Title = styled.div<{ typo: any; color: any }>`
   margin-bottom: 4px;
   ${({ typo }) =>
     typo &&

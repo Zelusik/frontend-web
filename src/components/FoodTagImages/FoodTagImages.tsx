@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -6,9 +6,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import FoodTag from "./FoodTag";
 import FoodTagLine from "./FoodTagLine";
-import TagImage from "components/TagImage";
+import TagImage from "components/Image/TagImage";
 
-export default function FoodTagImages({}: any) {
+const FoodTagImages = forwardRef(({}, ref) => {
   const images = [
     "https://i.ibb.co/0Z6FNN7/60pt.png",
     "https://i.ibb.co/0Z6FNN7/60pt.png",
@@ -32,8 +32,11 @@ export default function FoodTagImages({}: any) {
   };
 
   return (
-    <div style={{ width: "100%", maxWidth: 820, position: "fixed", top: 0 }}>
-      <Swiper spaceBetween={0} onSlideChange={onSlideChange}>
+    <div
+      ref={ref}
+      style={{ width: "100%", maxWidth: 820, position: "fixed", top: 0 }}
+    >
+      <Swiper onSlideChange={onSlideChange}>
         {images.map((src: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
@@ -53,10 +56,12 @@ export default function FoodTagImages({}: any) {
       </FoodTagWrapper>
     </div>
   );
-}
+});
+
 const FoodTagWrapper = styled.div`
   padding: 0 20px;
   position: absolute;
   bottom: 21px;
   z-index: 999;
 `;
+export default FoodTagImages;

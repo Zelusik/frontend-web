@@ -12,7 +12,7 @@ import KakaoMap from "./components/KakaoMap";
 import FindLocationButton from "./components/FindLocationButton";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { changeDisplayState } from "reducer/slices/global/globalSlice";
-import StoreBox from "./components/StoreBox/StoreBox";
+import StoreBox from "./components/StoreBox";
 import LocationTitle from "./components/LocationTitle";
 
 export default function Map() {

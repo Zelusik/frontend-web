@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import LocationTitle from "../LocationTitle";
+import LocationTitle from "./LocationTitle";
 import Spacing from "components/Spacing";
 import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
@@ -10,7 +10,11 @@ export default function StoreBox() {
   const router = useRouter();
 
   return (
-    <Wrapper>
+    <Wrapper
+      onClick={() => {
+        router.push("/store-detail");
+      }}
+    >
       <Image
         src="https://i.ibb.co/0Z6FNN7/60pt.png"
         ratio={330 / 192}
