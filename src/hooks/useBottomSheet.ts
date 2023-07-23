@@ -1,3 +1,4 @@
+import { globalValue } from "constants/globalValue";
 import { useRef, useEffect } from "react";
 
 interface BottomSheetMetrics {
@@ -13,7 +14,7 @@ interface BottomSheetMetrics {
   isContentAreaTouched: boolean;
 }
 
-export default function useBottomSheet({ state, MIN_Y, MAX_Y }: any) {
+export default function useBottomSheet({ state }: any) {
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const metrics = useRef<BottomSheetMetrics>({
@@ -30,6 +31,10 @@ export default function useBottomSheet({ state, MIN_Y, MAX_Y }: any) {
   });
 
   useEffect(() => {
+    const MIN_Y =
+      globalValue.BOTTOM_NAVIGATION_HEIGHT + window.innerHeight * 0.24 + 82;
+    const MAX_Y = window.innerHeight;
+
     const canUserMoveBottomSheet = () => {
       const { touchMove, isContentAreaTouched } = metrics.current;
       if (!isContentAreaTouched) {

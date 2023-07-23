@@ -12,12 +12,13 @@ import Hashtags from "components/Hashtags";
 import TopNavigation from "components/TopNavigation";
 import ReivewBox from "./components/ReviewBox";
 import Info from "components/Share/Info";
+import useDisplaySize from "hooks/useDisplaySize";
 
 export default function StoreDetail() {
   const router = useRouter();
   const imageRef = useRef<any>(null);
+  const { height } = useDisplaySize();
 
-  const [WINDOW_WIDTH, setWindow] = useState<number>(0);
   const [titleChange, setTitleChange] = useState<boolean>(false);
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -37,7 +38,6 @@ export default function StoreDetail() {
   }
 
   useEffect(() => {
-    setWindow(window.innerWidth);
     window.addEventListener("scroll", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -80,6 +80,7 @@ export default function StoreDetail() {
         </div>
 
         <TopNavigation
+          type="store-detail"
           state={{ currentIndex, setCurrentIndex, topFixed }}
           titleList={["리뷰", "매장정보"]}
         >
@@ -88,7 +89,7 @@ export default function StoreDetail() {
               return <ReivewBox key={idx} />;
             })}
           </div>
-          <HomeDetailWrapper position="relative" style={{ height: 844 }}>
+          <HomeDetailWrapper position="relative" style={{ height: height }}>
             {["", ""].map((data: any, idx: number) => {
               return <Info key={idx} />;
             })}

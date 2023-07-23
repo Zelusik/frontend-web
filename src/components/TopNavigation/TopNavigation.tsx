@@ -9,14 +9,16 @@ import { css } from "@emotion/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import useDisplaySize from "hooks/useDisplaySize";
 
 const TopNavigation = forwardRef(function (
-  { children, state, titleList = [], ...props }: any,
+  { children, type = "store-detail", state, titleList = [], ...props }: any,
   forwardedRef
 ) {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
   const swiperRef = useRef<any>(null);
+  const { height } = useDisplaySize();
 
   const onSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;
@@ -28,7 +30,7 @@ const TopNavigation = forwardRef(function (
     <div
       ref={scrollRef}
       style={{
-        height: 844 - 50,
+        height: type === "store-detail" ? height - 50 : 0,
         overflow:
           state.topFixed && state.currentIndex === 0 ? "scroll" : "hidden",
       }}

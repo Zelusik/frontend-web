@@ -5,22 +5,16 @@ import useBottomSheet from "hooks/useBottomSheet";
 import { globalValue } from "constants/globalValue";
 import { keyframes } from "@emotion/react";
 import { match } from "ts-pattern";
+import useDisplaySize from "hooks/useDisplaySize";
 
 const BottomSheet = forwardRef(function Div(
   { children, type = "setting", state, ...props }: any,
   forwardedRef
 ) {
+  const { height } = useDisplaySize();
   const [actionDelay, setActionDelay] = useState<boolean>(false);
 
-  const [MIN_Y, setMIN] = useState<number>(
-    globalValue.BOTTOM_NAVIGATION_HEIGHT + 844 * 0.24 + 82
-  );
-  const [MAX_Y, setMAX] = useState<number>(844);
-  const [BOTTOM_SHEET_HEIGHT, setBottomSheetHeight] = useState<number>(
-    844 - (globalValue.BOTTOM_NAVIGATION_HEIGHT + 82)
-  );
-
-  const { sheet, content } = useBottomSheet({ state, MIN_Y, MAX_Y });
+  const { sheet, content } = useBottomSheet({ state });
 
   useEffect(() => {
     if (!state.action) setTimeout(() => setActionDelay(state.action), 300);
@@ -37,7 +31,12 @@ const BottomSheet = forwardRef(function Div(
           .with("map", () => 0.4)
           .exhaustive()}
       />
-      <Wrapper ref={sheet} BOTTOM_SHEET_HEIGHT={BOTTOM_SHEET_HEIGHT}>
+      <Wrapper
+        ref={sheet}
+        BOTTOM_SHEET_HEIGHT={
+          height - (globalValue.BOTTOM_NAVIGATION_HEIGHT + 82)
+        }
+      >
         <HandleWrapper>
           <Handle />
         </HandleWrapper>
