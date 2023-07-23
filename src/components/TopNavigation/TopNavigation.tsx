@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import useDisplaySize from "hooks/useDisplaySize";
+import { match } from "ts-pattern";
 
 const TopNavigation = forwardRef(function (
   { children, type = "store-detail", state, titleList = [], ...props }: any,
@@ -30,18 +31,31 @@ const TopNavigation = forwardRef(function (
     <div
       ref={scrollRef}
       style={{
-        height: type === "store-detail" ? height - 50 : 0,
+        height: type === "store-detail" ? height - 50 : height - 126,
         overflow:
-          state.topFixed && state.currentIndex === 0 ? "scroll" : "hidden",
+          type === "store-detail"
+            ? state.topFixed && state.currentIndex === 0
+              ? "scroll"
+              : "hidden"
+            : "scroll",
       }}
     >
-      <TitleSelection topFixed={state.topFixed}>
+      <TitleSelection
+        height={match(type)
+          .with("store-detail", () => 38)
+          .with("search-place", () => 34)
+          .exhaustive()}
+        topFixed={state.topFixed}
+      >
         <TitleWrapper>
           {titleList.map((data: any, idx: number) => {
             return (
               <TitleLine
                 key={idx}
-                typo={typography.Headline4}
+                typo={match(type)
+                  .with("store-detail", () => typography.Headline4)
+                  .with("search-place", () => typography.Headline3)
+                  .exhaustive()}
                 action={idx === state.currentIndex}
                 onClick={() => {
                   state.setCurrentIndex(idx);
@@ -63,7 +77,12 @@ const TopNavigation = forwardRef(function (
         <Hr />
       </TitleSelection>
       {state.topFixed && <div style={{ height: 38 }} />}
-      <Spacing size={30} />
+      <Spacing
+        size={match(type)
+          .with("store-detail", () => 30)
+          .with("search-place", () => 0)
+          .exhaustive()}
+      />
 
       <Swiper ref={swiperRef} onSlideChange={onSlideChange}>
         {children.map((data: any, idx: number) => {
@@ -74,9 +93,9 @@ const TopNavigation = forwardRef(function (
   );
 });
 
-const TitleSelection = styled.div<{ topFixed: any }>`
+const TitleSelection = styled.div<{ height: number; topFixed: any }>`
   width: 100%;
-  height: 38px;
+  height: ${({ height }) => height + "px"};
   padding: 0 20px;
 
   position: ${({ topFixed }) => (topFixed ? "fixed" : "relative")};

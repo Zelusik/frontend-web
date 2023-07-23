@@ -5,28 +5,35 @@ import { match } from "ts-pattern";
 import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
+import { useRef, useState } from "react";
 
-export default function Input({ type = "shadow", placeholder }: any) {
+export default function Input({
+  type = "shadow",
+  placeholder,
+  value,
+  setValue,
+}: any) {
   const router = useRouter();
+  const inputRef = useRef<any>(null);
+  const [focus, setFocus] = useState<boolean>(false);
 
-  const clickInput = () => {
+  const handleClickInput = (e: any) => {
     switch (type) {
       case "line":
         break;
       case "shadow":
-        alert("Shadow");
+        router.push("/search-place");
         break;
       default:
         break;
     }
   };
-  const handlerInput = () => {};
 
   return (
     <InputWrapper
-      onClick={clickInput}
+      onClick={handleClickInput}
       borderColor={match(type)
-        .with("line", () => colors.N50)
+        .with("line", () => (focus ? colors.N100 : colors.N50))
         .with("shadow", () => colors.N0)
         .exhaustive()}
       shadow={match(type)
@@ -36,9 +43,37 @@ export default function Input({ type = "shadow", placeholder }: any) {
     >
       <InputInner>
         <Icon icon="Search" width={24} height={24} />
-        <InputBox placeholder={placeholder} />
-        {type !== "shadow" && (
-          <Icon icon="CircleXButton" width={24} height={24} />
+        <InputBox
+          ref={inputRef}
+          placeholder={placeholder}
+          disabled={type === "shadow"}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onFocus={() => setFocus(true)}
+          onBlur={(e) => {
+            const next = e.relatedTarget;
+            if (next !== null) {
+              setValue(next.textContent);
+              inputRef.current.focus();
+              console.log("A");
+            } else {
+              setFocus(false);
+            }
+          }}
+        />
+        {type !== "shadow" && focus && value !== "" && (
+          <div tabIndex={0}>
+            <Icon
+              icon="CircleXButton"
+              width={24}
+              height={24}
+              onClick={() => {
+                setValue("");
+                setFocus(true);
+                inputRef.current?.focus();
+              }}
+            />
+          </div>
         )}
       </InputInner>
     </InputWrapper>
@@ -50,7 +85,9 @@ const InputWrapper = styled.div<{ borderColor: any; shadow: any }>`
   height: 48px;
   margin: auto;
   padding: 0 12px;
+
   display: flex;
+  position: relative;
 
   border-radius: 8px;
   border: 1px solid ${({ borderColor }) => borderColor};
