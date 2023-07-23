@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 import useBottomSheet from "hooks/useBottomSheet";
@@ -10,7 +10,7 @@ const BottomSheet = forwardRef(function Div(
   { children, type = "setting", state, ...props }: any,
   forwardedRef
 ) {
-  // const { MIN_Y, MAX_Y, BOTTOM_SHEET_HEIGHT } = BottomSheetOption();
+  const [actionDelay, setActionDelay] = useState<boolean>(false);
 
   const [MIN_Y, setMIN] = useState<number>(
     globalValue.BOTTOM_NAVIGATION_HEIGHT + 844 * 0.24 + 82
@@ -22,10 +22,16 @@ const BottomSheet = forwardRef(function Div(
 
   const { sheet, content } = useBottomSheet({ state, MIN_Y, MAX_Y });
 
+  useEffect(() => {
+    if (!state.action) setTimeout(() => setActionDelay(state.action), 300);
+    else setActionDelay(state.action);
+  }, [state.action]);
+
   return (
     <>
       <Background
         visible={state.action}
+        actionDelay={actionDelay}
         shadow={match(type)
           .with("setting", () => 0.7)
           .with("map", () => 0.4)
@@ -50,11 +56,16 @@ const fade = (visible: boolean, shadow: number) => keyframes`
   }
 `;
 
-const Background = styled.div<{ visible: boolean; shadow: number }>`
+const Background = styled.div<{
+  visible: boolean;
+  shadow: number;
+  actionDelay: boolean;
+}>`
   width: 100%;
   max-width: 820px;
   height: 100%;
 
+  display: ${({ actionDelay }) => (actionDelay ? "flex" : "none")};
   position: absolute;
   top: 0;
 

@@ -18,7 +18,6 @@ import LocationTitle from "./components/LocationTitle";
 export default function Map() {
   const router = useRouter();
   const [action, setAction] = useState<boolean>(false);
-
   const bottomSheetMove = (newAction: boolean) => {
     setAction(newAction);
   };
