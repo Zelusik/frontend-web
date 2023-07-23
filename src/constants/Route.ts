@@ -8,4 +8,6 @@ export const Route = {
   REVIEW: () => "/review",
   MARK: () => "/mark",
   MYPAGE: () => "/mypage",
+
+  StoreDetail: () => "/store-detail",
 };
