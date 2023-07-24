@@ -49,6 +49,8 @@ const globalCss = css`
     background-color: ${colors.N0};
     color: ${colors.N100};
     min-height: 100dvh;
+
+    overflow-x: hidden;
   }
   ::-webkit-scrollbar {
     display: none;
