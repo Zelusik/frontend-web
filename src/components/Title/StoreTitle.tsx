@@ -9,7 +9,7 @@ import { match } from "ts-pattern";
 export default function StoreTitle({
   type = "primary",
   title,
-  subtitle,
+  subTitle,
   onClick,
 }: any) {
   return (
@@ -49,12 +49,12 @@ export default function StoreTitle({
                 {title}
                 {type === "secondary" && (
                   <SideTitle typo={typography.Paragraph1} color={colors.N60}>
-                    {subtitle}
+                    {subTitle}
                   </SideTitle>
                 )}
               </Title>
             )}
-            {type !== "secondary" && subtitle && (
+            {type !== "secondary" && subTitle && (
               <SubTitle
                 typo={match(type)
                   .with("primary", () => typography.Paragraph1)
@@ -65,7 +65,7 @@ export default function StoreTitle({
                   .with("default", () => colors.N0)
                   .exhaustive()}
               >
-                {subtitle}
+                {subTitle}
               </SubTitle>
             )}
           </div>
