@@ -5,6 +5,7 @@ import Spacing from "components/Spacing";
 import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
 import Hashtags from "components/Hashtags";
+import { Route } from "constants/Route";
 
 export default function StoreBox() {
   const router = useRouter();
@@ -12,7 +13,7 @@ export default function StoreBox() {
   return (
     <Wrapper
       onClick={() => {
-        router.push("/store-detail");
+        router.push(Route.STORE_DETAIL());
       }}
     >
       <Image

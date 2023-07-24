@@ -6,6 +6,7 @@ import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
 import { useRef, useState } from "react";
+import { Route } from "constants/Route";
 
 export default function Input({
   type = "shadow",
@@ -22,7 +23,7 @@ export default function Input({
       case "line":
         break;
       case "shadow":
-        router.push("/search-place");
+        router.push(Route.SEARCH_PLACE());
         break;
       default:
         break;
