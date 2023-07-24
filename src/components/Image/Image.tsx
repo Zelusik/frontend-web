@@ -4,6 +4,7 @@ interface Props {
   height?: number | string;
   ratio?: number;
   radius?: number | string;
+  objectFit?: string;
 
   margin?: string;
   padding?: string;
@@ -16,6 +17,8 @@ export default function Image({
   height,
   ratio = 9 / 16,
   radius = 0,
+  objectFit = "cover",
+
   margin = "0",
   padding = "0",
   onClick,
@@ -32,6 +35,7 @@ export default function Image({
 
         aspectRatio: ratio,
         borderRadius: radius,
+        objectFit: objectFit,
       }}
     />
   );

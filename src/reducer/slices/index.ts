@@ -2,6 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { combineReducers } from "redux";
 import authSlice from "./auth/authSlice";
+import globalSlice from "./global/globalSlice";
 
 const rootReducer = (state: any, action: PayloadAction<any>) => {
   switch (action.type) {
@@ -13,6 +14,7 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
     default: {
       const combineReducer = combineReducers({
         auth: authSlice,
+        global: globalSlice,
       });
       return combineReducer(state, action);
     }

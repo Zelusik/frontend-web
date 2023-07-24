@@ -6,7 +6,7 @@ export default function Spacing({ size }: any) {
       style={{
         width: "100%",
         height: `${size}px`,
-        backgroundColor: `${colors.N0}`,
+        backgroundColor: `transparent`,
       }}
     />
   );

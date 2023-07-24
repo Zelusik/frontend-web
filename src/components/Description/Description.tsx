@@ -1,8 +1,10 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
+import { typography } from "constants/typography";
 import { useRef, useState } from "react";
 
-const Description = ({ text = "", typo }: any) => {
+const Description = ({ text = "" }: any) => {
   const contentRef = useRef(null);
   const onClick = (e: any) => {
     contentRef.current.classList.add("hide");
@@ -19,7 +21,7 @@ const Description = ({ text = "", typo }: any) => {
 
   return (
     <TextWrapper onClick={onClick}>
-      <Ellipsis>
+      <Ellipsis typo={typography.Paragraph2}>
         {toggleEllipsis(text, limit).string}
         {limit !== text.length && <>...</>}
       </Ellipsis>
@@ -36,12 +38,17 @@ const TextWrapper = styled.div`
   position: relative;
 `;
 
-const Ellipsis = styled.div`
+const Ellipsis = styled.div<{ typo: any }>`
   line-height: 170%;
 
   &.show {
     display: block;
   }
+
+  ${({ typo }) =>
+    css`
+      ${typo}
+    `}
 `;
 
 const Button = styled.button`

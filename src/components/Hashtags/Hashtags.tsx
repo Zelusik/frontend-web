@@ -3,8 +3,13 @@ import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 import { css } from "@emotion/react";
 import { typography } from "constants/typography";
+import { match } from "ts-pattern";
 
-export default function Hashtags({ typo, hashtags }: any) {
+export default function Hashtags({
+  type = "primary",
+  hashtags,
+  side = 20,
+}: any) {
   const router = useRouter();
 
   return (
@@ -16,14 +21,22 @@ export default function Hashtags({ typo, hashtags }: any) {
               key={idx}
               marginLeft={idx === 0}
               marginRight={idx === hashtags.length - 1}
+              side={side}
+              color={match(type)
+                .with("primary", () => colors.Orange100)
+                .with("default", () => colors.N10)
+                .exhaustive()}
             >
-              <Menu typo={typo}>
+              <Menu typo={typography.Paragraph5}>
                 <Menuspan
-                  typo={typography.Paragraph3}
-                  style={{ color: colors.Orange300 }}
+                  typo={typography.Paragraph4}
+                  color={match(type)
+                    .with("primary", () => colors.Orange300)
+                    .with("default", () => colors.N60)
+                    .exhaustive()}
                 >
                   #&nbsp;
-                </Menuspan>{" "}
+                </Menuspan>
                 {data}
               </Menu>
             </MenuWrapper>
@@ -44,14 +57,20 @@ const HashtagsInner = styled.div`
   overflow: auto;
 `;
 
-const MenuWrapper = styled.div<{ marginLeft: boolean; marginRight: boolean }>`
-  height: 37px;
-  margin-left: ${({ marginLeft }) => (marginLeft ? "20px" : "0")};
-  margin-right: ${({ marginRight }) => (marginRight ? "20px" : "8px")};
+const MenuWrapper = styled.div<{
+  marginLeft: boolean;
+  marginRight: boolean;
+  side: number;
+  color: any;
+}>`
+  height: 40px;
+  margin-left: ${({ marginLeft, side }) => (marginLeft ? `${side}px` : "0")};
+  margin-right: ${({ marginRight, side }) =>
+    marginRight ? `${side}px` : "8px"};
   padding: 0 12px;
   display: inline-block;
   border-radius: 40px;
-  background-color: ${colors.Orange100};
+  background-color: ${({ color }) => color};
 `;
 
 const Menu = styled.div<{ typo: any }>`
@@ -66,7 +85,7 @@ const Menu = styled.div<{ typo: any }>`
     `}
 `;
 
-const Menuspan = styled.span<{ typo: any }>`
+const Menuspan = styled.span<{ typo: any; color: any }>`
   height: 100%;
   margin: auto;
   display: flex;
@@ -76,4 +95,5 @@ const Menuspan = styled.span<{ typo: any }>`
     css`
       ${typo}
     `}
+  color: ${({ color }) => color};
 `;
