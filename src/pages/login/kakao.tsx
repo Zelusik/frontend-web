@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { KakaoLogin } from "api/auth";
 import axios from "axios";
+import { Route } from "constants/Route";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -47,7 +48,7 @@ const KakaoRedirectPage = () => {
         setCookie("accessToken", tokens.accessToken, 1);
         setCookie("refreshToken", tokens.refreshToken, 30);
         if (loggedInMember.termsInfo) {
-          router.push("/");
+          router.push(Route.HOME());
         } else {
           router.push("/login/terms");
         }

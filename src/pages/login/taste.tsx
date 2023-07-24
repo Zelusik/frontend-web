@@ -13,6 +13,7 @@ import { PostTerms, PutTaste } from "api/auth";
 import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
 import { getCookie } from "utils/cookie";
+import { Route } from "constants/Route";
 
 const TastePage = () => {
   const router = useRouter();
@@ -21,7 +22,9 @@ const TastePage = () => {
   const handleClickBackBtn = () => {
     router.back();
   };
-  const { favoriteFoodCategories, terms } = useAppSelector((state) => state.auth);
+  const { favoriteFoodCategories, terms } = useAppSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     dispatch(
@@ -60,9 +63,9 @@ const TastePage = () => {
 
       // refresh token 만료 시 로그인 페이지로
       if (termsRes.data?.code === 1502 || tasteRes.data?.code === 1502) {
-        router.push("/login");
+        router.push(Route.LOGIN());
       }
-      router.push("/");
+      router.push(Route.HOME());
     }
   };
 
@@ -95,7 +98,9 @@ const TastePage = () => {
           text="잇터리 시작하기"
           radius={8}
           backgroundColor={
-            favoriteFoodCategories.length > 0 ? colors.Orange500 : colors.Orange200
+            favoriteFoodCategories.length > 0
+              ? colors.Orange500
+              : colors.Orange200
           }
           color={colors.N0}
           height="56px"
