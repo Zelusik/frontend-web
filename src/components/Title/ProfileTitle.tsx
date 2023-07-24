@@ -7,6 +7,7 @@ import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 
 export default function ProfileTitle({
+  type = "home",
   title,
   subTitle,
 
@@ -51,7 +52,7 @@ export default function ProfileTitle({
               alert("roundButton");
             }}
           />
-          <Setting margin="0 0 0 4px" color={colors.N80} />
+          {type === "home" && <Setting margin="0 0 0 4px" color={colors.N80} />}
         </Menu>
       </MenuList>
     </TitleWrapper>

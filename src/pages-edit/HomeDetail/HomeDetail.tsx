@@ -3,8 +3,7 @@ import styled from "@emotion/styled";
 
 import Spacing from "components/Spacing";
 import Image from "components/Image";
-import Hashtags from "./components/Hashtags";
-import Info from "./components/Info";
+import Info from "../../components/Share/Info";
 import Description from "components/Description";
 import Hr from "components/Hr";
 import { colors } from "constants/colors";
@@ -15,6 +14,7 @@ import Profile from "./components/Profile";
 import FoodTagImages from "components/FoodTagImages";
 import { useEffect, useState } from "react";
 import { keyframes } from "@emotion/react";
+import Hashtags from "components/Hashtags";
 
 export default function HomeDetail() {
   const router = useRouter();
@@ -51,7 +51,7 @@ export default function HomeDetail() {
 
       <div style={{ position: "relative", backgroundColor: "white" }}>
         <HomeDetailWrapper position="relative">
-          <Spacing size={14} />
+          <Spacing size={20} />
           <StoreTitle
             type="primary"
             title="소이연남"
@@ -60,9 +60,8 @@ export default function HomeDetail() {
         </HomeDetailWrapper>
 
         <div style={{ background: "white" }}>
-          <Spacing size={30} />
+          <Spacing size={16} />
           <Hashtags
-            typo={typography.Paragraph4}
             hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]}
           />
           <Spacing size={16} />
@@ -76,7 +75,6 @@ export default function HomeDetail() {
           그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
           열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
           더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를`}
-            typo={typography.Paragraph2}
           />
           <Spacing size={15} />
           <Hr height={1} color={colors.N20} />

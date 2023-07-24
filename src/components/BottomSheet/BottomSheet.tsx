@@ -1,164 +1,112 @@
-import { css, keyframes } from "@emotion/react";
+import { forwardRef, useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import Icon from "components/Icon";
-import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { useState } from "react";
+import useBottomSheet from "hooks/useBottomSheet";
+import { globalValue } from "constants/globalValue";
+import { keyframes } from "@emotion/react";
+import { match } from "ts-pattern";
+import useDisplaySize from "hooks/useDisplaySize";
 
-const Type: any = {
-  primary: [
-    {
-      icon: "Share",
-      text: "공유하기",
-      onClick: () => {
-        alert("공유하기");
-      },
-    },
-    {
-      icon: "Report",
-      text: "신고하기",
-      onClick: () => {
-        alert("신고하기");
-      },
-    },
-  ],
-  secondary: [
-    {
-      icon: "Share",
-      text: "공유하기",
-      onClick: () => {
-        alert("공유하기");
-      },
-    },
-    {
-      icon: "Report",
-      text: "신고하기",
-      onClick: () => {
-        alert("신고하기");
-      },
-    },
-    {
-      icon: "Report",
-      text: "신고하기",
-      onClick: () => {
-        alert("신고하기");
-      },
-    },
-  ],
-};
+const BottomSheet = forwardRef(function Div(
+  { children, type = "setting", state, ...props }: any,
+  forwardedRef
+) {
+  const { height } = useDisplaySize();
+  const [actionDelay, setActionDelay] = useState<boolean>(false);
 
-export default function BottomSheet({ type, visible }: any) {
-  const [testVisible, setTestVisible] = useState(visible);
-  const backgroundClick = () => {
-    setTestVisible(false);
-    alert("background");
-  };
+  const { sheet, content } = useBottomSheet({ state });
+
+  useEffect(() => {
+    if (!state.action) setTimeout(() => setActionDelay(state.action), 300);
+    else setActionDelay(state.action);
+  }, [state.action]);
 
   return (
-    <Wrapper>
-      <Background visible={testVisible} onClick={backgroundClick} />
-
-      <BottomSheetWrapper
-        visible={testVisible}
-        bottom={-(20 + Type[type].length * 46 + 34)}
+    <>
+      <Background
+        visible={state.action}
+        actionDelay={actionDelay}
+        shadow={match(type)
+          .with("setting", () => 0.7)
+          .with("map", () => 0.4)
+          .exhaustive()}
+      />
+      <Wrapper
+        ref={sheet}
+        BOTTOM_SHEET_HEIGHT={
+          height - (globalValue.BOTTOM_NAVIGATION_HEIGHT + 82)
+        }
       >
-        <TopBarWrapper>
-          <TopBar />
-        </TopBarWrapper>
-
-        <ButtonWrapper>
-          {Type[type].map((data: any, idx: number) => {
-            return (
-              <div key={idx} onClick={data.onClick}>
-                <Box>
-                  <Icon icon={data.icon} width={20} height={20} />
-                  <Text typo={typography.Headline2}>{data.text}</Text>
-                </Box>
-                <Spacing size={6} />
-              </div>
-            );
-          })}
-        </ButtonWrapper>
-        <Spacing size={34} />
-      </BottomSheetWrapper>
-    </Wrapper>
+        <HandleWrapper>
+          <Handle />
+        </HandleWrapper>
+        <BottomSheetContent ref={content}>{children}</BottomSheetContent>
+      </Wrapper>
+    </>
   );
-}
+});
 
-const fade = (visible: boolean) => keyframes`
+const fade = (visible: boolean, shadow: number) => keyframes`
   from {
-    opacity: ${visible ? 0 : 0.7};
+    opacity: ${visible ? 0 : shadow};
   }
   to {
-    opacity: ${visible ? 0.7 : 0};
+    opacity: ${visible ? shadow : 0};
   }
 `;
 
-const moveBottom = (visible: boolean, bottom: number) => keyframes`
-  from {
-    bottom:  ${visible ? bottom + `px` : 0};
-  }
-  to {
-    bottom:  ${visible ? 0 : bottom + `px`};
-  }
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-  top: 0;
-  z-index: 999;
-`;
-
-const Background = styled.div<{ visible: boolean }>`
+const Background = styled.div<{
+  visible: boolean;
+  shadow: number;
+  actionDelay: boolean;
+}>`
   width: 100%;
   max-width: 820px;
   height: 100%;
 
+  display: ${({ actionDelay }) => (actionDelay ? "flex" : "none")};
+  position: absolute;
+  top: 0;
+
   opacity: 0;
   background-color: ${colors.Shadow};
-  animation: ${(props) => fade(props.visible)} 0.3s forwards;
+  animation: ${(props) => fade(props.visible, props.shadow)} 0.3s forwards;
 `;
 
-const BottomSheetWrapper = styled.div<{ visible: boolean; bottom: number }>`
+const Wrapper = styled.div<{ BOTTOM_SHEET_HEIGHT: number }>`
   width: 100%;
-  position: absolute;
+  max-width: ${globalValue.MAX_WIDTH}px;
+  height: ${({ BOTTOM_SHEET_HEIGHT }) => BOTTOM_SHEET_HEIGHT}px;
+
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  top: calc(100% - ${globalValue.BOTTOM_NAVIGATION_HEIGHT}px - 24%);
 
   border-radius: 16px 16px 0 0;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.12);
   background-color: ${colors.N0};
-  animation: ${(props) => moveBottom(props.visible, props.bottom)} 0.3s forwards;
+
+  transition: transform 0.3s ease-out;
 `;
 
-const TopBarWrapper = styled.div`
+const HandleWrapper = styled.div`
   width: 100%;
-  height: 20px;
   display: flex;
 `;
-const TopBar = styled.div`
+const Handle = styled.div`
   width: 36px;
   height: 4px;
-  margin: auto;
+  margin: 8px auto;
 
   border-radius: 2px;
   background-color: ${colors.N40};
 `;
 
-const ButtonWrapper = styled.div`
-  padding: 0 20px;
+const BottomSheetContent = styled.div`
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 `;
-const Box = styled.div`
-  width: 100%;
-  margin: 10px 0;
-  display: flex;
-`;
-const Text = styled.div<{ typo: any }>`
-  margin-left: 6px;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-`;
+
+export default BottomSheet;

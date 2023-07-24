@@ -103,7 +103,7 @@ const ButtonWrapper = styled.button<{
 }>`
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
   border-radius: 999px;
-  box-shadow: ${({ shadow }) => shadow && `0px 0px 4px rgba(0, 0, 0, 0.1)`};
+  box-shadow: ${({ shadow }) => shadow && `0px 0px 6px rgba(0, 0, 0, 0.1)`};
   background-color: ${({ color }) => color};
 `;
 

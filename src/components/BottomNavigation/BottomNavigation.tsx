@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 import Spacing from "components/Spacing";
 import Icon from "components/Icon";
+import { globalValue } from "constants/globalValue";
 
 const navigationDatas = [
   { route: "/", en: "Home", kr: "홈" },
@@ -43,7 +44,7 @@ const BottomNavigation = () => {
 const BottomNavigationWrapper = styled.div`
   width: 100%;
   max-width: 820px;
-  height: 88px;
+  height: ${globalValue.BOTTOM_NAVIGATION_HEIGHT}px;
 
   position: fixed;
   bottom: 0;

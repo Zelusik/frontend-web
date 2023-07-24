@@ -25,6 +25,12 @@ export { default as Copy } from "./Copy";
 export { default as Arrow } from "./Arrow";
 export { default as BottomArrow } from "./BottomArrow";
 
+export { default as FindLocation } from "./FindLocation";
+export { default as StoreMarker } from "./StoreMarker";
+export { default as Restaurant } from "./Restaurant";
+export { default as LineMarker } from "./LineMarker";
+export { default as LineProfile } from "./LineProfile";
+
 // bottom navigation
 export { default as Home } from "./bottomNavigation/Home";
 export { default as Map } from "./bottomNavigation/Map";
