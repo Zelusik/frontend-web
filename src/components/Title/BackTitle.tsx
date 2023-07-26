@@ -8,12 +8,7 @@ import Icon from "components/Icon";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 
-export default function BackTitle({
-  type = "primary",
-  style,
-  text,
-  ...props
-}: any) {
+export default function BackTitle({ type = "primary", style, text, ...props }: any) {
   const router = useRouter();
 
   return (
@@ -48,6 +43,7 @@ export default function BackTitle({
 const TitleWrapper = styled.div<{ styles: any }>`
   height: 50px;
   display: flex;
+  padding: 14px 20px;
 `;
 
 const MenuList = styled.ul`
