@@ -13,6 +13,7 @@ import { changeAuthTermsInfo } from "reducer/slices/auth/authSlice";
 import { typography } from "constants/typography";
 import Link from "next/link";
 import BottomButton from "components/Button/BottomButton";
+import { Route } from "constants/Route";
 
 const TermsPage = () => {
   const dispatch = useAppDispatch();
@@ -66,7 +67,7 @@ const TermsPage = () => {
   };
 
   const handleClickNextBtn = () => {
-    router.push("/login/taste");
+    router.push(Route.TASTE());
   };
 
   return (
