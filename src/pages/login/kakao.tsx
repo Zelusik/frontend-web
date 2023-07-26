@@ -50,7 +50,7 @@ const KakaoRedirectPage = () => {
         if (loggedInMember.termsInfo) {
           router.push(Route.HOME());
         } else {
-          router.push("/login/terms");
+          router.push(Route.TERMS());
         }
       })
       .catch((err) => console.log(err));

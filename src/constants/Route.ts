@@ -1,5 +1,7 @@
 export const Route = {
   LOGIN: () => "/login",
+  TERMS: () => "/login/terms",
+  TASTE: () => "/login/taste",
   HOME: () => "/",
   HOME_DETAIL: () => "/home-detail",
 

@@ -55,6 +55,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["polished", "npm:4.2.2"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:18.2.0"],\
+            ["react-kakao-maps-sdk", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.9"],\
+            ["react-modal-sheet", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:2.0.0"],\
             ["react-query", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:3.39.3"],\
             ["react-redux", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:8.1.1"],\
             ["react-responsive-carousel", "npm:3.2.23"],\
@@ -3335,6 +3337,101 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@react-aria/ssr", [\
+        ["npm:3.7.0", {\
+          "packageLocation": "./.yarn/cache/@react-aria-ssr-npm-3.7.0-af7503cd09-cf4af47feb.zip/node_modules/@react-aria/ssr/",\
+          "packageDependencies": [\
+            ["@react-aria/ssr", "npm:3.7.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.7.0", {\
+          "packageLocation": "./.yarn/__virtual__/@react-aria-ssr-virtual-68a2de0cc6/0/cache/@react-aria-ssr-npm-3.7.0-af7503cd09-cf4af47feb.zip/node_modules/@react-aria/ssr/",\
+          "packageDependencies": [\
+            ["@react-aria/ssr", "virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.7.0"],\
+            ["@swc/helpers", "npm:0.5.1"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@react-aria/utils", [\
+        ["npm:3.17.0", {\
+          "packageLocation": "./.yarn/cache/@react-aria-utils-npm-3.17.0-f850a91e21-a7c9824441.zip/node_modules/@react-aria/utils/",\
+          "packageDependencies": [\
+            ["@react-aria/utils", "npm:3.17.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:648297bdb65aa8f6a3ae74ecf63a879211273ed29765610ae827b93e749f695c262d8257f189ec3e3a5386369251211f74be9ead831035d268ddd326d266fbe9#npm:3.17.0", {\
+          "packageLocation": "./.yarn/__virtual__/@react-aria-utils-virtual-6b69249aef/0/cache/@react-aria-utils-npm-3.17.0-f850a91e21-a7c9824441.zip/node_modules/@react-aria/utils/",\
+          "packageDependencies": [\
+            ["@react-aria/utils", "virtual:648297bdb65aa8f6a3ae74ecf63a879211273ed29765610ae827b93e749f695c262d8257f189ec3e3a5386369251211f74be9ead831035d268ddd326d266fbe9#npm:3.17.0"],\
+            ["@react-aria/ssr", "virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.7.0"],\
+            ["@react-stately/utils", "virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.7.0"],\
+            ["@react-types/shared", "virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.18.1"],\
+            ["@swc/helpers", "npm:0.4.14"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["clsx", "npm:1.2.1"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@react-stately/utils", [\
+        ["npm:3.7.0", {\
+          "packageLocation": "./.yarn/cache/@react-stately-utils-npm-3.7.0-7651126160-91feaae770.zip/node_modules/@react-stately/utils/",\
+          "packageDependencies": [\
+            ["@react-stately/utils", "npm:3.7.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.7.0", {\
+          "packageLocation": "./.yarn/__virtual__/@react-stately-utils-virtual-0f37ff7533/0/cache/@react-stately-utils-npm-3.7.0-7651126160-91feaae770.zip/node_modules/@react-stately/utils/",\
+          "packageDependencies": [\
+            ["@react-stately/utils", "virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.7.0"],\
+            ["@swc/helpers", "npm:0.5.1"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@react-types/shared", [\
+        ["npm:3.18.1", {\
+          "packageLocation": "./.yarn/cache/@react-types-shared-npm-3.18.1-3f3e414253-298822d1cc.zip/node_modules/@react-types/shared/",\
+          "packageDependencies": [\
+            ["@react-types/shared", "npm:3.18.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.18.1", {\
+          "packageLocation": "./.yarn/__virtual__/@react-types-shared-virtual-895ed01b02/0/cache/@react-types-shared-npm-3.18.1-3f3e414253-298822d1cc.zip/node_modules/@react-types/shared/",\
+          "packageDependencies": [\
+            ["@react-types/shared", "virtual:6b69249aef24a79a0cacfb0c2409b20e18b1eef050b5970edf845244698b5da366ad5e9b6b5e8e3868b035dfe7fc55bf17bb945bf2a9faf81e5fdb376fff287e#npm:3.18.1"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@reduxjs/toolkit", [\
         ["npm:1.9.5", {\
           "packageLocation": "./.yarn/cache/@reduxjs-toolkit-npm-1.9.5-4da955008b-54672c5593.zip/node_modules/@reduxjs/toolkit/",\
@@ -3683,6 +3780,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@swc/helpers", [\
+        ["npm:0.4.14", {\
+          "packageLocation": "./.yarn/cache/@swc-helpers-npm-0.4.14-f806c3fb16-273fd3f3fc.zip/node_modules/@swc/helpers/",\
+          "packageDependencies": [\
+            ["@swc/helpers", "npm:0.4.14"],\
+            ["tslib", "npm:2.6.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.5.1", {\
           "packageLocation": "./.yarn/cache/@swc-helpers-npm-0.5.1-424376f311-71e0e27234.zip/node_modules/@swc/helpers/",\
           "packageDependencies": [\
@@ -4946,6 +5051,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["clsx", [\
+        ["npm:1.2.1", {\
+          "packageLocation": "./.yarn/cache/clsx-npm-1.2.1-77792dc182-30befca801.zip/node_modules/clsx/",\
+          "packageDependencies": [\
+            ["clsx", "npm:1.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["color-convert", [\
         ["npm:1.9.3", {\
           "packageLocation": "./.yarn/cache/color-convert-npm-1.9.3-1fe690075e-fd7a64a17c.zip/node_modules/color-convert/",\
@@ -5511,6 +5625,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["polished", "npm:4.2.2"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:18.2.0"],\
+            ["react-kakao-maps-sdk", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.9"],\
+            ["react-modal-sheet", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:2.0.0"],\
             ["react-query", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:3.39.3"],\
             ["react-redux", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:8.1.1"],\
             ["react-responsive-carousel", "npm:3.2.23"],\
@@ -6503,7 +6619,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["glob", "npm:10.3.3"],\
             ["foreground-child", "npm:3.1.1"],\
-            ["jackspeak", "npm:2.2.1"],\
+            ["jackspeak", "npm:2.2.2"],\
             ["minimatch", "npm:9.0.3"],\
             ["minipass", "npm:7.0.2"],\
             ["path-scurry", "npm:1.10.1"]\
@@ -7246,10 +7362,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["jackspeak", [\
-        ["npm:2.2.1", {\
-          "packageLocation": "./.yarn/cache/jackspeak-npm-2.2.1-0644c98bfe-e29291c0d0.zip/node_modules/jackspeak/",\
+        ["npm:2.2.2", {\
+          "packageLocation": "./.yarn/cache/jackspeak-npm-2.2.2-374ca454fe-7b1468dd91.zip/node_modules/jackspeak/",\
           "packageDependencies": [\
-            ["jackspeak", "npm:2.2.1"],\
+            ["jackspeak", "npm:2.2.2"],\
             ["@isaacs/cliui", "npm:8.0.2"],\
             ["@pkgjs/parseargs", "npm:0.11.0"]\
           ],\
@@ -7371,6 +7487,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["array.prototype.flat", "npm:1.3.1"],\
             ["object.assign", "npm:4.1.4"],\
             ["object.values", "npm:1.1.6"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["kakao.maps.d.ts", [\
+        ["npm:0.1.38", {\
+          "packageLocation": "./.yarn/cache/kakao.maps.d.ts-npm-0.1.38-03eb4dd220-4033de2f1a.zip/node_modules/kakao.maps.d.ts/",\
+          "packageDependencies": [\
+            ["kakao.maps.d.ts", "npm:0.1.38"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8568,6 +8693,60 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-is-npm-18.2.0-0cc5edb910-e72d0ba81b.zip/node_modules/react-is/",\
           "packageDependencies": [\
             ["react-is", "npm:18.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-kakao-maps-sdk", [\
+        ["npm:1.1.9", {\
+          "packageLocation": "./.yarn/cache/react-kakao-maps-sdk-npm-1.1.9-b003f26bfb-030f49011b.zip/node_modules/react-kakao-maps-sdk/",\
+          "packageDependencies": [\
+            ["react-kakao-maps-sdk", "npm:1.1.9"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.9", {\
+          "packageLocation": "./.yarn/__virtual__/react-kakao-maps-sdk-virtual-d7eba3089a/0/cache/react-kakao-maps-sdk-npm-1.1.9-b003f26bfb-030f49011b.zip/node_modules/react-kakao-maps-sdk/",\
+          "packageDependencies": [\
+            ["react-kakao-maps-sdk", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.9"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["@types/react-dom", "npm:18.2.6"],\
+            ["kakao.maps.d.ts", "npm:0.1.38"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-modal-sheet", [\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/react-modal-sheet-npm-2.0.0-657c09a51c-a1757548e0.zip/node_modules/react-modal-sheet/",\
+          "packageDependencies": [\
+            ["react-modal-sheet", "npm:2.0.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:2.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-modal-sheet-virtual-648297bdb6/0/cache/react-modal-sheet-npm-2.0.0-657c09a51c-a1757548e0.zip/node_modules/react-modal-sheet/",\
+          "packageDependencies": [\
+            ["react-modal-sheet", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:2.0.0"],\
+            ["@react-aria/utils", "virtual:648297bdb65aa8f6a3ae74ecf63a879211273ed29765610ae827b93e749f695c262d8257f189ec3e3a5386369251211f74be9ead831035d268ddd326d266fbe9#npm:3.17.0"],\
+            ["@types/framer-motion", null],\
+            ["@types/react", "npm:18.2.14"],\
+            ["framer-motion", null],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/framer-motion",\
+            "@types/react",\
+            "framer-motion",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
