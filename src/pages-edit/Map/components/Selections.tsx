@@ -45,7 +45,7 @@ export default function Selections({ state }: any) {
               marginRight={idx === foods.length - 1}
               onClick={() => handleClickFood(idx)}
             >
-              <RoundButton type="text" act={data.action} text={data.food} />
+              <RoundButton type="map-text" act={data.action} text={data.food} />
             </MenuWrapper>
           );
         })}
