@@ -9,14 +9,7 @@ import { typography } from "constants/typography";
 interface Props {}
 
 const RoundButton = forwardRef(function Button(
-  {
-    children,
-    type = "map-text",
-    height = 37,
-    onClick,
-    act = true,
-    ...props
-  }: any,
+  { children, type = "map-text", height = 37, onClick, act = true, ...props }: any,
   forwardedRef
 ) {
   return (
@@ -25,7 +18,12 @@ const RoundButton = forwardRef(function Button(
       style={{
         width: "auto",
         height: type === "follow" ? 31 : type === "taste" ? 46 : 38,
-        padding: type === "taste" ? "10px 14px 10px 12px" : "0 12px",
+        padding:
+          type === "taste"
+            ? "10px 14px 10px 12px"
+            : type === "text"
+            ? "0 16px"
+            : "0 12px",
         alignItems: "center",
       }}
       color={match(type)
@@ -33,19 +31,23 @@ const RoundButton = forwardRef(function Button(
         .with("map-text", () => (act ? colors.Orange600 : colors.N0))
         .with("follow", () => (act ? colors.N100 : colors.N0))
         .with("taste", () => (act ? colors.Orange400 : colors.N0))
+        .with("text", () => (act ? colors.Orange100 : colors.N0))
         .exhaustive()}
       borderColor={match(type)
         .with("map-icon", () => colors.N0)
         .with("map-text", () => (act ? colors.Orange600 : colors.N0))
         .with("follow", () => (act ? colors.N100 : colors.N40))
         .with("taste", () => (act ? colors.Orange400 : colors.N20))
+        .with("text", () => (act ? colors.Orange600 : colors.N40))
         .exhaustive()}
       shadow={match(type)
         .with("map-icon", () => true)
         .with("map-text", () => true)
         .with("follow", () => false)
         .with("taste", () => false)
+        .with("text", () => false)
         .exhaustive()}
+      borderRadius={props.radius || "999px"}
     >
       <ButtonInner
         color={match(type)
@@ -53,18 +55,21 @@ const RoundButton = forwardRef(function Button(
           .with("map-text", () => (act ? colors.N0 : colors.N80))
           .with("follow", () => act && colors.N0)
           .with("taste", () => (act ? colors.N0 : colors.N80))
+          .with("text", () => (act ? colors.Orange600 : colors.N100))
           .exhaustive()}
         typo={match(type)
           .with("map-icon", () => typography.Heading2)
           .with("map-text", () => typography.Heading2)
           .with("follow", () => typography.Paragraph2)
           .with("taste", () => typography.Paragraph4)
+          .with("text", () => typography.Paragraph4)
           .exhaustive()}
         gap={match(type)
           .with("map-icon", () => "initial")
           .with("map-text", () => "initial")
           .with("follow", () => "initial")
           .with("taste", () => "8px")
+          .with("text", () => "initial")
           .exhaustive()}
       >
         {type !== "map-text" && type !== "text" && type !== "taste" && (
@@ -96,6 +101,7 @@ const RoundButton = forwardRef(function Button(
             .with("map-text", () => props.text)
             .with("follow", () => (act ? "팔로잉" : "팔로우"))
             .with("taste", () => props.text)
+            .with("text", () => props.text)
             .exhaustive()}
         </ButtonSpan>
       </ButtonInner>
@@ -107,9 +113,10 @@ const ButtonWrapper = styled.button<{
   color: any;
   borderColor: any;
   shadow: any;
+  borderRadius: any;
 }>`
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
-  border-radius: 999px;
+  border-radius: ${({ borderRadius }) => borderRadius};
   box-shadow: ${({ shadow }) => shadow && `0px 0px 6px rgba(0, 0, 0, 0.1)`};
   background-color: ${({ color }) => color};
 `;
