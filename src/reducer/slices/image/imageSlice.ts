@@ -4,17 +4,17 @@ import { ImageType } from "types/image";
 // 이미지를 보여줄 path, 위도 경도 등을 저장할 slice
 const initialState: ImageType[] = [];
 
-export const reviewSlice = createSlice({
+export const imageSlice = createSlice({
   name: "image",
   initialState,
   reducers: {
-    initializeDefaultInfo: () => initialState,
+    initializeImageInfo: () => initialState,
     changeImageInfo: (state, { payload }: { payload: ImageType }) => {
       state.push(payload);
     },
   },
 });
 
-export const { initializeDefaultInfo, changeImageInfo } = reviewSlice.actions;
+export const { initializeImageInfo, changeImageInfo } = imageSlice.actions;
 
-export default reviewSlice.reducer;
+export default imageSlice.reducer;
