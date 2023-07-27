@@ -1,10 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
+type ObjectFitOption = "fill" | "contain" | "cover" | "none" | "scale-down";
+
 interface Props {
+  alt: string;
   src: any;
   width?: number | string;
   height?: number | string;
   ratio?: number;
   radius?: number | string;
-  objectFit?: string;
+  objectFit?: ObjectFitOption;
 
   margin?: string;
   padding?: string;
@@ -12,6 +16,7 @@ interface Props {
 }
 
 export default function Image({
+  alt,
   src,
   width = "100%",
   height,
@@ -25,6 +30,7 @@ export default function Image({
 }: Props) {
   return (
     <img
+      alt={alt}
       onClick={onClick}
       src={src}
       style={{

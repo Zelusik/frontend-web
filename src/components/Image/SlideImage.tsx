@@ -4,7 +4,6 @@ import { colors } from "constants/colors";
 import { css } from "@emotion/react";
 import { typography } from "constants/typography";
 import { match } from "ts-pattern";
-// import Image from "./Image";
 
 export default function SlideImage({
   type = "primary",
@@ -19,6 +18,7 @@ export default function SlideImage({
         {images.map((data: string, idx: number) => {
           return (
             <Image
+              alt="음식 사진"
               key={idx}
               src={data}
               marginLeft={idx === 0}
@@ -47,13 +47,11 @@ const Image = styled.img<{
   marginLeft: boolean;
   marginRight: boolean;
   side: number;
-  color: any;
   ratio: any;
 }>`
   width: 200px;
   margin-left: ${({ marginLeft, side }) => (marginLeft ? `${side}px` : "0")};
-  margin-right: ${({ marginRight, side }) =>
-    marginRight ? `${side}px` : "8px"};
+  margin-right: ${({ marginRight, side }) => (marginRight ? `${side}px` : "8px")};
   display: inline-block;
   border-radius: 40px;
 

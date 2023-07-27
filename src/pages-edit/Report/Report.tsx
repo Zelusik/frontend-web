@@ -48,6 +48,7 @@ export default function Report() {
         <Spacing size={4} />
 
         <TextArea
+          placeholder="신고 내용을 더 빠르게 해결할 수 있도록 추가 정보를 제공해주세요"
           size={112}
           text="신고자 정보는 익명으로 처리되며, 신고된 포토리뷰는 검토 후 조치됩니다."
         />

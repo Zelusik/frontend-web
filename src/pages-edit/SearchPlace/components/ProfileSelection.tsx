@@ -21,6 +21,7 @@ export default function ProfileSelection({ text }: any) {
     <TitleWrapper>
       <div style={{ margin: "auto 0", display: "flex" }}>
         <Image
+          alt="프로필 사진"
           src="https://i.ibb.co/0Z6FNN7/60pt.png"
           width={30}
           height={30}
