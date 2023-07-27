@@ -17,6 +17,7 @@ export default function StoreBox({ id }: any) {
       <Spacing size={16} />
       <ImageWrapper>
         <Image
+          alt="음식 사진"
           src="https://i.ibb.co/0Z6FNN7/60pt.png"
           ratio={8 / 9}
           radius={20}

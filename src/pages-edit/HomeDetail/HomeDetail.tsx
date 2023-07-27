@@ -61,9 +61,7 @@ export default function HomeDetail() {
 
         <div style={{ background: "white" }}>
           <Spacing size={16} />
-          <Hashtags
-            hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]}
-          />
+          <Hashtags hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]} />
           <Spacing size={16} />
         </div>
 
@@ -83,7 +81,11 @@ export default function HomeDetail() {
         </HomeDetailWrapper>
 
         <Spacing size={16} />
-        <Image src="https://i.ibb.co/0Z6FNN7/60pt.png" ratio={36 / 23} />
+        <Image
+          alt="음식 사진"
+          src="https://i.ibb.co/0Z6FNN7/60pt.png"
+          ratio={36 / 23}
+        />
         <Spacing size={40} />
 
         <HomeDetailWrapper position="relative">
@@ -119,7 +121,6 @@ const BackTitleWrapper = styled.div<{ visible: boolean }>`
   position: fixed;
   top: 0;
   z-index: 999;
-  background-color: ${({ visible }) =>
-    visible ? `${colors.N0}` : `transparents`};
+  background-color: ${({ visible }) => (visible ? `${colors.N0}` : `transparents`)};
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;

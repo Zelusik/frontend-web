@@ -23,6 +23,7 @@ export default function ProfileTitle({
           }}
         >
           <Image
+            alt="프로필 이미지"
             src="https://i.ibb.co/0Z6FNN7/60pt.png"
             width={30}
             height={30}
