@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import authSlice from "./auth/authSlice";
 import globalSlice from "./global/globalSlice";
 import imageSlice from "./image/imageSlice";
+import reviewSlice from "./review/reviewSlice";
 
 const rootReducer = (state: any, action: PayloadAction<any>) => {
   switch (action.type) {
@@ -17,6 +18,7 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
         auth: authSlice,
         global: globalSlice,
         image: imageSlice,
+        review: reviewSlice,
       });
       return combineReducer(state, action);
     }
