@@ -32,61 +32,63 @@ const Place = () => {
   };
 
   useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          if (image.length > 0) {
-            kakaoSearchKeyword(
-              image[0].lng || position.coords.longitude,
-              image[0].lat || position.coords.latitude,
-              "",
-              1,
-              (res: any) => {
-                dispatch(
-                  changeReviewInfo({
-                    type: "placeInfo",
-                    value: {
-                      kakaoPid: res.documents[0].id,
-                      name: res.documents[0].place_name,
-                      pageUrl: res.documents[0].place_url,
-                      categoryGroupName: res.documents[0].category_name,
-                      phone: res.documents[0].phone,
-                      lotNumberAddress: res.documents[0].address_name,
-                      roadAddress: res.documents[0].raod_address_name,
-                      lat: res.documents[0].y,
-                      lng: res.documents[0].x,
-                    },
-                  })
+    if (!placeInfo.kakaoPid) {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            if (image.length > 0) {
+              kakaoSearchKeyword(
+                image[0].lng || position.coords.longitude,
+                image[0].lat || position.coords.latitude,
+                "",
+                1,
+                (res: any) => {
+                  dispatch(
+                    changeReviewInfo({
+                      type: "placeInfo",
+                      value: {
+                        kakaoPid: res.documents[0].id,
+                        name: res.documents[0].place_name,
+                        pageUrl: res.documents[0].place_url,
+                        categoryGroupName: res.documents[0].category_name,
+                        phone: res.documents[0].phone,
+                        lotNumberAddress: res.documents[0].address_name,
+                        roadAddress: res.documents[0].raod_address_name,
+                        lat: res.documents[0].y,
+                        lng: res.documents[0].x,
+                      },
+                    })
+                  );
+                }
+              );
+            }
+          },
+          (error) => {
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                alert(
+                  "이 문장은 사용자가 Geolocation API의 사용 요청을 거부했을 때 나타납니다!"
                 );
-              }
-            );
-          }
-        },
-        (error) => {
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              alert(
-                "이 문장은 사용자가 Geolocation API의 사용 요청을 거부했을 때 나타납니다!"
-              );
-              break;
+                break;
 
-            case error.POSITION_UNAVAILABLE:
-              alert("이 문장은 가져온 위치 정보를 사용할 수 없을 때 나타납니다!");
-              break;
+              case error.POSITION_UNAVAILABLE:
+                alert("이 문장은 가져온 위치 정보를 사용할 수 없을 때 나타납니다!");
+                break;
 
-            case error.TIMEOUT:
-              alert(
-                "이 문장은 위치 정보를 가져오기 위한 요청이 허용 시간을 초과했을 때 나타납니다!"
-              );
-              break;
+              case error.TIMEOUT:
+                alert(
+                  "이 문장은 위치 정보를 가져오기 위한 요청이 허용 시간을 초과했을 때 나타납니다!"
+                );
+                break;
+            }
+          },
+          {
+            enableHighAccuracy: false,
+            maximumAge: 0,
+            timeout: Infinity,
           }
-        },
-        {
-          enableHighAccuracy: false,
-          maximumAge: 0,
-          timeout: Infinity,
-        }
-      );
+        );
+      }
     }
   }, [image]);
 
