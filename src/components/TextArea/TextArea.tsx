@@ -4,10 +4,10 @@ import { typography } from "constants/typography";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 
-export default function TextArea({ size, text }: any) {
+export default function TextArea({ size, text, placeholder, onChange }: any) {
   return (
     <>
-      <TextAreaWrapper placeholder="신고해주세요" size={size} />
+      <TextAreaWrapper placeholder={placeholder} size={size} onChange={onChange} />
       <Spacing size={12} />
       <BoxText>{text}</BoxText>
     </>
