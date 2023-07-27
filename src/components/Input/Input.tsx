@@ -41,6 +41,10 @@ export default function Input({
         .with("line", () => false)
         .with("shadow", () => true)
         .exhaustive()}
+      borderRadius={match(type)
+        .with("line", () => "12px")
+        .with("shadow", () => "8px")
+        .exhaustive()}
     >
       <InputInner>
         <Icon icon="Search" width={24} height={24} />
@@ -81,7 +85,11 @@ export default function Input({
   );
 }
 
-const InputWrapper = styled.div<{ borderColor: any; shadow: any }>`
+const InputWrapper = styled.div<{
+  borderColor: any;
+  shadow: any;
+  borderRadius: any;
+}>`
   width: 100%;
   height: 48px;
   margin: auto;
@@ -90,7 +98,7 @@ const InputWrapper = styled.div<{ borderColor: any; shadow: any }>`
   display: flex;
   position: relative;
 
-  border-radius: 8px;
+  border-radius: ${({ borderRadius }) => borderRadius};
   border: 1px solid ${({ borderColor }) => borderColor};
   background-color: ${colors.N0};
   box-shadow: ${({ shadow }) => shadow && `0px 0px 6px rgba(0, 0, 0, 0.12)`};
