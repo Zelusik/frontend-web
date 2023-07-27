@@ -18,6 +18,7 @@ module.exports = {
     KAKAO_AUTH_URL: process.env.KAKAO_AUTH_URL,
     KAKAO_REST_API_KEY: process.env.KAKAO_REST_API_KEY,
     KAKAO_REDIRECT_URI: process.env.KAKAO_REDIRECT_URI,
+    KAKAO_SEARCH_API_KEY: process.env.KAKAO_SEARCH_API_KEY,
     BASE_URL: process.env.BASE_URL,
   },
   webpack(config) {
