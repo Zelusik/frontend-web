@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import wrapper from "store";
 import GlobalStyles from "./components/GlobalStyles";
 import { cache } from "@emotion/css";
@@ -6,6 +6,8 @@ import { CacheProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
+import { useAppSelector } from "hooks/useReduxHooks";
+import BottomSheet from "components/BottomSheet";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
@@ -13,7 +15,6 @@ const App = ({ Component, ...rest }: AppProps) => {
     props: { pageProps },
   } = wrapper.useWrappedStore(rest);
   const queryClient = new QueryClient();
-  const [modal, setModal] = useState(true);
 
   return (
     <>
@@ -23,16 +24,24 @@ const App = ({ Component, ...rest }: AppProps) => {
       />
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
-          <CacheProvider value={cache}>
-            <GlobalStyles modal={modal} />
-            <Hydrate state={pageProps.dehydratedState}>
-              <Component {...pageProps} />
-              {/* {modal && <BottomSheet type="primary" visible={true} />} */}
-            </Hydrate>
-          </CacheProvider>
+          <MyApp Component={Component} pageProps={pageProps} />
         </Provider>
       </QueryClientProvider>
     </>
+  );
+};
+
+const MyApp = ({ Component, pageProps }: any) => {
+  const { visible } = useAppSelector((state) => state.bottomSheet);
+
+  return (
+    <CacheProvider value={cache}>
+      <GlobalStyles />
+      <Hydrate state={pageProps.dehydratedState}>
+        <Component {...pageProps} />
+        {visible && <BottomSheet />}
+      </Hydrate>
+    </CacheProvider>
   );
 };
 

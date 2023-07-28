@@ -3,15 +3,13 @@ import { useRouter } from "next/router";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
-import BottomSheet from "components/BottomSheet";
+import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 import Input from "components/Input";
 import Selections from "./components/Selections";
 import KakaoMap from "./components/KakaoMap";
 import FindLocationButton from "./components/FindLocationButton";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { changeDisplayState } from "reducer/slices/global/globalSlice";
 import StoreBox from "./components/StoreBox";
 import LocationTitle from "./components/LocationTitle";
 
@@ -27,13 +25,13 @@ export default function Map() {
       <KakaoMap />
       <FindLocationButton />
 
-      <BottomSheet type="map" state={{ action, bottomSheetMove }}>
+      <MapBottomSheet type="map" state={{ action, bottomSheetMove }}>
         <LocationTitle />
         <Spacing size={14} />
         {["", "", "", "", ""].map((data: any, idx: number) => {
           return <StoreBox key={idx} />;
         })}
-      </BottomSheet>
+      </MapBottomSheet>
 
       <HeaderWrapper>
         <Spacing size={15} />
