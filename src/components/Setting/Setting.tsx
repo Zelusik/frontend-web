@@ -1,4 +1,6 @@
 import Icon from "components/Icon";
+import { useAppDispatch } from "hooks/useReduxHooks";
+import { changeVisibleType } from "reducer/slices/bottomSheet/bottomSheetSlice";
 
 interface Props {
   margin?: string;
@@ -7,6 +9,17 @@ interface Props {
 }
 
 export default function Setting({ margin, size, color }: Props) {
+  const dispatch = useAppDispatch();
+
+  const handleClickSetting = () => {
+    dispatch(
+      changeVisibleType({
+        type: "bottomSheet",
+        value: [1, "report"],
+      })
+    );
+  };
+
   return (
     <Icon
       icon="Dots"
@@ -15,9 +28,7 @@ export default function Setting({ margin, size, color }: Props) {
       margin={margin}
       fill={color}
       color={color}
-      onClick={() => {
-        alert("setting");
-      }}
+      onClick={handleClickSetting}
     />
   );
 }
