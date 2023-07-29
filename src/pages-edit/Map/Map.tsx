@@ -15,17 +15,13 @@ import LocationTitle from "./components/LocationTitle";
 
 export default function Map() {
   const router = useRouter();
-  const [action, setAction] = useState<boolean>(false);
-  const bottomSheetMove = (newAction: boolean) => {
-    setAction(newAction);
-  };
 
   return (
     <>
       <KakaoMap />
       <FindLocationButton />
 
-      <MapBottomSheet type="map" state={{ action, bottomSheetMove }}>
+      <MapBottomSheet>
         <LocationTitle />
         <Spacing size={14} />
         {["", "", "", "", ""].map((data: any, idx: number) => {
@@ -34,13 +30,13 @@ export default function Map() {
       </MapBottomSheet>
 
       <HeaderWrapper>
-        <Spacing size={15} />
+        <Spacing size={16} />
         <InputWrapper>
           <Input placeholder="지역, 음식점, 닉네임 검색" />
         </InputWrapper>
         <Spacing size={8} />
 
-        <Selections state={{ action, bottomSheetMove }} />
+        <Selections />
       </HeaderWrapper>
 
       <BottomNavigation />

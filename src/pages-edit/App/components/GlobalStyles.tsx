@@ -1,5 +1,6 @@
 import { css, Global } from "@emotion/react";
 import { colors } from "constants/colors";
+import { globalValue } from "constants/globalValue";
 
 export default function GlobalStyle({}: any) {
   return <Global styles={globalCss} />;
@@ -43,14 +44,14 @@ const globalCss = css`
     margin: 0;
     padding: 0;
     font-size: 16px;
-    max-width: 820px;
+    max-width: ${globalValue.MAX_WIDTH}px;
     margin: 0 auto;
     font-family: "Pretendard", sans-serif;
     background-color: ${colors.N0};
     color: ${colors.N100};
     min-height: 100dvh;
 
-    overflow-x: hidden;
+    overflow: hidden;
   }
   ::-webkit-scrollbar {
     display: none;

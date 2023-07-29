@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import Script from "next/script";
 import { Map } from "react-kakao-maps-sdk";
+import { globalValue } from "constants/globalValue";
 
 export default function KakaoMap() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function KakaoMap() {
 
 const MapWrapper = styled.div`
   width: 100%;
-  max-width: 820px;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: 100%;
   position: absolute;
   top: 0;
