@@ -9,18 +9,18 @@ import {
 } from "reducer/slices/bottomSheet/bottomSheetSlice";
 import { css, keyframes, styled } from "styled-components";
 import Report from "./children/Report";
+import SelectMenu from "./children/SelectMenu";
+import useDisplaySize from "hooks/useDisplaySize";
 
 interface Props {
   children?: any;
 }
 
-const COMPONENT_HEIGHT = { report: 146 };
-const COMPONENT = { report: <Report /> };
+const BottomSheet = forwardRef(function Div({ children, ...props }: Props, ref) {
+  const { height } = useDisplaySize();
+  const COMPONENT_HEIGHT = { report: 146, selectMenu: height * 0.8 };
+  const COMPONENT = { report: <Report />, selectMenu: <SelectMenu /> };
 
-const BottomSheet = forwardRef(function Div(
-  { children, ...props }: Props,
-  ref
-) {
   const dispatch = useAppDispatch();
   const { type, visible, actionDelay } = useAppSelector(
     (state) => state.bottomSheet
