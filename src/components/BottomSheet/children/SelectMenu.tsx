@@ -5,14 +5,18 @@ import { typography } from "constants/typography";
 import useGetMenus from "hooks/queries/review/useGetMenus";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import React from "react";
+import {
+  changeVisible,
+  changeVisibleType,
+} from "reducer/slices/bottomSheet/bottomSheetSlice";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { FoodType } from "types/review";
 
 const SelectMenu = () => {
   const dispatch = useAppDispatch();
-
   const { data } = useGetMenus();
   const { foodInfo } = useAppSelector((state) => state.review);
+
   const handleClickFood = (foodName: string) => {
     if (foodInfo.map((item: FoodType) => item.foodName).includes(foodName)) {
       dispatch(
@@ -29,6 +33,21 @@ const SelectMenu = () => {
         })
       );
     }
+  };
+
+  const handleClickRegisterMenu = () => {
+    dispatch(
+      changeVisible({
+        type: "bottomSheet",
+        value: 0,
+      })
+    );
+    dispatch(
+      changeVisibleType({
+        type: "bottomSheet",
+        value: [1, "registerMenu"],
+      })
+    );
   };
   return (
     <SelectMenuWrapper>
@@ -55,7 +74,10 @@ const SelectMenu = () => {
         }}
       >
         <p style={{ color: colors.N60 }}>찾는 메뉴가 없다면?</p>
-        <p style={{ color: colors.Orange600, textDecoration: "underline" }}>
+        <p
+          style={{ color: colors.Orange600, textDecoration: "underline" }}
+          onClick={handleClickRegisterMenu}
+        >
           직접 등록하기
         </p>
       </div>
