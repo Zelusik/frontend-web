@@ -35,7 +35,9 @@ export default function Home() {
 }
 
 const HomeWrapper = styled.div`
+  height: 100%;
   padding: 0 20px;
+  overflow-y: scroll;
 `;
 
 const HomeTitle = styled.div``;

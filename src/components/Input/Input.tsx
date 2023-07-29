@@ -117,6 +117,7 @@ const InputBox = styled.input`
 
   border: 0;
   outline: none;
+  background-color: ${colors.N0};
 
   ${css`
     ${typography.Paragraph6}

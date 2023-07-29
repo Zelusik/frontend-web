@@ -43,7 +43,7 @@ const BottomNavigation = () => {
 
 const BottomNavigationWrapper = styled.div`
   width: 100%;
-  max-width: 820px;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: ${globalValue.BOTTOM_NAVIGATION_HEIGHT}px;
 
   position: fixed;

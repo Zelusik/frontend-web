@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import RoundButton from "components/Button/RoundButton";
+import { useAppSelector } from "hooks/useReduxHooks";
 
 export default function Selections({ state }: any) {
   const router = useRouter();
-  const [actionDelay, setActionDelay] = useState<boolean>(false);
+  const { visible, actionDelay } = useAppSelector(
+    (state) => state.mapBottomSheet
+  );
 
   const [foods, setFoods] = useState<any>([
     { food: "한식", action: false },
@@ -21,13 +24,8 @@ export default function Selections({ state }: any) {
     setFoods(newFoods);
   };
 
-  useEffect(() => {
-    if (state.action) setTimeout(() => setActionDelay(state.action), 300);
-    else setActionDelay(state.action);
-  }, [state.action]);
-
   return (
-    <HashtagsWrapper visible={state.action} actionDelay={actionDelay}>
+    <HashtagsWrapper visible={visible} actionDelay={actionDelay}>
       <HashtagsInner>
         <MenuWrapper marginLeft={true} marginRight={false}>
           <RoundButton type="map-icon" act={true} textPadding="0 0 0 8px" />
@@ -54,23 +52,23 @@ export default function Selections({ state }: any) {
   );
 }
 
-const fade = (visible: boolean) => keyframes`
+const fade = (actionDelay: number) => keyframes`
   from {
-    opacity: ${visible ? 1 : 0};
+    opacity: ${actionDelay ? 1 : 0};
   }
   to {
-    opacity: ${visible ? 0 : 1};
+    opacity: ${actionDelay ? 0 : 1};
   }
 `;
 
 const HashtagsWrapper = styled.div<{
-  visible: boolean;
-  actionDelay: boolean;
+  actionDelay: number;
+  visible: number;
 }>`
   height: 42px;
-  display: ${({ actionDelay }) => (actionDelay ? "none" : "flex")};
+  display: ${({ visible }) => (visible === 1 ? "none" : "flex")};
   white-space: nowrap;
-  animation: ${(props) => fade(props.visible)} 300ms forwards;
+  opacity: ${({ visible }) => 1 - visible};
 `;
 
 const HashtagsInner = styled.div`

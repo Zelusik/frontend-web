@@ -97,7 +97,6 @@ export default function useBottomSheet({ ...props }: any) {
 
       if (isContentAreaTouched) {
         e.preventDefault();
-        console.log(currentTouchMove > props.BOTTOMSHEET_HEIGHT * 0.2);
         if (currentTouchMove > props.BOTTOMSHEET_HEIGHT * 0.2) {
           props.handleClickBackground();
           sheet.current!.style.setProperty("transform", `translateY(0)`);

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Icon from "components/Icon";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
+import { globalValue } from "constants/globalValue";
 import { typography } from "constants/typography";
 import { useState } from "react";
 
@@ -115,7 +116,7 @@ const Wrapper = styled.div`
 
 const Background = styled.div<{ visible: boolean }>`
   width: 100%;
-  max-width: 820px;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: 100%;
 
   opacity: 0;
