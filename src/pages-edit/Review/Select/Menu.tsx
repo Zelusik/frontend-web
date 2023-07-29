@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Image from "components/Image/Image";
 import { typography } from "constants/typography";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -14,12 +14,25 @@ import BottomButton from "components/Button/BottomButton";
 import BackTitle from "components/Title/BackTitle";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
+import { changeVisibleType } from "reducer/slices/bottomSheet/bottomSheetSlice";
+
 const Menu = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const image = useAppSelector((state) => state.image);
+  const { foodInfo } = useAppSelector((state) => state.review);
 
-  const handleClickSkipBtn = () => {
+  const handleClickNextBtn = () => {
     router.push(Route.REVIEW_KEYWORD());
+  };
+
+  const handleClickImage = () => {
+    dispatch(
+      changeVisibleType({
+        type: "bottomSheet",
+        value: [1, "selectMenu"],
+      })
+    );
   };
 
   return (
@@ -35,6 +48,7 @@ const Menu = () => {
                 ratio={1.14}
                 radius={20}
                 objectFit="cover"
+                onClick={handleClickImage}
               />
             </SwiperSlide>
           ))}
@@ -49,12 +63,12 @@ const Menu = () => {
 
       <BottomWrapper>
         <BottomButton
-          text="넘어가기"
+          text={foodInfo.length === 0 ? "넘어가기" : "다음으로"}
           radius={8}
           backgroundColor={colors.Orange400}
           color={colors.N0}
           height="54px"
-          onClick={handleClickSkipBtn}
+          onClick={handleClickNextBtn}
         />
       </BottomWrapper>
     </MenuWrapper>

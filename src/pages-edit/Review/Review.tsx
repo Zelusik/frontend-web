@@ -13,6 +13,7 @@ import {
 } from "reducer/slices/image/imageSlice";
 import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
+import { initializeReviewInfo } from "reducer/slices/review/reviewSlice";
 
 const Review = () => {
   const router = useRouter();
@@ -21,6 +22,7 @@ const Review = () => {
   // 이미지 파일에서 메타데이터 추출
   const extractGPSInfo = async (file: File): Promise<void> => {
     dispatch(initializeImageInfo());
+    dispatch(initializeReviewInfo());
     const imageInfo: { preview: string; lat: string; lng: string } = {
       preview: "",
       lat: "",

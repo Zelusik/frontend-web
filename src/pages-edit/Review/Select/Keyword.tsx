@@ -17,7 +17,7 @@ import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 const Keyword = () => {
   const route = useRouter();
   const dispatch = useAppDispatch();
-  const { keywords } = useAppSelector((state) => state.review);
+  const { keywords, foodInfo } = useAppSelector((state) => state.review);
 
   const handleClickKeywords = (keyword: string) => {
     if (keywords.length >= 3) {
@@ -49,8 +49,12 @@ const Keyword = () => {
     }
   };
 
-  const handleClickAIBtn = () => {
-    route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
+  const handleClickNextBtn = () => {
+    if (foodInfo.length === 0) {
+      route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
+    } else {
+      route.push(Route.REVIEW_FOOD_KEYWORD());
+    }
   };
 
   const handleClickSelfBtn = () => {
@@ -58,7 +62,7 @@ const Keyword = () => {
   };
   return (
     <KeywordWrapper>
-      <BackTitle type="default" text="키워드 선택" />
+      <BackTitle type="default" text="음식점 리뷰" />
       <MainWrapper>
         <div style={typography.Headline5}>음식점은 어떠셨나요?</div>
         <KeywordContainer>
@@ -73,6 +77,7 @@ const Keyword = () => {
                   act={keywords.includes(keyword)}
                   radius="12px"
                   onClick={() => handleClickKeywords(keyword)}
+                  height={38}
                 />
               ))}
             </div>
@@ -100,12 +105,13 @@ const Keyword = () => {
           1-3개 선택할 수 있어요
         </span>
         <BottomButton
-          text="AI 도움받기"
+          text={foodInfo.length === 0 ? "AI 도움받기" : "다음으로"}
           radius={8}
           backgroundColor={colors.Orange400}
           color={colors.N0}
           height="54px"
-          onClick={handleClickAIBtn}
+          onClick={handleClickNextBtn}
+          disabled={keywords.length === 0}
         />
         <ReviewButton onClick={handleClickSelfBtn}>직접 리뷰쓰기</ReviewButton>
       </BottomWrapper>

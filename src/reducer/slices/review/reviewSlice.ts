@@ -13,6 +13,7 @@ const initialState: ReviewType = {
     lat: "",
     lng: "",
   },
+  foodInfo: [],
   keywords: [],
   autoCreatedContent: "",
   content: "",

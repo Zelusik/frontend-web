@@ -2,11 +2,18 @@ import { ImageType } from "types/image";
 
 export interface ReviewType {
   placeInfo: PlaceType;
+  foodInfo?: FoodType[];
   keywords: string[];
   autoCreatedContent?: string;
   content?: string;
   images: ImageType[];
-  [key: string]: string | string[] | PlaceType | ImageType[] | undefined;
+  [key: string]:
+    | string
+    | string[]
+    | PlaceType
+    | FoodType[]
+    | ImageType[]
+    | undefined;
 }
 
 export interface PlaceType {
@@ -20,4 +27,10 @@ export interface PlaceType {
   lat: string;
   lng: string;
   [key: string]: string | undefined;
+}
+
+export interface FoodType {
+  foodName: string;
+  foodKeyword?: string[];
+  [key: string]: string | string[] | undefined;
 }
