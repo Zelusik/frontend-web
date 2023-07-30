@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Image from "components/Image/Image";
 import { typography } from "constants/typography";
@@ -21,6 +21,7 @@ const Menu = () => {
   const dispatch = useAppDispatch();
   const image = useAppSelector((state) => state.image);
   const { foodInfo } = useAppSelector((state) => state.review);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const handleClickNextBtn = () => {
     router.push(Route.REVIEW_KEYWORD());
@@ -38,8 +39,13 @@ const Menu = () => {
   return (
     <MenuWrapper>
       <BackTitle type="default" text="메뉴 선택" />
-      <ImageWrapper>
-        <Swiper className="banner" slidesPerView={1} spaceBetween={20}>
+      <ImageWrapper style={{ position: "relative" }}>
+        <Swiper
+          className="banner"
+          slidesPerView={1}
+          spaceBetween={20}
+          onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
+        >
           {image.map((preview: any) => (
             <SwiperSlide key={preview.preview}>
               <Image
@@ -53,6 +59,7 @@ const Menu = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+        <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
       </ImageWrapper>
       <Spacing size={10} />
       <ExplanationWrapper>
@@ -82,6 +89,19 @@ const MenuWrapper = styled.div`
 const ImageWrapper = styled.div`
   padding: 20px;
 `;
+
+const ImageBadge = styled.span`
+  position: absolute;
+  bottom: 40px;
+  right: 30px;
+  padding: 4px 11px;
+  ${typography.Paragraph2};
+  color: ${colors.N0};
+  background-color: rgba(32, 35, 48, 0.6);
+  border-radius: 100px;
+  z-index: 10;
+`;
+
 const ExplanationWrapper = styled.div`
   position: relative;
   padding: 0 20px;
