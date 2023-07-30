@@ -32,11 +32,8 @@ const FoodTagImages = forwardRef(({}, ref) => {
   };
 
   return (
-    <div
-      ref={ref}
-      style={{ width: "100%", maxWidth: 820, position: "fixed", top: 0 }}
-    >
-      <Swiper onSlideChange={onSlideChange}>
+    <FoodTagWrapper ref={ref}>
+      {/* <Swiper onSlideChange={onSlideChange}>
         {images.map((src: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
@@ -44,21 +41,28 @@ const FoodTagImages = forwardRef(({}, ref) => {
             </SwiperSlide>
           );
         })}
-      </Swiper>
+      </Swiper> */}
       <FoodTagLine percentage={percentage} />
 
-      <FoodTagWrapper>
+      <FoodTagInner>
         <FoodTag
           onClick={() => {
             alert("foodtag");
           }}
         />
-      </FoodTagWrapper>
-    </div>
+      </FoodTagInner>
+    </FoodTagWrapper>
   );
 });
 
 const FoodTagWrapper = styled.div`
+  width: 100%;
+  max-width: 820px;
+  position: fixed;
+  top: 0;
+`;
+
+const FoodTagInner = styled.div`
   padding: 0 20px;
   position: absolute;
   bottom: 21px;

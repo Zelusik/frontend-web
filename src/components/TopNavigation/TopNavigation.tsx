@@ -1,45 +1,45 @@
 import React, { forwardRef, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import useDisplaySize from "hooks/useDisplaySize";
+import { match } from "ts-pattern";
+
 import Hr from "components/Hr";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
-import { css } from "@emotion/react";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import useDisplaySize from "hooks/useDisplaySize";
-import { match } from "ts-pattern";
 
 const TopNavigation = forwardRef(function (
-  { children, type = "store-detail", state, titleList = [], ...props }: any,
-  forwardedRef
+  {
+    children,
+    scrollRef,
+    scrollTop,
+
+    type = "store-detail",
+    state,
+    titleList = [],
+  }: any,
+  ref
 ) {
   const router = useRouter();
-  const scrollRef = useRef<any>(null);
   const swiperRef = useRef<any>(null);
-  const { height } = useDisplaySize();
 
   const onSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;
     state.setCurrentIndex(newSwiper);
-    scrollRef.current!.scrollTop = 0;
+
+    if (scrollRef.current?.scrollTop > scrollTop) {
+      scrollRef.current!.scrollTop = scrollTop;
+    }
   };
 
   return (
-    <div
-      ref={scrollRef}
-      style={{
-        height: type === "store-detail" ? height - 50 : height - 126,
-        overflow:
-          type === "store-detail"
-            ? state.topFixed && state.currentIndex === 0
-              ? "scroll"
-              : "hidden"
-            : "scroll",
-      }}
-    >
+    <>
       <TitleSelection
         height={match(type)
           .with("store-detail", () => 38)
@@ -89,7 +89,7 @@ const TopNavigation = forwardRef(function (
           return <SwiperSlide key={idx}>{data}</SwiperSlide>;
         })}
       </Swiper>
-    </div>
+    </>
   );
 });
 
@@ -101,7 +101,7 @@ const TitleSelection = styled.div<{ height: number; topFixed: any }>`
   position: ${({ topFixed }) => (topFixed ? "fixed" : "relative")};
   top: ${({ topFixed }) => (topFixed ? "50px" : "0")};
   background-color: ${colors.N0};
-  z-index: 999;
+  z-index: 900;
 `;
 const TitleWrapper = styled.div`
   height: 36px;
