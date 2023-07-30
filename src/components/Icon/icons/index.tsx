@@ -30,6 +30,7 @@ export { default as StoreMarker } from "./StoreMarker";
 export { default as Restaurant } from "./Restaurant";
 export { default as LineMarker } from "./LineMarker";
 export { default as LineProfile } from "./LineProfile";
+export { default as ScaleUp } from "./ScaleUp";
 
 // bottom navigation
 export { default as Home } from "./bottomNavigation/Home";

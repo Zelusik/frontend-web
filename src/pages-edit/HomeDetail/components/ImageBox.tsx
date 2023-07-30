@@ -4,11 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-// import FoodTag from "./FoodTag";
-// import FoodTagLine from "./FoodTagLine";
 import TagImage from "components/Image/TagImage";
 import useDisplaySize from "hooks/useDisplaySize";
 import FoodTagLine from "./FoodTagLine";
+import FoodTag from "./FoodTag";
 
 const ImageBox = forwardRef(({}, ref) => {
   const { width } = useDisplaySize();
@@ -40,7 +39,7 @@ const ImageBox = forwardRef(({}, ref) => {
         {images.map((src: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
-              <TagImage key={idx} src={src} ratio={1} />
+              <TagImage key={idx} src={src} />
             </SwiperSlide>
           );
         })}
@@ -48,11 +47,11 @@ const ImageBox = forwardRef(({}, ref) => {
       <FoodTagLine percentage={percentage} />
 
       <FoodTagInner>
-        {/* <FoodTag
+        <FoodTag
           onClick={() => {
             alert("foodtag");
           }}
-        /> */}
+        />
       </FoodTagInner>
     </FoodTagWrapper>
   );

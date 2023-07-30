@@ -16,6 +16,7 @@ import Hashtags from "components/Hashtags";
 import Profile from "./components/Profile";
 import ImageBox from "./components/ImageBox";
 import KakaoMap from "components/KakaoMap";
+import ScaleUpButton from "./components/ScaleUpButton";
 
 export default function HomeDetail() {
   const router = useRouter();
@@ -64,7 +65,12 @@ export default function HomeDetail() {
           </div>
 
           <Hashtags
-            hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]}
+            hashtags={[
+              "단체모임에 딱",
+              "데이트에 최고",
+              "웨이팅 있음",
+              "웨이팅 있음",
+            ]}
           />
 
           <div style={{ padding: "0 20px" }}>
@@ -85,7 +91,8 @@ export default function HomeDetail() {
           </div>
 
           <KakaoMapWrapper height={(width * 23) / 36}>
-            <KakaoMap />
+            <KakaoMap lat={33.450701} lng={126.570667} />
+            <ScaleUpButton />
           </KakaoMapWrapper>
 
           <div style={{ padding: "0 20px" }}>
@@ -137,4 +144,6 @@ const KakaoMapWrapper = styled.div<{ height: number }>`
   width: 100%;
   height: ${({ height }) => height}px;
   overflow: hidden;
+
+  position: relative;
 `;
