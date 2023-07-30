@@ -7,12 +7,22 @@ import { colors } from "constants/colors";
 import Spacing from "components/Spacing";
 import Hr from "components/Hr";
 import { globalValue } from "constants/globalValue";
+import { useRouter } from "next/router";
+import { Route } from "constants/Route";
 
 const ImageBox = forwardRef(({ images }: any, ref) => {
+  const router = useRouter();
   const { width } = useDisplaySize();
+  const handleClickImage = () => {
+    router.push(Route.IMAGE_DETAIL());
+  };
 
   return (
-    <ImageBoxWrapper ref={ref} style={{ height: (width * 281) / 360 }}>
+    <ImageBoxWrapper
+      ref={ref}
+      style={{ height: (width * 281) / 360 }}
+      onClick={handleClickImage}
+    >
       <ImageWrapper>
         <ImageHorizonal
           width={images.length < 2 ? width : width / 2}
