@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import wrapper from "store";
 import GlobalStyles from "./components/GlobalStyles";
 import { cache } from "@emotion/css";
@@ -44,7 +44,7 @@ const MyApp = ({ Component, pageProps }: any) => {
       <GlobalStyles />
       <Hydrate state={pageProps.dehydratedState}>
         <Component {...pageProps} />
-        {visible && <BottomSheet />}
+        {visible ? <BottomSheet /> : null}
       </Hydrate>
     </CacheProvider>
   );
