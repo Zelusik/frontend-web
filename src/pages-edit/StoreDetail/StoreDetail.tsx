@@ -15,6 +15,14 @@ import StoreTitle from "components/Title/StoreTitle";
 import ReivewBox from "./components/ReviewBox";
 import ImageBox from "./components/ImageBox";
 
+const images = [
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "",
+  // "",
+];
+
 export default function StoreDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
@@ -27,20 +35,33 @@ export default function StoreDetail() {
 
   function onScroll() {
     const scrollTop = (width * 281) / 360 + 125;
-    if (scrollRef.current?.scrollTop > scrollTop && currentIndex === 1) {
+    if (
+      images.length === 0 &&
+      scrollRef.current?.scrollTop >= 165 &&
+      currentIndex === 1
+    ) {
+      scrollRef.current!.scrollTop = 165;
+    } else if (scrollRef.current?.scrollTop > scrollTop && currentIndex === 1) {
       scrollRef.current!.scrollTop = scrollTop;
       return;
     }
 
-    if (scrollRef.current?.scrollTop >= imageRef.current?.clientHeight - 20) {
+    if (images.length === 0 && scrollRef.current?.scrollTop >= 25) {
+      setTitleChange(true);
+    } else if (
+      scrollRef.current?.scrollTop >=
+      imageRef.current?.clientHeight - 20
+    ) {
       setTitleChange(true);
     } else {
       setTitleChange(false);
     }
 
-    if (
+    if (images.length === 0 && scrollRef.current?.scrollTop >= 165) {
+      setTopFixed(true);
+    } else if (
       scrollRef.current?.scrollTop >=
-      imageRef.current?.clientHeight + 20 + 49 + 96 - 50
+      imageRef.current?.clientHeight + 115
     ) {
       setTopFixed(true);
     } else {
@@ -57,16 +78,22 @@ export default function StoreDetail() {
 
   return (
     <>
-      <ImageBox ref={imageRef} />
+      <ImageBox ref={imageRef} images={images} />
       <BackTitleWrapper visible={titleChange}>
         <BackTitle
-          type={titleChange ? "secondary" : "primary"}
+          type={
+            titleChange
+              ? "secondary"
+              : images.length > 0
+              ? "default"
+              : "secondary"
+          }
           titleText={titleChange && "소이연남"}
         />
       </BackTitleWrapper>
 
       <HomeDetailWrapper ref={scrollRef}>
-        <Spacing size={(width * 281) / 360} />
+        <Spacing size={images.length > 0 ? (width * 281) / 360 : 50} />
 
         <HomeDetailInner position="relative">
           <Spacing size={20} />

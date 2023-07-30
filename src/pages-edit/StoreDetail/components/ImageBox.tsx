@@ -8,15 +8,8 @@ import Spacing from "components/Spacing";
 import Hr from "components/Hr";
 import { globalValue } from "constants/globalValue";
 
-const ImageBox = forwardRef(({}, ref) => {
+const ImageBox = forwardRef(({ images }: any, ref) => {
   const { width } = useDisplaySize();
-  const images = [
-    "https://i.ibb.co/0Z6FNN7/60pt.png",
-    "https://i.ibb.co/0Z6FNN7/60pt.png",
-    "https://i.ibb.co/0Z6FNN7/60pt.png",
-    "",
-    // "",
-  ];
 
   return (
     <ImageBoxWrapper ref={ref} style={{ height: (width * 281) / 360 }}>
@@ -25,15 +18,17 @@ const ImageBox = forwardRef(({}, ref) => {
           width={images.length < 2 ? width : width / 2}
           height={(width * 281) / 360}
         >
-          <Image
-            alt="디테일 이미지"
-            type="home-detail"
-            src={
-              images.length > 0
-                ? images[0]
-                : "https://i.ibb.co/2kSZX6Y/60pt.png"
-            }
-          />
+          {images.length > 0 ? (
+            <Image
+              alt="디테일 이미지"
+              type="home-detail"
+              src={
+                images.length > 0
+                  ? images[0]
+                  : "https://i.ibb.co/2kSZX6Y/60pt.png"
+              }
+            />
+          ) : null}
         </ImageHorizonal>
       </ImageWrapper>
 
