@@ -1,24 +1,25 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { colors } from "constants/colors";
+
 import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 import Input from "components/Input";
+
 import Selections from "./components/Selections";
-import KakaoMap from "./components/KakaoMap";
 import FindLocationButton from "./components/FindLocationButton";
 import StoreBox from "./components/StoreBox";
 import LocationTitle from "./components/LocationTitle";
+import KakaoMap from "components/KakaoMap";
 
 export default function Map() {
   const router = useRouter();
 
   return (
     <>
-      <KakaoMap />
+      <KakaoMapWrapper>
+        <KakaoMap />
+      </KakaoMapWrapper>
       <FindLocationButton />
 
       <MapBottomSheet>
@@ -43,6 +44,14 @@ export default function Map() {
     </>
   );
 }
+
+const KakaoMapWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+`;
 
 const HeaderWrapper = styled.div`
   width: 100%;

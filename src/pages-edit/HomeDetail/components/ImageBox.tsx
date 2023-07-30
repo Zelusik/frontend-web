@@ -4,11 +4,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import FoodTag from "./FoodTag";
-import FoodTagLine from "./FoodTagLine";
+// import FoodTag from "./FoodTag";
+// import FoodTagLine from "./FoodTagLine";
 import TagImage from "components/Image/TagImage";
+import useDisplaySize from "hooks/useDisplaySize";
+import FoodTagLine from "./FoodTagLine";
 
-const FoodTagImages = forwardRef(({}, ref) => {
+const ImageBox = forwardRef(({}, ref) => {
+  const { width } = useDisplaySize();
   const images = [
     "https://i.ibb.co/0Z6FNN7/60pt.png",
     "https://i.ibb.co/0Z6FNN7/60pt.png",
@@ -33,7 +36,7 @@ const FoodTagImages = forwardRef(({}, ref) => {
 
   return (
     <FoodTagWrapper ref={ref}>
-      {/* <Swiper onSlideChange={onSlideChange}>
+      <Swiper onSlideChange={onSlideChange} style={{ height: width + 4 }}>
         {images.map((src: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
@@ -41,23 +44,25 @@ const FoodTagImages = forwardRef(({}, ref) => {
             </SwiperSlide>
           );
         })}
-      </Swiper> */}
+      </Swiper>
       <FoodTagLine percentage={percentage} />
 
       <FoodTagInner>
-        <FoodTag
+        {/* <FoodTag
           onClick={() => {
             alert("foodtag");
           }}
-        />
+        /> */}
       </FoodTagInner>
     </FoodTagWrapper>
   );
 });
 
-const FoodTagWrapper = styled.div`
+const FoodTagWrapper = styled.div<{ height: number }>`
   width: 100%;
   max-width: 820px;
+  height: ${({ height }) => height}px;
+
   position: fixed;
   top: 0;
 `;
@@ -66,6 +71,6 @@ const FoodTagInner = styled.div`
   padding: 0 20px;
   position: absolute;
   bottom: 21px;
-  z-index: 999;
+  z-index: 900;
 `;
-export default FoodTagImages;
+export default ImageBox;

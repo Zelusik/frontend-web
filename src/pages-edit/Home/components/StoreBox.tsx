@@ -19,8 +19,7 @@ export default function StoreBox({ id }: any) {
         <Image
           alt="음식 사진"
           src="https://i.ibb.co/0Z6FNN7/60pt.png"
-          ratio={8 / 9}
-          radius={20}
+          type="home"
           onClick={() => {
             router.push(Route.HOME_DETAIL());
           }}
@@ -28,7 +27,7 @@ export default function StoreBox({ id }: any) {
         <StoreTitle
           type="default"
           title="소이연남"
-          subtitle="음식 카테고리 지역"
+          subTitle="음식 카테고리 지역"
           onClick={() => {
             router.push(Route.HOME_DETAIL());
           }}

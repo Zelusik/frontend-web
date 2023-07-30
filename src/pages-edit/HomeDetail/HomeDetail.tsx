@@ -1,28 +1,32 @@
 import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
+import useDisplaySize from "hooks/useDisplaySize";
 import Spacing from "components/Spacing";
-import Image from "components/Image";
-import Info from "../../components/Share/Info";
+import Info from "components/Share/Info";
 import Description from "components/Description";
 import Hr from "components/Hr";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
 import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
-import Profile from "./components/Profile";
-import FoodTagImages from "components/FoodTagImages";
-import { useEffect, useState } from "react";
-import { keyframes } from "@emotion/react";
 import Hashtags from "components/Hashtags";
+
+import Profile from "./components/Profile";
+import ImageBox from "./components/ImageBox";
+import KakaoMap from "components/KakaoMap";
 
 export default function HomeDetail() {
   const router = useRouter();
-  const [WINDOW_WIDTH, setWindow] = useState<number>(0);
+  const scrollRef = useRef<any>(null);
+  const imageRef = useRef<any>(null);
+
+  const { width } = useDisplaySize();
   const [titleChange, setTitleChange] = useState<boolean>(false);
 
-  function onScroll(width: number) {
-    if (window.scrollY >= width + 6 - 20) {
+  function onScroll() {
+    if (scrollRef.current?.scrollTop >= window.innerWidth + 4 - 20) {
       setTitleChange(true);
     } else {
       setTitleChange(false);
@@ -30,18 +34,15 @@ export default function HomeDetail() {
   }
 
   useEffect(() => {
-    setWindow(window.innerWidth);
-    window.addEventListener("scroll", () => onScroll(window.innerWidth));
+    scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
-      window.removeEventListener("scroll", () => onScroll(window.innerWidth));
+      scrollRef.current?.removeEventListener("scroll", onScroll);
     };
   }, []);
 
   return (
     <>
-      <Spacing size={WINDOW_WIDTH + 6} />
-      <FoodTagImages />
-
+      <ImageBox ref={imageRef} />
       <BackTitleWrapper visible={titleChange}>
         <BackTitle
           type={titleChange ? "secondary" : "primary"}
@@ -49,51 +50,52 @@ export default function HomeDetail() {
         />
       </BackTitleWrapper>
 
-      <div style={{ position: "relative", backgroundColor: "white" }}>
-        <HomeDetailWrapper position="relative">
+      <HomeDetailWrapper ref={scrollRef}>
+        <Spacing size={width + 4} />
+        <HomeDetailInner position="relative">
           <Spacing size={20} />
-          <StoreTitle
-            type="primary"
-            title="소이연남"
-            subtitle="음식 카테고리 지역"
+          <div style={{ padding: "0 20px" }}>
+            <StoreTitle
+              type="primary"
+              title="소이연남"
+              subTitle="음식 카테고리 지역"
+            />
+            <Spacing size={16} />
+          </div>
+
+          <Hashtags
+            hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]}
           />
-        </HomeDetailWrapper>
 
-        <div style={{ background: "white" }}>
-          <Spacing size={16} />
-          <Hashtags hashtags={["단체모임에 딱", "데이트에 최고", "웨이팅 있음"]} />
-          <Spacing size={16} />
-        </div>
-
-        <HomeDetailWrapper position="relative">
-          <Description
-            text={`그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
+          <div style={{ padding: "0 20px" }}>
+            <Spacing size={16} />
+            <Description
+              text={`그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
           열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
           더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를
           그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
           열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
           더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를`}
-          />
-          <Spacing size={15} />
-          <Hr height={1} color={colors.N20} />
-          <Spacing size={16} />
-          <Profile />
-        </HomeDetailWrapper>
+            />
+            <Spacing size={15} />
+            <Hr />
+            <Spacing size={16} />
+            <Profile />
+            <Spacing size={16} />
+          </div>
 
-        <Spacing size={16} />
-        <Image
-          alt="음식 사진"
-          src="https://i.ibb.co/0Z6FNN7/60pt.png"
-          ratio={36 / 23}
-        />
-        <Spacing size={40} />
+          <KakaoMapWrapper height={(width * 23) / 36}>
+            <KakaoMap />
+          </KakaoMapWrapper>
 
-        <HomeDetailWrapper position="relative">
-          {["", ""].map((data: any, idx: number) => {
-            return <Info key={idx} />;
-          })}
-        </HomeDetailWrapper>
-      </div>
+          <div style={{ padding: "0 20px" }}>
+            <Spacing size={40} />
+            {["", ""].map((data: any, idx: number) => {
+              return <Info key={idx} />;
+            })}
+          </div>
+        </HomeDetailInner>
+      </HomeDetailWrapper>
     </>
   );
 }
@@ -109,8 +111,13 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const HomeDetailWrapper = styled.div<{ position: any }>`
-  padding: 0 20px;
+const HomeDetailWrapper = styled.div`
+  height: 100%;
+  overflow-y: scroll;
+  background-color: ${colors.N0};
+`;
+
+const HomeDetailInner = styled.div<{ position: any }>`
   position: ${({ position }) => position};
   background-color: ${colors.N0};
 `;
@@ -120,7 +127,14 @@ const BackTitleWrapper = styled.div<{ visible: boolean }>`
   padding: 0 20px;
   position: fixed;
   top: 0;
-  z-index: 999;
-  background-color: ${({ visible }) => (visible ? `${colors.N0}` : `transparents`)};
+  z-index: 900;
+  background-color: ${({ visible }) =>
+    visible ? `${colors.N0}` : `transparents`};
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
+`;
+
+const KakaoMapWrapper = styled.div<{ height: number }>`
+  width: 100%;
+  height: ${({ height }) => height}px;
+  overflow: hidden;
 `;
