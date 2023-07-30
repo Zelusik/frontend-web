@@ -19,8 +19,7 @@ export default function StoreBox() {
       <Image
         alt="음식 사진"
         src="https://i.ibb.co/0Z6FNN7/60pt.png"
-        ratio={330 / 192}
-        radius={12}
+        type="map-bottom-sheet"
       />
       <Spacing size={16} />
       <StoreTitle
