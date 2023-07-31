@@ -9,6 +9,8 @@ import globalSlice from "./global/globalSlice";
 import imageSlice from "./image/imageSlice";
 import reviewSlice from "./review/reviewSlice";
 import searchSlice from "./search/searchSlice";
+import currIdxSlice from "./image/currIdxSlice";
+import menuTagSlice from "./image/menuTagSlice";
 
 const rootReducer = (state: any, action: PayloadAction<any>) => {
   switch (action.type) {
@@ -26,6 +28,8 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
         mapBottomSheet: mapBottomSheetSlice,
         search: searchSlice,
         image: imageSlice,
+        menuTag: menuTagSlice,
+        currIdx: currIdxSlice,
         review: reviewSlice,
       });
       return combineReducer(state, action);

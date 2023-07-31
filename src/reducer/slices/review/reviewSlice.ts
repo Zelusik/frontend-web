@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PlaceType, ReviewType } from "types/review";
 
 const initialState: ReviewType = {
+  placeId: 0,
   placeInfo: {
     kakaoPid: "",
     name: "",
     pageUrl: "",
-    categoryGroupName: "",
+    categoryName: "",
+    categoryGroupCode: "",
     phone: "",
     lotNumberAddress: "",
     roadAddress: "",

@@ -5,6 +5,15 @@ const client = axios.create({
   baseURL: process.env.BASE_URL,
 });
 
+client.interceptors.request.use((config) => {
+  const accessToken = getCookie("accessToken");
+
+  !accessToken
+    ? (config.headers["Authorization"] = "")
+    : (config.headers["Authorization"] = `Bearer ${accessToken}`);
+  return config;
+});
+
 // app render될 때, interceptor
 client.interceptors.response.use(
   (response) => {
@@ -12,7 +21,7 @@ client.interceptors.response.use(
   },
   async (error) => {
     const { config, response } = error;
-    // error가 날 경우, throw
+
     if (response.data.code === 1502) {
       const refreshToken = getCookie("refreshToken");
       const originalRequest = config;
@@ -36,8 +45,11 @@ client.interceptors.response.use(
           console.log("/auth/token err", err);
           return Promise.reject(err);
         });
+
       return axios(originalRequest);
     }
+    // error throw
+    throw error;
   }
 );
 
