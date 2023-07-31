@@ -16,6 +16,7 @@ interface Props {
   color?: string;
 
   onClick?: any;
+  onTouchEnd?: any;
 }
 
 const Icon = ({
@@ -30,12 +31,14 @@ const Icon = ({
   color,
 
   onClick,
+  onTouchEnd,
 }: Props) => {
   const IconComponent = icons[icon as keyof typeof icons];
 
   return (
     <IconWrapper
       onClick={onClick}
+      onTouchEnd={onTouchEnd}
       style={{ width: width, height: height, margin: margin }}
       rotate={rotate}
       fill={fill}
