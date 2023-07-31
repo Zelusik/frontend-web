@@ -34,17 +34,3 @@ export const kakaoSearchKeyword = async (
       console.log("kakao keyword err");
     });
 };
-
-export const getMenus = async (kakaoPid: string, accessToken: string) =>
-  await axios
-    .get(`http://54.180.188.181:8081/places/scraping/menus`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      params: {
-        kakaoPid,
-      },
-    })
-    .then(({ data }) => data)
-    .catch((err) => console.log(err.response));

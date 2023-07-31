@@ -46,3 +46,4 @@ export { default as AuthKakao } from "./auth/AuthKakao";
 export { default as AuthApple } from "./auth/AuthApple";
 
 export { default as Gallery } from "./Gallery";
+export { default as Loading } from "./Loading";

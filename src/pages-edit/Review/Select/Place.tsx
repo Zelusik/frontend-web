@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "components/Image/Image";
 import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
@@ -16,12 +16,15 @@ import BackTitle from "components/Title/BackTitle";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
+import useGetPlace from "hooks/queries/review/useGetPlace";
 
 const Place = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const image = useAppSelector((state) => state.image);
   const { placeInfo } = useAppSelector((state) => state.review);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const {} = useGetPlace();
 
   const handleClickNextBtn = () => {
     router.push(Route.REVIEW_MENU());
@@ -50,7 +53,8 @@ const Place = () => {
                         kakaoPid: res.documents[0].id,
                         name: res.documents[0].place_name,
                         pageUrl: res.documents[0].place_url,
-                        categoryGroupName: res.documents[0].category_name,
+                        categoryName: res.documents[0].category_name,
+                        categoryGroupCode: res.documents[0].category_group_code,
                         phone: res.documents[0].phone,
                         lotNumberAddress: res.documents[0].address_name,
                         roadAddress: res.documents[0].raod_address_name,
@@ -95,20 +99,20 @@ const Place = () => {
   return (
     <PlaceWrapper>
       <BackTitle type="default" text="음식점 선택" />
-      <ImageWrapper>
-        <Swiper className="banner" slidesPerView={1} spaceBetween={20}>
-          {image.map((preview: any) => (
+      <ImageWrapper style={{ position: "relative" }}>
+        <Swiper
+          className="banner"
+          slidesPerView={1}
+          spaceBetween={20}
+          onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
+        >
+          {image.map((preview: any, index: number) => (
             <SwiperSlide key={preview.preview}>
-              <Image
-                alt="음식 사진"
-                src={preview.preview}
-                ratio={1.14}
-                radius={20}
-                objectFit="cover"
-              />
+              <Image alt="음식 사진" src={preview.preview} type="review" />
             </SwiperSlide>
           ))}
         </Swiper>
+        <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
       </ImageWrapper>
       <Spacing size={10} />
       <PlaceContainer>
@@ -142,6 +146,19 @@ const PlaceWrapper = styled.div`
 const ImageWrapper = styled.div`
   padding: 20px;
 `;
+
+const ImageBadge = styled.span`
+  position: absolute;
+  bottom: 40px;
+  right: 30px;
+  padding: 4px 11px;
+  ${typography.Paragraph2};
+  color: ${colors.N0};
+  background-color: rgba(32, 35, 48, 0.6);
+  border-radius: 100px;
+  z-index: 10;
+`;
+
 const PlaceContainer = styled.div`
   padding: 0 20px;
 `;
