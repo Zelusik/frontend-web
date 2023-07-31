@@ -12,15 +12,25 @@ import {
   changeVisible,
   changeVisibleType,
 } from "reducer/slices/bottomSheet/mapBottomSheetSlice";
+import { changeFilterAction } from "reducer/slices/search/searchSlice";
 
 const MapBottomSheet = forwardRef(function Div(
   { children, ...props }: any,
-  forwardedRef
+  ref
 ) {
   const dispatch = useAppDispatch();
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
   );
+
+  const handleClickFilter = () => {
+    dispatch(
+      changeFilterAction({
+        type: "search",
+        value: false,
+      })
+    );
+  };
 
   const handleMove = (move: number) => {
     dispatch(
@@ -63,6 +73,7 @@ const MapBottomSheet = forwardRef(function Div(
     handleClickShow,
     handleClickBackground,
     handleMove,
+    handleClickFilter,
   });
 
   return (

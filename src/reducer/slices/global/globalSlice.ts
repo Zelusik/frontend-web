@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
+  language: string;
   display: any;
   [index: string]: string | string[] | any;
 }
 
 const initialState: GlobalType = {
+  language: "kor",
   display: {
     width: 0,
     height: 0,
@@ -17,6 +19,13 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     initializeDefaultInfo: () => initialState,
+    changeLanguage: (
+      state,
+      { payload }: { payload: { type: string; value: string } }
+    ) => {
+      const { value } = payload;
+      state.language = value;
+    },
     changeDisplayState: (
       state,
       { payload }: { payload: { type: string; value: number[] } }

@@ -3,24 +3,35 @@ import BackTitle from "components/Title/BackTitle";
 import styled from "@emotion/styled";
 import { typography } from "constants/typography";
 import { css } from "@emotion/react";
-import { colors } from "constants/colors";
-import Icon from "components/Icon";
 import Image from "components/Image";
-
-const Icons = ["LineMarker", "Restaurant", "LineProfile"];
 
 export default function ProfileSelection({ text }: any) {
   const router = useRouter();
+  const handleClickSelection = () => {
+    const local = JSON.parse(String(localStorage.getItem("currentSelection")));
+    if (local) {
+      const newCurrentSelection = [
+        { id: 1, text: "강남구1", type: 2, location: { lat: 0, lng: 0 } },
+        ...local,
+      ];
+      localStorage.setItem(
+        "currentSelection",
+        JSON.stringify(newCurrentSelection)
+      );
+    } else {
+      localStorage.setItem("currentSelection", JSON.stringify([]));
+    }
+
+    // router.push(Route.MAP());
+  };
 
   return (
-    <TitleWrapper>
+    <TitleWrapper onClick={handleClickSelection}>
       <div style={{ margin: "auto 0", display: "flex" }}>
         <Image
           alt="프로필 사진"
           src="https://i.ibb.co/0Z6FNN7/60pt.png"
-          width={30}
-          height={30}
-          radius={10}
+          type="default"
         />
         <Text typo={typography.Headline4}>{text}</Text>
       </div>

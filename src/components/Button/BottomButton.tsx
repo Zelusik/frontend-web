@@ -1,28 +1,25 @@
+import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { match } from "ts-pattern";
-
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 
-interface Props {
-  type: "primary" | "default";
-  width?: number | string;
-  height?: number | string;
-  disabled?: boolean;
-  onClick?: any;
-}
-
-export default function BottomButton({
-  type = "primary",
-  width = "100%",
-  height = 52,
-  disabled,
-  onClick,
-  ...props
-}: any) {
+const BottomButton = forwardRef(function Button(
+  {
+    children,
+    type = "primary",
+    width = "100%",
+    height = 52,
+    onClick,
+    disabled = true,
+    ...props
+  }: any,
+  ref
+) {
   return (
     <ButtonWrapper
+      onClick={onClick}
       style={{
         width: width,
         height: height,
@@ -33,8 +30,7 @@ export default function BottomButton({
         .with("primary", () => (disabled ? colors.Orange200 : colors.Orange400))
         .with("default", () => colors.N40)
         .exhaustive()}
-      onClick={onClick}
-      color={match(type)
+      backgroundColor={match(type)
         .with("primary", () => (disabled ? colors.Orange200 : colors.Orange400))
         .with("default", () => colors.N0)
         .exhaustive()}
@@ -49,16 +45,17 @@ export default function BottomButton({
       >
         <ButtonSpan style={{ padding: props.textPadding }}>
           {props.text}
+          {children}
         </ButtonSpan>
       </ButtonInner>
     </ButtonWrapper>
   );
-}
+});
 
-const ButtonWrapper = styled.button<{ color: any; borderColor: any }>`
+const ButtonWrapper = styled.button<{ backgroundColor: any; borderColor: any }>`
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
   border-radius: 8px;
-  background-color: ${({ color }) => color};
+  background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
 const ButtonInner = styled.div<{ color: any; typo: any }>`
@@ -77,3 +74,5 @@ const ButtonSpan = styled.span`
   margin: auto;
   display: flex;
 `;
+
+export default BottomButton;

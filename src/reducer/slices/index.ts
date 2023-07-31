@@ -7,6 +7,7 @@ import mapBottomSheetSlice from "./bottomSheet/mapBottomSheetSlice";
 import globalSlice from "./global/globalSlice";
 import imageSlice from "./image/imageSlice";
 import reviewSlice from "./review/reviewSlice";
+import searchSlice from "./search/searchSlice";
 
 const rootReducer = (state: any, action: PayloadAction<any>) => {
   switch (action.type) {
@@ -18,6 +19,7 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
     default: {
       const combineReducer = combineReducers({
         auth: authSlice,
+        search: searchSlice,
         bottomSheet: bottomSheetSlice,
         mapBottomSheet: mapBottomSheetSlice,
         global: globalSlice,

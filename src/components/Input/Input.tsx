@@ -7,6 +7,8 @@ import { colors } from "constants/colors";
 import Icon from "components/Icon";
 import { useRef, useState } from "react";
 import { Route } from "constants/Route";
+import { changeVisible } from "reducer/slices/bottomSheet/mapBottomSheetSlice";
+import { useAppDispatch } from "hooks/useReduxHooks";
 
 export default function Input({
   type = "shadow",
@@ -15,6 +17,7 @@ export default function Input({
   setValue,
 }: any) {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const inputRef = useRef<any>(null);
   const [focus, setFocus] = useState<boolean>(false);
 
@@ -23,6 +26,12 @@ export default function Input({
       case "line":
         break;
       case "shadow":
+        dispatch(
+          changeVisible({
+            type: "mapBottomSheet",
+            value: 0,
+          })
+        );
         router.push(Route.SEARCH_PLACE());
         break;
       default:
@@ -60,7 +69,6 @@ export default function Input({
             if (next !== null) {
               setValue(next.textContent);
               inputRef.current.focus();
-              console.log("A");
             } else {
               setFocus(false);
             }
