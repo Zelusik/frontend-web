@@ -43,8 +43,8 @@ export default function ProfileTitle({
 
         <Menu>
           <RoundButton
-            type="follow"
-            act={true}
+            type="follow-icon"
+            action={true}
             textPadding="0 0 0 4px"
             onClick={() => {
               alert("roundButton");

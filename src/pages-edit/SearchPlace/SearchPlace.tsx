@@ -2,28 +2,34 @@ import { useRouter } from "next/router";
 import BackTitle from "components/Title/BackTitle";
 import styled from "@emotion/styled";
 import Input from "components/Input";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TopNavigation from "components/TopNavigation";
 import Spacing from "components/Spacing";
 import useDisplaySize from "hooks/useDisplaySize";
 import AllDelete from "./components/AllDelete";
 import CurrentSelection from "./components/CurrentSelection";
-import LocationSelection from "./components/LocationSelection";
 import ProfileSelection from "./components/ProfileSelection";
-
-const searchPlaceDatas = [
-  { text: "강남구", where: 0 },
-  { text: "강남구", where: 1 },
-  { text: "강남구", where: 2 },
-  { text: "강남구", where: 0 },
-];
+import Selection from "./components/Selection";
 
 export default function SearchPlace() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
+
+  const [currentSelection, setCurrentSelection] = useState<any>([]);
+
   const [value, setValue] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  useEffect(() => {
+    // localStorage.setItem("currentSelection", JSON.stringify([]));
+    const local = JSON.parse(String(localStorage.getItem("currentSelection")));
+    if (local) {
+      setCurrentSelection(local);
+    } else {
+      localStorage.setItem("currentSelection", JSON.stringify([]));
+    }
+  }, []);
 
   return (
     <>
@@ -41,17 +47,19 @@ export default function SearchPlace() {
       {value === "" ? (
         <>
           <Wrapper>
-            <AllDelete />
+            <AllDelete setCurrentSelection={setCurrentSelection} />
             <Spacing size={30} />
           </Wrapper>
 
           <Wrapper height={height - 176}>
-            {searchPlaceDatas.map((data: any, idx: number) => {
+            {currentSelection.map((data: any, idx: number) => {
               return (
                 <CurrentSelection
                   key={idx}
+                  idx={idx}
                   text={data.text}
-                  where={data.where}
+                  where={data.type}
+                  setCurrentSelection={setCurrentSelection}
                 />
               );
             })}
@@ -69,11 +77,11 @@ export default function SearchPlace() {
             <Spacing size={20} />
             {["", "", ""].map((data: any, idx: number) => {
               return (
-                <LocationSelection
+                <Selection
                   key={idx}
+                  type="location"
                   text="강남구"
-                  subText="상세주소"
-                  searchLatter={value}
+                  location="상세주소"
                 />
               );
             })}
@@ -83,11 +91,11 @@ export default function SearchPlace() {
             <Spacing size={20} />
             {["", "", ""].map((data: any, idx: number) => {
               return (
-                <LocationSelection
+                <Selection
                   key={idx}
+                  type="store"
                   text="강남구"
-                  subText="상세주소"
-                  searchLatter={value}
+                  location="상세주소"
                 />
               );
             })}
@@ -96,13 +104,7 @@ export default function SearchPlace() {
           <Wrapper height={height - 160}>
             <Spacing size={20} />
             {["", "", ""].map((data: any, idx: number) => {
-              return (
-                <ProfileSelection
-                  key={idx}
-                  text="강남구"
-                  searchLatter={value}
-                />
-              );
+              return <ProfileSelection key={idx} text="강남구" />;
             })}
           </Wrapper>
         </TopNavigation>

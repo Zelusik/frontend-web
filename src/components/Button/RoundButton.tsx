@@ -3,146 +3,149 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { match } from "ts-pattern";
 import { colors } from "constants/colors";
-import Icon from "components/Icon";
 import { typography } from "constants/typography";
-
-interface Props {}
+import Icon from "components/Icon";
 
 const RoundButton = forwardRef(function Button(
-  { children, type = "map-text", height = 37, onClick, act = true, ...props }: any,
-  forwardedRef
+  {
+    children,
+    type = "map-text",
+    height = 37,
+    action = false,
+    onClick,
+    ...props
+  }: any,
+  ref
 ) {
   return (
     <ButtonWrapper
       onClick={onClick}
-      style={{
-        width: "auto",
-        height:
-          type === "follow"
-            ? 31
-            : type === "taste"
-            ? 46
-            : type === "text"
-            ? height
-            : 38,
-        padding:
-          type === "taste"
-            ? "10px 14px 10px 12px"
-            : type === "text"
-            ? "0 16px"
-            : "0 12px",
-        alignItems: "center",
-      }}
-      color={match(type)
-        .with("map-icon", () => colors.N0)
-        .with("map-text", () => (act ? colors.Orange600 : colors.N0))
-        .with("follow", () => (act ? colors.N100 : colors.N0))
-        .with("taste", () => (act ? colors.Orange400 : colors.N0))
-        .with("text", () => (act ? colors.Orange100 : colors.N0))
+      style={{ width: type === "full-radius" ? 36 : "auto" }}
+      height={match(type)
+        .with("map-icon", () => 38)
+        .with("map-text", () => 38)
+        .with("full", () => 36)
+        .with("full-radius", () => 36)
+        .with("follow-icon", () => 31)
+        .with("taste", () => 46)
+        .with("text", () => height)
+        .exhaustive()}
+      padding={match(type)
+        .with("map-icon", () => "0 11px")
+        .with("map-text", () => "0 11px")
+        .with("full", () => "0 15px")
+        .with("full-radius", () => "0")
+        .with("follow-icon", () => "0 11px")
+        .with("taste", () => "10px 14px 10px 12px")
+        .with("text", () => "0 16px")
+        .exhaustive()}
+      borderRadius={match(type)
+        .with("map-icon", () => "999px")
+        .with("map-text", () => "999px")
+        .with("full", () => "12px")
+        .with("full-radius", () => "999px")
+        .with("follow-icon", () => "999px")
+        .with("taste", () => "999px")
+        .with("text", () => "999px")
         .exhaustive()}
       borderColor={match(type)
         .with("map-icon", () => colors.N0)
-        .with("map-text", () => (act ? colors.Orange600 : colors.N0))
-        .with("follow", () => (act ? colors.N100 : colors.N40))
-        .with("taste", () => (act ? colors.Orange400 : colors.N20))
-        .with("text", () => (act ? colors.Orange600 : colors.N40))
+        .with("map-text", () => (action ? colors.Orange600 : colors.N0))
+        .with("full", () => (action ? colors.Orange400 : colors.N40))
+        .with("full-radius", () => (action ? colors.Orange400 : colors.N40))
+        .with("follow-icon", () => (action ? colors.N100 : colors.N40))
+        .with("taste", () => (action ? colors.Orange400 : colors.N20))
+        .with("text", () => (action ? colors.Orange600 : colors.N40))
+        .exhaustive()}
+      backgroundColor={match(type)
+        .with("map-icon", () => colors.N0)
+        .with("map-text", () => (action ? colors.Orange600 : colors.N0))
+        .with("full", () => (action ? colors.Orange400 : colors.N0))
+        .with("full-radius", () => (action ? colors.Orange400 : colors.N0))
+        .with("follow-icon", () => (action ? colors.N100 : colors.N0))
+        .with("taste", () => (action ? colors.Orange400 : colors.N0))
+        .with("text", () => (action ? colors.Orange100 : colors.N0))
         .exhaustive()}
       shadow={match(type)
         .with("map-icon", () => true)
         .with("map-text", () => true)
-        .with("follow", () => false)
+        .with("full", () => false)
+        .with("full-radius", () => false)
+        .with("follow-icon", () => false)
         .with("taste", () => false)
         .with("text", () => false)
         .exhaustive()}
-      borderRadius={props.radius || "999px"}
     >
-      <ButtonInner
-        color={match(type)
-          .with("map-icon", () => colors.N80)
-          .with("map-text", () => (act ? colors.N0 : colors.N80))
-          .with("follow", () => act && colors.N0)
-          .with("taste", () => (act ? colors.N0 : colors.N80))
-          .with("text", () => (act ? colors.Orange600 : colors.N100))
-          .exhaustive()}
+      {type.split("-")[1] === "icon" ? (
+        <Menu
+          marginRight={match(type)
+            .with("map-icon", () => 8)
+            .with("follow-icon", () => 4)
+            .exhaustive()}
+        >
+          <Icon
+            icon={match(type)
+              .with("map-icon", () => (action ? "Location" : "Bookmark"))
+              .with("follow-icon", () => (action ? "Check" : "Plus"))
+              .exhaustive()}
+            width={16}
+            height={16}
+          />
+        </Menu>
+      ) : null}
+      <Menu
         typo={match(type)
           .with("map-icon", () => typography.Heading2)
           .with("map-text", () => typography.Heading2)
-          .with("follow", () => typography.Paragraph2)
-          .with("taste", () => typography.Paragraph4)
-          .with("text", () => typography.Paragraph4)
+          .with("full", () => typography.Paragraph3)
+          .with("full-radius", () => typography.Paragraph3)
+          .with("follow-icon", () => typography.Paragraph2)
+          .with("taste", () => false)
+          .with("text", () => false)
           .exhaustive()}
-        gap={match(type)
-          .with("map-icon", () => "initial")
-          .with("map-text", () => "initial")
-          .with("follow", () => "initial")
-          .with("taste", () => "8px")
-          .with("text", () => "initial")
+        color={match(type)
+          .with("map-icon", () => colors.N100)
+          .with("map-text", () => (action ? colors.N0 : colors.N100))
+          .with("full", () => (action ? colors.N0 : colors.N100))
+          .with("full-radius", () => (action ? colors.N0 : colors.N100))
+          .with("follow-icon", () => (action ? colors.N0 : colors.N100))
+          .with("taste", () => (action ? colors.Orange400 : colors.N0))
+          .with("text", () => (action ? colors.Orange100 : colors.N0))
           .exhaustive()}
       >
-        {type !== "map-text" && type !== "text" && type !== "taste" && (
-          <ButtonSpan>
-            <Icon
-              icon={match(type)
-                .with("map-icon", () => (act ? "Location" : "Bookmark"))
-                .with("follow", () => (act ? "Check" : "Plus"))
-                .exhaustive()}
-              width={match(type)
-                .with("map-icon", () => 16)
-                .with("follow", () => 12)
-                .exhaustive()}
-              height={match(type)
-                .with("map-icon", () => 16)
-                .with("follow", () => 12)
-                .exhaustive()}
-              color={match(type)
-                .with("map-icon", () => (act ? colors.Orange600 : colors.Mint))
-                .with("follow", () => (act ? colors.N0 : colors.N100))
-                .exhaustive()}
-            />
-          </ButtonSpan>
-        )}
-        {type === "taste" && <>{props.icon}</>}
-        <ButtonSpan style={{ padding: props.textPadding }}>
-          {match(type)
-            .with("map-icon", () => (act ? "내 주변" : "저장"))
-            .with("map-text", () => props.text)
-            .with("follow", () => (act ? "팔로잉" : "팔로우"))
-            .with("taste", () => props.text)
-            .with("text", () => props.text)
-            .exhaustive()}
-        </ButtonSpan>
-      </ButtonInner>
+        {children}
+        {type === "follow-icon" ? (action ? "팔로잉" : "팔로우") : null}
+      </Menu>
     </ButtonWrapper>
   );
 });
 
 const ButtonWrapper = styled.button<{
-  color: any;
+  height: number;
+  padding: string;
+  backgroundColor: any;
   borderColor: any;
   shadow: any;
   borderRadius: any;
 }>`
+  width: auto;
+  height: ${({ height }) => height}px;
+  padding: ${({ padding }) => padding};
+
+  display: flex;
+  align-items: center;
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
   border-radius: ${({ borderRadius }) => borderRadius};
   box-shadow: ${({ shadow }) => shadow && `0px 0px 6px rgba(0, 0, 0, 0.1)`};
-  background-color: ${({ color }) => color};
+  background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
-const ButtonInner = styled.div<{ color: any; typo: any; gap?: string }>`
-  margin: auto;
-  display: flex;
-  gap: ${({ gap }) => gap};
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
+const Menu = styled.div<{ marginRight?: number; typo?: any; color?: any }>`
+  margin-right: ${({ marginRight }) => marginRight}px;
+  ${({ typo }) => css`
+    ${typo}
+  `}
   color: ${({ color }) => color};
-`;
-
-const ButtonSpan = styled.span`
-  margin: auto;
-  display: flex;
 `;
 
 export default RoundButton;

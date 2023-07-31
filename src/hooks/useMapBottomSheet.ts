@@ -141,6 +141,7 @@ export default function useMapBottomSheet({ ...props }: any) {
           (Math.abs(move) < 100 && TOP < touchStart.sheetY)
         ) {
           props.handleClickBackground();
+          props.handleClickFilter();
           content.current!.scrollTop = 0;
           sheet.current!.style.setProperty("transform", `translateY(0)`);
         } else {
@@ -160,6 +161,7 @@ export default function useMapBottomSheet({ ...props }: any) {
           content.current?.style.setProperty("overflow-y", "scroll");
         } else if (touchMove.movingDirection === "down") {
           props.handleClickBackground();
+          props.handleClickFilter();
           sheet.current!.style.setProperty("transform", `translateY(0)`);
         }
       }

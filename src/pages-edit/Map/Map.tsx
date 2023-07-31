@@ -11,9 +11,45 @@ import FindLocationButton from "./components/FindLocationButton";
 import StoreBox from "./components/StoreBox";
 import LocationTitle from "./components/LocationTitle";
 import KakaoMap from "components/KakaoMap";
+import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import Filter from "./components/Filter";
+import FilterSelection from "./components/FilterSelection";
+import { commonWords } from "constants/commonWords";
+import FilterButton from "./components/FilterButton";
+import StoreFilter from "./components/StoreFilter";
+import Icon from "components/Icon";
+import { changeType } from "reducer/slices/search/searchSlice";
+
+const filterSelection = [
+  {
+    type: "full",
+    text: commonWords.foodType,
+    textList: commonWords.foodTypeList,
+  },
+  {
+    type: "full-radius",
+    text: commonWords.dayOfWeek,
+    textList: commonWords.dayOfWeekList,
+  },
+  {
+    type: "full",
+    text: commonWords.mood,
+    textList: commonWords.moodList,
+  },
+];
 
 export default function Map() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { action, filterAction } = useAppSelector((state) => state.search);
+  const clickDelete = () => {
+    dispatch(
+      changeType({
+        type: "search",
+        value: "default",
+      })
+    );
+  };
 
   return (
     <>
@@ -23,11 +59,38 @@ export default function Map() {
       <FindLocationButton />
 
       <MapBottomSheet>
-        <LocationTitle />
-        <Spacing size={14} />
-        {["", "", "", "", ""].map((data: any, idx: number) => {
-          return <StoreBox key={idx} />;
-        })}
+        {filterAction ? (
+          <>
+            {filterSelection.map((data: any, idx: number) => {
+              return (
+                <FilterSelection
+                  type={data.type}
+                  text={data.text}
+                  textList={data.textList}
+                />
+              );
+            })}
+          </>
+        ) : (
+          <>
+            {action === "store" ? (
+              <>
+                <StoreFilter />
+                <Spacing size={14} />
+              </>
+            ) : (
+              <>
+                <LocationTitle />
+                <Spacing size={14} />
+                {action === "location" ? <Filter /> : null}
+              </>
+            )}
+
+            {["", "", "", "", ""].map((data: any, idx: number) => {
+              return <StoreBox key={idx} />;
+            })}
+          </>
+        )}
       </MapBottomSheet>
 
       <HeaderWrapper>
@@ -35,12 +98,22 @@ export default function Map() {
         <InputWrapper>
           <Input placeholder="지역, 음식점, 닉네임 검색" />
         </InputWrapper>
+        {action !== "default" ? (
+          <IconWrapper>
+            <Icon
+              icon="CircleXButton"
+              width={24}
+              height={24}
+              onClick={clickDelete}
+            />
+          </IconWrapper>
+        ) : null}
         <Spacing size={8} />
 
         <Selections />
       </HeaderWrapper>
 
-      <BottomNavigation />
+      {filterAction ? <FilterButton /> : <BottomNavigation />}
     </>
   );
 }
@@ -62,4 +135,11 @@ const InputWrapper = styled.div`
   height: 52px;
   padding: 0 15px;
   display: flex;
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 29px;
+  // top: calc(50% - 18px);
+  right: 27px;
 `;

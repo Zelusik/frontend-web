@@ -1,12 +1,14 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { combineReducers } from "redux";
+import alertSlice from "./alert/alertSlice";
 import authSlice from "./auth/authSlice";
 import bottomSheetSlice from "./bottomSheet/bottomSheetSlice";
 import mapBottomSheetSlice from "./bottomSheet/mapBottomSheetSlice";
 import globalSlice from "./global/globalSlice";
 import imageSlice from "./image/imageSlice";
 import reviewSlice from "./review/reviewSlice";
+import searchSlice from "./search/searchSlice";
 import currIdxSlice from "./image/currIdxSlice";
 import menuTagSlice from "./image/menuTagSlice";
 
@@ -20,9 +22,11 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
     default: {
       const combineReducer = combineReducers({
         auth: authSlice,
+        global: globalSlice,
+        alert: alertSlice,
         bottomSheet: bottomSheetSlice,
         mapBottomSheet: mapBottomSheetSlice,
-        global: globalSlice,
+        search: searchSlice,
         image: imageSlice,
         menuTag: menuTagSlice,
         currIdx: currIdxSlice,

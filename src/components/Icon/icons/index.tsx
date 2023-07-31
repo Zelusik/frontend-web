@@ -31,6 +31,7 @@ export { default as Restaurant } from "./Restaurant";
 export { default as LineMarker } from "./LineMarker";
 export { default as LineProfile } from "./LineProfile";
 export { default as ScaleUp } from "./ScaleUp";
+export { default as Filter } from "./Filter";
 
 // bottom navigation
 export { default as Home } from "./bottomNavigation/Home";

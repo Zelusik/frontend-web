@@ -5,11 +5,15 @@ import { typography } from "constants/typography";
 import { css } from "@emotion/react";
 import { colors } from "constants/colors";
 
-export default function AllDelete() {
+export default function AllDelete({ ...props }: any) {
   const router = useRouter();
+  const clickAllDelete = () => {
+    localStorage.setItem("currentSelection", JSON.stringify([]));
+    props.setCurrentSelection([]);
+  };
 
   return (
-    <TitleWrapper>
+    <TitleWrapper onClick={clickAllDelete}>
       <div style={typography.Paragraph5}>최근검색</div>
       <Delete typo={typography.Paragraph4} color={colors.N50}>
         모두 지우기

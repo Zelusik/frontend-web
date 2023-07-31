@@ -4,46 +4,47 @@ import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 import RoundButton from "components/Button/RoundButton";
 import { useAppSelector } from "hooks/useReduxHooks";
+import { commonWords } from "constants/commonWords";
 
 export default function Selections({ state }: any) {
   const router = useRouter();
+  const { language } = useAppSelector((state) => state.global);
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
   );
 
-  const [foods, setFoods] = useState<any>([
-    { food: "한식", action: false },
-    { food: "중식", action: false },
-    { food: "일식", action: false },
-    { food: "고기/구이", action: false },
-  ]);
-
   const handleClickFood = (idx: number) => {
-    let newFoods = foods;
-    newFoods[idx].action = !newFoods[idx].action;
-    setFoods(newFoods);
+    // let newFoods = foods;
+    // newFoods[idx].action = !newFoods[idx].action;
+    // setFoods(newFoods);
   };
 
   return (
     <HashtagsWrapper visible={visible} actionDelay={actionDelay}>
       <HashtagsInner>
         <MenuWrapper marginLeft={true} marginRight={false}>
-          <RoundButton type="map-icon" act={true} textPadding="0 0 0 8px" />
+          <RoundButton type="map-icon" action={true}>
+            내 주변
+          </RoundButton>
         </MenuWrapper>
 
         <MenuWrapper marginLeft={false} marginRight={false}>
-          <RoundButton type="map-icon" act={false} textPadding="0 0 0 8px" />
+          <RoundButton type="map-icon" action={false}>
+            저장
+          </RoundButton>
         </MenuWrapper>
 
-        {foods.map((data: any, idx: number) => {
+        {commonWords.foodTypeList.map((data: any, idx: number) => {
           return (
             <MenuWrapper
               key={idx}
               marginLeft={false}
-              marginRight={idx === foods.length - 1}
+              marginRight={idx === commonWords.foodTypeList.length - 1}
               onClick={() => handleClickFood(idx)}
             >
-              <RoundButton type="map-text" act={data.action} text={data.food} />
+              <RoundButton type="map-text" action={false}>
+                {data[language]}
+              </RoundButton>
             </MenuWrapper>
           );
         })}

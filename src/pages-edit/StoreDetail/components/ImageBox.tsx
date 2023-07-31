@@ -9,6 +9,8 @@ import Hr from "components/Hr";
 import { globalValue } from "constants/globalValue";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
+import { css } from "@emotion/react";
+import { typography } from "constants/typography";
 
 const ImageBox = forwardRef(({ images }: any, ref) => {
   const router = useRouter();
@@ -118,6 +120,10 @@ const ImageCount = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
+
+  ${css`
+    ${typography.Headline3}
+  `}
 
   color: ${colors.N0};
   transform: translate(-50%, -50%);
