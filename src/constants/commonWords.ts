@@ -1,4 +1,9 @@
 export const commonWords = {
+  alertSort: [
+    { id: 1, kor: "관련도순", eng: "" },
+    { id: 2, kor: "최신순", eng: "" },
+  ],
+
   foodType: { kor: "음식종류", eng: "korean" },
   foodTypeList: [
     { kor: "한식", eng: "korean" },

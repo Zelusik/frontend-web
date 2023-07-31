@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { useAppSelector } from "hooks/useReduxHooks";
 import BottomSheet from "components/BottomSheet";
 import Script from "next/script";
+import Alert from "components/Alert";
 
 const NEXT_PUBLIC_KAKAO_APP_JS_KEY = "91ce271bfa0a93ac384a49249667fb36";
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false`;
@@ -38,6 +39,7 @@ const App = ({ Component, ...rest }: AppProps) => {
 
 const MyApp = ({ Component, pageProps }: any) => {
   const { visible } = useAppSelector((state) => state.bottomSheet);
+  const { visible: alertVisible } = useAppSelector((state) => state.alert);
 
   return (
     <CacheProvider value={cache}>
@@ -45,6 +47,7 @@ const MyApp = ({ Component, pageProps }: any) => {
       <Hydrate state={pageProps.dehydratedState}>
         <Component {...pageProps} />
         {visible ? <BottomSheet /> : null}
+        {alertVisible ? <Alert /> : null}
       </Hydrate>
     </CacheProvider>
   );

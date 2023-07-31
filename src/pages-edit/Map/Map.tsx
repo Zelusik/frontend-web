@@ -75,7 +75,7 @@ export default function Map() {
           <>
             {action === "store" ? (
               <>
-                <StoreFilter text="관련도순" />
+                <StoreFilter />
                 <Spacing size={14} />
               </>
             ) : (

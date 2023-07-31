@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { combineReducers } from "redux";
+import alertSlice from "./alert/alertSlice";
 import authSlice from "./auth/authSlice";
 import bottomSheetSlice from "./bottomSheet/bottomSheetSlice";
 import mapBottomSheetSlice from "./bottomSheet/mapBottomSheetSlice";
@@ -19,10 +20,11 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
     default: {
       const combineReducer = combineReducers({
         auth: authSlice,
-        search: searchSlice,
+        global: globalSlice,
+        alert: alertSlice,
         bottomSheet: bottomSheetSlice,
         mapBottomSheet: mapBottomSheetSlice,
-        global: globalSlice,
+        search: searchSlice,
         image: imageSlice,
         review: reviewSlice,
       });
