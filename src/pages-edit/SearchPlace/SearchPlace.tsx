@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import BackTitle from "components/Title/BackTitle";
 import styled from "@emotion/styled";
 import Input from "components/Input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import TopNavigation from "components/TopNavigation";
 import Spacing from "components/Spacing";
 import useDisplaySize from "hooks/useDisplaySize";
@@ -20,6 +20,7 @@ const searchPlaceDatas = [
 
 export default function SearchPlace() {
   const router = useRouter();
+  const scrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
   const [value, setValue] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -58,6 +59,8 @@ export default function SearchPlace() {
         </>
       ) : (
         <TopNavigation
+          scrollRef={scrollRef}
+          scrollTop={0}
           type="search-place"
           titleList={["지역", "음식점", "닉네임"]}
           state={{ topFixed: false, currentIndex, setCurrentIndex }}

@@ -21,6 +21,7 @@ export const Route = {
   MYPAGE: () => "/mypage",
 
   STORE_DETAIL: () => "/store-detail",
+  IMAGE_DETAIL: () => "/image-detail",
 
   EXAMPLE: () => "/example",
 };

@@ -12,14 +12,9 @@ import TextArea from "components/TextArea";
 
 export default function Report() {
   const router = useRouter();
-  const [selected, setSelected] = useState<boolean[]>([
-    true,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selected, setSelected] = useState<boolean[]>(
+    Array.from({ length: 6 }, () => false)
+  );
 
   const handleClickReport = (idx: number) => {
     let newSelected = Array.from({ length: 6 }, (_) => false);
@@ -29,7 +24,7 @@ export default function Report() {
 
   return (
     <>
-      <Wrapper>
+      <ReportWrapper>
         <BackTitle type="default" text="리뷰 신고하기" />
         <Spacing size={20} />
         <ReportTitle>이 리뷰를 신고하는 이유를 알려주세요.</ReportTitle>
@@ -52,15 +47,23 @@ export default function Report() {
           size={112}
           text="신고자 정보는 익명으로 처리되며, 신고된 포토리뷰는 검토 후 조치됩니다."
         />
-      </Wrapper>
-      <BottomWrapper>
-        <BottomButton type="primary" text="잇터리 시작하기" disabled={true} />
-      </BottomWrapper>
+      </ReportWrapper>
+      <BottomReportWrapper>
+        <BottomButton
+          type="primary"
+          text="잇터리 시작하기"
+          disabled={
+            selected.filter((data) => {
+              return !data;
+            }).length === 6
+          }
+        />
+      </BottomReportWrapper>
     </>
   );
 }
 
-const Wrapper = styled.div`
+const ReportWrapper = styled.div`
   height: 100%;
   padding: 0 20px;
 `;
@@ -71,7 +74,7 @@ const ReportTitle = styled.div`
   `}
 `;
 
-const BottomWrapper = styled.div`
+const BottomReportWrapper = styled.div`
   width: 100%;
   padding: 0 20px;
   position: fixed;
