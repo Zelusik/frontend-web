@@ -1,6 +1,7 @@
 import { ImageType } from "types/image";
 
 export interface ReviewType {
+  placeId?: number;
   placeInfo: PlaceType;
   foodInfo?: FoodType[];
   keywords: string[];
@@ -8,6 +9,7 @@ export interface ReviewType {
   content?: string;
   images: ImageType[];
   [key: string]:
+    | number
     | string
     | string[]
     | PlaceType
@@ -20,7 +22,8 @@ export interface PlaceType {
   kakaoPid?: string;
   name?: string;
   pageUrl?: string;
-  categoryGroupName?: string;
+  categoryName?: string;
+  categoryGroupCode?: string;
   phone?: string;
   lotNumberAddress?: string;
   roadAddress?: string;

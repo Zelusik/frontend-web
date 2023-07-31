@@ -16,6 +16,7 @@ import BackTitle from "components/Title/BackTitle";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
+import useGetPlace from "hooks/queries/review/useGetPlace";
 
 const Place = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const Place = () => {
   const image = useAppSelector((state) => state.image);
   const { placeInfo } = useAppSelector((state) => state.review);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const {} = useGetPlace();
 
   const handleClickNextBtn = () => {
     router.push(Route.REVIEW_MENU());
@@ -51,7 +53,8 @@ const Place = () => {
                         kakaoPid: res.documents[0].id,
                         name: res.documents[0].place_name,
                         pageUrl: res.documents[0].place_url,
-                        categoryGroupName: res.documents[0].category_name,
+                        categoryName: res.documents[0].category_name,
+                        categoryGroupCode: res.documents[0].category_group_code,
                         phone: res.documents[0].phone,
                         lotNumberAddress: res.documents[0].address_name,
                         roadAddress: res.documents[0].raod_address_name,
