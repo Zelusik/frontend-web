@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Image from "components/Image/Image";
 import { typography } from "constants/typography";
@@ -14,28 +14,148 @@ import BottomButton from "components/Button/BottomButton";
 import BackTitle from "components/Title/BackTitle";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
-import { changeVisibleType } from "reducer/slices/bottomSheet/bottomSheetSlice";
+import {
+  changeVisible,
+  changeVisibleType,
+} from "reducer/slices/bottomSheet/bottomSheetSlice";
+import { deleteMenuTag, modifyMenuTag } from "reducer/slices/image/imageSlice";
+import { ImageType, MenuTagType } from "types/image";
+import { setCurrentImageIndex } from "reducer/slices/image/currIdxSlice";
+import { changeMenuTag } from "reducer/slices/image/menuTagSlice";
+import Icon from "components/Icon/Icon";
 
 const Menu = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const menuTagRef = useRef([]);
   const image = useAppSelector((state) => state.image);
   const { foodInfo } = useAppSelector((state) => state.review);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [prevMenuTag, setPrevMenuTag] = useState<MenuTagType>({}); // modifyMenuTag를 위해
+
+  useEffect(() => {
+    if (image[currentSlideIndex].menuTag) {
+      menuTagRef.current = menuTagRef.current.slice(
+        0,
+        image[currentSlideIndex].menuTag.length
+      );
+    }
+  }, [image[currentSlideIndex].menuTag]);
 
   const handleClickNextBtn = () => {
     router.push(Route.REVIEW_KEYWORD());
   };
 
-  const handleClickImage = () => {
+  const handleClickImage = (event: any, index: number) => {
+    try {
+      dispatch(
+        changeVisibleType({
+          type: "bottomSheet",
+          value: [1, "selectMenu"],
+        })
+      );
+      const imageElement = event.target;
+
+      // 이미지의 offset
+      const offsetX = imageElement.getBoundingClientRect().left;
+      const offsetY = imageElement.getBoundingClientRect().top;
+      const width = imageElement.offsetWidth;
+      const height = imageElement.offsetHeight;
+
+      // 마우스의 상대적인 위치
+      const relativeX = event.clientX - offsetX;
+      const relativeY = event.clientY - offsetY;
+
+      // 마우스 위치를 퍼센트로 변환
+      const percentageX = (relativeX / width) * 100;
+      const percentageY = (relativeY / height) * 100;
+
+      dispatch(setCurrentImageIndex(index));
+
+      dispatch(
+        changeMenuTag({
+          type: "x",
+          value: percentageX,
+        })
+      );
+      dispatch(
+        changeMenuTag({
+          type: "y",
+          value: percentageY,
+        })
+      );
+    } catch (error) {
+      console.log("handleClickImage", error);
+    }
+  };
+
+  const handleDeleteMenuTag = (menuTag: MenuTagType, index: number) => {
     dispatch(
-      changeVisibleType({
+      changeVisible({
         type: "bottomSheet",
-        value: [1, "selectMenu"],
+        value: 0,
+      })
+    );
+
+    dispatch(
+      deleteMenuTag({
+        index,
+        menuTag,
       })
     );
   };
 
+  const handleDragStart = (e: any, idx: number, index: number) => {
+    setPrevMenuTag(image[index].menuTag[idx]);
+  };
+
+  const handleDrag = (e: any, idx: number) => {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    if (menuTagRef.current[idx] && menuTagRef.current[idx].parentElement) {
+      const parentRect =
+        menuTagRef.current[idx].parentElement.getBoundingClientRect();
+
+      const relativeX = clientX - parentRect.left;
+      const relativeY = clientY - parentRect.top;
+
+      // 마우스 위치를 퍼센트로 변환
+      const percentageX = (relativeX / parentRect.width) * 100;
+      const percentageY = (relativeY / parentRect.height) * 100;
+
+      menuTagRef.current[idx].style.left = `${percentageX}%`;
+      menuTagRef.current[idx].style.top = `${percentageY}%`;
+    }
+  };
+
+  const handleDragEnd = (e: any, idx: number, index: number) => {
+    const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const clientY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+
+    if (menuTagRef.current[idx] && menuTagRef.current[idx].parentElement) {
+      const parentRect =
+        menuTagRef.current[idx].parentElement.getBoundingClientRect();
+
+      const relativeX = clientX - parentRect.left;
+      const relativeY = clientY - parentRect.top;
+
+      // 마우스 위치를 퍼센트로 변환
+      const percentageX = (relativeX / parentRect.width) * 100;
+      const percentageY = (relativeY / parentRect.height) * 100;
+      // console.log(percentageX, percentageY, image);
+      menuTagRef.current[idx].style.left = `${percentageX}%`;
+      menuTagRef.current[idx].style.top = `${percentageY}%`;
+
+      dispatch(
+        modifyMenuTag({
+          index: index,
+          prevMenuTag: prevMenuTag,
+          currMenuTag: { x: percentageX, y: percentageY, menu: prevMenuTag.menu },
+        })
+      );
+    }
+  };
   return (
     <MenuWrapper>
       <BackTitle type="default" text="메뉴 선택" />
@@ -46,16 +166,45 @@ const Menu = () => {
           spaceBetween={20}
           onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
         >
-          {image.map((preview: any) => (
-            <SwiperSlide key={preview.preview}>
+          {image.map((imageInfo: ImageType, index: number) => (
+            <SwiperSlide key={imageInfo.preview}>
               <Image
                 alt="음식 사진"
-                src={preview.preview}
+                src={imageInfo.preview}
                 ratio={1.14}
                 radius={20}
                 objectFit="cover"
-                onClick={handleClickImage}
+                onClick={(event: any) => handleClickImage(event, index)}
               />
+              {imageInfo.menuTag && (
+                <>
+                  {imageInfo.menuTag.map((tag, idx) => (
+                    <MenuTag
+                      ref={(el) => (menuTagRef.current[idx] = el)}
+                      key={tag.x}
+                      x={tag.x}
+                      y={tag.y}
+                      onTouchStart={(e) => handleDragStart(e, idx, index)}
+                      onTouchMove={(e) => handleDrag(e, idx)}
+                      onTouchEnd={(e) => handleDragEnd(e, idx, index)}
+                    >
+                      {tag.menu}
+
+                      <Icon
+                        icon="XButton"
+                        color={colors.N0}
+                        width={12}
+                        height={12}
+                        onTouchEnd={(event: any) => {
+                          event.preventDefault();
+                          event.stopPropagation();
+                          handleDeleteMenuTag(tag, index);
+                        }}
+                      />
+                    </MenuTag>
+                  ))}
+                </>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
@@ -88,6 +237,23 @@ const MenuWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   padding: 20px;
+`;
+
+const MenuTag = styled.span<{ x: string; y: string }>`
+  position: absolute;
+  left: ${({ x }) => x}%;
+  top: ${({ y }) => y}%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 8px;
+  color: ${colors.N0} !important;
+  background-color: rgba(32, 35, 48, 0.6);
+  ${typography.Paragraph1};
+  padding: 6px 10px;
 `;
 
 const ImageBadge = styled.span`
