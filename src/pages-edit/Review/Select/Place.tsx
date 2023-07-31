@@ -108,13 +108,7 @@ const Place = () => {
         >
           {image.map((preview: any, index: number) => (
             <SwiperSlide key={preview.preview}>
-              <Image
-                alt="음식 사진"
-                src={preview.preview}
-                ratio={1.14}
-                radius={20}
-                objectFit="cover"
-              />
+              <Image alt="음식 사진" src={preview.preview} type="review" />
             </SwiperSlide>
           ))}
         </Swiper>

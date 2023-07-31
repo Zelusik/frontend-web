@@ -171,9 +171,7 @@ const Menu = () => {
               <Image
                 alt="음식 사진"
                 src={imageInfo.preview}
-                ratio={1.14}
-                radius={20}
-                objectFit="cover"
+                type="review"
                 onClick={(event: any) => handleClickImage(event, index)}
               />
               {imageInfo.menuTag && (
