@@ -31,7 +31,7 @@ export default function BackTitle({
             color={match(type)
               .with("primary", () => colors.N0)
               .with("secondary", () => colors.N100)
-              .with("default", () => colors.N100)
+              .with("default", () => colors.N0)
               .exhaustive()}
           />
           <TitleSide typo={typography.Headline5}>{props.titleText}</TitleSide>

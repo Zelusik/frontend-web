@@ -20,11 +20,14 @@ export default function Info() {
               <ItemSpan>
                 <ItemTitle>{data}</ItemTitle>
               </ItemSpan>
-              <ItemSpan style={{ marginRight: 10 }}>11:30-22:00</ItemSpan>
-              <ItemSpan>
-                <Copy />
+              <ItemSpan style={{ marginRight: 50 }}>
+                11:30-22:00 ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
               </ItemSpan>
+              <CopyWrapper>
+                <Copy />
+              </CopyWrapper>
             </Description>
+
             <Spacing size={8} />
           </DescriptionWrapper>
         );
@@ -46,7 +49,7 @@ const Description = styled.div`
   width: 100%;
   display: flex;
   ${css`
-    ${typography.Paragraph3}
+    ${typography.Paragraph4}
   `};
 `;
 
@@ -56,4 +59,9 @@ const ItemTitle = styled.div`
   width: 56px;
   margin-right: 20px;
   color: ${colors.N80};
+`;
+
+const CopyWrapper = styled.div`
+  position: absolute;
+  right: 20px;
 `;

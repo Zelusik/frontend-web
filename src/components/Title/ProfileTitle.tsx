@@ -25,12 +25,9 @@ export default function ProfileTitle({
           <Image
             alt="프로필 이미지"
             src="https://i.ibb.co/0Z6FNN7/60pt.png"
-            width={30}
-            height={30}
-            radius={10}
-            margin={"0 8px 0 0"}
+            type="default"
           />
-          <div>
+          <div style={{ marginLeft: 8 }}>
             {title && (
               <FontTitle typo={typography.Headline2} color={titleColor}>
                 {title}

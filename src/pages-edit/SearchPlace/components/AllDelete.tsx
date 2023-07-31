@@ -1,11 +1,6 @@
 import { useRouter } from "next/router";
 import BackTitle from "components/Title/BackTitle";
 import styled from "@emotion/styled";
-import Input from "components/Input";
-import { useState } from "react";
-import TopNavigation from "components/TopNavigation";
-import Spacing from "components/Spacing";
-import useDisplaySize from "hooks/useDisplaySize";
 import { typography } from "constants/typography";
 import { css } from "@emotion/react";
 import { colors } from "constants/colors";
