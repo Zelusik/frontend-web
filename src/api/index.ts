@@ -5,6 +5,15 @@ const client = axios.create({
   baseURL: process.env.BASE_URL,
 });
 
+client.interceptors.request.use((config) => {
+  const accessToken = getCookie("accessToken");
+
+  !accessToken
+    ? (config.headers["Authorization"] = "")
+    : (config.headers["Authorization"] = `Bearer ${accessToken}`);
+  return config;
+});
+
 // app render될 때, interceptor
 client.interceptors.response.use(
   (response) => {
