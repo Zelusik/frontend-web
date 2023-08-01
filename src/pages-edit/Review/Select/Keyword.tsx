@@ -72,13 +72,14 @@ const Keyword = () => {
               {foodKeyword.map((keyword) => (
                 <RoundButton
                   key={keyword}
+                  borderRadius="12px"
                   type="text"
-                  text={keyword}
-                  act={keywords.includes(keyword)}
-                  radius="12px"
-                  onClick={() => handleClickKeywords(keyword)}
+                  action={keywords.includes(keyword)}
                   height={38}
-                />
+                  onClick={() => handleClickKeywords(keyword)}
+                >
+                  {keyword}
+                </RoundButton>
               ))}
             </div>
           </KeywordBox>
@@ -88,12 +89,14 @@ const Keyword = () => {
               {atmosphereKeyword.map((keyword) => (
                 <RoundButton
                   key={keyword}
+                  borderRadius="12px"
                   type="text"
-                  text={keyword}
-                  act={keywords.includes(keyword)}
-                  radius="12px"
+                  action={keywords.includes(keyword)}
+                  height={38}
                   onClick={() => handleClickKeywords(keyword)}
-                />
+                >
+                  {keyword}
+                </RoundButton>
               ))}
             </div>
           </KeywordBox>

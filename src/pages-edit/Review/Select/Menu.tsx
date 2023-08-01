@@ -27,7 +27,7 @@ import Icon from "components/Icon/Icon";
 const Menu = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const menuTagRef = useRef([]);
+  const menuTagRef = useRef<any>([]);
   const image = useAppSelector((state) => state.image);
   const { foodInfo } = useAppSelector((state) => state.review);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -223,6 +223,7 @@ const Menu = () => {
           color={colors.N0}
           height="54px"
           onClick={handleClickNextBtn}
+          disabled={false}
         />
       </BottomWrapper>
     </MenuWrapper>
@@ -237,7 +238,7 @@ const ImageWrapper = styled.div`
   padding: 20px;
 `;
 
-const MenuTag = styled.span<{ x: string; y: string }>`
+const MenuTag = styled.span<{ x?: number; y?: number }>`
   position: absolute;
   left: ${({ x }) => x}%;
   top: ${({ y }) => y}%;

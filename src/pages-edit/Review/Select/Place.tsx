@@ -133,6 +133,7 @@ const Place = () => {
           color={colors.N0}
           height="54px"
           onClick={handleClickNextBtn}
+          disabled={false}
         />
       </BottomWrapper>
     </PlaceWrapper>
