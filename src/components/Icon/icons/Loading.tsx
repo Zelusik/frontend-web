@@ -10,7 +10,7 @@ const Loading = () => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <rect width="70" height="70" rx="12" fill="#F59300" fill-opacity="0.1" />
+      <rect width="70" height="70" rx="12" fill="#F59300" fillOpacity="0.1" />
       <g style={{ mixBlendMode: "multiply" }}>
         <rect x="15" y="15" width="40" height="40" fill="url(#pattern0)" />
       </g>
