@@ -60,7 +60,7 @@ const Menu = styled.div`
   ${css`
     ${typography.Paragraph4}
   `}
-  color: ${colors.N80}
+  color: ${colors.N80};
 `;
 
 const MenuSpan = styled.div`

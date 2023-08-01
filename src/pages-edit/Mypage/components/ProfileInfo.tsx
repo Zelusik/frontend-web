@@ -4,7 +4,8 @@ import Image from "components/Image";
 import { useRouter } from "next/router";
 import { typography } from "constants/typography";
 import Spacing from "components/Spacing";
-export default function ProfileInfo() {
+import Dots from "components/Button/IconButton/Dots";
+export default function ProfileInfo({ mypage }: any) {
   const router = useRouter();
 
   const ProfileDatas = [
@@ -41,6 +42,11 @@ export default function ProfileInfo() {
           </FollowWrapper>
         </div>
       </Menu>
+      {mypage ? null : (
+        <IconWrapper>
+          <Dots />
+        </IconWrapper>
+      )}
     </ProfileWrapper>
   );
 }
@@ -80,4 +86,10 @@ const Count = styled.div`
   ${css`
     ${typography.Headline2}
   `}
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;

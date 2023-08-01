@@ -32,6 +32,7 @@ export default function Image({
         .with("store-detail", () => "100%")
         .with("home", () => "100%")
         .with("map-bottom-sheet", () => "100%")
+        .with("mypage-review", () => "100%")
         .with("review", () => "100%")
         .with("default", () => size)
         .exhaustive()}
@@ -40,6 +41,7 @@ export default function Image({
         .with("store-detail", () => 360 / 281)
         .with("home", () => 8 / 9)
         .with("map-bottom-sheet", () => 55 / 32)
+        .with("mypage-review", () => 157 / 170)
         .with("review", () => 1.14)
         .with("default", () => 1)
         .exhaustive()}
@@ -48,8 +50,9 @@ export default function Image({
         .with("store-detail", () => "0")
         .with("home", () => "20px")
         .with("map-bottom-sheet", () => "12px")
+        .with("mypage-review", () => "12px")
         .with("review", () => "12px")
-        .with("default", () => "36%")
+        .with("default", () => "38%")
         .exhaustive()}
       objectFit={objectFit}
       onClick={onClick}

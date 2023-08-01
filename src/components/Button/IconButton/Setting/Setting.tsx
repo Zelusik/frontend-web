@@ -13,6 +13,7 @@ export default function Setting({ margin, size, color }: Props) {
   const clickSetting = () => {
     router.push(Route.SETTING());
   };
+
   return (
     <Icon
       icon="Setting"

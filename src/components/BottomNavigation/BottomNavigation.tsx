@@ -50,6 +50,7 @@ const BottomNavigationWrapper = styled.div`
   bottom: 0;
   box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
   background-color: ${colors.N0};
+  z-index: 997;
 `;
 
 const MenuList = styled.ul`

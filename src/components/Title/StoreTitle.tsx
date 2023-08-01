@@ -18,16 +18,22 @@ export default function StoreTitle({
       height={match(type)
         .with("primary", () => 49)
         .with("secondary", () => 25)
+        .with("tertiary", () => 39)
         .with("default", () => 58)
         .exhaustive()}
+      padding={match(type)
+        .with("primary", () => "0")
+        .with("secondary", () => "0 15px")
+        .with("tertiary", () => "0 10px")
+        .with("default", () => "0 20px")
+        .exhaustive()}
       style={
-        type === "default"
+        type === "tertiary" || type === "default"
           ? {
-              padding: "0 20px",
               position: "absolute",
-              bottom: 34, // + 28
+              bottom: type === "tertiary" ? 15 : 30,
             }
-          : { padding: type === "secondary" ? "0 15px" : "0" }
+          : {}
       }
     >
       <MenuList>
@@ -37,13 +43,15 @@ export default function StoreTitle({
               <Title
                 style={{ display: "flex" }}
                 typo={match(type)
-                  .with("primary", () => typography.Headline5)
+                  .with("primary", () => typography.Headline6)
                   .with("secondary", () => typography.Headline4)
+                  .with("tertiary", () => typography.Headline3)
                   .with("default", () => typography.Headline6)
                   .exhaustive()}
                 color={match(type)
                   .with("primary", () => colors.N100)
                   .with("secondary", () => colors.N100)
+                  .with("tertiary", () => colors.N0)
                   .with("default", () => colors.N0)
                   .exhaustive()}
               >
@@ -58,11 +66,13 @@ export default function StoreTitle({
             {type !== "secondary" && subTitle && (
               <SubTitle
                 typo={match(type)
-                  .with("primary", () => typography.Paragraph1)
+                  .with("primary", () => typography.Paragraph3)
+                  .with("tertiary", () => typography.Paragraph2)
                   .with("default", () => typography.Paragraph1)
                   .exhaustive()}
                 color={match(type)
                   .with("primary", () => colors.N100)
+                  .with("tertiary", () => colors.N0)
                   .with("default", () => colors.N0)
                   .exhaustive()}
               >
@@ -72,33 +82,36 @@ export default function StoreTitle({
           </div>
         </Menu>
 
-        <Menu>
-          {type !== "default" && (
-            <Edit
+        {type !== "tertiary" ? (
+          <Menu>
+            {type !== "default" && (
+              <Edit
+                size={match(type)
+                  .with("primary", () => 28)
+                  .with("secondary", () => 24)
+                  .with("default", () => 28)
+                  .exhaustive()}
+              />
+            )}
+            <Heart
               size={match(type)
                 .with("primary", () => 28)
                 .with("secondary", () => 24)
                 .with("default", () => 28)
                 .exhaustive()}
+              margin={"0 0 0 20px"}
             />
-          )}
-          <Heart
-            size={match(type)
-              .with("primary", () => 28)
-              .with("secondary", () => 24)
-              .with("default", () => 28)
-              .exhaustive()}
-            margin={"0 0 0 20px"}
-          />
-        </Menu>
+          </Menu>
+        ) : null}
       </MenuList>
     </TitleWrapper>
   );
 }
 
-const TitleWrapper = styled.div<{ height: number }>`
+const TitleWrapper = styled.div<{ height: number; padding: string }>`
   width: 100%;
   height: ${({ height }) => height + "px"};
+  padding: ${({ padding }) => padding};
   display: flex;
 `;
 
@@ -110,11 +123,17 @@ const MenuList = styled.ul`
   justify-content: space-between;
 `;
 
-const Menu = styled.li`
+const Menu = styled.li<{ color?: any }>`
   margin: auto 0;
 
   display: flex;
   align-items: center;
+
+  ${({ color }) =>
+    color &&
+    css`
+      color: ${color};
+    `}
 `;
 
 const Title = styled.div<{ typo: any; color: any }>`
