@@ -62,7 +62,7 @@ const Keyword = () => {
   };
   return (
     <KeywordWrapper>
-      <BackTitle type="default" text="음식점 리뷰" />
+      <BackTitle type="secondary" text="음식점 리뷰" />
       <MainWrapper>
         <div style={typography.Headline5}>음식점은 어떠셨나요?</div>
         <KeywordContainer>
@@ -72,13 +72,14 @@ const Keyword = () => {
               {foodKeyword.map((keyword) => (
                 <RoundButton
                   key={keyword}
+                  borderRadius="12px"
                   type="text"
-                  text={keyword}
-                  act={keywords.includes(keyword)}
-                  radius="12px"
-                  onClick={() => handleClickKeywords(keyword)}
+                  action={keywords.includes(keyword)}
                   height={38}
-                />
+                  onClick={() => handleClickKeywords(keyword)}
+                >
+                  {keyword}
+                </RoundButton>
               ))}
             </div>
           </KeywordBox>
@@ -88,12 +89,14 @@ const Keyword = () => {
               {atmosphereKeyword.map((keyword) => (
                 <RoundButton
                   key={keyword}
+                  borderRadius="12px"
                   type="text"
-                  text={keyword}
-                  act={keywords.includes(keyword)}
-                  radius="12px"
+                  action={keywords.includes(keyword)}
+                  height={38}
                   onClick={() => handleClickKeywords(keyword)}
-                />
+                >
+                  {keyword}
+                </RoundButton>
               ))}
             </div>
           </KeywordBox>
@@ -121,11 +124,10 @@ const Keyword = () => {
 
 const KeywordWrapper = styled.div`
   height: 100%;
+  padding: 0 20px;
 `;
 
-const MainWrapper = styled.div`
-  padding: 20px;
-`;
+const MainWrapper = styled.div``;
 
 const KeywordContainer = styled.div`
   display: flex;
@@ -144,6 +146,7 @@ const KeywordBox = styled.div`
     gap: 8px;
   }
 `;
+
 const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -152,9 +155,11 @@ const BottomWrapper = styled.div`
 
   position: absolute;
   bottom: 0;
-  width: 100%;
-  padding: 0 20px 50px;
+  left: 20px;
+  right: 20px;
+  margin-bottom: 50px;
 `;
+
 const ReviewButton = styled.div`
   ${typography.Paragraph5};
   color: ${colors.N60};

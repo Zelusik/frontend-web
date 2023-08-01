@@ -14,6 +14,7 @@ import {
 import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
 import { initializeReviewInfo } from "reducer/slices/review/reviewSlice";
+import BottomNavigation from "components/BottomNavigation/BottomNavigation";
 
 const Review = () => {
   const router = useRouter();
@@ -80,6 +81,7 @@ const Review = () => {
           </div>
         </InputWrapper>
       </MainWrapper>
+      <BottomNavigation />
     </ReviewWrapper>
   );
 };

@@ -27,11 +27,11 @@ const BottomButton = forwardRef(function Button(
         padding: props.padding,
       }}
       borderColor={match(type)
-        .with("primary", () => (disabled ? colors.Orange200 : colors.Orange400))
+        .with("primary", () => (disabled ? colors.Orange200 : colors.Orange600))
         .with("default", () => colors.N40)
         .exhaustive()}
       backgroundColor={match(type)
-        .with("primary", () => (disabled ? colors.Orange200 : colors.Orange400))
+        .with("primary", () => (disabled ? colors.Orange200 : colors.Orange600))
         .with("default", () => colors.N0)
         .exhaustive()}
       disabled={disabled}

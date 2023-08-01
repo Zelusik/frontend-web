@@ -98,7 +98,7 @@ const Place = () => {
 
   return (
     <PlaceWrapper>
-      <BackTitle type="default" text="음식점 선택" />
+      <BackTitle type="secondary" text="음식점 선택" />
       <ImageWrapper style={{ position: "relative" }}>
         <Swiper
           className="banner"
@@ -116,23 +116,21 @@ const Place = () => {
       </ImageWrapper>
       <Spacing size={10} />
       <PlaceContainer>
-        <>
-          <div style={typography.Headline5}>어느 음식점인가요?</div>
-          <Spacing size={20} />
-          <PlaceInputWrapper onClick={handleClickSearchPlace}>
-            <PlaceInput type="text" value={placeInfo.name} readOnly />
-            <ChevronRight />
-          </PlaceInputWrapper>
-        </>
+        <div style={typography.Headline5}>어느 음식점인가요?</div>
+        <Spacing size={20} />
+        <PlaceInputWrapper onClick={handleClickSearchPlace}>
+          <PlaceInput type="text" value={placeInfo.name} readOnly />
+          <ChevronRight />
+        </PlaceInputWrapper>
       </PlaceContainer>
       <BottomWrapper>
         <BottomButton
           text="다음으로"
           radius={8}
-          backgroundColor={colors.Orange400}
           color={colors.N0}
           height="54px"
           onClick={handleClickNextBtn}
+          disabled={false}
         />
       </BottomWrapper>
     </PlaceWrapper>
@@ -140,17 +138,19 @@ const Place = () => {
 };
 
 const PlaceWrapper = styled.div`
+  position: relative;
   height: 100%;
+  padding: 0 20px;
 `;
 
 const ImageWrapper = styled.div`
-  padding: 20px;
+  padding-top: 20px;
 `;
 
 const ImageBadge = styled.span`
   position: absolute;
-  bottom: 40px;
-  right: 30px;
+  bottom: 20px;
+  right: 20px;
   padding: 4px 11px;
   ${typography.Paragraph2};
   color: ${colors.N0};
@@ -160,11 +160,13 @@ const ImageBadge = styled.span`
 `;
 
 const PlaceContainer = styled.div`
-  padding: 0 20px;
+  padding: 20px 0;
 `;
+
 const PlaceInputWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 20px;
   padding: 16px 20px;
   border: 1px solid ${colors.N40};
@@ -173,15 +175,18 @@ const PlaceInputWrapper = styled.div`
   height: 54px;
   justify-content: space-between;
 `;
+
 const PlaceInput = styled.input`
   width: 100%;
   border: none;
   ${typography.Headline3}
 `;
+
 const BottomWrapper = styled.div`
   position: absolute;
   bottom: 0;
-  width: 100%;
-  padding: 0 20px 50px;
+  left: 20px;
+  right: 20px;
+  margin-bottom: 50px;
 `;
 export default Place;

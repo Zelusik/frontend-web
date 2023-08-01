@@ -27,7 +27,7 @@ const RoundButton = forwardRef(function Button(
         .with("full", () => 36)
         .with("full-radius", () => 36)
         .with("follow-icon", () => 31)
-        .with("taste", () => 46)
+        .with("taste", () => 44)
         .with("text", () => height)
         .exhaustive()}
       padding={match(type)
@@ -46,7 +46,7 @@ const RoundButton = forwardRef(function Button(
         .with("full-radius", () => "999px")
         .with("follow-icon", () => "999px")
         .with("taste", () => "999px")
-        .with("text", () => "999px")
+        .with("text", () => props.borderRadius)
         .exhaustive()}
       borderColor={match(type)
         .with("map-icon", () => colors.N0)
@@ -100,8 +100,8 @@ const RoundButton = forwardRef(function Button(
           .with("full", () => typography.Paragraph3)
           .with("full-radius", () => typography.Paragraph3)
           .with("follow-icon", () => typography.Paragraph2)
-          .with("taste", () => false)
-          .with("text", () => false)
+          .with("taste", () => typography.Paragraph5)
+          .with("text", () => typography.Paragraph3)
           .exhaustive()}
         color={match(type)
           .with("map-icon", () => colors.N100)
@@ -109,8 +109,8 @@ const RoundButton = forwardRef(function Button(
           .with("full", () => (action ? colors.N0 : colors.N100))
           .with("full-radius", () => (action ? colors.N0 : colors.N100))
           .with("follow-icon", () => (action ? colors.N0 : colors.N100))
-          .with("taste", () => (action ? colors.Orange400 : colors.N0))
-          .with("text", () => (action ? colors.Orange100 : colors.N0))
+          .with("taste", () => (action ? colors.N0 : colors.N100))
+          .with("text", () => (action ? colors.Orange600 : colors.N100))
           .exhaustive()}
       >
         {children}
@@ -133,6 +133,8 @@ const ButtonWrapper = styled.button<{
   padding: ${({ padding }) => padding};
 
   display: flex;
+  justify-content: center;
+  text-align: center;
   align-items: center;
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
   border-radius: ${({ borderRadius }) => borderRadius};

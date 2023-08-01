@@ -78,7 +78,7 @@ const SearchPlace = () => {
 
   return (
     <SearchPlaceWrapper>
-      <BackTitle type="default" text="" />
+      <BackTitle type="secondary" text="" />
       <SearchInput>
         <Input
           type="line"
@@ -113,12 +113,12 @@ const SearchPlace = () => {
   );
 };
 
-const SearchPlaceWrapper = styled.div``;
-const SearchInput = styled.div`
+const SearchPlaceWrapper = styled.div`
   padding: 0 20px;
 `;
+const SearchInput = styled.div``;
 const PlaceWrapper = styled.div`
-  padding: 26px 20px;
+  padding: 26px 0;
   display: flex;
   flex-direction: column;
   gap: 26px;

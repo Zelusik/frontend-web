@@ -22,9 +22,7 @@ const TastePage = () => {
   const handleClickBackBtn = () => {
     router.back();
   };
-  const { favoriteFoodCategories, terms } = useAppSelector(
-    (state) => state.auth
-  );
+  const { favoriteFoodCategories, terms } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(
@@ -85,11 +83,20 @@ const TastePage = () => {
             <RoundButton
               key={taste.val}
               type="taste"
-              text={taste.val}
-              icon={<taste.icon />}
+              action={favoriteFoodCategories.includes(taste.val)}
               onClick={() => handleClickTaste(taste.val)}
-              act={favoriteFoodCategories.includes(taste.val)}
-            />
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "8px",
+                  alignItems: "center",
+                }}
+              >
+                <taste.icon /> {taste.val}
+              </div>
+            </RoundButton>
           ))}
         </TasteButtonContainer>
       </MainWrapper>
@@ -98,9 +105,7 @@ const TastePage = () => {
           text="잇터리 시작하기"
           radius={8}
           backgroundColor={
-            favoriteFoodCategories.length > 0
-              ? colors.Orange500
-              : colors.Orange200
+            favoriteFoodCategories.length > 0 ? colors.Orange500 : colors.Orange200
           }
           color={colors.N0}
           height="56px"

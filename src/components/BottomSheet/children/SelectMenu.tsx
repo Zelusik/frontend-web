@@ -76,15 +76,16 @@ const SelectMenu = () => {
               ? data.menus.map((menu: string) => (
                   <RoundButton
                     key={menu}
+                    borderRadius="8px"
                     type="text"
-                    text={menu}
-                    radius="8px"
-                    act={foodInfo
+                    action={foodInfo
                       .map((item: FoodType) => item.foodName)
                       .includes(menu)}
                     height={46}
                     onClick={() => handleClickFood(menu)}
-                  />
+                  >
+                    {menu}
+                  </RoundButton>
                 ))
               : null}
           </MenuContainer>
