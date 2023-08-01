@@ -158,7 +158,7 @@ const Menu = () => {
   };
   return (
     <MenuWrapper>
-      <BackTitle type="default" text="메뉴 선택" />
+      <BackTitle type="secondary" text="메뉴 선택" />
       <ImageWrapper style={{ position: "relative" }}>
         <Swiper
           className="banner"
@@ -231,11 +231,13 @@ const Menu = () => {
 };
 
 const MenuWrapper = styled.div`
+  position: relative;
   height: 100%;
+  padding: 0 20px;
 `;
 
 const ImageWrapper = styled.div`
-  padding: 20px;
+  padding-top: 20px;
 `;
 
 const MenuTag = styled.span<{ x?: number; y?: number }>`
@@ -257,8 +259,8 @@ const MenuTag = styled.span<{ x?: number; y?: number }>`
 
 const ImageBadge = styled.span`
   position: absolute;
-  bottom: 40px;
-  right: 30px;
+  bottom: 20px;
+  right: 20px;
   padding: 4px 11px;
   ${typography.Paragraph2};
   color: ${colors.N0};
@@ -269,7 +271,6 @@ const ImageBadge = styled.span`
 
 const ExplanationWrapper = styled.div`
   position: relative;
-  padding: 0 20px;
 `;
 
 const BubbleToolTip = styled.div`
@@ -286,6 +287,7 @@ const BubbleToolTip = styled.div`
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
 `;
+
 const ExplanationBubble = styled.div`
   width: fit-content;
   border-radius: 12px;
@@ -299,8 +301,9 @@ const ExplanationBubble = styled.div`
 const BottomWrapper = styled.div`
   position: absolute;
   bottom: 0;
-  width: 100%;
-  padding: 0 20px 50px;
+  left: 20px;
+  right: 20px;
+  margin-bottom: 50px;
 `;
 
 export default Menu;
