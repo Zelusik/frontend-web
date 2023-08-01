@@ -1,5 +1,3 @@
-import { ImageType } from "types/image";
-
 export interface ReviewType {
   placeId?: number;
   placeInfo: PlaceType;
@@ -7,14 +5,14 @@ export interface ReviewType {
   keywords: string[];
   autoCreatedContent?: string;
   content?: string;
-  images: ImageType[];
+  images: TransformedImageDataType[];
   [key: string]:
     | number
     | string
     | string[]
     | PlaceType
     | FoodType[]
-    | ImageType[]
+    | TransformedImageDataType[]
     | undefined;
 }
 
@@ -36,4 +34,17 @@ export interface FoodType {
   foodName: string;
   foodKeyword?: string[];
   [key: string]: string | string[] | undefined;
+}
+
+export interface OriginalImageDataType {
+  image: string;
+  preview: string;
+  lat: string;
+  lng: string;
+  menuTag: { x: number; y: number; menu: string }[];
+}
+
+export interface TransformedImageDataType {
+  image: string;
+  menuTags: { content: string; point: { x: number; y: number } }[];
 }

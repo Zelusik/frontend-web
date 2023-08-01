@@ -23,6 +23,8 @@ import { ImageType, MenuTagType } from "types/image";
 import { setCurrentImageIndex } from "reducer/slices/image/currIdxSlice";
 import { changeMenuTag } from "reducer/slices/image/menuTagSlice";
 import Icon from "components/Icon/Icon";
+import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
+import { OriginalImageDataType, TransformedImageDataType } from "types/review";
 
 const Menu = () => {
   const router = useRouter();
@@ -42,7 +44,28 @@ const Menu = () => {
     }
   }, [image[currentSlideIndex].menuTag]);
 
+  const transformData = (
+    originalData: OriginalImageDataType[]
+  ): TransformedImageDataType[] => {
+    return originalData.map((data) => ({
+      image: data.image,
+      menuTags: data.menuTag.map((tag) => ({
+        content: tag.menu,
+        point: {
+          x: tag.x,
+          y: tag.y,
+        },
+      })),
+    }));
+  };
+
   const handleClickNextBtn = () => {
+    dispatch(
+      changeReviewInfo({
+        type: "images",
+        value: transformData(image),
+      })
+    );
     router.push(Route.REVIEW_KEYWORD());
   };
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { PlaceType, ReviewType } from "types/review";
+import { PlaceType, ReviewType, TransformedImageDataType } from "types/review";
 
 const initialState: ReviewType = {
   placeId: 0,
@@ -31,7 +31,12 @@ export const reviewSlice = createSlice({
       state,
       {
         payload,
-      }: { payload: { type: string; value: string | string[] | PlaceType } }
+      }: {
+        payload: {
+          type: string;
+          value: string | string[] | PlaceType | TransformedImageDataType[];
+        };
+      }
     ) => {
       const { type, value } = payload;
       state[type] = value;
