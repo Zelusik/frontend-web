@@ -8,10 +8,10 @@ interface Props {
   color?: any;
 }
 
-export default function Setting({ margin, size, color }: Props) {
+export default function Dots({ margin, size, color }: Props) {
   const dispatch = useAppDispatch();
 
-  const handleClickSetting = () => {
+  const handleClickDots = () => {
     dispatch(
       changeVisibleType({
         type: "bottomSheet",
@@ -28,7 +28,7 @@ export default function Setting({ margin, size, color }: Props) {
       margin={margin}
       fill={color}
       color={color}
-      onClick={handleClickSetting}
+      onClick={handleClickDots}
     />
   );
 }

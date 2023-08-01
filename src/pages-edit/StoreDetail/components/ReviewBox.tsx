@@ -43,7 +43,7 @@ export default function ReivewBox({ id }: any) {
       </MenuWrapper>
 
       <Hashtags
-        type="default"
+        type="secondary"
         hashtags={[
           "단체모임에 딱",
           "데이트에 최고",

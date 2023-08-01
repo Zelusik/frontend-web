@@ -44,10 +44,11 @@ const TopNavigation = forwardRef(function (
         height={match(type)
           .with("store-detail", () => 38)
           .with("search-place", () => 34)
+          .with("mypage", () => 35)
           .exhaustive()}
         topFixed={state.topFixed}
       >
-        <TitleWrapper>
+        <TitleWrapper style={{ height: 35 }}>
           {titleList.map((data: any, idx: number) => {
             return (
               <TitleLine
@@ -55,6 +56,7 @@ const TopNavigation = forwardRef(function (
                 typo={match(type)
                   .with("store-detail", () => typography.Headline4)
                   .with("search-place", () => typography.Headline3)
+                  .with("mypage", () => typography.Headline3)
                   .exhaustive()}
                 action={idx === state.currentIndex}
                 onClick={() => {
@@ -76,11 +78,20 @@ const TopNavigation = forwardRef(function (
         </TitleWrapper>
         <Hr />
       </TitleSelection>
-      {state.topFixed && <div style={{ height: 38 }} />}
+      {state.topFixed && (
+        <TopFixed
+          height={match(type)
+            .with("store-detail", () => 38)
+            .with("search-place", () => 34)
+            .with("mypage", () => 35)
+            .exhaustive()}
+        />
+      )}
       <Spacing
         size={match(type)
           .with("store-detail", () => 30)
           .with("search-place", () => 0)
+          .with("mypage", () => 20)
           .exhaustive()}
       />
 
@@ -104,7 +115,6 @@ const TitleSelection = styled.div<{ height: number; topFixed: any }>`
   z-index: 900;
 `;
 const TitleWrapper = styled.div`
-  height: 36px;
   display: flex;
 `;
 const TitleLine = styled.div<{ typo: any; action: any }>`
@@ -116,6 +126,10 @@ const TitleLine = styled.div<{ typo: any; action: any }>`
       ${typo}
     `};
   color: ${({ action }) => (action ? colors.N100 : colors.N40)};
+`;
+
+const TopFixed = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
 `;
 
 export default TopNavigation;

@@ -19,6 +19,7 @@ export const Route = {
 
   MARK: () => "/mark",
   MYPAGE: () => "/mypage",
+  SETTING: () => "/setting",
 
   STORE_DETAIL: () => "/store-detail",
   IMAGE_DETAIL: () => "/image-detail",

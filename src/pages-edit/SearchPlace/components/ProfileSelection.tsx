@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { typography } from "constants/typography";
 import { css } from "@emotion/react";
 import Image from "components/Image";
+import { Route } from "constants/Route";
 
 export default function ProfileSelection({ text }: any) {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function ProfileSelection({ text }: any) {
       localStorage.setItem("currentSelection", JSON.stringify([]));
     }
 
-    // router.push(Route.MAP());
+    router.push({ pathname: Route.MYPAGE(), query: { id: 1 } });
   };
 
   return (
