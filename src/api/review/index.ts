@@ -1,4 +1,57 @@
+import client from "api";
 import axios from "axios";
+import { ReviewType } from "types/review";
+
+export const postReview = async (reviewData: ReviewType) => {
+  const formData = new FormData();
+  function base64toFile(base_data: any, filename: any) {
+    var arr = base_data.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
+
+  try {
+    formData.append("placeId", String(reviewData.placeId));
+    formData.append("keywords", String(reviewData.keywords));
+    formData.append("autoCreatedContent", String(reviewData.autoCreatedContent));
+    formData.append("content", String(reviewData.content));
+    reviewData.images.forEach((imageData, index) => {
+      const file = base64toFile(imageData.image, "image_file.png");
+      formData.append(`images[${index}].image`, file);
+      imageData.menuTags.forEach((tag, tagIndex) => {
+        formData.append(
+          `images[${index}].menuTags[${tagIndex}].content`,
+          tag.content
+        );
+        formData.append(
+          `images[${index}].menuTags[${tagIndex}].point.x`,
+          String(tag.point.x)
+        );
+        formData.append(
+          `images[${index}].menuTags[${tagIndex}].point.y`,
+          String(tag.point.y)
+        );
+      });
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  return await client
+    .post("/reviews", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then(({ data }) => data)
+    .catch((err) => err.response);
+};
 
 export const kakaoSearchKeyword = async (
   x: number,

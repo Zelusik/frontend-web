@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { typography } from "constants/typography";
-import { useAppDispatch } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -13,11 +13,14 @@ import { useRouter } from "next/router";
 import TextArea from "components/TextArea/TextArea";
 import Spacing from "components/Spacing/Spacing";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
+import { postReview } from "api/review";
+import { Route } from "constants/Route";
 
 const Write = () => {
   const route = useRouter();
   const dispatch = useAppDispatch();
   const [textAreaHeight, setTextAreaHeight] = useState(0);
+  const review = useAppSelector((state) => state.review);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -34,10 +37,16 @@ const Write = () => {
     );
   };
 
-  const handleClickUploadBtn = () => {};
+  const handleClickUploadBtn = async () => {
+    const result = await postReview(review);
+    if (!result.status) {
+      route.push(Route.MYPAGE());
+    }
+  };
+
   return (
     <WriteWrapper>
-      <BackTitle type="default" text="리뷰 작성" />
+      <BackTitle type="secondary" text="리뷰 작성" />
       <MainWrapper>
         <div style={typography.Headline5}>
           {route.query.state === "self"
@@ -71,6 +80,7 @@ const Write = () => {
           color={colors.N0}
           height="54px"
           onClick={handleClickUploadBtn}
+          disabled={!review.content}
         />
       </BottomWrapper>
     </WriteWrapper>
@@ -78,11 +88,12 @@ const Write = () => {
 };
 
 const WriteWrapper = styled.div`
+  position: relative;
   height: 100%;
+  padding: 0 20px;
 `;
 
 const MainWrapper = styled.div`
-  padding: 20px;
   .AI {
     ${typography.Paragraph2};
     p {
@@ -99,8 +110,9 @@ const BottomWrapper = styled.div`
 
   position: absolute;
   bottom: 0;
-  width: 100%;
-  padding: 0 20px 50px;
+  left: 20px;
+  right: 20px;
+  margin-bottom: 50px;
 `;
 
 export default Write;

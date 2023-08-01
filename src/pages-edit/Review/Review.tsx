@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
 import { colors } from "constants/colors";
@@ -15,6 +15,7 @@ import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
 import { initializeReviewInfo } from "reducer/slices/review/reviewSlice";
 import BottomNavigation from "components/BottomNavigation/BottomNavigation";
+import { ImageType } from "types/image";
 
 const Review = () => {
   const router = useRouter();
@@ -24,12 +25,22 @@ const Review = () => {
   const extractGPSInfo = async (file: File): Promise<void> => {
     dispatch(initializeImageInfo());
     dispatch(initializeReviewInfo());
-    const imageInfo: { preview: string; lat: string; lng: string } = {
+    const imageInfo: any = {
+      image: "",
       preview: "",
       lat: "",
       lng: "",
     };
     try {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        imageInfo.image = reader.result;
+      };
+      reader.onerror = function (error) {
+        console.log("Error: ", error);
+      };
+
       const data: any = await exifr.parse(file);
       imageInfo.preview = URL.createObjectURL(file);
 
@@ -52,7 +63,6 @@ const Review = () => {
         extractGPSInfo(file);
       }
     });
-
     router.push(Route.REVIEW_PLACE());
   };
 
