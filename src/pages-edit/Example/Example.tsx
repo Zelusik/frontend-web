@@ -2,13 +2,11 @@ import BottomNavigation from "components/BottomNavigation";
 import BottomSheet from "components/BottomSheet";
 import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
-import Copy from "components/Copy";
 import Description from "components/Description";
-import Edit from "components/Edit";
+import Edit from "components/Button/IconButton/Edit";
 import Hashtags from "components/Hashtags";
-import Heart from "components/Heart";
+import Heart from "components/Button/IconButton/Heart";
 import Hr from "components/Hr";
-import Setting from "components/Setting";
 import Spacing from "components/Spacing";
 import Input from "components/Input";
 import TextArea from "components/TextArea";
@@ -16,6 +14,8 @@ import BackTitle from "components/Title/BackTitle";
 import ProfileTitle from "components/Title/ProfileTitle";
 import StoreTitle from "components/Title/StoreTitle";
 import TopNavigation from "components/TopNavigation";
+import Dots from "components/Button/IconButton/Dots";
+import { Copy } from "components/Icon/icons";
 
 export default function Example({}: any) {
   return (
@@ -36,15 +36,15 @@ export default function Example({}: any) {
       <RoundButton type="map-text" act={true} text="테스트용 입니다" />
       <RoundButton type="map-text" act={false} text="테스트용 입니다" />
 
-      <RoundButton type="follow" text="테스트용 입니다" act={true} />
-      <RoundButton type="follow" text="테스트용 입니다" act={false} />
+      <RoundButton type="follow-icon" text="테스트용 입니다" act={true} />
+      <RoundButton type="follow-icon" text="테스트용 입니다" act={false} />
 
       <BottomButton type="primary" text="테스트용 입니다" />
       <BottomButton type="default" text="테스트용 입니다" />
 
       <Copy />
       <Edit />
-      <Setting />
+      <Dots />
       <Heart />
 
       <Description
@@ -118,7 +118,7 @@ export default function Example({}: any) {
 
       <Spacing size={20} />
 
-      <TopNavigation
+      {/* <TopNavigation
         type="search-place"
         titleList={["지역", "음식점", "닉네임"]}
         state={{ topFixed: false, currentIndex: 0, setCurrentIndex: () => {} }}
@@ -126,7 +126,7 @@ export default function Example({}: any) {
         <>Hi1</>
         <>Hi2</>
         <>Hi3</>
-      </TopNavigation>
+      </TopNavigation> */}
     </>
   );
 }

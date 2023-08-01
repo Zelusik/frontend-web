@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import RoundButton from "components/Button/RoundButton";
+import Dots from "components/Button/IconButton/Dots";
 import Image from "components/Image";
-import Setting from "components/Setting";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 
@@ -50,7 +50,7 @@ export default function ProfileTitle({
               alert("roundButton");
             }}
           />
-          {type === "home" && <Setting margin="0 0 0 4px" color={colors.N80} />}
+          {type === "home" && <Dots margin="0 0 0 4px" color={colors.N80} />}
         </Menu>
       </MenuList>
     </TitleWrapper>

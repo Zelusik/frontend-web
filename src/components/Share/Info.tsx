@@ -4,7 +4,7 @@ import { colors } from "constants/colors";
 import Spacing from "components/Spacing";
 import { css } from "@emotion/react";
 import { typography } from "constants/typography";
-import Copy from "components/Copy";
+import Copy from "components/Button/IconButton/Copy";
 
 export default function Info() {
   const router = useRouter();

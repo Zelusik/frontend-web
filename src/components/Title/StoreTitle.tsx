@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Edit from "components/Edit";
-import Heart from "components/Heart";
+import Edit from "components/Button/IconButton/Edit";
+import Heart from "components/Button/IconButton/Heart";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import { match } from "ts-pattern";

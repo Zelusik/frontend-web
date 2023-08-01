@@ -4,6 +4,7 @@ import { colors } from "constants/colors";
 import { css } from "@emotion/react";
 import { typography } from "constants/typography";
 import { match } from "ts-pattern";
+import Hashtag from "./Hashtag";
 
 export default function Hashtags({
   type = "primary",
@@ -17,29 +18,14 @@ export default function Hashtags({
       <HashtagsInner>
         {hashtags.map((data: string, idx: number) => {
           return (
-            <MenuWrapper
+            <Hashtag
               key={idx}
-              marginLeft={idx === 0}
-              marginRight={idx === hashtags.length - 1}
+              type={type}
+              idx={idx}
+              len={hashtags.length}
               side={side}
-              color={match(type)
-                .with("primary", () => colors.Orange100)
-                .with("default", () => colors.N10)
-                .exhaustive()}
-            >
-              <Menu typo={typography.Paragraph5}>
-                <Menuspan
-                  typo={typography.Paragraph4}
-                  color={match(type)
-                    .with("primary", () => colors.Orange300)
-                    .with("default", () => colors.N60)
-                    .exhaustive()}
-                >
-                  #&nbsp;
-                </Menuspan>
-                {data}
-              </Menu>
-            </MenuWrapper>
+              text={data}
+            />
           );
         })}
       </HashtagsInner>

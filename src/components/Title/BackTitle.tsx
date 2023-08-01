@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { match } from "ts-pattern";
 
-import Setting from "components/Setting";
 import Icon from "components/Icon";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import Dots from "components/Button/IconButton/Dots";
 
 export default function BackTitle({
   type = "primary",
@@ -38,7 +38,7 @@ export default function BackTitle({
         </Menu>
         <Menu>{text && <Title typo={typography.Headline4}>{text}</Title>}</Menu>
         <Menu style={{ width: "24px" }}>
-          {type === "primary" && <Setting size={20} color={colors.N0} />}
+          {type === "primary" && <Dots size={20} color={colors.N0} />}
         </Menu>
       </MenuList>
     </TitleWrapper>

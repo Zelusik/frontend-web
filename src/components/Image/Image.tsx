@@ -40,16 +40,16 @@ export default function Image({
         .with("store-detail", () => 360 / 281)
         .with("home", () => 8 / 9)
         .with("map-bottom-sheet", () => 55 / 32)
-        .with("default", () => 1)
         .with("review", () => 1.14)
+        .with("default", () => 1)
         .exhaustive()}
       radius={match(type)
         .with("home-detail", () => "0")
         .with("store-detail", () => "0")
         .with("home", () => "20px")
         .with("map-bottom-sheet", () => "12px")
-        .with("default", () => "36%")
         .with("review", () => "12px")
+        .with("default", () => "36%")
         .exhaustive()}
       objectFit={objectFit}
       onClick={onClick}
