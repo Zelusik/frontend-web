@@ -46,7 +46,7 @@ const RegisterMenu = () => {
     <RegisterMenuWrapper onSubmit={handleRegisterMenu}>
       <Input
         type="text"
-        placeholder="메뉴명을 입력하세요"
+        placeholder="메뉴명을 입력해주세요"
         value={menu}
         onChange={handleChangeMenu}
       />

@@ -234,7 +234,11 @@ const Menu = () => {
       <Spacing size={10} />
       <ExplanationWrapper>
         <div style={typography.Headline5}>메뉴의 이름은 무엇인가요?</div>
-        <ExplanationBubble>사진을 눌러 메뉴를 태그할 수 있어요!</ExplanationBubble>
+        <ExplanationBubble>
+          {image.map((e: any) => e.menuTag).flat().length > 0
+            ? "태그를 길게 눌러 위치를 옮길 수 있어요!"
+            : "사진을 눌러 메뉴를 태그할 수 있어요!"}
+        </ExplanationBubble>
         <BubbleToolTip />
       </ExplanationWrapper>
 
@@ -260,7 +264,7 @@ const MenuWrapper = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  padding-top: 20px;
+  padding: 20px 0;
 `;
 
 const MenuTag = styled.span<{ x?: number; y?: number }>`
@@ -282,7 +286,7 @@ const MenuTag = styled.span<{ x?: number; y?: number }>`
 
 const ImageBadge = styled.span`
   position: absolute;
-  bottom: 20px;
+  bottom: 40px;
   right: 20px;
   padding: 4px 11px;
   ${typography.Paragraph2};
@@ -326,7 +330,7 @@ const BottomWrapper = styled.div`
   bottom: 0;
   left: 20px;
   right: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 `;
 
 export default Menu;
