@@ -92,6 +92,7 @@ export default function HomeDetail() {
 
           <KakaoMapWrapper height={(width * 23) / 36}>
             <KakaoMap lat={33.450701} lng={126.570667} />
+            <MapBackground />
             <ScaleUpButton />
           </KakaoMapWrapper>
 
@@ -146,4 +147,15 @@ const KakaoMapWrapper = styled.div<{ height: number }>`
   overflow: hidden;
 
   position: relative;
+`;
+
+const MapBackground = styled.div`
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+
+  background-color: transparent;
+  z-index: 900;
 `;
