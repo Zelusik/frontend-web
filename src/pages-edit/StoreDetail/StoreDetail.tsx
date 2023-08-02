@@ -117,10 +117,12 @@ export default function StoreDetail() {
 
           <Spacing size={40} />
           <TopNavigation
+            type="store-detail"
             scrollRef={scrollRef}
             scrollTop={(width * 281) / 360 + 20 + 49 + 16 + 40}
-            type="store-detail"
-            state={{ currentIndex, setCurrentIndex, topFixed }}
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+            topFixed={topFixed}
             titleList={["리뷰", "매장정보"]}
           >
             <>

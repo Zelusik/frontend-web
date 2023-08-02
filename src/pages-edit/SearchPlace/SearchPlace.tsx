@@ -67,24 +67,27 @@ export default function SearchPlace() {
         </>
       ) : (
         <TopNavigation
+          type="search-place"
           scrollRef={scrollRef}
           scrollTop={0}
-          type="search-place"
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
           titleList={["지역", "음식점", "닉네임"]}
-          state={{ topFixed: false, currentIndex, setCurrentIndex }}
         >
           <Wrapper height={height - 160}>
             <Spacing size={20} />
-            {["", "", ""].map((data: any, idx: number) => {
-              return (
-                <Selection
-                  key={idx}
-                  type="location"
-                  text="강남구"
-                  location="상세주소"
-                />
-              );
-            })}
+            {["", "", "", "", "", "", "", "", "", "", "", ""].map(
+              (data: any, idx: number) => {
+                return (
+                  <Selection
+                    key={idx}
+                    type="location"
+                    text="강남구"
+                    location="상세주소"
+                  />
+                );
+              }
+            )}
           </Wrapper>
 
           <Wrapper height={height - 160}>
