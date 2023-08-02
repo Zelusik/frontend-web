@@ -147,6 +147,12 @@ const KakaoMapWrapper = styled.div<{ height: number }>`
   overflow: hidden;
 
   position: relative;
+
+  //
+  // height: 100%;
+  // position: absolute;
+  // top: 0;
+  // z-index: 900;
 `;
 
 const MapBackground = styled.div`

@@ -2,11 +2,14 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
 import { colors } from "constants/colors";
+import { Route } from "constants/Route";
 import { typography } from "constants/typography";
+import { useRouter } from "next/navigation";
 
 export default function ScaleUpButton({}: any) {
+  const router = useRouter();
   const handleClickScaleUp = () => {
-    alert("scale-up");
+    router.push(Route.MAP_DETAIL());
   };
 
   return (
