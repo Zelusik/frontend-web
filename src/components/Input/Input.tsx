@@ -131,7 +131,8 @@ const InputBox = styled.input`
     ${typography.Paragraph6}
   `}
   &::placeholder {
-    color: ${colors.N50};
+    color: ${colors.N50} !important;
+    ${typography.Paragraph3}
   }
   color: ${colors.N100};
 `;
