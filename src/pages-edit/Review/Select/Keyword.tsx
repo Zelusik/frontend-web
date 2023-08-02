@@ -14,6 +14,8 @@ import { Route } from "constants/Route";
 import { atmosphereKeyword, foodKeyword } from "data/keywordData";
 import RoundButton from "components/Button/RoundButton";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
+import Spacing from "components/Spacing/Spacing";
+
 const Keyword = () => {
   const route = useRouter();
   const dispatch = useAppDispatch();
@@ -63,6 +65,7 @@ const Keyword = () => {
   return (
     <KeywordWrapper>
       <BackTitle type="secondary" text="음식점 리뷰" />
+      <Spacing size={20} />
       <MainWrapper>
         <div style={typography.Headline5}>음식점은 어떠셨나요?</div>
         <KeywordContainer>
@@ -157,7 +160,7 @@ const BottomWrapper = styled.div`
   bottom: 0;
   left: 20px;
   right: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 `;
 
 const ReviewButton = styled.div`

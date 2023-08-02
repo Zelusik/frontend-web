@@ -47,6 +47,7 @@ const Write = () => {
   return (
     <WriteWrapper>
       <BackTitle type="secondary" text="리뷰 작성" />
+      <Spacing size={20} />
       <MainWrapper>
         <div style={typography.Headline5}>
           {route.query.state === "self"
@@ -54,11 +55,15 @@ const Write = () => {
             : "리뷰를 남겨주세요."}
         </div>
         <Spacing size={20} />
-        <TextArea
-          size={textAreaHeight}
-          placeholder="음식점에서의 경험이나 정보를 자세히 작성해주세요!"
-          onChange={handleChangeReview}
-        />
+        <div style={{ position: "relative" }}>
+          <TextArea
+            size={textAreaHeight}
+            placeholder="음식점에서의 경험이나 정보를 자세히 작성해주세요!"
+            onChange={handleChangeReview}
+            borderColor={colors.N10}
+          />
+          <TextCount>{review.content.length}/400</TextCount>
+        </div>
         {route.query.state === "AI" && (
           <div className="AI">
             <Spacing size={10} />
@@ -102,6 +107,13 @@ const MainWrapper = styled.div`
   }
 `;
 
+const TextCount = styled.div`
+  ${typography.Paragraph2};
+  color: ${colors.Orange600};
+  position: absolute;
+  bottom: 25px;
+  right: 10px;
+`;
 const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -112,7 +124,7 @@ const BottomWrapper = styled.div`
   bottom: 0;
   left: 20px;
   right: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 `;
 
 export default Write;

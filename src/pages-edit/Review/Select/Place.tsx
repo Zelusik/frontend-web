@@ -167,7 +167,6 @@ const PlaceInputWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 20px;
   padding: 16px 20px;
   border: 1px solid ${colors.N40};
   border-radius: 12px;
@@ -187,6 +186,6 @@ const BottomWrapper = styled.div`
   bottom: 0;
   left: 20px;
   right: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 `;
 export default Place;

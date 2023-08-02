@@ -41,11 +41,16 @@ const SelectMenu = () => {
         })
       );
     }
-
     dispatch(
       appendMenuTag({
         index: currentIndex,
         menuTag: { ...menuTag, menu: foodName },
+      })
+    );
+    dispatch(
+      changeVisible({
+        type: "bottomSheet",
+        value: 0,
       })
     );
   };
@@ -94,6 +99,7 @@ const SelectMenu = () => {
               ...typography.Paragraph3,
               display: "flex",
               flexDirection: "row",
+              gap: "4px",
             }}
           >
             <p style={{ color: colors.N60 }}>찾는 메뉴가 없다면?</p>
