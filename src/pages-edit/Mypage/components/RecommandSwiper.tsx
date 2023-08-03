@@ -12,7 +12,6 @@ import { colors } from "constants/colors";
 import { css, keyframes } from "@emotion/react";
 
 export default function RecommandSwiper({ datas }: any) {
-  const swiperRef = useRef<any>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const onSlideChange = (e: any) => {
@@ -22,7 +21,11 @@ export default function RecommandSwiper({ datas }: any) {
 
   return (
     <>
-      <Swiper ref={swiperRef} onSlideChange={onSlideChange}>
+      <Swiper
+        allowSlidePrev={currentIndex !== 0}
+        allowSlideNext={currentIndex !== datas.length - 1}
+        onSlideChange={onSlideChange}
+      >
         {datas.map((data: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>

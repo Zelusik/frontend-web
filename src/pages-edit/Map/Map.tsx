@@ -19,6 +19,7 @@ import FilterButton from "./components/FilterButton";
 import StoreFilter from "./components/StoreFilter";
 import Icon from "components/Icon";
 import { changeType } from "reducer/slices/search/searchSlice";
+import { useEffect } from "react";
 
 const filterSelection = [
   {
@@ -41,7 +42,7 @@ const filterSelection = [
 export default function Map() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { action, filterAction } = useAppSelector((state) => state.search);
+  const { type, filterAction } = useAppSelector((state) => state.search);
   const clickDelete = () => {
     dispatch(
       changeType({
@@ -50,6 +51,10 @@ export default function Map() {
       })
     );
   };
+
+  useEffect(() => {
+    console.log(type);
+  }, []);
 
   return (
     <>
@@ -73,7 +78,7 @@ export default function Map() {
           </>
         ) : (
           <>
-            {action === "store" ? (
+            {type === "store" ? (
               <>
                 <StoreFilter />
                 <Spacing size={14} />
@@ -82,7 +87,7 @@ export default function Map() {
               <>
                 <LocationTitle />
                 <Spacing size={14} />
-                {action === "location" ? <Filter /> : null}
+                {type === "location" ? <Filter /> : null}
               </>
             )}
 
@@ -98,7 +103,7 @@ export default function Map() {
         <InputWrapper>
           <Input placeholder="지역, 음식점, 닉네임 검색" />
         </InputWrapper>
-        {action !== "default" ? (
+        {type !== "default" ? (
           <IconWrapper>
             <Icon
               icon="CircleXButton"

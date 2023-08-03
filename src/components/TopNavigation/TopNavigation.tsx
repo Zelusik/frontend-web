@@ -17,12 +17,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 const TopNavigation = forwardRef(function (
   {
     children,
+    type = "store-detail",
     scrollRef,
     scrollTop,
-
-    type = "store-detail",
-    state,
     titleList = [],
+    ...props
   }: any,
   ref
 ) {
@@ -31,7 +30,7 @@ const TopNavigation = forwardRef(function (
 
   const onSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;
-    state.setCurrentIndex(newSwiper);
+    props.setCurrentIndex(newSwiper);
 
     if (scrollRef.current?.scrollTop > scrollTop) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -46,7 +45,7 @@ const TopNavigation = forwardRef(function (
           .with("search-place", () => 34)
           .with("mypage", () => 35)
           .exhaustive()}
-        topFixed={state.topFixed}
+        topFixed={props.topFixed}
       >
         <TitleWrapper style={{ height: 35 }}>
           {titleList.map((data: any, idx: number) => {
@@ -58,10 +57,10 @@ const TopNavigation = forwardRef(function (
                   .with("search-place", () => typography.Headline3)
                   .with("mypage", () => typography.Headline3)
                   .exhaustive()}
-                action={idx === state.currentIndex}
+                action={idx === props.currentIndex}
                 onClick={() => {
-                  state.setCurrentIndex(idx);
-                  const middle = state.currentIndex - idx;
+                  props.setCurrentIndex(idx);
+                  const middle = props.currentIndex - idx;
                   if (middle < 0) {
                     for (let i = 0; i < Math.abs(middle); i++)
                       swiperRef.current.swiper.slideNext();
@@ -78,7 +77,7 @@ const TopNavigation = forwardRef(function (
         </TitleWrapper>
         <Hr />
       </TitleSelection>
-      {state.topFixed && (
+      {props.topFixed && (
         <TopFixed
           height={match(type)
             .with("store-detail", () => 38)
@@ -95,7 +94,12 @@ const TopNavigation = forwardRef(function (
           .exhaustive()}
       />
 
-      <Swiper ref={swiperRef} onSlideChange={onSlideChange}>
+      <Swiper
+        ref={swiperRef}
+        allowSlidePrev={props.currentIndex !== 0}
+        allowSlideNext={props.currentIndex !== children.length - 1}
+        onSlideChange={onSlideChange}
+      >
         {children.map((data: any, idx: number) => {
           return <SwiperSlide key={idx}>{data}</SwiperSlide>;
         })}

@@ -35,7 +35,12 @@ const ImageBox = forwardRef(({}, ref) => {
 
   return (
     <FoodTagWrapper ref={ref}>
-      <Swiper onSlideChange={onSlideChange} style={{ height: width + 4 }}>
+      <Swiper
+        allowSlidePrev={swiperIndex !== 0}
+        allowSlideNext={swiperIndex !== images.length - 1}
+        onSlideChange={onSlideChange}
+        style={{ height: width + 4 }}
+      >
         {images.map((src: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>

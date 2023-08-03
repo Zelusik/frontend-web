@@ -21,7 +21,6 @@ const images = [
 export default function ImageDetail({}: any) {
   const router = useRouter();
   const { width, height } = useDisplaySize();
-  const swiperRef = useRef<any>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const onSlideChange = (e: any) => {
@@ -37,7 +36,8 @@ export default function ImageDetail({}: any) {
       </TitleWrapper>
 
       <Swiper
-        ref={swiperRef}
+        allowSlidePrev={currentIndex !== 0}
+        allowSlideNext={currentIndex !== images.length - 1}
         onSlideChange={onSlideChange}
         style={{ marginTop: ((height - width) / 2 - 50) * 0.9 }}
       >

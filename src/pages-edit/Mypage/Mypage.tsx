@@ -14,14 +14,14 @@ import { colors } from "constants/colors";
 import RecommandSwiper from "./components/RecommandSwiper";
 import ReviewStore from "./components/ReveiwStore";
 import { typography } from "constants/typography";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import { globalValue } from "constants/globalValue";
 import RecommandButton from "./components/RecommandButton";
 
 const RecommandDatas = [
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
 ];
 
 const ReviewDatas = [
@@ -44,7 +44,7 @@ const ReviewDatas = [
 
 export default function Mypage() {
   const router = useRouter();
-  console.log(router.query);
+  // console.log(router.query);
   const mypage = true;
   const scrollRef = useRef<any>(null);
 
@@ -58,7 +58,7 @@ export default function Mypage() {
     setScrollHeight(
       (window.innerHeight - 280 - (392 - scrollRef.current?.scrollTop)) * 0.5
     );
-    // setScrollHeight(window.innerHeight - (392 - scrollRef.current?.scrollTop));
+
     if (currentIndex === 0 && scrollRef.current?.scrollTop >= 332) {
       scrollRef.current!.scrollTop = 332;
       return;
@@ -94,8 +94,8 @@ export default function Mypage() {
         <TitleWrapper>
           {mypage ? (
             <>
-              <TitleInner>
-                <Name>{titleChange && "강남작가"}</Name>
+              <TitleInner visible={titleChange}>
+                <Name visible={titleChange}>{titleChange && "강남작가"}</Name>
                 <Setting />
               </TitleInner>
             </>
@@ -113,10 +113,12 @@ export default function Mypage() {
         </MypageInner>
 
         <TopNavigation
+          type="mypage"
           scrollRef={scrollRef}
           scrollTop={392 - 50}
-          type="mypage"
-          state={{ currentIndex, setCurrentIndex, topFixed }}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          topFixed={topFixed}
           titleList={["추천 베스트", "리뷰"]}
         >
           <NavigationWrapper height={height - 108}>
@@ -129,9 +131,7 @@ export default function Mypage() {
               </ButtonWrapper>
             )}
           </NavigationWrapper>
-          <NavigationWrapper
-          // height={height - 108}
-          >
+          <NavigationWrapper>
             {ReviewDatas.length !== 0 ? (
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {ReviewDatas.map((data: any, idx: number) => {
@@ -156,6 +156,17 @@ export default function Mypage() {
   );
 }
 
+const fade = (visible: boolean) => keyframes`
+  from {
+    opacity: ${visible ? 0 : 1};
+    background-color: ${visible ? `transparent` : `${colors.N0}`};
+  }
+  to {
+    opacity: ${visible ? 1 : 0};
+    background-color: ${visible ? `${colors.N0}` : `transparent`};
+  }
+`;
+
 const TitleWrapper = styled.div`
   width: 100%;
   height: 50px;
@@ -178,7 +189,7 @@ const MypageInner = styled.div`
   padding: 0 20px;
 `;
 
-const TitleInner = styled.div`
+const TitleInner = styled.div<{ visible: boolean }>`
   width: 100%;
   height: 50px;
   padding: 0 20px;
@@ -190,11 +201,15 @@ const TitleInner = styled.div`
   left: 0;
 `;
 
-const Name = styled.div`
+const Name = styled.div<{ visible: boolean }>`
   margin: auto 0;
   ${css`
     ${typography.Headline5}
   `}
+
+  background-color: ${({ visible }) =>
+    visible ? `${colors.N0}` : `transparents`};
+  animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
 
 const NavigationWrapper = styled.div<{ height?: number }>`
