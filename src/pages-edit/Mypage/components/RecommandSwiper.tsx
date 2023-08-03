@@ -4,14 +4,15 @@ import Image from "components/Image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import StoreTitle from "components/Title/StoreTitle";
 import Spacing from "components/Spacing";
 import RecommandButton from "./RecommandButton";
 import { colors } from "constants/colors";
 import { css, keyframes } from "@emotion/react";
+import { typography } from "constants/typography";
 
-export default function RecommandSwiper({ datas }: any) {
+export default function RecommandSwiper({ datas, ...props }: any) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const onSlideChange = (e: any) => {
@@ -31,6 +32,7 @@ export default function RecommandSwiper({ datas }: any) {
             <SwiperSlide key={idx}>
               <ImageWrapper>
                 <Image alt="추천 사진" src={data} type="home" />
+                <Number>{idx + 1}</Number>
                 <StoreTitle
                   type="default"
                   title="소이연남"
@@ -92,4 +94,15 @@ const Index = styled.div<{ action: boolean }>`
 
   animation: ${(props) => trans(props.action)} 0.3s forwards;
   border-radius: 2px;
+`;
+
+const Number = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 17px;
+
+  ${css`
+    ${typography.Paragraph7}
+  `}
+  font-style: italic;
 `;

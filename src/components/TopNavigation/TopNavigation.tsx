@@ -47,7 +47,13 @@ const TopNavigation = forwardRef(function (
           .exhaustive()}
         topFixed={props.topFixed}
       >
-        <TitleWrapper style={{ height: 35 }}>
+        <TitleWrapper
+          height={match(type)
+            .with("store-detail", () => 38)
+            .with("search-place", () => 34)
+            .with("mypage", () => 35)
+            .exhaustive()}
+        >
           {titleList.map((data: any, idx: number) => {
             return (
               <TitleLine
@@ -118,7 +124,8 @@ const TitleSelection = styled.div<{ height: number; topFixed: any }>`
   background-color: ${colors.N0};
   z-index: 900;
 `;
-const TitleWrapper = styled.div`
+const TitleWrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height + "px"};
   display: flex;
 `;
 const TitleLine = styled.div<{ typo: any; action: any }>`
