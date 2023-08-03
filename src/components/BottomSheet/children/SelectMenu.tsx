@@ -38,15 +38,32 @@ const SelectMenu = () => {
 
   const handleClickFood = (foodName: string) => {
     setClickedMenu(foodName);
-    if (
-      image[currentIndex].menuTag
-        .map((tagInfo: MenuTagType) => tagInfo.menu)
-        .includes(foodName)
-    ) {
-      openToast();
-      setTimeout(() => {
-        setClickedMenu("");
-      }, 1000);
+    if (image[currentIndex].menuTag) {
+      if (
+        image[currentIndex].menuTag
+          .map((tagInfo: MenuTagType) => tagInfo.menu)
+          .includes(foodName)
+      ) {
+        openToast();
+        setTimeout(() => {
+          setClickedMenu("");
+        }, 1000);
+      } else {
+        dispatch(
+          appendMenuTag({
+            index: currentIndex,
+            menuTag: { ...menuTag, menu: foodName },
+          })
+        );
+        setTimeout(() => {
+          dispatch(
+            changeVisible({
+              type: "bottomSheet",
+              value: 0,
+            })
+          );
+        }, 300);
+      }
     } else {
       dispatch(
         appendMenuTag({
