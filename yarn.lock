@@ -2285,6 +2285,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/browser-image-compression@npm:^1.0.9":
+  version: 1.0.9
+  resolution: "@types/browser-image-compression@npm:1.0.9"
+  dependencies:
+    browser-image-compression: "*"
+  checksum: 5ba4dec816337ba9f44bf0fbfa9dd6bd051fa4ef136d5f99a20139c725145e99b6ec3b089df14727acb2c5f277810419dc2bda013791590653e816f16704430d
+  languageName: node
+  linkType: hard
+
 "@types/cacheable-request@npm:^6.0.1":
   version: 6.0.3
   resolution: "@types/cacheable-request@npm:6.0.3"
@@ -3075,6 +3084,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"browser-image-compression@npm:*, browser-image-compression@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "browser-image-compression@npm:2.0.2"
+  dependencies:
+    uzip: 0.20201231.0
+  checksum: 16051f07b0ec3927d30600d244d07d46bd41de16d6c44b872efe89f4b2b22dbd9dfbb66e3d1ff2c6282057722456a53759996e1478774dc520843ffb48f7441e
+  languageName: node
+  linkType: hard
+
 "browserslist@npm:^4.21.5, browserslist@npm:^4.21.9":
   version: 4.21.9
   resolution: "browserslist@npm:4.21.9"
@@ -3776,6 +3794,7 @@ __metadata:
     "@reduxjs/toolkit": ^1.9.5
     "@svgr/webpack": ^8.0.1
     "@types/axios": ^0.14.0
+    "@types/browser-image-compression": ^1.0.9
     "@types/node": 20.3.3
     "@types/react": 18.2.14
     "@types/react-dom": 18.2.6
@@ -3786,6 +3805,7 @@ __metadata:
     "@yarnpkg/pnpify": ^4.0.0-rc.47
     axios: ^1.4.0
     babel-plugin-styled-components: ^2.1.4
+    browser-image-compression: ^2.0.2
     eslint: 8.44.0
     eslint-config-next: 13.4.7
     exifr: ^7.1.3
@@ -7627,6 +7647,13 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
+  languageName: node
+  linkType: hard
+
+"uzip@npm:0.20201231.0":
+  version: 0.20201231.0
+  resolution: "uzip@npm:0.20201231.0"
+  checksum: 34253f4c3d996571b10b659eea415bec952bde940e1fd44090ce19687b6dbaae411d8e6321b9028e44aa442379659d71bb39e95ba15de0626cfe970d90b24f40
   languageName: node
   linkType: hard
 
