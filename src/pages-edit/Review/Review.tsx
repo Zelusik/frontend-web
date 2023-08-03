@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
 import { colors } from "constants/colors";
@@ -17,6 +17,7 @@ import { initializeReviewInfo } from "reducer/slices/review/reviewSlice";
 import BottomNavigation from "components/BottomNavigation/BottomNavigation";
 import useModal from "hooks/useModal";
 import Toast from "components/Toast/Toast";
+import imageCompression from "browser-image-compression";
 
 const Review = () => {
   const router = useRouter();
@@ -45,12 +46,14 @@ const Review = () => {
     try {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function () {
-        imageInfo.image = reader.result;
-      };
-      reader.onerror = function (error) {
-        console.log("Error: ", error);
-      };
+      if (file.size <= 5 * 1024 * 1024) {
+        const imageUrl = await imageCompression.getDataUrlFromFile(file);
+        imageInfo.image = imageUrl;
+      } else {
+        const resizingBlob = await imageCompression(file, { maxSizeMB: 5 });
+        const resizedUrl = await imageCompression.getDataUrlFromFile(resizingBlob);
+        imageInfo.image = resizedUrl;
+      }
 
       const data: any = await exifr.parse(file);
       imageInfo.preview = URL.createObjectURL(file);
