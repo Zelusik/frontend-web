@@ -6,6 +6,7 @@ export const Route = {
   HOME: () => "/",
   HOME_DETAIL: () => "/home-detail",
   REPORT: () => "/report",
+  MAP_DETAIL: () => "/map-detail",
 
   MAP: () => "/map",
   SEARCH_PLACE: () => "/search-place",

@@ -59,6 +59,13 @@ export const typography = {
   //   fontWeight: 500,
   // },
 
+  Paragraph7: {
+    fontSize: 36,
+    color: colors.Orange600,
+    fontFamily: "SpoqaHanSansNeoBold",
+    lineHeight: "140%",
+    fontWeight: 600,
+  },
   Paragraph6: {
     fontSize: 16,
     color: colors.N100,

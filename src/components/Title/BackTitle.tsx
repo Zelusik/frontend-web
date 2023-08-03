@@ -23,6 +23,18 @@ export default function BackTitle({
           onClick={() => {
             router.back();
           }}
+          style={
+            type === "tertiary"
+              ? {
+                  width: 44,
+                  height: 44,
+                  paddingLeft: 10,
+                  borderRadius: 12,
+                  boxShadow: "0px 3px 18px 0px rgba(0, 0, 0, 0.08)",
+                  backgroundColor: colors.N0,
+                }
+              : {}
+          }
         >
           <Icon
             icon="Arrow"
@@ -31,6 +43,7 @@ export default function BackTitle({
             color={match(type)
               .with("primary", () => colors.N0)
               .with("secondary", () => colors.N100)
+              .with("tertiary", () => colors.N100)
               .with("default", () => colors.N0)
               .exhaustive()}
           />

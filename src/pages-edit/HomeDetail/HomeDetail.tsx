@@ -23,8 +23,9 @@ export default function HomeDetail() {
   const scrollRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  const { width } = useDisplaySize();
+  const { width, height } = useDisplaySize();
   const [titleChange, setTitleChange] = useState<boolean>(false);
+  const [mapVisible, setMapVisible] = useState<boolean>(false);
 
   function onScroll() {
     if (scrollRef.current?.scrollTop >= window.innerWidth + 4 - 20) {
@@ -77,11 +78,11 @@ export default function HomeDetail() {
             <Spacing size={16} />
             <Description
               text={`그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
-          열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
-          더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를
-          그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
-          열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
-          더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를`}
+              열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
+              더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를
+              그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
+              열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
+              더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를`}
             />
             <Spacing size={15} />
             <Hr />
@@ -92,6 +93,7 @@ export default function HomeDetail() {
 
           <KakaoMapWrapper height={(width * 23) / 36}>
             <KakaoMap lat={33.450701} lng={126.570667} />
+            <MapBackground />
             <ScaleUpButton />
           </KakaoMapWrapper>
 
@@ -146,4 +148,20 @@ const KakaoMapWrapper = styled.div<{ height: number }>`
   overflow: hidden;
 
   position: relative;
+
+  //
+  // position: absolute;
+  // top: 0;
+  // z-index: 900;
+`;
+
+const MapBackground = styled.div`
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+
+  background-color: transparent;
+  z-index: 900;
 `;
