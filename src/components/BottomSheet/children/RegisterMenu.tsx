@@ -17,8 +17,13 @@ const RegisterMenu = () => {
   const dispatch = useAppDispatch();
 
   const handleChangeMenu = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMenu(event.target.value);
+    const regex = /^[a-zA-Z0-9 ]*$/;
+    const newValue = event.target.value;
+    if (regex.test(newValue)) {
+      setMenu(newValue);
+    }
   };
+
   const handleRegisterMenu = async (event: any) => {
     event.preventDefault();
     const result = await patchMenu(placeId, menu);
