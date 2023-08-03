@@ -9,7 +9,7 @@ const Warn = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1508_3203)">
+      <g clipPath="url(#clip0_1508_3203)">
         <path
           d="M12 9V12M12 15V15.01"
           stroke="#E14646"
