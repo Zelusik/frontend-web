@@ -15,11 +15,22 @@ import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
 import { initializeReviewInfo } from "reducer/slices/review/reviewSlice";
 import BottomNavigation from "components/BottomNavigation/BottomNavigation";
-import { ImageType } from "types/image";
+import useModal from "hooks/useModal";
+import Toast from "components/Toast/Toast";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+
+  const {
+    isShowModal: isToast,
+    openModal: openToast,
+    closeModal: closeToast,
+  } = useModal();
+
+  const handleCloseToast = () => {
+    closeToast();
+  };
 
   // 이미지 파일에서 메타데이터 추출
   const extractGPSInfo = async (file: File): Promise<void> => {
@@ -58,12 +69,18 @@ const Review = () => {
   };
 
   const onDrop = (acceptedFiles: any) => {
-    acceptedFiles.forEach((file: any) => {
-      if (file.type.includes("image")) {
-        extractGPSInfo(file);
-      }
-    });
-    router.push(Route.REVIEW_PLACE());
+    if (acceptedFiles.length === 0) {
+      return;
+    } else if (acceptedFiles.length > 9) {
+      openToast();
+    } else {
+      acceptedFiles.forEach((file: any) => {
+        if (file.type.includes("image")) {
+          extractGPSInfo(file);
+        }
+      });
+      router.push(Route.REVIEW_PLACE());
+    }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -91,6 +108,12 @@ const Review = () => {
           </div>
         </InputWrapper>
       </MainWrapper>
+      {isToast && (
+        <Toast
+          message={"최대 9장의 사진 선택이 가능합니다"}
+          close={handleCloseToast}
+        />
+      )}
       <BottomNavigation />
     </ReviewWrapper>
   );
