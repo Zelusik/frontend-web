@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
 import { colors } from "constants/colors";
@@ -15,11 +15,23 @@ import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
 import { initializeReviewInfo } from "reducer/slices/review/reviewSlice";
 import BottomNavigation from "components/BottomNavigation/BottomNavigation";
-import { ImageType } from "types/image";
+import useModal from "hooks/useModal";
+import Toast from "components/Toast/Toast";
+import imageCompression from "browser-image-compression";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+
+  const {
+    isShowModal: isToast,
+    openModal: openToast,
+    closeModal: closeToast,
+  } = useModal();
+
+  const handleCloseToast = () => {
+    closeToast();
+  };
 
   // 이미지 파일에서 메타데이터 추출
   const extractGPSInfo = async (file: File): Promise<void> => {
@@ -34,12 +46,14 @@ const Review = () => {
     try {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function () {
-        imageInfo.image = reader.result;
-      };
-      reader.onerror = function (error) {
-        console.log("Error: ", error);
-      };
+      if (file.size <= 5 * 1024 * 1024) {
+        const imageUrl = await imageCompression.getDataUrlFromFile(file);
+        imageInfo.image = imageUrl;
+      } else {
+        const resizingBlob = await imageCompression(file, { maxSizeMB: 5 });
+        const resizedUrl = await imageCompression.getDataUrlFromFile(resizingBlob);
+        imageInfo.image = resizedUrl;
+      }
 
       const data: any = await exifr.parse(file);
       imageInfo.preview = URL.createObjectURL(file);
@@ -58,12 +72,18 @@ const Review = () => {
   };
 
   const onDrop = (acceptedFiles: any) => {
-    acceptedFiles.forEach((file: any) => {
-      if (file.type.includes("image")) {
-        extractGPSInfo(file);
-      }
-    });
-    router.push(Route.REVIEW_PLACE());
+    if (acceptedFiles.length === 0) {
+      return;
+    } else if (acceptedFiles.length > 9) {
+      openToast();
+    } else {
+      acceptedFiles.forEach((file: any) => {
+        if (file.type.includes("image")) {
+          extractGPSInfo(file);
+        }
+      });
+      router.push(Route.REVIEW_PLACE());
+    }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -91,6 +111,12 @@ const Review = () => {
           </div>
         </InputWrapper>
       </MainWrapper>
+      {isToast && (
+        <Toast
+          message={"최대 9장의 사진 선택이 가능합니다"}
+          close={handleCloseToast}
+        />
+      )}
       <BottomNavigation />
     </ReviewWrapper>
   );

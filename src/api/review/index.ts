@@ -23,23 +23,29 @@ export const postReview = async (reviewData: ReviewType) => {
     formData.append("keywords", String(reviewData.keywords));
     formData.append("autoCreatedContent", String(reviewData.autoCreatedContent));
     formData.append("content", String(reviewData.content));
+
     reviewData.images.forEach((imageData, index) => {
       const file = base64toFile(imageData.image, "image_file.png");
       formData.append(`images[${index}].image`, file);
-      imageData.menuTags.forEach((tag, tagIndex) => {
-        formData.append(
-          `images[${index}].menuTags[${tagIndex}].content`,
-          tag.content
-        );
-        formData.append(
-          `images[${index}].menuTags[${tagIndex}].point.x`,
-          String(tag.point.x)
-        );
-        formData.append(
-          `images[${index}].menuTags[${tagIndex}].point.y`,
-          String(tag.point.y)
-        );
-      });
+
+      if (imageData.menuTags && imageData.menuTags.length > 0) {
+        imageData.menuTags.map((tag, tagIndex) => {
+          if (tag && tag.content && tag.point) {
+            formData.append(
+              `images[${index}].menuTags[${tagIndex}].content`,
+              tag.content
+            );
+            formData.append(
+              `images[${index}].menuTags[${tagIndex}].point.x`,
+              String(tag.point.x)
+            );
+            formData.append(
+              `images[${index}].menuTags[${tagIndex}].point.y`,
+              String(tag.point.y)
+            );
+          }
+        });
+      }
     });
   } catch (err) {
     console.log(err);

@@ -49,13 +49,15 @@ const Menu = () => {
   ): TransformedImageDataType[] => {
     return originalData.map((data) => ({
       image: data.image,
-      menuTags: data.menuTag.map((tag) => ({
-        content: tag.menu,
-        point: {
-          x: tag.x,
-          y: tag.y,
-        },
-      })),
+      menuTags:
+        data.menuTag &&
+        data.menuTag.map((tag) => ({
+          content: tag.menu,
+          point: {
+            x: tag.x,
+            y: tag.y,
+          },
+        })),
     }));
   };
 

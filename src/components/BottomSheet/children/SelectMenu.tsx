@@ -1,58 +1,85 @@
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import RoundButton from "components/Button/RoundButton";
 import Icon from "components/Icon/Icon";
+import Toast from "components/Toast/Toast";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import useGetMenus from "hooks/queries/review/useGetMenus";
 import useDisplaySize from "hooks/useDisplaySize";
+import useModal from "hooks/useModal";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import React from "react";
 import {
   changeVisible,
   changeVisibleType,
 } from "reducer/slices/bottomSheet/bottomSheetSlice";
 import { appendMenuTag } from "reducer/slices/image/imageSlice";
-
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import { FoodType } from "types/review";
+import { MenuTagType } from "types/image";
 
 const SelectMenu = () => {
   const dispatch = useAppDispatch();
   const { height } = useDisplaySize();
   const { data, isLoading } = useGetMenus();
 
-  const { foodInfo } = useAppSelector((state) => state.review);
+  const {
+    isShowModal: isToast,
+    openModal: openToast,
+    closeModal: closeToast,
+  } = useModal();
+
+  const handleCloseToast = () => {
+    closeToast();
+  };
+
+  const image = useAppSelector((state) => state.image);
   const { currentIndex } = useAppSelector((state) => state.currIdx);
   const menuTag = useAppSelector((state) => state.menuTag);
+  const [clickedMenu, setClickedMenu] = useState("");
 
   const handleClickFood = (foodName: string) => {
-    if (foodInfo.map((item: FoodType) => item.foodName).includes(foodName)) {
-      dispatch(
-        changeReviewInfo({
-          type: "foodInfo",
-          value: foodInfo.filter((e: FoodType) => e.foodName !== foodName),
-        })
-      );
+    setClickedMenu(foodName);
+    if (image[currentIndex].menuTag) {
+      if (
+        image[currentIndex].menuTag
+          .map((tagInfo: MenuTagType) => tagInfo.menu)
+          .includes(foodName)
+      ) {
+        openToast();
+        setTimeout(() => {
+          setClickedMenu("");
+        }, 1000);
+      } else {
+        dispatch(
+          appendMenuTag({
+            index: currentIndex,
+            menuTag: { ...menuTag, menu: foodName },
+          })
+        );
+        setTimeout(() => {
+          dispatch(
+            changeVisible({
+              type: "bottomSheet",
+              value: 0,
+            })
+          );
+        }, 300);
+      }
     } else {
       dispatch(
-        changeReviewInfo({
-          type: "foodInfo",
-          value: [...foodInfo, { foodName: foodName, foodKeyword: [] }],
+        appendMenuTag({
+          index: currentIndex,
+          menuTag: { ...menuTag, menu: foodName },
         })
       );
+      setTimeout(() => {
+        dispatch(
+          changeVisible({
+            type: "bottomSheet",
+            value: 0,
+          })
+        );
+      }, 300);
     }
-    dispatch(
-      appendMenuTag({
-        index: currentIndex,
-        menuTag: { ...menuTag, menu: foodName },
-      })
-    );
-    dispatch(
-      changeVisible({
-        type: "bottomSheet",
-        value: 0,
-      })
-    );
   };
 
   const handleClickRegisterMenu = () => {
@@ -83,9 +110,7 @@ const SelectMenu = () => {
                     key={menu}
                     borderRadius="8px"
                     type="text"
-                    action={foodInfo
-                      .map((item: FoodType) => item.foodName)
-                      .includes(menu)}
+                    action={clickedMenu === menu}
                     height={46}
                     onClick={() => handleClickFood(menu)}
                   >
@@ -110,6 +135,9 @@ const SelectMenu = () => {
               직접 등록하기
             </p>
           </div>
+          {isToast && (
+            <Toast message="이미 선택한 메뉴입니다" close={handleCloseToast} />
+          )}
         </>
       )}
     </SelectMenuWrapper>
