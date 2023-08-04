@@ -82,9 +82,9 @@ export default function Example({}: any) {
 
       <TextArea size={150} />
 
-      <BackTitle type="primary" text="테스트용 입니다" />
-      <BackTitle type="secondary" titleText="테스트용 입니다" />
-      <BackTitle type="default" text="테스트용 입니다" />
+      <BackTitle type="white-setting" text="테스트용 입니다" />
+      <BackTitle type="black-left-text" titleText="테스트용 입니다" />
+      <BackTitle type="white" text="테스트용 입니다" />
 
       <ProfileTitle
         type="home"

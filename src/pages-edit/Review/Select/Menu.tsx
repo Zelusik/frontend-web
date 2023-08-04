@@ -176,7 +176,11 @@ const Menu = () => {
         modifyMenuTag({
           index: index,
           prevMenuTag: prevMenuTag,
-          currMenuTag: { x: percentageX, y: percentageY, menu: prevMenuTag.menu },
+          currMenuTag: {
+            x: percentageX,
+            y: percentageY,
+            menu: prevMenuTag.menu,
+          },
         })
       );
     }

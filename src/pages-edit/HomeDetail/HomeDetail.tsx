@@ -47,7 +47,7 @@ export default function HomeDetail() {
       <ImageBox ref={imageRef} />
       <BackTitleWrapper visible={titleChange}>
         <BackTitle
-          type={titleChange ? "secondary" : "primary"}
+          type={titleChange ? "black-left-text" : "white-setting"}
           titleText={titleChange && "소이연남"}
         />
       </BackTitleWrapper>

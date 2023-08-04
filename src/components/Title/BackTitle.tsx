@@ -7,9 +7,10 @@ import Icon from "components/Icon";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import Dots from "components/Button/IconButton/Dots";
+import Text from "components/Text";
 
 export default function BackTitle({
-  type = "primary",
+  type = "white-setting",
   style,
   text,
   ...props
@@ -24,7 +25,7 @@ export default function BackTitle({
             router.back();
           }}
           style={
-            type === "tertiary"
+            type === "map"
               ? {
                   width: 44,
                   height: 44,
@@ -41,17 +42,25 @@ export default function BackTitle({
             width={24}
             height={24}
             color={match(type)
-              .with("primary", () => colors.N0)
-              .with("secondary", () => colors.N100)
-              .with("tertiary", () => colors.N100)
-              .with("default", () => colors.N0)
+              .with("white-setting", () => colors.N0)
+              .with("white", () => colors.N0)
+              .with("black-left-text", () => colors.N100)
+              .with("map", () => colors.N100)
               .exhaustive()}
           />
-          <TitleSide typo={typography.Headline5}>{props.titleText}</TitleSide>
+          <Text typo="Headline5" color="N100">
+            {props.titleText}
+          </Text>
         </Menu>
-        <Menu>{text && <Title typo={typography.Headline4}>{text}</Title>}</Menu>
+        <Menu>
+          {text && (
+            <Text typo="Headline4" color="N100">
+              {text}
+            </Text>
+          )}
+        </Menu>
         <Menu style={{ width: "24px" }}>
-          {type === "primary" && <Dots size={20} color={colors.N0} />}
+          {type === "white-setting" && <Dots size={20} color="N0" />}
         </Menu>
       </MenuList>
     </TitleWrapper>
@@ -77,15 +86,6 @@ const Menu = styled.li`
 
   display: flex;
   align-items: center;
-`;
-
-const TitleSide = styled.div<{ typo: any }>`
-  margin-left: 6px;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
 `;
 
 const Title = styled.div<{ typo: any }>`

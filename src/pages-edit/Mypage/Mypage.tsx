@@ -111,7 +111,10 @@ export default function Mypage() {
               </TitleInner>
             </>
           ) : (
-            <BackTitle type="secondary" titleText={titleChange && "강남작가"} />
+            <BackTitle
+              type="black-left-text"
+              titleText={titleChange && "강남작가"}
+            />
           )}
         </TitleWrapper>
 

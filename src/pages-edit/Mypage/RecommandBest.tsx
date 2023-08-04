@@ -1,3 +1,9 @@
+import BackTitle from "components/Title/BackTitle";
+
 export default function RecommandBest() {
-  return <>recommand-best</>;
+  return (
+    <>
+      <BackTitle type="white" />
+    </>
+  );
 }

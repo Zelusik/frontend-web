@@ -29,7 +29,12 @@ const SearchPlace = () => {
     }));
   };
 
-  useIntersectionObserver(infiniteScorllRef, loadMore, !searchPlaceData.isLast, {});
+  useIntersectionObserver(
+    infiniteScorllRef,
+    loadMore,
+    !searchPlaceData.isLast,
+    {}
+  );
 
   useEffect(() => {
     setSearchPlaceData({
@@ -78,7 +83,7 @@ const SearchPlace = () => {
 
   return (
     <SearchPlaceWrapper>
-      <BackTitle type="secondary" text="" />
+      <BackTitle type="black-left-text" text="" />
       <SearchInput>
         <Input
           type="line"
@@ -93,7 +98,9 @@ const SearchPlace = () => {
             <PlaceBox
               key={index}
               ref={
-                index === searchPlaceData.res.length - 1 ? infiniteScorllRef : null
+                index === searchPlaceData.res.length - 1
+                  ? infiniteScorllRef
+                  : null
               }
               onClick={() => handleClickPlace(data)}
             >

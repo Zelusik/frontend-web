@@ -83,10 +83,10 @@ export default function StoreDetail() {
         <BackTitle
           type={
             titleChange
-              ? "secondary"
+              ? "black-left-text"
               : images.length > 0
-              ? "default"
-              : "secondary"
+              ? "white"
+              : "black-left-text"
           }
           titleText={titleChange && "소이연남"}
         />

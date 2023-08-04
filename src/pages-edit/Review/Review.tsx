@@ -47,7 +47,9 @@ const Review = () => {
         imageInfo.image = imageUrl;
       } else {
         const resizingBlob = await imageCompression(file, { maxSizeMB: 5 });
-        const resizedUrl = await imageCompression.getDataUrlFromFile(resizingBlob);
+        const resizedUrl = await imageCompression.getDataUrlFromFile(
+          resizingBlob
+        );
         imageInfo.image = resizedUrl;
       }
 
@@ -90,7 +92,7 @@ const Review = () => {
 
   return (
     <ReviewWrapper>
-      <BackTitle type="primary" text="리뷰쓰기" />
+      <BackTitle type="white-setting" text="리뷰쓰기" />
       <MainWrapper>
         <div style={typography.Headline5}>
           리뷰 작성을 위해
