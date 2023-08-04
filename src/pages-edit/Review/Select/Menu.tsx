@@ -237,7 +237,7 @@ const Menu = () => {
       <ExplanationWrapper>
         <div style={typography.Headline5}>메뉴의 이름은 무엇인가요?</div>
         <ExplanationBubble>
-          {image.map((e: any) => e.menuTag).flat().length > 0
+          {image.map((e: any) => e.menuTag).flat()[0]
             ? "태그를 길게 눌러 위치를 옮길 수 있어요!"
             : "사진을 눌러 메뉴를 태그할 수 있어요!"}
         </ExplanationBubble>

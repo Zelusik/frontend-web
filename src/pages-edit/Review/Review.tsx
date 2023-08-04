@@ -15,19 +15,15 @@ import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
 import { initializeReviewInfo } from "reducer/slices/review/reviewSlice";
 import BottomNavigation from "components/BottomNavigation/BottomNavigation";
-import useModal from "hooks/useModal";
 import Toast from "components/Toast/Toast";
 import imageCompression from "browser-image-compression";
+import useToast from "hooks/useToast";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const {
-    isShowModal: isToast,
-    openModal: openToast,
-    closeModal: closeToast,
-  } = useModal();
+  const { isShowToast, openToast, closeToast } = useToast();
 
   const handleCloseToast = () => {
     closeToast();
@@ -111,7 +107,7 @@ const Review = () => {
           </div>
         </InputWrapper>
       </MainWrapper>
-      {isToast && (
+      {isShowToast && (
         <Toast
           message={"최대 9장의 사진 선택이 가능합니다"}
           close={handleCloseToast}
