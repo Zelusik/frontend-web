@@ -1,4 +1,5 @@
 import Icon from "components/Icon";
+import { colors } from "constants/colors";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { changeVisibleType } from "reducer/slices/bottomSheet/bottomSheetSlice";
 
@@ -27,7 +28,7 @@ export default function Dots({ margin, size, color }: Props) {
       height={size}
       margin={margin}
       fill={color}
-      color={color}
+      color={colors[color]}
       onClick={handleClickDots}
     />
   );
