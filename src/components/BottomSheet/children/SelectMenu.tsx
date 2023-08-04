@@ -7,7 +7,7 @@ import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import useGetMenus from "hooks/queries/review/useGetMenus";
 import useDisplaySize from "hooks/useDisplaySize";
-import useModal from "hooks/useModal";
+
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import {
   changeVisible,
@@ -15,17 +15,16 @@ import {
 } from "reducer/slices/bottomSheet/bottomSheetSlice";
 import { appendMenuTag } from "reducer/slices/image/imageSlice";
 import { MenuTagType } from "types/image";
+import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
+import useToast from "hooks/useToast";
+import { FoodType } from "types/review";
 
 const SelectMenu = () => {
   const dispatch = useAppDispatch();
   const { height } = useDisplaySize();
   const { data, isLoading } = useGetMenus();
 
-  const {
-    isShowModal: isToast,
-    openModal: openToast,
-    closeModal: closeToast,
-  } = useModal();
+  const { isShowToast, openToast, closeToast } = useToast();
 
   const handleCloseToast = () => {
     closeToast();
@@ -34,10 +33,28 @@ const SelectMenu = () => {
   const image = useAppSelector((state) => state.image);
   const { currentIndex } = useAppSelector((state) => state.currIdx);
   const menuTag = useAppSelector((state) => state.menuTag);
+  const { foodInfo } = useAppSelector((state) => state.review);
   const [clickedMenu, setClickedMenu] = useState("");
 
   const handleClickFood = (foodName: string) => {
     setClickedMenu(foodName);
+
+    if (foodInfo.map((e: FoodType) => e.foodName).includes(foodName)) {
+      dispatch(
+        changeReviewInfo({
+          type: "foodInfo",
+          value: foodInfo.filter((e: FoodType) => e.foodName !== foodName),
+        })
+      );
+    } else {
+      dispatch(
+        changeReviewInfo({
+          type: "foodInfo",
+          value: [...foodInfo, { foodName: foodName, foodKeyword: [] }],
+        })
+      );
+    }
+
     if (image[currentIndex].menuTag) {
       if (
         image[currentIndex].menuTag
@@ -135,7 +152,7 @@ const SelectMenu = () => {
               직접 등록하기
             </p>
           </div>
-          {isToast && (
+          {isShowToast && (
             <Toast message="이미 선택한 메뉴입니다" close={handleCloseToast} />
           )}
         </>
