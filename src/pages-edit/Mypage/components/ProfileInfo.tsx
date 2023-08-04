@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { typography } from "constants/typography";
 import Spacing from "components/Spacing";
 import Dots from "components/Button/IconButton/Dots";
+import Text from "components/Text";
 export default function ProfileInfo({ mypage }: any) {
   const router = useRouter();
 
@@ -27,21 +28,28 @@ export default function ProfileInfo({ mypage }: any) {
       </Menu>
       <Menu>
         <div>
-          <Name>강남작가</Name>
+          <Text typo="Headline4" color="N100">
+            강남작가
+          </Text>
           <Spacing size={16} />
 
           <FollowWrapper>
             {ProfileDatas.map((data: any, idx: number) => {
               return (
                 <FollowInner key={idx}>
-                  <Count>{data.count}</Count>
-                  <div>{data.desc}</div>
+                  <Text typo="Headline2" color="N100">
+                    {data.count}
+                  </Text>
+                  <Text typo="Paragraph2" color="N100">
+                    {data.desc}
+                  </Text>
                 </FollowInner>
               );
             })}
           </FollowWrapper>
         </div>
       </Menu>
+
       {mypage ? null : (
         <IconWrapper>
           <Dots />
@@ -64,12 +72,6 @@ const Menu = styled.div`
   display: flex;
 `;
 
-const Name = styled.div`
-  ${css`
-    ${typography.Headline4}
-  `}
-`;
-
 const FollowWrapper = styled.div`
   display: flex;
   gap: 20px;
@@ -77,15 +79,6 @@ const FollowWrapper = styled.div`
 
 const FollowInner = styled.div`
   text-align: center;
-  ${css`
-    ${typography.Paragraph2}
-  `}
-`;
-
-const Count = styled.div`
-  ${css`
-    ${typography.Headline2}
-  `}
 `;
 
 const IconWrapper = styled.div`

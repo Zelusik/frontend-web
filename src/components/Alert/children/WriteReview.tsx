@@ -21,7 +21,7 @@ export default function WriteReview() {
         선택할 수 없습니다🥲
       </Text>
       <ButtonWrapper>
-        <RoundButton type="mypage">리뷰 작성하러 가기</RoundButton>
+        <RoundButton type="mypage-alert">리뷰 작성하러 가기</RoundButton>
       </ButtonWrapper>
     </SortWrapper>
   );

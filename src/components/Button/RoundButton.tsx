@@ -10,6 +10,7 @@ const RoundButton = forwardRef(function Button(
   {
     children,
     type = "map-text",
+    width = 158,
     height = 37,
     action = false,
     onClick,
@@ -20,7 +21,9 @@ const RoundButton = forwardRef(function Button(
   return (
     <ButtonWrapper
       onClick={onClick}
-      style={{ width: type === "full-radius" ? 36 : "auto" }}
+      style={{
+        width: type === "full-radius" ? 36 : type === "mypage" ? 158 : "auto",
+      }}
       height={match(type)
         .with("map-icon", () => 38)
         .with("map-text", () => 38)
@@ -30,6 +33,7 @@ const RoundButton = forwardRef(function Button(
         .with("taste", () => 44)
         .with("text", () => height)
         .with("mypage", () => 46)
+        .with("mypage-alert", () => 46)
         .exhaustive()}
       padding={match(type)
         .with("map-icon", () => "0 11px")
@@ -39,7 +43,8 @@ const RoundButton = forwardRef(function Button(
         .with("follow-icon", () => "0 11px")
         .with("taste", () => "10px 14px 10px 12px")
         .with("text", () => "0 16px")
-        .with("mypage", () => "0 18.5px")
+        .with("mypage", () => "0")
+        .with("mypage-alert", () => "0 18.5px")
         .exhaustive()}
       borderRadius={match(type)
         .with("map-icon", () => "999px")
@@ -50,6 +55,7 @@ const RoundButton = forwardRef(function Button(
         .with("taste", () => "999px")
         .with("text", () => props.borderRadius)
         .with("mypage", () => "999px")
+        .with("mypage-alert", () => "999px")
         .exhaustive()}
       borderColor={match(type)
         .with("map-icon", () => "N0")
@@ -60,6 +66,7 @@ const RoundButton = forwardRef(function Button(
         .with("taste", () => (action ? "Orange400" : "N20"))
         .with("text", () => (action ? "Orange600" : "N40"))
         .with("mypage", () => "Orange600")
+        .with("mypage-alert", () => "Orange600")
         .exhaustive()}
       backgroundColor={match(type)
         .with("map-icon", () => "N0")
@@ -70,6 +77,7 @@ const RoundButton = forwardRef(function Button(
         .with("taste", () => (action ? "Orange400" : "N0"))
         .with("text", () => (action ? "Orange100" : "N0"))
         .with("mypage", () => "Orange600")
+        .with("mypage-alert", () => "Orange600")
         .exhaustive()}
       shadow={match(type)
         .with("map-icon", () => true)
@@ -80,6 +88,7 @@ const RoundButton = forwardRef(function Button(
         .with("taste", () => false)
         .with("text", () => false)
         .with("mypage", () => false)
+        .with("mypage-alert", () => false)
         .exhaustive()}
     >
       {type.split("-")[1] === "icon" ? (
@@ -109,6 +118,7 @@ const RoundButton = forwardRef(function Button(
           .with("taste", () => "Paragraph5")
           .with("text", () => "Paragraph3")
           .with("mypage", () => "Paragraph5")
+          .with("mypage-alert", () => "Paragraph5")
           .exhaustive()}
         color={match(type)
           .with("map-icon", () => "N100")
@@ -119,6 +129,7 @@ const RoundButton = forwardRef(function Button(
           .with("taste", () => (action ? "N0" : "N100"))
           .with("text", () => (action ? "Orange600" : "N100"))
           .with("mypage", () => "N0")
+          .with("mypage-alert", () => "N0")
           .exhaustive()}
       >
         {children}
