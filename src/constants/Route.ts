@@ -15,6 +15,7 @@ export const Route = {
   REVIEW_PLACE: () => "/review/select/place",
   REVIEW_MENU: () => "/review/select/menu",
   REVIEW_KEYWORD: () => "/review/select/keyword",
+  REVIEW_FOOD_KEYWORD: () => "/review/select/food-keyword",
   REVIEW_WRITE: () => "/review/write",
   REVIEW_SEARCH_PLACE: () => "/review/search-place",
 
