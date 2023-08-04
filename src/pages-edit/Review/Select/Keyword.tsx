@@ -15,17 +15,13 @@ import { atmosphereKeyword, foodKeyword } from "data/keywordData";
 import RoundButton from "components/Button/RoundButton";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import Spacing from "components/Spacing/Spacing";
-import useModal from "hooks/useModal";
 import Toast from "components/Toast/Toast";
+import useToast from "hooks/useToast";
 
 const Keyword = () => {
   const route = useRouter();
   const dispatch = useAppDispatch();
-  const {
-    isShowModal: isToast,
-    openModal: openToast,
-    closeModal: closeToast,
-  } = useModal();
+  const { isShowToast, openToast, closeToast } = useToast();
 
   const handleCloseToast = () => {
     closeToast();
@@ -134,7 +130,7 @@ const Keyword = () => {
         />
         <ReviewButton onClick={handleClickSelfBtn}>직접 리뷰쓰기</ReviewButton>
       </BottomWrapper>
-      {isToast && (
+      {isShowToast && (
         <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
       )}
     </KeywordWrapper>
