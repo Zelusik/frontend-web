@@ -29,7 +29,7 @@ const globalCss = css`
 
   * {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    user-select: none;
+    user-select: auto;
     -webkit-touch-callout: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -49,7 +49,7 @@ const globalCss = css`
     font-family: "Pretendard", sans-serif;
     background-color: ${colors.N0};
     color: ${colors.N100};
-    min-height: 100dvh;
+    min-height: 100vh;
 
     overflow: hidden;
   }
