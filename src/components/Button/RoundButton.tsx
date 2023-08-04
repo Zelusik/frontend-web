@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { match } from "ts-pattern";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
 import Icon from "components/Icon";
+import Text from "components/Text";
 
 const RoundButton = forwardRef(function Button(
   {
@@ -29,6 +29,7 @@ const RoundButton = forwardRef(function Button(
         .with("follow-icon", () => 31)
         .with("taste", () => 44)
         .with("text", () => height)
+        .with("mypage", () => 46)
         .exhaustive()}
       padding={match(type)
         .with("map-icon", () => "0 11px")
@@ -38,6 +39,7 @@ const RoundButton = forwardRef(function Button(
         .with("follow-icon", () => "0 11px")
         .with("taste", () => "10px 14px 10px 12px")
         .with("text", () => "0 16px")
+        .with("mypage", () => "0 18.5px")
         .exhaustive()}
       borderRadius={match(type)
         .with("map-icon", () => "999px")
@@ -47,24 +49,27 @@ const RoundButton = forwardRef(function Button(
         .with("follow-icon", () => "999px")
         .with("taste", () => "999px")
         .with("text", () => props.borderRadius)
+        .with("mypage", () => "999px")
         .exhaustive()}
       borderColor={match(type)
-        .with("map-icon", () => colors.N0)
-        .with("map-text", () => (action ? colors.Orange600 : colors.N0))
-        .with("full", () => (action ? colors.Orange400 : colors.N40))
-        .with("full-radius", () => (action ? colors.Orange400 : colors.N40))
-        .with("follow-icon", () => (action ? colors.N100 : colors.N40))
-        .with("taste", () => (action ? colors.Orange400 : colors.N20))
-        .with("text", () => (action ? colors.Orange600 : colors.N40))
+        .with("map-icon", () => "N0")
+        .with("map-text", () => (action ? "Orange600" : "N0"))
+        .with("full", () => (action ? "Orange400" : "N40"))
+        .with("full-radius", () => (action ? "Orange400" : "N40"))
+        .with("follow-icon", () => (action ? "N100" : "N40"))
+        .with("taste", () => (action ? "Orange400" : "N20"))
+        .with("text", () => (action ? "Orange600" : "N40"))
+        .with("mypage", () => "Orange600")
         .exhaustive()}
       backgroundColor={match(type)
-        .with("map-icon", () => colors.N0)
-        .with("map-text", () => (action ? colors.Orange600 : colors.N0))
-        .with("full", () => (action ? colors.Orange400 : colors.N0))
-        .with("full-radius", () => (action ? colors.Orange400 : colors.N0))
-        .with("follow-icon", () => (action ? colors.N100 : colors.N0))
-        .with("taste", () => (action ? colors.Orange400 : colors.N0))
-        .with("text", () => (action ? colors.Orange100 : colors.N0))
+        .with("map-icon", () => "N0")
+        .with("map-text", () => (action ? "Orange600" : "N0"))
+        .with("full", () => (action ? "Orange400" : "N0"))
+        .with("full-radius", () => (action ? "Orange400" : "N0"))
+        .with("follow-icon", () => (action ? "N100" : "N0"))
+        .with("taste", () => (action ? "Orange400" : "N0"))
+        .with("text", () => (action ? "Orange100" : "N0"))
+        .with("mypage", () => "Orange600")
         .exhaustive()}
       shadow={match(type)
         .with("map-icon", () => true)
@@ -74,6 +79,7 @@ const RoundButton = forwardRef(function Button(
         .with("follow-icon", () => false)
         .with("taste", () => false)
         .with("text", () => false)
+        .with("mypage", () => false)
         .exhaustive()}
     >
       {type.split("-")[1] === "icon" ? (
@@ -93,29 +99,31 @@ const RoundButton = forwardRef(function Button(
           />
         </Menu>
       ) : null}
-      <Menu
+      <Text
         typo={match(type)
-          .with("map-icon", () => typography.Heading2)
-          .with("map-text", () => typography.Heading2)
-          .with("full", () => typography.Paragraph3)
-          .with("full-radius", () => typography.Paragraph3)
-          .with("follow-icon", () => typography.Paragraph2)
-          .with("taste", () => typography.Paragraph5)
-          .with("text", () => typography.Paragraph3)
+          .with("map-icon", () => "Heading2")
+          .with("map-text", () => "Heading2")
+          .with("full", () => "Paragraph3")
+          .with("full-radius", () => "Paragraph3")
+          .with("follow-icon", () => "Paragraph2")
+          .with("taste", () => "Paragraph5")
+          .with("text", () => "Paragraph3")
+          .with("mypage", () => "Paragraph5")
           .exhaustive()}
         color={match(type)
-          .with("map-icon", () => colors.N100)
-          .with("map-text", () => (action ? colors.N0 : colors.N100))
-          .with("full", () => (action ? colors.N0 : colors.N100))
-          .with("full-radius", () => (action ? colors.N0 : colors.N100))
-          .with("follow-icon", () => (action ? colors.N0 : colors.N100))
-          .with("taste", () => (action ? colors.N0 : colors.N100))
-          .with("text", () => (action ? colors.Orange600 : colors.N100))
+          .with("map-icon", () => "N100")
+          .with("map-text", () => (action ? "N0" : "N100"))
+          .with("full", () => (action ? "N0" : "N100"))
+          .with("full-radius", () => (action ? "N0" : "N100"))
+          .with("follow-icon", () => (action ? "N0" : "N100"))
+          .with("taste", () => (action ? "N0" : "N100"))
+          .with("text", () => (action ? "Orange600" : "N100"))
+          .with("mypage", () => "N0")
           .exhaustive()}
       >
         {children}
         {type === "follow-icon" ? (action ? "팔로잉" : "팔로우") : null}
-      </Menu>
+      </Text>
     </ButtonWrapper>
   );
 });
@@ -123,10 +131,10 @@ const RoundButton = forwardRef(function Button(
 const ButtonWrapper = styled.button<{
   height: number;
   padding: string;
-  backgroundColor: any;
-  borderColor: any;
   shadow: any;
   borderRadius: any;
+  borderColor: any;
+  backgroundColor: any;
 }>`
   width: auto;
   height: ${({ height }) => height}px;
@@ -136,10 +144,10 @@ const ButtonWrapper = styled.button<{
   justify-content: center;
   text-align: center;
   align-items: center;
-  border: ${({ borderColor }) => `1px solid ${borderColor}`};
+  border: ${({ borderColor }) => `1px solid ${colors[borderColor]}`};
   border-radius: ${({ borderRadius }) => borderRadius};
   box-shadow: ${({ shadow }) => shadow && `0px 0px 6px rgba(0, 0, 0, 0.1)`};
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundColor }) => colors[backgroundColor]};
 `;
 
 const Menu = styled.div<{ marginRight?: number; typo?: any; color?: any }>`

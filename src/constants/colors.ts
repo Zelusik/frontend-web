@@ -1,3 +1,6 @@
+// export type TypeOfColor = typeof colors;
+// export type KeyOfColor = keyof typeof colors;
+
 export const colors = {
   background: "#1E1E1E",
 

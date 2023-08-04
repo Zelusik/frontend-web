@@ -17,29 +17,30 @@ import { typography } from "constants/typography";
 import { css, keyframes } from "@emotion/react";
 import { globalValue } from "constants/globalValue";
 import RecommandButton from "./components/RecommandButton";
+import useAlert from "hooks/useAlert";
 
 const RecommandDatas = [
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  // "https://i.ibb.co/0Z6FNN7/60pt.png",
 ];
 
 const ReviewDatas = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
 ];
 
 export default function Mypage() {
@@ -53,6 +54,8 @@ export default function Mypage() {
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const { height } = useDisplaySize();
+
+  const { openAlert } = useAlert();
 
   function onScroll() {
     setScrollHeight(
@@ -125,7 +128,10 @@ export default function Mypage() {
             {RecommandDatas.length !== 0 ? (
               <RecommandSwiper datas={RecommandDatas} />
             ) : (
-              <ButtonWrapper marginTop={scrollHeight}>
+              <ButtonWrapper
+                marginTop={scrollHeight}
+                onClick={() => openAlert("write-review")}
+              >
                 <ButtonTitle>나만의 추천 음식점을 골라주세요</ButtonTitle>
                 <RecommandButton text="선택" />
               </ButtonWrapper>
