@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styled from "@emotion/styled";
 import { kakaoSearchKeyword } from "api/review";
 import Input from "components/Input/Input";
@@ -16,6 +17,7 @@ const SearchPlace = () => {
   const { placeInfo } = useAppSelector((state) => state.review);
   const infiniteScorllRef = useRef(null);
   const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [searchPlaceData, setSearchPlaceData] = useState<any>({
     res: [],
     page: 1,
@@ -23,10 +25,36 @@ const SearchPlace = () => {
   });
 
   const loadMore = () => {
+    if (isLoading || searchPlaceData.isLast) {
+      return;
+    }
+    setIsLoading(true);
+
+    fetchData(searchPlaceData.page + 1, () => {
+      setIsLoading(false);
+    });
+
     setSearchPlaceData((prev: any) => ({
       ...prev,
       page: prev.page + 1,
     }));
+  };
+
+  const fetchData = (page: number, callback: () => void) => {
+    kakaoSearchKeyword(
+      value ? 0 : placeInfo.lng,
+      value ? 0 : placeInfo.lat,
+      value,
+      page,
+      (res: any) => {
+        setSearchPlaceData((prev: any) => ({
+          ...prev,
+          res: [...prev.res, ...res.documents],
+          isLast: res.meta.is_end, // API 응답에 따라 is_end를 확인
+        }));
+        callback();
+      }
+    );
   };
 
   useIntersectionObserver(infiniteScorllRef, loadMore, !searchPlaceData.isLast, {});
@@ -40,20 +68,8 @@ const SearchPlace = () => {
   }, [value]);
 
   useEffect(() => {
-    kakaoSearchKeyword(
-      value ? 0 : placeInfo.lng,
-      value ? 0 : placeInfo.lat,
-      value,
-      searchPlaceData.page,
-      (res: any) => {
-        setSearchPlaceData((prev: any) => ({
-          ...prev,
-          res: [...prev.res, ...res.documents],
-          isLast: res.meta.is_end, // API 응답에 따라 is_end를 확인
-        }));
-      }
-    );
-  }, [value, searchPlaceData.page]);
+    fetchData(searchPlaceData.page, () => {});
+  }, [value]);
 
   const handleClickPlace = (place: any) => {
     dispatch(
@@ -115,6 +131,8 @@ const SearchPlace = () => {
 
 const SearchPlaceWrapper = styled.div`
   padding: 0 20px;
+  height: 100vh;
+  overflow-y: scroll;
 `;
 const SearchInput = styled.div``;
 const PlaceWrapper = styled.div`
