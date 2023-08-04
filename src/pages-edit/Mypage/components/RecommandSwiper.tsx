@@ -7,7 +7,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState } from "react";
 import StoreTitle from "components/Title/StoreTitle";
 import Spacing from "components/Spacing";
-import RecommandButton from "./RecommandButton";
 import { colors } from "constants/colors";
 import { css, keyframes } from "@emotion/react";
 import { typography } from "constants/typography";
@@ -56,8 +55,6 @@ export default function RecommandSwiper({ datas, ...props }: any) {
         </IndexInner>
       </IndexWrapper>
       <Spacing size={30} />
-
-      <RecommandButton text="수정" />
     </>
   );
 }

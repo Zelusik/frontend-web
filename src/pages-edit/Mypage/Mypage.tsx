@@ -16,11 +16,11 @@ import ReviewStore from "./components/ReveiwStore";
 import { typography } from "constants/typography";
 import { css, keyframes } from "@emotion/react";
 import { globalValue } from "constants/globalValue";
-import RecommandButton from "./components/RecommandButton";
 import useAlert from "hooks/useAlert";
 import RoundButton from "components/Button/RoundButton";
 import NewButton from "./components/NewButton";
 import Text from "components/Text";
+import { Route } from "constants/Route";
 
 const RecommandDatas = [
   // "https://i.ibb.co/0Z6FNN7/60pt.png",
@@ -29,21 +29,21 @@ const RecommandDatas = [
 ];
 
 const ReviewDatas = [
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
 ];
 
 export default function Mypage() {
@@ -59,6 +59,11 @@ export default function Mypage() {
   const { height } = useDisplaySize();
 
   const { openAlert } = useAlert();
+
+  const clickRecommand = () => {
+    if (ReviewDatas.length === 0) openAlert("write-review");
+    else router.push(Route.RECOMMEND_BEST());
+  };
 
   function onScroll() {
     setScrollHeight(
@@ -132,7 +137,7 @@ export default function Mypage() {
               <RecommandSwiper datas={RecommandDatas} />
             ) : (
               <NewButton
-                onClick={() => openAlert("write-review")}
+                onClick={clickRecommand}
                 marginTop={scrollHeight}
                 text="나만의 추천 음식점을 골라주세요"
                 buttonText="추천 베스트 선택하기"
