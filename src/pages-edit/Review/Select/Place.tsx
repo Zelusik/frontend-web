@@ -76,9 +76,7 @@ const Place = () => {
                 break;
 
               case error.POSITION_UNAVAILABLE:
-                alert(
-                  "이 문장은 가져온 위치 정보를 사용할 수 없을 때 나타납니다!"
-                );
+                alert("이 문장은 가져온 위치 정보를 사용할 수 없을 때 나타납니다!");
                 break;
 
               case error.TIMEOUT:
@@ -100,7 +98,7 @@ const Place = () => {
 
   return (
     <PlaceWrapper>
-      <BackTitle type="secondary" text="음식점 선택" />
+      <BackTitle type="black-left-text" text="음식점 선택" />
       <ImageWrapper style={{ position: "relative" }}>
         <Swiper
           className="banner"
