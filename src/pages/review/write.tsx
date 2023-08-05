@@ -53,7 +53,7 @@ const Write = () => {
     <WriteWrapper>
       {isLoading ? (
         <>
-          <BackTitle type="secondary" text="" />
+          <BackTitle type="black-left-text" text="" />
           <Spacing size={17} />
           <div style={typography.Headline5}>
             {route.query.state === "self" ? (
@@ -78,7 +78,7 @@ const Write = () => {
         </>
       ) : (
         <>
-          <BackTitle type="secondary" text="리뷰 작성" />
+          <BackTitle type="black-left-text" text="리뷰 작성" />
           <Spacing size={20} />
           <MainWrapper>
             <div style={typography.Headline5}>

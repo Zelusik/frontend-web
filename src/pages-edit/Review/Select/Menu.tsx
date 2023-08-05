@@ -187,7 +187,7 @@ const Menu = () => {
   };
   return (
     <MenuWrapper>
-      <BackTitle type="secondary" text="메뉴 선택" />
+      <BackTitle type="black-left-text" text="메뉴 선택" />
       <ImageWrapper style={{ position: "relative" }}>
         <Swiper
           className="banner"
