@@ -50,3 +50,4 @@ export { default as Gallery } from "./Gallery";
 export { default as Loading } from "./Loading";
 
 export { default as Warn } from "./Warn";
+export { SelectedRadio, DefaultRadio } from "./Radio";
