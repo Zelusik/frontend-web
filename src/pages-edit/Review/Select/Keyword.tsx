@@ -73,7 +73,7 @@ const Keyword = () => {
   };
   return (
     <KeywordWrapper>
-      <BackTitle type="secondary" text="음식점 리뷰" />
+      <BackTitle type="black-left-text" text="음식점 리뷰" />
       <Spacing size={20} />
       <MainWrapper>
         <div style={typography.Headline5}>음식점은 어떠셨나요?</div>
