@@ -31,7 +31,9 @@ export default function RecommandSwiper({ datas, ...props }: any) {
             <SwiperSlide key={idx}>
               <ImageWrapper>
                 <Image alt="추천 사진" src={data} type="home" />
-                <Number>{idx + 1}</Number>
+                <NumberWrapper>
+                  <Number>{idx + 1}</Number>
+                </NumberWrapper>
                 <StoreTitle
                   type="default"
                   title="소이연남"

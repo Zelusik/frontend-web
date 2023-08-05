@@ -18,7 +18,7 @@ import useAlert from "hooks/useAlert";
 import NewButton from "./components/NewButton";
 import Text from "components/Text";
 import { Route } from "constants/Route";
-import ReviewBox from "./components/ReviewBox";
+import ReviewList from "./components/ReviewList";
 
 const RecommandDatas = [
   // "https://i.ibb.co/0Z6FNN7/60pt.png",
@@ -147,11 +147,7 @@ export default function Mypage() {
           </TopNavigationInner>
           <TopNavigationInner>
             {ReviewDatas.length !== 0 ? (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {ReviewDatas.map((data: any, idx: number) => {
-                  return <ReviewBox key={idx} />;
-                })}
-              </div>
+              <ReviewList datas={ReviewDatas} />
             ) : (
               <NewButton
                 onClick={() => {}}

@@ -78,19 +78,9 @@ export default function Map() {
           </>
         ) : (
           <>
-            {type === "store" ? (
-              <>
-                <StoreFilter />
-                <Spacing size={14} />
-              </>
-            ) : (
-              <>
-                <LocationTitle />
-                <Spacing size={14} />
-                {type === "location" ? <Filter /> : null}
-              </>
-            )}
-
+            {type === "store" ? <StoreFilter /> : <LocationTitle />}
+            <Spacing size={14} />
+            {type === "location" ? <Filter /> : null}
             {["", "", "", "", ""].map((data: any, idx: number) => {
               return <StoreBox key={idx} />;
             })}

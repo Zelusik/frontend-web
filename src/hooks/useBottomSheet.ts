@@ -1,4 +1,6 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
+import { changeVisible } from "reducer/slices/bottomSheet/bottomSheetSlice";
+import { useAppDispatch } from "./useReduxHooks";
 
 interface BottomSheetMetrics {
   touchStart: {
@@ -14,6 +16,17 @@ interface BottomSheetMetrics {
 }
 
 export default function useBottomSheet({ ...props }: any) {
+  const dispatch = useAppDispatch();
+
+  const closeBottomSheet = useCallback(() => {
+    dispatch(
+      changeVisible({
+        type: "bottomSheet",
+        value: 0,
+      })
+    );
+  }, []);
+
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const metrics = useRef<BottomSheetMetrics>({
@@ -133,5 +146,5 @@ export default function useBottomSheet({ ...props }: any) {
     sheet.current!.addEventListener("touchend", handleTouchEnd);
   }, []);
 
-  return { sheet, content };
+  return { sheet, content, closeBottomSheet };
 }

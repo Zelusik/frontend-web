@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
 import Spacing from "components/Spacing";
+import Text from "components/Text";
 import { Route } from "constants/Route";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";
@@ -10,8 +11,19 @@ interface Props {}
 
 export default function Report({}: Props) {
   const router = useRouter();
+  const mine = true;
   const dispatch = useAppDispatch();
-  const handleClickReport = () => {
+
+  const clickPrimary = () => {
+    if (mine) {
+      return;
+    }
+  };
+
+  const clickSecondary = () => {
+    if (mine) {
+      return;
+    }
     router.push(Route.REPORT());
     dispatch(
       changeVisible({
@@ -24,14 +36,18 @@ export default function Report({}: Props) {
   return (
     <>
       <Spacing size={10} />
-      <ReportButton>
-        <Icon icon="Share" width={20} height={20} />
-        <Text>공유하기</Text>
+      <ReportButton onClick={clickPrimary}>
+        <Icon icon={mine ? "Trash" : "Share"} width={20} height={20} />
+        <Text typo="Headline2" color="N100" style={{ marginLeft: 6 }}>
+          {mine ? "삭제하기" : "공유하기"}
+        </Text>
       </ReportButton>
       <Spacing size={26} />
-      <ReportButton onClick={handleClickReport}>
-        <Icon icon="Report" width={20} height={20} />
-        <Text>신고하기</Text>
+      <ReportButton onClick={clickSecondary}>
+        <Icon icon={mine ? "Edit" : "Report"} width={20} height={20} />
+        <Text typo="Headline2" color="N100" style={{ marginLeft: 6 }}>
+          {mine ? "수정하기" : "신고하기"}
+        </Text>
       </ReportButton>
     </>
   );
@@ -41,9 +57,4 @@ const ReportButton = styled.div`
   width: 100%;
   height: 20px;
   display: flex;
-`;
-
-const Text = styled.div`
-  width: 100%;
-  margin-left: 6px;
 `;

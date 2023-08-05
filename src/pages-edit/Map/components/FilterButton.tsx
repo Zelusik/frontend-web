@@ -24,8 +24,8 @@ export default function FilterButton({}: any) {
 
   return (
     <>
+      <Gradient />
       <FilterButtonWrapper onClick={handleClickSelection}>
-        <Gradient />
         <div style={{ display: "flex", gap: 8 }}>
           <BottomButton type="default">초기화</BottomButton>
           <BottomButton type="primary" disabled={true}>
@@ -39,8 +39,14 @@ export default function FilterButton({}: any) {
 }
 
 const Gradient = styled.div`
+  width: 100%;
   height: 30px;
+  position: fixed;
+  bottom: 94px;
+
   background: linear-gradient(transparent, ${colors.N0});
+  // background-color: red;
+  z-index: 800;
 `;
 
 const FilterButtonWrapper = styled.div`
@@ -52,24 +58,5 @@ const FilterButtonWrapper = styled.div`
   bottom: 0;
 
   background-color: ${colors.N0};
-`;
-
-const Text = styled.div`
-  color: ${colors.N100};
-  ${css`
-    ${typography.Headline4}
-  `};
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-`;
-
-const FilterText = styled.div`
-  ${css`
-    ${typography.Paragraph1}
-  `};
-  color: ${({ color }) => colors.N80};
+  z-index: 800;
 `;
