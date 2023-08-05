@@ -12,15 +12,13 @@ import { useEffect, useRef, useState } from "react";
 import useDisplaySize from "hooks/useDisplaySize";
 import { colors } from "constants/colors";
 import RecommandSwiper from "./components/RecommandSwiper";
-import ReviewStore from "./components/ReveiwStore";
-import { typography } from "constants/typography";
 import { css, keyframes } from "@emotion/react";
 import { globalValue } from "constants/globalValue";
 import useAlert from "hooks/useAlert";
-import RoundButton from "components/Button/RoundButton";
 import NewButton from "./components/NewButton";
 import Text from "components/Text";
 import { Route } from "constants/Route";
+import ReviewBox from "./components/ReviewBox";
 
 const RecommandDatas = [
   // "https://i.ibb.co/0Z6FNN7/60pt.png",
@@ -151,7 +149,7 @@ export default function Mypage() {
             {ReviewDatas.length !== 0 ? (
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {ReviewDatas.map((data: any, idx: number) => {
-                  return <ReviewStore key={idx} />;
+                  return <ReviewBox key={idx} />;
                 })}
               </div>
             ) : (

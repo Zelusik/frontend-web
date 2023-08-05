@@ -21,7 +21,7 @@ export default function StoreFilter({}: any) {
         {commonWords.alertSort[sortId - 1][language]}
       </Menu>
       <Menu>
-        <Icon icon="BottomArrow" width={16} height={16} color={colors.N60} />
+        <Icon icon="BottomArrow" width={16} height={16} color="N60" />
       </Menu>
     </StoreFilterWrapper>
   );

@@ -12,7 +12,7 @@ export default function Copy() {
           icon="Copy"
           width={16}
           height={16}
-          margin={"0 2px 0 0"}
+          margin="0 2px 0 0"
           onClick={() => {
             alert("copy");
           }}

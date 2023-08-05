@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import * as icons from "components/Icon/icons";
+import { colors } from "constants/colors";
 
 interface Props {
   icon: string;
@@ -74,8 +75,8 @@ const IconWrapper = styled.div<{
     height: ${({ height }) => height}px;
 
     path {
-      stroke: ${({ color }) => color};
-      fill: ${({ fill }) => fill};
+      stroke: ${({ color }) => colors[color]};
+      fill: ${({ fill }) => colors[fill]};
     }
   }
 

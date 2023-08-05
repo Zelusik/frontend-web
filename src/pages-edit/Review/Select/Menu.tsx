@@ -219,7 +219,7 @@ const Menu = () => {
 
                       <Icon
                         icon="XButton"
-                        color={colors.N0}
+                        color="N0"
                         width={12}
                         height={12}
                         onTouchEnd={(event: any) => {

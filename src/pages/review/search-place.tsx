@@ -83,7 +83,7 @@ const SearchPlace = () => {
 
   return (
     <SearchPlaceWrapper>
-      <BackTitle type="black-left-text" text="" />
+      <BackTitle type="black-left-text" />
       <SearchInput>
         <Input
           type="line"
