@@ -28,7 +28,7 @@ export default function Dots({ margin, size, color }: Props) {
       height={size}
       margin={margin}
       fill={color}
-      color={colors[color]}
+      color={color}
       onClick={handleClickDots}
     />
   );

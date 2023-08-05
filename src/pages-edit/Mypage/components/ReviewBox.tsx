@@ -5,11 +5,11 @@ import { Route } from "constants/Route";
 import useDisplaySize from "hooks/useDisplaySize";
 import { useRouter } from "next/router";
 
-export default function ReviewStore() {
+export default function ReviewBox() {
   const router = useRouter();
   const { width } = useDisplaySize();
   const clickReview = () => {
-    router.push(Route.HOME_DETAIL());
+    // router.push(Route.HOME_DETAIL());
   };
 
   return (

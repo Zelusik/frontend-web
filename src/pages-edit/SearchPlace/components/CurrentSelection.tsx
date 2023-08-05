@@ -62,7 +62,7 @@ export default function CurrentSelection({ idx, text, where, ...props }: any) {
     <>
       <TitleWrapper>
         <Text typo={typography.Paragraph5} onClick={clickText}>
-          <Icon icon={Icons[where]} width={24} height={24} color={colors.N80} />
+          <Icon icon={Icons[where]} width={24} height={24} color="N80" />
           <div style={{ margin: "auto 0", marginLeft: 8 }}>{text}</div>
         </Text>
         <Delete
@@ -70,7 +70,7 @@ export default function CurrentSelection({ idx, text, where, ...props }: any) {
           color={colors.N50}
           onClick={clickDelete}
         >
-          <Icon icon="XButton" width={24} height={24} color={colors.N60} />
+          <Icon icon="XButton" width={24} height={24} color="N60" />
         </Delete>
       </TitleWrapper>
       <Spacing size={20} />

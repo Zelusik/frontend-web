@@ -30,7 +30,7 @@ export default function Filter({}: any) {
     <FilterWrapper>
       <FilterButtonWrapper ref={filterRef} onClick={handleClickFilter}>
         <Menu>
-          <Icon icon="Filter" width={16} height={16} color={colors.Orange600} />
+          <Icon icon="Filter" width={16} height={16} color="Orange600" />
           <Count>1</Count>
         </Menu>
       </FilterButtonWrapper>

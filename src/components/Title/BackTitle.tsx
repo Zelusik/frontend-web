@@ -19,44 +19,56 @@ export default function BackTitle({
 
   return (
     <TitleWrapper styles={style}>
-      <TitleInner
-        onClick={() => {
-          router.back();
-        }}
-        style={
-          type === "map"
-            ? {
-                width: 44,
-                height: 44,
-                paddingLeft: 10,
-                borderRadius: 12,
-                boxShadow: "0px 3px 18px 0px rgba(0, 0, 0, 0.08)",
-                backgroundColor: colors.N0,
-              }
-            : {}
-        }
-      >
-        <Icon
-          icon="Arrow"
-          width={24}
-          height={24}
-          color={match(type)
-            .with("white-setting", () => colors.N0)
-            .with("white", () => colors.N0)
-            .with("black-left-text", () => colors.N100)
-            .with("map", () => colors.N100)
-            .exhaustive()}
-        />
-        <Text typo="Headline5" color="N100" style={{ marginLeft: 6 }}>
-          {props.titleText}
-        </Text>
-      </TitleInner>
+      {type !== "black-x-button" ? (
+        <TitleInner
+          onClick={() => {
+            router.back();
+          }}
+          style={
+            type === "map"
+              ? {
+                  width: 44,
+                  height: 44,
+                  paddingLeft: 10,
+                  borderRadius: 12,
+                  boxShadow: "0px 3px 18px 0px rgba(0, 0, 0, 0.08)",
+                  backgroundColor: colors.N0,
+                }
+              : {}
+          }
+        >
+          <Icon
+            icon="Arrow"
+            width={24}
+            height={24}
+            color={match(type)
+              .with("white-setting", () => "N0")
+              .with("white", () => "N0")
+              .with("black-left-text", () => "N100")
+              .with("map", () => "N100")
+              .exhaustive()}
+          />
+          <Text typo="Headline5" color="N100" style={{ marginLeft: 6 }}>
+            {props.titleText}
+          </Text>
+        </TitleInner>
+      ) : (
+        <Dummy />
+      )}
       {text ? (
-        <Text typo="Headline4" color="N100">
+        <Text typo="Headline3" color="N100">
           {text}
         </Text>
-      ) : null}
-      {type === "white-setting" ? <Dots size={24} color="N0" /> : null}
+      ) : (
+        <Dummy />
+      )}
+      {type === "white-setting" ? (
+        <Dots size={24} color="N0" />
+      ) : type === "black-x-button" ? (
+        <Icon icon="XButton" />
+      ) : (
+        <Dummy />
+      )}
     </TitleWrapper>
   );
 }
@@ -73,4 +85,9 @@ const TitleWrapper = styled.div<{ styles: any }>`
 const TitleInner = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const Dummy = styled.div`
+  width: 24px;
+  height: 24px;
 `;

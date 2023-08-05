@@ -28,12 +28,7 @@ export default function Sort() {
                 {data[language]}
               </Text>
               {action ? (
-                <Icon
-                  icon="Check"
-                  width={20}
-                  height={20}
-                  color={colors.Orange600}
-                />
+                <Icon icon="Check" width={20} height={20} color="Orange600" />
               ) : null}
             </SortInner>
           );

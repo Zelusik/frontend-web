@@ -29,7 +29,7 @@ const BottomNavigation = () => {
               <Menu clicked={pathname === data.route ? "true" : "false"}>
                 <Icon
                   icon={data.en}
-                  fill={pathname === data.route ? colors.Orange500 : colors.N50}
+                  fill={pathname === data.route ? "Orange500" : "N50"}
                 />
                 {data.kr}
               </Menu>
