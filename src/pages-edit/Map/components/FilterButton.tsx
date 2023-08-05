@@ -8,6 +8,7 @@ import { changeType } from "reducer/slices/search/searchSlice";
 import { Route } from "constants/Route";
 import Spacing from "components/Spacing";
 import BottomButton from "components/Button/BottomButton";
+import Gradient from "components/Share/Gradient";
 
 export default function FilterButton({}: any) {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function FilterButton({}: any) {
 
   return (
     <>
-      <Gradient />
+      <Gradient size={30} />
       <FilterButtonWrapper onClick={handleClickSelection}>
         <div style={{ display: "flex", gap: 8 }}>
           <BottomButton type="default">초기화</BottomButton>
@@ -37,17 +38,6 @@ export default function FilterButton({}: any) {
     </>
   );
 }
-
-const Gradient = styled.div`
-  width: 100%;
-  height: 30px;
-  position: fixed;
-  bottom: 94px;
-
-  background: linear-gradient(transparent, ${colors.N0});
-  // background-color: red;
-  z-index: 800;
-`;
 
 const FilterButtonWrapper = styled.div`
   width: 100%;

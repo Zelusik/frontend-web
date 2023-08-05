@@ -10,7 +10,7 @@ import Selections from "./components/Selections";
 import FindLocationButton from "./components/FindLocationButton";
 import StoreBox from "./components/StoreBox";
 import LocationTitle from "./components/LocationTitle";
-import KakaoMap from "components/KakaoMap";
+import KakaoMap from "components/Share/KakaoMap";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import Filter from "./components/Filter";
 import FilterSelection from "./components/FilterSelection";

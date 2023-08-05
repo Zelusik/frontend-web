@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import BottomButton from "components/Button/BottomButton";
+import Gradient from "components/Share/Gradient";
 import Spacing from "components/Spacing";
 import Text from "components/Text";
 import BackTitle from "components/Title/BackTitle";
@@ -45,7 +46,7 @@ export default function RecommandBest() {
         <Spacing size={146 + 124} />
       </RecommandBestWrapper>
 
-      <Gradient />
+      <Gradient size={30} />
       <ButtonWrapper>
         <BottomButton type="default">초기화</BottomButton>
         <BottomButton type="primary">저장하기</BottomButton>
@@ -68,16 +69,6 @@ const TitleWrapper = styled.div`
   top: 0;
   z-index: 800;
   background-color: ${colors.N0};
-`;
-
-const Gradient = styled.div`
-  width: 100%;
-  height: 30px;
-
-  position: absolute;
-  bottom: 94px;
-  z-index: 800;
-  background: linear-gradient(transparent, ${colors.N0});
 `;
 
 const ButtonWrapper = styled.div`

@@ -15,7 +15,7 @@ import Hashtags from "components/Hashtags";
 
 import Profile from "./components/Profile";
 import ImageBox from "./components/ImageBox";
-import KakaoMap from "components/KakaoMap";
+import KakaoMap from "components/Share/KakaoMap";
 import ScaleUpButton from "./components/ScaleUpButton";
 
 export default function HomeDetail() {
@@ -23,9 +23,8 @@ export default function HomeDetail() {
   const scrollRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  const { width, height } = useDisplaySize();
+  const { width } = useDisplaySize();
   const [titleChange, setTitleChange] = useState<boolean>(false);
-  const [mapVisible, setMapVisible] = useState<boolean>(false);
 
   function onScroll() {
     if (scrollRef.current?.scrollTop >= window.innerWidth + 4 - 20) {

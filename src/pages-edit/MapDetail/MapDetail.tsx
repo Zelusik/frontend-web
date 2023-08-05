@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
-import Icon from "components/Icon";
-import KakaoMap from "components/KakaoMap";
+import KakaoMap from "components/Share/KakaoMap";
 import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
 import { useRouter } from "next/router";
 
 export default function MapDetail() {

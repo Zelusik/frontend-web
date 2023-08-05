@@ -45,7 +45,7 @@ const MapBottomSheet = forwardRef(function Div(
     dispatch(
       changeVisibleType({
         type: "mapBottomSheet",
-        value: [1, "primary"],
+        value: [1, "primary", sheet],
       })
     );
   };
