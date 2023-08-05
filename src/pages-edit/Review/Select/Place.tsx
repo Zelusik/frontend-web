@@ -1,30 +1,31 @@
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "components/Image/Image";
 import { typography } from "constants/typography";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "hooks/useReduxHooks";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { kakaoSearchKeyword } from "api/review";
 import Spacing from "components/Spacing/Spacing";
 import { colors } from "constants/colors";
 import { ChevronRight } from "components/Icon/Chevron";
 import BottomButton from "components/Button/BottomButton";
 
 import BackTitle from "components/Title/BackTitle";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import useGetPlace from "hooks/queries/review/useGetPlace";
+import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
 
 const Place = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
+
   const image = useAppSelector((state) => state.image);
   const { placeInfo } = useAppSelector((state) => state.review);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
   const {} = useGetPlace();
+  const { isLoading } = useGetPlaceInfo(image);
 
   const handleClickNextBtn = () => {
     router.push(Route.REVIEW_MENU());
@@ -33,68 +34,6 @@ const Place = () => {
   const handleClickSearchPlace = () => {
     router.push(Route.REVIEW_SEARCH_PLACE());
   };
-
-  useEffect(() => {
-    if (!placeInfo.kakaoPid) {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            if (image.length > 0) {
-              kakaoSearchKeyword(
-                image[0].lng || position.coords.longitude,
-                image[0].lat || position.coords.latitude,
-                "",
-                1,
-                (res: any) => {
-                  dispatch(
-                    changeReviewInfo({
-                      type: "placeInfo",
-                      value: {
-                        kakaoPid: res.documents[0].id,
-                        name: res.documents[0].place_name,
-                        pageUrl: res.documents[0].place_url,
-                        categoryName: res.documents[0].category_name,
-                        categoryGroupCode: res.documents[0].category_group_code,
-                        phone: res.documents[0].phone,
-                        lotNumberAddress: res.documents[0].address_name,
-                        roadAddress: res.documents[0].raod_address_name,
-                        lat: res.documents[0].y,
-                        lng: res.documents[0].x,
-                      },
-                    })
-                  );
-                }
-              );
-            }
-          },
-          (error) => {
-            switch (error.code) {
-              case error.PERMISSION_DENIED:
-                alert(
-                  "이 문장은 사용자가 Geolocation API의 사용 요청을 거부했을 때 나타납니다!"
-                );
-                break;
-
-              case error.POSITION_UNAVAILABLE:
-                alert("이 문장은 가져온 위치 정보를 사용할 수 없을 때 나타납니다!");
-                break;
-
-              case error.TIMEOUT:
-                alert(
-                  "이 문장은 위치 정보를 가져오기 위한 요청이 허용 시간을 초과했을 때 나타납니다!"
-                );
-                break;
-            }
-          },
-          {
-            enableHighAccuracy: false,
-            maximumAge: 0,
-            timeout: Infinity,
-          }
-        );
-      }
-    }
-  }, [image]);
 
   return (
     <PlaceWrapper>
