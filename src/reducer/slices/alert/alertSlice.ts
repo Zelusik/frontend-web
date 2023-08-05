@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
-  type: string;
+  type: "sort" | "write-review";
   visible: boolean;
   sortId: number;
   [index: string]: string | string[] | any;

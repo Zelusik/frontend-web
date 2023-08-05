@@ -50,7 +50,7 @@ export default function ProfileTitle({
               alert("roundButton");
             }}
           />
-          {type === "home" && <Dots margin="0 0 0 4px" color={colors.N80} />}
+          {type === "home" && <Dots margin="0 0 0 4px" color="N80" />}
         </Menu>
       </MenuList>
     </TitleWrapper>

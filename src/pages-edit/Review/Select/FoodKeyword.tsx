@@ -56,7 +56,9 @@ const FoodKeyword = () => {
     dispatch(
       changeReviewInfo({
         type: "foodInfo",
-        value: foodInfo.map((e: FoodType) => (e.foodName === food ? targetFood : e)),
+        value: foodInfo.map((e: FoodType) =>
+          e.foodName === food ? targetFood : e
+        ),
       })
     );
   };
@@ -71,7 +73,7 @@ const FoodKeyword = () => {
 
   return (
     <FoodKeywordWrapper>
-      <BackTitle type="secondary" text="식사 리뷰" />
+      <BackTitle type="black-left-text" text="식사 리뷰" />
       <Spacing size={20} />
 
       <MainWrapper>
@@ -80,7 +82,10 @@ const FoodKeyword = () => {
           {data ? (
             <>
               {data.menuKeywords.map(
-                (menuInfo: { menu: string; keywords: string[] }, index: number) => (
+                (
+                  menuInfo: { menu: string; keywords: string[] },
+                  index: number
+                ) => (
                   <KeywordBox key={index}>
                     <span style={typography.Headline2}>{menuInfo.menu}</span>
                     <div className="keywords">
@@ -91,10 +96,15 @@ const FoodKeyword = () => {
                           type="text"
                           height={38}
                           action={foodInfo
-                            .filter((e: FoodType) => e.foodName === menuInfo.menu)[0]
+                            .filter(
+                              (e: FoodType) => e.foodName === menuInfo.menu
+                            )[0]
                             .foodKeyword.includes(keyword)}
                           onClick={() =>
-                            handleClickKeywords({ food: menuInfo.menu, keyword })
+                            handleClickKeywords({
+                              food: menuInfo.menu,
+                              keyword,
+                            })
                           }
                         >
                           {keyword}

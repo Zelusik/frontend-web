@@ -34,7 +34,7 @@ export default function SearchPlace() {
   return (
     <>
       <Wrapper>
-        <BackTitle type="secondary" />
+        <BackTitle type="black-left-text" />
         <Input
           type="line"
           placeholder="지역, 음식점, 닉네임 검색"

@@ -16,12 +16,16 @@ import ReviewStore from "./components/ReveiwStore";
 import { typography } from "constants/typography";
 import { css, keyframes } from "@emotion/react";
 import { globalValue } from "constants/globalValue";
-import RecommandButton from "./components/RecommandButton";
+import useAlert from "hooks/useAlert";
+import RoundButton from "components/Button/RoundButton";
+import NewButton from "./components/NewButton";
+import Text from "components/Text";
+import { Route } from "constants/Route";
 
 const RecommandDatas = [
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  // "https://i.ibb.co/0Z6FNN7/60pt.png",
 ];
 
 const ReviewDatas = [
@@ -53,6 +57,13 @@ export default function Mypage() {
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const { height } = useDisplaySize();
+
+  const { openAlert } = useAlert();
+
+  const clickRecommand = () => {
+    if (ReviewDatas.length === 0) openAlert("write-review");
+    else router.push(Route.RECOMMEND_BEST());
+  };
 
   function onScroll() {
     setScrollHeight(
@@ -95,12 +106,15 @@ export default function Mypage() {
           {mypage ? (
             <>
               <TitleInner visible={titleChange}>
-                <Name visible={titleChange}>{titleChange && "강남작가"}</Name>
+                <Text typo="Headline5">{titleChange && "강남작가"}</Text>
                 <Setting />
               </TitleInner>
             </>
           ) : (
-            <BackTitle type="secondary" titleText={titleChange && "강남작가"} />
+            <BackTitle
+              type="black-left-text"
+              titleText={titleChange && "강남작가"}
+            />
           )}
         </TitleWrapper>
 
@@ -121,17 +135,19 @@ export default function Mypage() {
           topFixed={topFixed}
           titleList={["추천 베스트", "리뷰"]}
         >
-          <NavigationWrapper height={height - 108}>
+          <TopNavigationInner height={height - 108}>
             {RecommandDatas.length !== 0 ? (
               <RecommandSwiper datas={RecommandDatas} />
             ) : (
-              <ButtonWrapper marginTop={scrollHeight}>
-                <ButtonTitle>나만의 추천 음식점을 골라주세요</ButtonTitle>
-                <RecommandButton text="선택" />
-              </ButtonWrapper>
+              <NewButton
+                onClick={clickRecommand}
+                marginTop={scrollHeight}
+                text="나만의 추천 음식점을 골라주세요"
+                buttonText="추천 베스트 선택하기"
+              />
             )}
-          </NavigationWrapper>
-          <NavigationWrapper>
+          </TopNavigationInner>
+          <TopNavigationInner>
             {ReviewDatas.length !== 0 ? (
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {ReviewDatas.map((data: any, idx: number) => {
@@ -139,15 +155,17 @@ export default function Mypage() {
                 })}
               </div>
             ) : (
-              <ButtonWrapper marginTop={scrollHeight}>
-                <ButtonTitle>나만의 추천 음식점을 골라주세요</ButtonTitle>
-                <RecommandButton text="선택" />
-              </ButtonWrapper>
+              <NewButton
+                onClick={() => {}}
+                marginTop={scrollHeight}
+                text="내가 방문한 음식점의 리뷰를 남겨보세요"
+                buttonText="첫 리뷰 남기기"
+              />
             )}
             <Spacing
               size={mypage ? globalValue.BOTTOM_NAVIGATION_HEIGHT + 6 : 6}
             />
-          </NavigationWrapper>
+          </TopNavigationInner>
         </TopNavigation>
       </HomeWrapper>
 
@@ -193,41 +211,17 @@ const TitleInner = styled.div<{ visible: boolean }>`
   width: 100%;
   height: 50px;
   padding: 0 20px;
+  margin: auto 0;
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   position: absolute;
   left: 0;
 `;
 
-const Name = styled.div<{ visible: boolean }>`
-  margin: auto 0;
-  ${css`
-    ${typography.Headline5}
-  `}
-
-  background-color: ${({ visible }) =>
-    visible ? `${colors.N0}` : `transparents`};
-  animation: ${(props) => fade(props.visible)} 0.3s forwards;
-`;
-
-const NavigationWrapper = styled.div<{ height?: number }>`
+const TopNavigationInner = styled.div<{ height?: number }>`
   height: ${({ height }) => height}px;
   padding: 0 20px;
-`;
-
-const ButtonWrapper = styled.div<{ marginTop: number }>`
-  padding-top: ${({ marginTop }) => marginTop}px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const ButtonTitle = styled.div`
-  text-align: center;
-  ${css`
-    ${typography.Paragraph5}
-  `}
-  color: ${colors.N80};
 `;

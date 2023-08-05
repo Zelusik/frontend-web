@@ -16,7 +16,7 @@ export default function MapDetail() {
         <KakaoMap lat={33.450701} lng={126.570667} />
       </KakaoMapWrapper>
       <TitleWrapper>
-        <BackTitle type="tertiary" />
+        <BackTitle type="map" />
       </TitleWrapper>
     </>
   );

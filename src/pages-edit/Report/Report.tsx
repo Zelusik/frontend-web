@@ -25,7 +25,7 @@ export default function Report() {
   return (
     <>
       <ReportWrapper>
-        <BackTitle type="default" text="리뷰 신고하기" />
+        <BackTitle type="white" text="리뷰 신고하기" />
         <Spacing size={20} />
         <ReportTitle>이 리뷰를 신고하는 이유를 알려주세요.</ReportTitle>
         <Spacing size={20} />

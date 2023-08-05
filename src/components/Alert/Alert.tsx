@@ -1,25 +1,18 @@
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeAlertVisible } from "reducer/slices/alert/alertSlice";
+import useAlert from "hooks/useAlert";
+import { useAppSelector } from "hooks/useReduxHooks";
 import Sort from "./children/Sort";
+import WriteReview from "./children/WriteReview";
 
 const COMPONENT = {
   sort: <Sort />,
+  "write-review": <WriteReview />,
 };
 
 export default function Alert() {
-  const dispatch = useAppDispatch();
   const { type } = useAppSelector((state) => state.alert);
-
-  const closeAlert = () => {
-    dispatch(
-      changeAlertVisible({
-        type: "alert",
-        value: [false, "sort"],
-      })
-    );
-  };
+  const { closeAlert } = useAlert();
 
   return (
     <>

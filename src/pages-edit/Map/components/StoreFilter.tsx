@@ -4,6 +4,7 @@ import Icon from "components/Icon";
 import { colors } from "constants/colors";
 import { commonWords } from "constants/commonWords";
 import { typography } from "constants/typography";
+import useAlert from "hooks/useAlert";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";
 import { changeAlertVisible } from "reducer/slices/alert/alertSlice";
@@ -12,18 +13,10 @@ export default function StoreFilter({}: any) {
   const router = useRouter();
   const { language } = useAppSelector((state) => state.global);
   const { sortId } = useAppSelector((state) => state.alert);
-  const dispatch = useAppDispatch();
-  const clickStoreFilter = () => {
-    dispatch(
-      changeAlertVisible({
-        type: "alert",
-        value: [true, "sort"],
-      })
-    );
-  };
+  const { openAlert } = useAlert();
 
   return (
-    <StoreFilterWrapper onClick={clickStoreFilter}>
+    <StoreFilterWrapper onClick={() => openAlert("sort")}>
       <Menu style={{ marginRight: 4 }}>
         {commonWords.alertSort[sortId - 1][language]}
       </Menu>
