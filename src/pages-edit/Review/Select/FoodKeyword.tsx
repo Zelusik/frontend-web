@@ -14,10 +14,12 @@ import useGetMenuKeywords from "hooks/queries/review/useGetMenuKeywords";
 import { FoodType } from "types/review";
 import useToast from "hooks/useToast";
 import Toast from "components/Toast/Toast";
+import { getAutoReview } from "api/review";
 
 const FoodKeyword = () => {
   const route = useRouter();
   const dispatch = useAppDispatch();
+
   const { placeInfo } = useAppSelector((state) => state.review);
   const { keywords, foodInfo } = useAppSelector((state) => state.review);
   const { isShowToast, openToast, closeToast } = useToast();
@@ -28,7 +30,6 @@ const FoodKeyword = () => {
     placeCategory: placeInfo.categoryName,
     menus: foodInfo.map((e: FoodType) => e.foodName.replace(",", "")),
   });
-
   const handleClickKeywords = ({
     food,
     keyword,
@@ -56,14 +57,25 @@ const FoodKeyword = () => {
     dispatch(
       changeReviewInfo({
         type: "foodInfo",
-        value: foodInfo.map((e: FoodType) =>
-          e.foodName === food ? targetFood : e
-        ),
+        value: foodInfo.map((e: FoodType) => (e.foodName === food ? targetFood : e)),
       })
     );
   };
 
-  const handleClickAIBtn = () => {
+  const handleClickAIBtn = async () => {
+    const result = await getAutoReview({ keywords, foodInfo });
+    dispatch(
+      changeReviewInfo({
+        type: "autoCreatedContent",
+        value: result.content,
+      })
+    );
+    dispatch(
+      changeReviewInfo({
+        type: "content",
+        value: result.content,
+      })
+    );
     route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
   };
 
@@ -82,10 +94,7 @@ const FoodKeyword = () => {
           {data ? (
             <>
               {data.menuKeywords.map(
-                (
-                  menuInfo: { menu: string; keywords: string[] },
-                  index: number
-                ) => (
+                (menuInfo: { menu: string; keywords: string[] }, index: number) => (
                   <KeywordBox key={index}>
                     <span style={typography.Headline2}>{menuInfo.menu}</span>
                     <div className="keywords">
@@ -96,9 +105,7 @@ const FoodKeyword = () => {
                           type="text"
                           height={38}
                           action={foodInfo
-                            .filter(
-                              (e: FoodType) => e.foodName === menuInfo.menu
-                            )[0]
+                            .filter((e: FoodType) => e.foodName === menuInfo.menu)[0]
                             .foodKeyword.includes(keyword)}
                           onClick={() =>
                             handleClickKeywords({
