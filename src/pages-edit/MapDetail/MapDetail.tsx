@@ -5,9 +5,6 @@ import { useRouter } from "next/router";
 
 export default function MapDetail() {
   const router = useRouter();
-  const clickBack = () => {
-    router.back();
-  };
   return (
     <>
       <KakaoMapWrapper>
@@ -21,9 +18,10 @@ export default function MapDetail() {
 }
 
 const TitleWrapper = styled.div`
+  width: 100%;
+  margin-left: 20px;
   position: absolute;
   top: 20px;
-  left: 20px;
   z-index: 900;
 `;
 
