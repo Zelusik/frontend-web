@@ -10,6 +10,7 @@ export default function TextArea({
   placeholder,
   onChange,
   borderColor,
+  value,
 }: any) {
   return (
     <>
@@ -18,6 +19,7 @@ export default function TextArea({
         size={size}
         onChange={onChange}
         borderColor={borderColor}
+        value={value}
       />
       <Spacing size={12} />
       <BoxText>{text}</BoxText>
