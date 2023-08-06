@@ -51,3 +51,4 @@ export { default as Loading } from "./Loading";
 
 export { default as Warn } from "./Warn";
 export { SelectedRadio, DefaultRadio } from "./Radio";
+export { default as Camera } from "./Camera";
