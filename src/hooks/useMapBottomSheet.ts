@@ -15,6 +15,7 @@ interface BottomSheetMetrics {
   touchMove: {
     prevTouchY?: number;
     moveTouchY: number;
+    differenceY: number;
     movingDirection: "none" | "down" | "up";
   };
   isContentAreaTouched: boolean;
@@ -79,6 +80,7 @@ export default function useMapBottomSheet({ ...props }: any) {
       touchMove: {
         prevTouchY: 0,
         moveTouchY: 0,
+        differenceY: 0,
         movingDirection: "none",
       },
       isContentAreaTouched: false,
@@ -91,8 +93,6 @@ export default function useMapBottomSheet({ ...props }: any) {
       const TOP = BOTTOM_SHEET_HEIGHT * 0.7;
       const TOUCH =
         BOTTOM_SHEET_HEIGHT * 0.7 - globalValue.BOTTOM_NAVIGATION_HEIGHT;
-
-      const BOTTOM_SHEET_BACKGROUND = 82 + BOTTOM_SHEET_HEIGHT * 0.7;
 
       const handleTouchStart = (e: TouchEvent) => {
         const { touchStart } = metrics.current;
@@ -127,65 +127,65 @@ export default function useMapBottomSheet({ ...props }: any) {
           globalValue.BOTTOM_NAVIGATION_HEIGHT +
           BOTTOM_SHEET_HEIGHT * 0.3;
 
-        if (
-          isContentAreaTouched &&
-          currentTouchMove < 0 &&
-          currentTouchMove > -TOP
-        ) {
-          let opacity = -currentTouchMove / TOUCH;
-          if (-currentTouchMove / TOUCH > 1) opacity = 0.99;
-          else if (-currentTouchMove / TOUCH < 0) opacity = 0.01;
+        let differenceY = currentTouchMove;
+        let opacity = -differenceY / TOUCH;
+        if (-differenceY / TOUCH > 1) opacity = 0.99;
+        else if (-differenceY / TOUCH < 0) opacity = 0.01;
 
+        if (isContentAreaTouched && differenceY < 0 && differenceY > -TOP) {
           moveMapBottomSheet(opacity);
           sheet.current!.style.setProperty(
             "transform",
-            `translateY(${currentTouchMove}px)`
+            `translateY(${differenceY}px)`
           );
         } else if (!isContentAreaTouched && content.current!.scrollTop <= 0) {
-          let move_pre = 0;
-          let move =
-            touchMove.moveTouchY -
-            HEIGHT +
-            globalValue.BOTTOM_NAVIGATION_HEIGHT +
-            BOTTOM_SHEET_HEIGHT * 0.3;
-          // if (TOP < touchStart.sheetY) {
-          //   move_pre =
-          //     BOTTOM_SHEET_BACKGROUND -
-          //     HEIGHT +
-          //     globalValue.BOTTOM_NAVIGATION_HEIGHT +
-          //     BOTTOM_SHEET_HEIGHT * 0.3;
-          // } else {
-          //   move =
-          //     82 -
-          //     HEIGHT +
-          //     globalValue.BOTTOM_NAVIGATION_HEIGHT +
-          //     BOTTOM_SHEET_HEIGHT * 0.3;
-          // }
-          // console.log(move - move_pre);
-
-          let opacity = -currentTouchMove / TOUCH;
-          if (-currentTouchMove / TOUCH > 1) opacity = 0.99;
-          else if (-currentTouchMove / TOUCH < 0) opacity = 0.01;
-
-          if (touchMove.movingDirection === "up" && TOP < touchStart.sheetY) {
-            moveMapBottomSheet(opacity);
-            sheet.current!.style.setProperty(
-              "transform",
-              `translateY(${move}px)`
-            );
+          if (
+            touchMove.movingDirection === "up" &&
+            touchStart.sheetY > HEIGHT / 2
+          ) {
             content.current?.style.setProperty("overflow-y", "hidden");
-          } else if (touchMove.movingDirection === "down") {
+            differenceY = touchMove.moveTouchY - touchStart.touchY;
+            if (differenceY > 0) return;
+
+            opacity = -differenceY / TOUCH;
+            if (-differenceY / TOUCH > 1) opacity = 0.99;
+            else if (-differenceY / TOUCH < 0) opacity = 0.01;
             moveMapBottomSheet(opacity);
             sheet.current!.style.setProperty(
               "transform",
-              `translateY(${move}px)`
+              `translateY(${differenceY}px)`
+            );
+          } else if (
+            touchMove.movingDirection === "down" &&
+            touchStart.sheetY < HEIGHT / 2
+          ) {
+            differenceY = -TOP - touchStart.touchY + touchMove.moveTouchY;
+            if (differenceY < -TOP) return;
+
+            opacity = -differenceY / TOUCH;
+            if (-differenceY / TOUCH > 1) opacity = 0.99;
+            else if (-differenceY / TOUCH < 0) opacity = 0.01;
+            moveMapBottomSheet(opacity);
+            sheet.current!.style.setProperty(
+              "transform",
+              `translateY(${differenceY}px)`
             );
           }
         }
+
+        touchMove.differenceY = differenceY;
+      };
+
+      const open = () => {
+        openMapBottomSheet("primary");
+        sheet.current!.style.setProperty("transform", `translateY(${-TOP}px)`);
+      };
+      const close = () => {
+        closeMapBottomSheet(sheet);
+        sheet.current!.style.setProperty("transform", `translateY(0)`);
       };
 
       const handleTouchEnd = (e: TouchEvent) => {
-        // document.body.style.overflowY = "auto";
         const { touchStart, touchMove, isContentAreaTouched } = metrics.current;
         const move = touchStart.touchY - touchMove.moveTouchY;
 
@@ -194,29 +194,24 @@ export default function useMapBottomSheet({ ...props }: any) {
             (Math.abs(move) > 100 && TOP > touchStart.sheetY) ||
             (Math.abs(move) < 100 && TOP < touchStart.sheetY)
           ) {
-            closeMapBottomSheet(sheet);
-            props.handleClickFilter();
+            close();
             content.current!.scrollTop = 0;
-            sheet.current!.style.setProperty("transform", `translateY(0)`);
-          } else {
-            openMapBottomSheet("primary");
-            sheet.current!.style.setProperty(
-              "transform",
-              `translateY(${-TOP}px)`
-            );
-          }
+          } else open();
         } else if (!isContentAreaTouched && content.current!.scrollTop <= 0) {
-          if (touchMove.movingDirection === "up") {
-            openMapBottomSheet("primary");
-            sheet.current!.style.setProperty(
-              "transform",
-              `translateY(${-TOP}px)`
-            );
-            content.current?.style.setProperty("overflow-y", "scroll");
-          } else if (touchMove.movingDirection === "down") {
-            closeMapBottomSheet(sheet);
-            props.handleClickFilter();
-            sheet.current!.style.setProperty("transform", `translateY(0)`);
+          if (
+            touchMove.movingDirection === "up" &&
+            touchStart.sheetY > HEIGHT / 2
+          ) {
+            if (Math.abs(move) > 120 && move > -TOP) {
+              open();
+              content.current?.style.setProperty("overflow-y", "scroll");
+            } else close();
+          } else if (
+            touchMove.movingDirection === "down" &&
+            touchStart.sheetY < HEIGHT / 2
+          ) {
+            if (Math.abs(move) > 120 && move < 0) close();
+            else open();
           }
         }
 
@@ -229,6 +224,7 @@ export default function useMapBottomSheet({ ...props }: any) {
           touchMove: {
             prevTouchY: 0,
             moveTouchY: 0,
+            differenceY: touchMove.differenceY,
             movingDirection: "none",
           },
           isContentAreaTouched: false,
