@@ -2,6 +2,18 @@ import client from "api";
 import axios from "axios";
 import { ReviewType } from "types/review";
 
+export const getAutoReview = async ({ keywords, foodInfo }: any) =>
+  client
+    .get("/reviews/contents/auto-creations", {
+      params: {
+        placeKeywords: keywords.join(","),
+        menus: foodInfo.map((e: any) => e.foodName).join(","),
+        menuKeywords: foodInfo.map((e: any) => e.foodKeyword.join("+")).join(","),
+      },
+    })
+    .then(({ data }) => data)
+    .catch((err) => err.response);
+
 export const postReview = async (reviewData: ReviewType) => {
   const formData = new FormData();
   function base64toFile(base_data: any, filename: any) {

@@ -93,6 +93,7 @@ const Write = () => {
                 placeholder="음식점에서의 경험이나 정보를 자세히 작성해주세요!"
                 onChange={handleChangeReview}
                 borderColor={colors.N10}
+                value={review.content}
               />
               <TextCount>{review.content.length}/400</TextCount>
             </div>

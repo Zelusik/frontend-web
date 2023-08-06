@@ -26,12 +26,6 @@ export default function Input({
       case "line":
         break;
       case "shadow":
-        dispatch(
-          changeVisible({
-            type: "mapBottomSheet",
-            value: 0,
-          })
-        );
         router.push(Route.SEARCH_PLACE());
         break;
       default:
