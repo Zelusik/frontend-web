@@ -11,6 +11,7 @@ import reviewSlice from "./review/reviewSlice";
 import searchSlice from "./search/searchSlice";
 import currIdxSlice from "./image/currIdxSlice";
 import menuTagSlice from "./image/menuTagSlice";
+import userSlice from "./user/userSlice";
 
 const rootReducer = (state: any, action: PayloadAction<any>) => {
   switch (action.type) {
@@ -31,6 +32,7 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
         menuTag: menuTagSlice,
         currIdx: currIdxSlice,
         review: reviewSlice,
+        user: userSlice,
       });
       return combineReducer(state, action);
     }
