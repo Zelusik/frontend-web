@@ -9,7 +9,7 @@ import { changeFilterAction } from "reducer/slices/search/searchSlice";
 import Spacing from "components/Spacing";
 import { typography } from "constants/typography";
 import { useRef } from "react";
-import { commonWords } from "constants/commonWords";
+import { atmosphereKeyword } from "constants/globalData";
 
 export default function Filter({}: any) {
   const router = useRouter();
@@ -37,14 +37,14 @@ export default function Filter({}: any) {
       <FilterScrollWrapper>
         <div style={{ minWidth: 1 > 6 ? 88 : 80 }} />
         <FilterInner>
-          {commonWords.moodList.map((data: any, idx: number) => {
+          {atmosphereKeyword.map((data: any, idx: number) => {
             return (
               <ButtonWrapper
                 key={idx}
-                marginRight={idx === commonWords.moodList.length - 1}
+                marginRight={idx === atmosphereKeyword.length - 1}
               >
                 <RoundButton type="full" action={false}>
-                  {data[language]}
+                  {data.val}
                 </RoundButton>
               </ButtonWrapper>
             );

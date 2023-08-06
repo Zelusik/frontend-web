@@ -16,23 +16,42 @@ import Bar from "assets/taste/Bar.svg";
 // keywordData.ts
 
 export const foodKeyword = [
-  "신선한 재료",
-  "최고의 맛",
-  "완벽 메뉴조합",
-  "현지느낌 가득",
-  "가성비 갑",
-  "넉넉한 양",
+  { val: "신선한 재료" },
+  { val: "최고의 맛" },
+  { val: "완벽 메뉴조합" },
+  { val: "현지느낌 가득" },
+  { val: "가성비 갑" },
+  { val: "넉넉한 양" },
 ];
 
 export const atmosphereKeyword = [
-  "술과 함께",
-  "데이트에 최고",
-  "웃어른과",
-  "혼밥 가능",
-  "단체모임에 딱",
-  "웨이팅 있음",
-  "조용조용한",
-  "왁자지껄한",
+  { val: "술과 함께" },
+  { val: "데이트에 최고" },
+  { val: "웃어른과" },
+  { val: "혼밥 가능" },
+  { val: "단체모임에 딱" },
+  { val: "웨이팅 있음" },
+  { val: "조용조용한" },
+  { val: "왁자지껄한" },
+];
+
+// dayOfWeekData.ts
+
+export const dayOfWeekData = [
+  { val: "월" },
+  { val: "화" },
+  { val: "수" },
+  { val: "목" },
+  { val: "금" },
+  { val: "토" },
+  { val: "일" },
+];
+
+// sortData.ts
+
+export const sortData: any = [
+  { id: 1, val: "관련도순" },
+  { id: 2, val: "최신순" },
 ];
 
 // tasteData.ts

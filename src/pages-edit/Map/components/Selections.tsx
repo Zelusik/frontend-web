@@ -4,11 +4,10 @@ import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 import RoundButton from "components/Button/RoundButton";
 import { useAppSelector } from "hooks/useReduxHooks";
-import { commonWords } from "constants/commonWords";
+import { tasteData } from "constants/globalData";
 
 export default function Selections({ state }: any) {
   const router = useRouter();
-  const { language } = useAppSelector((state) => state.global);
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
   );
@@ -34,16 +33,16 @@ export default function Selections({ state }: any) {
           </RoundButton>
         </MenuWrapper>
 
-        {commonWords.foodTypeList.map((data: any, idx: number) => {
+        {tasteData.map((data: any, idx: number) => {
           return (
             <MenuWrapper
               key={idx}
               marginLeft={false}
-              marginRight={idx === commonWords.foodTypeList.length - 1}
+              marginRight={idx === tasteData.length - 1}
               onClick={() => handleClickFood(idx)}
             >
               <RoundButton type="map-text" action={false}>
-                {data[language]}
+                {data.val}
               </RoundButton>
             </MenuWrapper>
           );

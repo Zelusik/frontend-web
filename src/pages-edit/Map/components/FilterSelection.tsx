@@ -9,17 +9,16 @@ import RoundButton from "components/Button/RoundButton";
 
 export default function FilterSelection({ type, text, textList }: any) {
   const router = useRouter();
-  const { language } = useAppSelector((state) => state.global);
 
   return (
     <FilterSelectionWrapper>
-      <Text>{text[language]}</Text>
+      <Text>{text}</Text>
       <Spacing size={16} />
       <ButtonWrapper>
         {textList.map((data: any, idx: number) => {
           return (
             <RoundButton key={idx} type={type} action={false}>
-              {data[language]}
+              {data.val}
             </RoundButton>
           );
         })}

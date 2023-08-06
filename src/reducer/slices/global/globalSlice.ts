@@ -19,13 +19,6 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     initializeDefaultInfo: () => initialState,
-    changeLanguage: (
-      state,
-      { payload }: { payload: { type: string; value: string } }
-    ) => {
-      const { value } = payload;
-      state.language = value;
-    },
     changeDisplayState: (
       state,
       { payload }: { payload: { type: string; value: number[] } }

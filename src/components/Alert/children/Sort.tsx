@@ -6,11 +6,9 @@ import { useAppSelector } from "hooks/useReduxHooks";
 import Icon from "components/Icon";
 import Spacing from "components/Spacing";
 import Text from "components/Text";
-import { colors } from "constants/colors";
-import { commonWords } from "constants/commonWords";
+import { sortData } from "constants/globalData";
 
 export default function Sort() {
-  const { language } = useAppSelector((state) => state.global);
   const { sortId } = useAppSelector((state) => state.alert);
   const { closeAlert, sortIdChange } = useAlert();
 
@@ -19,13 +17,13 @@ export default function Sort() {
       <Text typo="Headline3">정렬기준</Text>
       <Spacing size={26} />
       <SortWrapper>
-        {commonWords.alertSort.map((data: any, idx: number) => {
+        {sortData.map((data: any, idx: number) => {
           const action = sortId === idx + 1;
 
           return (
             <SortInner onClick={() => sortIdChange(idx)}>
               <Text typo="Paragraph6" color={action ? "Orange600" : "N100"}>
-                {data[language]}
+                {data.val}
               </Text>
               {action ? (
                 <Icon icon="Check" width={20} height={20} color="Orange600" />
