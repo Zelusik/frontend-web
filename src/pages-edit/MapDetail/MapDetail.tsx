@@ -1,15 +1,10 @@
 import styled from "@emotion/styled";
-import Icon from "components/Icon";
-import KakaoMap from "components/KakaoMap";
+import KakaoMap from "components/Share/KakaoMap";
 import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
 import { useRouter } from "next/router";
 
 export default function MapDetail() {
   const router = useRouter();
-  const clickBack = () => {
-    router.back();
-  };
   return (
     <>
       <KakaoMapWrapper>
@@ -23,9 +18,10 @@ export default function MapDetail() {
 }
 
 const TitleWrapper = styled.div`
+  width: 100%;
+  margin-left: 20px;
   position: absolute;
   top: 20px;
-  left: 20px;
   z-index: 900;
 `;
 

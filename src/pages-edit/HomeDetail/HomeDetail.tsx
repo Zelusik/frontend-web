@@ -15,17 +15,17 @@ import Hashtags from "components/Hashtags";
 
 import Profile from "./components/Profile";
 import ImageBox from "./components/ImageBox";
-import KakaoMap from "components/KakaoMap";
+import KakaoMap from "components/Share/KakaoMap";
 import ScaleUpButton from "./components/ScaleUpButton";
+import { globalValue } from "constants/globalValue";
 
 export default function HomeDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  const { width, height } = useDisplaySize();
+  const { width } = useDisplaySize();
   const [titleChange, setTitleChange] = useState<boolean>(false);
-  const [mapVisible, setMapVisible] = useState<boolean>(false);
 
   function onScroll() {
     if (scrollRef.current?.scrollTop >= window.innerWidth + 4 - 20) {
@@ -133,6 +133,7 @@ const HomeDetailInner = styled.div<{ position: any }>`
 
 const BackTitleWrapper = styled.div<{ visible: boolean }>`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   padding: 0 20px;
   position: fixed;
   top: 0;

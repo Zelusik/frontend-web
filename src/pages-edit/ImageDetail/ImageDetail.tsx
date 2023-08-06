@@ -32,7 +32,9 @@ export default function ImageDetail({}: any) {
     <ImageDetailWrapper>
       <TitleWrapper>
         <BackTitle type="white" />
-        <Number currentIndex={currentIndex} imageLength={images.length} />
+        <NumberWrapper>
+          <Number currentIndex={currentIndex} length={images.length} />
+        </NumberWrapper>
       </TitleWrapper>
 
       <Swiper
@@ -54,6 +56,15 @@ export default function ImageDetail({}: any) {
     </ImageDetailWrapper>
   );
 }
+
+const NumberWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 20px;
+
+  transform: translate(0, -50%);
+  z-index: 800;
+`;
 
 const ImageDetailWrapper = styled.div`
   width: 100%;

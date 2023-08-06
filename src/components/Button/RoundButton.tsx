@@ -10,8 +10,8 @@ const RoundButton = forwardRef(function Button(
   {
     children,
     type = "map-text",
-    width = 158,
-    height = 37,
+    width = 160,
+    height = 39,
     action = false,
     onClick,
     ...props
@@ -25,15 +25,15 @@ const RoundButton = forwardRef(function Button(
         width: type === "full-radius" ? 36 : type === "mypage" ? 158 : "auto",
       }}
       height={match(type)
-        .with("map-icon", () => 38)
-        .with("map-text", () => 38)
-        .with("full", () => 36)
-        .with("full-radius", () => 36)
-        .with("follow-icon", () => 31)
-        .with("taste", () => 44)
+        .with("map-icon", () => 40)
+        .with("map-text", () => 40)
+        .with("full", () => 38)
+        .with("full-radius", () => 38)
+        .with("follow-icon", () => 33)
+        .with("taste", () => 46)
         .with("text", () => height)
-        .with("mypage", () => 46)
-        .with("mypage-alert", () => 46)
+        .with("mypage", () => 48)
+        .with("mypage-alert", () => 48)
         .exhaustive()}
       padding={match(type)
         .with("map-icon", () => "0 11px")

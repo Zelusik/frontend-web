@@ -16,14 +16,15 @@ export default function BackTitle({
   ...props
 }: any) {
   const router = useRouter();
+  const clickBack = () => {
+    router.back();
+  };
 
   return (
     <TitleWrapper styles={style}>
       {type !== "black-x-button" ? (
         <TitleInner
-          onClick={() => {
-            router.back();
-          }}
+          onClick={clickBack}
           style={
             type === "map"
               ? {
@@ -65,7 +66,9 @@ export default function BackTitle({
       {type === "white-setting" ? (
         <Dots size={24} color="N0" />
       ) : type === "black-x-button" ? (
-        <Icon icon="XButton" />
+        <div onClick={clickBack}>
+          <Icon icon="XButton" />
+        </div>
       ) : (
         <Dummy />
       )}

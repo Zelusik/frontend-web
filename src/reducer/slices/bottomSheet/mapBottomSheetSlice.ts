@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
+  ref: any;
   type: string;
   visible: number;
   actionDelay: boolean;
@@ -8,6 +9,7 @@ interface GlobalType {
 }
 
 const initialState: GlobalType = {
+  ref: null,
   type: "primary",
   visible: 0,
   actionDelay: false,
@@ -40,6 +42,7 @@ export const mapBottomSheetSlice = createSlice({
       if (value[0]) state.actionDelay = value[0];
       state.visible = value[0];
       state.type = value[1];
+      state.ref = value[2];
     },
   },
 });

@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import Spacing from "components/Spacing";
-import ProfileTitle from "../../../components/Title/ProfileTitle";
+import ProfileTitle from "components/Title/ProfileTitle";
 import Image from "components/Image";
 
-import { typography } from "constants/typography";
 import { Route } from "constants/Route";
 import StoreTitle from "components/Title/StoreTitle";
 

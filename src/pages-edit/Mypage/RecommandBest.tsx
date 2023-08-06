@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
+import BottomButton from "components/Button/BottomButton";
+import Gradient from "components/Share/Gradient";
 import Spacing from "components/Spacing";
 import Text from "components/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
-import ReviewBox from "./components/ReviewBox";
+import ReviewList from "./components/ReviewList";
 
 // 15 개
 const ReviewDatas = [
@@ -40,19 +42,15 @@ export default function RecommandBest() {
       <Spacing size={146} />
 
       <RecommandBestWrapper>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 6,
-          }}
-        >
-          {ReviewDatas.map((data: any, idx: number) => {
-            return <ReviewBox key={idx} />;
-          })}
-        </div>
-        <Spacing size={146} />
+        <ReviewList type="recommand-best" datas={ReviewDatas} />
+        <Spacing size={146 + 124} />
       </RecommandBestWrapper>
+
+      <Gradient size={30} />
+      <ButtonWrapper>
+        <BottomButton type="default">초기화</BottomButton>
+        <BottomButton type="primary">저장하기</BottomButton>
+      </ButtonWrapper>
     </>
   );
 }
@@ -69,6 +67,19 @@ const TitleWrapper = styled.div`
 
   position: fixed;
   top: 0;
+  z-index: 800;
+  background-color: ${colors.N0};
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  height: 94px;
+  padding: 0 17.5px;
+
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  bottom: 0;
   z-index: 800;
   background-color: ${colors.N0};
 `;

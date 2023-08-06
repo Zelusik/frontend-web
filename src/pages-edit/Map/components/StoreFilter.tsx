@@ -1,8 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
-import { colors } from "constants/colors";
-import { commonWords } from "constants/commonWords";
+import { sortData } from "constants/globalData";
 import { typography } from "constants/typography";
 import useAlert from "hooks/useAlert";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
@@ -11,15 +10,12 @@ import { changeAlertVisible } from "reducer/slices/alert/alertSlice";
 
 export default function StoreFilter({}: any) {
   const router = useRouter();
-  const { language } = useAppSelector((state) => state.global);
   const { sortId } = useAppSelector((state) => state.alert);
   const { openAlert } = useAlert();
 
   return (
     <StoreFilterWrapper onClick={() => openAlert("sort")}>
-      <Menu style={{ marginRight: 4 }}>
-        {commonWords.alertSort[sortId - 1][language]}
-      </Menu>
+      <Menu style={{ marginRight: 4 }}>{sortData[sortId - 1].val}</Menu>
       <Menu>
         <Icon icon="BottomArrow" width={16} height={16} color="N60" />
       </Menu>

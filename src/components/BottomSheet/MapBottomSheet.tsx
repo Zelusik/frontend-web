@@ -7,11 +7,6 @@ import { css, keyframes } from "@emotion/react";
 import { match } from "ts-pattern";
 import useDisplaySize from "hooks/useDisplaySize";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import {
-  changeAction,
-  changeVisible,
-  changeVisibleType,
-} from "reducer/slices/bottomSheet/mapBottomSheetSlice";
 import { changeFilterAction } from "reducer/slices/search/searchSlice";
 
 const MapBottomSheet = forwardRef(function Div(
@@ -32,47 +27,10 @@ const MapBottomSheet = forwardRef(function Div(
     );
   };
 
-  const handleMove = (move: number) => {
-    dispatch(
-      changeVisible({
-        type: "mapBottomSheet",
-        value: move,
-      })
-    );
-  };
-
-  const handleClickShow = () => {
-    dispatch(
-      changeVisibleType({
-        type: "mapBottomSheet",
-        value: [1, "primary"],
-      })
-    );
-  };
-
-  const handleClickBackground = () => {
-    dispatch(
-      changeAction({
-        type: "mapBottomSheet",
-        value: false,
-      })
-    );
-    setTimeout(() => {
-      dispatch(
-        changeVisible({
-          type: "mapBottomSheet",
-          value: 0,
-        })
-      );
-    }, 300);
-  };
-
   const { height } = useDisplaySize();
   const { sheet, content } = useMapBottomSheet({
+    use: "use",
     visible,
-    handleClickShow,
-    handleClickBackground,
-    handleMove,
     handleClickFilter,
   });
 

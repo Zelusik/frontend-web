@@ -8,43 +8,81 @@ import TagImage from "components/Image/TagImage";
 import useDisplaySize from "hooks/useDisplaySize";
 import FoodTagLine from "./FoodTagLine";
 import FoodTag from "./FoodTag";
+import ImageHashtag from "components/Share/ImageHashtag";
 
 const ImageBox = forwardRef(({}, ref) => {
   const { width } = useDisplaySize();
-  const images = [
-    "https://i.ibb.co/0Z6FNN7/60pt.png",
-    "https://i.ibb.co/0Z6FNN7/60pt.png",
-    "https://i.ibb.co/0Z6FNN7/60pt.png",
-    "https://i.ibb.co/0Z6FNN7/60pt.png",
-    "https://i.ibb.co/0Z6FNN7/60pt.png",
+  const [foodTagShow, setFoodTagShow] = useState(false);
+  const imageDatas = [
+    {
+      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
+      hashtags: [
+        { text: "똠얌칼국수", top: 10, left: 20 },
+        { text: "똠얌칼국수", top: 20, left: 80 },
+        { text: "똠얌칼국수", top: 60, left: 20 },
+      ],
+    },
+    {
+      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
+      hashtags: [
+        { text: "똠얌칼국수", top: 27, left: 31 },
+        { text: "똠얌칼국수", top: 43, left: 87 },
+      ],
+    },
+    {
+      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
+      hashtags: [
+        { text: "똠얌칼국수", top: 20, left: 80 },
+        { text: "똠얌칼국수", top: 60, left: 20 },
+      ],
+    },
   ];
   const [swiperIndex, setSwiperIndex] = useState(0);
   const [percentage, setPercentage] = useState([
-    (swiperIndex / images.length) * 100,
-    ((swiperIndex + 1) / images.length) * 100,
+    (swiperIndex / imageDatas.length) * 100,
+    ((swiperIndex + 1) / imageDatas.length) * 100,
   ]);
 
   const onSlideChange = (e: any) => {
     let newPercentage = percentage;
-    newPercentage[0] = ((swiperIndex + 1) / images.length) * 100;
+    newPercentage[0] = ((swiperIndex + 1) / imageDatas.length) * 100;
     setSwiperIndex(e.activeIndex);
     let newSwiper = e.activeIndex;
-    newPercentage[1] = ((newSwiper + 1) / images.length) * 100;
+    newPercentage[1] = ((newSwiper + 1) / imageDatas.length) * 100;
     setPercentage(newPercentage);
+  };
+
+  const clickFoodTag = () => {
+    setFoodTagShow(!foodTagShow);
   };
 
   return (
     <FoodTagWrapper ref={ref}>
+      {/* <div></div> */}
+
       <Swiper
         allowSlidePrev={swiperIndex !== 0}
-        allowSlideNext={swiperIndex !== images.length - 1}
+        allowSlideNext={swiperIndex !== imageDatas.length - 1}
         onSlideChange={onSlideChange}
         style={{ height: width + 4 }}
       >
-        {images.map((src: any, idx: number) => {
+        {imageDatas.map((data: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
-              <TagImage key={idx} src={src} />
+              {foodTagShow
+                ? data.hashtags.map((data2: any, idx2: number) => {
+                    return (
+                      <ImageHashtag
+                        key={idx2}
+                        text={data2.text}
+                        top={data2.top}
+                        left={data2.left}
+                      />
+                    );
+                  })
+                : null}
+
+              <TagImage key={idx} src={data.src} />
             </SwiperSlide>
           );
         })}
@@ -52,11 +90,7 @@ const ImageBox = forwardRef(({}, ref) => {
       <FoodTagLine percentage={percentage} />
 
       <FoodTagInner>
-        <FoodTag
-          onClick={() => {
-            alert("foodtag");
-          }}
-        />
+        <FoodTag onClick={clickFoodTag} />
       </FoodTagInner>
     </FoodTagWrapper>
   );
@@ -77,4 +111,5 @@ const FoodTagInner = styled.div`
   bottom: 21px;
   z-index: 900;
 `;
+
 export default ImageBox;

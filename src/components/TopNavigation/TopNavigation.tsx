@@ -2,7 +2,6 @@ import React, { forwardRef, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import useDisplaySize from "hooks/useDisplaySize";
 import { match } from "ts-pattern";
 
 import Hr from "components/Hr";

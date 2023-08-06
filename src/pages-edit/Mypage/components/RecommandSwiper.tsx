@@ -10,8 +10,10 @@ import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import { css, keyframes } from "@emotion/react";
 import { typography } from "constants/typography";
+import Text from "components/Text";
+import NewButton from "./NewButton";
 
-export default function RecommandSwiper({ datas, ...props }: any) {
+export default function RecommandSwiper({ datas, mypage, ...props }: any) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const onSlideChange = (e: any) => {
@@ -20,7 +22,7 @@ export default function RecommandSwiper({ datas, ...props }: any) {
   };
 
   return (
-    <>
+    <div style={{ overflow: "hidden" }}>
       <Swiper
         allowSlidePrev={currentIndex !== 0}
         allowSlideNext={currentIndex !== datas.length - 1}
@@ -30,8 +32,10 @@ export default function RecommandSwiper({ datas, ...props }: any) {
           return (
             <SwiperSlide key={idx}>
               <ImageWrapper>
-                <Image alt="추천 사진" src={data} type="home" />
-                <Number>{idx + 1}</Number>
+                <Image type="home" alt="추천 사진" src={data} />
+                <NumberWrapper>
+                  <Text typo="Paragraph7">{idx + 1}</Text>
+                </NumberWrapper>
                 <StoreTitle
                   type="default"
                   title="소이연남"
@@ -55,7 +59,9 @@ export default function RecommandSwiper({ datas, ...props }: any) {
         </IndexInner>
       </IndexWrapper>
       <Spacing size={30} />
-    </>
+
+      {mypage ? <NewButton buttonText="추천 베스트 수정하기" /> : null}
+    </div>
   );
 }
 
@@ -93,13 +99,9 @@ const Index = styled.div<{ action: boolean }>`
   border-radius: 2px;
 `;
 
-const Number = styled.div`
+const NumberWrapper = styled.div`
   position: absolute;
   top: 20px;
   left: 17px;
-
-  ${css`
-    ${typography.Paragraph7}
-  `}
   font-style: italic;
 `;

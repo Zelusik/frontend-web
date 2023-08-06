@@ -10,32 +10,36 @@ import Selections from "./components/Selections";
 import FindLocationButton from "./components/FindLocationButton";
 import StoreBox from "./components/StoreBox";
 import LocationTitle from "./components/LocationTitle";
-import KakaoMap from "components/KakaoMap";
+import KakaoMap from "components/Share/KakaoMap";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import Filter from "./components/Filter";
 import FilterSelection from "./components/FilterSelection";
-import { commonWords } from "constants/commonWords";
 import FilterButton from "./components/FilterButton";
 import StoreFilter from "./components/StoreFilter";
 import Icon from "components/Icon";
 import { changeType } from "reducer/slices/search/searchSlice";
 import { useEffect } from "react";
+import {
+  atmosphereKeyword,
+  dayOfWeekData,
+  tasteData,
+} from "constants/globalData";
 
 const filterSelection = [
   {
     type: "full",
-    text: commonWords.foodType,
-    textList: commonWords.foodTypeList,
+    text: "음식종류",
+    textList: tasteData,
   },
   {
     type: "full-radius",
-    text: commonWords.dayOfWeek,
-    textList: commonWords.dayOfWeekList,
+    text: "약속요일",
+    textList: dayOfWeekData,
   },
   {
     type: "full",
-    text: commonWords.mood,
-    textList: commonWords.moodList,
+    text: "선호하는 분위기",
+    textList: atmosphereKeyword,
   },
 ];
 
@@ -78,19 +82,9 @@ export default function Map() {
           </>
         ) : (
           <>
-            {type === "store" ? (
-              <>
-                <StoreFilter />
-                <Spacing size={14} />
-              </>
-            ) : (
-              <>
-                <LocationTitle />
-                <Spacing size={14} />
-                {type === "location" ? <Filter /> : null}
-              </>
-            )}
-
+            {type === "store" ? <StoreFilter /> : <LocationTitle />}
+            <Spacing size={14} />
+            {type === "location" ? <Filter /> : null}
             {["", "", "", "", ""].map((data: any, idx: number) => {
               return <StoreBox key={idx} />;
             })}
