@@ -12,10 +12,12 @@ import { typography } from "constants/typography";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeUserInfo } from "reducer/slices/user/userSlice";
+import useEditMyInfo from "hooks/queries/user/useEditMyInfo";
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
   const { data } = useGetMyInfo();
+  const { mutate } = useEditMyInfo();
   const user = useAppSelector((state) => state.user);
 
   const genderData = [
@@ -48,7 +50,13 @@ const EditProfile = () => {
       })
     );
   };
-  const handleClickSaveBtn = () => {};
+  const handleClickSaveBtn = () => {
+    mutate({
+      nickname: user.nickname,
+      birthDay: user.birthDay,
+      gender: genderData.filter((e) => e.text === user.gender)[0].value,
+    });
+  };
 
   return (
     <EditProfileWrapper>
