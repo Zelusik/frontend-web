@@ -1,4 +1,7 @@
-export const Route = {
+interface RouteType {
+  [key: string]: () => string;
+}
+export const Route: RouteType = {
   LOGIN: () => "/login",
   TERMS: () => "/login/terms",
   TASTE: () => "/login/taste",
@@ -23,6 +26,12 @@ export const Route = {
   MYPAGE: () => "/mypage",
   RECOMMEND_BEST: () => "/mypage/recommand-best",
   SETTING: () => "/mypage/setting",
+  EDIT_PROFILE: () => "/mypage/setting/edit-profile",
+  NOTIFICATION: () => "/mypage/setting/notification",
+  DELETE_PROFILE: () => "/mypage/setting/delete-profile",
+  ANNOUNCEMENT: () => "/mypage/setting/announcement",
+  INQUIRY: () => "/mypage/setting/inquiry",
+  PRIVACY_POLICY: () => "/mypage/setting/privacy-policy",
 
   STORE_DETAIL: () => "/store-detail",
   IMAGE_DETAIL: () => "/image-detail",
