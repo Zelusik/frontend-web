@@ -2,24 +2,20 @@ import styled from "@emotion/styled";
 import RoundButton from "components/Button/RoundButton";
 import Text from "components/Text";
 
-export default function NewButton({
-  text,
-  buttonText,
-  marginTop,
-  onClick,
-}: any) {
+export default function NewButton({ text, buttonText, onClick }: any) {
   return (
-    <NewButtonWrapper marginTop={marginTop} onClick={onClick}>
-      <Text typo="Paragraph5" color="N80">
-        {text}
-      </Text>
+    <NewButtonWrapper onClick={onClick}>
+      {text ? (
+        <Text typo="Paragraph5" color="N80">
+          {text}
+        </Text>
+      ) : null}
       <RoundButton type="mypage">{buttonText}</RoundButton>
     </NewButtonWrapper>
   );
 }
 
-const NewButtonWrapper = styled.div<{ marginTop: number }>`
-  padding-top: ${({ marginTop }) => marginTop}px;
+const NewButtonWrapper = styled.div`
   align-items: center;
 
   display: flex;

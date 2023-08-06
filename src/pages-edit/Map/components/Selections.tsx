@@ -79,7 +79,7 @@ const HashtagsInner = styled.div`
 `;
 
 const MenuWrapper = styled.div<{ marginLeft: boolean; marginRight: boolean }>`
-  height: 38px;
+  height: 40px;
   margin: auto;
   margin-left: ${({ marginLeft }) => (marginLeft ? "15px" : "0")};
   margin-right: ${({ marginRight }) => (marginRight ? "15px" : "6px")};
