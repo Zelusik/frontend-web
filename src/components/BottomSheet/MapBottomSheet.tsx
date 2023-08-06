@@ -4,7 +4,6 @@ import { colors } from "constants/colors";
 import useMapBottomSheet from "hooks/useMapBottomSheet";
 import { globalValue } from "constants/globalValue";
 import { css, keyframes } from "@emotion/react";
-import { match } from "ts-pattern";
 import useDisplaySize from "hooks/useDisplaySize";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeFilterAction } from "reducer/slices/search/searchSlice";
@@ -33,6 +32,24 @@ const MapBottomSheet = forwardRef(function Div(
     visible,
     handleClickFilter,
   });
+
+  useEffect(() => {
+    if (visible) {
+      const BOTTOM_SHEET_HEIGHT =
+        window.innerHeight - 82 - globalValue.BOTTOM_NAVIGATION_HEIGHT;
+      const TOP = BOTTOM_SHEET_HEIGHT * 0.7;
+
+      sheet.current!.style.setProperty("transform", `translateY(${-TOP}px)`);
+      sheet.current!.style.setProperty("transition", `transform 0ms ease-out`);
+
+      setTimeout(() => {
+        sheet.current!.style.setProperty(
+          "transition",
+          `transform 300ms ease-out`
+        );
+      }, 100);
+    }
+  }, []);
 
   return (
     <>
@@ -70,7 +87,7 @@ const Background = styled.div<{
       : css`
           opacity: ${visible * 0.4};
         `}
-  background-color: #000;
+  background-color: ${colors.N100};
 `;
 
 const BottomSheetWrapper = styled.div<{
@@ -95,9 +112,6 @@ const BottomSheetWrapper = styled.div<{
 
   transition: transform 300ms ease-out;
 `;
-
-// bottom: ${({ height }) =>
-// `calc(${-height + globalValue.BOTTOM_NAVIGATION_HEIGHT + height * 0.3}px)`};
 
 const HandleWrapper = styled.div`
   width: 100%;
