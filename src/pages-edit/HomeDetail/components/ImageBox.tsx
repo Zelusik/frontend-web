@@ -12,6 +12,7 @@ import ImageHashtag from "components/Share/ImageHashtag";
 
 const ImageBox = forwardRef(({}, ref) => {
   const { width } = useDisplaySize();
+  const [foodTagShow, setFoodTagShow] = useState(false);
   const imageDatas = [
     {
       src: "https://i.ibb.co/0Z6FNN7/60pt.png",
@@ -51,6 +52,10 @@ const ImageBox = forwardRef(({}, ref) => {
     setPercentage(newPercentage);
   };
 
+  const clickFoodTag = () => {
+    setFoodTagShow(!foodTagShow);
+  };
+
   return (
     <FoodTagWrapper ref={ref}>
       {/* <div></div> */}
@@ -64,16 +69,18 @@ const ImageBox = forwardRef(({}, ref) => {
         {imageDatas.map((data: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
-              {data.hashtags.map((data2: any, idx2: number) => {
-                return (
-                  <ImageHashtag
-                    key={idx2}
-                    text={data2.text}
-                    top={data2.top}
-                    left={data2.left}
-                  />
-                );
-              })}
+              {foodTagShow
+                ? data.hashtags.map((data2: any, idx2: number) => {
+                    return (
+                      <ImageHashtag
+                        key={idx2}
+                        text={data2.text}
+                        top={data2.top}
+                        left={data2.left}
+                      />
+                    );
+                  })
+                : null}
 
               <TagImage key={idx} src={data.src} />
             </SwiperSlide>
@@ -83,17 +90,11 @@ const ImageBox = forwardRef(({}, ref) => {
       <FoodTagLine percentage={percentage} />
 
       <FoodTagInner>
-        <FoodTag
-          onClick={() => {
-            alert("foodtag");
-          }}
-        />
+        <FoodTag onClick={clickFoodTag} />
       </FoodTagInner>
     </FoodTagWrapper>
   );
 });
-
-const ImageHashtagWrapper = styled.div``;
 
 const FoodTagWrapper = styled.div<{ height: number }>`
   width: 100%;
@@ -110,4 +111,5 @@ const FoodTagInner = styled.div`
   bottom: 21px;
   z-index: 900;
 `;
+
 export default ImageBox;
