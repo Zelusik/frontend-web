@@ -3,6 +3,9 @@ import Icon from "components/Icon";
 import Spacing from "components/Spacing";
 import Text from "components/Text";
 import { Route } from "constants/Route";
+import useAlert from "hooks/useAlert";
+import useBottomSheet from "hooks/useBottomSheet";
+import useDisplaySize from "hooks/useDisplaySize";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";
 import { changeVisible } from "reducer/slices/bottomSheet/bottomSheetSlice";
@@ -12,10 +15,13 @@ interface Props {}
 export default function Report({}: Props) {
   const router = useRouter();
   const mine = true;
-  const dispatch = useAppDispatch();
+  const { openAlert } = useAlert();
+  const { closeBottomSheetQuick } = useBottomSheet({});
 
   const clickPrimary = () => {
     if (mine) {
+      openAlert("review-delete");
+      closeBottomSheetQuick();
       return;
     }
   };
@@ -25,12 +31,7 @@ export default function Report({}: Props) {
       return;
     }
     router.push(Route.REPORT());
-    dispatch(
-      changeVisible({
-        type: "bottomSheet",
-        value: 0,
-      })
-    );
+    closeBottomSheetQuick();
   };
 
   return (

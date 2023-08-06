@@ -1,13 +1,18 @@
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
+import { globalValue } from "constants/globalValue";
 import useAlert from "hooks/useAlert";
 import { useAppSelector } from "hooks/useReduxHooks";
+import Logout from "./children/Logout";
+import ReviewDelete from "./children/ReviewDelete";
 import Sort from "./children/Sort";
 import WriteReview from "./children/WriteReview";
 
-const COMPONENT = {
+const COMPONENT: any = {
   sort: <Sort />,
   "write-review": <WriteReview />,
+  "review-delete": <ReviewDelete />,
+  logout: <Logout />,
 };
 
 export default function Alert() {
@@ -24,6 +29,7 @@ export default function Alert() {
 
 const Background = styled.div`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: 100%;
 
   opacity: 0.4;
@@ -35,8 +41,8 @@ const Background = styled.div`
 
 const AlertWrapper = styled.div`
   width: 72%;
-  max-width: 272px;
-  padding: 26px 20px;
+  max-width: 300px;
+  padding: 35px 22px;
 
   position: absolute;
   top: 50%;

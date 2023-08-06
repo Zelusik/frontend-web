@@ -18,12 +18,12 @@ export default function useDisplaySize() {
   const [height, setHeight] = useState<number>(0);
 
   const handleResize = () => {
-    setWidth(window.innerWidth);
+    setWidth(window.innerWidth > 820 ? 820 : window.innerWidth);
     setHeight(window.innerHeight);
   };
 
   useEffect(() => {
-    setWidth(window.innerWidth);
+    setWidth(window.innerWidth > 820 ? 820 : window.innerWidth);
     setHeight(window.innerHeight);
 
     window.addEventListener("resize", handleResize);

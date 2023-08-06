@@ -11,7 +11,7 @@ const BottomButton = forwardRef(function Button(
     children,
     type = "primary",
     width = "100%",
-    height = 52,
+    height = 54,
     onClick,
     disabled = true,
     ...props

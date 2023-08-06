@@ -28,6 +28,7 @@ export default function WriteReview() {
 }
 
 const SortWrapper = styled.div`
+  padding-top: 10px;
   text-align: center;
   display: flex;
   flex-direction: column;

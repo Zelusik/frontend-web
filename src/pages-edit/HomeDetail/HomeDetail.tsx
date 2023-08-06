@@ -17,6 +17,7 @@ import Profile from "./components/Profile";
 import ImageBox from "./components/ImageBox";
 import KakaoMap from "components/Share/KakaoMap";
 import ScaleUpButton from "./components/ScaleUpButton";
+import { globalValue } from "constants/globalValue";
 
 export default function HomeDetail() {
   const router = useRouter();
@@ -132,6 +133,7 @@ const HomeDetailInner = styled.div<{ position: any }>`
 
 const BackTitleWrapper = styled.div<{ visible: boolean }>`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   padding: 0 20px;
   position: fixed;
   top: 0;

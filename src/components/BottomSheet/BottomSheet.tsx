@@ -12,69 +12,42 @@ import Report from "./children/Report";
 import SelectMenu from "./children/SelectMenu";
 import useDisplaySize from "hooks/useDisplaySize";
 import RegisterMenu from "./children/RegisterMenu";
+import { EnumType } from "typescript";
+import { globalValue } from "constants/globalValue";
 
 interface Props {
   children?: any;
 }
 
-const BottomSheet = forwardRef(function Div({ children, ...props }: Props, ref) {
+const BottomSheet = forwardRef(function Div(
+  { children, ...props }: Props,
+  ref
+) {
   const { height } = useDisplaySize();
-  const COMPONENT_HEIGHT = {
+  const COMPONENT_HEIGHT: any = {
     report: 146,
     selectMenu: height * 0.8,
     registerMenu: 80,
   };
-  const COMPONENT = {
+  const COMPONENT: any = {
     report: <Report />,
     selectMenu: <SelectMenu />,
     registerMenu: <RegisterMenu />,
   };
 
-  const dispatch = useAppDispatch();
+  const { closeBottomSheet } = useBottomSheet({});
   const { type, visible, actionDelay } = useAppSelector(
     (state) => state.bottomSheet
   );
   const BOTTOMSHEET_HEIGHT = COMPONENT_HEIGHT[type];
 
-  const handleMove = (move: number) => {
-    if (move)
-      dispatch(
-        changeVisible({
-          type: "bottomSheet",
-          value: move,
-        })
-      );
-    else
-      dispatch(
-        changeVisible({
-          type: "bottomSheet",
-          value: move,
-        })
-      );
-  };
-
   const handleClickBackground = () => {
-    dispatch(
-      changeAction({
-        type: "bottomSheet",
-        value: false,
-      })
-    );
-    sheet.current!.style.setProperty("transform", `translateY(-${0}px)`);
-    setTimeout(() => {
-      dispatch(
-        changeVisible({
-          type: "bottomSheet",
-          value: 0,
-        })
-      );
-    }, 300);
+    closeBottomSheet(sheet);
   };
 
   const { sheet, content } = useBottomSheet({
+    use: "use",
     visible,
-    handleClickBackground,
-    handleMove,
     BOTTOMSHEET_HEIGHT,
   });
 
@@ -123,6 +96,7 @@ const Background = styled.div<{
   visible: number;
 }>`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: 100%;
 
   display: flex;
