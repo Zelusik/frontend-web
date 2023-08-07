@@ -4,14 +4,14 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 import Hr from "components/Hr";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const TopNavigation = forwardRef(function (
   {
