@@ -7,8 +7,13 @@ import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import { deleteUser } from "api/user";
+import { deleteCookie } from "utils/cookie";
+import { useRouter } from "next/router";
 
 const DeleteProfile = () => {
+  const router = useRouter();
+
   const surveyList = [
     { value: "HARD_TO_WRITE", text: "스토리/탭탭리뷰를 작성하기가 어렵고 불편함" },
     { value: "FEED_UNUSEFUL", text: "피드의 추천이 유용하지 않음" },
@@ -22,7 +27,15 @@ const DeleteProfile = () => {
   const handleClickRadio = (value: string) => {
     setChecked(value);
   };
-  const handleClickDeleteBtn = () => {};
+  const handleClickDeleteBtn = async () => {
+    const result = await deleteUser(checked);
+
+    if (!result.status) {
+      deleteCookie("accessToken");
+      deleteCookie("refreshToken");
+      router.push("/").then(() => window.scrollTo(0, 0));
+    }
+  };
 
   return (
     <DeleteProfileWrapper>

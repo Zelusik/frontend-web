@@ -38,3 +38,9 @@ export const editMyInfo = async (myInfo: any) => {
     .then(({ data }) => data)
     .catch((err) => err.response);
 };
+
+export const deleteUser = async (surveyType: string) =>
+  await client
+    .delete("/members", { data: { surveyType } })
+    .then(({ data }) => data)
+    .catch((err) => err.response);
