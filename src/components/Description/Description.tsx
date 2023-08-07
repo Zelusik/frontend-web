@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
+import Text from "components/Text";
 import { typography } from "constants/typography";
 import { useRef, useState } from "react";
 
@@ -21,10 +22,10 @@ const Description = ({ text = "" }: any) => {
 
   return (
     <TextWrapper onClick={onClick}>
-      <Ellipsis typo={typography.Paragraph2}>
+      <Text typo="Paragraph2" color="N100">
         {toggleEllipsis(text, limit).string}
         {limit !== text.length && <>...</>}
-      </Ellipsis>
+      </Text>
       <Button ref={contentRef}>
         <span>
           <Icon icon="BottomArrow" width={16} height={16} />
@@ -36,19 +37,6 @@ const Description = ({ text = "" }: any) => {
 
 const TextWrapper = styled.div`
   position: relative;
-`;
-
-const Ellipsis = styled.div<{ typo: any }>`
-  line-height: 170%;
-
-  &.show {
-    display: block;
-  }
-
-  ${({ typo }) =>
-    css`
-      ${typo}
-    `}
 `;
 
 const Button = styled.button`

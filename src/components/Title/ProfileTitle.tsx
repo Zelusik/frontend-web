@@ -5,15 +5,9 @@ import Dots from "components/Button/IconButton/Dots";
 import Image from "components/Image";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import Text from "components/Text";
 
-export default function ProfileTitle({
-  type = "home",
-  title,
-  subTitle,
-
-  titleColor,
-  subTitleColor,
-}: any) {
+export default function ProfileTitle({ title, subTitle }: any) {
   return (
     <TitleWrapper>
       <MenuList>
@@ -29,14 +23,14 @@ export default function ProfileTitle({
           />
           <div style={{ marginLeft: 8 }}>
             {title && (
-              <FontTitle typo={typography.Headline2} color={titleColor}>
+              <Text typo="Headline2" color="N100">
                 {title}
-              </FontTitle>
+              </Text>
             )}
             {subTitle && (
-              <FontSubTitle typo={typography.Paragraph2} color={subTitleColor}>
+              <Text typo="Paragraph2" color="N100">
                 {subTitle}
-              </FontSubTitle>
+              </Text>
             )}
           </div>
         </Menu>
@@ -50,7 +44,7 @@ export default function ProfileTitle({
               alert("roundButton");
             }}
           />
-          {type === "home" && <Dots margin="0 0 0 4px" color="N80" />}
+          <Dots margin="0 0 0 4px" color="N80" />
         </Menu>
       </MenuList>
     </TitleWrapper>
@@ -76,22 +70,4 @@ const Menu = styled.li`
 
   display: flex;
   align-items: center;
-`;
-
-const FontTitle = styled.div<{ typo: any; color: any }>`
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color}
-`;
-
-const FontSubTitle = styled.div<{ typo: any; color: any }>`
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color}
 `;

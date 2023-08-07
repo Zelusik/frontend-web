@@ -6,7 +6,7 @@ import { typography } from "constants/typography";
 import Spacing from "components/Spacing";
 import Dots from "components/Button/IconButton/Dots";
 import Text from "components/Text";
-export default function ProfileInfo({ mypage }: any) {
+export default function ProfileInfo({ mine }: any) {
   const router = useRouter();
 
   const ProfileDatas = [
@@ -50,7 +50,7 @@ export default function ProfileInfo({ mypage }: any) {
         </div>
       </Menu>
 
-      {mypage ? null : (
+      {mine ? null : (
         <IconWrapper>
           <Dots />
         </IconWrapper>

@@ -24,7 +24,7 @@ export default function HomeDetail() {
   const scrollRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  const { width } = useDisplaySize();
+  const { width, height } = useDisplaySize();
   const [titleChange, setTitleChange] = useState<boolean>(false);
 
   function onScroll() {
@@ -52,7 +52,7 @@ export default function HomeDetail() {
         />
       </BackTitleWrapper>
 
-      <HomeDetailWrapper ref={scrollRef}>
+      <HomeDetailWrapper ref={scrollRef} height={height}>
         <Spacing size={width + 4} />
         <HomeDetailInner position="relative">
           <Spacing size={20} />
@@ -120,8 +120,8 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const HomeDetailWrapper = styled.div`
-  height: 100%;
+const HomeDetailWrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   overflow-y: scroll;
   background-color: ${colors.N0};
 `;

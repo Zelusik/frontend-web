@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import LogoSvg from "assets/logo.svg";
 import Icon from "components/Icon";
+import { colors } from "constants/colors";
 
 export default function LogoTitle() {
   return (
@@ -23,6 +24,13 @@ export default function LogoTitle() {
 const TitleWrapper = styled.div`
   width: 100%;
   height: 50px;
+  padding: 0 15px;
+
+  display: flex;
+  position: fixed;
+  top: 0;
+  background-color: ${colors.N0};
+  z-index: 900;
 `;
 
 const MenuList = styled.ul`

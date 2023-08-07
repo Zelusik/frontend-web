@@ -13,7 +13,7 @@ import { typography } from "constants/typography";
 import Text from "components/Text";
 import NewButton from "./NewButton";
 
-export default function RecommandSwiper({ datas, mypage, ...props }: any) {
+export default function RecommandSwiper({ datas, mine, ...props }: any) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const onSlideChange = (e: any) => {
@@ -60,7 +60,9 @@ export default function RecommandSwiper({ datas, mypage, ...props }: any) {
       </IndexWrapper>
       <Spacing size={30} />
 
-      {mypage ? <NewButton buttonText="추천 베스트 수정하기" /> : null}
+      {mine ? (
+        <NewButton buttonText="추천 베스트 수정하기" onClick={props.onClick} />
+      ) : null}
     </div>
   );
 }

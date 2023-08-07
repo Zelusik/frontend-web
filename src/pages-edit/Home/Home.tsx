@@ -1,43 +1,44 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
+
+import { globalValue } from "constants/globalValue";
+import Text from "components/Text";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
+
 import LogoTitle from "./components/LogoTitle";
 import StoreBox from "./components/StoreBox";
+import useDisplaySize from "hooks/useDisplaySize";
 
 export default function Home() {
   const router = useRouter();
+  const { height } = useDisplaySize();
 
   return (
     <>
-      <HomeWrapper>
-        <LogoTitle />
-        <Spacing size={20} />
-        <HomeTitle style={typography.Headline6}>
+      <LogoTitle />
+      <HomeWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
+        <Spacing size={70} />
+        <Text typo="Headline6" color="N100">
           오늘은
           <br />
           어디로 갈까요?
-        </HomeTitle>
+        </Text>
         <Spacing size={30} />
         {HomeDatas.map((data: any) => {
           return <StoreBox key={data.id} id={0} />;
         })}
-        <Spacing size={88} />
       </HomeWrapper>
       <BottomNavigation />
     </>
   );
 }
 
-const HomeWrapper = styled.div`
-  height: 100%;
+const HomeWrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   padding: 0 20px;
   overflow-y: scroll;
 `;
-
-const HomeTitle = styled.div``;
 
 const HomeDatas = [
   {

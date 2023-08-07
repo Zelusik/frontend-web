@@ -24,6 +24,8 @@ import {
   dayOfWeekData,
   tasteData,
 } from "constants/globalData";
+import useDisplaySize from "hooks/useDisplaySize";
+import { globalValue } from "constants/globalValue";
 
 const filterSelection = [
   {
@@ -45,6 +47,8 @@ const filterSelection = [
 
 export default function Map() {
   const router = useRouter();
+  const { height } = useDisplaySize();
+
   const dispatch = useAppDispatch();
   const { type, filterAction } = useAppSelector((state) => state.search);
   const clickDelete = () => {
@@ -56,13 +60,9 @@ export default function Map() {
     );
   };
 
-  useEffect(() => {
-    console.log(type);
-  }, []);
-
   return (
     <>
-      <KakaoMapWrapper>
+      <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         <KakaoMap lat={33.450701} lng={126.570667} />
       </KakaoMapWrapper>
       <FindLocationButton />
@@ -117,9 +117,9 @@ export default function Map() {
   );
 }
 
-const KakaoMapWrapper = styled.div`
+const KakaoMapWrapper = styled.div<{ height: number }>`
   width: 100%;
-  height: 100%;
+  height: ${({ height }) => height}px;
   position: absolute;
   top: 0;
   z-index: 0;

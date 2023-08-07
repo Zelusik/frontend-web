@@ -5,6 +5,7 @@ import Spacing from "components/Spacing";
 import Text from "components/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
+import useDisplaySize from "hooks/useDisplaySize";
 import ReviewList from "./components/ReviewList";
 
 // 15 개
@@ -27,6 +28,7 @@ const ReviewDatas = [
 ];
 
 export default function RecommandBest() {
+  const { height } = useDisplaySize();
   return (
     <>
       <TitleWrapper>
@@ -41,9 +43,9 @@ export default function RecommandBest() {
       </TitleWrapper>
       <Spacing size={146} />
 
-      <RecommandBestWrapper>
+      <RecommandBestWrapper height={height - 240}>
         <ReviewList type="recommand-best" datas={ReviewDatas} />
-        <Spacing size={146 + 124} />
+        <Spacing size={30} />
       </RecommandBestWrapper>
 
       <Gradient size={30} />
@@ -55,8 +57,8 @@ export default function RecommandBest() {
   );
 }
 
-const RecommandBestWrapper = styled.div`
-  height: 100%;
+const RecommandBestWrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   padding: 0 20px;
   overflow-y: scroll;
 `;

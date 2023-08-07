@@ -48,15 +48,16 @@ const ReviewDatas = [
 
 export default function Mypage() {
   const router = useRouter();
+  const { width, height } = useDisplaySize();
+
   // console.log(router.query);
-  const mypage = true;
+  const mine = true;
   const scrollRef = useRef<any>(null);
 
   const [scrollHeight, setScrollHeight] = useState<number>(0);
   const [titleChange, setTitleChange] = useState<boolean>(false);
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const { width, height } = useDisplaySize();
 
   const { openAlert } = useAlert();
 
@@ -104,7 +105,7 @@ export default function Mypage() {
   return (
     <>
       <TitleWrapper>
-        {mypage ? (
+        {mine ? (
           <>
             <TitleInner visible={titleChange}>
               <Text typo="Headline5">{titleChange && "강남작가"}</Text>
@@ -119,11 +120,14 @@ export default function Mypage() {
         )}
       </TitleWrapper>
 
-      <MypageWrapper ref={scrollRef}>
+      <MypageWrapper
+        ref={scrollRef}
+        height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
+      >
         <MypageInner>
           <Spacing size={60} />
           <div style={{ padding: "0 20px" }}>
-            <ProfileInfo mypage={mypage} />
+            <ProfileInfo mine={mine} />
             <Spacing size={30} />
 
             <TasteBox />
@@ -156,7 +160,11 @@ export default function Mypage() {
                 }
               />
               {RecommandDatas.length !== 0 ? (
-                <RecommandSwiper datas={RecommandDatas} mypage={mypage} />
+                <RecommandSwiper
+                  datas={RecommandDatas}
+                  mine={mine}
+                  onClick={clickRecommand}
+                />
               ) : (
                 <NewButton
                   onClick={clickRecommand}
@@ -186,15 +194,13 @@ export default function Mypage() {
                   buttonText="첫 리뷰 남기기"
                 />
               )}
-              <Spacing
-                size={mypage ? globalValue.BOTTOM_NAVIGATION_HEIGHT + 6 : 6}
-              />
+              <Spacing size={6} />
             </TopNavigationInner>
           </TopNavigation>
         </MypageInner>
       </MypageWrapper>
 
-      {mypage ? <BottomNavigation /> : null}
+      {mine ? <BottomNavigation /> : null}
     </>
   );
 }
@@ -210,8 +216,8 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const MypageWrapper = styled.div`
-  height: 100%;
+const MypageWrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   overflow-y: scroll;
   background-color: ${colors.N0};
 `;

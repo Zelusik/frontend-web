@@ -1,11 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import Spacing from "components/Spacing";
-import Image from "components/Image";
 
-import { typography } from "constants/typography";
-import { Route } from "constants/Route";
-import StoreTitle from "components/Title/StoreTitle";
+import Spacing from "components/Spacing";
 import ProfileTitle from "components/Title/ProfileTitle";
 import Description from "components/Description";
 import Hashtags from "components/Hashtags";
@@ -17,7 +13,7 @@ export default function ReivewBox({ id }: any) {
   return (
     <>
       <MenuWrapper>
-        <ProfileTitle type="store-detail" title="고작가" subTitle="움맘마" />
+        <ProfileTitle title="고작가" subTitle="움맘마" />
         <Spacing size={16} />
       </MenuWrapper>
 

@@ -17,8 +17,27 @@ import ImageBox from "./components/ImageBox";
 
 const images = [
   "https://i.ibb.co/0Z6FNN7/60pt.png",
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "",
+  // "",
+];
+
+const ReviewDatas = [
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
   // "",
   // "",
 ];
@@ -118,18 +137,22 @@ export default function StoreDetail() {
           <TopNavigation
             type="store-detail"
             scrollRef={scrollRef}
-            scrollTop={(width * 281) / 360 + 20 + 49 + 16 + 40}
+            scrollTop={
+              images.length === 0
+                ? 165
+                : (width * 281) / 360 + 20 + 49 + 16 + 40
+            }
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
             topFixed={topFixed}
             titleList={["리뷰", "매장정보"]}
           >
             <>
-              {["", "", "", "", ""].map((data: any, idx: number) => {
+              {ReviewDatas.map((data: any, idx: number) => {
                 return <ReivewBox key={idx} />;
               })}
             </>
-            <StoreInfo height={height} scrollTop={20 + 49 + 16}>
+            <StoreInfo height={height}>
               {["", ""].map((data: any, idx: number) => {
                 return <Info key={idx} />;
               })}
@@ -176,8 +199,8 @@ const BackTitleWrapper = styled.div<{ visible: boolean }>`
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
 
-const StoreInfo = styled.div<{ height: number; scrollTop: number }>`
-  height: ${({ height, scrollTop }) => `calc(${height - scrollTop}px)`};
+const StoreInfo = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   padding: 0 20px;
   position: relative;
 `;
