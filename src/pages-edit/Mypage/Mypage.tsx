@@ -27,21 +27,21 @@ const RecommandDatas = [
 ];
 
 const ReviewDatas = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
 ];
 
 // 392 + 35 = 427
@@ -68,13 +68,11 @@ export default function Mypage() {
 
   function onScroll() {
     const scrollTop = 10 + 80 + 30 + 182 + 40;
-    // scrollRef.current?.style.setProperty("overflow-y", "scroll");
     if (
       (currentIndex === 0 ||
         (currentIndex === 1 && ReviewDatas.length === 0)) &&
-      scrollRef.current?.scrollTop > scrollTop
+      scrollRef.current?.scrollTop >= scrollTop
     ) {
-      // scrollRef.current?.style.setProperty("overflow-y", "hidden");
       scrollRef.current!.scrollTop = scrollTop;
       return;
     }
@@ -124,8 +122,9 @@ export default function Mypage() {
         ref={scrollRef}
         height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
       >
+        <Spacing size={60} />
+
         <MypageInner>
-          <Spacing size={60} />
           <div style={{ padding: "0 20px" }}>
             <ProfileInfo mine={mine} />
             <Spacing size={30} />
@@ -137,64 +136,76 @@ export default function Mypage() {
           <TopNavigation
             type="mypage"
             scrollRef={scrollRef}
-            scrollTop={10 + 80 + 30 + 182 + 40}
+            scrollTop={342}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
             topFixed={topFixed}
             titleList={["추천 베스트", "리뷰"]}
           >
             <TopNavigationInner
-              height={RecommandDatas.length !== 0 ? "auto" : height + "px"}
+              height={
+                height -
+                (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
+                104.5 +
+                "px"
+              }
             >
               <Spacing
                 size={
-                  RecommandDatas.length !== 0
-                    ? height - (515 - scrollHeight) >
+                  RecommandDatas.length === 0
+                    ? (height - 280 - (390 - scrollHeight)) * 0.5
+                    : height - (515 - scrollHeight) >
                       ((width - 60) * 9) / 8 + 108
-                      ? (height -
-                          (515 - scrollHeight) -
-                          (((width - 60) * 9) / 8 + 108)) *
-                        0.5
-                      : 0
-                    : (height - 280 - (390 - scrollHeight)) * 0.5
+                    ? (height -
+                        (515 - scrollHeight) -
+                        (((width - 60) * 9) / 8 + 108)) *
+                      0.5
+                    : 0
                 }
               />
-              {RecommandDatas.length !== 0 ? (
-                <RecommandSwiper
-                  datas={RecommandDatas}
-                  mine={mine}
-                  onClick={clickRecommand}
-                />
-              ) : (
+              {RecommandDatas.length === 0 ? (
                 <NewButton
                   onClick={clickRecommand}
                   marginTop={0}
                   text="나만의 추천 음식점을 골라주세요"
                   buttonText="추천 베스트 선택하기"
                 />
+              ) : (
+                <RecommandSwiper
+                  datas={RecommandDatas}
+                  mine={mine}
+                  onClick={clickRecommand}
+                />
               )}
             </TopNavigationInner>
             <TopNavigationInner
-              height={ReviewDatas.length !== 0 ? "auto" : height + "px"}
+              height={
+                ReviewDatas.length === 0 || currentIndex === 0
+                  ? height -
+                    (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
+                    104.5 +
+                    "px"
+                  : "auto"
+              }
             >
               <Spacing
                 size={
-                  ReviewDatas.length !== 0
-                    ? 0
-                    : (height - 280 - (390 - scrollHeight)) * 0.5
+                  ReviewDatas.length === 0
+                    ? (height - 280 - (390 - scrollHeight)) * 0.5
+                    : 0
                 }
               />
-              {ReviewDatas.length !== 0 ? (
-                <ReviewList datas={ReviewDatas} />
-              ) : (
+              {ReviewDatas.length === 0 ? (
                 <NewButton
                   onClick={() => {}}
                   marginTop={0}
                   text="내가 방문한 음식점의 리뷰를 남겨보세요"
                   buttonText="첫 리뷰 남기기"
                 />
+              ) : (
+                <ReviewList datas={ReviewDatas} />
               )}
-              <Spacing size={6} />
+              <Spacing size={30} />
             </TopNavigationInner>
           </TopNavigation>
         </MypageInner>

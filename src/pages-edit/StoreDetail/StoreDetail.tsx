@@ -14,6 +14,7 @@ import StoreTitle from "components/Title/StoreTitle";
 
 import ReivewBox from "./components/ReviewBox";
 import ImageBox from "./components/ImageBox";
+import { globalValue } from "constants/globalValue";
 
 const images = [
   "https://i.ibb.co/0Z6FNN7/60pt.png",
@@ -24,22 +25,22 @@ const images = [
 ];
 
 const ReviewDatas = [
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
-  // "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
 ];
 
 export default function StoreDetail() {
@@ -58,11 +59,14 @@ export default function StoreDetail() {
 
     if (
       images.length === 0 &&
-      scrollRef.current?.scrollTop > 165 &&
+      scrollRef.current?.scrollTop >= 165 &&
       currentIndex === 1
     ) {
       scrollRef.current!.scrollTop = 165;
-    } else if (scrollRef.current?.scrollTop > scrollTop && currentIndex === 1) {
+    } else if (
+      scrollRef.current?.scrollTop >= scrollTop &&
+      currentIndex === 1
+    ) {
       scrollRef.current!.scrollTop = scrollTop;
       return;
     }
@@ -103,14 +107,14 @@ export default function StoreDetail() {
             titleChange
               ? "black-left-text"
               : images.length > 0
-              ? "white"
+              ? "white-setting"
               : "black-left-text"
           }
           titleText={titleChange && "소이연남"}
         />
       </BackTitleWrapper>
 
-      <StoreDetailWrapper ref={scrollRef}>
+      <StoreDetailWrapper ref={scrollRef} height={height}>
         <Spacing size={images.length > 0 ? (width * 281) / 360 : 50} />
 
         <HomeDetailInner>
@@ -147,12 +151,21 @@ export default function StoreDetail() {
             topFixed={topFixed}
             titleList={["리뷰", "매장정보"]}
           >
-            <>
+            <div
+              style={{
+                height:
+                  currentIndex === 0
+                    ? "auto"
+                    : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 30,
+              }}
+            >
               {ReviewDatas.map((data: any, idx: number) => {
                 return <ReivewBox key={idx} />;
               })}
-            </>
-            <StoreInfo height={height}>
+            </div>
+            <StoreInfo
+              height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 30 + "px"}
+            >
               {["", ""].map((data: any, idx: number) => {
                 return <Info key={idx} />;
               })}
@@ -175,8 +188,8 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const StoreDetailWrapper = styled.div`
-  height: 100%;
+const StoreDetailWrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   overflow-y: scroll;
   background-color: ${colors.N0};
 `;
@@ -199,8 +212,7 @@ const BackTitleWrapper = styled.div<{ visible: boolean }>`
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
 
-const StoreInfo = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
+const StoreInfo = styled.div<{ height: any }>`
+  height: ${({ height }) => height};
   padding: 0 20px;
-  position: relative;
 `;
