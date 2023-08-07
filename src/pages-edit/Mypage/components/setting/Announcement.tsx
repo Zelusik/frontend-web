@@ -30,6 +30,8 @@ const Announcement = () => {
 
 const AnnouncementWrapper = styled.div`
   padding: 0 20px;
+  height: 100vh;
+  overflow-y: scroll;
 `;
 const Section = styled.div`
   display: flex;

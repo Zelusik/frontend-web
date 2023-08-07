@@ -88,6 +88,8 @@ export default function Setting() {
 }
 const SettingWrapper = styled.div`
   padding: 0 20px;
+  height: 100vh;
+  overflow-y: scroll;
 `;
 const SettingContainer = styled.div`
   display: flex;

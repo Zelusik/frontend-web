@@ -86,6 +86,8 @@ const DeleteProfile = () => {
 
 const DeleteProfileWrapper = styled.div`
   padding: 0 20px;
+  height: 100vh;
+  overflow-y: scroll;
 `;
 const Notification = styled.div`
   position: relative;

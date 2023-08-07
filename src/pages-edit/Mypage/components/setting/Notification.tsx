@@ -49,6 +49,8 @@ const Notification = () => {
 
 const NotificationWrapper = styled.div`
   padding: 0 20px;
+  height: 100vh;
+  overflow-y: scroll;
 `;
 const ToggleButtonWrapper = styled.div`
   display: flex;
