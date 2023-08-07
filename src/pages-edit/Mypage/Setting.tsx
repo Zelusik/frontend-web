@@ -4,10 +4,12 @@ import Spacing from "components/Spacing/Spacing";
 import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { Route } from "constants/Route";
+import useAlert from "hooks/useAlert";
 import { useRouter } from "next/router";
 
 export default function Setting() {
   const router = useRouter();
+  const { openAlert } = useAlert();
   const settingProfile = [
     { text: "프로필 수정", route: "EDIT_PROFILE" },
     { text: "알림 설정", route: "NOTIFICATION" },
@@ -24,6 +26,7 @@ export default function Setting() {
     if (route) {
       router.push(Route[route]());
     } else {
+      openAlert("logout");
     }
   };
   return (
