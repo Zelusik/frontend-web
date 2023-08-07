@@ -24,24 +24,7 @@ const images = [
   // "",
 ];
 
-const ReviewDatas = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
+const ReviewDatas = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 
 export default function StoreDetail() {
   const router = useRouter();
@@ -63,20 +46,14 @@ export default function StoreDetail() {
       currentIndex === 1
     ) {
       scrollRef.current!.scrollTop = 165;
-    } else if (
-      scrollRef.current?.scrollTop >= scrollTop &&
-      currentIndex === 1
-    ) {
+    } else if (scrollRef.current?.scrollTop >= scrollTop && currentIndex === 1) {
       scrollRef.current!.scrollTop = scrollTop;
       return;
     }
 
     if (images.length === 0 && scrollRef.current?.scrollTop >= 25) {
       setTitleChange(true);
-    } else if (
-      scrollRef.current?.scrollTop >=
-      imageRef.current?.clientHeight - 20
-    ) {
+    } else if (scrollRef.current?.scrollTop >= imageRef.current?.clientHeight - 20) {
       setTitleChange(true);
     } else {
       setTitleChange(false);
@@ -142,9 +119,7 @@ export default function StoreDetail() {
             type="store-detail"
             scrollRef={scrollRef}
             scrollTop={
-              images.length === 0
-                ? 165
-                : (width * 281) / 360 + 20 + 49 + 16 + 40
+              images.length === 0 ? 165 : (width * 281) / 360 + 20 + 49 + 16 + 40
             }
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
@@ -156,7 +131,7 @@ export default function StoreDetail() {
                 height:
                   currentIndex === 0
                     ? "auto"
-                    : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 30,
+                    : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8,
               }}
             >
               {ReviewDatas.map((data: any, idx: number) => {
@@ -164,7 +139,7 @@ export default function StoreDetail() {
               })}
             </div>
             <StoreInfo
-              height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 30 + "px"}
+              height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"}
             >
               {["", ""].map((data: any, idx: number) => {
                 return <Info key={idx} />;
@@ -207,8 +182,7 @@ const BackTitleWrapper = styled.div<{ visible: boolean }>`
   top: 0;
   z-index: 900;
 
-  background-color: ${({ visible }) =>
-    visible ? `${colors.N0}` : `transparents`};
+  background-color: ${({ visible }) => (visible ? `${colors.N0}` : `transparents`)};
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
 
