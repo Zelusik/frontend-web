@@ -18,13 +18,11 @@ const App = ({ Component, ...rest }: AppProps) => {
   const queryClient = new QueryClient();
 
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <MyApp Component={Component} pageProps={pageProps} />
-        </Provider>
-      </QueryClientProvider>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <MyApp Component={Component} pageProps={pageProps} />
+      </Provider>
+    </QueryClientProvider>
   );
 };
 
