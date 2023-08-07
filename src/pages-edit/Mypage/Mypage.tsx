@@ -68,6 +68,8 @@ export default function Mypage() {
 
   function onScroll() {
     const scrollTop = 10 + 80 + 30 + 182 + 40;
+    setScrollHeight(scrollRef.current?.scrollTop);
+
     if (
       (currentIndex === 0 ||
         (currentIndex === 1 && ReviewDatas.length === 0)) &&
@@ -76,7 +78,6 @@ export default function Mypage() {
       scrollRef.current!.scrollTop = scrollTop;
       return;
     }
-    setScrollHeight(scrollRef.current?.scrollTop);
 
     if (scrollRef.current?.scrollTop >= 10) {
       setTitleChange(true);
@@ -92,7 +93,6 @@ export default function Mypage() {
   }
 
   useEffect(() => {
-    // scrollRef.current?.style.setProperty("overflow-y", "hidden");
     setScrollHeight(scrollRef.current?.scrollTop);
     scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
@@ -154,10 +154,10 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 280 - (390 - scrollHeight)) * 0.5
-                    : height - (515 - scrollHeight) >
+                    : height - (550 - scrollHeight) >
                       ((width - 60) * 9) / 8 + 108
                     ? (height -
-                        (515 - scrollHeight) -
+                        (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
                       0.5
                     : 0

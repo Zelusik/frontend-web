@@ -156,7 +156,7 @@ export default function StoreDetail() {
                 height:
                   currentIndex === 0
                     ? "auto"
-                    : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 30,
+                    : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8,
               }}
             >
               {ReviewDatas.map((data: any, idx: number) => {
@@ -164,7 +164,9 @@ export default function StoreDetail() {
               })}
             </div>
             <StoreInfo
-              height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 30 + "px"}
+              height={
+                height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"
+              }
             >
               {["", ""].map((data: any, idx: number) => {
                 return <Info key={idx} />;
