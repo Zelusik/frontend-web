@@ -7,14 +7,32 @@ export const getMyInfo = async () =>
     .catch((err) => err.response);
 
 export const editMyInfo = async (myInfo: any) => {
-  // 프로필 이미지 수정 시 formdata에 추가
-  let formdata = new FormData();
-  formdata.append("nickname", myInfo.nickname);
-  formdata.append("birthday", myInfo.birthDay);
-  formdata.append("gender", myInfo.gender);
+  const formData = new FormData();
+  function base64toFile(base_data: any, filename: any) {
+    var arr = base_data.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
+
+  formData.append("nickname", myInfo.nickname);
+  formData.append("birthDay", myInfo.birthDay);
+  formData.append("gender", myInfo.gender);
+
+  if (myInfo.profileImage) {
+    const file = base64toFile(myInfo.profileImage, "profileImage.png");
+    formData.append("profileImage", file);
+  }
 
   return await client
-    .put("/members", myInfo, {
+    .put("/members", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
     .then(({ data }) => data)

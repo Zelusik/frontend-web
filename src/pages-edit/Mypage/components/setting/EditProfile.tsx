@@ -13,6 +13,8 @@ import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeUserInfo } from "reducer/slices/user/userSlice";
 import useEditMyInfo from "hooks/queries/user/useEditMyInfo";
+import { useDropzone } from "react-dropzone";
+import imageCompression from "browser-image-compression";
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -52,21 +54,54 @@ const EditProfile = () => {
   };
   const handleClickSaveBtn = () => {
     mutate({
+      profileImage: data.image.url === user.image.url ? "" : user.image.url,
       nickname: user.nickname,
       birthDay: user.birthDay,
       gender: genderData.filter((e) => e.text === user.gender)[0].value,
     });
   };
 
+  const onDrop = async (acceptedFiles: File[]): Promise<void> => {
+    acceptedFiles.forEach(async (file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      if (file.size <= 5 * 1024 * 1024) {
+        const imageUrl = await imageCompression.getDataUrlFromFile(file);
+        dispatch(
+          changeUserInfo({
+            type: "image",
+            value: { url: imageUrl, thumbnailUrl: imageUrl },
+          })
+        );
+      } else {
+        const resizingBlob = await imageCompression(file, { maxSizeMB: 5 });
+        const resizedUrl = await imageCompression.getDataUrlFromFile(resizingBlob);
+        dispatch(
+          changeUserInfo({
+            type: "image",
+            value: { url: resizedUrl, thumbnailUrl: resizedUrl },
+          })
+        );
+      }
+    });
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    multiple: false,
+    accept: { "image/*": [] },
+  });
+
   return (
     <EditProfileWrapper>
       {data && (
         <>
           <BackTitle type="black-left-text" text="회원 정보 수정" />
-          <ImageWrapper>
+          <ImageWrapper {...getRootProps()}>
+            <input {...getInputProps()} />
             <Image
               alt="프로필 사진"
-              src={data.image.thumbnailUrl}
+              src={user.image.thumbnailUrl}
               type="default"
               size={92}
             />
@@ -137,7 +172,8 @@ const EditProfile = () => {
               disabled={
                 data.birthDay === user.birthDay &&
                 data.nickname === user.nickname &&
-                data.gender === user.gender
+                data.gender === user.gender &&
+                data.image.url === user.image.url
               }
             />
           </BottomWrapper>
