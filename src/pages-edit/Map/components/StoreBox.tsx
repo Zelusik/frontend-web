@@ -33,19 +33,9 @@ export default function StoreBox() {
     setCurrentIndex(newSwiper);
   };
 
-  const handleClickBackground = () => {
-    dispatch(
-      changeVisible({
-        type: "mapBottomSheet",
-        value: 0,
-      })
-    );
-  };
-
   return (
     <Wrapper
       onClick={() => {
-        handleClickBackground();
         router.push(Route.STORE_DETAIL());
       }}
     >

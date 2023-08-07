@@ -21,9 +21,9 @@ import { Route } from "constants/Route";
 import ReviewList from "./components/ReviewList";
 
 const RecommandDatas = [
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
 ];
 
 const ReviewDatas = [
@@ -66,13 +66,15 @@ export default function Mypage() {
   };
 
   function onScroll() {
-    // 342
+    const scrollTop = 10 + 80 + 30 + 182 + 40;
+    // scrollRef.current?.style.setProperty("overflow-y", "scroll");
     if (
       (currentIndex === 0 ||
         (currentIndex === 1 && ReviewDatas.length === 0)) &&
-      scrollRef.current?.scrollTop >= 342
+      scrollRef.current?.scrollTop > scrollTop
     ) {
-      scrollRef.current!.scrollTop = 342;
+      // scrollRef.current?.style.setProperty("overflow-y", "hidden");
+      scrollRef.current!.scrollTop = scrollTop;
       return;
     }
     setScrollHeight(scrollRef.current?.scrollTop);
@@ -83,7 +85,7 @@ export default function Mypage() {
       setTitleChange(false);
     }
 
-    if (scrollRef.current?.scrollTop >= 342) {
+    if (scrollRef.current?.scrollTop > scrollTop - 1) {
       setTopFixed(true);
     } else {
       setTopFixed(false);
@@ -91,6 +93,7 @@ export default function Mypage() {
   }
 
   useEffect(() => {
+    // scrollRef.current?.style.setProperty("overflow-y", "hidden");
     setScrollHeight(scrollRef.current?.scrollTop);
     scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
@@ -100,89 +103,96 @@ export default function Mypage() {
 
   return (
     <>
-      <HomeWrapper ref={scrollRef}>
-        <Spacing size={60} />
-        <TitleWrapper>
-          {mypage ? (
-            <>
-              <TitleInner visible={titleChange}>
-                <Text typo="Headline5">{titleChange && "강남작가"}</Text>
-                <Setting />
-              </TitleInner>
-            </>
-          ) : (
-            <BackTitle
-              type="black-left-text"
-              titleText={titleChange && "강남작가"}
-            />
-          )}
-        </TitleWrapper>
+      <TitleWrapper>
+        {mypage ? (
+          <>
+            <TitleInner visible={titleChange}>
+              <Text typo="Headline5">{titleChange && "강남작가"}</Text>
+              <Setting />
+            </TitleInner>
+          </>
+        ) : (
+          <BackTitle
+            type="black-left-text"
+            titleText={titleChange && "강남작가"}
+          />
+        )}
+      </TitleWrapper>
 
+      <MypageWrapper ref={scrollRef}>
         <MypageInner>
-          <ProfileInfo mypage={mypage} />
-          <Spacing size={30} />
+          <Spacing size={60} />
+          <div style={{ padding: "0 20px" }}>
+            <ProfileInfo mypage={mypage} />
+            <Spacing size={30} />
 
-          <TasteBox />
-          <Spacing size={40} />
-        </MypageInner>
+            <TasteBox />
+            <Spacing size={40} />
+          </div>
 
-        <TopNavigation
-          type="mypage"
-          scrollRef={scrollRef}
-          scrollTop={342}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-          topFixed={topFixed}
-          titleList={["추천 베스트", "리뷰"]}
-        >
-          <TopNavigationInner
-            height={RecommandDatas.length !== 0 ? "auto" : height + "px"}
+          <TopNavigation
+            type="mypage"
+            scrollRef={scrollRef}
+            scrollTop={10 + 80 + 30 + 182 + 40}
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+            topFixed={topFixed}
+            titleList={["추천 베스트", "리뷰"]}
           >
-            <Spacing
-              size={
-                RecommandDatas.length !== 0
-                  ? height - (515 - scrollHeight) > ((width - 60) * 9) / 8 + 108
-                    ? (height -
-                        (515 - scrollHeight) -
-                        (((width - 60) * 9) / 8 + 108)) *
-                      0.5
-                    : 0
-                  : (height - 280 - (390 - scrollHeight)) * 0.5
-              }
-            />
-            {RecommandDatas.length !== 0 ? (
-              <RecommandSwiper datas={RecommandDatas} mypage={mypage} />
-            ) : (
-              <NewButton
-                onClick={clickRecommand}
-                marginTop={0}
-                text="나만의 추천 음식점을 골라주세요"
-                buttonText="추천 베스트 선택하기"
+            <TopNavigationInner
+              height={RecommandDatas.length !== 0 ? "auto" : height + "px"}
+            >
+              <Spacing
+                size={
+                  RecommandDatas.length !== 0
+                    ? height - (515 - scrollHeight) >
+                      ((width - 60) * 9) / 8 + 108
+                      ? (height -
+                          (515 - scrollHeight) -
+                          (((width - 60) * 9) / 8 + 108)) *
+                        0.5
+                      : 0
+                    : (height - 280 - (390 - scrollHeight)) * 0.5
+                }
               />
-            )}
-          </TopNavigationInner>
-          <TopNavigationInner
-            height={ReviewDatas.length !== 0 ? "auto" : height + "px"}
-          >
-            {ReviewDatas.length !== 0 ? (
-              <ReviewList datas={ReviewDatas} />
-            ) : (
-              <>
-                <Spacing size={(height - 280 - (390 - scrollHeight)) * 0.5} />
+              {RecommandDatas.length !== 0 ? (
+                <RecommandSwiper datas={RecommandDatas} mypage={mypage} />
+              ) : (
+                <NewButton
+                  onClick={clickRecommand}
+                  marginTop={0}
+                  text="나만의 추천 음식점을 골라주세요"
+                  buttonText="추천 베스트 선택하기"
+                />
+              )}
+            </TopNavigationInner>
+            <TopNavigationInner
+              height={ReviewDatas.length !== 0 ? "auto" : height + "px"}
+            >
+              <Spacing
+                size={
+                  ReviewDatas.length !== 0
+                    ? 0
+                    : (height - 280 - (390 - scrollHeight)) * 0.5
+                }
+              />
+              {ReviewDatas.length !== 0 ? (
+                <ReviewList datas={ReviewDatas} />
+              ) : (
                 <NewButton
                   onClick={() => {}}
                   marginTop={0}
                   text="내가 방문한 음식점의 리뷰를 남겨보세요"
                   buttonText="첫 리뷰 남기기"
                 />
-              </>
-            )}
-            <Spacing
-              size={mypage ? globalValue.BOTTOM_NAVIGATION_HEIGHT + 6 : 6}
-            />
-          </TopNavigationInner>
-        </TopNavigation>
-      </HomeWrapper>
+              )}
+              <Spacing
+                size={mypage ? globalValue.BOTTOM_NAVIGATION_HEIGHT + 6 : 6}
+              />
+            </TopNavigationInner>
+          </TopNavigation>
+        </MypageInner>
+      </MypageWrapper>
 
       {mypage ? <BottomNavigation /> : null}
     </>
@@ -200,6 +210,17 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
+const MypageWrapper = styled.div`
+  height: 100%;
+  overflow-y: scroll;
+  background-color: ${colors.N0};
+`;
+
+const MypageInner = styled.div`
+  position: relative;
+  background-color: ${colors.N0};
+`;
+
 const TitleWrapper = styled.div`
   width: 100%;
   height: 50px;
@@ -211,15 +232,6 @@ const TitleWrapper = styled.div`
   background-color: ${colors.N0};
   // background: linear-gradient(${colors.N0} 50%, transparent);
   z-index: 997;
-`;
-
-const HomeWrapper = styled.div`
-  height: 100%;
-  overflow-y: scroll;
-`;
-
-const MypageInner = styled.div`
-  padding: 0 20px;
 `;
 
 const TitleInner = styled.div<{ visible: boolean }>`

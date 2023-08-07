@@ -48,9 +48,9 @@ const TopNavigation = forwardRef(function (
       >
         <TitleWrapper
           height={match(type)
-            .with("store-detail", () => 38)
-            .with("search-place", () => 34)
-            .with("mypage", () => 35)
+            .with("store-detail", () => 37)
+            .with("search-place", () => 33)
+            .with("mypage", () => 34)
             .exhaustive()}
         >
           {titleList.map((data: any, idx: number) => {

@@ -17,15 +17,16 @@ import ImageBox from "./components/ImageBox";
 
 const images = [
   "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "",
+  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  // "",
   // "",
 ];
 
 export default function StoreDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
+
   const imageRef = useRef<any>(null);
   const { width, height } = useDisplaySize();
 
@@ -34,10 +35,11 @@ export default function StoreDetail() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   function onScroll() {
-    const scrollTop = (width * 281) / 360 + 125;
+    const scrollTop = (window.innerWidth * 281) / 360 + 20 + 49 + 16 + 40 - 10;
+
     if (
       images.length === 0 &&
-      scrollRef.current?.scrollTop >= 165 &&
+      scrollRef.current?.scrollTop > 165 &&
       currentIndex === 1
     ) {
       scrollRef.current!.scrollTop = 165;
@@ -59,10 +61,7 @@ export default function StoreDetail() {
 
     if (images.length === 0 && scrollRef.current?.scrollTop >= 165) {
       setTopFixed(true);
-    } else if (
-      scrollRef.current?.scrollTop >=
-      imageRef.current?.clientHeight + 115
-    ) {
+    } else if (scrollRef.current?.scrollTop >= scrollTop - 1) {
       setTopFixed(true);
     } else {
       setTopFixed(false);
@@ -92,10 +91,10 @@ export default function StoreDetail() {
         />
       </BackTitleWrapper>
 
-      <HomeDetailWrapper ref={scrollRef}>
+      <StoreDetailWrapper ref={scrollRef}>
         <Spacing size={images.length > 0 ? (width * 281) / 360 : 50} />
 
-        <HomeDetailInner position="relative">
+        <HomeDetailInner>
           <Spacing size={20} />
           <div style={{ padding: "0 20px" }}>
             <StoreTitle
@@ -114,8 +113,8 @@ export default function StoreDetail() {
               "웨이팅 있음",
             ]}
           />
-
           <Spacing size={40} />
+
           <TopNavigation
             type="store-detail"
             scrollRef={scrollRef}
@@ -137,7 +136,7 @@ export default function StoreDetail() {
             </StoreInfo>
           </TopNavigation>
         </HomeDetailInner>
-      </HomeDetailWrapper>
+      </StoreDetailWrapper>
     </>
   );
 }
@@ -153,14 +152,14 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const HomeDetailWrapper = styled.div`
+const StoreDetailWrapper = styled.div`
   height: 100%;
   overflow-y: scroll;
   background-color: ${colors.N0};
 `;
 
-const HomeDetailInner = styled.div<{ position: any }>`
-  position: ${({ position }) => position};
+const HomeDetailInner = styled.div`
+  position: relative;
   background-color: ${colors.N0};
 `;
 
