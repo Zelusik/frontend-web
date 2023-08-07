@@ -21,9 +21,9 @@ import { Route } from "constants/Route";
 import ReviewList from "./components/ReviewList";
 
 const RecommandDatas = [
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
-  // "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/0Z6FNN7/60pt.png",
 ];
 
 const ReviewDatas = [
@@ -67,18 +67,16 @@ export default function Mypage() {
   };
 
   function onScroll() {
-    const scrollTop = 80 + 30 + 182 + 40;
-    // scrollRef.current?.style.setProperty("overflow-y", "scroll");
+    const scrollTop = 10 + 80 + 30 + 182 + 40;
+    setScrollHeight(scrollRef.current?.scrollTop);
+
     if (
-      (currentIndex === 0 ||
-        (currentIndex === 1 && ReviewDatas.length === 0)) &&
+      (currentIndex === 0 || (currentIndex === 1 && ReviewDatas.length === 0)) &&
       scrollRef.current?.scrollTop >= scrollTop
     ) {
-      // scrollRef.current?.style.setProperty("overflow-y", "hidden");
       scrollRef.current!.scrollTop = scrollTop;
       return;
     }
-    setScrollHeight(scrollRef.current?.scrollTop);
 
     if (scrollRef.current?.scrollTop >= 10) {
       setTitleChange(true);
@@ -94,7 +92,6 @@ export default function Mypage() {
   }
 
   useEffect(() => {
-    // scrollRef.current?.style.setProperty("overflow-y", "hidden");
     setScrollHeight(scrollRef.current?.scrollTop);
     scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
@@ -113,10 +110,7 @@ export default function Mypage() {
             </TitleInner>
           </>
         ) : (
-          <BackTitle
-            type="black-left-text"
-            titleText={titleChange && "강남작가"}
-          />
+          <BackTitle type="black-left-text" titleText={titleChange && "강남작가"} />
         )}
       </TitleWrapper>
 
@@ -138,7 +132,7 @@ export default function Mypage() {
           <TopNavigation
             type="mypage"
             scrollRef={scrollRef}
-            scrollTop={352}
+            scrollTop={342}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
             topFixed={topFixed}
@@ -146,17 +140,19 @@ export default function Mypage() {
           >
             <TopNavigationInner
               height={
-                height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 115 + "px"
+                height -
+                (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
+                104.5 +
+                "px"
               }
             >
               <Spacing
                 size={
                   RecommandDatas.length === 0
                     ? (height - 280 - (390 - scrollHeight)) * 0.5
-                    : height - (515 - scrollHeight) >
-                      ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
                     ? (height -
-                        (515 - scrollHeight) -
+                        (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
                       0.5
                     : 0
@@ -180,7 +176,10 @@ export default function Mypage() {
             <TopNavigationInner
               height={
                 ReviewDatas.length === 0 || currentIndex === 0
-                  ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 115 + "px"
+                  ? height -
+                    (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
+                    104.5 +
+                    "px"
                   : "auto"
               }
             >
@@ -201,7 +200,7 @@ export default function Mypage() {
               ) : (
                 <ReviewList datas={ReviewDatas} />
               )}
-              <Spacing size={6} />
+              <Spacing size={30} />
             </TopNavigationInner>
           </TopNavigation>
         </MypageInner>
