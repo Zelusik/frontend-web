@@ -202,7 +202,7 @@ export default function useMapBottomSheet({ ...props }: any) {
             touchMove.movingDirection === "up" &&
             touchStart.sheetY > HEIGHT / 2
           ) {
-            if (Math.abs(move) > 120 && move > -TOP) {
+            if (Math.abs(move) > 50 && move > -TOP) {
               open();
               content.current?.style.setProperty("overflow-y", "scroll");
             } else close();
