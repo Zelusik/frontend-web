@@ -1,11 +1,9 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 import { match } from "ts-pattern";
 
-import Icon from "components/Icon";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import Icon from "components/Icon";
 import Dots from "components/Button/IconButton/Dots";
 import Text from "components/Text";
 
