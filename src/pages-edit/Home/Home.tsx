@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-
+import useDisplaySize from "hooks/useDisplaySize";
 import { globalValue } from "constants/globalValue";
+
+import SearchTitle from "components/Title/SearchTitle";
 import Text from "components/Text";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 
-import LogoTitle from "./components/LogoTitle";
 import StoreBox from "./components/StoreBox";
-import useDisplaySize from "hooks/useDisplaySize";
 
 export default function Home() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <>
-      <LogoTitle />
+      <SearchTitle type="home" />
       <HomeWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         <Spacing size={70} />
         <Text typo="Headline6" color="N100">

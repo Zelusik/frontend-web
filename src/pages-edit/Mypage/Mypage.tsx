@@ -103,12 +103,10 @@ export default function Mypage() {
     <>
       <TitleWrapper>
         {mine ? (
-          <>
-            <TitleInner visible={titleChange}>
-              <Text typo="Headline5">{titleChange && "강남작가"}</Text>
-              <Setting />
-            </TitleInner>
-          </>
+          <TitleInner visible={titleChange}>
+            <Text typo="Headline5">{titleChange && "강남작가"}</Text>
+            <Setting />
+          </TitleInner>
         ) : (
           <BackTitle type="black-left-text" titleText={titleChange && "강남작가"} />
         )}
@@ -150,7 +148,7 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 280 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
+                    : height - (515 - scrollHeight) > ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
