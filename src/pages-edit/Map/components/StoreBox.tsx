@@ -60,7 +60,7 @@ export default function StoreBox() {
         </Swiper>
         <Spacing size={16} />
         <StoreTitle
-          type="secondary"
+          type="map"
           title="소이연남"
           subTitle="아시안푸드"
           onClick={() => {
