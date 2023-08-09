@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+
+import { Route } from "constants/Route";
 import Spacing from "components/Spacing";
 import ProfileTitle from "components/Title/ProfileTitle";
 import Image from "components/Image";
-
-import { Route } from "constants/Route";
 import StoreTitle from "components/Title/StoreTitle";
 
 export default function StoreBox({ id }: any) {
@@ -24,7 +24,7 @@ export default function StoreBox({ id }: any) {
           }}
         />
         <StoreTitle
-          type="default"
+          type="home"
           title="소이연남"
           subTitle="음식 카테고리 지역"
           onClick={() => {

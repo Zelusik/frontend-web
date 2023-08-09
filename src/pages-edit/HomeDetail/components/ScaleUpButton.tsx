@@ -1,10 +1,10 @@
-import { css } from "@emotion/react";
+import { useRouter } from "next/navigation";
 import styled from "@emotion/styled";
-import Icon from "components/Icon";
+
 import { colors } from "constants/colors";
 import { Route } from "constants/Route";
-import { typography } from "constants/typography";
-import { useRouter } from "next/navigation";
+import Icon from "components/Icon";
+import Text from "components/Text";
 
 export default function ScaleUpButton({}: any) {
   const router = useRouter();
@@ -14,8 +14,10 @@ export default function ScaleUpButton({}: any) {
 
   return (
     <ButtonWrapper onClick={handleClickScaleUp}>
-      <Menu style={{ marginRight: 4 }}>크게 보기</Menu>
       <Menu>
+        <Text typo="Heading2" color="N100" style={{ marginRight: 4 }}>
+          크게 보기
+        </Text>
         <Icon icon="ScaleUp" />
       </Menu>
     </ButtonWrapper>
@@ -34,14 +36,10 @@ const ButtonWrapper = styled.div`
   border-radius: 6px;
   background-color: ${colors.N0};
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.06);
-  z-index: 900;
+  z-index: 899;
 `;
 
 const Menu = styled.div`
   margin: auto 0;
   display: flex;
-
-  ${css`
-    ${typography.Heading2}
-  `};
 `;

@@ -37,7 +37,7 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
                   <Text typo="Paragraph7">{idx + 1}</Text>
                 </NumberWrapper>
                 <StoreTitle
-                  type="default"
+                  type="home"
                   title="소이연남"
                   subTitle="음식 카테고리 지역"
                   onClick={() => {

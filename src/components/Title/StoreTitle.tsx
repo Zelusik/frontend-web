@@ -2,13 +2,12 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Edit from "components/Button/IconButton/Edit";
 import Heart from "components/Button/IconButton/Heart";
+import Spacing from "components/Spacing";
 import Text from "components/Text";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
 import { match } from "ts-pattern";
 
 export default function StoreTitle({
-  type = "primary",
+  type = "detail",
   title,
   subTitle,
   onClick,
@@ -17,91 +16,109 @@ export default function StoreTitle({
   return (
     <TitleWrapper
       height={match(type)
-        .with("primary", () => 49)
-        .with("secondary", () => 25)
-        .with("tertiary", () => 39)
-        .with("default", () => 58)
-        .otherwise(() => 49)}
+        .with("home", () => 58)
+        .with("detail", () => 49)
+        .with("map", () => 25)
+        .with("mypage-list", () => 39)
+        .otherwise(() => 58)}
       padding={match(type)
-        .with("primary", () => "0")
-        .with("secondary", () => "0 15px")
-        .with("tertiary", () => "0 10px")
-        .with("default", () => "0 20px")
+        .with("home", () => "0 20px")
+        .with("detail", () => "0")
+        .with("map", () => "0 5px")
+        .with("mypage-list", () => "0 10px")
         .otherwise(() => "0")}
-      style={
-        type === "tertiary" || type === "default"
-          ? {
-              position: "absolute",
-              bottom: type === "tertiary" ? 15 : 30,
-            }
-          : {}
-      }
+      position={type === "home" || type === "mypage-list"}
+      bottom={match(type)
+        .with("home", () => 30)
+        .with("detail", () => 0)
+        .with("map", () => 0)
+        .with("mypage-list", () => 15)
+        .otherwise(() => 0)}
     >
       <MenuList>
         <Menu onClick={onClick}>
           <div>
-            {title && (
+            {title ? (
               <Text
-                style={{ display: "flex" }}
                 typo={match(type)
-                  .with("primary", () => "Headline6")
-                  .with("secondary", () => "Headline4")
-                  .with("tertiary", () => "Headline3")
-                  .with("default", () => "Headline6")
+                  .with("home", () => "Headline6")
+                  .with("detail", () => "Headline6")
+                  .with("map", () => "Headline4")
+                  .with("mypage-list", () => "Headline3")
                   .otherwise(() => "Headline6")}
                 color={match(type)
-                  .with("primary", () => "N100")
-                  .with("secondary", () => "N100")
-                  .with("tertiary", () => "N0")
-                  .with("default", () => "N0")
+                  .with("home", () => "N0")
+                  .with("detail", () => "N100")
+                  .with("map", () => "N100")
+                  .with("mypage-list", () => "N0")
                   .otherwise(() => "N100")}
+                style={{ display: "flex" }}
               >
                 {title}
-                {type === "secondary" && (
-                  <Text typo="Paragraph1" color="N60">
+                {type === "map" ? (
+                  <Text
+                    typo="Paragraph1"
+                    color="N60"
+                    style={{
+                      margin: "auto",
+                      marginLeft: 5,
+                    }}
+                  >
                     {subTitle}
                   </Text>
-                )}
+                ) : null}
               </Text>
-            )}
-            {type !== "secondary" && subTitle && (
+            ) : null}
+            {type !== "map" && subTitle ? (
               <Text
                 typo={match(type)
-                  .with("primary", () => "Paragraph3")
-                  .with("tertiary", () => "Paragraph2")
-                  .with("default", () => "Paragraph1")
+                  .with("home", () => "Paragraph1")
+                  .with("detail", () => "Paragraph3")
+                  .with("mypage-list", () => "Paragraph2")
                   .otherwise(() => "Paragraph3")}
                 color={match(type)
-                  .with("primary", () => "N100")
-                  .with("tertiary", () => "N0")
-                  .with("default", () => "N0")
+                  .with("home", () => "N0")
+                  .with("detail", () => "N100")
+                  .with("mypage-list", () => "N0")
                   .otherwise(() => "N100")}
               >
                 {subTitle}
               </Text>
-            )}
+            ) : null}
           </div>
         </Menu>
 
-        {type !== "tertiary" ? (
+        {type !== "mypage-list" ? (
           <Menu>
-            {type !== "default" && (
+            {type !== "home" ? (
               <Edit
                 size={match(type)
-                  .with("primary", () => 28)
-                  .with("secondary", () => 24)
-                  .with("default", () => 28)
-                  .otherwise()}
+                  .with("home", () => 28)
+                  .with("detail", () => 28)
+                  .with("map", () => 24)
+                  .otherwise(() => 28)}
               />
-            )}
-            <Heart
-              size={match(type)
-                .with("primary", () => 28)
-                .with("secondary", () => 24)
-                .with("default", () => 28)
-                .otherwise()}
-              margin={"0 0 0 20px"}
-            />
+            ) : null}
+            <div
+              style={{
+                marginLeft: type === "map" ? 16 : 20,
+                textAlign: "center",
+              }}
+            >
+              <Heart
+                size={match(type)
+                  .with("home", () => 28)
+                  .with("detail", () => 28)
+                  .with("map", () => 24)
+                  .otherwise(() => 28)}
+              />
+              <Spacing size={4} />
+              {type === "home" ? (
+                <Text typo="Paragraph3" color="N0">
+                  999
+                </Text>
+              ) : null}
+            </div>
           </Menu>
         ) : null}
       </MenuList>
@@ -109,14 +126,22 @@ export default function StoreTitle({
   );
 }
 
-const TitleWrapper = styled.div<{ height: number; padding: string }>`
+const TitleWrapper = styled.div<{
+  height: number;
+  padding: string;
+  bottom: number;
+  position: boolean;
+}>`
   width: 100%;
   height: ${({ height }) => height + "px"};
   padding: ${({ padding }) => padding};
   display: flex;
+
+  position: ${({ position }) => (position ? "absolute" : "static")};
+  bottom: ${({ bottom }) => bottom}px;
 `;
 
-const MenuList = styled.ul`
+const MenuList = styled.div`
   width: 100%;
   margin: auto 0;
 
@@ -124,7 +149,7 @@ const MenuList = styled.ul`
   justify-content: space-between;
 `;
 
-const Menu = styled.li`
+const Menu = styled.div`
   margin: auto 0;
 
   display: flex;

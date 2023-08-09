@@ -32,7 +32,7 @@ export default function ReviewList({ type = "mypage", datas }: any) {
               type="mypage-review"
             />
             <StoreTitle
-              type="tertiary"
+              type="mypage-list"
               title="소이연남"
               subTitle="음식 카테고리 지역"
               onClick={() => {

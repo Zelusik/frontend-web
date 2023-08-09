@@ -58,7 +58,7 @@ export default function HomeDetail() {
           <Spacing size={20} />
           <div style={{ padding: "0 20px" }}>
             <StoreTitle
-              type="primary"
+              type="detail"
               title="소이연남"
               subTitle="음식 카테고리 지역"
             />
@@ -164,5 +164,5 @@ const MapBackground = styled.div`
   top: 0;
 
   background-color: transparent;
-  z-index: 900;
+  z-index: 800;
 `;
