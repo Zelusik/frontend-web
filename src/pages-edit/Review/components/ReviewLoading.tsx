@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Icon from "components/Icon/Icon";
 import Spacing from "components/Spacing/Spacing";
 import BackTitle from "components/Title/BackTitle";
 import { typography } from "constants/typography";
 import { styled } from "styled-components";
+import Loading from "components/Loading";
 
 const ReviewLoading = ({ type }: { type: string }) => {
   const [text, setText] = useState(
@@ -39,7 +39,7 @@ const ReviewLoading = ({ type }: { type: string }) => {
       <Spacing size={17} />
       <div style={typography.Headline5}>{text}</div>
       <div className="icon">
-        <Icon icon="Loading" />
+        <Loading />
       </div>
     </ReviewLoadingWrapper>
   );

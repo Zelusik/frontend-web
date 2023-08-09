@@ -23,6 +23,7 @@ const Write = () => {
   const review = useAppSelector((state) => state.review);
   const [textAreaHeight, setTextAreaHeight] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [shouldRoute, setShouldRoute] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -44,14 +45,20 @@ const Write = () => {
     const result = await postReview(review);
 
     if (!result.status) {
-      route.push(Route.MYPAGE());
+      setShouldRoute(true);
     }
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    if (shouldRoute) {
+      route.push(Route.MYPAGE());
+    }
+  }, [shouldRoute]);
+
   return (
     <WriteWrapper>
-      {isLoading ? (
+      {isLoading || shouldRoute ? (
         <ReviewLoading type="review" />
       ) : (
         <>
