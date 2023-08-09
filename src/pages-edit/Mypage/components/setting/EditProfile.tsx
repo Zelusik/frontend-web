@@ -152,7 +152,7 @@ const EditProfile = () => {
                   <RoundButton
                     key={gender.value}
                     borderRadius="12px"
-                    type="text"
+                    type="full"
                     action={user.gender === gender.text}
                     height={38}
                     onClick={() => handleChangeGender(gender)}
