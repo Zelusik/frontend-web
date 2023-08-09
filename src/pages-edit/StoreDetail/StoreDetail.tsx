@@ -107,7 +107,7 @@ export default function StoreDetail() {
             titleChange
               ? "black-left-text"
               : images.length > 0
-              ? "white-setting"
+              ? "white-dots"
               : "black-left-text"
           }
           titleText={titleChange && "소이연남"}

@@ -27,21 +27,21 @@ const RecommandDatas = [
 ];
 
 const ReviewDatas = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
+  // "",
 ];
 
 // 392 + 35 = 427
@@ -67,7 +67,7 @@ export default function Mypage() {
   };
 
   function onScroll() {
-    const scrollTop = 10 + 80 + 30 + 182 + 40;
+    const scrollTop = 10 + 88 + 22 + 182 + 40;
     setScrollHeight(scrollRef.current?.scrollTop);
 
     if (
@@ -110,7 +110,7 @@ export default function Mypage() {
           </TitleInner>
         ) : (
           <BackTitle
-            type="black-left-text"
+            type={titleChange ? "black-left-text" : "black-dots"}
             titleText={titleChange ? "강남작가" : null}
           />
         )}
@@ -125,7 +125,7 @@ export default function Mypage() {
         <MypageInner>
           <div style={{ padding: "0 20px" }}>
             <ProfileInfo mine={mine} />
-            <Spacing size={30} />
+            <Spacing size={22} />
 
             <TasteBox />
             <Spacing size={40} />
@@ -151,7 +151,7 @@ export default function Mypage() {
               <Spacing
                 size={
                   RecommandDatas.length === 0
-                    ? (height - 280 - (390 - scrollHeight)) * 0.5
+                    ? (height - 288 - (390 - scrollHeight)) * 0.5
                     : height - (550 - scrollHeight) >
                       ((width - 60) * 9) / 8 + 108
                     ? (height -
@@ -189,7 +189,7 @@ export default function Mypage() {
               <Spacing
                 size={
                   ReviewDatas.length === 0
-                    ? (height - 280 - (390 - scrollHeight)) * 0.5
+                    ? (height - 288 - (390 - scrollHeight)) * 0.5
                     : 0
                 }
               />
@@ -261,6 +261,8 @@ const TitleInner = styled.div<{ visible: boolean }>`
 
   position: absolute;
   left: 0;
+
+  // animation: ${({ visible }) => fade(visible)} 220ms forwards;
 `;
 
 const TopNavigationInner = styled.div<{ height?: any }>`

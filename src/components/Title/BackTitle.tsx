@@ -8,8 +8,7 @@ import Dots from "components/Button/IconButton/Dots";
 import Text from "components/Text";
 
 export default function BackTitle({
-  type = "white-setting",
-  style,
+  type = "white-dots",
   text,
   ...props
 }: any) {
@@ -19,7 +18,7 @@ export default function BackTitle({
   };
 
   return (
-    <TitleWrapper styles={style}>
+    <TitleWrapper>
       {type !== "black-x-button" ? (
         <TitleInner
           onClick={clickBack}
@@ -41,8 +40,9 @@ export default function BackTitle({
             width={24}
             height={24}
             color={match(type)
-              .with("white-setting", () => "N0")
-              .with("white", () => "N0")
+              .with("white-dots", () => "N0")
+              .with("black-dots", () => "N100")
+              .with("white-left", () => "N0")
               .with("black-left-text", () => "N100")
               .with("map", () => "N100")
               .otherwise(() => "N0")}
@@ -54,6 +54,7 @@ export default function BackTitle({
       ) : (
         <Dummy />
       )}
+
       {text ? (
         <Text typo="Headline3" color="N100">
           {text}
@@ -61,8 +62,13 @@ export default function BackTitle({
       ) : (
         <Dummy />
       )}
-      {type === "white-setting" ? (
-        <Dots size={24} color="N0" />
+
+      {type.split("-")[1] === "dots" ? (
+        <Dots
+          type={type === "white-dots" ? "report-store" : "share-report"}
+          size={24}
+          color={type === "white-dots" ? "N0" : "N80"}
+        />
       ) : type === "black-x-button" ? (
         <div onClick={clickBack}>
           <Icon icon="XButton" />
@@ -74,7 +80,7 @@ export default function BackTitle({
   );
 }
 
-const TitleWrapper = styled.div<{ styles: any }>`
+const TitleWrapper = styled.div`
   width: 100%;
   height: 50px;
 

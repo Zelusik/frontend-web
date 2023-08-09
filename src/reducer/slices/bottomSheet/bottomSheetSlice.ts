@@ -1,14 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
-  type: string;
+  type:
+    | "share-report"
+    | "delete-edit"
+    | "report-store"
+    | "selectMenu"
+    | "registerMenu";
+  mine: boolean;
   visible: number;
   actionDelay: boolean;
   [index: string]: string | string[] | any;
 }
 
 const initialState: GlobalType = {
-  type: "primary",
+  type: "share-report",
+  mine: false,
   visible: 0,
   actionDelay: false,
 };

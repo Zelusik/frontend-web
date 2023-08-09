@@ -92,7 +92,7 @@ const Review = () => {
 
   return (
     <ReviewWrapper>
-      <BackTitle type="white-setting" text="리뷰쓰기" />
+      <BackTitle type="white-dots" text="리뷰쓰기" />
       <MainWrapper>
         <div style={typography.Headline5}>
           리뷰 작성을 위해

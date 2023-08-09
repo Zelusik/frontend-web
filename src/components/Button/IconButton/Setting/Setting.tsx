@@ -8,7 +8,7 @@ interface Props {
   color?: any;
 }
 
-export default function Setting({ margin, size, color }: Props) {
+export default function Setting({ size, color }: Props) {
   const router = useRouter();
   const clickSetting = () => {
     router.push(Route.SETTING());
@@ -19,7 +19,6 @@ export default function Setting({ margin, size, color }: Props) {
       icon="Setting"
       width={size}
       height={size}
-      margin={margin}
       color={color}
       fill={color}
       onClick={clickSetting}

@@ -1,16 +1,20 @@
 "use client";
 import { forwardRef } from "react";
-import { colors } from "constants/colors";
-import useBottomSheet from "hooks/useBottomSheet";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import Report from "./children/Report";
-import SelectMenu from "./children/SelectMenu";
-import useDisplaySize from "hooks/useDisplaySize";
-import RegisterMenu from "./children/RegisterMenu";
-import { EnumType } from "typescript";
-import { globalValue } from "constants/globalValue";
 import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
+
+import useBottomSheet from "hooks/useBottomSheet";
+import { useAppSelector } from "hooks/useReduxHooks";
+import useDisplaySize from "hooks/useDisplaySize";
+import { colors } from "constants/colors";
+import { globalValue } from "constants/globalValue";
+
+import Report from "./children/Report";
+import SelectMenu from "./children/SelectMenu";
+import RegisterMenu from "./children/RegisterMenu";
+import ReportStore from "./children/ReportStore";
+import DeleteEdit from "./children/DeleteEdit";
+import ShareReport from "./children/ShareReport";
 
 interface Props {
   children?: any;
@@ -22,12 +26,16 @@ const BottomSheet = forwardRef(function Div(
 ) {
   const { height } = useDisplaySize();
   const COMPONENT_HEIGHT: any = {
-    report: 146,
+    "share-report": 146,
+    "delete-edit": 146,
+    "report-store": 100,
     selectMenu: height * 0.8,
     registerMenu: 80,
   };
   const COMPONENT: any = {
-    report: <Report />,
+    "share-report": <ShareReport />,
+    "delete-edit": <DeleteEdit />,
+    "report-store": <ReportStore />,
     selectMenu: <SelectMenu />,
     registerMenu: <RegisterMenu />,
   };

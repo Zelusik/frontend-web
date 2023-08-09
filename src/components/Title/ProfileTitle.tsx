@@ -1,13 +1,13 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+
 import RoundButton from "components/Button/RoundButton";
 import Dots from "components/Button/IconButton/Dots";
 import Image from "components/Image";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
 import Text from "components/Text";
 
 export default function ProfileTitle({ title, subTitle }: any) {
+  const mine = false;
+
   return (
     <TitleWrapper>
       <MenuList>
@@ -39,12 +39,13 @@ export default function ProfileTitle({ title, subTitle }: any) {
           <RoundButton
             type="follow-icon"
             action={true}
-            textPadding="0 0 0 4px"
             onClick={() => {
               alert("roundButton");
             }}
           />
-          <Dots margin="0 0 0 4px" color="N80" />
+          <div style={{ marginLeft: 4 }}>
+            <Dots type={mine ? "delete-edit" : "share-report"} color="N80" />
+          </div>
         </Menu>
       </MenuList>
     </TitleWrapper>
@@ -57,7 +58,7 @@ const TitleWrapper = styled.div`
   display: flex;
 `;
 
-const MenuList = styled.ul`
+const MenuList = styled.div`
   width: 100%;
   margin: auto 0;
 
@@ -65,7 +66,7 @@ const MenuList = styled.ul`
   justify-content: space-between;
 `;
 
-const Menu = styled.li`
+const Menu = styled.div`
   margin: auto 0;
 
   display: flex;

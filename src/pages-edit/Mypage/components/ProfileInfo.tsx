@@ -6,6 +6,7 @@ import { typography } from "constants/typography";
 import Spacing from "components/Spacing";
 import Dots from "components/Button/IconButton/Dots";
 import Text from "components/Text";
+import RoundButton from "components/Button/RoundButton";
 export default function ProfileInfo({ mine }: any) {
   const router = useRouter();
 
@@ -26,42 +27,47 @@ export default function ProfileInfo({ mine }: any) {
           size={74}
         />
       </Menu>
-      <Menu>
-        <div>
-          <Text typo="Headline4" color="N100">
-            강남작가
-          </Text>
-          <Spacing size={16} />
+      {/* <Menu> */}
+      <div style={{ width: "100%" }}>
+        <TitleWrapper>
+          <Menu>
+            <Text typo="Headline4" color="N100">
+              강남작가
+            </Text>
+          </Menu>
+          <Menu>
+            <RoundButton type="follow-icon" />
+          </Menu>
+        </TitleWrapper>
+        <Spacing size={16} />
 
-          <FollowWrapper>
-            {ProfileDatas.map((data: any, idx: number) => {
-              return (
-                <FollowInner key={idx}>
-                  <Text typo="Headline2" color="N100">
-                    {data.count}
-                  </Text>
-                  <Text typo="Paragraph2" color="N100">
-                    {data.desc}
-                  </Text>
-                </FollowInner>
-              );
-            })}
-          </FollowWrapper>
-        </div>
-      </Menu>
+        <FollowWrapper>
+          {ProfileDatas.map((data: any, idx: number) => {
+            return (
+              <FollowInner key={idx}>
+                <Text typo="Headline2" color="N100">
+                  {data.count}
+                </Text>
+                <Text typo="Paragraph2" color="N100">
+                  {data.desc}
+                </Text>
+              </FollowInner>
+            );
+          })}
+        </FollowWrapper>
+      </div>
+      {/* </Menu> */}
 
-      {mine ? null : (
-        <IconWrapper>
-          <Dots />
-        </IconWrapper>
-      )}
+      {/* <ButtonWrapper>
+        <RoundButton type="follow-icon" />
+      </ButtonWrapper> */}
     </ProfileWrapper>
   );
 }
 
 const ProfileWrapper = styled.div`
   width: 100%;
-  height: 80px;
+  height: 88px;
   display: flex;
 
   position: relative;
@@ -81,8 +87,12 @@ const FollowInner = styled.div`
   text-align: center;
 `;
 
-const IconWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
+const TitleWrapper = styled.div`
+  width: 100%;
+  height: 40px;
+
+  margin: auto;
+  display: flex;
+
+  justify-content: space-between;
 `;

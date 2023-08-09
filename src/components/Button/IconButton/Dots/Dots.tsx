@@ -1,20 +1,16 @@
-import Icon from "components/Icon";
-import { colors } from "constants/colors";
 import useBottomSheet from "hooks/useBottomSheet";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { changeVisibleType } from "reducer/slices/bottomSheet/bottomSheetSlice";
+import Icon from "components/Icon";
 
 interface Props {
-  margin?: string;
+  type: string;
   size?: number;
   color?: any;
 }
 
-export default function Dots({ margin, size, color }: Props) {
+export default function Dots({ type, size, color }: any) {
   const { openBottomSheet } = useBottomSheet({});
-
   const handleClickDots = () => {
-    openBottomSheet("report");
+    openBottomSheet(type);
   };
 
   return (
@@ -22,7 +18,6 @@ export default function Dots({ margin, size, color }: Props) {
       icon="Dots"
       width={size}
       height={size}
-      margin={margin}
       fill={color}
       color={color}
       onClick={handleClickDots}

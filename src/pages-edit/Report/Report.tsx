@@ -9,9 +9,31 @@ import BottomButton from "components/Button/BottomButton";
 import ReportButton from "./components/ReportButton";
 import { useState } from "react";
 import TextArea from "components/TextArea";
+import { useAppSelector } from "hooks/useReduxHooks";
 
 export default function Report() {
   const router = useRouter();
+  const { type } = useAppSelector((state) => state.bottomSheet);
+
+  const ReportDatas =
+    type === "report-store"
+      ? [
+          { selected: true, text: "음식점의 위치" },
+          { selected: false, text: "운영 시간" },
+          { selected: false, text: "휴무일 정보" },
+          { selected: false, text: "전화번호" },
+          { selected: false, text: "sns 정보" },
+          { selected: false, text: "기타" },
+        ]
+      : [
+          { selected: true, text: "해당 음식점과 관련 없는 내용임" },
+          { selected: false, text: "광고/홍보성 게시글임" },
+          { selected: false, text: "선정적이거나 폭력, 혐오적임" },
+          { selected: false, text: "무단 도용, 사칭, 저작권 침해가 의심됨" },
+          { selected: false, text: "개인 정보 노출이 우려됨" },
+          { selected: false, text: "기타" },
+        ];
+
   const [selected, setSelected] = useState<boolean[]>(
     Array.from({ length: 6 }, () => false)
   );
@@ -51,7 +73,7 @@ export default function Report() {
       <BottomReportWrapper>
         <BottomButton
           type="primary"
-          text="잇터리 시작하기"
+          text="신고하기"
           disabled={
             selected.filter((data) => {
               return !data;
@@ -80,12 +102,3 @@ const BottomReportWrapper = styled.div`
   position: fixed;
   bottom: 42px;
 `;
-
-const ReportDatas = [
-  { selected: true, text: "해당 음식점과 관련 없는 내용임" },
-  { selected: false, text: "광고/홍보성 게시글임" },
-  { selected: false, text: "선정적이거나 폭력, 혐오적임" },
-  { selected: false, text: "무단 도용, 사칭, 저작권 침해가 의심됨" },
-  { selected: false, text: "개인 정보 노출이 우려됨" },
-  { selected: false, text: "기타" },
-];

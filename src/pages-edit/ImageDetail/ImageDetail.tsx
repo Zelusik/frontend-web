@@ -31,7 +31,7 @@ export default function ImageDetail({}: any) {
   return (
     <ImageDetailWrapper>
       <TitleWrapper>
-        <BackTitle type="white" />
+        <BackTitle type="white-left" />
         <NumberWrapper>
           <Number currentIndex={currentIndex} length={images.length} />
         </NumberWrapper>
