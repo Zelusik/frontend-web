@@ -71,8 +71,7 @@ export default function Mypage() {
     setScrollHeight(scrollRef.current?.scrollTop);
 
     if (
-      (currentIndex === 0 ||
-        (currentIndex === 1 && ReviewDatas.length === 0)) &&
+      (currentIndex === 0 || (currentIndex === 1 && ReviewDatas.length === 0)) &&
       scrollRef.current?.scrollTop >= scrollTop
     ) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -109,10 +108,7 @@ export default function Mypage() {
             <Setting />
           </TitleInner>
         ) : (
-          <BackTitle
-            type="black-left-text"
-            titleText={titleChange && "강남작가"}
-          />
+          <BackTitle type="black-left-text" titleText={titleChange && "강남작가"} />
         )}
       </TitleWrapper>
 
@@ -152,8 +148,7 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 280 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) >
-                      ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *

@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
@@ -14,7 +15,8 @@ import useGetMenuKeywords from "hooks/queries/review/useGetMenuKeywords";
 import { FoodType } from "types/review";
 import useToast from "hooks/useToast";
 import Toast from "components/Toast/Toast";
-import { getAutoReview } from "api/review";
+import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
+import ReviewLoading from "../components/ReviewLoading";
 
 const FoodKeyword = () => {
   const route = useRouter();
@@ -23,13 +25,25 @@ const FoodKeyword = () => {
   const { placeInfo } = useAppSelector((state) => state.review);
   const { keywords, foodInfo } = useAppSelector((state) => state.review);
   const { isShowToast, openToast, closeToast } = useToast();
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
   const handleCloseToast = () => {
     closeToast();
   };
-  const { data, isLoading } = useGetMenuKeywords({
+
+  const { data } = useGetMenuKeywords({
     placeCategory: placeInfo.categoryName,
     menus: foodInfo.map((e: FoodType) => e.foodName.replace(",", "")),
   });
+
+  const { isLoading } = useGetAutoReview(isButtonClicked);
+
+  useEffect(() => {
+    if (isButtonClicked && !isLoading) {
+      route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
+    }
+  }, [isLoading, isButtonClicked]);
+
   const handleClickKeywords = ({
     food,
     keyword,
@@ -62,21 +76,8 @@ const FoodKeyword = () => {
     );
   };
 
-  const handleClickAIBtn = async () => {
-    const result = await getAutoReview({ keywords, foodInfo });
-    dispatch(
-      changeReviewInfo({
-        type: "autoCreatedContent",
-        value: result.content,
-      })
-    );
-    dispatch(
-      changeReviewInfo({
-        type: "content",
-        value: result.content,
-      })
-    );
-    route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
+  const handleClickAIBtn = () => {
+    setIsButtonClicked(true);
   };
 
   const handleClickSelfBtn = () => {
@@ -85,63 +86,74 @@ const FoodKeyword = () => {
 
   return (
     <FoodKeywordWrapper>
-      <BackTitle type="black-left-text" text="식사 리뷰" />
-      <Spacing size={20} />
+      {isLoading ? (
+        <ReviewLoading type="auto" />
+      ) : (
+        <>
+          <BackTitle type="black-left-text" text="식사 리뷰" />
+          <Spacing size={20} />
 
-      <MainWrapper>
-        <div style={typography.Headline5}>맛은 어떠셨나요?</div>
-        <KeywordContainer>
-          {data ? (
-            <>
-              {data.menuKeywords.map(
-                (menuInfo: { menu: string; keywords: string[] }, index: number) => (
-                  <KeywordBox key={index}>
-                    <span style={typography.Headline2}>{menuInfo.menu}</span>
-                    <div className="keywords">
-                      {menuInfo.keywords.map((keyword) => (
-                        <RoundButton
-                          key={keyword}
-                          borderRadius="12px"
-                          type="text"
-                          height={38}
-                          action={foodInfo
-                            .filter((e: FoodType) => e.foodName === menuInfo.menu)[0]
-                            .foodKeyword.includes(keyword)}
-                          onClick={() =>
-                            handleClickKeywords({
-                              food: menuInfo.menu,
-                              keyword,
-                            })
-                          }
-                        >
-                          {keyword}
-                        </RoundButton>
-                      ))}
-                    </div>
-                  </KeywordBox>
-                )
-              )}
-            </>
-          ) : null}
-        </KeywordContainer>
-      </MainWrapper>
-      <BottomWrapper>
-        <span style={{ ...typography.Paragraph1, color: colors.N80 }}>
-          1-3개 선택할 수 있어요
-        </span>
-        <BottomButton
-          text="AI 도움받기"
-          radius={8}
-          backgroundColor={colors.Orange400}
-          color={colors.N0}
-          height="54px"
-          onClick={handleClickAIBtn}
-          disabled={keywords.length === 0}
-        />
-        <ReviewButton onClick={handleClickSelfBtn}>직접 리뷰쓰기</ReviewButton>
-      </BottomWrapper>
-      {isShowToast && (
-        <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
+          <MainWrapper>
+            <div style={typography.Headline5}>맛은 어떠셨나요?</div>
+            <KeywordContainer>
+              {data ? (
+                <>
+                  {data.menuKeywords.map(
+                    (
+                      menuInfo: { menu: string; keywords: string[] },
+                      index: number
+                    ) => (
+                      <KeywordBox key={index}>
+                        <span style={typography.Headline2}>{menuInfo.menu}</span>
+                        <div className="keywords">
+                          {menuInfo.keywords.map((keyword) => (
+                            <RoundButton
+                              key={keyword}
+                              borderRadius="12px"
+                              type="text"
+                              height={38}
+                              action={foodInfo
+                                .filter(
+                                  (e: FoodType) => e.foodName === menuInfo.menu
+                                )[0]
+                                .foodKeyword.includes(keyword)}
+                              onClick={() =>
+                                handleClickKeywords({
+                                  food: menuInfo.menu,
+                                  keyword,
+                                })
+                              }
+                            >
+                              {keyword}
+                            </RoundButton>
+                          ))}
+                        </div>
+                      </KeywordBox>
+                    )
+                  )}
+                </>
+              ) : null}
+            </KeywordContainer>
+          </MainWrapper>
+          <BottomWrapper>
+            <span style={{ ...typography.Paragraph1, color: colors.N80 }}>
+              1-3개 선택할 수 있어요
+            </span>
+            <BottomButton
+              text="AI 도움받기"
+              radius={8}
+              backgroundColor={colors.Orange400}
+              color={colors.N0}
+              height="54px"
+              onClick={handleClickAIBtn}
+              disabled={keywords.length === 0}
+            />
+            <ReviewButton onClick={handleClickSelfBtn}>직접 리뷰쓰기</ReviewButton>
+          </BottomWrapper>
+          {isShowToast && (
+            <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
+          )}
+        </>
       )}
     </FoodKeywordWrapper>
   );

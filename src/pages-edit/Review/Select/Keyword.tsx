@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
@@ -17,17 +17,28 @@ import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import Spacing from "components/Spacing/Spacing";
 import Toast from "components/Toast/Toast";
 import useToast from "hooks/useToast";
+import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
+import ReviewLoading from "../components/ReviewLoading";
 
 const Keyword = () => {
   const route = useRouter();
   const dispatch = useAppDispatch();
   const { isShowToast, openToast, closeToast } = useToast();
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
+  const { keywords, foodInfo } = useAppSelector((state) => state.review);
+
+  const { isLoading } = useGetAutoReview(isButtonClicked);
+
+  useEffect(() => {
+    if (isButtonClicked && !isLoading) {
+      route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
+    }
+  }, [isLoading, isButtonClicked]);
 
   const handleCloseToast = () => {
     closeToast();
   };
-
-  const { keywords, foodInfo } = useAppSelector((state) => state.review);
 
   const handleClickKeywords = (keyword: string) => {
     if (keywords.length >= 3) {
@@ -62,7 +73,7 @@ const Keyword = () => {
 
   const handleClickNextBtn = () => {
     if (foodInfo.length === 0) {
-      route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
+      setIsButtonClicked(true);
     } else {
       route.push(Route.REVIEW_FOOD_KEYWORD());
     }
@@ -73,65 +84,71 @@ const Keyword = () => {
   };
   return (
     <KeywordWrapper>
-      <BackTitle type="black-left-text" text="음식점 리뷰" />
-      <Spacing size={20} />
-      <MainWrapper>
-        <div style={typography.Headline5}>음식점은 어떠셨나요?</div>
-        <KeywordContainer>
-          <KeywordBox>
-            <span style={typography.Headline2}>음식/가격</span>
-            <div className="keywords">
-              {foodKeyword.map((keyword) => (
-                <RoundButton
-                  key={keyword}
-                  borderRadius="12px"
-                  type="text"
-                  action={keywords.includes(keyword)}
-                  height={38}
-                  onClick={() => handleClickKeywords(keyword)}
-                >
-                  {keyword}
-                </RoundButton>
-              ))}
-            </div>
-          </KeywordBox>
-          <KeywordBox>
-            <span style={typography.Headline2}>분위기</span>
-            <div className="keywords">
-              {atmosphereKeyword.map((keyword) => (
-                <RoundButton
-                  key={keyword}
-                  borderRadius="12px"
-                  type="text"
-                  action={keywords.includes(keyword)}
-                  height={38}
-                  onClick={() => handleClickKeywords(keyword)}
-                >
-                  {keyword}
-                </RoundButton>
-              ))}
-            </div>
-          </KeywordBox>
-        </KeywordContainer>
-      </MainWrapper>
+      {isLoading ? (
+        <ReviewLoading type="auto" />
+      ) : (
+        <>
+          <BackTitle type="black-left-text" text="음식점 리뷰" />
+          <Spacing size={20} />
+          <MainWrapper>
+            <div style={typography.Headline5}>음식점은 어떠셨나요?</div>
+            <KeywordContainer>
+              <KeywordBox>
+                <span style={typography.Headline2}>음식/가격</span>
+                <div className="keywords">
+                  {foodKeyword.map((keyword) => (
+                    <RoundButton
+                      key={keyword}
+                      borderRadius="12px"
+                      type="text"
+                      action={keywords.includes(keyword)}
+                      height={38}
+                      onClick={() => handleClickKeywords(keyword)}
+                    >
+                      {keyword}
+                    </RoundButton>
+                  ))}
+                </div>
+              </KeywordBox>
+              <KeywordBox>
+                <span style={typography.Headline2}>분위기</span>
+                <div className="keywords">
+                  {atmosphereKeyword.map((keyword) => (
+                    <RoundButton
+                      key={keyword}
+                      borderRadius="12px"
+                      type="text"
+                      action={keywords.includes(keyword)}
+                      height={38}
+                      onClick={() => handleClickKeywords(keyword)}
+                    >
+                      {keyword}
+                    </RoundButton>
+                  ))}
+                </div>
+              </KeywordBox>
+            </KeywordContainer>
+          </MainWrapper>
 
-      <BottomWrapper>
-        <span style={{ ...typography.Paragraph1, color: colors.N80 }}>
-          1-3개 선택할 수 있어요
-        </span>
-        <BottomButton
-          text={foodInfo.length === 0 ? "AI 도움받기" : "다음으로"}
-          radius={8}
-          backgroundColor={colors.Orange400}
-          color={colors.N0}
-          height="54px"
-          onClick={handleClickNextBtn}
-          disabled={keywords.length === 0}
-        />
-        <ReviewButton onClick={handleClickSelfBtn}>직접 리뷰쓰기</ReviewButton>
-      </BottomWrapper>
-      {isShowToast && (
-        <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
+          <BottomWrapper>
+            <span style={{ ...typography.Paragraph1, color: colors.N80 }}>
+              1-3개 선택할 수 있어요
+            </span>
+            <BottomButton
+              text={foodInfo.length === 0 ? "AI 도움받기" : "다음으로"}
+              radius={8}
+              backgroundColor={colors.Orange400}
+              color={colors.N0}
+              height="54px"
+              onClick={handleClickNextBtn}
+              disabled={keywords.length === 0}
+            />
+            <ReviewButton onClick={handleClickSelfBtn}>직접 리뷰쓰기</ReviewButton>
+          </BottomWrapper>
+          {isShowToast && (
+            <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
+          )}
+        </>
       )}
     </KeywordWrapper>
   );
