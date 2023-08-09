@@ -10,8 +10,9 @@ type UseGetMenusResult = {
   refetch: () => void;
 };
 
-const useGetMenus = (): UseGetMenusResult => {
+const useGetMenus = (isEnabled?: boolean): UseGetMenusResult => {
   const { placeId } = useAppSelector((state) => state.review);
+
   const { data, isLoading, error, refetch } = useQuery(
     ["menu", placeId],
     async () => {
@@ -32,8 +33,10 @@ const useGetMenus = (): UseGetMenusResult => {
     {
       staleTime: 1000 * 60 * 5,
       cacheTime: 1000 * 60 * 30,
+      enabled: isEnabled,
     }
   );
+
   return { data, isLoading, error, refetch };
 };
 

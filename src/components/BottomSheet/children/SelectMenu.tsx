@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import RoundButton from "components/Button/RoundButton";
-import Icon from "components/Icon/Icon";
 import Toast from "components/Toast/Toast";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -18,12 +17,14 @@ import { MenuTagType } from "types/image";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import useToast from "hooks/useToast";
 import { FoodType } from "types/review";
+import Loading from "components/Loading";
 
 const SelectMenu = () => {
   const dispatch = useAppDispatch();
   const { height } = useDisplaySize();
-  const { data, isLoading } = useGetMenus();
+  const isEnabled = true;
 
+  const { data, isLoading } = useGetMenus(isEnabled);
   const { isShowToast, openToast, closeToast } = useToast();
 
   const handleCloseToast = () => {
@@ -117,7 +118,7 @@ const SelectMenu = () => {
   return (
     <SelectMenuWrapper height={height} isLoading={isLoading}>
       {isLoading ? (
-        <Icon icon="Loading" />
+        <Loading />
       ) : (
         <>
           <MenuContainer>

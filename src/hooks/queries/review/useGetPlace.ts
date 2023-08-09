@@ -1,11 +1,11 @@
 // 장소 선택 후 넘어갈 때 만약 장소 조회 후 없다면 저장
-import React from "react";
+import React, { useState } from "react";
 import { getPlace, postPlace } from "api/review/place";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { useQuery } from "react-query";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 
-const useGetPlace = () => {
+const useGetPlace = (isEnabled: boolean) => {
   const dispatch = useAppDispatch();
   const { placeInfo } = useAppSelector((state) => state.review);
   const {
@@ -36,6 +36,10 @@ const useGetPlace = () => {
           })
         );
       }
+      return result;
+    },
+    {
+      enabled: isEnabled,
     }
   );
   return { data, isLoading, error, refetch };

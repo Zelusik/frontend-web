@@ -47,7 +47,6 @@ export { default as AuthKakao } from "./auth/AuthKakao";
 export { default as AuthApple } from "./auth/AuthApple";
 
 export { default as Gallery } from "./Gallery";
-export { default as Loading } from "./Loading";
 
 export { default as Warn } from "./Warn";
 export { SelectedRadio, DefaultRadio } from "./Radio";
