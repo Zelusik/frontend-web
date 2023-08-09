@@ -139,13 +139,7 @@ export default function StoreDetail() {
               })}
             </div>
             <StoreInfo
-<<<<<<<<< Temporary merge branch 1
-              height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 30 + "px"}
-=========
-              height={
-                height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"
-              }
->>>>>>>>> Temporary merge branch 2
+              height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"}
             >
               {["", ""].map((data: any, idx: number) => {
                 return <Info key={idx} />;
