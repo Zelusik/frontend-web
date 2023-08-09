@@ -17,7 +17,7 @@ const RegisterMenu = () => {
   const dispatch = useAppDispatch();
 
   const handleChangeMenu = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const regex = /^[a-zA-Z0-9 ]*$/;
+    const regex = /^[a-zA-Z0-9 ㄱ-힣]*$/;
     const newValue = event.target.value;
     if (regex.test(newValue)) {
       setMenu(newValue);

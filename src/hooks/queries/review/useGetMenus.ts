@@ -10,7 +10,7 @@ type UseGetMenusResult = {
   refetch: () => void;
 };
 
-const useGetMenus = (isEnabled: boolean): UseGetMenusResult => {
+const useGetMenus = (isEnabled?: boolean): UseGetMenusResult => {
   const { placeId } = useAppSelector((state) => state.review);
 
   const { data, isLoading, error, refetch } = useQuery(
