@@ -3,17 +3,14 @@ import { forwardRef } from "react";
 import { colors } from "constants/colors";
 import useBottomSheet from "hooks/useBottomSheet";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import {
-  changeAction,
-  changeVisible,
-} from "reducer/slices/bottomSheet/bottomSheetSlice";
-import { css, keyframes, styled } from "styled-components";
 import Report from "./children/Report";
 import SelectMenu from "./children/SelectMenu";
 import useDisplaySize from "hooks/useDisplaySize";
 import RegisterMenu from "./children/RegisterMenu";
 import { EnumType } from "typescript";
 import { globalValue } from "constants/globalValue";
+import styled from "@emotion/styled";
+import { css, keyframes } from "@emotion/react";
 
 interface Props {
   children?: any;

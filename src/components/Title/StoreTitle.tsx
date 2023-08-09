@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Edit from "components/Button/IconButton/Edit";
 import Heart from "components/Button/IconButton/Heart";
+import Text from "components/Text";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import { match } from "ts-pattern";
@@ -20,13 +21,13 @@ export default function StoreTitle({
         .with("secondary", () => 25)
         .with("tertiary", () => 39)
         .with("default", () => 58)
-        .exhaustive()}
+        .otherwise(() => 49)}
       padding={match(type)
         .with("primary", () => "0")
         .with("secondary", () => "0 15px")
         .with("tertiary", () => "0 10px")
         .with("default", () => "0 20px")
-        .exhaustive()}
+        .otherwise(() => "0")}
       style={
         type === "tertiary" || type === "default"
           ? {
@@ -40,44 +41,44 @@ export default function StoreTitle({
         <Menu onClick={onClick}>
           <div>
             {title && (
-              <Title
+              <Text
                 style={{ display: "flex" }}
                 typo={match(type)
-                  .with("primary", () => typography.Headline6)
-                  .with("secondary", () => typography.Headline4)
-                  .with("tertiary", () => typography.Headline3)
-                  .with("default", () => typography.Headline6)
-                  .exhaustive()}
+                  .with("primary", () => "Headline6")
+                  .with("secondary", () => "Headline4")
+                  .with("tertiary", () => "Headline3")
+                  .with("default", () => "Headline6")
+                  .otherwise(() => "Headline6")}
                 color={match(type)
-                  .with("primary", () => colors.N100)
-                  .with("secondary", () => colors.N100)
-                  .with("tertiary", () => colors.N0)
-                  .with("default", () => colors.N0)
-                  .exhaustive()}
+                  .with("primary", () => "N100")
+                  .with("secondary", () => "N100")
+                  .with("tertiary", () => "N0")
+                  .with("default", () => "N0")
+                  .otherwise(() => "N100")}
               >
                 {title}
                 {type === "secondary" && (
-                  <SideTitle typo={typography.Paragraph1} color={colors.N60}>
+                  <Text typo="Paragraph1" color="N60">
                     {subTitle}
-                  </SideTitle>
+                  </Text>
                 )}
-              </Title>
+              </Text>
             )}
             {type !== "secondary" && subTitle && (
-              <SubTitle
+              <Text
                 typo={match(type)
-                  .with("primary", () => typography.Paragraph3)
-                  .with("tertiary", () => typography.Paragraph2)
-                  .with("default", () => typography.Paragraph1)
-                  .exhaustive()}
+                  .with("primary", () => "Paragraph3")
+                  .with("tertiary", () => "Paragraph2")
+                  .with("default", () => "Paragraph1")
+                  .otherwise(() => "Paragraph3")}
                 color={match(type)
-                  .with("primary", () => colors.N100)
-                  .with("tertiary", () => colors.N0)
-                  .with("default", () => colors.N0)
-                  .exhaustive()}
+                  .with("primary", () => "N100")
+                  .with("tertiary", () => "N0")
+                  .with("default", () => "N0")
+                  .otherwise(() => "N100")}
               >
                 {subTitle}
-              </SubTitle>
+              </Text>
             )}
           </div>
         </Menu>
@@ -90,7 +91,7 @@ export default function StoreTitle({
                   .with("primary", () => 28)
                   .with("secondary", () => 24)
                   .with("default", () => 28)
-                  .exhaustive()}
+                  .otherwise()}
               />
             )}
             <Heart
@@ -98,7 +99,7 @@ export default function StoreTitle({
                 .with("primary", () => 28)
                 .with("secondary", () => 24)
                 .with("default", () => 28)
-                .exhaustive()}
+                .otherwise()}
               margin={"0 0 0 20px"}
             />
           </Menu>
@@ -123,44 +124,9 @@ const MenuList = styled.ul`
   justify-content: space-between;
 `;
 
-const Menu = styled.li<{ color?: any }>`
+const Menu = styled.li`
   margin: auto 0;
 
   display: flex;
   align-items: center;
-
-  ${({ color }) =>
-    color &&
-    css`
-      color: ${color};
-    `}
-`;
-
-const Title = styled.div<{ typo: any; color: any }>`
-  margin-bottom: 4px;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color};
-`;
-const SideTitle = styled.div<{ typo: any; color: any }>`
-  margin: auto 0;
-  margin-left: 5px;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color}
-`;
-
-const SubTitle = styled.div<{ typo: any; color: any }>`
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color}
 `;

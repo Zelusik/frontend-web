@@ -1,7 +1,7 @@
 "use client";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { colors } from "constants/colors";
-import { css, styled } from "styled-components";
-import { match } from "ts-pattern";
 
 interface Props {
   horizonal?: boolean;

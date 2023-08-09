@@ -37,17 +37,17 @@ export default function Input({
     <InputWrapper
       onClick={handleClickInput}
       borderColor={match(type)
-        .with("line", () => (focus ? colors.N100 : colors.N50))
-        .with("shadow", () => colors.N0)
-        .exhaustive()}
+        .with("line", () => (focus ? "N100" : "N50"))
+        .with("shadow", () => "N0")
+        .otherwise(() => "N100")}
       shadow={match(type)
         .with("line", () => false)
         .with("shadow", () => true)
-        .exhaustive()}
+        .otherwise(() => false)}
       borderRadius={match(type)
         .with("line", () => "12px")
         .with("shadow", () => "8px")
-        .exhaustive()}
+        .otherwise(() => "12px")}
     >
       <InputInner>
         <Icon icon="Search" width={24} height={24} />
@@ -101,7 +101,7 @@ const InputWrapper = styled.div<{
   position: relative;
 
   border-radius: ${({ borderRadius }) => borderRadius};
-  border: 1px solid ${({ borderColor }) => borderColor};
+  border: 1px solid ${({ borderColor }) => colors[borderColor]};
   background-color: ${colors.N0};
   box-shadow: ${({ shadow }) => shadow && `0px 0px 6px rgba(0, 0, 0, 0.12)`};
 `;

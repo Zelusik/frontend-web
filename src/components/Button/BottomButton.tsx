@@ -1,9 +1,7 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 import { match } from "ts-pattern";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
 import Text from "components/Text";
 
 const BottomButton = forwardRef(function Button(
@@ -28,13 +26,13 @@ const BottomButton = forwardRef(function Button(
         padding: props.padding,
       }}
       borderColor={match(type)
-        .with("primary", () => (disabled ? colors.Orange200 : colors.Orange600))
-        .with("default", () => colors.N40)
-        .exhaustive()}
+        .with("primary", () => (disabled ? "Orange200" : "Orange600"))
+        .with("default", () => "N40")
+        .otherwise(() => "Orange200")}
       backgroundColor={match(type)
-        .with("primary", () => (disabled ? colors.Orange200 : colors.Orange600))
-        .with("default", () => colors.N0)
-        .exhaustive()}
+        .with("primary", () => (disabled ? "Orange200" : "Orange600"))
+        .with("default", () => "N0")
+        .otherwise(() => "Orange200")}
       disabled={disabled}
     >
       <Text
@@ -42,7 +40,7 @@ const BottomButton = forwardRef(function Button(
         color={match(type)
           .with("primary", () => "N0")
           .with("default", () => "N80")
-          .exhaustive()}
+          .otherwise()}
       >
         {props.text}
         {children}
@@ -52,9 +50,9 @@ const BottomButton = forwardRef(function Button(
 });
 
 const ButtonWrapper = styled.button<{ backgroundColor: any; borderColor: any }>`
-  border: ${({ borderColor }) => `1px solid ${borderColor}`};
+  border: ${({ borderColor }) => `1px solid ${colors[borderColor]}`};
   border-radius: 8px;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundColor }) => colors[backgroundColor]};
 `;
 
 export default BottomButton;

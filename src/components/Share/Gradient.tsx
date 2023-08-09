@@ -1,5 +1,5 @@
+import styled from "@emotion/styled";
 import { colors } from "constants/colors";
-import { styled } from "styled-components";
 
 const Gradient = styled.div<{ size: number }>`
   width: 100%;
