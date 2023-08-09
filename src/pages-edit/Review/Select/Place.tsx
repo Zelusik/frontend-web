@@ -16,7 +16,6 @@ import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import useGetPlace from "hooks/queries/review/useGetPlace";
 import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
-import Icon from "components/Icon/Icon";
 import Loading from "components/Loading";
 
 const Place = () => {
