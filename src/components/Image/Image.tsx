@@ -35,7 +35,7 @@ export default function Image({
         .with("mypage-review", () => "100%")
         .with("review", () => "100%")
         .with("default", () => size)
-        .exhaustive()}
+        .otherwise(() => "100%")}
       ratio={match(type)
         .with("home-detail", () => 1)
         .with("store-detail", () => 360 / 281)
@@ -44,7 +44,7 @@ export default function Image({
         .with("mypage-review", () => 157 / 170)
         .with("review", () => 1.14)
         .with("default", () => 1)
-        .exhaustive()}
+        .otherwise(() => 1)}
       radius={match(type)
         .with("home-detail", () => "0")
         .with("store-detail", () => "0")
@@ -53,7 +53,7 @@ export default function Image({
         .with("mypage-review", () => "12px")
         .with("review", () => "12px")
         .with("default", () => "38%")
-        .exhaustive()}
+        .otherwise(() => "0")}
       objectFit={objectFit}
       onClick={onClick}
     />

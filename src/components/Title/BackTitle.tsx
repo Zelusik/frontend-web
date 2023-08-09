@@ -45,7 +45,7 @@ export default function BackTitle({
               .with("white", () => "N0")
               .with("black-left-text", () => "N100")
               .with("map", () => "N100")
-              .exhaustive()}
+              .otherwise(() => "N0")}
           />
           <Text typo="Headline5" color="N100" style={{ marginLeft: 6 }}>
             {props.titleText}

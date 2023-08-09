@@ -164,5 +164,5 @@ const MapBackground = styled.div`
   top: 0;
 
   background-color: transparent;
-  z-index: 900;
+  z-index: 800;
 `;

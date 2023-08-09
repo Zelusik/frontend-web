@@ -14,18 +14,18 @@ const AlertButton = forwardRef(function Button(
       borderColor={match(type)
         .with("primary", () => "N100")
         .with("default", () => "N40")
-        .exhaustive()}
+        .otherwise(() => "N100")}
       backgroundColor={match(type)
         .with("primary", () => "N100")
         .with("default", () => "N0")
-        .exhaustive()}
+        .otherwise(() => "N100")}
     >
       <Text
         typo="Paragraph5"
         color={match(type)
           .with("primary", () => "N0")
           .with("default", () => "N100")
-          .exhaustive()}
+          .otherwise(() => "N100")}
       >
         {children}
       </Text>

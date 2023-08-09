@@ -4,6 +4,7 @@ import { colors } from "constants/colors";
 import { css } from "@emotion/react";
 import { typography } from "constants/typography";
 import { match } from "ts-pattern";
+import Text from "components/Text";
 
 export default function Hashtag({
   type = "primary",
@@ -20,52 +21,48 @@ export default function Hashtag({
       marginRight={idx === len - 1}
       side={side}
       backgroundColor={match(type)
-        .with("primary", () => colors.Orange100)
-        .with("secondary", () => colors.N10)
-        .with("default", () => colors.Orange100)
-        .exhaustive()}
+        .with("primary", () => "Orange100")
+        .with("secondary", () => "N10")
+        .with("default", () => "Orange100")
+        .otherwise()}
     >
-      <Menu
+      <Text
         typo={match(type)
-          .with("primary", () => typography.Paragraph4)
-          .with("secondary", () => typography.Paragraph4)
-          .with("default", () => typography.Headline2)
-          .exhaustive()}
+          .with("primary", () => "Paragraph4")
+          .with("secondary", () => "Paragraph4")
+          .with("default", () => "Headline2")
+          .otherwise()}
         color={match(type)
-          .with("primary", () => colors.N100)
-          .with("secondary", () => colors.N100)
-          .with("default", () => colors.Orange500)
-          .exhaustive()}
+          .with("primary", () => "N100")
+          .with("secondary", () => "N100")
+          .with("default", () => "Orange500")
+          .otherwise()}
+        style={{
+          height: "100%",
+          margin: "auto",
+          display: "flex",
+          alignItems: "center",
+        }}
       >
-        <Menuspan
+        <Text
           typo={match(type)
-            .with("primary", () => typography.Paragraph4)
-            .with("secondary", () => typography.Paragraph4)
-            .with("default", () => typography.Headline2)
-            .exhaustive()}
+            .with("primary", () => "Paragraph4")
+            .with("secondary", () => "Paragraph4")
+            .with("default", () => "Headline2")
+            .otherwise(() => "Paragraph4")}
           color={match(type)
-            .with("primary", () => colors.Orange300)
-            .with("secondary", () => colors.N60)
-            .with("default", () => colors.Orange500)
-            .exhaustive()}
+            .with("primary", () => "Orange300")
+            .with("secondary", () => "N60")
+            .with("default", () => "Orange500")
+            .otherwise(() => "Orange300")}
         >
           #&nbsp;
-        </Menuspan>
+        </Text>
         {text}
-      </Menu>
+      </Text>
     </MenuWrapper>
   );
 }
-
-const HashtagsWrapper = styled.div`
-  display: flex;
-  white-space: nowrap;
-`;
-
-const HashtagsInner = styled.div`
-  display: flex;
-  overflow: auto;
-`;
 
 const MenuWrapper = styled.div<{
   marginLeft: boolean;
@@ -80,31 +77,5 @@ const MenuWrapper = styled.div<{
   padding: 0 12px;
   display: inline-block;
   border-radius: 40px;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-`;
-
-const Menuspan = styled.span<{ typo: any; color: any }>`
-  height: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color};
-`;
-
-const Menu = styled.div<{ typo: any; color: any }>`
-  height: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color};
+  background-color: ${({ backgroundColor }) => colors[backgroundColor]};
 `;

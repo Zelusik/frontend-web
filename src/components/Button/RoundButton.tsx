@@ -34,7 +34,7 @@ const RoundButton = forwardRef(function Button(
         .with("text", () => height)
         .with("mypage", () => 48)
         .with("mypage-alert", () => 48)
-        .exhaustive()}
+        .otherwise(() => 40)}
       padding={match(type)
         .with("map-icon", () => "0 11px")
         .with("map-text", () => "0 11px")
@@ -45,7 +45,7 @@ const RoundButton = forwardRef(function Button(
         .with("text", () => "0 16px")
         .with("mypage", () => "0")
         .with("mypage-alert", () => "0 18.5px")
-        .exhaustive()}
+        .otherwise(() => "0 11px")}
       borderRadius={match(type)
         .with("map-icon", () => "999px")
         .with("map-text", () => "999px")
@@ -56,7 +56,7 @@ const RoundButton = forwardRef(function Button(
         .with("text", () => props.borderRadius)
         .with("mypage", () => "999px")
         .with("mypage-alert", () => "999px")
-        .exhaustive()}
+        .otherwise(() => "999px")}
       borderColor={match(type)
         .with("map-icon", () => "N0")
         .with("map-text", () => (action ? "Orange600" : "N0"))
@@ -67,7 +67,7 @@ const RoundButton = forwardRef(function Button(
         .with("text", () => (action ? "Orange600" : "N40"))
         .with("mypage", () => "Orange600")
         .with("mypage-alert", () => "Orange600")
-        .exhaustive()}
+        .otherwise(() => "N0")}
       backgroundColor={match(type)
         .with("map-icon", () => "N0")
         .with("map-text", () => (action ? "Orange600" : "N0"))
@@ -78,7 +78,7 @@ const RoundButton = forwardRef(function Button(
         .with("text", () => (action ? "Orange100" : "N0"))
         .with("mypage", () => "Orange600")
         .with("mypage-alert", () => "Orange600")
-        .exhaustive()}
+        .otherwise(() => "N0")}
       shadow={match(type)
         .with("map-icon", () => true)
         .with("map-text", () => true)
@@ -89,20 +89,20 @@ const RoundButton = forwardRef(function Button(
         .with("text", () => false)
         .with("mypage", () => false)
         .with("mypage-alert", () => false)
-        .exhaustive()}
+        .otherwise(() => true)}
     >
       {type.split("-")[1] === "icon" ? (
         <Menu
           marginRight={match(type)
             .with("map-icon", () => 8)
             .with("follow-icon", () => 4)
-            .exhaustive()}
+            .otherwise(() => 8)}
         >
           <Icon
             icon={match(type)
               .with("map-icon", () => (action ? "Location" : "Bookmark"))
               .with("follow-icon", () => (action ? "Check" : "Plus"))
-              .exhaustive()}
+              .otherwise(() => "Location")}
             width={16}
             height={16}
           />
@@ -119,7 +119,7 @@ const RoundButton = forwardRef(function Button(
           .with("text", () => "Paragraph3")
           .with("mypage", () => "Paragraph5")
           .with("mypage-alert", () => "Paragraph5")
-          .exhaustive()}
+          .otherwise(() => "Heading2")}
         color={match(type)
           .with("map-icon", () => "N100")
           .with("map-text", () => (action ? "N0" : "N100"))
@@ -130,7 +130,7 @@ const RoundButton = forwardRef(function Button(
           .with("text", () => (action ? "Orange600" : "N100"))
           .with("mypage", () => "N0")
           .with("mypage-alert", () => "N0")
-          .exhaustive()}
+          .otherwise(() => "N100")}
       >
         {children}
         {type === "follow-icon" ? (action ? "팔로잉" : "팔로우") : null}

@@ -43,7 +43,7 @@ const TopNavigation = forwardRef(function (
           .with("store-detail", () => 38)
           .with("search-place", () => 34)
           .with("mypage", () => 35)
-          .exhaustive()}
+          .otherwise(() => 38)}
         topFixed={props.topFixed}
       >
         <TitleWrapper
@@ -51,18 +51,18 @@ const TopNavigation = forwardRef(function (
             .with("store-detail", () => 37)
             .with("search-place", () => 33)
             .with("mypage", () => 34)
-            .exhaustive()}
+            .otherwise(() => 37)}
         >
           {titleList.map((data: any, idx: number) => {
             return (
               <TitleLine
                 key={idx}
-                typo={match(type)
-                  .with("store-detail", () => typography.Headline4)
-                  .with("search-place", () => typography.Headline3)
-                  .with("mypage", () => typography.Headline3)
-                  .exhaustive()}
                 action={idx === props.currentIndex}
+                typo={match(type)
+                  .with("store-detail", () => "Headline4")
+                  .with("search-place", () => "Headline3")
+                  .with("mypage", () => "Headline3")
+                  .otherwise(() => "Headline4")}
                 onClick={() => {
                   props.setCurrentIndex(idx);
                   const middle = props.currentIndex - idx;
@@ -88,7 +88,7 @@ const TopNavigation = forwardRef(function (
             .with("store-detail", () => 38)
             .with("search-place", () => 34)
             .with("mypage", () => 35)
-            .exhaustive()}
+            .otherwise(() => 38)}
         />
       )}
       <Spacing
@@ -96,7 +96,7 @@ const TopNavigation = forwardRef(function (
           .with("store-detail", () => 30)
           .with("search-place", () => 0)
           .with("mypage", () => 20)
-          .exhaustive()}
+          .otherwise(() => 30)}
       />
 
       <Swiper
@@ -133,7 +133,7 @@ const TitleLine = styled.div<{ typo: any; action: any }>`
 
   ${({ typo }) =>
     css`
-      ${typo}
+      ${typography[typo]}
     `};
   color: ${({ action }) => (action ? colors.N100 : colors.N40)};
 `;
