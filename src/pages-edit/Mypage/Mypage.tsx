@@ -148,7 +148,14 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 280 - (390 - scrollHeight)) * 0.5
-                    : height - (515 - scrollHeight) > ((width - 60) * 9) / 8 + 108
+<<<<<<<<< Temporary merge branch 1
+                    : height - (515 - scrollHeight) >
+                      ((width - 60) * 9) / 8 + 108
+                    ? (height -
+                        (515 - scrollHeight) -
+=========
+                    : height - (550 - scrollHeight) >
+                      ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
