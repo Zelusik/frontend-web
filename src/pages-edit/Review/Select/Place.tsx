@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import useGetPlace from "hooks/queries/review/useGetPlace";
 import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
+import Icon from "components/Icon/Icon";
 
 const Place = () => {
   const router = useRouter();
@@ -37,41 +38,49 @@ const Place = () => {
 
   return (
     <PlaceWrapper>
-      <BackTitle type="black-left-text" text="음식점 선택" />
-      <ImageWrapper style={{ position: "relative" }}>
-        <Swiper
-          className="banner"
-          slidesPerView={1}
-          spaceBetween={20}
-          onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
-        >
-          {image.map((preview: any, index: number) => (
-            <SwiperSlide key={preview.preview}>
-              <Image alt="음식 사진" src={preview.preview} type="review" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
-      </ImageWrapper>
-      <Spacing size={10} />
-      <PlaceContainer>
-        <div style={typography.Headline5}>어느 음식점인가요?</div>
-        <Spacing size={20} />
-        <PlaceInputWrapper onClick={handleClickSearchPlace}>
-          <PlaceInput type="text" value={placeInfo.name} readOnly />
-          <ChevronRight />
-        </PlaceInputWrapper>
-      </PlaceContainer>
-      <BottomWrapper>
-        <BottomButton
-          text="다음으로"
-          radius={8}
-          color={colors.N0}
-          height="54px"
-          onClick={handleClickNextBtn}
-          disabled={false}
-        />
-      </BottomWrapper>
+      {isLoading ? (
+        <div className="icon">
+          <Icon icon="Loading" />
+        </div>
+      ) : (
+        <>
+          <BackTitle type="black-left-text" text="음식점 선택" />
+          <ImageWrapper style={{ position: "relative" }}>
+            <Swiper
+              className="banner"
+              slidesPerView={1}
+              spaceBetween={20}
+              onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
+            >
+              {image.map((preview: any, index: number) => (
+                <SwiperSlide key={preview.preview}>
+                  <Image alt="음식 사진" src={preview.preview} type="review" />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
+          </ImageWrapper>
+          <Spacing size={10} />
+          <PlaceContainer>
+            <div style={typography.Headline5}>어느 음식점인가요?</div>
+            <Spacing size={20} />
+            <PlaceInputWrapper onClick={handleClickSearchPlace}>
+              <PlaceInput type="text" value={placeInfo.name} readOnly />
+              <ChevronRight />
+            </PlaceInputWrapper>
+          </PlaceContainer>
+          <BottomWrapper>
+            <BottomButton
+              text="다음으로"
+              radius={8}
+              color={colors.N0}
+              height="54px"
+              onClick={handleClickNextBtn}
+              disabled={false}
+            />
+          </BottomWrapper>
+        </>
+      )}
     </PlaceWrapper>
   );
 };
@@ -80,6 +89,14 @@ const PlaceWrapper = styled.div`
   position: relative;
   height: 100%;
   padding: 0 20px;
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+  }
 `;
 
 const ImageWrapper = styled.div`

@@ -15,7 +15,7 @@ import Spacing from "components/Spacing/Spacing";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { postReview } from "api/review";
 import { Route } from "constants/Route";
-import Icon from "components/Icon/Icon";
+import ReviewLoading from "./ReviewLoading";
 
 const Write = () => {
   const route = useRouter();
@@ -52,30 +52,7 @@ const Write = () => {
   return (
     <WriteWrapper>
       {isLoading ? (
-        <>
-          <BackTitle type="black-left-text" text="" />
-          <Spacing size={17} />
-          <div style={typography.Headline5}>
-            {route.query.state === "self" ? (
-              "글쓰기를 거의 완성했어요."
-            ) : (
-              <>
-                인공지능이
-                <br /> 글쓰기를 완성했어요.
-              </>
-            )}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "80%",
-            }}
-          >
-            <Icon icon="Loading" />
-          </div>
-        </>
+        <ReviewLoading type="review" />
       ) : (
         <>
           <BackTitle type="black-left-text" text="리뷰 작성" />
