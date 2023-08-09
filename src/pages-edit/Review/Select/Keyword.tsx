@@ -25,16 +25,22 @@ const Keyword = () => {
   const dispatch = useAppDispatch();
   const { isShowToast, openToast, closeToast } = useToast();
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [isRouteTransition, setIsRouteTransition] = useState(false);
 
   const { keywords, foodInfo } = useAppSelector((state) => state.review);
-
   const { isLoading } = useGetAutoReview(isButtonClicked);
 
   useEffect(() => {
     if (isButtonClicked && !isLoading) {
-      route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
+      setIsRouteTransition(true);
     }
   }, [isLoading, isButtonClicked]);
+
+  useEffect(() => {
+    if (isRouteTransition) {
+      route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "AI" } });
+    }
+  }, [isRouteTransition]);
 
   const handleCloseToast = () => {
     closeToast();
@@ -82,9 +88,10 @@ const Keyword = () => {
   const handleClickSelfBtn = () => {
     route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "self" } });
   };
+
   return (
     <KeywordWrapper>
-      {isLoading ? (
+      {isLoading || isRouteTransition ? (
         <ReviewLoading type="auto" />
       ) : (
         <>

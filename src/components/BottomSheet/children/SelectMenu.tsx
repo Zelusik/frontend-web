@@ -18,6 +18,7 @@ import { MenuTagType } from "types/image";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import useToast from "hooks/useToast";
 import { FoodType } from "types/review";
+import Loading from "components/Loading";
 
 const SelectMenu = () => {
   const dispatch = useAppDispatch();
@@ -117,7 +118,7 @@ const SelectMenu = () => {
   return (
     <SelectMenuWrapper height={height} isLoading={isLoading}>
       {isLoading ? (
-        <Icon icon="Loading" />
+        <Loading />
       ) : (
         <>
           <MenuContainer>
