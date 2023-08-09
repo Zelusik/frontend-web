@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "components/Image/Image";
 import { typography } from "constants/typography";
 import { useAppSelector } from "hooks/useReduxHooks";
@@ -25,11 +25,18 @@ const Place = () => {
   const { placeInfo } = useAppSelector((state) => state.review);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  const {} = useGetPlace();
+  const [isEnabled, setIsEnabled] = useState(false);
+  const { data, isLoading: placeLoading, error } = useGetPlace(isEnabled);
   const { isLoading } = useGetPlaceInfo(image);
 
+  useEffect(() => {
+    if (data && !placeLoading && !error) {
+      router.push(Route.REVIEW_MENU());
+    }
+  }, [data, placeLoading, error, router]);
+
   const handleClickNextBtn = () => {
-    router.push(Route.REVIEW_MENU());
+    setIsEnabled(true);
   };
 
   const handleClickSearchPlace = () => {
@@ -38,7 +45,7 @@ const Place = () => {
 
   return (
     <PlaceWrapper>
-      {isLoading ? (
+      {isLoading || placeLoading ? (
         <div className="icon">
           <Loading />
         </div>
@@ -95,7 +102,7 @@ const PlaceWrapper = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 9;
+    z-index: 999;
   }
 `;
 

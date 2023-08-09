@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import RoundButton from "components/Button/RoundButton";
-import Icon from "components/Icon/Icon";
 import Toast from "components/Toast/Toast";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -23,8 +22,9 @@ import Loading from "components/Loading";
 const SelectMenu = () => {
   const dispatch = useAppDispatch();
   const { height } = useDisplaySize();
-  const { data, isLoading } = useGetMenus();
+  const isEnabled = true;
 
+  const { data, isLoading } = useGetMenus(isEnabled);
   const { isShowToast, openToast, closeToast } = useToast();
 
   const handleCloseToast = () => {
