@@ -7,7 +7,7 @@ export const KakaoLogin = async (kakaoAccessToken: string) =>
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
 
-export const PostTerms = async (token: string, termsData: TermsType) =>
+export const PostTerms = async (token: any, termsData: TermsType) =>
   await client
     .post("/members/terms", termsData, {
       headers: { Authorization: `Bearer ${token}` },
@@ -15,7 +15,7 @@ export const PostTerms = async (token: string, termsData: TermsType) =>
     .then(({ data }) => data)
     .catch((err) => err.response);
 
-export const PutTaste = async (token: string, favoriteFoodCategories: string[]) =>
+export const PutTaste = async (token: any, favoriteFoodCategories: string[]) =>
   await client
     .put(
       "/members/favorite-food",
