@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-title-in-document-head */
 import { renderStatic } from "utils/renderer";
 import Document, {
   Html,
@@ -53,7 +52,6 @@ export default class CustomDocument extends Document {
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           />
-          <title>Eatery</title>
           <meta
             httpEquiv="Content-Security-Policy"
             content="upgrade-insecure-requests"

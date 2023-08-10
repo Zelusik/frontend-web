@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import wrapper from "store";
 import GlobalStyles from "./components/GlobalStyles";
 import { cache } from "@emotion/css";
@@ -9,6 +8,7 @@ import { Provider } from "react-redux";
 import { useAppSelector } from "hooks/useReduxHooks";
 import BottomSheet from "components/BottomSheet";
 import Alert from "components/Alert";
+import Head from "next/head";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
@@ -33,6 +33,9 @@ const MyApp = ({ Component, pageProps }: any) => {
   return (
     <CacheProvider value={cache}>
       <GlobalStyles />
+      <Head>
+        <title>Eatery</title>
+      </Head>
       <Hydrate state={pageProps.dehydratedState}>
         <Component {...pageProps} />
         {visible ? <BottomSheet /> : null}
