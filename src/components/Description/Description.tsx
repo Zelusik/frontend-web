@@ -5,7 +5,7 @@ import Text from "components/Text";
 import { useRef, useState } from "react";
 
 const Description = ({ text = "" }: any) => {
-  const contentRef = useRef(null);
+  const contentRef = useRef<any>(null);
   const onClick = (e: any) => {
     contentRef.current.classList.add("hide");
     setLimit(text.length);

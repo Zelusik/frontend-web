@@ -62,7 +62,7 @@ export default function Image({
 
 const ImageBox = styled.img<{
   ratio: number;
-  radius: number;
+  radius: string;
   objectFit: ObjectFitOption;
 }>`
   height: 100%;

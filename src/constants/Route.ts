@@ -35,6 +35,4 @@ export const Route: RouteType = {
 
   STORE_DETAIL: () => "/store-detail",
   IMAGE_DETAIL: () => "/image-detail",
-
-  EXAMPLE: () => "/example",
 };

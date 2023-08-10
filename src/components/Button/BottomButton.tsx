@@ -40,7 +40,7 @@ const BottomButton = forwardRef(function Button(
         color={match(type)
           .with("primary", () => "N0")
           .with("default", () => "N80")
-          .otherwise()}
+          .otherwise(() => "N0")}
       >
         {props.text}
         {children}

@@ -24,19 +24,19 @@ export default function Hashtag({
         .with("primary", () => "Orange100")
         .with("secondary", () => "N10")
         .with("default", () => "Orange100")
-        .otherwise()}
+        .otherwise(() => "Orange100")}
     >
       <Text
         typo={match(type)
           .with("primary", () => "Paragraph4")
           .with("secondary", () => "Paragraph4")
           .with("default", () => "Headline2")
-          .otherwise()}
+          .otherwise(() => "Paragraph4")}
         color={match(type)
           .with("primary", () => "N100")
           .with("secondary", () => "N100")
           .with("default", () => "Orange500")
-          .otherwise()}
+          .otherwise(() => "N100")}
         style={{
           height: "100%",
           margin: "auto",

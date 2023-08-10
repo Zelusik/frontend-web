@@ -96,10 +96,9 @@ const ImageBox = forwardRef(function Div({}, ref: any) {
   );
 });
 
-const FoodTagWrapper = styled.div<{ height: number }>`
+const FoodTagWrapper = styled.div`
   width: 100%;
   max-width: 820px;
-  height: ${({ height }) => height}px;
 
   position: fixed;
   top: 0;
