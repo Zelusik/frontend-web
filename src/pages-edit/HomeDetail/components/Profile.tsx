@@ -18,11 +18,10 @@ export default function Profile() {
         <div style={{ display: "flex" }} onClick={viewProfile}>
           <Menu style={{ marginRight: 10 }} typo={{}}>
             <Image
+              type="default"
               alt="프로필 사진"
               src="https://i.ibb.co/0Z6FNN7/60pt.png"
-              width={24}
-              height={24}
-              radius={10}
+              size={24}
             />
           </Menu>
           <Menu typo={typography.Paragraph5}>고작가</Menu>

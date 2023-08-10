@@ -83,7 +83,7 @@ const FilterInner = styled.div`
   overflow: auto;
 `;
 
-const ButtonWrapper = styled.div<{ marginRight: number }>`
+const ButtonWrapper = styled.div<{ marginRight: boolean }>`
   margin-right: ${({ marginRight }) => (marginRight ? `20px` : "6px")};
   display: flex;
 `;

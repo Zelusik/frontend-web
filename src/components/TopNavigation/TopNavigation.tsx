@@ -13,7 +13,7 @@ import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 
-const TopNavigation = forwardRef(function (
+const TopNavigation = forwardRef(function Div(
   {
     children,
     type = "store-detail",
@@ -22,7 +22,7 @@ const TopNavigation = forwardRef(function (
     titleList = [],
     ...props
   }: any,
-  ref
+  ref: any
 ) {
   const router = useRouter();
   const swiperRef = useRef<any>(null);

@@ -9,7 +9,6 @@ import useDisplaySize from "hooks/useDisplaySize";
 import { colors } from "constants/colors";
 import { globalValue } from "constants/globalValue";
 
-import Report from "./children/Report";
 import SelectMenu from "./children/SelectMenu";
 import RegisterMenu from "./children/RegisterMenu";
 import ReportStore from "./children/ReportStore";

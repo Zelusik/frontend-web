@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Image from "components/Image/Image";
@@ -36,13 +37,15 @@ const Menu = () => {
   const [prevMenuTag, setPrevMenuTag] = useState<MenuTagType>({}); // modifyMenuTag를 위해
 
   useEffect(() => {
-    if (image[currentSlideIndex].menuTag) {
-      menuTagRef.current = menuTagRef.current.slice(
-        0,
-        image[currentSlideIndex].menuTag.length
-      );
+    if (currentSlideIndex < image.length && image[currentSlideIndex]?.menuTag) {
+      if (image[currentSlideIndex] && image[currentSlideIndex].menuTag) {
+        menuTagRef.current = menuTagRef.current.slice(
+          0,
+          image[currentSlideIndex].menuTag.length
+        );
+      }
     }
-  }, [image[currentSlideIndex].menuTag]);
+  }, [image[currentSlideIndex]?.menuTag]);
 
   const transformData = (
     originalData: OriginalImageDataType[]
@@ -114,7 +117,7 @@ const Menu = () => {
     }
   };
 
-  const handleDeleteMenuTag = (menuTag: MenuTagType, index: number) => {
+  const handleDeleteMenuTag = (menuTag: any, index: number) => {
     dispatch(
       changeVisible({
         type: "bottomSheet",
@@ -203,9 +206,9 @@ const Menu = () => {
                 type="review"
                 onClick={(event: any) => handleClickImage(event, index)}
               />
-              {imageInfo.menuTag && (
+              {imageInfo?.menuTag && (
                 <>
-                  {imageInfo.menuTag.map((tag, idx) => (
+                  {imageInfo.menuTag.map((tag: any, idx: number) => (
                     <MenuTag
                       ref={(el) => (menuTagRef.current[idx] = el)}
                       key={tag.x}
@@ -241,7 +244,7 @@ const Menu = () => {
       <ExplanationWrapper>
         <div style={typography.Headline5}>메뉴의 이름은 무엇인가요?</div>
         <ExplanationBubble>
-          {image.map((e: any) => e.menuTag).flat()[0]
+          {image.length && image.map((e: any) => e.menuTag).flat()[0]
             ? "태그를 길게 눌러 위치를 옮길 수 있어요!"
             : "사진을 눌러 메뉴를 태그할 수 있어요!"}
         </ExplanationBubble>

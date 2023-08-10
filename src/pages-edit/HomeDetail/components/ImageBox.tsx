@@ -10,7 +10,7 @@ import FoodTagLine from "./FoodTagLine";
 import FoodTag from "./FoodTag";
 import ImageHashtag from "components/Share/ImageHashtag";
 
-const ImageBox = forwardRef(({}, ref) => {
+const ImageBox = forwardRef(function Div({}, ref: any) {
   const { width } = useDisplaySize();
   const [foodTagShow, setFoodTagShow] = useState(false);
   const imageDatas = [
@@ -96,10 +96,9 @@ const ImageBox = forwardRef(({}, ref) => {
   );
 });
 
-const FoodTagWrapper = styled.div<{ height: number }>`
+const FoodTagWrapper = styled.div`
   width: 100%;
   max-width: 820px;
-  height: ${({ height }) => height}px;
 
   position: fixed;
   top: 0;

@@ -1,14 +1,6 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import RoundButton from "components/Button/RoundButton";
-import Icon from "components/Icon";
-import Spacing from "components/Spacing";
 import Text from "components/Text";
-import { colors } from "constants/colors";
-import { commonWords } from "constants/commonWords";
-import { typography } from "constants/typography";
-import useAlert from "hooks/useAlert";
-import { useAppSelector } from "hooks/useReduxHooks";
 
 export default function WriteReview() {
   return (

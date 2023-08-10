@@ -49,7 +49,7 @@ export default function useBottomSheet({ ...props }: any) {
         value: false,
       })
     );
-    sheetInner.current!.style.setProperty("transform", `translateY(-${0}px)`);
+    sheetInner.current?.style.setProperty("transform", `translateY(-${0}px)`);
     setTimeout(() => {
       dispatch(
         changeVisible({
@@ -69,124 +69,126 @@ export default function useBottomSheet({ ...props }: any) {
     );
   }, []);
 
-  if (props.use) {
-    const metrics = useRef<BottomSheetMetrics>({
-      touchStart: {
-        sheetY: 0,
-        touchY: 0,
-      },
-      touchMove: {
-        prevTouchY: 0,
-        moveTouchY: 0,
-        movingDirection: "none",
-      },
-      isContentAreaTouched: false,
-    });
+  // if (props.use) {
+  const metrics = useRef<BottomSheetMetrics>({
+    touchStart: {
+      sheetY: 0,
+      touchY: 0,
+    },
+    touchMove: {
+      prevTouchY: 0,
+      moveTouchY: 0,
+      movingDirection: "none",
+    },
+    isContentAreaTouched: false,
+  });
 
-    useEffect(() => {
-      const BOTTOMSHEET_BACKGROUND =
-        window.innerHeight - props.BOTTOMSHEET_HEIGHT;
+  useEffect(() => {
+    const BOTTOMSHEET_BACKGROUND = window.innerHeight - props.BOTTOMSHEET_HEIGHT;
 
-      const handleTouchStart = (e: TouchEvent) => {
-        const { touchStart } = metrics.current;
-        touchStart.sheetY = sheet.current!.getBoundingClientRect().y;
-        touchStart.touchY = e.touches[0].clientY;
+    const handleTouchStart = (e: TouchEvent) => {
+      const { touchStart } = metrics.current;
+      if (sheet.current) {
+        touchStart.sheetY = sheet.current.getBoundingClientRect().y;
+      }
+      touchStart.touchY = e.touches[0].clientY;
 
-        if (
-          touchStart.sheetY < touchStart.touchY &&
-          touchStart.touchY < touchStart.sheetY + 20
-        )
-          metrics.current.isContentAreaTouched = true;
-      };
+      if (
+        touchStart.sheetY < touchStart.touchY &&
+        touchStart.touchY < touchStart.sheetY + 20
+      )
+        metrics.current.isContentAreaTouched = true;
+    };
 
-      const handleTouchMove = (e: TouchEvent) => {
-        const { touchStart, touchMove, isContentAreaTouched } = metrics.current;
-        const currentTouch = e.touches[0].clientY;
-        touchMove.moveTouchY = currentTouch;
-        const currentTouchMove = touchMove.moveTouchY - BOTTOMSHEET_BACKGROUND;
+    const handleTouchMove = (e: any) => {
+      const { touchStart, touchMove, isContentAreaTouched } = metrics.current;
+      const currentTouch = e.touches[0].clientY;
+      touchMove.moveTouchY = currentTouch;
+      const currentTouchMove = touchMove.moveTouchY - BOTTOMSHEET_BACKGROUND;
 
-        if (touchMove.prevTouchY === undefined || touchMove.prevTouchY === 0) {
-          touchMove.prevTouchY = touchStart.touchY;
-        }
+      if (touchMove.prevTouchY === undefined || touchMove.prevTouchY === 0) {
+        touchMove.prevTouchY = touchStart.touchY;
+      }
 
-        if (touchMove.prevTouchY > touchMove.moveTouchY) {
-          touchMove.movingDirection = "up";
-        }
-        if (touchMove.prevTouchY < touchMove.moveTouchY) {
-          touchMove.movingDirection = "down";
-        }
+      if (touchMove.prevTouchY > touchMove.moveTouchY) {
+        touchMove.movingDirection = "up";
+      }
+      if (touchMove.prevTouchY < touchMove.moveTouchY) {
+        touchMove.movingDirection = "down";
+      }
 
-        if (isContentAreaTouched && currentTouchMove > 0) {
-          e.preventDefault();
-          document.body.style.overflowY = "hidden";
+      if (isContentAreaTouched && currentTouchMove > 0) {
+        e.preventDefault();
+        document.body.style.overflowY = "hidden";
 
-          moveBottomSheet(
-            -(currentTouchMove - props.BOTTOMSHEET_HEIGHT) /
-              props.BOTTOMSHEET_HEIGHT
-          );
-          sheet.current!.style.setProperty(
-            "transform",
-            `translateY(${currentTouchMove - props.BOTTOMSHEET_HEIGHT}px)`
-          );
-        } else if (
-          content.current!.scrollTop <= 0 &&
-          touchMove.movingDirection === "down"
-        ) {
-          const move = touchMove.moveTouchY - touchStart.touchY;
+        moveBottomSheet(
+          -(currentTouchMove - props.BOTTOMSHEET_HEIGHT) / props.BOTTOMSHEET_HEIGHT
+        );
+        sheet.current?.style.setProperty(
+          "transform",
+          `translateY(${currentTouchMove - props.BOTTOMSHEET_HEIGHT}px)`
+        );
+      } else if (
+        content.current?.scrollTop &&
+        content.current?.scrollTop <= 0 &&
+        touchMove.movingDirection === "down"
+      ) {
+        const move = touchMove.moveTouchY - touchStart.touchY;
 
-          sheet.current!.style.setProperty(
-            "transform",
-            `translateY(${move - props.BOTTOMSHEET_HEIGHT}px)`
-          );
-          moveBottomSheet(
-            -(move - props.BOTTOMSHEET_HEIGHT) / props.BOTTOMSHEET_HEIGHT
-          );
-        }
-      };
+        sheet.current?.style.setProperty(
+          "transform",
+          `translateY(${move - props.BOTTOMSHEET_HEIGHT}px)`
+        );
+        moveBottomSheet(
+          -(move - props.BOTTOMSHEET_HEIGHT) / props.BOTTOMSHEET_HEIGHT
+        );
+      }
+    };
 
-      const handleTouchEnd = (e: TouchEvent) => {
-        document.body.style.overflowY = "auto";
-        const { touchMove, isContentAreaTouched } = metrics.current;
-        const currentTouchMove = touchMove.moveTouchY - BOTTOMSHEET_BACKGROUND;
+    const handleTouchEnd = (e: TouchEvent) => {
+      document.body.style.overflowY = "auto";
+      const { touchMove, isContentAreaTouched } = metrics.current;
+      const currentTouchMove = touchMove.moveTouchY - BOTTOMSHEET_BACKGROUND;
 
-        if (isContentAreaTouched) {
-          e.preventDefault();
-          if (currentTouchMove > props.BOTTOMSHEET_HEIGHT * 0.2) {
-            closeBottomSheet(sheet);
-            sheet.current!.style.setProperty("transform", `translateY(0)`);
-          } else {
-            sheet.current!.style.setProperty(
-              "transform",
-              `translateY(${-props.BOTTOMSHEET_HEIGHT}px)`
-            );
-          }
-        } else if (
-          content.current!.scrollTop <= 0 &&
-          touchMove.movingDirection === "down"
-        ) {
+      if (isContentAreaTouched) {
+        e.preventDefault();
+        if (currentTouchMove > props.BOTTOMSHEET_HEIGHT * 0.2) {
           closeBottomSheet(sheet);
-          sheet.current!.style.setProperty("transform", `translateY(0)`);
+          sheet.current?.style.setProperty("transform", `translateY(0)`);
+        } else {
+          sheet.current?.style.setProperty(
+            "transform",
+            `translateY(${-props.BOTTOMSHEET_HEIGHT}px)`
+          );
         }
+      } else if (
+        content.current?.scrollTop &&
+        content.current?.scrollTop <= 0 &&
+        touchMove.movingDirection === "down"
+      ) {
+        closeBottomSheet(sheet);
+        sheet.current?.style.setProperty("transform", `translateY(0)`);
+      }
 
-        metrics.current = {
-          touchStart: {
-            sheetY: 0,
-            touchY: 0,
-          },
-          touchMove: {
-            prevTouchY: 0,
-            moveTouchY: 0,
-            movingDirection: "none",
-          },
-          isContentAreaTouched: false,
-        };
+      metrics.current = {
+        touchStart: {
+          sheetY: 0,
+          touchY: 0,
+        },
+        touchMove: {
+          prevTouchY: 0,
+          moveTouchY: 0,
+          movingDirection: "none",
+        },
+        isContentAreaTouched: false,
       };
+    };
 
-      sheet.current!.addEventListener("touchstart", handleTouchStart);
-      sheet.current!.addEventListener("touchmove", handleTouchMove);
-      sheet.current!.addEventListener("touchend", handleTouchEnd);
-    }, []);
-  }
+    sheet.current?.addEventListener("touchstart", handleTouchStart);
+    sheet.current?.addEventListener("touchmove", handleTouchMove);
+    sheet.current?.addEventListener("touchend", handleTouchEnd);
+  }, []);
+  // }
 
   return {
     sheet,

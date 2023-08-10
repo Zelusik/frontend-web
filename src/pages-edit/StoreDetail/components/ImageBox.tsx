@@ -12,7 +12,7 @@ import { Route } from "constants/Route";
 import { css } from "@emotion/react";
 import { typography } from "constants/typography";
 
-const ImageBox = forwardRef(({ images }: any, ref) => {
+const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   const router = useRouter();
   const { width } = useDisplaySize();
   const handleClickImage = () => {
