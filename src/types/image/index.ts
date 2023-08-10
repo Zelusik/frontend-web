@@ -3,8 +3,8 @@ export interface ImageType {
   lat?: string;
   lng?: string;
   preview?: string; // 사진 선택 시 URL.createObjectURL로 추출한 미리보기 정보
-  menuTag?: MenuTagType[];
-  [key: string]: string | MenuTagType[] | undefined;
+  menuTag?: any;
+  [key: string]: string | any | undefined;
 }
 
 export interface MenuTagType {

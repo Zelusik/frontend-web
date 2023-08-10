@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
-  type: "location" | "store" | "default";
+  type: any;
   filterAction: boolean;
   foodType: any[];
   dayOfWeek: any[];
