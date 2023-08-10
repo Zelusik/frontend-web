@@ -72,10 +72,10 @@ const MenuWrapper = styled.div<{
 }>`
   height: 40px;
   margin-left: ${({ marginLeft, side }) => (marginLeft ? `${side}px` : "0")};
-  margin-right: ${({ marginRight, side }) =>
-    marginRight ? `${side}px` : "6px"};
+  margin-right: ${({ marginRight, side }) => (marginRight ? `${side}px` : "6px")};
   padding: 0 12px;
   display: inline-block;
   border-radius: 40px;
   background-color: ${({ backgroundColor }) => colors[backgroundColor]};
+  white-space: nowrap;
 `;

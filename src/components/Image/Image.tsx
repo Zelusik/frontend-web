@@ -34,6 +34,7 @@ export default function Image({
         .with("map-bottom-sheet", () => "100%")
         .with("mypage-review", () => "100%")
         .with("review", () => "100%")
+        .with("mark", () => "100%")
         .with("default", () => size)
         .otherwise(() => "100%")}
       ratio={match(type)
@@ -43,6 +44,7 @@ export default function Image({
         .with("map-bottom-sheet", () => 55 / 32)
         .with("mypage-review", () => 157 / 170)
         .with("review", () => 1.14)
+        .with("mark", () => 310 / 195)
         .with("default", () => 1)
         .otherwise(() => 1)}
       radius={match(type)
@@ -52,6 +54,7 @@ export default function Image({
         .with("map-bottom-sheet", () => "0")
         .with("mypage-review", () => "12px")
         .with("review", () => "12px")
+        .with("mark", () => "12px")
         .with("default", () => "38%")
         .otherwise(() => "0")}
       objectFit={objectFit}
@@ -62,7 +65,7 @@ export default function Image({
 
 const ImageBox = styled.img<{
   ratio: number;
-  radius: number;
+  radius: string;
   objectFit: ObjectFitOption;
 }>`
   height: 100%;
