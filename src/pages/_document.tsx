@@ -52,10 +52,6 @@ export default class CustomDocument extends Document {
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           />
-          <meta
-            httpEquiv="Content-Security-Policy"
-            content="upgrade-insecure-requests"
-          />
           <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
         </Head>
         <body>
