@@ -20,7 +20,7 @@ export default function Home() {
       <HomeWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         <Spacing size={70} />
         <Text typo="Headline6" color="N100">
-          오늘은
+          Eze Test 오늘은
           <br />
           어디로 갈까요?
         </Text>
