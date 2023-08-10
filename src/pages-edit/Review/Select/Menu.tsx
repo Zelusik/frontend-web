@@ -205,7 +205,7 @@ const Menu = () => {
               />
               {imageInfo.menuTag && (
                 <>
-                  {imageInfo.menuTag.map((tag, idx) => (
+                  {imageInfo.menuTag.map((tag: any, idx: number) => (
                     <MenuTag
                       ref={(el) => (menuTagRef.current[idx] = el)}
                       key={tag.x}

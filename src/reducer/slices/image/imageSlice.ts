@@ -42,7 +42,7 @@ export const imageSlice = createSlice({
     ) => {
       const { index, menuTag } = payload;
       state[index].menuTag = state[index].menuTag.filter(
-        (tag) =>
+        (tag: any) =>
           !(tag.x === menuTag.x && tag.y === menuTag.y && tag.menu === menuTag.menu)
       );
     },
@@ -59,7 +59,7 @@ export const imageSlice = createSlice({
       }
     ) => {
       const { index, prevMenuTag, currMenuTag } = payload;
-      state[index].menuTag = state[index].menuTag.map((tag) => {
+      state[index].menuTag = state[index].menuTag.map((tag: any) => {
         if (
           tag.x === prevMenuTag.x &&
           tag.y === prevMenuTag.y &&

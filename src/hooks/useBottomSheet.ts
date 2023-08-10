@@ -88,7 +88,9 @@ export default function useBottomSheet({ ...props }: any) {
 
     const handleTouchStart = (e: TouchEvent) => {
       const { touchStart } = metrics.current;
-      touchStart.sheetY = sheet.current?.getBoundingClientRect().y;
+      if (sheet.current) {
+        touchStart.sheetY = sheet.current.getBoundingClientRect().y;
+      }
       touchStart.touchY = e.touches[0].clientY;
 
       if (
@@ -98,7 +100,7 @@ export default function useBottomSheet({ ...props }: any) {
         metrics.current.isContentAreaTouched = true;
     };
 
-    const handleTouchMove = (e: TouchEvent) => {
+    const handleTouchMove = (e: any) => {
       const { touchStart, touchMove, isContentAreaTouched } = metrics.current;
       const currentTouch = e.touches[0].clientY;
       touchMove.moveTouchY = currentTouch;
@@ -127,6 +129,7 @@ export default function useBottomSheet({ ...props }: any) {
           `translateY(${currentTouchMove - props.BOTTOMSHEET_HEIGHT}px)`
         );
       } else if (
+        content.current?.scrollTop &&
         content.current?.scrollTop <= 0 &&
         touchMove.movingDirection === "down"
       ) {
@@ -159,6 +162,7 @@ export default function useBottomSheet({ ...props }: any) {
           );
         }
       } else if (
+        content.current?.scrollTop &&
         content.current?.scrollTop <= 0 &&
         touchMove.movingDirection === "down"
       ) {
