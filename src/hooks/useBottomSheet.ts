@@ -49,7 +49,7 @@ export default function useBottomSheet({ ...props }: any) {
         value: false,
       })
     );
-    sheetInner.current!.style.setProperty("transform", `translateY(-${0}px)`);
+    sheetInner.current?.style.setProperty("transform", `translateY(-${0}px)`);
     setTimeout(() => {
       dispatch(
         changeVisible({
@@ -84,12 +84,11 @@ export default function useBottomSheet({ ...props }: any) {
   });
 
   useEffect(() => {
-    const BOTTOMSHEET_BACKGROUND =
-      window.innerHeight - props.BOTTOMSHEET_HEIGHT;
+    const BOTTOMSHEET_BACKGROUND = window.innerHeight - props.BOTTOMSHEET_HEIGHT;
 
     const handleTouchStart = (e: TouchEvent) => {
       const { touchStart } = metrics.current;
-      touchStart.sheetY = sheet.current!.getBoundingClientRect().y;
+      touchStart.sheetY = sheet.current?.getBoundingClientRect().y;
       touchStart.touchY = e.touches[0].clientY;
 
       if (
@@ -121,20 +120,19 @@ export default function useBottomSheet({ ...props }: any) {
         document.body.style.overflowY = "hidden";
 
         moveBottomSheet(
-          -(currentTouchMove - props.BOTTOMSHEET_HEIGHT) /
-            props.BOTTOMSHEET_HEIGHT
+          -(currentTouchMove - props.BOTTOMSHEET_HEIGHT) / props.BOTTOMSHEET_HEIGHT
         );
-        sheet.current!.style.setProperty(
+        sheet.current?.style.setProperty(
           "transform",
           `translateY(${currentTouchMove - props.BOTTOMSHEET_HEIGHT}px)`
         );
       } else if (
-        content.current!.scrollTop <= 0 &&
+        content.current?.scrollTop <= 0 &&
         touchMove.movingDirection === "down"
       ) {
         const move = touchMove.moveTouchY - touchStart.touchY;
 
-        sheet.current!.style.setProperty(
+        sheet.current?.style.setProperty(
           "transform",
           `translateY(${move - props.BOTTOMSHEET_HEIGHT}px)`
         );
@@ -153,19 +151,19 @@ export default function useBottomSheet({ ...props }: any) {
         e.preventDefault();
         if (currentTouchMove > props.BOTTOMSHEET_HEIGHT * 0.2) {
           closeBottomSheet(sheet);
-          sheet.current!.style.setProperty("transform", `translateY(0)`);
+          sheet.current?.style.setProperty("transform", `translateY(0)`);
         } else {
-          sheet.current!.style.setProperty(
+          sheet.current?.style.setProperty(
             "transform",
             `translateY(${-props.BOTTOMSHEET_HEIGHT}px)`
           );
         }
       } else if (
-        content.current!.scrollTop <= 0 &&
+        content.current?.scrollTop <= 0 &&
         touchMove.movingDirection === "down"
       ) {
         closeBottomSheet(sheet);
-        sheet.current!.style.setProperty("transform", `translateY(0)`);
+        sheet.current?.style.setProperty("transform", `translateY(0)`);
       }
 
       metrics.current = {
@@ -182,9 +180,9 @@ export default function useBottomSheet({ ...props }: any) {
       };
     };
 
-    sheet.current!.addEventListener("touchstart", handleTouchStart);
-    sheet.current!.addEventListener("touchmove", handleTouchMove);
-    sheet.current!.addEventListener("touchend", handleTouchEnd);
+    sheet.current?.addEventListener("touchstart", handleTouchStart);
+    sheet.current?.addEventListener("touchmove", handleTouchMove);
+    sheet.current?.addEventListener("touchend", handleTouchEnd);
   }, []);
   // }
 
