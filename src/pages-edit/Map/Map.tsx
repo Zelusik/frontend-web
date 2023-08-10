@@ -73,6 +73,7 @@ export default function Map() {
             {filterSelection.map((data: any, idx: number) => {
               return (
                 <FilterSelection
+                  key={idx}
                   type={data.type}
                   text={data.text}
                   textList={data.textList}

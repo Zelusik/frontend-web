@@ -10,7 +10,7 @@ import FoodTagLine from "./FoodTagLine";
 import FoodTag from "./FoodTag";
 import ImageHashtag from "components/Share/ImageHashtag";
 
-const ImageBox = forwardRef(({}, ref) => {
+const ImageBox = forwardRef(function Div({}, ref: any) {
   const { width } = useDisplaySize();
   const [foodTagShow, setFoodTagShow] = useState(false);
   const imageDatas = [

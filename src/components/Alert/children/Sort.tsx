@@ -21,7 +21,7 @@ export default function Sort() {
           const action = sortId === idx + 1;
 
           return (
-            <SortInner onClick={() => sortIdChange(idx)}>
+            <SortInner key={idx} onClick={() => sortIdChange(idx)}>
               <Text typo="Paragraph6" color={action ? "Orange600" : "N100"}>
                 {data.val}
               </Text>

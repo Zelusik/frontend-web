@@ -25,7 +25,7 @@ export default function ReviewList({ type = "mypage", datas }: any) {
     <ReviewWrapper>
       {datas.map((data: any, idx: number) => {
         return (
-          <ReviewInner width={(width - 46) / 2} onClick={clickReview}>
+          <ReviewInner key={idx} width={(width - 46) / 2} onClick={clickReview}>
             <Image
               alt="리뷰 사진"
               src="https://i.ibb.co/0Z6FNN7/60pt.png"
