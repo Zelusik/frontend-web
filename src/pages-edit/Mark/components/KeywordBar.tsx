@@ -2,23 +2,32 @@ import styled from "@emotion/styled";
 import Spacing from "components/Spacing/Spacing";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
 import React, { useState } from "react";
 
 const KeywordBar = () => {
-  const keywordData = ["전체", "분당구", "한식", "스테이크,립", "홍대", "연남"];
+  const { data } = useGetMarkKeywords();
+  const keywordsWithAll = data && [
+    {
+      keyword: "전체",
+      type: "",
+    },
+    ...data.keywords,
+  ];
   const [clicked, setClicked] = useState("전체");
   return (
     <KeywordBarWrapper>
       <div className="keyword-container">
-        {keywordData.map((keyword) => (
-          <Keyword
-            key={keyword}
-            clicked={clicked === keyword}
-            onClick={() => setClicked(keyword)}
-          >
-            {keyword}
-          </Keyword>
-        ))}
+        {data &&
+          keywordsWithAll.map((keywordInfo: { keyword: string; type: string }) => (
+            <Keyword
+              key={keywordInfo.keyword}
+              clicked={clicked === keywordInfo.keyword}
+              onClick={() => setClicked(keywordInfo.keyword)}
+            >
+              {keywordInfo.keyword}
+            </Keyword>
+          ))}
       </div>
       <Spacing size={16} />
     </KeywordBarWrapper>
