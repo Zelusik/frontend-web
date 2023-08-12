@@ -3,10 +3,14 @@ import Spacing from "components/Spacing/Spacing";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const KeywordBar = () => {
+  const router = useRouter();
+  const { query } = useRouter();
   const { data } = useGetMarkKeywords();
+
   const keywordsWithAll = data && [
     {
       keyword: "전체",
@@ -14,7 +18,21 @@ const KeywordBar = () => {
     },
     ...data.keywords,
   ];
-  const [clicked, setClicked] = useState("전체");
+  const [clicked, setClicked] = useState(query.keyword || "전체");
+  const handleFilteringKeyword = async (keywordInfo: {
+    keyword: string;
+    type: string;
+  }) => {
+    setClicked(keywordInfo.keyword);
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        type: keywordInfo.type,
+        keyword: keywordInfo.keyword,
+      },
+    });
+  };
   return (
     <KeywordBarWrapper>
       <div className="keyword-container">
@@ -23,7 +41,7 @@ const KeywordBar = () => {
             <Keyword
               key={keywordInfo.keyword}
               clicked={clicked === keywordInfo.keyword}
-              onClick={() => setClicked(keywordInfo.keyword)}
+              onClick={() => handleFilteringKeyword(keywordInfo)}
             >
               {keywordInfo.keyword}
             </Keyword>

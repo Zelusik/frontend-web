@@ -5,46 +5,29 @@ import MarkHeader from "./components/MarkHeader";
 import KeywordBar from "./components/KeywordBar";
 import SortingHeader from "./components/SortingHeader";
 import FoodComponents from "./components/FoodComponents";
+import useGetMarkPlaces from "hooks/queries/mark/useGetMarkPlaces";
 
 export default function Mark() {
   const router = useRouter();
+  const { data } = useGetMarkPlaces();
 
-  const placeInfo = [
-    {
-      name: "소이연남",
-      category: "음식카테고리",
-      region: "지역",
-      keyword: ["단체모임에 딱", "데이트에 최고", "웨이팅 있음"],
-      images: [
-        "https://eatery-s3-dev.s3.ap-northeast-2.amazonaws.com/review/thumbnail/f2922855-cb99-4b8e-8aa7-59350b1ae6a6.png",
-        "https://eatery-s3-dev.s3.ap-northeast-2.amazonaws.com/review/thumbnail/2bdb402c-f55a-431f-a54d-7b020912b472.png",
-      ],
-    },
-    {
-      name: "소이연남",
-      category: "음식카테고리",
-      region: "지역",
-    },
-    {
-      name: "소이연남",
-      category: "음식카테고리",
-      region: "지역",
-      keyword: ["단체모임에 딱", "데이트에 최고", "웨이팅 있음"],
-    },
-  ];
   return (
     <>
-      <MarkWrapper>
-        <MarkHeader />
-        <KeywordBar />
-        <SortingHeader count={placeInfo.length} />
-        <div className="place-box">
-          {placeInfo.map((foodInfo, index) => (
-            <FoodComponents key={index} foodInfo={foodInfo} />
-          ))}
-        </div>
-      </MarkWrapper>
-      <BottomNavigation />
+      {data && (
+        <>
+          <MarkWrapper>
+            <MarkHeader />
+            <KeywordBar />
+            <SortingHeader count={data.numOfElements} />
+            <div className="place-box">
+              {data.contents.map((placeInfo: any) => (
+                <FoodComponents key={placeInfo.id} placeInfo={placeInfo} />
+              ))}
+            </div>
+          </MarkWrapper>
+          <BottomNavigation />
+        </>
+      )}
     </>
   );
 }

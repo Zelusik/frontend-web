@@ -11,17 +11,17 @@ import Icon from "components/Icon/Icon";
 import Hashtag from "components/Hashtags/Hashtag";
 import { useRouter } from "next/router";
 
-const FoodComponents = ({ foodInfo }: { foodInfo: any }) => {
+const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const hasImage = foodInfo.images ? true : false;
+  const hasImage = placeInfo.images ? true : false;
 
   const handleClickPlace = () => {
     router.push("/store-detail");
   };
   return (
     <FoodComponentWrapper hasImage={hasImage} onClick={handleClickPlace}>
-      {foodInfo.images && (
+      {placeInfo.images && (
         <ImageWrapper style={{ position: "relative" }}>
           <Swiper
             className="banner"
@@ -29,32 +29,32 @@ const FoodComponents = ({ foodInfo }: { foodInfo: any }) => {
             spaceBetween={20}
             onSlideChange={(swiper: any) => setCurrentSlideIndex(swiper.activeIndex)}
           >
-            {foodInfo.images.map((image: string, index: number) => (
-              <SwiperSlide key={image}>
-                <Image src={image} alt="음식 사진" type="mark" />
+            {placeInfo.images.map((image: any, index: number) => (
+              <SwiperSlide key={index}>
+                <Image src={image.thumbnailUrl} alt="음식 사진" type="mark" />
               </SwiperSlide>
             ))}
           </Swiper>
           <ImageBadge>{`${currentSlideIndex + 1}/${
-            foodInfo.images.length
+            placeInfo.images.length
           }`}</ImageBadge>
         </ImageWrapper>
       )}
       <PlaceInfo hasImage={hasImage}>
         <div className="place">
           <Text typo="Headline4" color="N100">
-            {foodInfo.name}
+            {placeInfo.name}
           </Text>
           <Text
             typo="Paragraph1"
             color="N60"
-          >{`${foodInfo.category} · ${foodInfo.region}`}</Text>
+          >{`${placeInfo.category} · ${placeInfo.address.sido} ${placeInfo.address.sgg}`}</Text>
         </div>
         <Icon icon="Heart" />
       </PlaceInfo>
-      {foodInfo.keywords && (
+      {placeInfo.keywords && (
         <KeywordBox>
-          {foodInfo.keywords.map((keyword: string) => (
+          {placeInfo.keywords.map((keyword: string) => (
             <Hashtag key={keyword} type="primary" text={keyword} />
           ))}
         </KeywordBox>
