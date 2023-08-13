@@ -28,8 +28,8 @@ export default function Image({
       alt={alt}
       src={src}
       width={match(type)
-        .with("home-detail", () => "100%")
         .with("store-detail", () => "100%")
+        .with("review-detail", () => "100%")
         .with("home", () => "100%")
         .with("map-bottom-sheet", () => "100%")
         .with("mypage-review", () => "100%")
@@ -38,8 +38,8 @@ export default function Image({
         .with("default", () => size)
         .otherwise(() => "100%")}
       ratio={match(type)
-        .with("home-detail", () => 1)
-        .with("store-detail", () => 360 / 281)
+        .with("store-detail", () => 1)
+        .with("review-detail", () => 360 / 281)
         .with("home", () => 8 / 9)
         .with("map-bottom-sheet", () => 55 / 32)
         .with("mypage-review", () => 157 / 170)
@@ -48,8 +48,8 @@ export default function Image({
         .with("default", () => 1)
         .otherwise(() => 1)}
       radius={match(type)
-        .with("home-detail", () => "0")
         .with("store-detail", () => "0")
+        .with("review-detail", () => "0")
         .with("home", () => "20px")
         .with("map-bottom-sheet", () => "0")
         .with("mypage-review", () => "12px")

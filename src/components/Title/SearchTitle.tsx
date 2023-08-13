@@ -3,6 +3,7 @@ import LogoSvg from "assets/logo.svg";
 import Icon from "components/Icon";
 import Text from "components/Text";
 import { colors } from "constants/colors";
+import { globalValue } from "constants/globalValue";
 
 export default function SearchTitle({ type = "home", ...props }: any) {
   return (
@@ -30,6 +31,7 @@ export default function SearchTitle({ type = "home", ...props }: any) {
 
 const TitleWrapper = styled.div`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: 50px;
   padding: 0 15px;
 

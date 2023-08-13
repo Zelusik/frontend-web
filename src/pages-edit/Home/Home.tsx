@@ -43,7 +43,7 @@ const HomeWrapper = styled.div<{ height: number }>`
 const HomeDatas = [
   {
     id: 1,
-    profile: "https://i.ibb.co/0Z6FNN7/60pt.png",
+    profile: "https://i.ibb.co/2kSZX6Y/60pt.png",
     nickname: "고작가",
     time: 21,
     title: "소이연남",
@@ -51,11 +51,11 @@ const HomeDatas = [
     location: "지역",
     marked: true,
     following: true,
-    image: "https://i.ibb.co/0Z6FNN7/60pt.png",
+    image: "https://i.ibb.co/2kSZX6Y/60pt.png",
   },
   {
     id: 2,
-    profile: "https://i.ibb.co/0Z6FNN7/60pt.png",
+    profile: "https://i.ibb.co/2kSZX6Y/60pt.png",
     nickname: "고작가",
     time: 21,
     title: "소이연남",
@@ -63,11 +63,11 @@ const HomeDatas = [
     location: "지역",
     marked: true,
     following: true,
-    image: "https://i.ibb.co/0Z6FNN7/60pt.png",
+    image: "https://i.ibb.co/2kSZX6Y/60pt.png",
   },
   {
     id: 3,
-    profile: "https://i.ibb.co/0Z6FNN7/60pt.png",
+    profile: "https://i.ibb.co/2kSZX6Y/60pt.png",
     nickname: "고작가",
     time: 21,
     title: "소이연남",
@@ -75,6 +75,6 @@ const HomeDatas = [
     location: "지역",
     marked: true,
     following: true,
-    image: "https://i.ibb.co/0Z6FNN7/60pt.png",
+    image: "https://i.ibb.co/2kSZX6Y/60pt.png",
   },
 ];

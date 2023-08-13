@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Mypage/components/setting/DeleteProfile";
+export { default } from "pages-edit/mypage/components/setting/DeleteProfile";

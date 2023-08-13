@@ -41,7 +41,7 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
                   title="소이연남"
                   subTitle="음식 카테고리 지역"
                   onClick={() => {
-                    // router.push(Route.HOME_DETAIL());
+                    // router.push(Route.STORE_DETAIL());
                   }}
                 />
               </ImageWrapper>

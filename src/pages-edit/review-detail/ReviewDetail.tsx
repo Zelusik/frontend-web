@@ -17,9 +17,9 @@ import ImageBox from "./components/ImageBox";
 import { globalValue } from "constants/globalValue";
 
 const images = [
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
   "",
   // "",
 ];
@@ -139,7 +139,7 @@ export default function StoreDetail() {
           <Spacing size={40} />
 
           <TopNavigation
-            type="store-detail"
+            type="review-detail"
             scrollRef={scrollRef}
             scrollTop={
               images.length === 0

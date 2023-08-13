@@ -13,12 +13,12 @@ export default function ReviewList({ type = "mypage", datas }: any) {
   const clickReview = () => {
     switch (type) {
       case "mypage":
-        router.push(Route.HOME_DETAIL());
+        router.push(Route.STORE_DETAIL());
         break;
       case "recommand-best":
         break;
     }
-    // router.push(Route.HOME_DETAIL());
+    // router.push(Route.STORE_DETAIL());
   };
 
   return (
@@ -28,7 +28,7 @@ export default function ReviewList({ type = "mypage", datas }: any) {
           <ReviewInner key={idx} width={(width - 46) / 2} onClick={clickReview}>
             <Image
               alt="리뷰 사진"
-              src="https://i.ibb.co/0Z6FNN7/60pt.png"
+              src="https://i.ibb.co/2kSZX6Y/60pt.png"
               type="mypage-review"
             />
             <StoreTitle
@@ -36,7 +36,7 @@ export default function ReviewList({ type = "mypage", datas }: any) {
               title="소이연남"
               subTitle="음식 카테고리 지역"
               onClick={() => {
-                // router.push(Route.HOME_DETAIL());
+                // router.push(Route.STORE_DETAIL());
               }}
             />
             {type === "recommand-best" ? (

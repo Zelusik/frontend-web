@@ -17,10 +17,10 @@ export default function StoreBox({ id }: any) {
       <ImageWrapper>
         <Image
           alt="음식 사진"
-          src="https://i.ibb.co/0Z6FNN7/60pt.png"
+          src="https://i.ibb.co/2kSZX6Y/60pt.png"
           type="home"
           onClick={() => {
-            router.push(Route.HOME_DETAIL());
+            router.push(Route.STORE_DETAIL());
           }}
         />
         <StoreTitle
@@ -28,7 +28,7 @@ export default function StoreBox({ id }: any) {
           title="소이연남"
           subTitle="음식 카테고리 지역"
           onClick={() => {
-            router.push(Route.HOME_DETAIL());
+            router.push(Route.STORE_DETAIL());
           }}
         />
       </ImageWrapper>

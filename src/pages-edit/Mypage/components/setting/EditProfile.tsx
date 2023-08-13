@@ -75,7 +75,9 @@ const EditProfile = () => {
         );
       } else {
         const resizingBlob = await imageCompression(file, { maxSizeMB: 5 });
-        const resizedUrl = await imageCompression.getDataUrlFromFile(resizingBlob);
+        const resizedUrl = await imageCompression.getDataUrlFromFile(
+          resizingBlob
+        );
         dispatch(
           changeUserInfo({
             type: "image",
@@ -140,7 +142,7 @@ const EditProfile = () => {
                   value={user.birthDay}
                   onChange={handleChangeBirthday}
                 />
-                <Icon icon="Chevron" rotate={180} />
+                <Icon icon="RightArrow" rotate={180} />
               </div>
             </div>
             <div className="section">

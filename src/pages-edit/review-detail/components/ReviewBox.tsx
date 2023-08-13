@@ -19,9 +19,9 @@ export default function ReivewBox({ id }: any) {
 
       <SlideImage
         images={[
-          "https://i.ibb.co/0Z6FNN7/60pt.png",
-          "https://i.ibb.co/0Z6FNN7/60pt.png",
-          "https://i.ibb.co/0Z6FNN7/60pt.png",
+          "https://i.ibb.co/2kSZX6Y/60pt.png",
+          "https://i.ibb.co/2kSZX6Y/60pt.png",
+          "https://i.ibb.co/2kSZX6Y/60pt.png",
         ]}
       />
 

@@ -1,1 +1,1 @@
-export { default } from "../Mypage/Setting";
+export { default } from "../mypage/Setting";

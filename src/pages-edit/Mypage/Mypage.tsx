@@ -21,9 +21,9 @@ import { Route } from "constants/Route";
 import ReviewList from "./components/ReviewList";
 
 const RecommandDatas = [
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
 ];
 
 const ReviewDatas = [

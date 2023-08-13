@@ -36,7 +36,7 @@ export default function BackTitle({
           }
         >
           <Icon
-            icon="Arrow"
+            icon="LeftArrow"
             width={24}
             height={24}
             color={match(type)

@@ -33,7 +33,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
           {images.length > 0 ? (
             <Image
               alt="디테일 이미지"
-              type="home-detail"
+              type="store-detail"
               src={
                 images.length > 0
                   ? images[0]
@@ -56,7 +56,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
                   : (width * 281) / 360 / 2 - 1.5
               }
             >
-              <Image alt="디테일 이미지" type="store-detail" src={images[1]} />
+              <Image alt="디테일 이미지" type="review-detail" src={images[1]} />
             </ImageHorizonal>
             {images.length > 2 ? (
               <>
@@ -67,7 +67,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
                 >
                   <Image
                     alt="디테일 이미지"
-                    type="store-detail"
+                    type="review-detail"
                     src={images[2]}
                   />
                   {images.length > 3 ? (

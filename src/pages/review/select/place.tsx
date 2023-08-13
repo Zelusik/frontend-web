@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Review/Select/Place";
+export { default } from "pages-edit/review/Select/Place";

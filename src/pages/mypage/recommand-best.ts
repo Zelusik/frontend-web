@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Mypage/RecommandBest";
+export { default } from "pages-edit/mypage/RecommandBest";

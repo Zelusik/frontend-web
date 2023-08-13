@@ -121,7 +121,7 @@ const TermsPage = () => {
                 </div>
                 {term.link && (
                   <Link href={term.link} target="_blank">
-                    <Icon icon="Chevron" rotate={90} />
+                    <Icon icon="RightArrow" rotate={90} />
                   </Link>
                 )}
               </TermContainer>

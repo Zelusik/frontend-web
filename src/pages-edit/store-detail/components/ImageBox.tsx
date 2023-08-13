@@ -15,7 +15,7 @@ const ImageBox = forwardRef(function Div({}, ref: any) {
   const [foodTagShow, setFoodTagShow] = useState(false);
   const imageDatas = [
     {
-      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
+      src: "https://i.ibb.co/2kSZX6Y/60pt.png",
       hashtags: [
         { text: "똠얌칼국수", top: 10, left: 20 },
         { text: "똠얌칼국수", top: 20, left: 80 },
@@ -23,14 +23,14 @@ const ImageBox = forwardRef(function Div({}, ref: any) {
       ],
     },
     {
-      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
+      src: "https://i.ibb.co/2kSZX6Y/60pt.png",
       hashtags: [
         { text: "똠얌칼국수", top: 27, left: 31 },
         { text: "똠얌칼국수", top: 43, left: 87 },
       ],
     },
     {
-      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
+      src: "https://i.ibb.co/2kSZX6Y/60pt.png",
       hashtags: [
         { text: "똠얌칼국수", top: 20, left: 80 },
         { text: "똠얌칼국수", top: 60, left: 20 },

@@ -48,7 +48,7 @@ export default function Setting() {
               >
                 {setting.text}
                 <Icon
-                  icon="Chevron"
+                  icon="RightArrow"
                   width={24}
                   height={24}
                   color="N100"
@@ -72,7 +72,7 @@ export default function Setting() {
               >
                 {setting.text}
                 <Icon
-                  icon="Chevron"
+                  icon="RightArrow"
                   width={24}
                   height={24}
                   color="N100"

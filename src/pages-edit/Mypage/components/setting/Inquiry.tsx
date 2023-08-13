@@ -51,7 +51,10 @@ const Inquiry = () => {
               <Text typo="Paragraph4" color="N80">
                 {qa.question}
               </Text>
-              <Icon icon="Chevron" rotate={clickedArr.includes(idx) ? 0 : 180} />
+              <Icon
+                icon="RightArrow"
+                rotate={clickedArr.includes(idx) ? 0 : 180}
+              />
             </div>
             {clickedArr.includes(idx) && (
               <div className="answer-box">
