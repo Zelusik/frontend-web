@@ -1,1 +1,1 @@
-export { default } from "pages-edit/mark";
+export { default } from "pages-edit/Mark";

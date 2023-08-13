@@ -1,1 +1,1 @@
-export { default } from "pages-edit/image-detail";
+export { default } from "pages-edit/ImageDetail";

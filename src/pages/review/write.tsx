@@ -1,1 +1,1 @@
-export { default } from "pages-edit/review/components/Write";
+export { default } from "pages-edit/Review/components/Write";

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Text from "components/Text/Text";
-import StoreFilter from "pages-edit/map/components/StoreFilter";
+import StoreFilter from "pages-edit/Map/components/StoreFilter";
 import React from "react";
 
 const SortingHeader = ({ count }: { count: number }) => {

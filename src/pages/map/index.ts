@@ -1,1 +1,1 @@
-export { default } from "pages-edit/map";
+export { default } from "pages-edit/Map";

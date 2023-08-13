@@ -1,1 +1,1 @@
-export { default } from "pages-edit/mypage/components/setting/EditProfile";
+export { default } from "pages-edit/Mypage/components/setting/EditProfile";

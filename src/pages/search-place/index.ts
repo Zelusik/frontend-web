@@ -1,1 +1,1 @@
-export { default } from "pages-edit/search-place";
+export { default } from "pages-edit/SearchPlace";

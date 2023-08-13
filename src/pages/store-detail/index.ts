@@ -1,1 +1,1 @@
-export { default } from "pages-edit/store-detail";
+export { default } from "pages-edit/StoreDetail";

@@ -1,1 +1,1 @@
-export { default } from "pages-edit/mypage/components/setting/Announcement";
+export { default } from "pages-edit/Mypage/components/setting/Announcement";

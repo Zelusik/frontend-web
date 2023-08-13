@@ -1,1 +1,1 @@
-export { default } from "pages-edit/report";
+export { default } from "pages-edit/Report";
