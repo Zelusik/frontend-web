@@ -7,41 +7,45 @@ import Spacing from "components/Spacing";
 import ProfileTitle from "components/Title/ProfileTitle";
 import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
+import Text from "components/Text";
 
 export default function StoreCard({ id }: any) {
   const router = useRouter();
 
   return (
-    <BoxWrapper>
+    <Wrapper>
+      {/* 선호하는 음식이 아니라면 null */}
+      <Text typo="Paragraph1" color="N60">
+        내가 선호하는 음식 카테고리
+      </Text>
+      <Spacing size={6} />
+
       <ProfileTitle title="고작가" subTitle="움맘마" />
       <Spacing size={16} />
-      <ImageWrapper>
-        <Image
-          alt="음식 사진"
-          src="https://i.ibb.co/2kSZX6Y/60pt.png"
-          type="home"
-          onClick={() => {
-            router.push(Route.STORE_DETAIL());
-          }}
-        />
-        <StoreTitle
-          type="home"
-          title="소이연남"
-          subTitle="음식 카테고리 지역"
-          onClick={() => {
-            router.push(Route.STORE_DETAIL());
-          }}
-        />
-      </ImageWrapper>
-      <Spacing size={24} /> {/* 6 */}
-    </BoxWrapper>
+
+      <Image
+        alt="음식 사진"
+        src="https://i.ibb.co/2kSZX6Y/60pt.png"
+        type="home"
+        onClick={() => {
+          router.push(Route.STORE_DETAIL());
+        }}
+      />
+      <Spacing size={30} />
+
+      <StoreTitle
+        type="home"
+        title="소이연남"
+        subTitle="음식 카테고리 지역"
+        onClick={() => {
+          router.push(Route.STORE_DETAIL());
+        }}
+      />
+    </Wrapper>
   );
 }
 
-const BoxWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
-`;
-
-const ImageWrapper = styled.div`
   position: relative;
 `;

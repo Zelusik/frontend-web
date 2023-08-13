@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
 import { globalValue } from "constants/globalValue";
@@ -18,12 +17,14 @@ export default function Home() {
       <SearchTitle type="home" />
       <Wrapper height={height}>
         <Spacing size={70} />
+
         <Text typo="Headline6" color="N100">
           오늘은
           <br />
           어디로 갈까요?
         </Text>
         <Spacing size={30} />
+
         {HomeDatas.map((data: any) => {
           return <StoreCard key={data.id} id={0} />;
         })}
