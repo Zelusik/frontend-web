@@ -14,6 +14,7 @@ export default function Info() {
         영업 정보
       </Text>
       <Spacing size={18} />
+
       {["운영시간", "휴무일"].map((data: any, idx: number) => {
         return (
           <div key={idx}>
@@ -21,9 +22,11 @@ export default function Info() {
               <Text typo="Paragraph4" color="N80">
                 {data}
               </Text>
+
               <Text typo="Paragraph4" color="N100">
                 11:30-22:00 ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
               </Text>
+
               <IconWrapper>
                 <Copy />
               </IconWrapper>

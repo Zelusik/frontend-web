@@ -7,6 +7,10 @@ import Icon from "components/Icon";
 import Dots from "components/Button/IconButton/Dots";
 import Text from "components/Text";
 
+interface Props {
+  type: "white-dots" | "black-dots" | "white-left" | "black-left-text" | "map";
+}
+
 export default function BackTitle({
   type = "white-dots",
   text,
@@ -18,9 +22,9 @@ export default function BackTitle({
   };
 
   return (
-    <TitleWrapper>
+    <Wrapper>
       {type !== "black-x-button" ? (
-        <TitleInner
+        <Menu
           onClick={clickBack}
           style={
             type === "map"
@@ -48,9 +52,9 @@ export default function BackTitle({
               .otherwise(() => "N0")}
           />
           <Text typo="Headline5" color="N100" style={{ marginLeft: 6 }}>
-            {props.titleText}
+            {props.title}
           </Text>
-        </TitleInner>
+        </Menu>
       ) : (
         <Dummy />
       )}
@@ -65,8 +69,9 @@ export default function BackTitle({
 
       {type.split("-")[1] === "dots" ? (
         <Dots
-          type={type === "white-dots" ? "report-store" : "share-report"}
-          size={24}
+          type={
+            type.split("-")[0] === "white" ? "report-store" : "share-report"
+          }
           color={type === "white-dots" ? "N0" : "N80"}
         />
       ) : type === "black-x-button" ? (
@@ -76,11 +81,11 @@ export default function BackTitle({
       ) : (
         <Dummy />
       )}
-    </TitleWrapper>
+    </Wrapper>
   );
 }
 
-const TitleWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 50px;
 
@@ -89,7 +94,7 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const TitleInner = styled.div`
+const Menu = styled.div`
   display: flex;
   align-items: center;
 `;

@@ -43,7 +43,7 @@ const ReviewDatas = [
   "",
 ];
 
-export default function StoreDetail() {
+export default function ReviewDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
 
@@ -110,7 +110,7 @@ export default function StoreDetail() {
               ? "white-dots"
               : "black-left-text"
           }
-          titleText={titleChange && "소이연남"}
+          title={titleChange ? "소이연남" : undefined}
         />
       </BackTitleWrapper>
 
@@ -119,13 +119,11 @@ export default function StoreDetail() {
 
         <HomeDetailInner>
           <Spacing size={20} />
-          <div style={{ padding: "0 20px" }}>
-            <StoreTitle
-              type="detail"
-              title="소이연남"
-              subTitle="음식 카테고리 지역"
-            />
-          </div>
+          <StoreTitle
+            type="detail"
+            title="소이연남"
+            subTitle="음식 카테고리 지역"
+          />
 
           <Spacing size={16} />
           <Hashtags

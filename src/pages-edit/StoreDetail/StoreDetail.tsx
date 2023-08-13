@@ -1,9 +1,11 @@
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-
 import useDisplaySize from "hooks/useDisplaySize";
+import { globalValue } from "constants/globalValue";
+
+import KakaoMap from "components/Share/KakaoMap";
 import Spacing from "components/Spacing";
 import Info from "components/Share/Info";
 import Description from "components/Description";
@@ -13,13 +15,11 @@ import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
 import Hashtags from "components/Hashtags";
 
-import Profile from "./components/Profile";
+import Profile from "./components/ProfileTime";
 import ImageBox from "./components/ImageBox";
-import KakaoMap from "components/Share/KakaoMap";
 import ScaleUpButton from "./components/ScaleUpButton";
-import { globalValue } from "constants/globalValue";
 
-export default function HomeDetail() {
+export default function StoreDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
@@ -45,25 +45,23 @@ export default function HomeDetail() {
   return (
     <>
       <ImageBox ref={imageRef} />
-      <BackTitleWrapper visible={titleChange}>
+      <TitleWrapper visible={titleChange}>
         <BackTitle
           type={titleChange ? "black-left-text" : "white-dots"}
-          titleText={titleChange ? "소이연남" : null}
+          title={titleChange ? "소이연남" : undefined}
         />
-      </BackTitleWrapper>
+      </TitleWrapper>
 
-      <HomeDetailWrapper ref={scrollRef} height={height}>
+      <Wrapper ref={scrollRef} height={height}>
         <Spacing size={width + 4} />
-        <HomeDetailInner position="relative">
+        <ScrollWrapper>
           <Spacing size={20} />
-          <div style={{ padding: "0 20px" }}>
-            <StoreTitle
-              type="detail"
-              title="소이연남"
-              subTitle="음식 카테고리 지역"
-            />
-            <Spacing size={16} />
-          </div>
+          <StoreTitle
+            type="detail"
+            title="소이연남"
+            subTitle="음식 카테고리 지역"
+          />
+          <Spacing size={16} />
 
           <Hashtags
             hashtags={[
@@ -93,7 +91,7 @@ export default function HomeDetail() {
 
           <KakaoMapWrapper height={(width * 23) / 36}>
             <KakaoMap lat={33.450701} lng={126.570667} />
-            <MapBackground />
+            <NoTouch />
             <ScaleUpButton />
           </KakaoMapWrapper>
 
@@ -103,8 +101,8 @@ export default function HomeDetail() {
               return <Info key={idx} />;
             })}
           </div>
-        </HomeDetailInner>
-      </HomeDetailWrapper>
+        </ScrollWrapper>
+      </Wrapper>
     </>
   );
 }
@@ -120,43 +118,39 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const HomeDetailWrapper = styled.div<{ height: number }>`
+const TitleWrapper = styled.div<{ visible: boolean }>`
+  width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
+  padding: 0 20px;
+
+  position: fixed;
+  top: 0;
+
+  background-color: ${({ visible }) =>
+    visible ? `${colors.N0}` : `transparents`};
+  animation: ${(props) => fade(props.visible)} 0.3s forwards;
+  z-index: 900;
+`;
+
+const Wrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
   overflow-y: scroll;
   background-color: ${colors.N0};
 `;
 
-const HomeDetailInner = styled.div<{ position: any }>`
-  position: ${({ position }) => position};
+const ScrollWrapper = styled.div`
+  position: relative;
   background-color: ${colors.N0};
-`;
-
-const BackTitleWrapper = styled.div<{ visible: boolean }>`
-  width: 100%;
-  max-width: ${globalValue.MAX_WIDTH}px;
-  padding: 0 20px;
-  position: fixed;
-  top: 0;
-  z-index: 900;
-  background-color: ${({ visible }) =>
-    visible ? `${colors.N0}` : `transparents`};
-  animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
 
 const KakaoMapWrapper = styled.div<{ height: number }>`
   width: 100%;
   height: ${({ height }) => height}px;
   overflow: hidden;
-
   position: relative;
-
-  //
-  // position: absolute;
-  // top: 0;
-  // z-index: 900;
 `;
 
-const MapBackground = styled.div`
+const NoTouch = styled.div`
   width: 100%;
   height: 100%;
 

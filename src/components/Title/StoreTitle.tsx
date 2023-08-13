@@ -22,7 +22,7 @@ export default function StoreTitle({
         .otherwise(() => 58)}
       padding={match(type)
         .with("home", () => "0 20px")
-        .with("detail", () => "0")
+        .with("detail", () => "0 20px")
         .with("map", () => "0 5px")
         .with("mypage-review", () => "0 10px")
         .otherwise(() => "0")}

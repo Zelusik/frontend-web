@@ -113,7 +113,7 @@ export default function Mypage() {
         ) : (
           <BackTitle
             type={titleChange ? "black-left-text" : "black-dots"}
-            titleText={titleChange ? "강남작가" : null}
+            title={titleChange ? "강남작가" : null}
           />
         )}
       </TitleWrapper>
