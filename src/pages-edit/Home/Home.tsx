@@ -19,7 +19,7 @@ export default function Home() {
         <Spacing size={70} />
 
         <Text typo="Headline6" color="N100">
-          오늘은
+          nn오늘은
           <br />
           어디로 갈까요?
         </Text>
