@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Home";
+export { default } from "pages-edit/Homea";
