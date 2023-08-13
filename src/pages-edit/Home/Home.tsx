@@ -8,34 +8,33 @@ import Text from "components/Text";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 
-import StoreBox from "./components/StoreBox";
+import StoreCard from "./components/StoreCard";
 
 export default function Home() {
-  const router = useRouter();
   const { height } = useDisplaySize();
 
   return (
     <>
       <SearchTitle type="home" />
-      <HomeWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
+      <Wrapper height={height}>
         <Spacing size={70} />
         <Text typo="Headline6" color="N100">
-          Eze Test 오늘은
+          오늘은
           <br />
           어디로 갈까요?
         </Text>
         <Spacing size={30} />
         {HomeDatas.map((data: any) => {
-          return <StoreBox key={data.id} id={0} />;
+          return <StoreCard key={data.id} id={0} />;
         })}
-      </HomeWrapper>
+      </Wrapper>
       <BottomNavigation />
     </>
   );
 }
 
-const HomeWrapper = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
+const Wrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height - globalValue.BOTTOM_NAVIGATION_HEIGHT}px;
   padding: 0 20px;
   overflow-y: scroll;
 `;

@@ -2,12 +2,13 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
 import { Route } from "constants/Route";
+
 import Spacing from "components/Spacing";
 import ProfileTitle from "components/Title/ProfileTitle";
 import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
 
-export default function StoreBox({ id }: any) {
+export default function StoreCard({ id }: any) {
   const router = useRouter();
 
   return (

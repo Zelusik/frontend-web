@@ -19,6 +19,9 @@ export { default as Share } from "./Share";
 export { default as Report } from "./Report";
 export { default as Trash } from "./Trash";
 
+// home
+export { default as Logo } from "./Logo";
+
 // map
 export { default as Location } from "./Location";
 export { default as Bookmark } from "./Bookmark";
