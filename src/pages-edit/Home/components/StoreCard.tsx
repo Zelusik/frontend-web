@@ -11,6 +11,9 @@ import Text from "components/Text";
 
 export default function StoreCard({ id }: any) {
   const router = useRouter();
+  const clickStore = () => {
+    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
+  };
 
   return (
     <Wrapper>
@@ -20,16 +23,14 @@ export default function StoreCard({ id }: any) {
       </Text>
       <Spacing size={6} />
 
-      <ProfileTitle title="고작가" subTitle="움맘마" />
+      <ProfileTitle type="follow" title="고작가" subTitle="움맘마" />
       <Spacing size={16} />
 
       <Image
         alt="음식 사진"
         src="https://i.ibb.co/2kSZX6Y/60pt.png"
         type="home"
-        onClick={() => {
-          router.push(Route.STORE_DETAIL());
-        }}
+        onClick={clickStore}
       />
       <Spacing size={30} />
 
@@ -37,9 +38,7 @@ export default function StoreCard({ id }: any) {
         type="home"
         title="소이연남"
         subTitle="음식 카테고리 지역"
-        onClick={() => {
-          router.push(Route.STORE_DETAIL());
-        }}
+        onClick={clickStore}
       />
     </Wrapper>
   );

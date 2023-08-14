@@ -18,7 +18,7 @@ export default function ProfileInfo({ mine }: any) {
   ];
 
   return (
-    <ProfileWrapper>
+    <Wrapper>
       <Menu style={{ marginRight: 24 }}>
         <Image
           alt="프로팔 사진"
@@ -35,37 +35,34 @@ export default function ProfileInfo({ mine }: any) {
               강남작가
             </Text>
           </Menu>
-          <Menu>
-            <RoundButton type="follow-icon" />
-          </Menu>
+          {mine ? undefined : (
+            <Menu>
+              <RoundButton type="follow-icon" />
+            </Menu>
+          )}
         </TitleWrapper>
         <Spacing size={16} />
 
         <FollowWrapper>
           {ProfileDatas.map((data: any, idx: number) => {
             return (
-              <FollowInner key={idx}>
+              <div key={idx}>
                 <Text typo="Headline2" color="N100">
                   {data.count}
                 </Text>
                 <Text typo="Paragraph2" color="N100">
                   {data.desc}
                 </Text>
-              </FollowInner>
+              </div>
             );
           })}
         </FollowWrapper>
       </div>
-      {/* </Menu> */}
-
-      {/* <ButtonWrapper>
-        <RoundButton type="follow-icon" />
-      </ButtonWrapper> */}
-    </ProfileWrapper>
+    </Wrapper>
   );
 }
 
-const ProfileWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 88px;
   display: flex;
@@ -78,15 +75,6 @@ const Menu = styled.div`
   display: flex;
 `;
 
-const FollowWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const FollowInner = styled.div`
-  text-align: center;
-`;
-
 const TitleWrapper = styled.div`
   width: 100%;
   height: 40px;
@@ -95,4 +83,10 @@ const TitleWrapper = styled.div`
   display: flex;
 
   justify-content: space-between;
+`;
+
+const FollowWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+  text-align: center;
 `;

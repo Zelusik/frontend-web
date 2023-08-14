@@ -6,8 +6,16 @@ import Dots from "components/Button/IconButton/Dots";
 import Image from "components/Image";
 import Text from "components/Text";
 
-export default function ProfileTitle({ title, subTitle }: any) {
-  const mine = false;
+interface Props {
+  type: "follow" | "mine";
+}
+
+export default function ProfileTitle({
+  type = "follow",
+  title,
+  subTitle,
+  ...props
+}: any) {
   const [action, setAction] = useState(false);
 
   return (
@@ -38,15 +46,20 @@ export default function ProfileTitle({ title, subTitle }: any) {
       </Menu>
 
       <Menu>
-        <RoundButton
-          type="follow-icon"
-          action={action}
-          onClick={() => {
-            setAction(!action);
-          }}
-        />
+        {type !== "mine" ? (
+          <RoundButton
+            type="follow-icon"
+            action={action}
+            onClick={() => {
+              setAction(!action);
+            }}
+          />
+        ) : undefined}
         <div style={{ marginLeft: 4 }}>
-          <Dots type={mine ? "delete-edit" : "share-report"} color="N80" />
+          <Dots
+            type={type === "mine" ? "delete-edit" : "share-report"}
+            color="N80"
+          />
         </div>
       </Menu>
     </TitleWrapper>

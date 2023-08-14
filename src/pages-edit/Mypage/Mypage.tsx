@@ -50,10 +50,9 @@ const ReviewDatas = [
 
 export default function Mypage() {
   const router = useRouter();
+  const [mine, setMine] = useState<boolean>(true);
   const { width, height } = useDisplaySize();
 
-  // console.log(router.query);
-  const mine = true;
   const scrollRef = useRef<any>(null);
 
   const [scrollHeight, setScrollHeight] = useState<number>(0);
@@ -95,6 +94,8 @@ export default function Mypage() {
   }
 
   useEffect(() => {
+    const query = router.query.id;
+    setMine(query ? query === "1" : true);
     setScrollHeight(scrollRef.current?.scrollTop);
     scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
@@ -118,13 +119,13 @@ export default function Mypage() {
         )}
       </TitleWrapper>
 
-      <MypageWrapper
+      <Wrapper
         ref={scrollRef}
         height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
       >
         <Spacing size={60} />
 
-        <MypageInner>
+        <div style={{ position: "relative" }}>
           <div style={{ padding: "0 20px" }}>
             <ProfileInfo mine={mine} />
             <Spacing size={22} />
@@ -208,8 +209,8 @@ export default function Mypage() {
               <Spacing size={30} />
             </TopNavigationInner>
           </TopNavigation>
-        </MypageInner>
-      </MypageWrapper>
+        </div>
+      </Wrapper>
 
       {mine ? <BottomNavigation /> : null}
     </>
@@ -227,14 +228,9 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const MypageWrapper = styled.div<{ height: number }>`
+const Wrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
   overflow-y: scroll;
-  background-color: ${colors.N0};
-`;
-
-const MypageInner = styled.div`
-  position: relative;
   background-color: ${colors.N0};
 `;
 

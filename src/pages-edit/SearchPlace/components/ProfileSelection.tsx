@@ -23,7 +23,7 @@ export default function ProfileSelection({ text }: any) {
       localStorage.setItem("currentSelection", JSON.stringify([]));
     }
 
-    router.push({ pathname: Route.MYPAGE(), query: { id: 1 } });
+    router.push({ pathname: Route.MYPAGE(), query: { id: 2 } });
   };
 
   return (

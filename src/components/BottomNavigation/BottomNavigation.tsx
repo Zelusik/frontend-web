@@ -9,11 +9,11 @@ import Icon from "components/Icon";
 import { globalValue } from "constants/globalValue";
 
 const navigationDatas = [
-  { route: "/", en: "Home", kr: "홈" },
-  { route: "/map", en: "Map", kr: "지도" },
-  { route: "/review", en: "Review", kr: "리뷰쓰기" },
-  { route: "/mark", en: "Mark", kr: "저장" },
-  { route: "/mypage", en: "Mypage", kr: "마이" },
+  { route: "/", en: "Home", val: "홈" },
+  { route: "/map", en: "Map", val: "지도" },
+  { route: "/review", en: "Review", val: "리뷰쓰기" },
+  { route: "/mark", en: "Mark", val: "저장" },
+  { route: "/mypage", en: "Mypage", val: "마이" },
 ];
 
 const BottomNavigation = () => {
@@ -31,7 +31,7 @@ const BottomNavigation = () => {
                   icon={data.en}
                   fill={pathname === data.route ? "Orange500" : "N50"}
                 />
-                {data.kr}
+                {data.val}
               </Menu>
             </Link>
           );

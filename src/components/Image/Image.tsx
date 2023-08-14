@@ -51,7 +51,7 @@ export default function Image({
         .with("store-detail", () => "0")
         .with("review-detail", () => "0")
         .with("home", () => "20px")
-        .with("map-bottom-sheet", () => "0")
+        .with("map-bottom-sheet", () => "12px")
         .with("mypage-review", () => "12px")
         .with("review", () => "12px")
         .with("mark", () => "12px")

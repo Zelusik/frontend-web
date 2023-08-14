@@ -8,7 +8,14 @@ import Dots from "components/Button/IconButton/Dots";
 import Text from "components/Text";
 
 interface Props {
-  type: "white-dots" | "black-dots" | "white-left" | "black-left-text" | "map";
+  type:
+    | "white-dots-store"
+    | "white-dots"
+    | "white-dots-mine"
+    | "black-dots"
+    | "white-left"
+    | "black-left-text"
+    | "map";
 }
 
 export default function BackTitle({
@@ -44,7 +51,9 @@ export default function BackTitle({
             width={24}
             height={24}
             color={match(type)
+              .with("white-dots-store", () => "N0")
               .with("white-dots", () => "N0")
+              .with("white-dots-mine", () => "N0")
               .with("black-dots", () => "N100")
               .with("white-left", () => "N0")
               .with("black-left-text", () => "N100")
@@ -70,9 +79,13 @@ export default function BackTitle({
       {type.split("-")[1] === "dots" ? (
         <Dots
           type={
-            type.split("-")[0] === "white" ? "report-store" : "share-report"
+            type === "white-dots-mine"
+              ? "delete-edit"
+              : type === "white-dots-review"
+              ? "report-store"
+              : "share-report"
           }
-          color={type === "white-dots" ? "N0" : "N80"}
+          color={type.split("-")[0] === "white" ? "N0" : "N80"}
         />
       ) : type === "black-x-button" ? (
         <div onClick={clickBack}>

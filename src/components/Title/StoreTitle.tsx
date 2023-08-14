@@ -6,6 +6,10 @@ import Heart from "components/Button/IconButton/Heart";
 import Spacing from "components/Spacing";
 import Text from "components/Text";
 
+interface Props {
+  type: "home" | "detail" | "detail-mine" | "map" | "mypage-review";
+}
+
 export default function StoreTitle({
   type = "detail",
   title,
@@ -17,12 +21,14 @@ export default function StoreTitle({
       height={match(type)
         .with("home", () => 58)
         .with("detail", () => 49)
+        .with("detail-mine", () => 49)
         .with("map", () => 25)
         .with("mypage-review", () => 39)
         .otherwise(() => 58)}
       padding={match(type)
         .with("home", () => "0 20px")
         .with("detail", () => "0 20px")
+        .with("detail-mine", () => "0 20px")
         .with("map", () => "0 5px")
         .with("mypage-review", () => "0 10px")
         .otherwise(() => "0")}
@@ -30,6 +36,7 @@ export default function StoreTitle({
       bottom={match(type)
         .with("home", () => 56)
         .with("detail", () => 0)
+        .with("detail-mine", () => 0)
         .with("map", () => 0)
         .with("mypage-review", () => 15)
         .otherwise(() => 0)}
@@ -40,12 +47,14 @@ export default function StoreTitle({
             typo={match(type)
               .with("home", () => "Headline6")
               .with("detail", () => "Headline6")
+              .with("detail-mine", () => "Headline6")
               .with("map", () => "Headline4")
               .with("mypage-review", () => "Headline3")
               .otherwise(() => "Headline6")}
             color={match(type)
               .with("home", () => "N0")
               .with("detail", () => "N100")
+              .with("detail-mine", () => "N100")
               .with("map", () => "N100")
               .with("mypage-review", () => "N0")
               .otherwise(() => "N100")}
@@ -59,12 +68,14 @@ export default function StoreTitle({
             typo={match(type)
               .with("home", () => "Paragraph1")
               .with("detail", () => "Paragraph3")
+              .with("detail-mine", () => "Paragraph3")
               .with("map", () => "Paragraph1")
               .with("mypage-review", () => "Paragraph2")
               .otherwise(() => "Paragraph3")}
             color={match(type)
               .with("home", () => "N0")
               .with("detail", () => "N100")
+              .with("detail-mine", () => "N100")
               .with("map", () => "N60")
               .with("mypage-review", () => "N0")
               .otherwise(() => "N100")}
@@ -74,7 +85,7 @@ export default function StoreTitle({
         ) : undefined}
       </Menu>
 
-      {type !== "mypage-review" ? (
+      {type !== "mypage-review" && type !== "detail-mine" ? (
         <Menu isFlex={true}>
           {type !== "home" ? (
             <Edit

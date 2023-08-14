@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <SearchTitle type="home" />
       <Wrapper height={height}>
-        <Spacing size={70} />
+        <Spacing size={20} />
 
         <Text typo="Headline6" color="N100">
           오늘은

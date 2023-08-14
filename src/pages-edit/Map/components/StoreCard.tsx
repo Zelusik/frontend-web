@@ -35,7 +35,7 @@ export default function StoreCard() {
   return (
     <Wrapper
       onClick={() => {
-        router.push(Route.REVIEW_DETAIL());
+        router.push(Route.STORE_DETAIL());
       }}
     >
       <Inner>
@@ -46,8 +46,9 @@ export default function StoreCard() {
           ref={swiperRef}
           allowSlidePrev={currentIndex !== 0}
           allowSlideNext={currentIndex !== images.length - 1}
+          spaceBetween={20}
           onSlideChange={onSlideChange}
-          style={{ height: (width * 32) / 55, borderRadius: 12 }}
+          style={{ height: (width * 32) / 55 }}
         >
           {images.map((data: any, idx: number) => {
             return (

@@ -13,12 +13,12 @@ export default function ReviewList({ type = "mypage", datas }: any) {
   const clickReview = () => {
     switch (type) {
       case "mypage":
-        router.push(Route.STORE_DETAIL());
+        router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
         break;
       case "recommand-best":
         break;
     }
-    // router.push(Route.STORE_DETAIL());
+    // router.push(Route.REVIEW_DETAIL());
   };
 
   return (
@@ -36,7 +36,7 @@ export default function ReviewList({ type = "mypage", datas }: any) {
               title="소이연남"
               subTitle="음식 카테고리 지역"
               onClick={() => {
-                // router.push(Route.STORE_DETAIL());
+                // router.push(Route.REVIEW_DETAIL());
               }}
             />
             {type === "recommand-best" ? (

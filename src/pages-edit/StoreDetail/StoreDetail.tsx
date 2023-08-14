@@ -1,37 +1,93 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { keyframes } from "@emotion/react";
 import useDisplaySize from "hooks/useDisplaySize";
-import { globalValue } from "constants/globalValue";
 
-import KakaoMap from "components/Share/KakaoMap";
-import Spacing from "components/Spacing";
+import Hashtags from "components/Hashtags";
+import TopNavigation from "components/TopNavigation";
 import Info from "components/Share/Info";
-import Description from "components/Description";
-import Hr from "components/Hr";
+import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
-import Hashtags from "components/Hashtags";
 
-import Profile from "./components/ProfileTime";
+import ReviewCard from "./components/ReviewCard";
 import ImageBox from "./components/ImageBox";
-import ScaleUpButton from "./components/ScaleUpButton";
+import { globalValue } from "constants/globalValue";
 
-export default function StoreDetail() {
+const images = [
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "",
+  // "",
+];
+
+const ReviewDatas = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+];
+
+export default function ReviewDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
-  const imageRef = useRef<any>(null);
 
+  const imageRef = useRef<any>(null);
   const { width, height } = useDisplaySize();
+
   const [titleChange, setTitleChange] = useState<boolean>(false);
+  const [topFixed, setTopFixed] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   function onScroll() {
-    if (scrollRef.current?.scrollTop >= window.innerWidth + 4 - 20) {
+    const scrollTop = (window.innerWidth * 281) / 360 + 20 + 49 + 16 + 40 - 10;
+
+    if (
+      images.length === 0 &&
+      scrollRef.current?.scrollTop >= 165 &&
+      currentIndex === 1
+    ) {
+      scrollRef.current!.scrollTop = 165;
+    } else if (
+      scrollRef.current?.scrollTop >= scrollTop &&
+      currentIndex === 1
+    ) {
+      scrollRef.current!.scrollTop = scrollTop;
+      return;
+    }
+
+    if (images.length === 0 && scrollRef.current?.scrollTop >= 25) {
+      setTitleChange(true);
+    } else if (
+      scrollRef.current?.scrollTop >=
+      imageRef.current?.clientHeight - 20
+    ) {
       setTitleChange(true);
     } else {
       setTitleChange(false);
+    }
+
+    if (images.length === 0 && scrollRef.current?.scrollTop >= 165) {
+      setTopFixed(true);
+    } else if (scrollRef.current?.scrollTop >= scrollTop - 1) {
+      setTopFixed(true);
+    } else {
+      setTopFixed(false);
     }
   }
 
@@ -40,29 +96,36 @@ export default function StoreDetail() {
     return () => {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [currentIndex]);
 
   return (
     <>
-      <ImageBox ref={imageRef} />
+      <ImageBox ref={imageRef} images={images} />
       <TitleWrapper visible={titleChange}>
         <BackTitle
-          type={titleChange ? "black-left-text" : "white-dots"}
+          type={
+            titleChange
+              ? "black-left-text"
+              : images.length > 0
+              ? "white-dots-store"
+              : "black-left-text"
+          }
           title={titleChange ? "소이연남" : undefined}
         />
       </TitleWrapper>
 
       <Wrapper ref={scrollRef} height={height}>
-        <Spacing size={width + 4} />
-        <ScrollWrapper>
+        <Spacing size={images.length > 0 ? (width * 281) / 360 : 50} />
+
+        <HomeDetailInner>
           <Spacing size={20} />
           <StoreTitle
             type="detail"
             title="소이연남"
             subTitle="음식 카테고리 지역"
           />
-          <Spacing size={16} />
 
+          <Spacing size={16} />
           <Hashtags
             hashtags={[
               "단체모임에 딱",
@@ -71,37 +134,44 @@ export default function StoreDetail() {
               "웨이팅 있음",
             ]}
           />
+          <Spacing size={40} />
 
-          <div style={{ padding: "0 20px" }}>
-            <Spacing size={16} />
-            <Description
-              text={`그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
-              열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
-              더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를
-              그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
-              열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
-              더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를`}
-            />
-            <Spacing size={15} />
-            <Hr />
-            <Spacing size={16} />
-            <Profile />
-            <Spacing size={16} />
-          </div>
-
-          <KakaoMapWrapper height={(width * 23) / 36}>
-            <KakaoMap lat={33.450701} lng={126.570667} />
-            <NoTouch />
-            <ScaleUpButton />
-          </KakaoMapWrapper>
-
-          <div style={{ padding: "0 20px" }}>
-            <Spacing size={40} />
-            {["", ""].map((data: any, idx: number) => {
-              return <Info key={idx} />;
-            })}
-          </div>
-        </ScrollWrapper>
+          <TopNavigation
+            type="review-detail"
+            scrollRef={scrollRef}
+            scrollTop={
+              images.length === 0
+                ? 165
+                : (width * 281) / 360 + 20 + 49 + 16 + 40
+            }
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+            topFixed={topFixed}
+            titleList={["리뷰", "매장정보"]}
+          >
+            <div
+              style={{
+                height:
+                  currentIndex === 0
+                    ? "auto"
+                    : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8,
+              }}
+            >
+              {ReviewDatas.map((data: any, idx: number) => {
+                return <ReviewCard key={idx} />;
+              })}
+            </div>
+            <StoreInfo
+              height={
+                height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"
+              }
+            >
+              {["", ""].map((data: any, idx: number) => {
+                return <Info key={idx} />;
+              })}
+            </StoreInfo>
+          </TopNavigation>
+        </HomeDetailInner>
       </Wrapper>
     </>
   );
@@ -118,45 +188,31 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const TitleWrapper = styled.div<{ visible: boolean }>`
-  width: 100%;
-  max-width: ${globalValue.MAX_WIDTH}px;
-  padding: 0 20px;
-
-  position: fixed;
-  top: 0;
-
-  background-color: ${({ visible }) =>
-    visible ? `${colors.N0}` : `transparents`};
-  animation: ${(props) => fade(props.visible)} 0.3s forwards;
-  z-index: 900;
-`;
-
 const Wrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
   overflow-y: scroll;
   background-color: ${colors.N0};
 `;
 
-const ScrollWrapper = styled.div`
+const HomeDetailInner = styled.div`
   position: relative;
   background-color: ${colors.N0};
 `;
 
-const KakaoMapWrapper = styled.div<{ height: number }>`
+const TitleWrapper = styled.div<{ visible: boolean }>`
   width: 100%;
-  height: ${({ height }) => height}px;
-  overflow: hidden;
-  position: relative;
+  padding: 0 20px;
+
+  position: fixed;
+  top: 0;
+  z-index: 900;
+
+  background-color: ${({ visible }) =>
+    visible ? `${colors.N0}` : `transparents`};
+  animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
 
-const NoTouch = styled.div`
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-  top: 0;
-
-  background-color: transparent;
-  z-index: 800;
+const StoreInfo = styled.div<{ height: any }>`
+  height: ${({ height }) => height};
+  padding: 0 20px;
 `;

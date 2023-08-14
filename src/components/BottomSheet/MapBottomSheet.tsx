@@ -1,12 +1,13 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect } from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import { colors } from "constants/colors";
 import useMapBottomSheet from "hooks/useMapBottomSheet";
-import { globalValue } from "constants/globalValue";
-import { css, keyframes } from "@emotion/react";
 import useDisplaySize from "hooks/useDisplaySize";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeFilterAction } from "reducer/slices/search/searchSlice";
+
+import { globalValue } from "constants/globalValue";
 
 const MapBottomSheet = forwardRef(function Div(
   { children, ...props }: any,

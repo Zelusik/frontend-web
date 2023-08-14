@@ -17,11 +17,12 @@ const FoodComponents = ({ foodInfo }: { foodInfo: any }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const hasImage = foodInfo.images ? true : false;
 
-  const handleClickPlace = () => {
-    router.push(Route.REVIEW_DETAIL());
+  const clickPlace = () => {
+    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
   };
+
   return (
-    <FoodComponentWrapper hasImage={hasImage} onClick={handleClickPlace}>
+    <FoodComponentWrapper hasImage={hasImage} onClick={clickPlace}>
       {foodInfo.images && (
         <ImageWrapper style={{ position: "relative" }}>
           <Swiper
