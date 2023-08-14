@@ -1,23 +1,25 @@
+import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
+
+import { Route } from "constants/Route";
 import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
-import { useRef, useState } from "react";
-import { Route } from "constants/Route";
-import { changeVisible } from "reducer/slices/bottomSheet/mapBottomSheetSlice";
-import { useAppDispatch } from "hooks/useReduxHooks";
+
+interface Props {
+  type: "line" | "shadow";
+}
 
 export default function Input({
-  type = "shadow",
+  type = "line",
   placeholder,
   value,
   setValue,
 }: any) {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const inputRef = useRef<any>(null);
   const [focus, setFocus] = useState<boolean>(false);
 
@@ -34,7 +36,7 @@ export default function Input({
   };
 
   return (
-    <InputWrapper
+    <Wrapper
       onClick={handleClickInput}
       borderColor={match(type)
         .with("line", () => (focus ? "N100" : "N50"))
@@ -49,45 +51,43 @@ export default function Input({
         .with("shadow", () => "8px")
         .otherwise(() => "12px")}
     >
-      <InputInner>
-        <Icon icon="Search" width={24} height={24} />
-        <InputBox
-          ref={inputRef}
-          placeholder={placeholder}
-          disabled={type === "shadow"}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onFocus={() => setFocus(true)}
-          onBlur={(e) => {
-            const next = e.relatedTarget;
-            if (next !== null) {
-              setValue(next.textContent);
-              inputRef.current.focus();
-            } else {
-              setFocus(false);
-            }
-          }}
-        />
-        {type !== "shadow" && focus && value !== "" && (
-          <div tabIndex={0}>
-            <Icon
-              icon="CircleXButton"
-              width={24}
-              height={24}
-              onClick={() => {
-                setValue("");
-                setFocus(true);
-                inputRef.current?.focus();
-              }}
-            />
-          </div>
-        )}
-      </InputInner>
-    </InputWrapper>
+      <Icon icon="Search" width={24} height={24} />
+      <InputBox
+        ref={inputRef}
+        placeholder={placeholder}
+        value={value}
+        disabled={type === "shadow"}
+        onChange={(e: any) => setValue(e.target.value)}
+        onFocus={() => setFocus(true)}
+        onBlur={(e: any) => {
+          const next = e.relatedTarget;
+          if (next !== null) {
+            setValue(next.textContent);
+            inputRef.current.focus();
+          } else {
+            setFocus(false);
+          }
+        }}
+      />
+      {type !== "shadow" && focus && value !== "" && (
+        <div tabIndex={0}>
+          <Icon
+            icon="CircleXButton"
+            width={24}
+            height={24}
+            onClick={() => {
+              setValue("");
+              setFocus(true);
+              inputRef.current?.focus();
+            }}
+          />
+        </div>
+      )}
+    </Wrapper>
   );
 }
 
-const InputWrapper = styled.div<{
+const Wrapper = styled.div<{
   borderColor: any;
   shadow: any;
   borderRadius: any;
@@ -99,17 +99,12 @@ const InputWrapper = styled.div<{
 
   display: flex;
   position: relative;
+  align-items: center;
 
   border-radius: ${({ borderRadius }) => borderRadius};
   border: 1px solid ${({ borderColor }) => colors[borderColor]};
   background-color: ${colors.N0};
   box-shadow: ${({ shadow }) => shadow && `0px 0px 6px rgba(0, 0, 0, 0.12)`};
-`;
-
-const InputInner = styled.div`
-  width: 100%;
-  margin: auto 0;
-  display: flex;
 `;
 
 const InputBox = styled.input`
@@ -126,7 +121,6 @@ const InputBox = styled.input`
   `}
   &::placeholder {
     color: ${colors.N50} !important;
-    ${typography.Paragraph6}
   }
   color: ${colors.N100};
 `;

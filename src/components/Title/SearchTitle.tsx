@@ -23,7 +23,7 @@ export default function SearchTitle({ type = "home", ...props }: any) {
             저장한 음식점
           </Text>
         )}
-        <Icon icon="Search" width={24} height={24} onClick={clickSearch} />
+        {/* <Icon icon="Search" width={24} height={24} onClick={clickSearch} /> */}
       </MenuList>
     </TitleWrapper>
   );

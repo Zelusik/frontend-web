@@ -21,10 +21,9 @@ const images = [
   "https://i.ibb.co/2kSZX6Y/60pt.png",
 ];
 
-export default function StoreBox() {
+export default function StoreCard() {
   const router = useRouter();
   const swiperRef = useRef(null);
-  const dispatch = useAppDispatch();
   const [currentIndex, setCurrentIndex] = useState(0);
   const { width } = useDisplaySize();
 

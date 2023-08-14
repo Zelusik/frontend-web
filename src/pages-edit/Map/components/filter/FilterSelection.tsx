@@ -10,8 +10,9 @@ import Spacing from "components/Spacing";
 import { typography } from "constants/typography";
 import { useRef } from "react";
 import { atmosphereKeyword } from "constants/globalData";
+import Text from "components/Text";
 
-export default function Filter({}: any) {
+export default function FilterSelection({}: any) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { language } = useAppSelector((state) => state.global);
@@ -27,43 +28,40 @@ export default function Filter({}: any) {
   };
 
   return (
-    <FilterWrapper>
-      <FilterButtonWrapper ref={filterRef} onClick={handleClickFilter}>
-        <Menu>
-          <Icon icon="Filter" width={16} height={16} color="Orange600" />
-          <Count>1</Count>
-        </Menu>
-      </FilterButtonWrapper>
-      <FilterScrollWrapper>
-        <div style={{ minWidth: 1 > 6 ? 88 : 80 }} />
-        <FilterInner>
+    <div style={{ position: "relative" }}>
+      <ButtonWrapper ref={filterRef} onClick={handleClickFilter}>
+        <Icon icon="Filter" width={16} height={16} color="Orange600" />
+        <Text typo="Headline2" color="Orange600" style={{ marginLeft: 6 }}>
+          10
+        </Text>
+      </ButtonWrapper>
+      <ScrollWrapper>
+        <div style={{ minWidth: 10 > 9 ? 88 : 80 }} />
+        <ScrollInner>
           {atmosphereKeyword.map((data: any, idx: number) => {
             return (
-              <ButtonWrapper
+              <ScrollList
                 key={idx}
                 marginRight={idx === atmosphereKeyword.length - 1}
               >
                 <RoundButton type="full" action={false}>
                   {data.val}
                 </RoundButton>
-              </ButtonWrapper>
+              </ScrollList>
             );
           })}
-        </FilterInner>
-      </FilterScrollWrapper>
+        </ScrollInner>
+      </ScrollWrapper>
       <Spacing size={14} />
-    </FilterWrapper>
+    </div>
   );
 }
 
-const FilterWrapper = styled.div`
-  position: relative;
-`;
-
-const FilterButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
   height: 36px;
   padding: 0 13px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 
   position: absolute;
   left: 15px;
@@ -73,37 +71,17 @@ const FilterButtonWrapper = styled.div`
   background-color: ${colors.N0};
 `;
 
-const FilterScrollWrapper = styled.div`
+const ScrollWrapper = styled.div`
   display: flex;
   white-space: nowrap;
 `;
 
-const FilterInner = styled.div`
+const ScrollInner = styled.div`
   display: flex;
   overflow: auto;
 `;
 
-const ButtonWrapper = styled.div<{ marginRight: boolean }>`
-  margin-right: ${({ marginRight }) => (marginRight ? `20px` : "6px")};
+const ScrollList = styled.div<{ marginRight: boolean }>`
+  margin-right: ${({ marginRight }) => (marginRight ? `15px` : "6px")};
   display: flex;
-`;
-
-const Menu = styled.div<{ typo?: any }>`
-  height: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-`;
-
-const Count = styled.div`
-  margin-left: 6px;
-  ${css`
-    ${typography.Headline2}
-  `}
-  color: ${colors.Orange600};
 `;

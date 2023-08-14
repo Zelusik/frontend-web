@@ -1,46 +1,48 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+
 import { typography } from "constants/typography";
-import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
+
+import Text from "components/Text/Text";
+import Spacing from "components/Spacing";
 
 export default function TextArea({
   size,
-  text,
   placeholder,
-  onChange,
-  borderColor,
   value,
+  text,
+  onChange,
 }: any) {
   return (
     <>
-      <TextAreaWrapper
+      <TextAreaBox
         placeholder={placeholder}
+        value={value}
         size={size}
         onChange={onChange}
-        borderColor={borderColor}
-        value={value}
       />
       <Spacing size={12} />
-      <BoxText>{text}</BoxText>
+      <Text typo="Paragraph1" color="N80">
+        {text}
+      </Text>
     </>
   );
 }
 
-const TextAreaWrapper = styled.textarea<{ size: number; borderColor?: string }>`
+const TextAreaBox = styled.textarea<{ size: number }>`
   width: 100%;
   height: ${({ size }) => size}px;
-  padding: 13px 14px;
+  padding: 14px 15px;
+
+  outline: none;
+  ${css`
+    ${typography.Paragraph4}
+  `}
+  color: ${colors.N100};
 
   border-radius: 12px;
-  border: 1px solid ${({ borderColor }) => (borderColor ? borderColor : colors.N40)};
+  border: 1px solid ${colors.N40};
   background-color: ${colors.N10};
   resize: none;
-`;
-
-const BoxText = styled.div`
-  ${css`
-    ${typography.Paragraph1}
-  `}
-  color: ${colors.N80};
 `;

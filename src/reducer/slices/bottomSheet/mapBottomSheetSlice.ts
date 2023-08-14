@@ -34,6 +34,13 @@ export const mapBottomSheetSlice = createSlice({
       const { value } = payload;
       state.actionDelay = value;
     },
+    changeType: (
+      state,
+      { payload }: { payload: { type: string; value: string } }
+    ) => {
+      const { value } = payload;
+      state.type = value;
+    },
     changeVisibleType: (
       state,
       { payload }: { payload: { type: string; value: any } }

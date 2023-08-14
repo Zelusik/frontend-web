@@ -98,3 +98,23 @@ export const termsData = [
     link: "https://www.notion.so/asdfqweasd/48cd18103b1c4e2eab93a499d50484e5?pvs=4",
   },
 ];
+
+// reportData.ts
+
+export const storeReportData = [
+  { val: "음식점의 위치" },
+  { val: "운영 시간" },
+  { val: "휴무일 정보" },
+  { val: "전화번호" },
+  { val: "sns 정보" },
+  { val: "기타" },
+];
+
+export const reportData = [
+  { val: "해당 음식점과 관련 없는 내용임" },
+  { val: "광고/홍보성 게시글임" },
+  { val: "선정적이거나 폭력, 혐오적임" },
+  { val: "무단 도용, 사칭, 저작권 침해가 의심됨" },
+  { val: "개인 정보 노출이 우려됨" },
+  { val: "기타" },
+];

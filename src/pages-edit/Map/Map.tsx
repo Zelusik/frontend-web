@@ -18,17 +18,17 @@ import Spacing from "components/Spacing";
 import Input from "components/Input";
 import Icon from "components/Icon";
 
-import Selections from "./components/Selections";
+import FoodSelection from "./components/FoodSelection";
 import FindLocationButton from "./components/FindLocationButton";
-import StoreBox from "./components/StoreBox";
+import StoreCard from "./components/StoreCard";
 import LocationTitle from "./components/LocationTitle";
 
-import Filter from "./components/Filter";
-import FilterSelection from "./components/FilterSelection";
-import FilterButton from "./components/FilterButton";
-import StoreFilter from "./components/StoreFilter";
+import FilterSelection from "./components/filter/FilterSelection";
+import Filter from "./components/filter/Filter";
+import FilterButton from "./components/filter/FilterButton";
+import StoreSort from "./components/StoreSort";
 
-const filterSelection = [
+const filterData = [
   {
     type: "full",
     text: "음식종류",
@@ -66,39 +66,33 @@ export default function Map() {
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         <KakaoMap lat={33.450701} lng={126.570667} />
       </KakaoMapWrapper>
-      <FindLocationButton />
 
+      <FindLocationButton />
       <MapBottomSheet>
         {filterAction ? (
           <>
-            {filterSelection.map((data: any, idx: number) => {
-              return (
-                <FilterSelection
-                  key={idx}
-                  type={data.type}
-                  text={data.text}
-                  textList={data.textList}
-                />
-              );
+            {filterData.map((data: any, idx: number) => {
+              return <Filter key={idx} type={data.type} data={data} />;
             })}
           </>
         ) : (
           <>
-            {type === "store" ? <StoreFilter /> : <LocationTitle />}
+            {type === "store" ? <StoreSort /> : <LocationTitle />}
             <Spacing size={14} />
-            {type === "location" ? <Filter /> : null}
+            {type === "location" ? <FilterSelection /> : null}
             {["", "", "", "", ""].map((data: any, idx: number) => {
-              return <StoreBox key={idx} />;
+              return <StoreCard key={idx} />;
             })}
           </>
         )}
       </MapBottomSheet>
 
-      <HeaderWrapper>
-        <Spacing size={16} />
+      <TopWrapper>
+        <Spacing size={15} />
         <InputWrapper>
-          <Input placeholder="지역, 음식점, 닉네임 검색" />
+          <Input type="shadow" placeholder="지역, 음식점, 닉네임 검색" />
         </InputWrapper>
+
         {type !== "default" ? (
           <IconWrapper>
             <Icon
@@ -108,11 +102,11 @@ export default function Map() {
               onClick={clickDelete}
             />
           </IconWrapper>
-        ) : null}
+        ) : undefined}
         <Spacing size={8} />
 
-        <Selections />
-      </HeaderWrapper>
+        <FoodSelection />
+      </TopWrapper>
 
       {filterAction ? <FilterButton /> : <BottomNavigation />}
     </>
@@ -122,12 +116,13 @@ export default function Map() {
 const KakaoMapWrapper = styled.div<{ height: number }>`
   width: 100%;
   height: ${({ height }) => height}px;
+
   position: absolute;
   top: 0;
   z-index: 0;
 `;
 
-const HeaderWrapper = styled.div`
+const TopWrapper = styled.div`
   width: 100%;
   position: relative;
 `;
