@@ -31,9 +31,8 @@ const LoginTemplate = () => {
             clientId={process.env.APPLE_CLIENT_ID}
             redirectURI={process.env.APPLE_REDIRECT_URL}
             responseType={"code id_token"}
-            responseMode={"form_post"}
+            responseMode={"fragment"}
             usePopup={false}
-            scope={"name email"}
             state={"signin"}
           />
         )}
