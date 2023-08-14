@@ -58,6 +58,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next-redux-wrapper", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:8.1.0"],\
             ["polished", "npm:4.2.2"],\
             ["react", "npm:18.2.0"],\
+            ["react-apple-login", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.6"],\
             ["react-dom", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:18.2.0"],\
             ["react-dropzone", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:14.2.3"],\
             ["react-kakao-maps-sdk", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.9"],\
@@ -5672,6 +5673,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next-redux-wrapper", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:8.1.0"],\
             ["polished", "npm:4.2.2"],\
             ["react", "npm:18.2.0"],\
+            ["react-apple-login", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.6"],\
             ["react-dom", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:18.2.0"],\
             ["react-dropzone", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:14.2.3"],\
             ["react-kakao-maps-sdk", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.9"],\
@@ -8712,6 +8714,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["react", "npm:18.2.0"],\
             ["loose-envify", "npm:1.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-apple-login", [\
+        ["npm:1.1.6", {\
+          "packageLocation": "./.yarn/cache/react-apple-login-npm-1.1.6-d02554e9e9-06396dbc97.zip/node_modules/react-apple-login/",\
+          "packageDependencies": [\
+            ["react-apple-login", "npm:1.1.6"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.6", {\
+          "packageLocation": "./.yarn/__virtual__/react-apple-login-virtual-e031557bf5/0/cache/react-apple-login-npm-1.1.6-d02554e9e9-06396dbc97.zip/node_modules/react-apple-login/",\
+          "packageDependencies": [\
+            ["react-apple-login", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.6"],\
+            ["@types/prop-types", null],\
+            ["@types/react", "npm:18.2.14"],\
+            ["@types/react-dom", "npm:18.2.6"],\
+            ["prop-types", null],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/prop-types",\
+            "@types/react-dom",\
+            "@types/react",\
+            "prop-types",\
+            "react-dom",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\

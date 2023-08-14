@@ -52,6 +52,10 @@ export default class CustomDocument extends Document {
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           />
+          <Script
+            src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"
+            type="text/javascript"
+          />
           <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
         </Head>
         <body>

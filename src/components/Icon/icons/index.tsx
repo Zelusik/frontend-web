@@ -6,6 +6,7 @@ export { default as CircleXButton } from "./CircleXButton";
 export { default as LeftArrow } from "./LeftArrow";
 export { default as RightArrow } from "./RightArrow";
 export { default as BottomArrow } from "./BottomArrow";
+export { default as Chevron } from "./Chevron";
 
 // Icon Button
 export { default as Copy } from "./Copy";
@@ -64,12 +65,10 @@ export { default as Mypage } from "./bottomNavigation/Mypage";
 export { default as AuthLogo } from "./auth/AuthLogo";
 export { default as AuthDescription } from "./auth/AuthDescription";
 export { default as AuthKakao } from "./auth/AuthKakao";
-export { default as AuthApple } from "./auth/AuthApple";
 
 // review
 export { default as Gallery } from "./Gallery";
 export { default as Warn } from "./Warn";
-export { SelectedRadio, DefaultRadio } from "./Radio";
 export { default as Camera } from "./Camera";
 
 // mark
