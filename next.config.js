@@ -20,6 +20,8 @@ module.exports = {
     KAKAO_REDIRECT_URI: process.env.KAKAO_REDIRECT_URI,
     KAKAO_SEARCH_API_KEY: process.env.KAKAO_SEARCH_API_KEY,
     BASE_URL: process.env.BASE_URL,
+    APPLE_REDIRECT_URL: process.env.APPLE_REDIRECT_URL,
+    APPLE_CLIENT_ID: process.env.APPLE_CLIENT_ID,
   },
   webpack(config) {
     config.module.rules.push({

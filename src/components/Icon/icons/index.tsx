@@ -65,7 +65,6 @@ export { default as Mypage } from "./bottomNavigation/Mypage";
 export { default as AuthLogo } from "./auth/AuthLogo";
 export { default as AuthDescription } from "./auth/AuthDescription";
 export { default as AuthKakao } from "./auth/AuthKakao";
-export { default as AuthApple } from "./auth/AuthApple";
 
 // review
 export { default as Gallery } from "./Gallery";

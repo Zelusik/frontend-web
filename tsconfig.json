@@ -19,7 +19,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/icons/*.svg"],
   "exclude": ["node_modules"]
