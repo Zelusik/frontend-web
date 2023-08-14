@@ -6,6 +6,7 @@ export { default as CircleXButton } from "./CircleXButton";
 export { default as LeftArrow } from "./LeftArrow";
 export { default as RightArrow } from "./RightArrow";
 export { default as BottomArrow } from "./BottomArrow";
+export { default as Chevron } from "./Chevron";
 
 // Icon Button
 export { default as Copy } from "./Copy";

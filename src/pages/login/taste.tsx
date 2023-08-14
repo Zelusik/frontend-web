@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { ArrowLeft } from "components/Icon/Arrow";
 import { colors } from "constants/colors";
 
 import Spacing from "components/Spacing/Spacing";
@@ -14,14 +13,12 @@ import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
 import { getCookie } from "utils/cookie";
 import { Route } from "constants/Route";
+import BackTitle from "components/Title/BackTitle";
 
 const TastePage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const accessToken = getCookie("accessToken");
-  const handleClickBackBtn = () => {
-    router.back();
-  };
   const { favoriteFoodCategories, terms } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
@@ -70,9 +67,7 @@ const TastePage = () => {
   return (
     <TasteWrapper>
       <TopWrapper>
-        <div onClick={handleClickBackBtn}>
-          <ArrowLeft />
-        </div>
+        <BackTitle type="black-left-text" text="" />
       </TopWrapper>
       <MainWrapper>
         <Spacing size={30} />

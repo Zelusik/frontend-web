@@ -47,13 +47,7 @@ export default function Setting() {
                 onClick={() => handleClickSetting(setting.route)}
               >
                 {setting.text}
-                <Icon
-                  icon="RightArrow"
-                  width={24}
-                  height={24}
-                  color="N100"
-                  rotate={90}
-                />
+                <Icon icon="Chevron" width={24} height={24} color="N100" />
               </div>
             ))}
           </Section>
@@ -71,13 +65,7 @@ export default function Setting() {
                 onClick={() => handleClickSetting(setting.route)}
               >
                 {setting.text}
-                <Icon
-                  icon="RightArrow"
-                  width={24}
-                  height={24}
-                  color="N100"
-                  rotate={90}
-                />
+                <Icon icon="Chevron" width={24} height={24} color="N100" />
               </div>
             ))}
           </Section>

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 
-import { ArrowLeft } from "components/Icon/Arrow";
 import { colors } from "constants/colors";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -14,13 +13,11 @@ import { typography } from "constants/typography";
 import Link from "next/link";
 import BottomButton from "components/Button/BottomButton";
 import { Route } from "constants/Route";
+import BackTitle from "components/Title/BackTitle";
 
 const TermsPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const handleClickBackBtn = () => {
-    router.back();
-  };
   const { terms } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
@@ -35,9 +32,7 @@ const TermsPage = () => {
   }, [dispatch]);
 
   const handleClickAllTerms = () => {
-    const trueCount = Object.values(terms).filter(
-      (value) => value === true
-    ).length;
+    const trueCount = Object.values(terms).filter((value) => value === true).length;
     if (trueCount === 5) {
       termsData.map((term) =>
         dispatch(
@@ -75,9 +70,7 @@ const TermsPage = () => {
   return (
     <TermsWrapper>
       <TopWrapper>
-        <div onClick={handleClickBackBtn}>
-          <ArrowLeft />
-        </div>
+        <BackTitle type="black-left-text" text="" />
       </TopWrapper>
       <MainWrapper>
         <Spacing size={30} />
@@ -89,16 +82,14 @@ const TermsPage = () => {
             style={{
               path: {
                 fill:
-                  Object.values(terms).filter((value) => value === true)
-                    .length === 5
+                  Object.values(terms).filter((value) => value === true).length === 5
                     ? colors.N100
                     : colors.N20,
                 stroke: "none",
               },
               "path:last-child": {
                 stroke:
-                  Object.values(terms).filter((value) => value === true)
-                    .length === 5
+                  Object.values(terms).filter((value) => value === true).length === 5
                     ? colors.N0
                     : colors.N50,
               },
@@ -121,7 +112,7 @@ const TermsPage = () => {
                 </div>
                 {term.link && (
                   <Link href={term.link} target="_blank">
-                    <Icon icon="RightArrow" rotate={90} />
+                    <Icon icon="Chevron" />
                   </Link>
                 )}
               </TermContainer>

@@ -20,13 +20,7 @@ const Announcement = () => {
             <Text typo="Paragraph5" color="N100">
               {title}
             </Text>
-            <Icon
-              icon="RightArrow"
-              width={20}
-              height={20}
-              color="N100"
-              rotate={90}
-            />
+            <Icon icon="Chevron" width={20} height={20} color="N100" />
           </div>
         ))}
       </Section>
