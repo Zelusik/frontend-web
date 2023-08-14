@@ -7,6 +7,15 @@ export const KakaoLogin = async (kakaoAccessToken: string) =>
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
 
+export const AppleLogin = async (userInfo: {
+  identityToken: string;
+  name: string;
+}) =>
+  await client
+    .post("/auth/login/apple", userInfo)
+    .then(({ data }) => data)
+    .catch((err) => console.log(err.response));
+
 export const PostTerms = async (token: any, termsData: TermsType) =>
   await client
     .post("/members/terms", termsData, {
