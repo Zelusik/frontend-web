@@ -22,7 +22,7 @@ export default function ProfileInfo({ mine }: any) {
       <Menu style={{ marginRight: 24 }}>
         <Image
           alt="프로팔 사진"
-          src="https://i.ibb.co/0Z6FNN7/60pt.png"
+          src="https://i.ibb.co/2kSZX6Y/60pt.png"
           type="default"
           size={74}
         />

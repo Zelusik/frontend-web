@@ -10,6 +10,7 @@ import Text from "components/Text/Text";
 import Icon from "components/Icon/Icon";
 import Hashtag from "components/Hashtags/Hashtag";
 import { useRouter } from "next/router";
+import { Route } from "constants/Route";
 
 const FoodComponents = ({ foodInfo }: { foodInfo: any }) => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const FoodComponents = ({ foodInfo }: { foodInfo: any }) => {
   const hasImage = foodInfo.images ? true : false;
 
   const handleClickPlace = () => {
-    router.push("/store-detail");
+    router.push(Route.REVIEW_DETAIL());
   };
   return (
     <FoodComponentWrapper hasImage={hasImage} onClick={handleClickPlace}>
@@ -27,7 +28,9 @@ const FoodComponents = ({ foodInfo }: { foodInfo: any }) => {
             className="banner"
             slidesPerView={1}
             spaceBetween={20}
-            onSlideChange={(swiper: any) => setCurrentSlideIndex(swiper.activeIndex)}
+            onSlideChange={(swiper: any) =>
+              setCurrentSlideIndex(swiper.activeIndex)
+            }
           >
             {foodInfo.images.map((image: string, index: number) => (
               <SwiperSlide key={image}>

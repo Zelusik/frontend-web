@@ -1,132 +1,106 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import styled from "@emotion/styled";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import Image from "components/Image";
+import TagImage from "components/Image/TagImage";
 import useDisplaySize from "hooks/useDisplaySize";
-import { colors } from "constants/colors";
-import Spacing from "components/Spacing";
-import Hr from "components/Hr";
-import { globalValue } from "constants/globalValue";
-import { useRouter } from "next/router";
-import { Route } from "constants/Route";
-import { css } from "@emotion/react";
-import { typography } from "constants/typography";
+import SlideLine from "./SlideLine";
+import FoodTag from "./FoodTag";
+import ImageHashtag from "components/Share/ImageHashtag";
 
-const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
-  const router = useRouter();
+const imageDatas = [
+  {
+    src: "https://i.ibb.co/2kSZX6Y/60pt.png",
+    hashtags: [
+      { text: "똠얌칼국수", top: 10, left: 20 },
+      { text: "똠얌칼국수", top: 20, left: 80 },
+      { text: "똠얌칼국수", top: 60, left: 20 },
+    ],
+  },
+  {
+    src: "https://i.ibb.co/2kSZX6Y/60pt.png",
+    hashtags: [
+      { text: "똠얌칼국수", top: 27, left: 31 },
+      { text: "똠얌칼국수", top: 43, left: 87 },
+    ],
+  },
+  {
+    src: "https://i.ibb.co/2kSZX6Y/60pt.png",
+    hashtags: [
+      { text: "똠얌칼국수", top: 20, left: 80 },
+      { text: "똠얌칼국수", top: 60, left: 20 },
+    ],
+  },
+];
+
+const ImageBox = forwardRef(function Div({}, ref: any) {
   const { width } = useDisplaySize();
-  const handleClickImage = () => {
-    router.push(Route.IMAGE_DETAIL());
+  const [foodTagShow, setFoodTagShow] = useState<boolean>(false);
+  const [swiperIndex, setSwiperIndex] = useState<number>(0);
+  const [percentage, setPercentage] = useState([
+    (swiperIndex / imageDatas.length) * 100,
+    ((swiperIndex + 1) / imageDatas.length) * 100,
+  ]);
+
+  const onSlideChange = (e: any) => {
+    let newPercentage = percentage;
+    newPercentage[0] = ((swiperIndex + 1) / imageDatas.length) * 100;
+    setSwiperIndex(e.activeIndex);
+
+    let newSwiper = e.activeIndex;
+    newPercentage[1] = ((newSwiper + 1) / imageDatas.length) * 100;
+    setPercentage(newPercentage);
+  };
+
+  const clickFoodTag = () => {
+    setFoodTagShow(!foodTagShow);
   };
 
   return (
-    <ImageBoxWrapper
-      ref={ref}
-      style={{ height: (width * 281) / 360 }}
-      onClick={handleClickImage}
-    >
-      <ImageWrapper>
-        <ImageHorizonal
-          width={images.length < 2 ? width : width / 2}
-          height={(width * 281) / 360}
-        >
-          {images.length > 0 ? (
-            <Image
-              alt="디테일 이미지"
-              type="home-detail"
-              src={
-                images.length > 0
-                  ? images[0]
-                  : "https://i.ibb.co/2kSZX6Y/60pt.png"
-              }
-            />
-          ) : null}
-        </ImageHorizonal>
-      </ImageWrapper>
+    <Wrapper ref={ref}>
+      <Swiper
+        allowSlidePrev={swiperIndex !== 0}
+        allowSlideNext={swiperIndex !== imageDatas.length - 1}
+        onSlideChange={onSlideChange}
+        style={{ height: width + 4 }}
+      >
+        {imageDatas.map((data: any, idx: number) => {
+          return (
+            <SwiperSlide key={idx}>
+              {foodTagShow
+                ? data.hashtags.map((data2: any, idx2: number) => {
+                    return (
+                      <ImageHashtag
+                        key={idx2}
+                        text={data2.text}
+                        top={data2.top}
+                        left={data2.left}
+                      />
+                    );
+                  })
+                : null}
 
-      {images.length > 1 ? (
-        <>
-          <Hr size={3} />
-          <ImageWrapper>
-            <ImageHorizonal
-              width={width / 2 - 3}
-              height={
-                images.length === 2
-                  ? (width * 281) / 360
-                  : (width * 281) / 360 / 2 - 1.5
-              }
-            >
-              <Image alt="디테일 이미지" type="store-detail" src={images[1]} />
-            </ImageHorizonal>
-            {images.length > 2 ? (
-              <>
-                <Spacing size={3} />
-                <ImageHorizonal
-                  width={width / 2 - 3}
-                  height={(width * 281) / 360 / 2 - 1.5}
-                >
-                  <Image
-                    alt="디테일 이미지"
-                    type="store-detail"
-                    src={images[2]}
-                  />
-                  {images.length > 3 ? (
-                    <>
-                      <ImageCountWrapper />
-                      <ImageCount>+{images.length - 3}</ImageCount>
-                    </>
-                  ) : undefined}
-                </ImageHorizonal>
-              </>
-            ) : undefined}
-          </ImageWrapper>
-        </>
-      ) : undefined}
-    </ImageBoxWrapper>
+              <TagImage key={idx} src={data.src} />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+
+      <FoodTag onClick={clickFoodTag} />
+
+      <SlideLine percentage={percentage} />
+    </Wrapper>
   );
 });
 
-const ImageBoxWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
-  max-width: ${globalValue.MAX_WIDTH}px;
+  max-width: 820px;
 
-  display: flex;
   position: fixed;
   top: 0;
-`;
-
-const ImageWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const ImageHorizonal = styled.div<{ width: number; height: number }>`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
-  position: relative;
-`;
-
-const ImageCountWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-
-  opacity: 0.4;
-  position: absolute;
-  top: 0;
-  background-color: ${colors.N100};
-`;
-
-const ImageCount = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  ${css`
-    ${typography.Headline3}
-  `}
-
-  color: ${colors.N0};
-  transform: translate(-50%, -50%);
 `;
 
 export default ImageBox;

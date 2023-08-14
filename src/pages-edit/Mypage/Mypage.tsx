@@ -1,29 +1,31 @@
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import styled from "@emotion/styled";
+import { keyframes } from "@emotion/react";
+import useAlert from "hooks/useAlert";
+import useDisplaySize from "hooks/useDisplaySize";
+
+import { colors } from "constants/colors";
+import { globalValue } from "constants/globalValue";
+import { Route } from "constants/Route";
+
+import Text from "components/Text";
+import TopNavigation from "components/TopNavigation";
 import BottomNavigation from "components/BottomNavigation";
 import BackTitle from "components/Title/BackTitle";
-import styled from "@emotion/styled";
-import ProfileInfo from "./components/ProfileInfo";
-
 import Spacing from "components/Spacing";
 import Setting from "components/Button/IconButton/Setting";
+
 import TasteBox from "./components/TasteBox";
-import TopNavigation from "components/TopNavigation";
-import { useEffect, useRef, useState } from "react";
-import useDisplaySize from "hooks/useDisplaySize";
-import { colors } from "constants/colors";
+import ProfileInfo from "./components/ProfileInfo";
 import RecommandSwiper from "./components/RecommandSwiper";
-import { css, keyframes } from "@emotion/react";
-import { globalValue } from "constants/globalValue";
-import useAlert from "hooks/useAlert";
-import NewButton from "./components/NewButton";
-import Text from "components/Text";
-import { Route } from "constants/Route";
 import ReviewList from "./components/ReviewList";
+import NewButton from "./components/NewButton";
 
 const RecommandDatas = [
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
 ];
 
 const ReviewDatas = [
@@ -111,7 +113,7 @@ export default function Mypage() {
         ) : (
           <BackTitle
             type={titleChange ? "black-left-text" : "black-dots"}
-            titleText={titleChange ? "강남작가" : null}
+            title={titleChange ? "강남작가" : null}
           />
         )}
       </TitleWrapper>
@@ -251,6 +253,7 @@ const TitleWrapper = styled.div`
 
 const TitleInner = styled.div<{ visible: boolean }>`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: 50px;
   padding: 0 20px;
   margin: auto 0;

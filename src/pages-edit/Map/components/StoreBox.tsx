@@ -36,7 +36,7 @@ export default function StoreBox() {
   return (
     <Wrapper
       onClick={() => {
-        router.push(Route.STORE_DETAIL());
+        router.push(Route.REVIEW_DETAIL());
       }}
     >
       <Inner>
@@ -64,7 +64,7 @@ export default function StoreBox() {
           title="소이연남"
           subTitle="아시안푸드"
           onClick={() => {
-            // router.push(Route.HOME_DETAIL());
+            // router.push(Route.STORE_DETAIL());
           }}
         />
         <Spacing size={10} />

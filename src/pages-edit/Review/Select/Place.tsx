@@ -8,7 +8,6 @@ import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Spacing from "components/Spacing/Spacing";
 import { colors } from "constants/colors";
-import { ChevronRight } from "components/Icon/Chevron";
 import BottomButton from "components/Button/BottomButton";
 
 import BackTitle from "components/Title/BackTitle";
@@ -17,6 +16,7 @@ import { Route } from "constants/Route";
 import useGetPlace from "hooks/queries/review/useGetPlace";
 import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
 import Loading from "components/Loading";
+import Icon from "components/Icon/Icon";
 
 const Place = () => {
   const router = useRouter();
@@ -73,7 +73,7 @@ const Place = () => {
             <Spacing size={20} />
             <PlaceInputWrapper onClick={handleClickSearchPlace}>
               <PlaceInput type="text" value={placeInfo.name} readOnly />
-              <ChevronRight />
+              <Icon icon="Chevron" />
             </PlaceInputWrapper>
           </PlaceContainer>
           <BottomWrapper>

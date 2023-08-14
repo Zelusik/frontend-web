@@ -1,31 +1,32 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-
-import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
-import BottomNavigation from "components/BottomNavigation";
-import Spacing from "components/Spacing";
-import Input from "components/Input";
-
-import Selections from "./components/Selections";
-import FindLocationButton from "./components/FindLocationButton";
-import StoreBox from "./components/StoreBox";
-import LocationTitle from "./components/LocationTitle";
-import KakaoMap from "components/Share/KakaoMap";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import Filter from "./components/Filter";
-import FilterSelection from "./components/FilterSelection";
-import FilterButton from "./components/FilterButton";
-import StoreFilter from "./components/StoreFilter";
-import Icon from "components/Icon";
+import useDisplaySize from "hooks/useDisplaySize";
 import { changeType } from "reducer/slices/search/searchSlice";
-import { useEffect } from "react";
+
+import { globalValue } from "constants/globalValue";
 import {
   atmosphereKeyword,
   dayOfWeekData,
   tasteData,
 } from "constants/globalData";
-import useDisplaySize from "hooks/useDisplaySize";
-import { globalValue } from "constants/globalValue";
+
+import KakaoMap from "components/Share/KakaoMap";
+import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
+import BottomNavigation from "components/BottomNavigation";
+import Spacing from "components/Spacing";
+import Input from "components/Input";
+import Icon from "components/Icon";
+
+import Selections from "./components/Selections";
+import FindLocationButton from "./components/FindLocationButton";
+import StoreBox from "./components/StoreBox";
+import LocationTitle from "./components/LocationTitle";
+
+import Filter from "./components/Filter";
+import FilterSelection from "./components/FilterSelection";
+import FilterButton from "./components/FilterButton";
+import StoreFilter from "./components/StoreFilter";
 
 const filterSelection = [
   {
@@ -140,6 +141,5 @@ const InputWrapper = styled.div`
 const IconWrapper = styled.div`
   position: absolute;
   top: 29px;
-  // top: calc(50% - 18px);
   right: 27px;
 `;

@@ -140,7 +140,7 @@ const EditProfile = () => {
                   value={user.birthDay}
                   onChange={handleChangeBirthday}
                 />
-                <Icon icon="Chevron" rotate={180} />
+                <Icon icon="Chevron" />
               </div>
             </div>
             <div className="section">

@@ -84,7 +84,8 @@ export default function useBottomSheet({ ...props }: any) {
   });
 
   useEffect(() => {
-    const BOTTOMSHEET_BACKGROUND = window.innerHeight - props.BOTTOMSHEET_HEIGHT;
+    const BOTTOMSHEET_BACKGROUND =
+      window.innerHeight - props.BOTTOMSHEET_HEIGHT;
 
     const handleTouchStart = (e: TouchEvent) => {
       const { touchStart } = metrics.current;
@@ -122,7 +123,8 @@ export default function useBottomSheet({ ...props }: any) {
         document.body.style.overflowY = "hidden";
 
         moveBottomSheet(
-          -(currentTouchMove - props.BOTTOMSHEET_HEIGHT) / props.BOTTOMSHEET_HEIGHT
+          -(currentTouchMove - props.BOTTOMSHEET_HEIGHT) /
+            props.BOTTOMSHEET_HEIGHT
         );
         sheet.current?.style.setProperty(
           "transform",
