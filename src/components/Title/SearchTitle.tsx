@@ -6,6 +6,7 @@ import { Route } from "constants/Route";
 
 import Icon from "components/Icon";
 import Text from "components/Text";
+import Spacing from "components/Spacing";
 
 export default function SearchTitle({ type = "home", ...props }: any) {
   const router = useRouter();
@@ -14,18 +15,21 @@ export default function SearchTitle({ type = "home", ...props }: any) {
   };
 
   return (
-    <TitleWrapper>
-      <MenuList>
-        {type === "home" ? (
-          <Icon icon="Logo" />
-        ) : (
-          <Text typo="Headline5" color="N100">
-            저장한 음식점
-          </Text>
-        )}
-        {/* <Icon icon="Search" width={24} height={24} onClick={clickSearch} /> */}
-      </MenuList>
-    </TitleWrapper>
+    <>
+      <Spacing size={50} />
+      <TitleWrapper>
+        <MenuList>
+          {type === "home" ? (
+            <Icon icon="Logo" />
+          ) : (
+            <Text typo="Headline5" color="N100">
+              저장한 음식점
+            </Text>
+          )}
+          {/* <Icon icon="Search" width={24} height={24} onClick={clickSearch} /> */}
+        </MenuList>
+      </TitleWrapper>
+    </>
   );
 }
 
