@@ -69,7 +69,6 @@ export { default as AuthApple } from "./auth/AuthApple";
 // review
 export { default as Gallery } from "./Gallery";
 export { default as Warn } from "./Warn";
-export { SelectedRadio, DefaultRadio } from "./Radio";
 export { default as Camera } from "./Camera";
 
 // mark
