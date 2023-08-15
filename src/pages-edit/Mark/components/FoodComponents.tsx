@@ -30,6 +30,8 @@ const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
             slidesPerView={1}
             spaceBetween={20}
             onSlideChange={(swiper: any) => setCurrentSlideIndex(swiper.activeIndex)}
+            allowSlidePrev={currentSlideIndex !== 0}
+            allowSlideNext={currentSlideIndex !== placeInfo.images.length - 1}
           >
             {placeInfo.images.map((image: any, index: number) => (
               <SwiperSlide key={index}>
