@@ -18,7 +18,7 @@ const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
   const hasImage = placeInfo.images ? true : false;
 
   const handleClickPlace = () => {
-    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
+    router.push({ pathname: Route.STORE_DETAIL(), query: { id: placeInfo.id } });
   };
 
   return (
@@ -44,14 +44,14 @@ const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
           }`}</ImageBadge>
         </ImageWrapper>
       )}
-      <PlaceInfo hasImage={hasImage}>
+      <PlaceInfo>
         <div className="place">
           <Text typo="Headline4" color="N100">
             {placeInfo.name}
           </Text>
           <Text
             typo="Paragraph1"
-            color="N60"
+            color="N100"
           >{`${placeInfo.category} · ${placeInfo.address.sido} ${placeInfo.address.sgg}`}</Text>
         </div>
         <Icon icon="Heart" />
@@ -92,16 +92,15 @@ const ImageBadge = styled.span`
   border-radius: 100px;
   z-index: 10;
 `;
-const PlaceInfo = styled.div<{ hasImage: boolean }>`
+const PlaceInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0 10px;
   .place {
     display: flex;
-    flex-direction: ${({ hasImage }) => (hasImage ? "row" : "column")};
-    gap: ${({ hasImage }) => (hasImage ? "8px" : "5px")};
-    align-items: ${({ hasImage }) => (hasImage ? "center" : "initial")};
+    flex-direction: column;
+    gap: 4px;
   }
 `;
 

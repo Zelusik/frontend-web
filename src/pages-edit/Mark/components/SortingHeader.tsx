@@ -7,7 +7,7 @@ const SortingHeader = ({ count }: { count: number }) => {
   return (
     <SortingHeaderWrapper>
       <Text typo="Headline1" color="N50">
-        {`총 ${count}의 음식점`}
+        {`총 ${count}개의 음식점`}
       </Text>
       <StoreFilter />
     </SortingHeaderWrapper>
@@ -18,6 +18,7 @@ const SortingHeaderWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 
   padding: 16px 20px 19px;
 `;
