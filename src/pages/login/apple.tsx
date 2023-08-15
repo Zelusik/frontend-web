@@ -6,9 +6,7 @@ import { setCookie } from "utils/cookie";
 
 const AppleRedirectPage = () => {
   const router = useRouter();
-  const id_token = Array.isArray(router.query.id_token)
-    ? router.query.id_token[0]
-    : router.query.id_token;
+  const id_token = router.asPath.split("id_token=")[1];
 
   const handleAppleLogin = async () => {
     if (id_token) {
