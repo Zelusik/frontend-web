@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import BottomButton from "components/Button/BottomButton";
-import Icon from "components/Icon/Icon";
 import Spacing from "components/Spacing/Spacing";
 import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
@@ -10,6 +9,7 @@ import { typography } from "constants/typography";
 import { deleteUser } from "api/user";
 import { deleteCookie } from "utils/cookie";
 import { useRouter } from "next/router";
+import ReportButton from "pages-edit/Report/components/ReportButton";
 
 const DeleteProfile = () => {
   const router = useRouter();
@@ -56,17 +56,12 @@ const DeleteProfile = () => {
       <Spacing size={20} />
       <SurveyWrapper>
         {surveyList.map((servey: { value: string; text: string }) => (
-          <SurveyButton
+          <ReportButton
             key={servey.value}
+            selected={checked === servey.value}
+            text={servey.text}
             onClick={() => handleClickRadio(servey.value)}
-          >
-            <Icon
-              icon={checked === servey.value ? "SelectedRadio" : "DefaultRadio"}
-            />
-            <Text typo="Paragraph4" color="N80">
-              {servey.text}
-            </Text>
-          </SurveyButton>
+          />
         ))}
       </SurveyWrapper>
       <BottomWrapper>
@@ -99,17 +94,8 @@ const Notification = styled.div`
   color: ${colors.N80} !important;
   ${typography.Paragraph1}
 `;
-const SurveyWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-const SurveyButton = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-`;
+const SurveyWrapper = styled.div``;
+
 const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;

@@ -1,14 +1,16 @@
 import wrapper from "store";
-import GlobalStyles from "./components/GlobalStyles";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import { Provider } from "react-redux";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { cache } from "@emotion/css";
 import { CacheProvider } from "@emotion/react";
-import type { AppProps } from "next/app";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
 import { useAppSelector } from "hooks/useReduxHooks";
+
 import BottomSheet from "components/BottomSheet";
 import Alert from "components/Alert";
-import Head from "next/head";
+
+import GlobalStyles from "./components/GlobalStyles";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {

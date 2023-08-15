@@ -7,7 +7,7 @@ export const Route: RouteType = {
   TASTE: () => "/login/taste",
 
   HOME: () => "/",
-  HOME_DETAIL: () => "/home-detail",
+  STORE_DETAIL: () => "/store-detail",
   REPORT: () => "/report",
   MAP_DETAIL: () => "/map-detail",
 
@@ -33,6 +33,6 @@ export const Route: RouteType = {
   INQUIRY: () => "/mypage/setting/inquiry",
   PRIVACY_POLICY: () => "/mypage/setting/privacy-policy",
 
-  STORE_DETAIL: () => "/store-detail",
+  REVIEW_DETAIL: () => "/review-detail",
   IMAGE_DETAIL: () => "/image-detail",
 };

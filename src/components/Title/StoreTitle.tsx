@@ -1,16 +1,19 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { match } from "ts-pattern";
+
 import Edit from "components/Button/IconButton/Edit";
 import Heart from "components/Button/IconButton/Heart";
 import Spacing from "components/Spacing";
 import Text from "components/Text";
-import { match } from "ts-pattern";
+
+interface Props {
+  type: "home" | "detail" | "detail-mine" | "map" | "mypage-review";
+}
 
 export default function StoreTitle({
   type = "detail",
   title,
   subTitle,
-  onClick,
   ...props
 }: any) {
   return (
@@ -18,110 +21,99 @@ export default function StoreTitle({
       height={match(type)
         .with("home", () => 58)
         .with("detail", () => 49)
+        .with("detail-mine", () => 49)
         .with("map", () => 25)
-        .with("mypage-list", () => 39)
+        .with("mypage-review", () => 39)
         .otherwise(() => 58)}
       padding={match(type)
         .with("home", () => "0 20px")
-        .with("detail", () => "0")
+        .with("detail", () => "0 20px")
+        .with("detail-mine", () => "0 20px")
         .with("map", () => "0 5px")
-        .with("mypage-list", () => "0 10px")
+        .with("mypage-review", () => "0 10px")
         .otherwise(() => "0")}
-      position={type === "home" || type === "mypage-list"}
+      position={type === "home" || type === "mypage-review"}
       bottom={match(type)
-        .with("home", () => 30)
+        .with("home", () => 56)
         .with("detail", () => 0)
+        .with("detail-mine", () => 0)
         .with("map", () => 0)
-        .with("mypage-list", () => 15)
+        .with("mypage-review", () => 15)
         .otherwise(() => 0)}
     >
-      <MenuList>
-        <Menu onClick={onClick}>
-          <div>
-            {title ? (
-              <Text
-                typo={match(type)
-                  .with("home", () => "Headline6")
-                  .with("detail", () => "Headline6")
-                  .with("map", () => "Headline4")
-                  .with("mypage-list", () => "Headline3")
-                  .otherwise(() => "Headline6")}
-                color={match(type)
-                  .with("home", () => "N0")
-                  .with("detail", () => "N100")
-                  .with("map", () => "N100")
-                  .with("mypage-list", () => "N0")
-                  .otherwise(() => "N100")}
-                style={{ display: "flex" }}
-              >
-                {title}
-                {type === "map" ? (
-                  <Text
-                    typo="Paragraph1"
-                    color="N60"
-                    style={{
-                      margin: "auto",
-                      marginLeft: 5,
-                    }}
-                  >
-                    {subTitle}
-                  </Text>
-                ) : null}
-              </Text>
-            ) : null}
-            {type !== "map" && subTitle ? (
-              <Text
-                typo={match(type)
-                  .with("home", () => "Paragraph1")
-                  .with("detail", () => "Paragraph3")
-                  .with("mypage-list", () => "Paragraph2")
-                  .otherwise(() => "Paragraph3")}
-                color={match(type)
-                  .with("home", () => "N0")
-                  .with("detail", () => "N100")
-                  .with("mypage-list", () => "N0")
-                  .otherwise(() => "N100")}
-              >
-                {subTitle}
-              </Text>
-            ) : null}
-          </div>
-        </Menu>
+      <Menu onClick={props.onClick} isFlex={type === "map"}>
+        {title ? (
+          <Text
+            typo={match(type)
+              .with("home", () => "Headline6")
+              .with("detail", () => "Headline6")
+              .with("detail-mine", () => "Headline6")
+              .with("map", () => "Headline4")
+              .with("mypage-review", () => "Headline3")
+              .otherwise(() => "Headline6")}
+            color={match(type)
+              .with("home", () => "N0")
+              .with("detail", () => "N100")
+              .with("detail-mine", () => "N100")
+              .with("map", () => "N100")
+              .with("mypage-review", () => "N0")
+              .otherwise(() => "N100")}
+            style={{ marginRight: 5, marginBottom: type === "map" ? 0 : 4 }}
+          >
+            {title}
+          </Text>
+        ) : undefined}
+        {subTitle ? (
+          <Text
+            typo={match(type)
+              .with("home", () => "Paragraph1")
+              .with("detail", () => "Paragraph3")
+              .with("detail-mine", () => "Paragraph3")
+              .with("map", () => "Paragraph1")
+              .with("mypage-review", () => "Paragraph2")
+              .otherwise(() => "Paragraph3")}
+            color={match(type)
+              .with("home", () => "N0")
+              .with("detail", () => "N100")
+              .with("detail-mine", () => "N100")
+              .with("map", () => "N60")
+              .with("mypage-review", () => "N0")
+              .otherwise(() => "N100")}
+          >
+            {subTitle}
+          </Text>
+        ) : undefined}
+      </Menu>
 
-        {type !== "mypage-list" ? (
-          <Menu>
-            {type !== "home" ? (
-              <Edit
-                size={match(type)
-                  .with("home", () => 28)
-                  .with("detail", () => 28)
-                  .with("map", () => 24)
-                  .otherwise(() => 28)}
-              />
-            ) : null}
-            <div
-              style={{
-                marginLeft: type === "map" ? 16 : 20,
-                textAlign: "center",
-              }}
-            >
-              <Heart
-                size={match(type)
-                  .with("home", () => 28)
-                  .with("detail", () => 28)
-                  .with("map", () => 24)
-                  .otherwise(() => 28)}
-              />
-              <Spacing size={4} />
-              {type === "home" ? (
+      {type !== "mypage-review" && type !== "detail-mine" ? (
+        <Menu isFlex={true}>
+          {type !== "home" ? (
+            <Edit
+              size={match(type)
+                .with("detail", () => 28)
+                .with("map", () => 24)
+                .otherwise(() => 28)}
+            />
+          ) : undefined}
+          <HeartWrapper marginLeft={type === "map" ? 16 : 20}>
+            <Heart
+              size={match(type)
+                .with("home", () => 28)
+                .with("detail", () => 28)
+                .with("map", () => 24)
+                .otherwise(() => 28)}
+            />
+            {type === "home" || type === "mypage-review" ? (
+              <>
+                <Spacing size={4} />
                 <Text typo="Paragraph3" color="N0">
                   999
                 </Text>
-              ) : null}
-            </div>
-          </Menu>
-        ) : null}
-      </MenuList>
+              </>
+            ) : undefined}
+          </HeartWrapper>
+        </Menu>
+      ) : undefined}
     </TitleWrapper>
   );
 }
@@ -136,22 +128,20 @@ const TitleWrapper = styled.div<{
   height: ${({ height }) => height + "px"};
   padding: ${({ padding }) => padding};
   display: flex;
+  justify-content: space-between;
 
   position: ${({ position }) => (position ? "absolute" : "static")};
   bottom: ${({ bottom }) => bottom}px;
 `;
 
-const MenuList = styled.div`
-  width: 100%;
+const Menu = styled.div<{ isFlex?: boolean }>`
   margin: auto 0;
 
-  display: flex;
-  justify-content: space-between;
+  display: ${({ isFlex }) => (isFlex ? "flex" : "block")};
+  align-items: center;
 `;
 
-const Menu = styled.div`
-  margin: auto 0;
-
-  display: flex;
-  align-items: center;
+const HeartWrapper = styled.div<{ marginLeft: number }>`
+  margin-left: ${({ marginLeft }) => marginLeft}px;
+  text-align: center;
 `;

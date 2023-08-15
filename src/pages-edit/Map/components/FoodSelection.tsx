@@ -6,7 +6,7 @@ import RoundButton from "components/Button/RoundButton";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { tasteData } from "constants/globalData";
 
-export default function Selections({ state }: any) {
+export default function FoodSelection({ state }: any) {
   const router = useRouter();
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
@@ -19,36 +19,36 @@ export default function Selections({ state }: any) {
   };
 
   return (
-    <HashtagsWrapper visible={visible} actionDelay={actionDelay}>
-      <HashtagsInner>
-        <MenuWrapper marginLeft={true} marginRight={false}>
+    <ScrollWrapper visible={visible} actionDelay={actionDelay}>
+      <ScrollInner>
+        <ButtonWrapper left={true} right={false}>
           <RoundButton type="map-icon" action={true}>
             내 주변
           </RoundButton>
-        </MenuWrapper>
+        </ButtonWrapper>
 
-        <MenuWrapper marginLeft={false} marginRight={false}>
+        <ButtonWrapper left={false} right={false}>
           <RoundButton type="map-icon" action={false}>
             저장
           </RoundButton>
-        </MenuWrapper>
+        </ButtonWrapper>
 
         {tasteData.map((data: any, idx: number) => {
           return (
-            <MenuWrapper
+            <ButtonWrapper
               key={idx}
-              marginLeft={false}
-              marginRight={idx === tasteData.length - 1}
+              left={false}
+              right={idx === tasteData.length - 1}
               onClick={() => handleClickFood(idx)}
             >
               <RoundButton type="map-text" action={false}>
                 {data.val}
               </RoundButton>
-            </MenuWrapper>
+            </ButtonWrapper>
           );
         })}
-      </HashtagsInner>
-    </HashtagsWrapper>
+      </ScrollInner>
+    </ScrollWrapper>
   );
 }
 
@@ -61,7 +61,7 @@ const fade = (actionDelay: number) => keyframes`
   }
 `;
 
-const HashtagsWrapper = styled.div<{
+const ScrollWrapper = styled.div<{
   actionDelay: number;
   visible: number;
 }>`
@@ -71,17 +71,17 @@ const HashtagsWrapper = styled.div<{
   opacity: ${({ visible }) => 1 - visible};
 `;
 
-const HashtagsInner = styled.div`
+const ScrollInner = styled.div`
   height: 42px;
   display: flex;
   overflow: auto;
 `;
 
-const MenuWrapper = styled.div<{ marginLeft: boolean; marginRight: boolean }>`
+const ButtonWrapper = styled.div<{ left: boolean; right: boolean }>`
   height: 40px;
   margin: auto;
-  margin-left: ${({ marginLeft }) => (marginLeft ? "15px" : "0")};
-  margin-right: ${({ marginRight }) => (marginRight ? "15px" : "6px")};
+  margin-left: ${({ left }) => (left ? "15px" : "0")};
+  margin-right: ${({ right }) => (right ? "15px" : "6px")};
 
   display: inline-block;
   border-radius: 40px;

@@ -7,25 +7,30 @@ import Description from "components/Description";
 import Hashtags from "components/Hashtags";
 import SlideImage from "components/Image/SlideImage";
 
-export default function ReivewBox({ id }: any) {
+export default function ReivewCard({ id }: any) {
   const router = useRouter();
+  const mine = false;
 
   return (
     <>
-      <MenuWrapper>
-        <ProfileTitle title="고작가" subTitle="움맘마" />
+      <Wrapper>
+        <ProfileTitle
+          type={mine ? "mine" : "follow"}
+          title="고작가"
+          subTitle="움맘마"
+        />
         <Spacing size={16} />
-      </MenuWrapper>
+      </Wrapper>
 
       <SlideImage
         images={[
-          "https://i.ibb.co/0Z6FNN7/60pt.png",
-          "https://i.ibb.co/0Z6FNN7/60pt.png",
-          "https://i.ibb.co/0Z6FNN7/60pt.png",
+          "https://i.ibb.co/2kSZX6Y/60pt.png",
+          "https://i.ibb.co/2kSZX6Y/60pt.png",
+          "https://i.ibb.co/2kSZX6Y/60pt.png",
         ]}
       />
 
-      <MenuWrapper>
+      <Wrapper>
         <Spacing size={10} />
         <Description
           text={`그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
@@ -36,7 +41,7 @@ export default function ReivewBox({ id }: any) {
           더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를`}
         />
         <Spacing size={10} />
-      </MenuWrapper>
+      </Wrapper>
 
       <Hashtags
         type="secondary"
@@ -52,14 +57,6 @@ export default function ReivewBox({ id }: any) {
   );
 }
 
-const BoxWrapper = styled.div`
-  width: 100%;
-`;
-
-const MenuWrapper = styled.div`
+const Wrapper = styled.div`
   padding: 0 20px;
-`;
-
-const ImageWrapper = styled.div`
-  padding-left: 20px;
 `;

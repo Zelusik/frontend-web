@@ -10,6 +10,7 @@ import Text from "components/Text/Text";
 import Icon from "components/Icon/Icon";
 import Hashtag from "components/Hashtags/Hashtag";
 import { useRouter } from "next/router";
+import { Route } from "constants/Route";
 
 const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
@@ -17,8 +18,9 @@ const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
   const hasImage = placeInfo.images ? true : false;
 
   const handleClickPlace = () => {
-    router.push("/store-detail");
+    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
   };
+
   return (
     <FoodComponentWrapper hasImage={hasImage} onClick={handleClickPlace}>
       {placeInfo.images && (

@@ -46,7 +46,7 @@ export default function ImageDetail({}: any) {
         {images.map((data: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
-              <Image type="home-detail" alt="상세 이미지" src={data} />
+              <Image type="store-detail" alt="상세 이미지" src={data} />
             </SwiperSlide>
           );
         })}

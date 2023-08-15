@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Icon from "components/Icon";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import AppleLogin from "react-apple-login";
 
 const LoginTemplate = () => {
   const redirectUrl = process.env.KAKAO_REDIRECT_URI;
@@ -25,7 +26,16 @@ const LoginTemplate = () => {
         <Link href={kakaoUrl}>
           <Icon icon="AuthKakao" />
         </Link>
-        {userAgent.indexOf("android") === -1 && <Icon icon="AuthApple" />}
+        {userAgent.indexOf("android") === -1 && (
+          <AppleLogin
+            clientId={process.env.APPLE_CLIENT_ID}
+            redirectURI={process.env.APPLE_REDIRECT_URL}
+            responseType={"code id_token"}
+            responseMode={"fragment"}
+            usePopup={false}
+            state={"signin"}
+          />
+        )}
       </ButtonWrapper>
     </LoginTemplateWrapper>
   );
@@ -49,14 +59,30 @@ const LogoWrapper = styled.div`
   align-items: center;
   gap: 12px;
 `;
+
 const ButtonWrapper = styled.div`
   position: absolute;
   bottom: 80px;
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 
   cursor: pointer;
+
+  #appleid-signin {
+    margin-top: 16px;
+    position: relative;
+    svg {
+      display: none;
+    }
+  }
+  #appleid-signin::before {
+    content: url("/assets/authApple.svg");
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 export default LoginTemplate;

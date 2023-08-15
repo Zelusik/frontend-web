@@ -1,6 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { useEffect, useRef, useState } from "react";
 import { keyframes } from "@emotion/react";
 import useDisplaySize from "hooks/useDisplaySize";
 
@@ -12,14 +12,14 @@ import { colors } from "constants/colors";
 import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
 
-import ReivewBox from "./components/ReviewBox";
+import ReviewCard from "./components/ReviewCard";
 import ImageBox from "./components/ImageBox";
 import { globalValue } from "constants/globalValue";
 
 const images = [
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
-  "https://i.ibb.co/0Z6FNN7/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
+  "https://i.ibb.co/2kSZX6Y/60pt.png",
   "",
   // "",
 ];
@@ -43,7 +43,7 @@ const ReviewDatas = [
   "",
 ];
 
-export default function StoreDetail() {
+export default function ReviewDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
 
@@ -101,31 +101,29 @@ export default function StoreDetail() {
   return (
     <>
       <ImageBox ref={imageRef} images={images} />
-      <BackTitleWrapper visible={titleChange}>
+      <TitleWrapper visible={titleChange}>
         <BackTitle
           type={
             titleChange
               ? "black-left-text"
               : images.length > 0
-              ? "white-dots"
+              ? "white-dots-store"
               : "black-left-text"
           }
-          titleText={titleChange && "소이연남"}
+          title={titleChange ? "소이연남" : undefined}
         />
-      </BackTitleWrapper>
+      </TitleWrapper>
 
-      <StoreDetailWrapper ref={scrollRef} height={height}>
+      <Wrapper ref={scrollRef} height={height}>
         <Spacing size={images.length > 0 ? (width * 281) / 360 : 50} />
 
         <HomeDetailInner>
           <Spacing size={20} />
-          <div style={{ padding: "0 20px" }}>
-            <StoreTitle
-              type="detail"
-              title="소이연남"
-              subTitle="음식 카테고리 지역"
-            />
-          </div>
+          <StoreTitle
+            type="detail"
+            title="소이연남"
+            subTitle="음식 카테고리 지역"
+          />
 
           <Spacing size={16} />
           <Hashtags
@@ -139,7 +137,7 @@ export default function StoreDetail() {
           <Spacing size={40} />
 
           <TopNavigation
-            type="store-detail"
+            type="review-detail"
             scrollRef={scrollRef}
             scrollTop={
               images.length === 0
@@ -160,7 +158,7 @@ export default function StoreDetail() {
               }}
             >
               {ReviewDatas.map((data: any, idx: number) => {
-                return <ReivewBox key={idx} />;
+                return <ReviewCard key={idx} />;
               })}
             </div>
             <StoreInfo
@@ -174,7 +172,7 @@ export default function StoreDetail() {
             </StoreInfo>
           </TopNavigation>
         </HomeDetailInner>
-      </StoreDetailWrapper>
+      </Wrapper>
     </>
   );
 }
@@ -190,7 +188,7 @@ const fade = (visible: boolean) => keyframes`
   }
 `;
 
-const StoreDetailWrapper = styled.div<{ height: number }>`
+const Wrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
   overflow-y: scroll;
   background-color: ${colors.N0};
@@ -201,7 +199,7 @@ const HomeDetailInner = styled.div`
   background-color: ${colors.N0};
 `;
 
-const BackTitleWrapper = styled.div<{ visible: boolean }>`
+const TitleWrapper = styled.div<{ visible: boolean }>`
   width: 100%;
   padding: 0 20px;
 

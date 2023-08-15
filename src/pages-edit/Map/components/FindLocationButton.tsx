@@ -12,15 +12,15 @@ export default function FindLocationButton() {
   };
 
   return (
-    <ButtonpWrapper onClick={findingLocation}>
+    <Wrapper onClick={findingLocation}>
       <IconWrapper>
         <Icon icon="FindLocation" />
       </IconWrapper>
-    </ButtonpWrapper>
+    </Wrapper>
   );
 }
 
-const ButtonpWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   max-width: ${globalValue.MAX_WIDTH}px;
 

@@ -5,6 +5,7 @@ import {
   changeVisible,
   changeVisibleType,
 } from "reducer/slices/bottomSheet/mapBottomSheetSlice";
+import { changeFilterAction } from "reducer/slices/search/searchSlice";
 import { useAppDispatch } from "./useReduxHooks";
 
 interface BottomSheetMetrics {
@@ -45,6 +46,12 @@ export default function useMapBottomSheet({ ...props }: any) {
   }, []);
 
   const closeMapBottomSheet = useCallback((sheetInner: any) => {
+    dispatch(
+      changeFilterAction({
+        type: "search",
+        value: false,
+      })
+    );
     dispatch(
       changeAction({
         type: "mapBottomSheet",

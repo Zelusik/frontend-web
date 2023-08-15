@@ -6,38 +6,39 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import TagImage from "components/Image/TagImage";
 import useDisplaySize from "hooks/useDisplaySize";
-import FoodTagLine from "./FoodTagLine";
+import SlideLine from "./SlideLine";
 import FoodTag from "./FoodTag";
 import ImageHashtag from "components/Share/ImageHashtag";
 
+const imageDatas = [
+  {
+    src: "https://i.ibb.co/2kSZX6Y/60pt.png",
+    hashtags: [
+      { text: "똠얌칼국수", top: 10, left: 20 },
+      { text: "똠얌칼국수", top: 20, left: 80 },
+      { text: "똠얌칼국수", top: 60, left: 20 },
+    ],
+  },
+  {
+    src: "https://i.ibb.co/2kSZX6Y/60pt.png",
+    hashtags: [
+      { text: "똠얌칼국수", top: 27, left: 31 },
+      { text: "똠얌칼국수", top: 43, left: 87 },
+    ],
+  },
+  {
+    src: "https://i.ibb.co/2kSZX6Y/60pt.png",
+    hashtags: [
+      { text: "똠얌칼국수", top: 20, left: 80 },
+      { text: "똠얌칼국수", top: 60, left: 20 },
+    ],
+  },
+];
+
 const ImageBox = forwardRef(function Div({}, ref: any) {
   const { width } = useDisplaySize();
-  const [foodTagShow, setFoodTagShow] = useState(false);
-  const imageDatas = [
-    {
-      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
-      hashtags: [
-        { text: "똠얌칼국수", top: 10, left: 20 },
-        { text: "똠얌칼국수", top: 20, left: 80 },
-        { text: "똠얌칼국수", top: 60, left: 20 },
-      ],
-    },
-    {
-      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
-      hashtags: [
-        { text: "똠얌칼국수", top: 27, left: 31 },
-        { text: "똠얌칼국수", top: 43, left: 87 },
-      ],
-    },
-    {
-      src: "https://i.ibb.co/0Z6FNN7/60pt.png",
-      hashtags: [
-        { text: "똠얌칼국수", top: 20, left: 80 },
-        { text: "똠얌칼국수", top: 60, left: 20 },
-      ],
-    },
-  ];
-  const [swiperIndex, setSwiperIndex] = useState(0);
+  const [foodTagShow, setFoodTagShow] = useState<boolean>(false);
+  const [swiperIndex, setSwiperIndex] = useState<number>(0);
   const [percentage, setPercentage] = useState([
     (swiperIndex / imageDatas.length) * 100,
     ((swiperIndex + 1) / imageDatas.length) * 100,
@@ -47,6 +48,7 @@ const ImageBox = forwardRef(function Div({}, ref: any) {
     let newPercentage = percentage;
     newPercentage[0] = ((swiperIndex + 1) / imageDatas.length) * 100;
     setSwiperIndex(e.activeIndex);
+
     let newSwiper = e.activeIndex;
     newPercentage[1] = ((newSwiper + 1) / imageDatas.length) * 100;
     setPercentage(newPercentage);
@@ -57,9 +59,7 @@ const ImageBox = forwardRef(function Div({}, ref: any) {
   };
 
   return (
-    <FoodTagWrapper ref={ref}>
-      {/* <div></div> */}
-
+    <Wrapper ref={ref}>
       <Swiper
         allowSlidePrev={swiperIndex !== 0}
         allowSlideNext={swiperIndex !== imageDatas.length - 1}
@@ -87,28 +87,20 @@ const ImageBox = forwardRef(function Div({}, ref: any) {
           );
         })}
       </Swiper>
-      <FoodTagLine percentage={percentage} />
 
-      <FoodTagInner>
-        <FoodTag onClick={clickFoodTag} />
-      </FoodTagInner>
-    </FoodTagWrapper>
+      <FoodTag onClick={clickFoodTag} />
+
+      <SlideLine percentage={percentage} />
+    </Wrapper>
   );
 });
 
-const FoodTagWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   max-width: 820px;
 
   position: fixed;
   top: 0;
-`;
-
-const FoodTagInner = styled.div`
-  padding: 0 20px;
-  position: absolute;
-  bottom: 21px;
-  z-index: 900;
 `;
 
 export default ImageBox;

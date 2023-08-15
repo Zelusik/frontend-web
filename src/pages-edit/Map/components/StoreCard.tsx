@@ -21,10 +21,9 @@ const images = [
   "https://i.ibb.co/2kSZX6Y/60pt.png",
 ];
 
-export default function StoreBox() {
+export default function StoreCard() {
   const router = useRouter();
   const swiperRef = useRef(null);
-  const dispatch = useAppDispatch();
   const [currentIndex, setCurrentIndex] = useState(0);
   const { width } = useDisplaySize();
 
@@ -47,8 +46,9 @@ export default function StoreBox() {
           ref={swiperRef}
           allowSlidePrev={currentIndex !== 0}
           allowSlideNext={currentIndex !== images.length - 1}
+          spaceBetween={20}
           onSlideChange={onSlideChange}
-          style={{ height: (width * 32) / 55, borderRadius: 12 }}
+          style={{ height: (width * 32) / 55 }}
         >
           {images.map((data: any, idx: number) => {
             return (
@@ -64,7 +64,7 @@ export default function StoreBox() {
           title="소이연남"
           subTitle="아시안푸드"
           onClick={() => {
-            // router.push(Route.HOME_DETAIL());
+            // router.push(Route.STORE_DETAIL());
           }}
         />
         <Spacing size={10} />

@@ -23,7 +23,7 @@ export default function ProfileSelection({ text }: any) {
       localStorage.setItem("currentSelection", JSON.stringify([]));
     }
 
-    router.push({ pathname: Route.MYPAGE(), query: { id: 1 } });
+    router.push({ pathname: Route.MYPAGE(), query: { id: 2 } });
   };
 
   return (
@@ -31,7 +31,7 @@ export default function ProfileSelection({ text }: any) {
       <div style={{ margin: "auto 0", display: "flex" }}>
         <Image
           alt="프로필 사진"
-          src="https://i.ibb.co/0Z6FNN7/60pt.png"
+          src="https://i.ibb.co/2kSZX6Y/60pt.png"
           type="default"
         />
         <Text typo={typography.Headline4}>{text}</Text>
