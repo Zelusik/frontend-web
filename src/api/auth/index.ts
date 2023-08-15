@@ -1,4 +1,5 @@
 import client from "api";
+import axios from "axios";
 import { TermsType } from "types/auth";
 
 export const KakaoLogin = async (kakaoAccessToken: string) =>
@@ -11,8 +12,10 @@ export const AppleLogin = async (userInfo: {
   identityToken: string;
   name: string;
 }) =>
-  await client
-    .post("/auth/login/apple", userInfo)
+  await axios
+    .post(`${process.env.BASE_URL}/auth/login/apple`, userInfo, {
+      headers: { "Content-Type": "application/json" },
+    })
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
 
