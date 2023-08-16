@@ -1,24 +1,31 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import Image from "components/Image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useState } from "react";
+
+import { Route } from "constants/Route";
+import { colors } from "constants/colors";
+import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
 import Spacing from "components/Spacing";
-import { colors } from "constants/colors";
-import { css, keyframes } from "@emotion/react";
-import { typography } from "constants/typography";
 import Text from "components/Text";
 import NewButton from "./NewButton";
 
 export default function RecommandSwiper({ datas, mine, ...props }: any) {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const onSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;
     setCurrentIndex(newSwiper);
+  };
+
+  const clickStoreDetail = () => {
+    router.push({ pathname: Route.STORE_DETAIL(), query: { id: 1 } });
   };
 
   return (
@@ -32,7 +39,12 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
           return (
             <SwiperSlide key={idx}>
               <ImageWrapper>
-                <Image type="home" alt="추천 사진" src={data} />
+                <Image
+                  type="home"
+                  alt="추천 사진"
+                  src={data}
+                  onClick={clickStoreDetail}
+                />
                 <NumberWrapper>
                   <Text typo="Paragraph7">{idx + 1}</Text>
                 </NumberWrapper>
@@ -40,9 +52,7 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
                   type="home"
                   title="소이연남"
                   subTitle="음식 카테고리 지역"
-                  onClick={() => {
-                    // router.push(Route.REVIEW_DETAIL());
-                  }}
+                  onClick={clickStoreDetail}
                 />
               </ImageWrapper>
             </SwiperSlide>

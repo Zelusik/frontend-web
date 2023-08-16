@@ -1,26 +1,36 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { colors } from "constants/colors";
-import { css } from "@emotion/react";
-import { typography } from "constants/typography";
-import { match } from "ts-pattern";
+import { Route } from "constants/Route";
 
 export default function SlideImage({
   type = "primary",
   images = [],
   side = 20,
+  ...props
 }: any) {
   const router = useRouter();
+  const clickImageDetail = () => {
+    router.push({
+      pathname: Route.IMAGE_DETAIL(),
+      query: {
+        length: images.length,
+        image1: images[0]?.url,
+        image2: images[1]?.url,
+        image3: images[2]?.url,
+        image4: images[3]?.url,
+      },
+    });
+  };
 
   return (
-    <ImageWrapper>
+    <ImageWrapper onClick={clickImageDetail}>
       <ImageInner>
-        {images.map((data: string, idx: number) => {
+        {images.map((data: any, idx: number) => {
           return (
             <Image
               alt="음식 사진"
               key={idx}
-              src={data}
+              src={data.thumbnailUrl}
               marginLeft={idx === 0}
               marginRight={idx === images.length - 1}
               side={side}
@@ -51,7 +61,8 @@ const Image = styled.img<{
 }>`
   width: 200px;
   margin-left: ${({ marginLeft, side }) => (marginLeft ? `${side}px` : "0")};
-  margin-right: ${({ marginRight, side }) => (marginRight ? `${side}px` : "8px")};
+  margin-right: ${({ marginRight, side }) =>
+    marginRight ? `${side}px` : "8px"};
   display: inline-block;
   border-radius: 40px;
 

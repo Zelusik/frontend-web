@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <SearchTitle type="home" />
-      <Wrapper height={height}>
+      <Wrapper height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         <Spacing size={20} />
 
         <Text typo="Headline6" color="N100">
@@ -35,7 +35,7 @@ export default function Home() {
 }
 
 const Wrapper = styled.div<{ height: number }>`
-  height: ${({ height }) => height - globalValue.BOTTOM_NAVIGATION_HEIGHT}px;
+  height: ${({ height }) => height}px;
   padding: 0 20px;
   overflow-y: scroll;
 `;

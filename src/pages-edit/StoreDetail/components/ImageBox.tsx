@@ -12,11 +12,20 @@ import { Route } from "constants/Route";
 import { css } from "@emotion/react";
 import { typography } from "constants/typography";
 
-const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
+const ImageBox = forwardRef(function Div({ id, images }: any, ref: any) {
   const router = useRouter();
   const { width } = useDisplaySize();
   const handleClickImage = () => {
-    router.push(Route.IMAGE_DETAIL());
+    router.push({
+      pathname: Route.IMAGE_DETAIL(),
+      query: {
+        length: images.length,
+        image1: images[0]?.url,
+        image2: images[1]?.url,
+        image3: images[2]?.url,
+        image4: images[3]?.url,
+      },
+    });
   };
 
   return (
@@ -36,7 +45,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
               type="store-detail"
               src={
                 images.length > 0
-                  ? images[0]
+                  ? images[0].thumbnailUrl
                   : "https://i.ibb.co/2kSZX6Y/60pt.png"
               }
             />
@@ -56,7 +65,11 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
                   : (width * 281) / 360 / 2 - 1.5
               }
             >
-              <Image alt="디테일 이미지" type="review-detail" src={images[1]} />
+              <Image
+                alt="디테일 이미지"
+                type="review-detail"
+                src={images[1].thumbnailUrl}
+              />
             </ImageHorizonal>
             {images.length > 2 ? (
               <>
@@ -68,7 +81,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
                   <Image
                     alt="디테일 이미지"
                     type="review-detail"
-                    src={images[2]}
+                    src={images[2].thumbnailUrl}
                   />
                   {images.length > 3 ? (
                     <>
