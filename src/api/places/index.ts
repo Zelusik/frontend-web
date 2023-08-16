@@ -6,8 +6,8 @@ export const getPlacesId = async (placeId: number) =>
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
 
-export const getPlacesSearch = async (params: string) =>
+export const getPlacesSearch = async (params: any) =>
   await client
-    .get(`/places/search?`, params, {})
+    .get(`/places/search?`, params)
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
