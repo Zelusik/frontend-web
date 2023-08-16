@@ -41,7 +41,13 @@ export default function StoreTitle({
         .with("mypage-review", () => 15)
         .otherwise(() => 0)}
     >
-      <Menu onClick={props.onClick} isFlex={type === "map"}>
+      <Menu
+        onClick={props.onClick}
+        isFlex={type === "map"}
+        style={{
+          width: type === "mypage-review" ? "100%" : "initial",
+        }}
+      >
         {title ? (
           <Text
             typo={match(type)
@@ -58,7 +64,17 @@ export default function StoreTitle({
               .with("map", () => "N100")
               .with("mypage-review", () => "N0")
               .otherwise(() => "N100")}
-            style={{ marginRight: 5, marginBottom: type === "map" ? 0 : 4 }}
+            style={{
+              marginRight: 5,
+              marginBottom: type === "map" ? 0 : 4,
+              ...(type === "mypage-review"
+                ? {
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }
+                : {}),
+            }}
           >
             {title}
           </Text>
@@ -110,7 +126,7 @@ export default function StoreTitle({
                 .with("home", () => "N0")
                 .with("detail", () => "N100")
                 .with("map", () => "N100")
-                .otherwise(() => 28)}
+                .otherwise(() => "N0")}
               style={{ marginLeft: 6 }}
             >
               999
@@ -140,7 +156,6 @@ const TitleWrapper = styled.div<{
 
 const Menu = styled.div<{ isFlex?: boolean }>`
   margin: auto 0;
-
   display: ${({ isFlex }) => (isFlex ? "flex" : "block")};
   align-items: center;
 `;

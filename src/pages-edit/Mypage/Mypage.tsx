@@ -21,6 +21,7 @@ import ProfileInfo from "./components/ProfileInfo";
 import RecommandSwiper from "./components/RecommandSwiper";
 import ReviewList from "./components/ReviewList";
 import NewButton from "./components/NewButton";
+import useGetMyReviews from "hooks/queries/user/useGetMyReviews";
 
 const RecommandDatas = [
   "https://i.ibb.co/2kSZX6Y/60pt.png",
@@ -28,23 +29,7 @@ const RecommandDatas = [
   "https://i.ibb.co/2kSZX6Y/60pt.png",
 ];
 
-const ReviewDatas = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
+const ReviewDatas = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 
 // 392 + 35 = 427
 
@@ -52,6 +37,7 @@ export default function Mypage() {
   const router = useRouter();
   const [mine, setMine] = useState<boolean>(true);
   const { width, height } = useDisplaySize();
+  const { data: myreview } = useGetMyReviews({ page: 0 });
 
   const scrollRef = useRef<any>(null);
 
@@ -63,7 +49,7 @@ export default function Mypage() {
   const { openAlert } = useAlert();
 
   const clickRecommand = () => {
-    if (ReviewDatas.length === 0) openAlert("write-review");
+    if (myreview && myreview.contents.length === 0) openAlert("write-review");
     else router.push(Route.RECOMMEND_BEST());
   };
 
@@ -73,7 +59,7 @@ export default function Mypage() {
 
     if (
       (currentIndex === 0 ||
-        (currentIndex === 1 && ReviewDatas.length === 0)) &&
+        (currentIndex === 1 && myreview && myreview.contents.length === 0)) &&
       scrollRef.current?.scrollTop >= scrollTop
     ) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -155,8 +141,7 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) >
-                      ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
@@ -181,7 +166,7 @@ export default function Mypage() {
             </TopNavigationInner>
             <TopNavigationInner
               height={
-                ReviewDatas.length === 0 || currentIndex === 0
+                (myreview && myreview.contents.length === 0) || currentIndex === 0
                   ? height -
                     (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
                     104.5 +
@@ -191,12 +176,12 @@ export default function Mypage() {
             >
               <Spacing
                 size={
-                  ReviewDatas.length === 0
+                  myreview && myreview.contents.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
                     : 0
                 }
               />
-              {ReviewDatas.length === 0 ? (
+              {myreview && myreview.contents.length === 0 ? (
                 <NewButton
                   onClick={() => {}}
                   marginTop={0}
@@ -204,7 +189,7 @@ export default function Mypage() {
                   buttonText="첫 리뷰 남기기"
                 />
               ) : (
-                <ReviewList datas={ReviewDatas} />
+                <ReviewList datas={myreview && myreview.contents} />
               )}
               <Spacing size={30} />
             </TopNavigationInner>
@@ -255,7 +240,7 @@ const TitleInner = styled.div<{ visible: boolean }>`
   margin: auto 0;
 
   display: flex;
-  justify-content: space-between;
+  justify-contents: space-between;
   align-items: center;
 
   position: absolute;
