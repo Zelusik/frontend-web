@@ -14,7 +14,7 @@ export default function ReviewList({ type = "mypage", datas }: any) {
   const clickReview = (id?: number) => {
     switch (type) {
       case "mypage":
-        router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: id } });
+        router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
         break;
       case "recommand-best":
         break;
@@ -34,16 +34,21 @@ export default function ReviewList({ type = "mypage", datas }: any) {
             >
               <Image
                 alt="리뷰 사진"
-                src="https://i.ibb.co/2kSZX6Y/60pt.png"
-                //src={data.images[0].thumbnailUrl}
+                src={
+                  data.images
+                    ? data.images[0].thumbnailUrl
+                    : "https://i.ibb.co/2kSZX6Y/60pt.png"
+                }
                 type="mypage-review"
               />
               <StoreTitle
                 type="mypage-review"
-                title="소이연남"
-                subTitle="음식 카테고리 지역"
-                // title={data.place.name}
-                // subTitle={`${data.place.address.sido} ${data.place.address.sgg}`}
+                title={data.place?.name || "소이연남"}
+                subTitle={
+                  data.place
+                    ? `${data.place.address.sido} ${data.place.address.sgg}`
+                    : "음식 카테고리 지역"
+                }
               />
               {type === "recommand-best" ? (
                 <CountWrapper action={false}>{}</CountWrapper>
@@ -63,6 +68,7 @@ const ReviewWrapper = styled.div`
 
 const ReviewInner = styled.div<{ width: number }>`
   width: ${({ width }) => width}px;
+  height: ${({ width }) => Math.floor((width * 170) / 157)}px;
   position: relative;
 `;
 
