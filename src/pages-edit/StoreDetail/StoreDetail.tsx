@@ -67,7 +67,7 @@ export default function ReviewDetail() {
     };
   }, [currentIndex]);
 
-  const { data, isLoading } = useGetStore(parseInt(router.query.id));
+  const { data, isLoading } = useGetStore(Number(router.query.id));
 
   return isLoading ? undefined : (
     <>

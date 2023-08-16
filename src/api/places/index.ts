@@ -25,8 +25,8 @@ export const getPlacesId = async (placeId: number) =>
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
 
-export const getPlacesSearch = async (params: any) =>
+export const getPlacesNear = async (params: any) =>
   await client
-    .get(`/places/search?`, params)
+    .get(`/places/near?`, params)
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
