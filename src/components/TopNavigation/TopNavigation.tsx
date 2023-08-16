@@ -141,6 +141,10 @@ const TitleSelection = styled.div<{
 const TitleWrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height + "px"};
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: auto;
 `;
 const TitleLine = styled.div<{ typo: any; action: any; color: string }>`
   margin-right: 24px;
