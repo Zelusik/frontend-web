@@ -1,21 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
-  type: any;
+  type: "location" | "store" | "default";
   filterAction: boolean;
-  foodType: any[];
+  actionDelay: boolean;
+  foodType: any;
   dayOfWeek: any[];
-  mood: any[];
+  mood: any;
+  location: any;
   [index: string]: string | string[] | any;
 }
 
 const initialState: GlobalType = {
   type: "default",
   filterAction: false,
-  foodType: [],
-  dayOfWeek: [],
-  mood: [],
   actionDelay: false,
+  foodType: null,
+  dayOfWeek: [],
+  mood: null,
+  location: { lat: 0, lng: 0 },
 };
 
 export const searchSlice = createSlice({
@@ -37,10 +40,21 @@ export const searchSlice = createSlice({
       const { value } = payload;
       state.filterAction = value;
     },
+    changeLocation: (
+      state,
+      { payload }: { payload: { type: string; value: any } }
+    ) => {
+      const { value } = payload;
+      state.location = value;
+    },
   },
 });
 
-export const { initializeDefaultInfo, changeType, changeFilterAction } =
-  searchSlice.actions;
+export const {
+  initializeDefaultInfo,
+  changeType,
+  changeLocation,
+  changeFilterAction,
+} = searchSlice.actions;
 
 export default searchSlice.reducer;

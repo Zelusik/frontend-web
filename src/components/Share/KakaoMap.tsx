@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { globalValue } from "constants/globalValue";
-import useDisplaySize from "hooks/useDisplaySize";
 // https://react-kakao-maps-sdk.jaeseokim.dev/
 
 export default function KakaoMap({ lat, lng, ...props }: any) {
@@ -14,11 +13,11 @@ export default function KakaoMap({ lat, lng, ...props }: any) {
         center={{ lat: lat, lng: lng }}
         style={{ width: "100%", height: "100%" }}
       >
-        <MapMarker // 마커를 생성합니다
+        {/* 현재 위치 마커 */}
+        <MapMarker
           position={{
-            // 마커가 표시될 위치입니다
-            lat: 33.450701,
-            lng: 126.570667,
+            lat: lat,
+            lng: lng,
           }}
         />
       </Map>

@@ -16,7 +16,7 @@ import { typography } from "constants/typography";
 const TopNavigation = forwardRef(function Div(
   {
     children,
-    type = "review-detail",
+    type = "store-detail",
     scrollRef,
     scrollTop,
     titleList = [],
@@ -40,7 +40,7 @@ const TopNavigation = forwardRef(function Div(
     <>
       <TitleSelection
         height={match(type)
-          .with("review-detail", () => 38)
+          .with("store-detail", () => 38)
           .with("search-place", () => 34)
           .with("mypage", () => 35)
           .otherwise(() => 38)}
@@ -48,7 +48,7 @@ const TopNavigation = forwardRef(function Div(
       >
         <TitleWrapper
           height={match(type)
-            .with("review-detail", () => 37)
+            .with("store-detail", () => 37)
             .with("search-place", () => 33)
             .with("mypage", () => 34)
             .otherwise(() => 37)}
@@ -59,7 +59,7 @@ const TopNavigation = forwardRef(function Div(
                 key={idx}
                 action={idx === props.currentIndex}
                 typo={match(type)
-                  .with("review-detail", () => "Headline4")
+                  .with("store-detail", () => "Headline4")
                   .with("search-place", () => "Headline3")
                   .with("mypage", () => "Headline3")
                   .otherwise(() => "Headline4")}
@@ -85,7 +85,7 @@ const TopNavigation = forwardRef(function Div(
       {props.topFixed && (
         <TopFixed
           height={match(type)
-            .with("review-detail", () => 38)
+            .with("store-detail", () => 38)
             .with("search-place", () => 34)
             .with("mypage", () => 35)
             .otherwise(() => 38)}
@@ -93,7 +93,7 @@ const TopNavigation = forwardRef(function Div(
       )}
       <Spacing
         size={match(type)
-          .with("review-detail", () => 30)
+          .with("store-detail", () => 30)
           .with("search-place", () => 0)
           .with("mypage", () => 20)
           .otherwise(() => 30)}
