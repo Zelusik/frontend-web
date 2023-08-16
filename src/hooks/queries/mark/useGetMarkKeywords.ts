@@ -1,5 +1,5 @@
 import React from "react";
-import { getMarkKeywords } from "api/mark";
+import { getMarkKeywords } from "api/places";
 import { useQuery } from "react-query";
 
 const useGetMarkKeywords = () => {

@@ -1,7 +1,7 @@
-import React from "react";
-import { getMarkPlaces } from "api/mark";
+import React, { useEffect } from "react";
+import { getMarkPlaces } from "api/places";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 
 const useGetMarkPlaces = () => {
   const { query } = useRouter();
@@ -10,17 +10,28 @@ const useGetMarkPlaces = () => {
     ? query.keyword[0]
     : query.keyword || "";
 
-  const { data, isLoading, error } = useQuery(
+  const { data, refetch, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["markPlaces", query],
-    async () =>
-      await getMarkPlaces({
+    async ({ pageParam = 0 }) => {
+      return await getMarkPlaces({
         type: type,
         keyword: keyword,
-        page: 0,
+        page: pageParam,
         size: 20,
-      })
+      });
+    },
+
+    {
+      getNextPageParam: (lastPage) => {
+        return lastPage.isLast ? false : lastPage.number + 1;
+      },
+      refetchOnWindowFocus: false,
+    }
   );
-  return { data, isLoading, error };
+  useEffect(() => {
+    refetch({ refetchPage: (page) => page === 0 });
+  }, [refetch]);
+  return { data, fetchNextPage, hasNextPage };
 };
 
 export default useGetMarkPlaces;
