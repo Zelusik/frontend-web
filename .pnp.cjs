@@ -4883,20 +4883,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["cacache", [\
-        ["npm:17.1.3", {\
-          "packageLocation": "./.yarn/cache/cacache-npm-17.1.3-f75f768a29-385756781e.zip/node_modules/cacache/",\
+        ["npm:17.1.4", {\
+          "packageLocation": "./.yarn/cache/cacache-npm-17.1.4-51ef53d0a8-b7751df756.zip/node_modules/cacache/",\
           "packageDependencies": [\
-            ["cacache", "npm:17.1.3"],\
+            ["cacache", "npm:17.1.4"],\
             ["@npmcli/fs", "npm:3.1.0"],\
-            ["fs-minipass", "npm:3.0.2"],\
+            ["fs-minipass", "npm:3.0.3"],\
             ["glob", "npm:10.3.3"],\
             ["lru-cache", "npm:7.18.3"],\
-            ["minipass", "npm:5.0.0"],\
+            ["minipass", "npm:7.0.3"],\
             ["minipass-collect", "npm:1.0.2"],\
             ["minipass-flush", "npm:1.0.5"],\
             ["minipass-pipeline", "npm:1.2.4"],\
             ["p-map", "npm:4.0.0"],\
-            ["ssri", "npm:10.0.4"],\
+            ["ssri", "npm:10.0.5"],\
             ["tar", "npm:6.1.15"],\
             ["unique-filename", "npm:3.0.0"]\
           ],\
@@ -6539,11 +6539,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:3.0.2", {\
-          "packageLocation": "./.yarn/cache/fs-minipass-npm-3.0.2-a27ef235f5-e9cc0e1f2d.zip/node_modules/fs-minipass/",\
+        ["npm:3.0.3", {\
+          "packageLocation": "./.yarn/cache/fs-minipass-npm-3.0.3-d148d6ac19-8722a41109.zip/node_modules/fs-minipass/",\
           "packageDependencies": [\
-            ["fs-minipass", "npm:3.0.2"],\
-            ["minipass", "npm:5.0.0"]\
+            ["fs-minipass", "npm:3.0.3"],\
+            ["minipass", "npm:7.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7735,20 +7735,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["make-fetch-happen", "npm:11.1.1"],\
             ["agentkeepalive", "npm:4.5.0"],\
-            ["cacache", "npm:17.1.3"],\
+            ["cacache", "npm:17.1.4"],\
             ["http-cache-semantics", "npm:4.1.1"],\
             ["http-proxy-agent", "npm:5.0.0"],\
             ["https-proxy-agent", "npm:5.0.1"],\
             ["is-lambda", "npm:1.0.1"],\
             ["lru-cache", "npm:7.18.3"],\
             ["minipass", "npm:5.0.0"],\
-            ["minipass-fetch", "npm:3.0.3"],\
+            ["minipass-fetch", "npm:3.0.4"],\
             ["minipass-flush", "npm:1.0.5"],\
             ["minipass-pipeline", "npm:1.2.4"],\
             ["negotiator", "npm:0.6.3"],\
             ["promise-retry", "npm:2.0.1"],\
             ["socks-proxy-agent", "npm:7.0.0"],\
-            ["ssri", "npm:10.0.4"]\
+            ["ssri", "npm:10.0.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7931,12 +7931,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["minipass-fetch", [\
-        ["npm:3.0.3", {\
-          "packageLocation": "./.yarn/cache/minipass-fetch-npm-3.0.3-2c4966d142-af5ab2552a.zip/node_modules/minipass-fetch/",\
+        ["npm:3.0.4", {\
+          "packageLocation": "./.yarn/cache/minipass-fetch-npm-3.0.4-200ac7c66d-af7aad15d5.zip/node_modules/minipass-fetch/",\
           "packageDependencies": [\
-            ["minipass-fetch", "npm:3.0.3"],\
+            ["minipass-fetch", "npm:3.0.4"],\
             ["encoding", "npm:0.1.13"],\
-            ["minipass", "npm:5.0.0"],\
+            ["minipass", "npm:7.0.3"],\
             ["minipass-sized", "npm:1.0.3"],\
             ["minizlib", "npm:2.1.2"]\
           ],\
@@ -9519,11 +9519,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["ssri", [\
-        ["npm:10.0.4", {\
-          "packageLocation": "./.yarn/cache/ssri-npm-10.0.4-f583dafaf3-fb14da9f8a.zip/node_modules/ssri/",\
+        ["npm:10.0.5", {\
+          "packageLocation": "./.yarn/cache/ssri-npm-10.0.5-1a7557d04d-0a31b65f21.zip/node_modules/ssri/",\
           "packageDependencies": [\
-            ["ssri", "npm:10.0.4"],\
-            ["minipass", "npm:5.0.0"]\
+            ["ssri", "npm:10.0.5"],\
+            ["minipass", "npm:7.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\

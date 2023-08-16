@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
 import Text from "components/Text";
@@ -23,13 +22,15 @@ const Description = ({ text = "" }: any) => {
     <TextWrapper onClick={onClick}>
       <Text typo="Paragraph2" color="N100">
         {toggleEllipsis(text, limit).string}
-        {limit !== text.length && <>...</>}
+        {text.length > 120 ? <>...</> : undefined}
       </Text>
-      <Button ref={contentRef}>
-        <span>
-          <Icon icon="BottomArrow" width={16} height={16} />
-        </span>
-      </Button>
+      {text.length > 120 ? (
+        <Button ref={contentRef}>
+          <span>
+            <Icon icon="BottomArrow" width={16} height={16} />
+          </span>
+        </Button>
+      ) : undefined}
     </TextWrapper>
   );
 };

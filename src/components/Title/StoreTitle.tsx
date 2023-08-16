@@ -29,12 +29,12 @@ export default function StoreTitle({
         .with("home", () => "0 20px")
         .with("detail", () => "0 20px")
         .with("detail-mine", () => "0 20px")
-        .with("map", () => "0 5px")
+        .with("map", () => "0 20px")
         .with("mypage-review", () => "0 10px")
         .otherwise(() => "0")}
       position={type === "home" || type === "mypage-review"}
       bottom={match(type)
-        .with("home", () => 56)
+        .with("home", () => 26)
         .with("detail", () => 0)
         .with("detail-mine", () => 0)
         .with("map", () => 0)
@@ -87,7 +87,8 @@ export default function StoreTitle({
 
       {type !== "mypage-review" && type !== "detail-mine" ? (
         <Menu isFlex={true}>
-          {type !== "home" ? (
+          {props.editNone}
+          {type !== "home" && !props.editNone ? (
             <Edit
               size={match(type)
                 .with("detail", () => 28)
@@ -103,14 +104,17 @@ export default function StoreTitle({
                 .with("map", () => 24)
                 .otherwise(() => 28)}
             />
-            {type === "home" || type === "mypage-review" ? (
-              <>
-                <Spacing size={4} />
-                <Text typo="Paragraph3" color="N0">
-                  999
-                </Text>
-              </>
-            ) : undefined}
+            <Text
+              typo="Paragraph3"
+              color={match(type)
+                .with("home", () => "N0")
+                .with("detail", () => "N100")
+                .with("map", () => "N100")
+                .otherwise(() => 28)}
+              style={{ marginLeft: 6 }}
+            >
+              999
+            </Text>
           </HeartWrapper>
         </Menu>
       ) : undefined}
@@ -142,6 +146,9 @@ const Menu = styled.div<{ isFlex?: boolean }>`
 `;
 
 const HeartWrapper = styled.div<{ marginLeft: number }>`
+  margin: auto 0;
   margin-left: ${({ marginLeft }) => marginLeft}px;
   text-align: center;
+  display: flex;
+  align-items: center;
 `;

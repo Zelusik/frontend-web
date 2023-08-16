@@ -16,7 +16,7 @@ import { typography } from "constants/typography";
 const TopNavigation = forwardRef(function Div(
   {
     children,
-    type = "review-detail",
+    type = "store-detail",
     scrollRef,
     scrollTop,
     titleList = [],
@@ -40,7 +40,7 @@ const TopNavigation = forwardRef(function Div(
     <>
       <TitleSelection
         height={match(type)
-          .with("review-detail", () => 38)
+          .with("store-detail", () => 38)
           .with("search-place", () => 34)
           .with("mypage", () => 35)
           .with("mark", () => 34)
@@ -52,7 +52,7 @@ const TopNavigation = forwardRef(function Div(
       >
         <TitleWrapper
           height={match(type)
-            .with("review-detail", () => 37)
+            .with("store-detail", () => 37)
             .with("search-place", () => 33)
             .with("mypage", () => 34)
             .with("mark", () => 33)
@@ -67,7 +67,7 @@ const TopNavigation = forwardRef(function Div(
                   .with("mark", () => colors.Orange600)
                   .otherwise(() => colors.N100)}
                 typo={match(type)
-                  .with("review-detail", () => "Headline4")
+                  .with("store-detail", () => "Headline4")
                   .with("search-place", () => "Headline3")
                   .with("mypage", () => "Headline3")
                   .with("mark", () => "Headline3")
@@ -94,7 +94,7 @@ const TopNavigation = forwardRef(function Div(
       {props.topFixed && (
         <TopFixed
           height={match(type)
-            .with("review-detail", () => 38)
+            .with("store-detail", () => 38)
             .with("search-place", () => 34)
             .with("mypage", () => 35)
             .with("mark", () => 35)
@@ -103,7 +103,7 @@ const TopNavigation = forwardRef(function Div(
       )}
       <Spacing
         size={match(type)
-          .with("review-detail", () => 30)
+          .with("store-detail", () => 30)
           .with("search-place", () => 0)
           .with("mypage", () => 20)
           .with("mark", () => 0)

@@ -81,7 +81,7 @@ export default function BackTitle({
           type={
             type === "white-dots-mine"
               ? "delete-edit"
-              : type === "white-dots-review"
+              : type === "white-dots-store"
               ? "report-store"
               : "share-report"
           }

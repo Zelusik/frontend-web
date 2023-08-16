@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
-import { changeType } from "reducer/slices/search/searchSlice";
+import useGeolocation from "hooks/useGeolocation";
+import useSearch from "hooks/useSearch";
+import useGetPlacesSearch from "hooks/queries/map/useGetPlacesSearch";
 
 import { globalValue } from "constants/globalValue";
 import {
@@ -48,23 +50,22 @@ const filterData = [
 
 export default function Map() {
   const router = useRouter();
+  const location = useGeolocation();
   const { height } = useDisplaySize();
-
-  const dispatch = useAppDispatch();
+  const { defaultSearch } = useSearch();
   const { type, filterAction } = useAppSelector((state) => state.search);
-  const clickDelete = () => {
-    dispatch(
-      changeType({
-        type: "search",
-        value: "default",
-      })
-    );
-  };
 
-  return (
+  const { data, isLoading } = useGetPlacesSearch();
+
+  return isLoading ? (
+    <></>
+  ) : (
     <>
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
-        <KakaoMap lat={33.450701} lng={126.570667} />
+        <KakaoMap
+          lat={location.coordinates.lat}
+          lng={location.coordinates.lng}
+        />
       </KakaoMapWrapper>
 
       <FindLocationButton />
@@ -80,8 +81,8 @@ export default function Map() {
             {type === "store" ? <StoreSort /> : <LocationTitle />}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
-            {["", "", "", "", ""].map((data: any, idx: number) => {
-              return <StoreCard key={idx} />;
+            {data.contents.map((data: any, idx: number) => {
+              return <StoreCard key={idx} data={data} />;
             })}
           </>
         )}
@@ -99,7 +100,7 @@ export default function Map() {
               icon="CircleXButton"
               width={24}
               height={24}
-              onClick={clickDelete}
+              onClick={defaultSearch}
             />
           </IconWrapper>
         ) : undefined}
