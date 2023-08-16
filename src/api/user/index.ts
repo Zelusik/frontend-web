@@ -1,5 +1,12 @@
 import client from "api";
 
+// 내가 작성한 리뷰 조회
+export const getMyReviews = async ({ page, size }: { page: number; size: number }) =>
+  await client
+    .get("/reviews/me", { data: { page, size } })
+    .then(({ data }) => data)
+    .catch((err) => err.response);
+
 export const getMyInfo = async () =>
   await client
     .get("/members")
