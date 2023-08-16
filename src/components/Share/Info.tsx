@@ -5,31 +5,37 @@ import Spacing from "components/Spacing";
 import Copy from "components/Button/IconButton/Copy";
 import Text from "components/Text";
 
-export default function Info() {
+export default function Info({ data }: any) {
   const router = useRouter();
 
   return (
     <>
       <Text typo="Headline4" color="N100">
-        영업 정보
+        {data.title}
       </Text>
       <Spacing size={18} />
 
-      {["운영시간", "휴무일"].map((data: any, idx: number) => {
+      {data.info_list.map((info: any, idx: number) => {
         return (
           <div key={idx}>
             <InfoWrapper>
-              <Text typo="Paragraph4" color="N80">
-                {data}
+              <Text typo="Paragraph4" color="N80" style={{ minWidth: 52 }}>
+                {info.info_title}
               </Text>
 
-              <Text typo="Paragraph4" color="N100">
-                11:30-22:00 ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
+              <Text
+                typo="Paragraph4"
+                color="N100"
+                style={
+                  data.title === "문의 연락" && info.info_desc !== "없음"
+                    ? { textDecoration: "underline" }
+                    : {}
+                }
+              >
+                {info.info_desc}
               </Text>
 
-              <IconWrapper>
-                <Copy />
-              </IconWrapper>
+              <IconWrapper>{info.copy ? <Copy /> : undefined}</IconWrapper>
             </InfoWrapper>
             <Spacing size={8} />
           </div>

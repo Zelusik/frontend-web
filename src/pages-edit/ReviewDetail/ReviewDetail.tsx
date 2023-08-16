@@ -18,6 +18,7 @@ import Hashtags from "components/Hashtags";
 import Profile from "./components/ProfileTime";
 import ImageBox from "./components/ImageBox";
 import ScaleUpButton from "./components/ScaleUpButton";
+import { makeInfo } from "utils/makeInfo";
 
 export default function StoreDetail() {
   const router = useRouter();
@@ -68,6 +69,7 @@ export default function StoreDetail() {
             type={mine ? "detail-mine" : "detail"}
             title="소이연남"
             subTitle="음식 카테고리 지역"
+            editNone={true}
           />
           <Spacing size={16} />
 
@@ -105,8 +107,13 @@ export default function StoreDetail() {
 
           <div style={{ padding: "0 20px" }}>
             <Spacing size={40} />
-            {["", ""].map((data: any, idx: number) => {
-              return <Info key={idx} />;
+            {makeInfo({
+              openingHours: [],
+              closingHours: null,
+              phone: "",
+              snsUrl: null,
+            }).map((data: any, idx: number) => {
+              return <Info key={idx} data={data} />;
             })}
           </div>
         </ScrollWrapper>

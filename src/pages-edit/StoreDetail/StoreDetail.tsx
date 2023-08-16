@@ -15,33 +15,8 @@ import StoreTitle from "components/Title/StoreTitle";
 import ReviewCard from "./components/ReviewCard";
 import ImageBox from "./components/ImageBox";
 import { globalValue } from "constants/globalValue";
-
-const images = [
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-  "",
-  // "",
-];
-
-const ReviewDatas = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
+import useGetStore from "hooks/queries/store-detail/useGetStore";
+import { makeInfo } from "utils/makeInfo";
 
 export default function ReviewDetail() {
   const router = useRouter();
@@ -58,7 +33,7 @@ export default function ReviewDetail() {
     const scrollTop = (window.innerWidth * 281) / 360 + 20 + 49 + 16 + 40 - 10;
 
     if (
-      images.length === 0 &&
+      data.storeInfo.images.length === 0 &&
       scrollRef.current?.scrollTop >= 165 &&
       currentIndex === 1
     ) {
@@ -71,7 +46,10 @@ export default function ReviewDetail() {
       return;
     }
 
-    if (images.length === 0 && scrollRef.current?.scrollTop >= 25) {
+    if (
+      data.storeInfo.images.length === 0 &&
+      scrollRef.current?.scrollTop >= 25
+    ) {
       setTitleChange(true);
     } else if (
       scrollRef.current?.scrollTop >=
@@ -82,7 +60,10 @@ export default function ReviewDetail() {
       setTitleChange(false);
     }
 
-    if (images.length === 0 && scrollRef.current?.scrollTop >= 165) {
+    if (
+      data.storeInfo.images.length === 0 &&
+      scrollRef.current?.scrollTop >= 165
+    ) {
       setTopFixed(true);
     } else if (scrollRef.current?.scrollTop >= scrollTop - 1) {
       setTopFixed(true);
@@ -98,49 +79,51 @@ export default function ReviewDetail() {
     };
   }, [currentIndex]);
 
-  return (
+  const { data, isLoading } = useGetStore(Number(router.query.id));
+  console.log(data);
+
+  return isLoading ? undefined : (
     <>
-      <ImageBox ref={imageRef} images={images} />
+      <ImageBox
+        ref={imageRef}
+        id={data.storeInfo.id}
+        images={data.storeInfo.images}
+      />
       <TitleWrapper visible={titleChange}>
         <BackTitle
           type={
             titleChange
               ? "black-left-text"
-              : images.length > 0
+              : data.storeInfo.images.length > 0
               ? "white-dots-store"
               : "black-left-text"
           }
-          title={titleChange ? "소이연남" : undefined}
+          title={titleChange ? data.storeInfo.name : undefined}
         />
       </TitleWrapper>
 
       <Wrapper ref={scrollRef} height={height}>
-        <Spacing size={images.length > 0 ? (width * 281) / 360 : 50} />
+        <Spacing
+          size={data.storeInfo.images.length > 0 ? (width * 281) / 360 : 50}
+        />
 
-        <HomeDetailInner>
+        <Inner>
           <Spacing size={20} />
           <StoreTitle
             type="detail"
-            title="소이연남"
-            subTitle="음식 카테고리 지역"
+            title={data.storeInfo.name}
+            subTitle={`${data.storeInfo.category} . ${data.storeInfo.address.sido} ${data.storeInfo.address.sgg} ${data.storeInfo.address.lotNumberAddress}`}
           />
 
           <Spacing size={16} />
-          <Hashtags
-            hashtags={[
-              "단체모임에 딱",
-              "데이트에 최고",
-              "웨이팅 있음",
-              "웨이팅 있음",
-            ]}
-          />
+          <Hashtags hashtags={data.storeInfo.top3Keywords} />
           <Spacing size={40} />
 
           <TopNavigation
             type="review-detail"
             scrollRef={scrollRef}
             scrollTop={
-              images.length === 0
+              data.storeInfo.images.length === 0
                 ? 165
                 : (width * 281) / 360 + 20 + 49 + 16 + 40
             }
@@ -157,8 +140,8 @@ export default function ReviewDetail() {
                     : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8,
               }}
             >
-              {ReviewDatas.map((data: any, idx: number) => {
-                return <ReviewCard key={idx} />;
+              {data.reviews.contents.map((review: any, idx: number) => {
+                return <ReviewCard key={idx} data={review} />;
               })}
             </div>
             <StoreInfo
@@ -166,12 +149,12 @@ export default function ReviewDetail() {
                 height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"
               }
             >
-              {["", ""].map((data: any, idx: number) => {
-                return <Info key={idx} />;
+              {makeInfo(data.storeInfo).map((data: any, idx: number) => {
+                return <Info key={idx} data={data} />;
               })}
             </StoreInfo>
           </TopNavigation>
-        </HomeDetailInner>
+        </Inner>
       </Wrapper>
     </>
   );
@@ -194,7 +177,7 @@ const Wrapper = styled.div<{ height: number }>`
   background-color: ${colors.N0};
 `;
 
-const HomeDetailInner = styled.div`
+const Inner = styled.div`
   position: relative;
   background-color: ${colors.N0};
 `;
@@ -215,4 +198,13 @@ const TitleWrapper = styled.div<{ visible: boolean }>`
 const StoreInfo = styled.div<{ height: any }>`
   height: ${({ height }) => height};
   padding: 0 20px;
+`;
+
+const Dot = styled.div`
+  width: 2px;
+  height: 2px;
+  margin: 0 4px;
+
+  border-radius: 2px;
+  background-color: ${colors.N60};
 `;
