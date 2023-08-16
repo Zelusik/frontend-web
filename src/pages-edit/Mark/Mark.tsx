@@ -9,11 +9,15 @@ import TopNavigation from "components/TopNavigation/TopNavigation";
 import { useEffect, useRef, useState } from "react";
 import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
 import Spacing from "components/Spacing/Spacing";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import NewButton from "pages-edit/Mypage/components/NewButton";
+import Text from "components/Text/Text";
 
 export default function Mark() {
   const router = useRouter();
-  const { data: placeData } = useGetMarkPlaces();
+  const { data: placeData, fetchNextPage, hasNextPage } = useGetMarkPlaces();
   const { data: keywordData } = useGetMarkKeywords();
+
   const keywords = keywordData && [
     {
       keyword: "전체",
@@ -28,9 +32,17 @@ export default function Mark() {
       (keywordInfo: { keyword: string; type: string }) => keywordInfo.keyword
     );
 
+  const infiniteScrollRef = useRef<any>(null);
   const scrollRef = useRef<any>(null);
+  const foodScrollRef = useRef<any>(null);
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  useIntersectionObserver(infiniteScrollRef, fetchNextPage, !!hasNextPage, {
+    root: foodScrollRef.current,
+    threshold: 1.0,
+    rootMargin: "0px",
+  });
 
   function onScroll() {
     const scrollTop = 50 + 20 + 35;
@@ -71,7 +83,7 @@ export default function Mark() {
       {placeData && (
         <>
           <SearchTitle type="mark" />
-          <MarkWrapper ref={scrollRef}>
+          <MarkWrapper>
             <Spacing size={20} />
             <TopNavigation
               type="mark"
@@ -83,15 +95,32 @@ export default function Mark() {
               titleList={keywordList}
             >
               {keywords &&
+                keywordList &&
                 keywordList.map((keyword: string) => (
                   <TopNavigationInner key={keyword}>
-                    <SortingHeader count={placeData.numOfElements} />
-                    <div className="place-box">
-                      {placeData.contents.map((placeInfo: any) => (
-                        <FoodComponents key={placeInfo.id} placeInfo={placeInfo} />
-                      ))}
-                    </div>{" "}
-                    *
+                    <SortingHeader count={20} />
+                    {placeData?.pages && placeData?.pages.length > 0 ? (
+                      <div className="place-box" ref={foodScrollRef}>
+                        {placeData.pages.map((place) =>
+                          place.contents.map((placeInfo: any) => (
+                            <FoodComponents
+                              key={placeInfo.id}
+                              placeInfo={placeInfo}
+                            />
+                          ))
+                        )}
+                        <div ref={infiniteScrollRef}>
+                          <Spacing size={150} />
+                        </div>
+                      </div>
+                    ) : (
+                      <NoContent>
+                        <Text typo="Paragraph5" color="N80">
+                          아직 저장된 음식점이 없습니다
+                        </Text>
+                        <NewButton buttonText="음식점 리뷰 둘러보기" />
+                      </NoContent>
+                    )}
                   </TopNavigationInner>
                 ))}
             </TopNavigation>
@@ -115,6 +144,16 @@ const MarkWrapper = styled.div`
     overflow-y: auto;
     padding: 0 15px;
   }
+`;
+
+const NoContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+
+  height: calc(100vh - 247px);
+  text-align: center;
 `;
 
 const TopNavigationInner = styled.div``;

@@ -7,18 +7,26 @@ import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { typography } from "constants/typography";
 import Text from "components/Text/Text";
-import Icon from "components/Icon/Icon";
 import Hashtag from "components/Hashtags/Hashtag";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
+import Heart from "components/Button/IconButton/Heart/Heart";
+import { deleteBookmarks } from "api/bookmarks";
 
 const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const hasImage = placeInfo.images ? true : false;
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [clicked, setClicked] = useState(true);
 
   const handleClickPlace = () => {
     router.push({ pathname: Route.STORE_DETAIL(), query: { id: placeInfo.id } });
+  };
+
+  const handleClickDeleteMark = async (e: any) => {
+    e.stopPropagation();
+    await deleteBookmarks(placeInfo.id);
+    setClicked(false);
   };
 
   return (
@@ -54,9 +62,13 @@ const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
             color="N100"
           >{`${placeInfo.category} · ${placeInfo.address.sido} ${placeInfo.address.sgg}`}</Text>
         </div>
-        <Icon icon="Heart" />
+        <Heart
+          size={24}
+          color={clicked ? "Red" : "initial"}
+          onClick={handleClickDeleteMark}
+        />
       </PlaceInfo>
-      {placeInfo.keywords && (
+      {placeInfo.keywords && placeInfo.images && (
         <KeywordBox>
           {placeInfo.keywords.map((keyword: string) => (
             <Hashtag key={keyword} type="primary" text={keyword} />
@@ -96,6 +108,7 @@ const PlaceInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 0 10px;
   .place {
     display: flex;
