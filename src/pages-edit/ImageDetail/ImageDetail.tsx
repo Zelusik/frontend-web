@@ -40,19 +40,10 @@ export default function ImageDetail({}: any) {
 
       <Swiper
         allowSlidePrev={currentIndex !== 0}
-        allowSlideNext={currentIndex !== router.query.length - 1}
+        allowSlideNext={currentIndex !== parseInt(router.query.length) - 1}
         onSlideChange={onSlideChange}
         style={{ marginTop: ((height - width) / 2 - 50) * 0.9 }}
       >
-        {router.query.image1 ? (
-          <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image1}
-            />
-          </SwiperSlide>
-        ) : undefined}
         {[
           router.query.image1,
           router.query.image2,
