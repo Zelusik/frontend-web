@@ -12,6 +12,7 @@ import Spacing from "components/Spacing/Spacing";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import NewButton from "pages-edit/Mypage/components/NewButton";
 import Text from "components/Text/Text";
+import { Route } from "constants/Route";
 
 export default function Mark() {
   const router = useRouter();
@@ -118,7 +119,10 @@ export default function Mark() {
                         <Text typo="Paragraph5" color="N80">
                           아직 저장된 음식점이 없습니다
                         </Text>
-                        <NewButton buttonText="음식점 리뷰 둘러보기" />
+                        <NewButton
+                          buttonText="음식점 리뷰 둘러보기"
+                          onClick={() => router.push(Route.HOME())}
+                        />
                       </NoContent>
                     )}
                   </TopNavigationInner>
