@@ -7,17 +7,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import Number from "components/Share/Number";
+import Numbers from "components/Share/Number";
 import Spacing from "components/Spacing";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import Image from "components/Image";
-
-const images = [
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-];
 
 export default function ImageDetail({}: any) {
   const router = useRouter();
@@ -29,36 +23,30 @@ export default function ImageDetail({}: any) {
     setCurrentIndex(newSwiper);
   };
 
+  const imageLen: any = Number(router.query.length);
+  const images: any = [
+    router.query.image1,
+    router.query.image2,
+    router.query.image3,
+    router.query.image4,
+  ];
+
   return (
     <ImageDetailWrapper>
       <TitleWrapper>
         <BackTitle type="white-left" />
         <NumberWrapper>
-          <Number currentIndex={currentIndex} length={router.query.length} />
+          <Numbers currentIndex={currentIndex} length={router.query.length} />
         </NumberWrapper>
       </TitleWrapper>
 
       <Swiper
         allowSlidePrev={currentIndex !== 0}
-        allowSlideNext={currentIndex !== router.query.length - 1}
+        allowSlideNext={currentIndex !== imageLen - 1}
         onSlideChange={onSlideChange}
         style={{ marginTop: ((height - width) / 2 - 50) * 0.9 }}
       >
-        {router.query.image1 ? (
-          <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image1}
-            />
-          </SwiperSlide>
-        ) : undefined}
-        {[
-          router.query.image1,
-          router.query.image2,
-          router.query.image3,
-          router.query.image4,
-        ].map((data: any, idx: number) => {
+        {images.map((data: any, idx: number) => {
           {
             data ? (
               <SwiperSlide key={idx}>

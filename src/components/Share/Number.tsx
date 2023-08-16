@@ -1,8 +1,4 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import Text from "components/Text";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
 
 export default function Number({ currentIndex, length }: any) {
   return (

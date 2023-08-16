@@ -50,7 +50,7 @@ const filterData = [
 
 export default function Map() {
   const router = useRouter();
-  const location = useGeolocation();
+  const location: any = useGeolocation();
   const { height } = useDisplaySize();
   const { defaultSearch } = useSearch();
   const { type, filterAction } = useAppSelector((state) => state.search);
@@ -63,8 +63,8 @@ export default function Map() {
     <>
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         <KakaoMap
-          lat={location.coordinates.lat}
-          lng={location.coordinates.lng}
+          lat={location?.coordinates.lat}
+          lng={location?.coordinates.lng}
         />
       </KakaoMapWrapper>
 

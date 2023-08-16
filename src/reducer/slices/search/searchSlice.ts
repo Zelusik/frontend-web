@@ -28,7 +28,7 @@ export const searchSlice = createSlice({
     initializeDefaultInfo: () => initialState,
     changeType: (
       state,
-      { payload }: { payload: { type: string; value: string } }
+      { payload }: { payload: { type: string; value: any } }
     ) => {
       const { value } = payload;
       state.type = value;
