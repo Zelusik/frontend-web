@@ -126,7 +126,7 @@ export default function StoreTitle({
                 .with("home", () => "N0")
                 .with("detail", () => "N100")
                 .with("map", () => "N100")
-                .otherwise(() => 28)}
+                .otherwise(() => "N0")}
               style={{ marginLeft: 6 }}
             >
               999
