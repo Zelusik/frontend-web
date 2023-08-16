@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
@@ -24,12 +24,23 @@ export default function ImageDetail({}: any) {
   };
 
   const imageLen: any = Number(router.query.length);
-  const images: any = [
-    router.query.image1,
-    router.query.image2,
-    router.query.image3,
-    router.query.image4,
-  ];
+  // const [images, setImages] = useState<any>([
+  //   // router.query.image1,
+  //   // router.query.image2,
+  //   // router.query.image3,
+  //   // router.query.image4,
+  // ]);
+
+  // useEffect(() => {
+  //   setImages([
+  //     router.query.image1,
+  //     router.query.image2,
+  //     router.query.image3,
+  //     router.query.image4,
+  //   ]);
+  //   // console.log(router.query);
+  // }, [router]);
+  // console.log(images);
 
   return (
     <ImageDetailWrapper>
@@ -46,15 +57,42 @@ export default function ImageDetail({}: any) {
         onSlideChange={onSlideChange}
         style={{ marginTop: ((height - width) / 2 - 50) * 0.9 }}
       >
-        {images.map((data: any, idx: number) => {
-          {
-            data ? (
-              <SwiperSlide key={idx}>
-                <Image type="store-detail" alt="상세 이미지" src={data} />
-              </SwiperSlide>
-            ) : undefined;
-          }
-        })}
+        {router.query.image1 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image1}
+            />
+          </SwiperSlide>
+        ) : undefined}
+        {router.query.image2 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image2}
+            />
+          </SwiperSlide>
+        ) : undefined}
+        {router.query.image3 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image3}
+            />
+          </SwiperSlide>
+        ) : undefined}
+        {router.query.image4 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image4}
+            />
+          </SwiperSlide>
+        ) : undefined}
       </Swiper>
 
       <Spacing size={50} />

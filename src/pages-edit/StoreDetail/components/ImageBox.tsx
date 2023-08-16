@@ -1,15 +1,16 @@
 import { forwardRef } from "react";
+import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-
-import Image from "components/Image";
+import { css } from "@emotion/react";
 import useDisplaySize from "hooks/useDisplaySize";
 import { colors } from "constants/colors";
+import { globalValue } from "constants/globalValue";
+import { Route } from "constants/Route";
+
+import Image from "components/Image";
 import Spacing from "components/Spacing";
 import Hr from "components/Hr";
-import { globalValue } from "constants/globalValue";
-import { useRouter } from "next/router";
-import { Route } from "constants/Route";
-import { css } from "@emotion/react";
+
 import { typography } from "constants/typography";
 
 const ImageBox = forwardRef(function Div({ id, images }: any, ref: any) {

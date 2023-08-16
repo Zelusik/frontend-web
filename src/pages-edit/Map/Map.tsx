@@ -78,7 +78,15 @@ export default function Map() {
           </>
         ) : (
           <>
-            {type === "store" ? <StoreSort /> : <LocationTitle />}
+            {type === "store" ? (
+              <StoreSort />
+            ) : (
+              <LocationTitle
+                address={`${data.contents[0]?.address.sgg} ${
+                  data.contents[0]?.address.lotNumberAddress.split(" ")[0]
+                }`}
+              />
+            )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
             {data.contents.map((data: any, idx: number) => {

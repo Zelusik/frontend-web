@@ -80,7 +80,6 @@ export default function ReviewDetail() {
   }, [currentIndex]);
 
   const { data, isLoading } = useGetStore(Number(router.query.id));
-  console.log(data);
 
   return isLoading ? undefined : (
     <>
