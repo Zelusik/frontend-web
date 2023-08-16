@@ -4,7 +4,7 @@ import { ReviewType } from "types/review";
 
 export const getReviews = async (params: any) =>
   await client
-    .get(`/reviews?`, params, {})
+    .get(`/reviews?`, params)
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
 
@@ -14,9 +14,7 @@ export const getAutoReview = async ({ keywords, foodInfo }: any) =>
       params: {
         placeKeywords: keywords.join(","),
         menus: foodInfo.map((e: any) => e.foodName).join(","),
-        menuKeywords: foodInfo
-          .map((e: any) => e.foodKeyword.join("+"))
-          .join(","),
+        menuKeywords: foodInfo.map((e: any) => e.foodKeyword.join("+")).join(","),
       },
     })
     .then(({ data }) => data)
@@ -41,10 +39,7 @@ export const postReview = async (reviewData: ReviewType) => {
   try {
     formData.append("placeId", String(reviewData.placeId));
     formData.append("keywords", String(reviewData.keywords));
-    formData.append(
-      "autoCreatedContent",
-      String(reviewData.autoCreatedContent)
-    );
+    formData.append("autoCreatedContent", String(reviewData.autoCreatedContent));
     formData.append("content", String(reviewData.content));
 
     reviewData.images.forEach((imageData, index) => {
