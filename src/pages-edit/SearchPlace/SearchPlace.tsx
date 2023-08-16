@@ -1,11 +1,13 @@
-import { useRouter } from "next/router";
-import BackTitle from "components/Title/BackTitle";
-import styled from "@emotion/styled";
-import Input from "components/Input";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import styled from "@emotion/styled";
+import useDisplaySize from "hooks/useDisplaySize";
+
+import BackTitle from "components/Title/BackTitle";
+import Input from "components/Input";
 import TopNavigation from "components/TopNavigation";
 import Spacing from "components/Spacing";
-import useDisplaySize from "hooks/useDisplaySize";
+
 import AllDelete from "./components/AllDelete";
 import CurrentSelection from "./components/CurrentSelection";
 import ProfileSelection from "./components/ProfileSelection";

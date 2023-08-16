@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Icon from "components/Icon";
 import Text from "components/Text";
 
-export default function LocationTitle() {
+export default function LocationTitle({ address }: any) {
   const router = useRouter();
 
   return (
@@ -12,7 +12,7 @@ export default function LocationTitle() {
         <Icon icon="StoreMarker" width={16} height={16} />
       </Menu>
       <Text typo="Paragraph5" color="N100">
-        광명시 광명동
+        {address}
       </Text>
     </Wrapper>
   );

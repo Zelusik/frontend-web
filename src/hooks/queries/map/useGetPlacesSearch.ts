@@ -1,8 +1,8 @@
 import { useQuery } from "react-query";
 import { useAppSelector } from "hooks/useReduxHooks";
-import { getPlacesSearch } from "api/places";
+import { getPlacesNear } from "api/places";
 
-const useGetPlacesSearch = (): any => {
+const useGetPlacesNear = (): any => {
   const { type, foodType, dayOfWeek, mood, location } = useAppSelector(
     (state) => state.search
   );
@@ -20,7 +20,7 @@ const useGetPlacesSearch = (): any => {
           size: 10,
         },
       };
-      const result = await getPlacesSearch(params);
+      const result = await getPlacesNear(params);
       return result;
     },
     {
@@ -32,4 +32,4 @@ const useGetPlacesSearch = (): any => {
   return { data, isLoading, error, refetch };
 };
 
-export default useGetPlacesSearch;
+export default useGetPlacesNear;
