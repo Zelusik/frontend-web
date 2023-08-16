@@ -10,7 +10,8 @@ import { useRouter } from "next/router";
 export default function ReviewList({ type = "mypage", datas }: any) {
   const router = useRouter();
   const { width } = useDisplaySize();
-  const clickReview = () => {
+
+  const clickReview = (id?: number) => {
     switch (type) {
       case "mypage":
         router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
@@ -23,28 +24,38 @@ export default function ReviewList({ type = "mypage", datas }: any) {
 
   return (
     <ReviewWrapper>
-      {datas.map((data: any, idx: number) => {
-        return (
-          <ReviewInner key={idx} width={(width - 46) / 2} onClick={clickReview}>
-            <Image
-              alt="리뷰 사진"
-              src="https://i.ibb.co/2kSZX6Y/60pt.png"
-              type="mypage-review"
-            />
-            <StoreTitle
-              type="mypage-review"
-              title="소이연남"
-              subTitle="음식 카테고리 지역"
-              onClick={() => {
-                // router.push(Route.REVIEW_DETAIL());
-              }}
-            />
-            {type === "recommand-best" ? (
-              <CountWrapper action={false}>{}</CountWrapper>
-            ) : null}
-          </ReviewInner>
-        );
-      })}
+      {datas &&
+        datas.map((data: any, idx: number) => {
+          return (
+            <ReviewInner
+              key={idx}
+              width={(width - 46) / 2}
+              onClick={() => clickReview(data.id)}
+            >
+              <Image
+                alt="리뷰 사진"
+                src={
+                  data.images
+                    ? data.images[0].thumbnailUrl
+                    : "https://i.ibb.co/2kSZX6Y/60pt.png"
+                }
+                type="mypage-review"
+              />
+              <StoreTitle
+                type="mypage-review"
+                title={data.place?.name || "소이연남"}
+                subTitle={
+                  data.place
+                    ? `${data.place.address.sido} ${data.place.address.sgg}`
+                    : "음식 카테고리 지역"
+                }
+              />
+              {type === "recommand-best" ? (
+                <CountWrapper action={false}>{}</CountWrapper>
+              ) : null}
+            </ReviewInner>
+          );
+        })}
     </ReviewWrapper>
   );
 }
@@ -57,6 +68,7 @@ const ReviewWrapper = styled.div`
 
 const ReviewInner = styled.div<{ width: number }>`
   width: ${({ width }) => width}px;
+  height: ${({ width }) => Math.floor((width * 170) / 157)}px;
   position: relative;
 `;
 
@@ -71,8 +83,7 @@ const CountWrapper = styled.div<{ action: boolean }>`
 
   border-radius: 999px;
   border: 2px solid ${({ action }) => (action ? colors.Orange400 : colors.N40)};
-  background-color: ${({ action }) =>
-    action ? colors.Orange400 : `transparent`};
+  background-color: ${({ action }) => (action ? colors.Orange400 : `transparent`)};
   z-index: 700;
 
   ${typography.Headline2}
