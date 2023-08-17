@@ -1,19 +1,21 @@
 import { useQuery } from "react-query";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { getPlacesNear } from "api/places";
+import { KEYWORD } from "constants/globalData";
 
 const useGetPlacesNear = (): any => {
-  const { type, foodType, dayOfWeek, mood, location } = useAppSelector(
+  const { foodType, dayOfWeek, mood, location } = useAppSelector(
     (state) => state.search
   );
 
   const { data, isLoading, error, refetch } = useQuery(
-    ["search", type, foodType, dayOfWeek, mood, location],
+    [foodType, dayOfWeek, mood, location],
     async () => {
+      console.log("MapChange");
       const params: any = {
         params: {
-          daysOfWeek: dayOfWeek.length !== 0 ? dayOfWeek : undefined,
-          keyword: mood && mood,
+          // daysOfWeek: dayOfWeek.length !== 0 ? dayOfWeek : undefined,
+          reviewKeyword: mood && KEYWORD[mood],
           lat: location.lat,
           lng: location.lng,
           page: 0,

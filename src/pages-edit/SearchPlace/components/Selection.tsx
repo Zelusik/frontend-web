@@ -1,24 +1,27 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
-import { css } from "@emotion/react";
-import { colors } from "constants/colors";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { changeType } from "reducer/slices/search/searchSlice";
-import { Route } from "constants/Route";
 
-export default function Selection({ type, text, location }: any) {
+import { Route } from "constants/Route";
+import Text from "components/Text";
+import useSearch from "hooks/useSearch";
+
+export default function Selection({ type, data }: any) {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { locationSetting } = useSearch();
+
   const handleClickSelection = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
     if (local) {
+      locationSetting({ lat: data.point.lat, lng: data.point.lng });
+
       const newCurrentSelectin = [
         {
-          id: 0,
-          text: "강남구1",
+          text: data.name,
           type: type === "location" ? 0 : 1,
-          location: { lat: 1, lng: 1 },
+          location: { lat: data.point.lat, lng: data.point.lng },
         },
         ...local,
       ].filter((_, idx) => {
@@ -44,10 +47,12 @@ export default function Selection({ type, text, location }: any) {
   return (
     <TitleWrapper onClick={handleClickSelection}>
       <div style={{ margin: "auto 0" }}>
-        <Text typo={typography.Headline4}>{text}</Text>
-        <SubText typo={typography.Paragraph4} color={colors.N80}>
-          {location}
-        </SubText>
+        <Text typo="Headline4" color="N100">
+          {data.name}
+        </Text>
+        <Text typo="Paragraph4" color="N80">
+          {data.sido} {data.sgg}
+        </Text>
       </div>
     </TitleWrapper>
   );
@@ -58,19 +63,4 @@ const TitleWrapper = styled.div`
   height: 79px;
   display: flex;
   justify-content: space-between;
-`;
-
-const Text = styled.div<{ typo: any; color?: any }>`
-  ${({ typo }) =>
-    css`
-      ${typo}
-    `}
-`;
-
-const SubText = styled.div<{ typo: any; color?: any }>`
-  ${({ typo }) =>
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color};
 `;

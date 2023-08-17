@@ -1,25 +1,24 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
-import { css } from "@emotion/react";
+import useSearch from "hooks/useSearch";
+
 import { colors } from "constants/colors";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeType } from "reducer/slices/search/searchSlice";
 import { Route } from "constants/Route";
 import Spacing from "components/Spacing";
 import BottomButton from "components/Button/BottomButton";
 import Gradient from "components/Share/Gradient";
+import useMapBottomSheet from "hooks/useMapBottomSheet";
+import { useAppSelector } from "hooks/useReduxHooks";
+import { equals } from "utils/equals";
 
 export default function FilterButton({}: any) {
   const router = useRouter();
-  const dispatch = useAppDispatch();
+  const { foodType, newFoodType, dayOfWeek, newDayOfWeek, mood, newMood } =
+    useAppSelector((state) => state.search);
+  const { typeSetting, filterActionSetting, deleteAll, newAll } = useSearch();
+
   const handleClickSelection = () => {
-    dispatch(
-      changeType({
-        type: "search",
-        value: "location",
-      })
-    );
+    typeSetting("location");
     router.push(Route.MAP());
   };
 
@@ -28,8 +27,28 @@ export default function FilterButton({}: any) {
       <Gradient size={30} />
       <FilterButtonWrapper onClick={handleClickSelection}>
         <div style={{ display: "flex", gap: 8 }}>
-          <BottomButton type="default">초기화</BottomButton>
-          <BottomButton type="primary" disabled={true}>
+          <BottomButton
+            type="default"
+            disabled={false}
+            onClick={() => {
+              filterActionSetting(false);
+              deleteAll();
+            }}
+          >
+            초기화
+          </BottomButton>
+          <BottomButton
+            type="primary"
+            disabled={
+              foodType === newFoodType &&
+              equals(dayOfWeek, newDayOfWeek) &&
+              mood === newMood
+            }
+            onClick={() => {
+              filterActionSetting(false);
+              newAll();
+            }}
+          >
             확인
           </BottomButton>
         </div>

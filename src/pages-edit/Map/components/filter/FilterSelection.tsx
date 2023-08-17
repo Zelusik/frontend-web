@@ -11,20 +11,20 @@ import { typography } from "constants/typography";
 import { useRef } from "react";
 import { atmosphereKeyword } from "constants/globalData";
 import Text from "components/Text";
+import useSearch from "hooks/useSearch";
 
 export default function FilterSelection({}: any) {
   const router = useRouter();
-  const dispatch = useAppDispatch();
-  const { language } = useAppSelector((state) => state.global);
   const filterRef = useRef<any>(null);
+  const { mood } = useAppSelector((state) => state.search);
+  const { filterActionSetting, moodSetting } = useSearch();
 
   const handleClickFilter = () => {
-    dispatch(
-      changeFilterAction({
-        type: "search",
-        value: true,
-      })
-    );
+    filterActionSetting(true);
+  };
+
+  const clickFilterButton = (val: any) => {
+    moodSetting(val);
   };
 
   return (
@@ -44,7 +44,11 @@ export default function FilterSelection({}: any) {
                 key={idx}
                 marginRight={idx === atmosphereKeyword.length - 1}
               >
-                <RoundButton type="full" action={false}>
+                <RoundButton
+                  type="full"
+                  action={data.val === mood}
+                  onClick={() => moodSetting(data.val)}
+                >
                   {data.val}
                 </RoundButton>
               </ScrollList>

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
+import useGetSearch from "hooks/queries/search-places/useGetSearch";
 
 import BackTitle from "components/Title/BackTitle";
 import Input from "components/Input";
@@ -24,7 +25,6 @@ export default function SearchPlace() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
-    // localStorage.setItem("currentSelection", JSON.stringify([]));
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
     if (local) {
       setCurrentSelection(local);
@@ -32,6 +32,8 @@ export default function SearchPlace() {
       localStorage.setItem("currentSelection", JSON.stringify([]));
     }
   }, []);
+
+  const { data, isLoading } = useGetSearch(currentIndex, value);
 
   return (
     <>
@@ -77,40 +79,36 @@ export default function SearchPlace() {
           titleList={["지역", "음식점", "닉네임"]}
         >
           <Wrapper height={height - 160}>
-            <Spacing size={20} />
-            {["", "", "", "", "", "", "", "", "", "", "", ""].map(
-              (data: any, idx: number) => {
-                return (
-                  <Selection
-                    key={idx}
-                    type="location"
-                    text="강남구"
-                    location="상세주소"
-                  />
-                );
-              }
-            )}
+            {currentIndex === 0 && !isLoading ? (
+              <>
+                <Spacing size={20} />
+                {data?.contents.map((data: any, idx: number) => {
+                  return <Selection key={idx} type="location" data={data} />;
+                })}
+              </>
+            ) : undefined}
           </Wrapper>
 
           <Wrapper height={height - 160}>
-            <Spacing size={20} />
-            {["", "", ""].map((data: any, idx: number) => {
-              return (
-                <Selection
-                  key={idx}
-                  type="store"
-                  text="강남구"
-                  location="상세주소"
-                />
-              );
-            })}
+            {currentIndex === 1 && !isLoading ? (
+              <>
+                <Spacing size={20} />
+                {data?.contents.map((data: any, idx: number) => {
+                  return <Selection key={idx} type="store" data={data} />;
+                })}
+              </>
+            ) : undefined}
           </Wrapper>
 
           <Wrapper height={height - 160}>
-            <Spacing size={20} />
-            {["", "", ""].map((data: any, idx: number) => {
-              return <ProfileSelection key={idx} text="강남구" />;
-            })}
+            {currentIndex === 2 && !isLoading ? (
+              <>
+                <Spacing size={20} />
+                {data?.contents.map((data: any, idx: number) => {
+                  return <ProfileSelection key={idx} text={data.name} />;
+                })}
+              </>
+            ) : undefined}
           </Wrapper>
         </TopNavigation>
       )}

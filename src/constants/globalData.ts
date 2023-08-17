@@ -34,6 +34,39 @@ export const atmosphereKeyword = [
   { val: "조용조용한" },
   { val: "왁자지껄한" },
 ];
+export const KEYWORD: any = {
+  FRESH: "신선한 재료",
+  BEST_FLAVOR: "최고의 맛",
+  BEST_MENU_COMBINATION: "완벽 메뉴 조합",
+  LOCAL_FLAVOR: "현지 느낌 가득",
+  GOOD_PRICE: "가성비 갑",
+  GENEROUS_PROTIONS: "넉넉한 양",
+
+  "신선한 재료": "FRESH",
+  "최고의 맛": "BEST_FLAVOR",
+  "완벽 메뉴 조합": "BEST_MENU_COMBINATION",
+  "현지 느낌 가득": "LOCAL_FLAVOR",
+  "가성비 갑": "GOOD_PRICE",
+  "넉넉한 양": "GENEROUS_PROTIONS",
+
+  WITH_ALCOHOL: "술과 함께",
+  GOOD_FOR_DATE: "데이트에 최고",
+  WITH_ELDERS: "웃어른과",
+  CAN_ALONE: "혼밥 가능",
+  PERFECT_FOR_GROUP_MEETING: "단체모임에 딱",
+  WAITING: "웨이팅 있음",
+  SILENT: "조용조용한",
+  NOISY: "왁자지껄한",
+
+  "술과 함께": "WITH_ALCOHOL",
+  "데이트에 최고": "GOOD_FOR_DATE",
+  웃어른과: "WITH_ELDERS",
+  "혼밥 가능": "CAN_ALONE",
+  "단체모임에 딱": "PERFECT_FOR_GROUP_MEETING",
+  "웨이팅 있음": "WAITING",
+  조용조용한: "SILENT",
+  왁자지껄한: "NOISY",
+};
 
 // dayOfWeekData.ts
 
