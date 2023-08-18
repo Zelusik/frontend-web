@@ -13,6 +13,7 @@ import AllDelete from "./components/AllDelete";
 import CurrentSelection from "./components/CurrentSelection";
 import ProfileSelection from "./components/ProfileSelection";
 import Selection from "./components/Selection";
+import useDebounce from "hooks/useDebounce";
 
 export default function SearchPlace() {
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function SearchPlace() {
   const [currentSelection, setCurrentSelection] = useState<any>([]);
 
   const [value, setValue] = useState<string>("");
+  const [keyword, setKeyword] = useDebounce(value, 300);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -33,12 +35,7 @@ export default function SearchPlace() {
     }
   }, []);
 
-  const { data, isLoading } = useGetSearch(currentIndex, value);
-
-  const buttonAction = (val: string) => {
-    const newInclude = data.new ? data.new.includes(val) : false;
-    return newInclude;
-  };
+  const { data, isLoading } = useGetSearch(currentIndex, keyword);
 
   return (
     <>

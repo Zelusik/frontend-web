@@ -51,7 +51,9 @@ export default function Selection({ type, data }: any) {
           {data.name}
         </Text>
         <Text typo="Paragraph4" color="N80">
-          {data.sido} {data.sgg}
+          {type === "location"
+            ? `${data.sido} ${data.sgg}`
+            : `${data.address.sido} ${data.address.sgg}`}
         </Text>
       </div>
     </TitleWrapper>
