@@ -34,7 +34,7 @@ export const atmosphereKeyword = [
   { val: "조용조용한" },
   { val: "왁자지껄한" },
 ];
-export const KEYWORD: any = {
+export const FOOD_KEYWORD: any = {
   FRESH: "신선한 재료",
   BEST_FLAVOR: "최고의 맛",
   BEST_MENU_COMBINATION: "완벽 메뉴 조합",
@@ -80,6 +80,16 @@ export const dayOfWeekData = [
   { val: "일" },
 ];
 
+export const DAY_OF_WEEK_DATA = {
+  월: "MON",
+  화: "TUE",
+  수: "WED",
+  목: "THU",
+  금: "FRI",
+  토: "SAT",
+  일: "SUN",
+};
+
 // sortData.ts
 
 export const sortData: any = [
@@ -105,6 +115,23 @@ export const tasteData = [
   { icon: Buffet, val: "뷔페" },
   { icon: Bar, val: "술집" },
 ];
+
+export const TASTE_KEYWORD = {
+  한식: "KOREAN",
+  일식: "JAPANESE",
+  중식: "CHINESE",
+  "고기/구이": "MEET",
+  양식: "WESTERN",
+  치킨: "CHICKEN",
+  분식: "STREET",
+  패스트푸드: "FAST_FOOD",
+  디저트: "CAFE_DESERT",
+  아시안푸드: "ASIAN",
+  샌드위치: "SANDWICH",
+  "퓨전/세계": "FUSION_WORLD",
+  뷔페: "BUFFET",
+  술집: "BAR",
+};
 
 // termsData.ts
 

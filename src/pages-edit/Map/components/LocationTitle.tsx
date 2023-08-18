@@ -2,9 +2,13 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
 import Text from "components/Text";
+import { coordToAddress } from "api/open-api";
+import { useAppSelector } from "hooks/useReduxHooks";
+import useGetCoordToAddress from "hooks/queries/map/useGetCoordToAddress";
 
-export default function LocationTitle({ address }: any) {
+export default function LocationTitle({ type, data }: any) {
   const router = useRouter();
+  const { data: addressData } = useGetCoordToAddress();
 
   return (
     <Wrapper>
@@ -12,7 +16,14 @@ export default function LocationTitle({ address }: any) {
         <Icon icon="StoreMarker" width={16} height={16} />
       </Menu>
       <Text typo="Paragraph5" color="N100">
-        {address}
+        {type === "location"
+          ? data && `전체 ${data.length !== 0 ? data.length : 0}곳`
+          : addressData
+          ? addressData.length !== 0 &&
+            `${addressData[0]?.address.address_name.split(" ")[0]} ${
+              addressData[0]?.address.address_name.split(" ")[1]
+            }`
+          : ``}
       </Text>
     </Wrapper>
   );

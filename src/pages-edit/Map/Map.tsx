@@ -44,6 +44,7 @@ export default function Map() {
   const {
     type,
     filterAction,
+
     foodType,
     newFoodType,
     dayOfWeek,
@@ -103,14 +104,7 @@ export default function Map() {
             {type === "store" ? (
               <StoreSort />
             ) : (
-              <LocationTitle
-                address={
-                  data?.contents[0] &&
-                  `${data?.contents[0]?.address.sgg} ${
-                    data?.contents[0]?.address.lotNumberAddress.split(" ")[0]
-                  }`
-                }
-              />
+              <LocationTitle type={type} data={data?.contents} />
             )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}

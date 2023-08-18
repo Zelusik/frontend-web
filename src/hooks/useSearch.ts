@@ -16,42 +16,6 @@ const useSearch = () => {
   const { foodType, newFoodType, dayOfWeek, newDayOfWeek, mood, newMood } =
     useAppSelector((state) => state.search);
 
-  const typeSetting = (type: any) => {
-    dispatch(
-      changeType({
-        type: "search",
-        value: type,
-      })
-    );
-  };
-
-  const locationSetting = (loc: any) => {
-    dispatch(
-      changeLocation({
-        type: "search",
-        value: loc,
-      })
-    );
-  };
-
-  const filterActionSetting = (filterAction: any) => {
-    dispatch(
-      changeFilterAction({
-        type: "search",
-        value: filterAction,
-      })
-    );
-  };
-
-  //
-  const foodTypeSetting = (val: any) => {
-    dispatch(
-      changeFoodType({
-        type: "search",
-        value: val,
-      })
-    );
-  };
   const newFoodTypeSetting = (val: any) => {
     dispatch(
       changeNewFoodType({
@@ -60,15 +24,16 @@ const useSearch = () => {
       })
     );
   };
-
-  const dayOfWeekSetting = (val: any) => {
+  const foodTypeSetting = (val: any) => {
+    newFoodTypeSetting(val);
     dispatch(
-      changeDayOfWeek({
+      changeFoodType({
         type: "search",
         value: val,
       })
     );
   };
+
   const newDayOfWeekSetting = (val: any) => {
     dispatch(
       changeNewDayOfWeek({
@@ -77,18 +42,28 @@ const useSearch = () => {
       })
     );
   };
-
-  const moodSetting = (val: any) => {
+  const dayOfWeekSetting = (val: any) => {
+    newDayOfWeekSetting(val);
     dispatch(
-      changeMood({
+      changeDayOfWeek({
         type: "search",
         value: val,
       })
     );
   };
+
   const newMoodSetting = (val: any) => {
     dispatch(
       changeNewMood({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+  const moodSetting = (val: any) => {
+    newMoodSetting(val);
+    dispatch(
+      changeMood({
         type: "search",
         value: val,
       })
@@ -109,13 +84,37 @@ const useSearch = () => {
 
   const deleteAll = () => {
     foodTypeSetting("");
-    newFoodTypeSetting("");
-
     dayOfWeekSetting([]);
-    newDayOfWeekSetting([]);
-
     moodSetting("");
-    newMoodSetting("");
+  };
+
+  //
+  const typeSetting = (type: any) => {
+    dispatch(
+      changeType({
+        type: "search",
+        value: type,
+      })
+    );
+    if (type === "default") deleteAll();
+  };
+
+  const locationSetting = (loc: any) => {
+    dispatch(
+      changeLocation({
+        type: "search",
+        value: loc,
+      })
+    );
+  };
+
+  const filterActionSetting = (filterAction: any) => {
+    dispatch(
+      changeFilterAction({
+        type: "search",
+        value: filterAction,
+      })
+    );
   };
 
   return {

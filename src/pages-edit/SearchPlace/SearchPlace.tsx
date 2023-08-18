@@ -35,6 +35,11 @@ export default function SearchPlace() {
 
   const { data, isLoading } = useGetSearch(currentIndex, value);
 
+  const buttonAction = (val: string) => {
+    const newInclude = data.new ? data.new.includes(val) : false;
+    return newInclude;
+  };
+
   return (
     <>
       <Wrapper>
@@ -61,8 +66,7 @@ export default function SearchPlace() {
                 <CurrentSelection
                   key={idx}
                   idx={idx}
-                  text={data.text}
-                  where={data.type}
+                  data={data}
                   setCurrentSelection={setCurrentSelection}
                 />
               );

@@ -8,12 +8,14 @@ import Icon from "components/Icon";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { changeType } from "reducer/slices/search/searchSlice";
 import { Route } from "constants/Route";
+import useSearch from "hooks/useSearch";
+import Text from "components/Text";
 
 const Icons = ["LineMarker", "Restaurant", "LineProfile"];
 
-export default function CurrentSelection({ idx, text, where, ...props }: any) {
+export default function CurrentSelection({ idx, data, ...props }: any) {
   const router = useRouter();
-  const dispatch = useAppDispatch();
+  const { typeSetting } = useSearch();
 
   const clickText = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
@@ -30,12 +32,8 @@ export default function CurrentSelection({ idx, text, where, ...props }: any) {
       );
       props.setCurrentSelection(newCurrentSelection);
 
-      dispatch(
-        changeType({
-          type: "search",
-          value: newValue.type === 0 ? "location" : "store",
-        })
-      );
+      console.log(newValue[0].type);
+      typeSetting(newValue[0].type === 0 ? "location" : "store");
       router.push(Route.MAP());
     } else {
       localStorage.setItem("currentSelection", JSON.stringify([]));
@@ -61,17 +59,18 @@ export default function CurrentSelection({ idx, text, where, ...props }: any) {
   return (
     <>
       <TitleWrapper>
-        <Text typo={typography.Paragraph5} onClick={clickText}>
-          <Icon icon={Icons[where]} width={24} height={24} color="N80" />
-          <div style={{ margin: "auto 0", marginLeft: 8 }}>{text}</div>
-        </Text>
-        <Delete
-          typo={typography.Paragraph4}
-          color={colors.N50}
-          onClick={clickDelete}
+        <Text
+          typo="Paragraph5"
+          color="N100"
+          onClick={clickText}
+          style={{ display: "flex" }}
         >
+          <Icon icon={Icons[data.type]} width={24} height={24} color="N80" />
+          <div style={{ margin: "auto 0", marginLeft: 8 }}>{data.text}</div>
+        </Text>
+        <Text typo="Paragraph4" color="N50" onClick={clickDelete}>
           <Icon icon="XButton" width={24} height={24} color="N60" />
-        </Delete>
+        </Text>
       </TitleWrapper>
       <Spacing size={20} />
     </>
@@ -83,20 +82,4 @@ const TitleWrapper = styled.div`
   height: 24px;
   display: flex;
   justify-content: space-between;
-`;
-
-const Text = styled.div<{ typo: any }>`
-  display: flex;
-  ${({ typo }) =>
-    css`
-      ${typo}
-    `}
-`;
-
-const Delete = styled.button<{ typo: any; color: any }>`
-  ${({ typo }) =>
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color};
 `;
