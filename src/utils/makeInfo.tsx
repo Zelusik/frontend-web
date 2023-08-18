@@ -1,26 +1,26 @@
 export const makeInfo = (data: any): any => {
-  const snsUrlSplit = data.snsUrl ? data.snsUrl.split("/") : [];
+  const snsUrlSplit = data?.snsUrl ? data?.snsUrl.split("/") : [];
   const InfoData = [
     {
       title: "음식점 정보",
       info_list: [
         {
           info_title: "위치",
-          info_desc: `${data.address?.sido} ${data.address?.sgg} ${data.address?.lotNumberAddress}`,
+          info_desc: `${data?.address?.sido} ${data?.address?.sgg} ${data?.address?.lotNumberAddress}`,
           copy: true,
         },
         {
           info_title: "운영시간",
           info_desc:
-            data.openingHours.length === 0
+            data?.openingHours?.length === 0
               ? `없음`
-              : data.openingHours.map((time: any, idx: number) => (
+              : data?.openingHours?.map((time: any, idx: number) => (
                   <div key={idx}>{time}</div>
                 )),
         },
         {
           info_title: "휴무일",
-          info_desc: data.closingHours ? data.closingHours : `없음`,
+          info_desc: data?.closingHours ? data?.closingHours : `없음`,
         },
       ],
     },
@@ -29,11 +29,11 @@ export const makeInfo = (data: any): any => {
       info_list: [
         {
           info_title: "전화번호",
-          info_desc: data.phone === "" ? `없음` : data.phone,
+          info_desc: data?.phone === "" ? `없음` : data?.phone,
         },
         {
           info_title: "인스타",
-          info_desc: data.snsUrl
+          info_desc: data?.snsUrl
             ? `@${snsUrlSplit[snsUrlSplit.length - 1]}`
             : `없음`,
         },

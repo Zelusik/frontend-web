@@ -5,17 +5,25 @@ import { css, keyframes } from "@emotion/react";
 import RoundButton from "components/Button/RoundButton";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { tasteData } from "constants/globalData";
+import useSearch from "hooks/useSearch";
 
 export default function FoodSelection({ state }: any) {
   const router = useRouter();
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
   );
+  const { foodType } = useAppSelector((state) => state.search);
+  const { foodTypeSetting } = useSearch();
 
   const handleClickFood = (idx: number) => {
     // let newFoods = foods;
     // newFoods[idx].action = !newFoods[idx].action;
     // setFoods(newFoods);
+  };
+
+  const clickFilterButton = (val: string) => {
+    if (foodType === val) foodTypeSetting("");
+    else foodTypeSetting(val);
   };
 
   return (
@@ -41,7 +49,11 @@ export default function FoodSelection({ state }: any) {
               right={idx === tasteData.length - 1}
               onClick={() => handleClickFood(idx)}
             >
-              <RoundButton type="map-text" action={false}>
+              <RoundButton
+                type="map-text"
+                action={data.val === foodType}
+                onClick={() => clickFilterButton(data.val)}
+              >
                 {data.val}
               </RoundButton>
             </ButtonWrapper>

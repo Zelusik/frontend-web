@@ -8,9 +8,9 @@ import Document, {
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 import Script from "next/script";
+import { KAKAO_URL, NEXT_PUBLIC_KAKAO_APP_JS_KEY } from "api/open-api";
 
-const NEXT_PUBLIC_KAKAO_APP_JS_KEY = "91ce271bfa0a93ac384a49249667fb36";
-const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false`;
+const KAKAO_SDK_URL = `${KAKAO_URL}/maps/sdk.js?appkey=${NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false`;
 
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -22,7 +22,8 @@ export default class CustomDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
         });
       const initialProps = await Document.getInitialProps(ctx);
       return {

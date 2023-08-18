@@ -1,42 +1,45 @@
+import { useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { useAppSelector } from "hooks/useReduxHooks";
+import useSearch from "hooks/useSearch";
+
 import { colors } from "constants/colors";
+import { atmosphereKeyword } from "constants/globalData";
+
 import Icon from "components/Icon";
 import RoundButton from "components/Button/RoundButton";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeFilterAction } from "reducer/slices/search/searchSlice";
 import Spacing from "components/Spacing";
-import { typography } from "constants/typography";
-import { useRef } from "react";
-import { atmosphereKeyword } from "constants/globalData";
 import Text from "components/Text";
 
 export default function FilterSelection({}: any) {
   const router = useRouter();
-  const dispatch = useAppDispatch();
-  const { language } = useAppSelector((state) => state.global);
   const filterRef = useRef<any>(null);
+  const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
+  const { filterActionSetting, moodSetting } = useSearch();
 
   const handleClickFilter = () => {
-    dispatch(
-      changeFilterAction({
-        type: "search",
-        value: true,
-      })
-    );
+    filterActionSetting(true);
   };
+
+  const clickFilterButton = (val: any) => {
+    if (mood === val) moodSetting("");
+    else moodSetting(val);
+  };
+
+  const num: number =
+    dayOfWeek.length + (foodType !== "" ? 1 : 0) + (mood !== "" ? 1 : 0);
 
   return (
     <div style={{ position: "relative" }}>
       <ButtonWrapper ref={filterRef} onClick={handleClickFilter}>
         <Icon icon="Filter" width={16} height={16} color="Orange600" />
         <Text typo="Headline2" color="Orange600" style={{ marginLeft: 6 }}>
-          10
+          {num}
         </Text>
       </ButtonWrapper>
       <ScrollWrapper>
-        <div style={{ minWidth: 10 > 9 ? 88 : 80 }} />
+        <div style={{ minWidth: num > 9 ? 88 : 80 }} />
         <ScrollInner>
           {atmosphereKeyword.map((data: any, idx: number) => {
             return (
@@ -44,7 +47,11 @@ export default function FilterSelection({}: any) {
                 key={idx}
                 marginRight={idx === atmosphereKeyword.length - 1}
               >
-                <RoundButton type="full" action={false}>
+                <RoundButton
+                  type="full"
+                  action={data.val === mood}
+                  onClick={() => clickFilterButton(data.val)}
+                >
                   {data.val}
                 </RoundButton>
               </ScrollList>

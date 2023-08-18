@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
 import useSearch from "hooks/useSearch";
-import useGetPlacesSearch from "hooks/queries/map/useGetPlacesSearch";
+import useGetPlacesNear from "hooks/queries/map/useGetPlacesNear";
 
 import { globalValue } from "constants/globalValue";
 import {
@@ -30,36 +31,58 @@ import Filter from "./components/filter/Filter";
 import FilterButton from "./components/filter/FilterButton";
 import StoreSort from "./components/StoreSort";
 
-const filterData = [
-  {
-    type: "full",
-    text: "음식종류",
-    textList: tasteData,
-  },
-  {
-    type: "full-radius",
-    text: "약속요일",
-    textList: dayOfWeekData,
-  },
-  {
-    type: "full",
-    text: "선호하는 분위기",
-    textList: atmosphereKeyword,
-  },
-];
-
 export default function Map() {
   const router = useRouter();
   const location: any = useGeolocation();
   const { height } = useDisplaySize();
-  const { defaultSearch } = useSearch();
-  const { type, filterAction } = useAppSelector((state) => state.search);
+  const {
+    newFoodTypeSetting,
+    newDayOfWeekSetting,
+    newMoodSetting,
+    typeSetting,
+  } = useSearch();
+  const {
+    type,
+    filterAction,
 
-  const { data, isLoading } = useGetPlacesSearch();
+    foodType,
+    newFoodType,
+    dayOfWeek,
+    newDayOfWeek,
+    mood,
+    newMood,
+  } = useAppSelector((state) => state.search);
 
-  return isLoading ? (
-    <></>
-  ) : (
+  const filterData = [
+    {
+      type: "full",
+      text: "음식종류",
+      textList: tasteData,
+      original: foodType,
+      new: newFoodType,
+      Fn: (val: any) => newFoodTypeSetting(val),
+    },
+    {
+      type: "full-radius",
+      text: "약속요일",
+      textList: dayOfWeekData,
+      original: dayOfWeek,
+      new: newDayOfWeek,
+      Fn: (val: any) => newDayOfWeekSetting(val),
+    },
+    {
+      type: "full",
+      text: "선호하는 분위기",
+      textList: atmosphereKeyword,
+      original: mood,
+      new: newMood,
+      Fn: (val: any) => newMoodSetting(val),
+    },
+  ];
+
+  const { data, isLoading } = useGetPlacesNear();
+
+  return (
     <>
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         <KakaoMap
@@ -81,15 +104,11 @@ export default function Map() {
             {type === "store" ? (
               <StoreSort />
             ) : (
-              <LocationTitle
-                address={`${data.contents[0]?.address.sgg} ${
-                  data.contents[0]?.address.lotNumberAddress.split(" ")[0]
-                }`}
-              />
+              <LocationTitle type={type} data={data?.contents} />
             )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
-            {data.contents.map((data: any, idx: number) => {
+            {data?.contents.map((data: any, idx: number) => {
               return <StoreCard key={idx} data={data} />;
             })}
           </>
@@ -108,7 +127,7 @@ export default function Map() {
               icon="CircleXButton"
               width={24}
               height={24}
-              onClick={defaultSearch}
+              onClick={() => typeSetting("default")}
             />
           </IconWrapper>
         ) : undefined}

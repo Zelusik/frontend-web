@@ -29,7 +29,23 @@ const RecommandDatas = [
   "https://i.ibb.co/2kSZX6Y/60pt.png",
 ];
 
-const ReviewDatas = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+const ReviewDatas = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+];
 
 // 392 + 35 = 427
 
@@ -141,7 +157,8 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) >
+                      ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
@@ -166,7 +183,8 @@ export default function Mypage() {
             </TopNavigationInner>
             <TopNavigationInner
               height={
-                (myreview && myreview.contents.length === 0) || currentIndex === 0
+                (myreview && myreview.contents.length === 0) ||
+                currentIndex === 0
                   ? height -
                     (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
                     104.5 +
@@ -240,7 +258,7 @@ const TitleInner = styled.div<{ visible: boolean }>`
   margin: auto 0;
 
   display: flex;
-  justify-contents: space-between;
+  justify-content: space-between;
   align-items: center;
 
   position: absolute;
