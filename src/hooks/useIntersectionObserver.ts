@@ -1,10 +1,10 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect } from "react";
 
 function useIntersectionObserver(
   target: RefObject<Element>,
   handleIntersect: () => void,
   enabled = true,
-  { root = null, threshold = 1.0, rootMargin = '0px' },
+  { root = null, threshold = 0.1, rootMargin = "0px" }
 ) {
   useEffect(() => {
     // 동작중이 아니라면 실행x

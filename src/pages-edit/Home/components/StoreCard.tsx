@@ -9,10 +9,11 @@ import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
 import Text from "components/Text";
 
-export default function StoreCard({ id }: any) {
+export default function StoreCard({ id, data }: any) {
+  // 가게 id
   const router = useRouter();
   const clickStore = () => {
-    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
+    router.push({ pathname: Route.STORE_DETAIL(), query: { id: id } });
   };
 
   return (
@@ -24,12 +25,17 @@ export default function StoreCard({ id }: any) {
         </Text>
         <Spacing size={6} />
 
-        <ProfileTitle type="follow" title="고작가" subTitle="움맘마" />
+        <ProfileTitle
+          type="follow"
+          title={data.writer.nickname}
+          subTitle="움맘마"
+          profileImg={data.writer.image.thumbnailUrl}
+        />
         <Spacing size={16} />
 
         <Image
           alt="음식 사진"
-          src="https://i.ibb.co/2kSZX6Y/60pt.png"
+          src={data.reviewImage.url}
           type="home"
           onClick={clickStore}
         />
@@ -37,9 +43,10 @@ export default function StoreCard({ id }: any) {
 
         <StoreTitle
           type="home"
-          title="소이연남"
-          subTitle="음식 카테고리 지역"
+          title={data.place.name}
+          subTitle={`${data.place.category} · ${data.place.address.sido} ${data.place.address.sgg}`}
           onClick={clickStore}
+          isMarked={data.place.isMarked}
         />
       </Wrapper>
       <Spacing size={30} />
