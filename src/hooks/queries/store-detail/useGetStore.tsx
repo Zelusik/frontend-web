@@ -3,10 +3,10 @@ import { getReviews } from "api/review";
 import { getPlaces, getPlacesId, postPlaces } from "api/places";
 import { useAppSelector } from "hooks/useReduxHooks";
 
-const useGetStore = (kakaoId: string, placeId: number): any => {
+const useGetStore = ({ kakaoId, placeId }: any): any => {
   const { placeInfo } = useAppSelector((state) => state.search);
   const { data, isLoading, error, refetch } = useQuery(
-    [],
+    ["search"],
     async () => {
       console.log(kakaoId);
 

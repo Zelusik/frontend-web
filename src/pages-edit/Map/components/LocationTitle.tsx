@@ -2,8 +2,6 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
 import Text from "components/Text";
-import { coordToAddress } from "api/open-api";
-import { useAppSelector } from "hooks/useReduxHooks";
 import useGetCoordToAddress from "hooks/queries/map/useGetCoordToAddress";
 
 export default function LocationTitle({ type, data }: any) {

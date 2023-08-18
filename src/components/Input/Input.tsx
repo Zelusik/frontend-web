@@ -60,9 +60,9 @@ export default function Input({
         onChange={(e: any) => setValue(e.target.value)}
         onFocus={() => setFocus(true)}
         onBlur={(e: any) => {
-          const next = e.relatedTarget;
-          if (next !== null) {
-            setValue(next.textContent);
+          const nextText = e.relatedTarget;
+          if (nextText !== null) {
+            setValue(nextText.textContent);
             inputRef.current.focus();
           } else {
             setFocus(false);

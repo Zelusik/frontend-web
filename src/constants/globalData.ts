@@ -80,7 +80,7 @@ export const dayOfWeekData = [
   { val: "일" },
 ];
 
-export const DAY_OF_WEEK_DATA = {
+export const DAY_OF_WEEK_DATA: any = {
   월: "MON",
   화: "TUE",
   수: "WED",
@@ -116,7 +116,7 @@ export const tasteData = [
   { icon: Bar, val: "술집" },
 ];
 
-export const TASTE_KEYWORD = {
+export const TASTE_KEYWORD: any = {
   한식: "KOREAN",
   일식: "JAPANESE",
   중식: "CHINESE",

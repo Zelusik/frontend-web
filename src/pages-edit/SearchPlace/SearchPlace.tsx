@@ -37,6 +37,7 @@ export default function SearchPlace() {
   }, []);
 
   const { data, isLoading } = useGetSearch(currentIndex, value);
+  console.log(data);
 
   return (
     <>

@@ -29,12 +29,13 @@ export default function ReviewDetail() {
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const { data, isLoading } = useGetStore(
-    router.query.kakaoId,
-    Number(router.query.id)
-  );
+  const { data, isLoading } = useGetStore({
+    kakaoId: router.query.kakaoId,
+    placeId: Number(router.query.id),
+  });
 
   function onScroll() {
+    console.log("A");
     const scrollTop = (window.innerWidth * 281) / 360 + 20 + 49 + 16 + 40 - 10;
 
     if (

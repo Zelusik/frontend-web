@@ -27,7 +27,7 @@ export default function FilterSelection({}: any) {
     else moodSetting(val);
   };
 
-  const num =
+  const num: number =
     dayOfWeek.length + (foodType !== "" ? 1 : 0) + (mood !== "" ? 1 : 0);
 
   return (
@@ -39,7 +39,7 @@ export default function FilterSelection({}: any) {
         </Text>
       </ButtonWrapper>
       <ScrollWrapper>
-        <div style={{ minWidth: { num } > 9 ? 88 : 80 }} />
+        <div style={{ minWidth: num > 9 ? 88 : 80 }} />
         <ScrollInner>
           {atmosphereKeyword.map((data: any, idx: number) => {
             return (

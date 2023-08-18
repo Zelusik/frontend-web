@@ -5,7 +5,7 @@ import { getKeyword } from "api/open-api";
 
 const useGetSearch = (currentIndex: number, keyword: any): any => {
   const { data, isLoading, error, refetch } = useQuery(
-    [currentIndex, keyword],
+    [keyword],
     async () => {
       if (keyword !== "") {
         const params: any =
@@ -23,7 +23,7 @@ const useGetSearch = (currentIndex: number, keyword: any): any => {
                   size: 10,
                 },
               };
-        console.log(params);
+
         const result =
           currentIndex === 0
             ? await getMeetingPlaces(params)
