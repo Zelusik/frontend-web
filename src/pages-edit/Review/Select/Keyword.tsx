@@ -105,14 +105,14 @@ const Keyword = () => {
                 <div className="keywords">
                   {foodKeyword.map((keyword) => (
                     <RoundButton
-                      key={keyword}
+                      key={keyword.text}
                       borderRadius="12px"
                       type="text"
-                      action={keywords.includes(keyword)}
+                      action={keywords.includes(keyword.value)}
                       height={38}
-                      onClick={() => handleClickKeywords(keyword)}
+                      onClick={() => handleClickKeywords(keyword.value)}
                     >
-                      {keyword}
+                      {keyword.text}
                     </RoundButton>
                   ))}
                 </div>
@@ -122,14 +122,14 @@ const Keyword = () => {
                 <div className="keywords">
                   {atmosphereKeyword.map((keyword) => (
                     <RoundButton
-                      key={keyword}
+                      key={keyword.text}
                       borderRadius="12px"
                       type="text"
-                      action={keywords.includes(keyword)}
+                      action={keywords.includes(keyword.value)}
                       height={38}
-                      onClick={() => handleClickKeywords(keyword)}
+                      onClick={() => handleClickKeywords(keyword.value)}
                     >
-                      {keyword}
+                      {keyword.text}
                     </RoundButton>
                   ))}
                 </div>
