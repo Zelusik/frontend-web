@@ -45,7 +45,8 @@ export default function StoreTitle({
         onClick={props.onClick}
         isFlex={type === "map"}
         style={{
-          width: type === "mypage-review" ? "100%" : "initial",
+          width:
+            type === "mypage-review" ? "100%" : type === "home" ? "75%" : "initial",
         }}
       >
         {title ? (
@@ -67,7 +68,7 @@ export default function StoreTitle({
             style={{
               marginRight: 5,
               marginBottom: type === "map" ? 0 : 4,
-              ...(type === "mypage-review"
+              ...(type === "mypage-review" || type === "home"
                 ? {
                     overflow: "hidden",
                     whiteSpace: "nowrap",
@@ -119,6 +120,7 @@ export default function StoreTitle({
                 .with("detail", () => 28)
                 .with("map", () => 24)
                 .otherwise(() => 28)}
+              color={props.isMarked && "Red"}
             />
             <Text
               typo="Paragraph3"

@@ -28,7 +28,7 @@ export default function ProfileTitle({
         <Image
           type="default"
           alt="프로필 이미지"
-          src="https://i.ibb.co/2kSZX6Y/60pt.png"
+          src={props.profileImg || "https://i.ibb.co/2kSZX6Y/60pt.png"}
           size={30}
         />
         <div style={{ marginLeft: 8 }}>
