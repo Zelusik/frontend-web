@@ -1,12 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import Spacing from "components/Spacing";
-import { typography } from "constants/typography";
-import { css } from "@emotion/react";
-import { colors } from "constants/colors";
 import Icon from "components/Icon";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { changeType } from "reducer/slices/search/searchSlice";
 import { Route } from "constants/Route";
 import useSearch from "hooks/useSearch";
 import Text from "components/Text";
@@ -15,7 +10,7 @@ const Icons = ["LineMarker", "Restaurant", "LineProfile"];
 
 export default function CurrentSelection({ idx, data, ...props }: any) {
   const router = useRouter();
-  const { typeSetting } = useSearch();
+  const { typeSetting, locationSetting } = useSearch();
 
   const clickText = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
@@ -32,9 +27,24 @@ export default function CurrentSelection({ idx, data, ...props }: any) {
       );
       props.setCurrentSelection(newCurrentSelection);
 
-      console.log(newValue[0].type);
-      typeSetting(newValue[0].type === 0 ? "location" : "store");
-      router.push(Route.MAP());
+      switch (newValue[0].type) {
+        case 0:
+          typeSetting("location");
+          locationSetting({ lat: data.location.lat, lng: data.location.lng });
+          router.push(Route.MAP());
+          break;
+        case 1:
+          router.push({
+            pathname: Route.STORE_DETAIL(),
+            query: { kakaoId: data.id },
+          });
+          break;
+        case 2:
+          router.push({ pathname: Route.MYPAGE(), query: { id: data.id } });
+          break;
+        default:
+          break;
+      }
     } else {
       localStorage.setItem("currentSelection", JSON.stringify([]));
     }

@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { getMeetingPlaces } from "api/meeting-places";
 import { getPlacesSearch } from "api/places";
+import { getMembersSearch } from "api/members";
 
 const useGetSearch = (currentIndex: number, keyword: any): any => {
   const { data, isLoading, error, refetch } = useQuery(
@@ -11,6 +12,7 @@ const useGetSearch = (currentIndex: number, keyword: any): any => {
           params: {
             keyword: keyword,
             page: 0,
+            size: 10,
           },
         };
         const result =
@@ -18,7 +20,7 @@ const useGetSearch = (currentIndex: number, keyword: any): any => {
             ? await getMeetingPlaces(params)
             : currentIndex === 1
             ? getPlacesSearch(params)
-            : getMeetingPlaces(params);
+            : getMembersSearch(params);
         return result;
       }
     },

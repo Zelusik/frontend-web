@@ -14,6 +14,7 @@ import CurrentSelection from "./components/CurrentSelection";
 import ProfileSelection from "./components/ProfileSelection";
 import Selection from "./components/Selection";
 import useDebounce from "hooks/useDebounce";
+import NoneText from "./components/NoneText";
 
 export default function SearchPlace() {
   const router = useRouter();
@@ -36,6 +37,7 @@ export default function SearchPlace() {
   }, []);
 
   const { data, isLoading } = useGetSearch(currentIndex, keyword);
+  console.log(data);
 
   return (
     <>
@@ -81,34 +83,46 @@ export default function SearchPlace() {
         >
           <Wrapper height={height - 160}>
             {currentIndex === 0 && !isLoading ? (
-              <>
-                <Spacing size={20} />
-                {data?.contents.map((data: any, idx: number) => {
-                  return <Selection key={idx} type="location" data={data} />;
-                })}
-              </>
+              data?.contents && data?.contents.length !== 0 ? (
+                <>
+                  <Spacing size={20} />
+                  {data?.contents.map((data: any, idx: number) => {
+                    return <Selection key={idx} type="location" data={data} />;
+                  })}
+                </>
+              ) : (
+                <NoneText text="지역" />
+              )
             ) : undefined}
           </Wrapper>
 
           <Wrapper height={height - 160}>
             {currentIndex === 1 && !isLoading ? (
-              <>
-                <Spacing size={20} />
-                {data?.contents.map((data: any, idx: number) => {
-                  return <Selection key={idx} type="store" data={data} />;
-                })}
-              </>
+              data?.contents && data?.contents.length !== 0 ? (
+                <>
+                  <Spacing size={20} />
+                  {data?.contents.map((data: any, idx: number) => {
+                    return <Selection key={idx} type="store" data={data} />;
+                  })}
+                </>
+              ) : (
+                <NoneText text="음식점" />
+              )
             ) : undefined}
           </Wrapper>
 
           <Wrapper height={height - 160}>
             {currentIndex === 2 && !isLoading ? (
-              <>
-                <Spacing size={20} />
-                {data?.contents.map((data: any, idx: number) => {
-                  return <ProfileSelection key={idx} text={data.name} />;
-                })}
-              </>
+              data?.contents && data?.contents.length !== 0 ? (
+                <>
+                  <Spacing size={20} />
+                  {data?.contents.map((data: any, idx: number) => {
+                    return <ProfileSelection key={idx} data={data} />;
+                  })}
+                </>
+              ) : (
+                <NoneText text="닉네임" />
+              )
             ) : undefined}
           </Wrapper>
         </TopNavigation>
