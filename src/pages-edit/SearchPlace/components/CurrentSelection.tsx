@@ -10,7 +10,7 @@ const Icons = ["LineMarker", "Restaurant", "LineProfile"];
 
 export default function CurrentSelection({ idx, data, ...props }: any) {
   const router = useRouter();
-  const { typeSetting, locationSetting } = useSearch();
+  const { typeSetting, locationSetting, placeInfoSetting } = useSearch();
 
   const clickText = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));

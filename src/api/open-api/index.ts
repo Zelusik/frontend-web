@@ -14,3 +14,12 @@ export const getCoordToAddress = async (params: any) =>
       return data.documents;
     })
     .catch((err) => console.log(err.response));
+
+export const getKeyword = async (params: any) =>
+  await axios
+    .get(`${KAKAO_URL}/local/search/keyword.json?`, {
+      headers: { Authorization: `KakaoAK ${KAKAO_APP_REST_KEY}` },
+      params: params,
+    })
+    .then(({ data }) => data)
+    .catch((err) => console.log(err.response));

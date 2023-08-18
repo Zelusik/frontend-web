@@ -36,8 +36,7 @@ export default function SearchPlace() {
     }
   }, []);
 
-  const { data, isLoading } = useGetSearch(currentIndex, keyword);
-  console.log(data);
+  const { data, isLoading } = useGetSearch(currentIndex, value);
 
   return (
     <>
@@ -98,10 +97,10 @@ export default function SearchPlace() {
 
           <Wrapper height={height - 160}>
             {currentIndex === 1 && !isLoading ? (
-              data?.contents && data?.contents.length !== 0 ? (
+              data?.documents && data?.documents.length !== 0 ? (
                 <>
                   <Spacing size={20} />
-                  {data?.contents.map((data: any, idx: number) => {
+                  {data?.documents.map((data: any, idx: number) => {
                     return <Selection key={idx} type="store" data={data} />;
                   })}
                 </>

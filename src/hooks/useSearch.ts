@@ -7,6 +7,7 @@ import {
   changeNewDayOfWeek,
   changeNewFoodType,
   changeNewMood,
+  changePlaceInfo,
   changeType,
 } from "reducer/slices/search/searchSlice";
 import { useAppDispatch, useAppSelector } from "./useReduxHooks";
@@ -117,6 +118,28 @@ const useSearch = () => {
     );
   };
 
+  //
+  const placeInfoSetting = (placeInfo: any) => {
+    const newPlaceInfo = {
+      kakaoPid: placeInfo.id,
+      name: placeInfo.place_name,
+      pageUrl: placeInfo.place_url,
+      categoryName: placeInfo.category_name,
+      categoryGroupCode: placeInfo.category_group_code,
+      phone: placeInfo.phone,
+      lotNumberAddress: placeInfo.address_name,
+      roadAddress: placeInfo.road_address_name,
+      lat: placeInfo.y,
+      lng: placeInfo.x,
+    };
+    dispatch(
+      changePlaceInfo({
+        type: "search",
+        value: newPlaceInfo,
+      })
+    );
+  };
+
   return {
     typeSetting,
     locationSetting,
@@ -134,6 +157,8 @@ const useSearch = () => {
     originalAll,
     newAll,
     deleteAll,
+
+    placeInfoSetting,
   };
 };
 

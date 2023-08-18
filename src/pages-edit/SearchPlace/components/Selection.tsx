@@ -7,25 +7,34 @@ import useSearch from "hooks/useSearch";
 
 export default function Selection({ type, data }: any) {
   const router = useRouter();
-  const { typeSetting, locationSetting } = useSearch();
+  const { typeSetting, locationSetting, placeInfoSetting } = useSearch();
 
   const handleClickSelection = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
     if (local) {
-      locationSetting({ lat: data.point.lat, lng: data.point.lng });
+      if (type === "location")
+        locationSetting({ lat: data.point.lat, lng: data.point.lng });
 
       const repeat = local.filter((d: any) => {
         return !(
-          d.type === (type === "location" ? 0 : 1) && d.text === data.name
+          d.type === (type === "location" ? 0 : 1) &&
+          d.text === (type === "location" ? data.text : data.place_name)
         );
       });
       const newCurrentSelectin = [
-        {
-          id: data.id,
-          text: data.name,
-          type: type === "location" ? 0 : 1,
-          location: { lat: data.point.lat, lng: data.point.lng },
-        },
+        type === "location"
+          ? {
+              id: data.id,
+              text: data.name,
+              type: 0,
+              location: { lat: data.point.lat, lng: data.point.lng },
+            }
+          : {
+              id: data.id,
+              text: data.place_name,
+              type: 1,
+              location: { lat: data.y, lng: data.x },
+            },
         ...repeat,
       ].filter((_, idx) => {
         return idx < 5;
@@ -45,6 +54,7 @@ export default function Selection({ type, data }: any) {
         router.push(Route.MAP());
         break;
       case "store":
+        placeInfoSetting(data);
         router.push({
           pathname: Route.STORE_DETAIL(),
           query: { kakaoId: data.id },
@@ -59,12 +69,14 @@ export default function Selection({ type, data }: any) {
     <TitleWrapper onClick={handleClickSelection}>
       <div style={{ margin: "auto 0" }}>
         <Text typo="Headline4" color="N100">
-          {data.name}
+          {type === "location" ? data.name : data.place_name}
         </Text>
         <Text typo="Paragraph4" color="N80">
           {type === "location"
             ? `${data.sido} ${data.sgg !== null ? data.sgg : ``}`
-            : `${data.address.sido} ${data.address.sgg}`}
+            : `${data.address_name.split(" ")[0]} ${
+                data.address_name.split(" ")[1]
+              }`}
         </Text>
       </div>
     </TitleWrapper>

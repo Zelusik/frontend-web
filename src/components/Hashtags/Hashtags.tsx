@@ -16,13 +16,13 @@ export default function Hashtags({
   return (
     <HashtagsWrapper>
       <HashtagsInner>
-        {hashtags.map((data: string, idx: number) => {
+        {hashtags?.map((data: string, idx: number) => {
           return (
             <Hashtag
               key={idx}
               type={type}
               idx={idx}
-              len={hashtags.length}
+              len={hashtags?.length}
               side={side}
               text={data}
             />
