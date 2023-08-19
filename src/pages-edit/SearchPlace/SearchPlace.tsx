@@ -24,7 +24,7 @@ export default function SearchPlace() {
   const [currentSelection, setCurrentSelection] = useState<any>([]);
 
   const [value, setValue] = useState<string>("");
-  const [keyword, setKeyword] = useDebounce(value, 300);
+  const keyword = useDebounce(value, 300);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -42,8 +42,7 @@ export default function SearchPlace() {
     }
   }, [value]);
 
-  const { data, isLoading } = useGetSearch(currentIndex, value);
-  console.log(data);
+  const { data, isLoading } = useGetSearch(currentIndex, keyword);
 
   return (
     <>
