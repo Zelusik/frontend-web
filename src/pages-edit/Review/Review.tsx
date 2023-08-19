@@ -18,11 +18,17 @@ import BottomNavigation from "components/BottomNavigation/BottomNavigation";
 import Toast from "components/Toast/Toast";
 import imageCompression from "browser-image-compression";
 import useToast from "hooks/useToast";
-import heic2any from "heic2any";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  let heic2any: any;
+
+  if (typeof window !== "undefined") {
+    import("heic2any").then((module) => {
+      heic2any = module.default;
+    });
+  }
 
   const { isShowToast, openToast, closeToast } = useToast();
 
@@ -36,12 +42,15 @@ const Review = () => {
   };
 
   const convertHeicToJpeg = async (file: any): Promise<any> => {
-    if (isHeicOrHeif(file.name)) {
-      return heic2any({
-        blob: file,
-        toType: "image/jpeg",
-        quality: 0.8,
-      });
+    if (heic2any) {
+      if (isHeicOrHeif(file.name)) {
+        return heic2any({
+          blob: file,
+          toType: "image/jpeg",
+          quality: 0.8,
+        });
+      }
+      return file;
     }
     return file;
   };
@@ -78,7 +87,7 @@ const Review = () => {
       imageInfo.image = await imageConvert(file);
       imageInfo.preview = URL.createObjectURL(convertedImgBlob);
 
-      const data: any = await exifr.parse(file);
+      const data = await exifr.parse(file);
       const lat = data?.GPSLatitude;
       const lng = data?.GPSLongitude;
 
