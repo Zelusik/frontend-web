@@ -18,7 +18,7 @@ import { globalValue } from "constants/globalValue";
 import useGetStore from "hooks/queries/store-detail/useGetStore";
 import { makeInfo } from "utils/makeInfo";
 
-export default function ReviewDetail() {
+export default function StoreDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
 
@@ -35,7 +35,6 @@ export default function ReviewDetail() {
   });
 
   function onScroll() {
-    console.log("A");
     const scrollTop = (window.innerWidth * 281) / 360 + 20 + 49 + 16 + 40 - 10;
 
     if (
@@ -113,7 +112,7 @@ export default function ReviewDetail() {
             title={data?.storeInfo?.name}
             subTitle={
               data?.storeInfo &&
-              `${data?.storeInfo?.category} . ${data?.storeInfo?.address.sido} ${data?.storeInfo?.address.sgg} ${data?.storeInfo?.address.lotNumberAddress}`
+              `${data?.storeInfo?.category} . ${data?.storeInfo?.address?.sido} ${data?.storeInfo?.address?.sgg} ${data?.storeInfo?.address?.lotNumberAddress}`
             }
           />
 

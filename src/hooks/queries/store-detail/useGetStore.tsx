@@ -8,24 +8,20 @@ const useGetStore = ({ kakaoId, placeId }: any): any => {
   const { data, isLoading, error, refetch } = useQuery(
     ["search"],
     async () => {
-      console.log(kakaoId);
-
       if (kakaoId) {
         const testPlaceInfo = await getPlaces(kakaoId);
         const params: any = {
           params: {
-            placeId: 0,
+            placeId: kakaoId,
             page: 0,
             size: 10,
           },
         };
         let newPlaceInfo = null;
 
-        if (!testPlaceInfo) {
+        if (testPlaceInfo?.data?.code === 3001) {
           const postPlaceInfo = await postPlaces(placeInfo);
-          // console.log(postPlaceInfo);
           newPlaceInfo = postPlaceInfo;
-          // return {data: {}, isLoading: false, error, refetch};
         } else {
           newPlaceInfo = testPlaceInfo;
           params.params.placeId = testPlaceInfo.id;

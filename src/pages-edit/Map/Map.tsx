@@ -42,6 +42,7 @@ export default function Map() {
     typeSetting,
   } = useSearch();
   const {
+    value,
     type,
     filterAction,
 
@@ -118,7 +119,11 @@ export default function Map() {
       <TopWrapper>
         <Spacing size={15} />
         <InputWrapper>
-          <Input type="shadow" placeholder="지역, 음식점, 닉네임 검색" />
+          <Input
+            type="shadow"
+            placeholder="지역, 음식점, 닉네임 검색"
+            value={value}
+          />
         </InputWrapper>
 
         {type !== "default" ? (

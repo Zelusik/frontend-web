@@ -5,20 +5,23 @@ import { Route } from "constants/Route";
 import Text from "components/Text";
 import useSearch from "hooks/useSearch";
 
-export default function Selection({ type, data }: any) {
+export default function Selection({ type, data, ...props }: any) {
   const router = useRouter();
-  const { typeSetting, locationSetting, placeInfoSetting } = useSearch();
+  const { valueSetting, typeSetting, locationSetting, placeInfoSetting } =
+    useSearch();
 
   const handleClickSelection = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
     if (local) {
-      if (type === "location")
+      if (type === "location") {
         locationSetting({ lat: data.point.lat, lng: data.point.lng });
+        valueSetting(data.name);
+      }
 
       const repeat = local.filter((d: any) => {
         return !(
           d.type === (type === "location" ? 0 : 1) &&
-          d.text === (type === "location" ? data.text : data.place_name)
+          d.text === (type === "location" ? data.name : data.place_name)
         );
       });
       const newCurrentSelectin = [

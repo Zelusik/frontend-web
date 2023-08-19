@@ -23,6 +23,7 @@ const initialState: GlobalType = {
   filterAction: false,
   actionDelay: false,
 
+  value: "",
   foodType: "",
   newFoodType: "",
   dayOfWeek: [],
@@ -51,6 +52,13 @@ export const searchSlice = createSlice({
   initialState,
   reducers: {
     initializeDefaultInfo: () => initialState,
+    changeValue: (
+      state,
+      { payload }: { payload: { type: string; value: any } }
+    ) => {
+      const { value } = payload;
+      state.value = value;
+    },
     changeType: (
       state,
       { payload }: { payload: { type: string; value: any } }
@@ -130,6 +138,8 @@ export const searchSlice = createSlice({
 
 export const {
   initializeDefaultInfo,
+  changeValue,
+
   changeType,
   changeLocation,
   changeFilterAction,

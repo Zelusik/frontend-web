@@ -9,6 +9,7 @@ import {
   changeNewMood,
   changePlaceInfo,
   changeType,
+  changeValue,
 } from "reducer/slices/search/searchSlice";
 import { useAppDispatch, useAppSelector } from "./useReduxHooks";
 
@@ -16,6 +17,15 @@ const useSearch = () => {
   const dispatch = useAppDispatch();
   const { foodType, newFoodType, dayOfWeek, newDayOfWeek, mood, newMood } =
     useAppSelector((state) => state.search);
+
+  const valueSetting = (val: any) => {
+    dispatch(
+      changeValue({
+        type: "search",
+        value: val,
+      })
+    );
+  };
 
   const newFoodTypeSetting = (val: any) => {
     dispatch(
@@ -97,7 +107,10 @@ const useSearch = () => {
         value: type,
       })
     );
-    if (type === "default") deleteAll();
+    if (type === "default") {
+      valueSetting("");
+      deleteAll();
+    }
   };
 
   const locationSetting = (loc: any) => {
@@ -141,6 +154,8 @@ const useSearch = () => {
   };
 
   return {
+    valueSetting,
+
     typeSetting,
     locationSetting,
     filterActionSetting,

@@ -20,7 +20,11 @@ export const makeInfo = (data: any): any => {
         },
         {
           info_title: "휴무일",
-          info_desc: data?.closingHours ? data?.closingHours : `없음`,
+          info_desc: data?.closingHours
+            ? data?.closingHours
+                ?.split("\n")
+                .map((time: any, idx: number) => <div key={idx}>{time}</div>)
+            : `없음`,
         },
       ],
     },
@@ -34,7 +38,11 @@ export const makeInfo = (data: any): any => {
         {
           info_title: "인스타",
           info_desc: data?.snsUrl
-            ? `@${snsUrlSplit[snsUrlSplit.length - 1]}`
+            ? `@${
+                snsUrlSplit[snsUrlSplit.length - 1] === ""
+                  ? snsUrlSplit[snsUrlSplit.length - 2]
+                  : snsUrlSplit[snsUrlSplit.length - 1]
+              }`
             : `없음`,
         },
       ],
