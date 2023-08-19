@@ -15,16 +15,19 @@ import ProfileSelection from "./components/ProfileSelection";
 import Selection from "./components/Selection";
 import useDebounce from "hooks/useDebounce";
 import NoneText from "./components/NoneText";
+import { useAppSelector } from "hooks/useReduxHooks";
+import useSearch from "hooks/useSearch";
 
 export default function SearchPlace() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
+  const { value } = useAppSelector((state) => state.search);
 
+  const [newValue, setNewValue] = useState<string>(value);
   const [currentSelection, setCurrentSelection] = useState<any>([]);
 
-  const [value, setValue] = useState<string>("");
-  const [keyword, setKeyword] = useDebounce(value, 300);
+  const keyword = useDebounce(newValue, 300);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -36,8 +39,13 @@ export default function SearchPlace() {
     }
   }, []);
 
-  const { data, isLoading } = useGetSearch(currentIndex, value);
-  console.log(data);
+  useEffect(() => {
+    if (newValue === "") {
+      setCurrentIndex(0);
+    }
+  }, [newValue]);
+
+  const { data, isLoading } = useGetSearch(currentIndex, keyword);
 
   return (
     <>
@@ -46,13 +54,13 @@ export default function SearchPlace() {
         <Input
           type="line"
           placeholder="지역, 음식점, 닉네임 검색"
-          value={value}
-          setValue={setValue}
+          value={newValue}
+          setValue={setNewValue}
         />
         <Spacing size={26} />
       </Wrapper>
 
-      {value === "" ? (
+      {newValue === "" ? (
         <>
           <Wrapper>
             <AllDelete setCurrentSelection={setCurrentSelection} />
@@ -66,6 +74,7 @@ export default function SearchPlace() {
                   key={idx}
                   idx={idx}
                   data={data}
+                  newValue={newValue}
                   setCurrentSelection={setCurrentSelection}
                 />
               );
@@ -134,5 +143,7 @@ export default function SearchPlace() {
 const Wrapper = styled.div<{ height?: number }>`
   height: ${({ height }) => height + "px"};
   padding: 0 20px;
-  overflow: scroll;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: relative;
 `;

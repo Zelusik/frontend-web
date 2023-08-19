@@ -20,7 +20,7 @@ import ImageBox from "./components/ImageBox";
 import ScaleUpButton from "./components/ScaleUpButton";
 import { makeInfo } from "utils/makeInfo";
 
-export default function StoreDetail() {
+export default function ReviewDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
   const imageRef = useRef<any>(null);

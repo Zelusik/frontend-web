@@ -5,7 +5,7 @@ import { getKeyword } from "api/open-api";
 
 const useGetSearch = (currentIndex: number, keyword: any): any => {
   const { data, isLoading, error, refetch } = useQuery(
-    [keyword],
+    [currentIndex, keyword],
     async () => {
       if (keyword !== "") {
         const params: any =
