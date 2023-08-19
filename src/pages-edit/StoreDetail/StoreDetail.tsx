@@ -110,6 +110,7 @@ export default function ReviewDetail() {
               `${data?.storeInfo?.category} . ${data?.storeInfo?.address.sido} ${data?.storeInfo?.address.sgg} ${data?.storeInfo?.address.lotNumberAddress}`
             }
             isMarked={data.storeInfo.isMarked}
+            placeId={data.storeInfo.id}
           />
 
           <Spacing size={16} />

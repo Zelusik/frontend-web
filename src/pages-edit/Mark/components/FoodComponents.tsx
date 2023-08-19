@@ -11,27 +11,19 @@ import Hashtag from "components/Hashtags/Hashtag";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import Heart from "components/Button/IconButton/Heart/Heart";
-import { deleteBookmarks } from "api/bookmarks";
 
 const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
   const hasImage = placeInfo.images ? true : false;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const [clicked, setClicked] = useState(true);
 
   const handleClickPlace = () => {
     router.push({ pathname: Route.STORE_DETAIL(), query: { id: placeInfo.id } });
   };
 
-  const handleClickDeleteMark = async (e: any) => {
-    e.stopPropagation();
-    await deleteBookmarks(placeInfo.id);
-    setClicked(false);
-  };
-
   return (
     <FoodComponentWrapper hasImage={hasImage} onClick={handleClickPlace}>
-      {placeInfo.images && (
+      {placeInfo.images.length > 0 && (
         <ImageWrapper style={{ position: "relative" }}>
           <Swiper
             className="banner"
@@ -62,11 +54,7 @@ const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
             color="N100"
           >{`${placeInfo.category} · ${placeInfo.address.sido} ${placeInfo.address.sgg}`}</Text>
         </div>
-        <Heart
-          size={24}
-          color={clicked ? "Red" : "initial"}
-          onClick={handleClickDeleteMark}
-        />
+        <Heart size={24} placeId={placeInfo.id} isMarked={true} />
       </PlaceInfo>
       {placeInfo.keywords && placeInfo.images && (
         <KeywordBox>

@@ -120,7 +120,8 @@ export default function StoreTitle({
                 .with("detail", () => 28)
                 .with("map", () => 24)
                 .otherwise(() => 28)}
-              color={props.isMarked && "Red"}
+              placeId={props.placeId}
+              isMarked={props.isMarked}
             />
             <Text
               typo="Paragraph3"
