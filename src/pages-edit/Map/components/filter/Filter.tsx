@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
@@ -7,6 +8,28 @@ import Text from "components/Text";
 
 export default function Filter({ type, data }: any) {
   const router = useRouter();
+
+  const buttonAction = (val: string) => {
+    const newInclude = data.new ? data.new.includes(val) : false;
+    return newInclude;
+  };
+
+  const clickFilterButton = (val: string) => {
+    const newInclude = data.new ? data.new.includes(val) : false;
+
+    switch (type) {
+      case "full":
+        if (newInclude) data.Fn("");
+        else data.Fn(val);
+        break;
+      case "full-radius":
+        if (newInclude) data.Fn(data.new.filter((d: any) => d !== val));
+        else data.Fn([...data.new, val]);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Wrapper>
@@ -18,7 +41,12 @@ export default function Filter({ type, data }: any) {
       <ButtonWrapper>
         {data.textList.map((data2: any, idx: number) => {
           return (
-            <RoundButton key={idx} type={type} action={false}>
+            <RoundButton
+              key={idx}
+              type={type}
+              action={buttonAction(data2.val)}
+              onClick={() => clickFilterButton(data2.val)}
+            >
               {data2.val}
             </RoundButton>
           );

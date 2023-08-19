@@ -1,8 +1,104 @@
-import { changeLocation, changeType } from "reducer/slices/search/searchSlice";
-import { useAppDispatch } from "./useReduxHooks";
+import {
+  changeDayOfWeek,
+  changeFilterAction,
+  changeFoodType,
+  changeLocation,
+  changeMood,
+  changeNewDayOfWeek,
+  changeNewFoodType,
+  changeNewMood,
+  changePlaceInfo,
+  changeType,
+} from "reducer/slices/search/searchSlice";
+import { useAppDispatch, useAppSelector } from "./useReduxHooks";
 
 const useSearch = () => {
   const dispatch = useAppDispatch();
+  const { foodType, newFoodType, dayOfWeek, newDayOfWeek, mood, newMood } =
+    useAppSelector((state) => state.search);
+
+  const newFoodTypeSetting = (val: any) => {
+    dispatch(
+      changeNewFoodType({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+  const foodTypeSetting = (val: any) => {
+    newFoodTypeSetting(val);
+    dispatch(
+      changeFoodType({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+
+  const newDayOfWeekSetting = (val: any) => {
+    dispatch(
+      changeNewDayOfWeek({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+  const dayOfWeekSetting = (val: any) => {
+    newDayOfWeekSetting(val);
+    dispatch(
+      changeDayOfWeek({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+
+  const newMoodSetting = (val: any) => {
+    dispatch(
+      changeNewMood({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+  const moodSetting = (val: any) => {
+    newMoodSetting(val);
+    dispatch(
+      changeMood({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+
+  const originalAll = () => {
+    newFoodTypeSetting(foodType);
+    newDayOfWeekSetting(dayOfWeek);
+    newMoodSetting(mood);
+  };
+
+  const newAll = () => {
+    foodTypeSetting(newFoodType);
+    dayOfWeekSetting(newDayOfWeek);
+    moodSetting(newMood);
+  };
+
+  const deleteAll = () => {
+    foodTypeSetting("");
+    dayOfWeekSetting([]);
+    moodSetting("");
+  };
+
+  //
+  const typeSetting = (type: any) => {
+    dispatch(
+      changeType({
+        type: "search",
+        value: type,
+      })
+    );
+    if (type === "default") deleteAll();
+  };
 
   const locationSetting = (loc: any) => {
     dispatch(
@@ -13,16 +109,57 @@ const useSearch = () => {
     );
   };
 
-  const defaultSearch = () => {
+  const filterActionSetting = (filterAction: any) => {
     dispatch(
-      changeType({
+      changeFilterAction({
         type: "search",
-        value: "default",
+        value: filterAction,
       })
     );
   };
 
-  return { locationSetting, defaultSearch };
+  //
+  const placeInfoSetting = (placeInfo: any) => {
+    const newPlaceInfo = {
+      kakaoPid: placeInfo.id,
+      name: placeInfo.place_name,
+      pageUrl: placeInfo.place_url,
+      categoryName: placeInfo.category_name,
+      categoryGroupCode: placeInfo.category_group_code,
+      phone: placeInfo.phone,
+      lotNumberAddress: placeInfo.address_name,
+      roadAddress: placeInfo.road_address_name,
+      lat: placeInfo.y,
+      lng: placeInfo.x,
+    };
+    dispatch(
+      changePlaceInfo({
+        type: "search",
+        value: newPlaceInfo,
+      })
+    );
+  };
+
+  return {
+    typeSetting,
+    locationSetting,
+    filterActionSetting,
+
+    foodTypeSetting,
+    newFoodTypeSetting,
+
+    dayOfWeekSetting,
+    newDayOfWeekSetting,
+
+    moodSetting,
+    newMoodSetting,
+
+    originalAll,
+    newAll,
+    deleteAll,
+
+    placeInfoSetting,
+  };
 };
 
 export default useSearch;

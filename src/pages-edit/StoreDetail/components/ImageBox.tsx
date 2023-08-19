@@ -13,7 +13,7 @@ import Hr from "components/Hr";
 
 import { typography } from "constants/typography";
 
-const ImageBox = forwardRef(function Div({ id, images }: any, ref: any) {
+const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   const router = useRouter();
   const { width } = useDisplaySize();
   const handleClickImage = () => {
@@ -37,16 +37,16 @@ const ImageBox = forwardRef(function Div({ id, images }: any, ref: any) {
     >
       <ImageWrapper>
         <ImageHorizonal
-          width={images.length < 2 ? width : width / 2}
+          width={images?.length < 2 ? width : width / 2}
           height={(width * 281) / 360}
         >
-          {images.length > 0 ? (
+          {images?.length > 0 ? (
             <Image
               alt="디테일 이미지"
               type="store-detail"
               src={
-                images.length > 0
-                  ? images[0].thumbnailUrl
+                images?.length > 0
+                  ? images[0]?.thumbnailUrl
                   : "https://i.ibb.co/2kSZX6Y/60pt.png"
               }
             />
@@ -54,14 +54,14 @@ const ImageBox = forwardRef(function Div({ id, images }: any, ref: any) {
         </ImageHorizonal>
       </ImageWrapper>
 
-      {images.length > 1 ? (
+      {images?.length > 1 ? (
         <>
           <Hr size={3} />
           <ImageWrapper>
             <ImageHorizonal
               width={width / 2 - 3}
               height={
-                images.length === 2
+                images?.length === 2
                   ? (width * 281) / 360
                   : (width * 281) / 360 / 2 - 1.5
               }
@@ -69,10 +69,10 @@ const ImageBox = forwardRef(function Div({ id, images }: any, ref: any) {
               <Image
                 alt="디테일 이미지"
                 type="review-detail"
-                src={images[1].thumbnailUrl}
+                src={images[1]?.thumbnailUrl}
               />
             </ImageHorizonal>
-            {images.length > 2 ? (
+            {images?.length > 2 ? (
               <>
                 <Spacing size={3} />
                 <ImageHorizonal
@@ -82,12 +82,12 @@ const ImageBox = forwardRef(function Div({ id, images }: any, ref: any) {
                   <Image
                     alt="디테일 이미지"
                     type="review-detail"
-                    src={images[2].thumbnailUrl}
+                    src={images[2]?.thumbnailUrl}
                   />
-                  {images.length > 3 ? (
+                  {images?.length > 3 ? (
                     <>
                       <ImageCountWrapper />
-                      <ImageCount>+{images.length - 3}</ImageCount>
+                      <ImageCount>+{images?.length - 3}</ImageCount>
                     </>
                   ) : undefined}
                 </ImageHorizonal>

@@ -7,6 +7,7 @@ import {
 } from "reducer/slices/bottomSheet/mapBottomSheetSlice";
 import { changeFilterAction } from "reducer/slices/search/searchSlice";
 import { useAppDispatch } from "./useReduxHooks";
+import useSearch from "./useSearch";
 
 interface BottomSheetMetrics {
   touchStart: {
@@ -26,6 +27,7 @@ export default function useMapBottomSheet({ ...props }: any) {
   const dispatch = useAppDispatch();
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
+  const { originalAll } = useSearch();
 
   const moveMapBottomSheet = useCallback((move: any) => {
     dispatch(
@@ -67,6 +69,7 @@ export default function useMapBottomSheet({ ...props }: any) {
         })
       );
     }, 300);
+    originalAll();
   }, []);
 
   const closeMapBottomSheetQuick = useCallback(() => {
@@ -76,6 +79,7 @@ export default function useMapBottomSheet({ ...props }: any) {
         value: 0,
       })
     );
+    originalAll();
   }, []);
 
   // if (props.use) {

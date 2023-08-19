@@ -1,25 +1,57 @@
 import { useQuery } from "react-query";
-import { getReviews } from "api/review";
-import { getCookie } from "utils/cookie";
-import { getPlacesId } from "api/places";
+import { getPlaces, getPlacesId, postPlaces } from "api/places";
+import { useAppSelector } from "hooks/useReduxHooks";
+import { getReviews } from "api/reviews";
 
-const useGetStore = (placeId: number): any => {
+const useGetStore = ({ kakaoId, placeId }: any): any => {
+  const { placeInfo } = useAppSelector((state) => state.search);
   const { data, isLoading, error, refetch } = useQuery(
-    [],
+    ["search"],
     async () => {
-      const params: any = {
-        params: {
-          placeId: placeId,
-          page: 0,
-          size: 10,
-        },
-      };
-      const storeInfoData = await getPlacesId(placeId);
-      const reviewsResult = await getReviews(params);
-      return {
-        storeInfo: storeInfoData,
-        reviews: reviewsResult,
-      };
+      console.log(kakaoId);
+
+      if (kakaoId) {
+        const testPlaceInfo = await getPlaces(kakaoId);
+        const params: any = {
+          params: {
+            placeId: 0,
+            page: 0,
+            size: 10,
+          },
+        };
+        let newPlaceInfo = null;
+
+        if (!testPlaceInfo) {
+          const postPlaceInfo = await postPlaces(placeInfo);
+          // console.log(postPlaceInfo);
+          newPlaceInfo = postPlaceInfo;
+          // return {data: {}, isLoading: false, error, refetch};
+        } else {
+          newPlaceInfo = testPlaceInfo;
+          params.params.placeId = testPlaceInfo.id;
+        }
+
+        const reviewsResult = await getReviews(params);
+        return {
+          storeInfo: newPlaceInfo,
+          reviews: reviewsResult,
+        };
+      } else {
+        const params: any = {
+          params: {
+            placeId: placeId,
+            page: 0,
+            size: 10,
+          },
+        };
+
+        const storeInfoData = await getPlacesId(placeId);
+        const reviewsResult = await getReviews(params);
+        return {
+          storeInfo: storeInfoData,
+          reviews: reviewsResult,
+        };
+      }
     },
     {
       staleTime: 1000 * 60 * 5,
