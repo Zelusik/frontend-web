@@ -44,6 +44,11 @@ const TopNavigation = forwardRef(function Div(
           .with("search-place", () => 35)
           .with("mypage", () => 35)
           .otherwise(() => 38)}
+        top={match(type)
+          .with("store-detail", () => 50)
+          .with("search-place", () => 126)
+          .with("mypage", () => 50)
+          .otherwise(() => 50)}
         topFixed={props.topFixed}
       >
         <TitleWrapper
@@ -113,13 +118,13 @@ const TopNavigation = forwardRef(function Div(
   );
 });
 
-const TitleSelection = styled.div<{ height: number; topFixed: any }>`
+const TitleSelection = styled.div<{ top: any; height: number; topFixed: any }>`
   width: 100%;
   height: ${({ height }) => height + "px"};
   padding: 0 20px;
 
   position: ${({ topFixed }) => (topFixed ? "fixed" : "relative")};
-  top: ${({ topFixed }) => (topFixed ? "50px" : "0")};
+  top: ${({ topFixed, top }) => (topFixed ? top + "px" : 0)};
   background-color: ${colors.N0};
   z-index: 900;
 `;
