@@ -122,7 +122,7 @@ export default function ReviewDetail() {
           <Spacing size={40} />
 
           <TopNavigation
-            type="review-detail"
+            type="store-detail"
             scrollRef={scrollRef}
             scrollTop={
               data?.storeInfo?.images?.length === 0

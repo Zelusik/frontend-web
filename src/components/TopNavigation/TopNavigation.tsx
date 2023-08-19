@@ -41,7 +41,7 @@ const TopNavigation = forwardRef(function Div(
       <TitleSelection
         height={match(type)
           .with("store-detail", () => 38)
-          .with("search-place", () => 34)
+          .with("search-place", () => 35)
           .with("mypage", () => 35)
           .otherwise(() => 38)}
         topFixed={props.topFixed}
@@ -49,7 +49,7 @@ const TopNavigation = forwardRef(function Div(
         <TitleWrapper
           height={match(type)
             .with("store-detail", () => 37)
-            .with("search-place", () => 33)
+            .with("search-place", () => 34)
             .with("mypage", () => 34)
             .otherwise(() => 37)}
         >
@@ -86,7 +86,7 @@ const TopNavigation = forwardRef(function Div(
         <TopFixed
           height={match(type)
             .with("store-detail", () => 38)
-            .with("search-place", () => 34)
+            .with("search-place", () => 35)
             .with("mypage", () => 35)
             .otherwise(() => 38)}
         />

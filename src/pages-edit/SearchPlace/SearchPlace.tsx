@@ -36,6 +36,12 @@ export default function SearchPlace() {
     }
   }, []);
 
+  useEffect(() => {
+    if (value === "") {
+      setCurrentIndex(0);
+    }
+  }, [value]);
+
   const { data, isLoading } = useGetSearch(currentIndex, value);
   console.log(data);
 
@@ -134,5 +140,7 @@ export default function SearchPlace() {
 const Wrapper = styled.div<{ height?: number }>`
   height: ${({ height }) => height + "px"};
   padding: 0 20px;
-  overflow: scroll;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: relative;
 `;
