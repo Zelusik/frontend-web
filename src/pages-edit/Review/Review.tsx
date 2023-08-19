@@ -18,6 +18,7 @@ import BottomNavigation from "components/BottomNavigation/BottomNavigation";
 import Toast from "components/Toast/Toast";
 import imageCompression from "browser-image-compression";
 import useToast from "hooks/useToast";
+import heic2any from "heic2any";
 
 const Review = () => {
   const router = useRouter();
@@ -27,6 +28,36 @@ const Review = () => {
 
   const handleCloseToast = () => {
     closeToast();
+  };
+
+  const isHeicOrHeif = (fileName: string): boolean => {
+    const lowercasedName = fileName.toLowerCase();
+    return lowercasedName.endsWith(".heic") || lowercasedName.endsWith(".heif");
+  };
+
+  const convertHeicToJpeg = async (file: any): Promise<any> => {
+    if (isHeicOrHeif(file.name)) {
+      return heic2any({
+        blob: file,
+        toType: "image/jpeg",
+        quality: 0.8,
+      });
+    }
+    return file;
+  };
+
+  const compressLargeImage = async (file: any): Promise<any> => {
+    if (file.size > 5 * 1024 * 1024) {
+      return imageCompression(file, { maxSizeMB: 5 });
+    }
+    return file;
+  };
+
+  const imageConvert = async (file: any) => {
+    let processedFile = await convertHeicToJpeg(file);
+    processedFile = await compressLargeImage(processedFile);
+
+    return imageCompression.getDataUrlFromFile(processedFile);
   };
 
   // 이미지 파일에서 메타데이터 추출
@@ -41,21 +72,13 @@ const Review = () => {
     };
     try {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-      if (file.size <= 5 * 1024 * 1024) {
-        const imageUrl = await imageCompression.getDataUrlFromFile(file);
-        imageInfo.image = imageUrl;
-      } else {
-        const resizingBlob = await imageCompression(file, { maxSizeMB: 5 });
-        const resizedUrl = await imageCompression.getDataUrlFromFile(
-          resizingBlob
-        );
-        imageInfo.image = resizedUrl;
-      }
+      const convertedImgBlob = await convertHeicToJpeg(file);
+
+      reader.readAsDataURL(convertedImgBlob);
+      imageInfo.image = await imageConvert(file);
+      imageInfo.preview = URL.createObjectURL(convertedImgBlob);
 
       const data: any = await exifr.parse(file);
-      imageInfo.preview = URL.createObjectURL(file);
-
       const lat = data?.GPSLatitude;
       const lng = data?.GPSLongitude;
 
@@ -69,17 +92,19 @@ const Review = () => {
     dispatch(changeImageInfo(imageInfo));
   };
 
-  const onDrop = (acceptedFiles: any) => {
+  const onDrop = async (acceptedFiles: any) => {
     if (acceptedFiles.length === 0) {
       return;
     } else if (acceptedFiles.length > 9) {
       openToast();
     } else {
-      acceptedFiles.forEach((file: any) => {
+      const promises = acceptedFiles.map((file: any) => {
         if (file.type.includes("image")) {
-          extractGPSInfo(file);
+          return extractGPSInfo(file);
         }
+        return Promise.resolve();
       });
+      await Promise.all(promises);
       router.push(Route.REVIEW_PLACE());
     }
   };
@@ -87,7 +112,7 @@ const Review = () => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: true,
-    accept: { "image/*": [] },
+    accept: { "image/*": [".heic", ".heif"] },
   });
 
   return (
