@@ -34,6 +34,39 @@ export const atmosphereKeyword = [
   { val: "조용조용한" },
   { val: "왁자지껄한" },
 ];
+export const FOOD_KEYWORD: any = {
+  FRESH: "신선한 재료",
+  BEST_FLAVOR: "최고의 맛",
+  BEST_MENU_COMBINATION: "완벽 메뉴 조합",
+  LOCAL_FLAVOR: "현지 느낌 가득",
+  GOOD_PRICE: "가성비 갑",
+  GENEROUS_PROTIONS: "넉넉한 양",
+
+  "신선한 재료": "FRESH",
+  "최고의 맛": "BEST_FLAVOR",
+  "완벽 메뉴 조합": "BEST_MENU_COMBINATION",
+  "현지 느낌 가득": "LOCAL_FLAVOR",
+  "가성비 갑": "GOOD_PRICE",
+  "넉넉한 양": "GENEROUS_PROTIONS",
+
+  WITH_ALCOHOL: "술과 함께",
+  GOOD_FOR_DATE: "데이트에 최고",
+  WITH_ELDERS: "웃어른과",
+  CAN_ALONE: "혼밥 가능",
+  PERFECT_FOR_GROUP_MEETING: "단체모임에 딱",
+  WAITING: "웨이팅 있음",
+  SILENT: "조용조용한",
+  NOISY: "왁자지껄한",
+
+  "술과 함께": "WITH_ALCOHOL",
+  "데이트에 최고": "GOOD_FOR_DATE",
+  웃어른과: "WITH_ELDERS",
+  "혼밥 가능": "CAN_ALONE",
+  "단체모임에 딱": "PERFECT_FOR_GROUP_MEETING",
+  "웨이팅 있음": "WAITING",
+  조용조용한: "SILENT",
+  왁자지껄한: "NOISY",
+};
 
 // dayOfWeekData.ts
 
@@ -46,6 +79,16 @@ export const dayOfWeekData = [
   { val: "토" },
   { val: "일" },
 ];
+
+export const DAY_OF_WEEK_DATA: any = {
+  월: "MON",
+  화: "TUE",
+  수: "WED",
+  목: "THU",
+  금: "FRI",
+  토: "SAT",
+  일: "SUN",
+};
 
 // sortData.ts
 
@@ -72,6 +115,23 @@ export const tasteData = [
   { icon: Buffet, val: "뷔페" },
   { icon: Bar, val: "술집" },
 ];
+
+export const TASTE_KEYWORD: any = {
+  한식: "KOREAN",
+  일식: "JAPANESE",
+  중식: "CHINESE",
+  "고기/구이": "MEET",
+  양식: "WESTERN",
+  치킨: "CHICKEN",
+  분식: "STREET",
+  패스트푸드: "FAST_FOOD",
+  디저트: "CAFE_DESERT",
+  아시안푸드: "ASIAN",
+  샌드위치: "SANDWICH",
+  "퓨전/세계": "FUSION_WORLD",
+  뷔페: "BUFFET",
+  술집: "BAR",
+};
 
 // termsData.ts
 

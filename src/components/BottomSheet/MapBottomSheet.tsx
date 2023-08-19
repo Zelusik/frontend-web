@@ -128,7 +128,8 @@ const Handle = styled.div`
 `;
 
 const BottomSheetContent = styled.div`
-  overflow: auto;
+  overflow: hidden;
+  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 `;
 
