@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { useQuery } from "react-query";
-import { getMenus, postMenu } from "api/review/menu";
+import { getMenus, postMenu } from "api/places-menus";
 
 type UseGetMenusResult = {
   data: any;

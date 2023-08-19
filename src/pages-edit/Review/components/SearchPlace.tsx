@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { kakaoSearchKeyword } from "api/review";
+import { kakaoSearchKeyword } from "api/open-api";
 import Input from "components/Input/Input";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
@@ -8,7 +9,6 @@ import { typography } from "constants/typography";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 
 const SearchPlace = () => {

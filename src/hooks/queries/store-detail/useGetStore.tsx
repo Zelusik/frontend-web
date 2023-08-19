@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import { getReviews } from "api/review";
 import { getPlaces, getPlacesId, postPlaces } from "api/places";
 import { useAppSelector } from "hooks/useReduxHooks";
+import { getReviews } from "api/reviews";
 
 const useGetStore = ({ kakaoId, placeId }: any): any => {
   const { placeInfo } = useAppSelector((state) => state.search);

@@ -13,9 +13,10 @@ import { useRouter } from "next/router";
 import TextArea from "components/TextArea/TextArea";
 import Spacing from "components/Spacing/Spacing";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import { postReview } from "api/review";
+
 import { Route } from "constants/Route";
 import ReviewLoading from "./ReviewLoading";
+import { postReview } from "api/reviews";
 
 const Write = () => {
   const route = useRouter();

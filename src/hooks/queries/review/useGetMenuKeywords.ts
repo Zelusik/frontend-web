@@ -1,6 +1,6 @@
 import React from "react";
+import { getMenuKeywords } from "api/menu-keywords";
 import { useQuery } from "react-query";
-import { getMenuKeywords } from "api/review/menu";
 
 export interface GetKeyWrodsProps {
   placeCategory: string;
