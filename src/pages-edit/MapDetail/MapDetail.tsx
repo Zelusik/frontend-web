@@ -8,7 +8,10 @@ export default function MapDetail() {
   return (
     <>
       <KakaoMapWrapper>
-        <KakaoMap lat={33.450701} lng={126.570667} />
+        <KakaoMap
+          lat={Number(router.query.lat)}
+          lng={Number(router.query.lng)}
+        />
       </KakaoMapWrapper>
       <TitleWrapper>
         <BackTitle type="map" />

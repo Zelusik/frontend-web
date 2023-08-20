@@ -112,7 +112,7 @@ export default function StoreDetail() {
             title={data?.storeInfo?.name}
             subTitle={
               data?.storeInfo &&
-              `${data?.storeInfo?.category} . ${data?.storeInfo?.address?.sido} ${data?.storeInfo?.address?.sgg} ${data?.storeInfo?.address?.lotNumberAddress}`
+              `${data?.storeInfo?.category} · ${data?.storeInfo?.address?.sido} ${data?.storeInfo?.address?.sgg} ${data?.storeInfo?.address?.lotNumberAddress}`
             }
           />
 

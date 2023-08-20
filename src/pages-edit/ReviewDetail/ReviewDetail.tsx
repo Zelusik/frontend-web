@@ -19,6 +19,7 @@ import Profile from "./components/ProfileTime";
 import ImageBox from "./components/ImageBox";
 import ScaleUpButton from "./components/ScaleUpButton";
 import { makeInfo } from "utils/makeInfo";
+import useGetReviewsId from "hooks/queries/review-detail/useGetReviewsId";
 
 export default function ReviewDetail() {
   const router = useRouter();
@@ -45,9 +46,12 @@ export default function ReviewDetail() {
     };
   }, []);
 
-  return (
+  const { data, isLoading } = useGetReviewsId(parseInt(router.query.id));
+  console.log(data);
+
+  return isLoading ? undefined : (
     <>
-      <ImageBox ref={imageRef} />
+      <ImageBox ref={imageRef} images={data?.reviewImages} />
       <TitleWrapper visible={titleChange}>
         <BackTitle
           type={
@@ -57,7 +61,7 @@ export default function ReviewDetail() {
               ? "white-dots-mine"
               : "white-dots"
           }
-          title={titleChange ? "소이연남" : undefined}
+          title={titleChange ? data?.place?.name : undefined}
         />
       </TitleWrapper>
 
@@ -67,52 +71,39 @@ export default function ReviewDetail() {
           <Spacing size={20} />
           <StoreTitle
             type={mine ? "detail-mine" : "detail"}
-            title="소이연남"
-            subTitle="음식 카테고리 지역"
+            title={data?.place?.name}
+            subTitle={`${data?.place?.category} · ${data?.place?.address?.sido} ${data?.place?.address?.sgg} ${data?.place?.address?.lotNumberAddress}`}
             editNone={true}
           />
           <Spacing size={16} />
 
-          <Hashtags
-            hashtags={[
-              "단체모임에 딱",
-              "데이트에 최고",
-              "웨이팅 있음",
-              "웨이팅 있음",
-            ]}
-          />
+          <Hashtags hashtags={data?.keywords} />
 
           <div style={{ padding: "0 20px" }}>
             <Spacing size={16} />
-            <Description
-              text={`그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
-              열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
-              더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를
-              그림자는 피부가 풀밭에 위하여 얼음 온갖 것은 힘차게 구할 그리하였는가?
-              열락의 없으면 튼튼하며, 역사를 모래뿐일 교향악이다. 위하여, 듣기만
-              더운지라 살 싸인 듣는다. 풍부하게 얼음과 가치를`}
-            />
+            <Description text={data?.content} />
             <Spacing size={15} />
             <Hr />
             <Spacing size={16} />
-            <Profile />
+            <Profile data={data?.writer} />
             <Spacing size={16} />
           </div>
 
           <KakaoMapWrapper height={(width * 23) / 36}>
-            <KakaoMap lat={33.450701} lng={126.570667} />
+            <KakaoMap
+              lat={data?.place?.point?.lat}
+              lng={data?.place?.point?.lng}
+            />
             <NoTouch />
-            <ScaleUpButton />
+            <ScaleUpButton
+              lat={data?.place?.point?.lat}
+              lng={data?.place?.point?.lng}
+            />
           </KakaoMapWrapper>
 
           <div style={{ padding: "0 20px" }}>
             <Spacing size={40} />
-            {makeInfo({
-              openingHours: [],
-              closingHours: null,
-              phone: "",
-              snsUrl: null,
-            }).map((data: any, idx: number) => {
+            {makeInfo(data?.place).map((data: any, idx: number) => {
               return <Info key={idx} data={data} />;
             })}
           </div>

@@ -12,11 +12,18 @@ export const makeInfo = (data: any): any => {
         {
           info_title: "운영시간",
           info_desc:
-            data?.openingHours?.length === 0
-              ? `없음`
-              : data?.openingHours?.map((time: any, idx: number) => (
+            data?.openingHours?.length === 0 ? (
+              `없음`
+            ) : (
+              <>
+                {data?.openingHours?.map((time: any, idx: number) => (
                   <div key={idx}>{time}</div>
-                )),
+                ))}
+                {data?.openingHoursDtos?.map((time: any, idx: number) => (
+                  <div key={idx}>{time}</div>
+                ))}
+              </>
+            ),
         },
         {
           info_title: "휴무일",

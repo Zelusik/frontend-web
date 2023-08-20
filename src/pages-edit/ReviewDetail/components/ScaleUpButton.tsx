@@ -6,11 +6,14 @@ import { Route } from "constants/Route";
 import Icon from "components/Icon";
 import Text from "components/Text";
 
-export default function ScaleUpButton({}: any) {
+export default function ScaleUpButton({ lat, lng }: any) {
   const router = useRouter();
 
   const handleClickScaleUp = () => {
-    router.push(Route.MAP_DETAIL());
+    router.push({
+      pathname: Route.MAP_DETAIL(),
+      query: { lat: lat, lng: lng },
+    });
   };
 
   return (
