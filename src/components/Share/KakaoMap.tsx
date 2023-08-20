@@ -4,7 +4,7 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { globalValue } from "constants/globalValue";
 // https://react-kakao-maps-sdk.jaeseokim.dev/
 
-export default function KakaoMap({ lat, lng, ...props }: any) {
+export default function KakaoMap({ lat, lng, data, ...props }: any) {
   const router = useRouter();
 
   return (
@@ -19,7 +19,39 @@ export default function KakaoMap({ lat, lng, ...props }: any) {
             lat: lat,
             lng: lng,
           }}
+          image={{
+            src: "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/myplace.png",
+            size: {
+              width: 24,
+              height: 24,
+            },
+          }}
         />
+
+        {/* 마커들 */}
+        {data &&
+          data?.map((d: any, idx: number) => {
+            return (
+              ((props.isMarkShow && d?.isMarked) || !props.isMarkShow) && (
+                <MapMarker
+                  key={idx}
+                  position={{
+                    lat: d?.point?.lat,
+                    lng: d?.point?.lng,
+                  }}
+                  image={{
+                    src: d?.isMarked
+                      ? "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/Component36.png"
+                      : "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/Component35.png",
+                    size: {
+                      width: 56,
+                      height: 56,
+                    },
+                  }}
+                />
+              )
+            );
+          })}
       </Map>
     </MapWrapper>
   );
