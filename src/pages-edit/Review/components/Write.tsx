@@ -17,9 +17,11 @@ import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { Route } from "constants/Route";
 import ReviewLoading from "./ReviewLoading";
 import { postReview } from "api/reviews";
+import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 
 const Write = () => {
   const route = useRouter();
+  const { data } = useGetMyInfo();
   const dispatch = useAppDispatch();
   const review = useAppSelector((state) => state.review);
   const [textAreaHeight, setTextAreaHeight] = useState(0);
@@ -60,7 +62,7 @@ const Write = () => {
   return (
     <WriteWrapper>
       {isLoading || shouldRoute ? (
-        <ReviewLoading type="review" />
+        <ReviewLoading type="review" nickname={data?.nickname} />
       ) : (
         <>
           <BackTitle type="black-left-text" text="리뷰 작성" />
@@ -86,7 +88,7 @@ const Write = () => {
               <div className="AI">
                 <Spacing size={10} />
                 <p style={{ color: colors.Orange600 }}>
-                  {"*쫄깃한 콘스프*님의 리뷰를 AI가 글로 바꿔드렸어요."}
+                  {`*${data?.nickname}*님의 리뷰를 AI가 글로 바꿔드렸어요.`}
                 </p>
                 <p style={{ color: colors.N80 }}>
                   수정과 추가를 통해 의견을 더할 수 있어요.
