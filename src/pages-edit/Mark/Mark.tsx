@@ -14,10 +14,12 @@ import StoreCard from "./components/StoreCard";
 import BottomNavigation from "components/BottomNavigation";
 import { globalValue } from "constants/globalValue";
 import { Route } from "constants/Route";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 export default function Mark() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
+  const infinityScrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [topFixed, setTopFixed] = useState<boolean>(false);
@@ -36,21 +38,18 @@ export default function Mark() {
 
   const {
     data: placeData,
-    // fetchNextPage,
-    // hasNextPage,
+    fetchNextPage,
+    hasNextPage,
   } = useGetMarkPlaces({
     currentIndex,
     type: keywords?.[currentIndex]?.type,
     keyword: keywords?.[currentIndex]?.keyword,
   });
 
+  useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
+
   function onScroll() {
     const scrollTop = 20;
-
-    // if (currentIndex === 0 && scrollRef.current?.scrollTop >= scrollTop) {
-    //   scrollRef.current!.scrollTop = scrollTop;
-    //   return;
-    // }
 
     if (scrollRef.current?.scrollTop > scrollTop) {
       setTopFixed(true);
@@ -83,23 +82,25 @@ export default function Mark() {
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
           titleList={keywordList}
-          count={placeData?.totalElements ? placeData?.totalElements : 0}
+          count={placeData?.[0].totalElements ? placeData?.[0].totalElements : 0}
         >
           {keywords?.map((_: any, idx: number) => {
             return (
               <TopNavigationInner key={idx} height={"auto"}>
-                {placeData?.totalElements !== 0 ? (
+                {placeData?.[0].totalElements !== 0 ? (
                   currentIndex === idx ? (
                     <>
                       <Spacing size={19} />
                       <StoreWrapper>
-                        {placeData?.contents?.map(
-                          (place: any, placeIdx: number) => {
-                            return (
-                              <StoreCard key={placeIdx} placeInfo={place} />
-                            );
-                          }
-                        )}
+                        {placeData
+                          ?.flatMap((place_data) => place_data.contents)
+                          .map((place: any, placeIdx: number) => (
+                            <StoreCard key={placeIdx} placeInfo={place} />
+                          ))}
+                        <div
+                          ref={infinityScrollRef}
+                          style={{ height: hasNextPage ? "30px" : "0px" }}
+                        ></div>
                       </StoreWrapper>
                       <Spacing size={20} />
                     </>
