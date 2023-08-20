@@ -33,7 +33,7 @@ export default function Home() {
         {data
           ?.flatMap((page_data) => page_data.contents)
           .map((data) => (
-            <StoreCard key={data.id} id={data.place.id} data={data} />
+            <StoreCard key={data.id} data={data} />
           ))}
         <div ref={scrollRef} style={{ height: "30px" }}></div>
       </Wrapper>

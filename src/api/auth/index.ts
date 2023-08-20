@@ -1,6 +1,5 @@
 import client from "api";
 import axios from "axios";
-import { TermsType } from "types/auth";
 
 export const KakaoLogin = async (kakaoAccessToken: string) =>
   await client
@@ -18,23 +17,3 @@ export const AppleLogin = async (userInfo: {
     })
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
-
-export const PostTerms = async (token: any, termsData: TermsType) =>
-  await client
-    .post("/members/terms", termsData, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then(({ data }) => data)
-    .catch((err) => err.response);
-
-export const PutTaste = async (token: any, favoriteFoodCategories: string[]) =>
-  await client
-    .put(
-      "/members/favorite-food",
-      { favoriteFoodCategories },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
-    .then(({ data }) => data)
-    .catch((err) => err.response);

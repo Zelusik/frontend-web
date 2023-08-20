@@ -81,3 +81,9 @@ export const getFeed = async (page: number) =>
     .get("/reviews/feed", { params: { page } })
     .then(({ data }) => data)
     .catch((err) => err.response);
+
+export const getMyReviews = async ({ page, size }: { page: number; size: number }) =>
+  await client
+    .get("/reviews/me", { data: { page, size } })
+    .then(({ data }) => data)
+    .catch((err) => err.response);
