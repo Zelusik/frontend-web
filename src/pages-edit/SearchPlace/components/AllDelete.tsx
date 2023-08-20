@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { typography } from "constants/typography";
 import { css } from "@emotion/react";
 import { colors } from "constants/colors";
+import Text from "components/Text";
 
 export default function AllDelete({ ...props }: any) {
   const router = useRouter();
@@ -14,7 +15,9 @@ export default function AllDelete({ ...props }: any) {
 
   return (
     <TitleWrapper onClick={clickAllDelete}>
-      <div style={typography.Paragraph5}>최근검색</div>
+      <Text typo="Paragraph5" color="N100">
+        최근검색
+      </Text>
       <Delete typo={typography.Paragraph4} color={colors.N50}>
         모두 지우기
       </Delete>

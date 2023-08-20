@@ -45,6 +45,11 @@ const TopNavigation = forwardRef(function Div(
           .with("mypage", () => 35)
           .with("mark", () => 34)
           .otherwise(() => 38)}
+        top={match(type)
+          .with("store-detail", () => 50)
+          .with("search-place", () => 126)
+          .with("mypage", () => 50)
+          .otherwise(() => 50)}
         topFixed={props.topFixed}
         background={match(type)
           .with("mark", () => "#fbfbfb")
@@ -125,6 +130,7 @@ const TopNavigation = forwardRef(function Div(
 });
 
 const TitleSelection = styled.div<{
+  top: any;
   height: number;
   topFixed: any;
   background: string;
@@ -134,7 +140,7 @@ const TitleSelection = styled.div<{
   padding: 0 20px;
 
   position: ${({ topFixed }) => (topFixed ? "fixed" : "relative")};
-  top: ${({ topFixed }) => (topFixed ? "50px" : "0")};
+  top: ${({ topFixed, top }) => (topFixed ? top + "px" : 0)};
   background-color: ${({ background }) => background};
   z-index: 900;
 `;

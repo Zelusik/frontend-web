@@ -93,7 +93,7 @@ const Wrapper = styled.div<{
   borderRadius: any;
 }>`
   width: 100%;
-  height: 48px;
+  height: 50px;
   margin: auto;
   padding: 0 12px;
 
