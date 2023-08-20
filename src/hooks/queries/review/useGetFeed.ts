@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { getFeed } from "api/reviews";
 import { useInfiniteQuery } from "react-query";
 

@@ -14,12 +14,11 @@ export default function ReviewList({ type = "mypage", datas }: any) {
   const clickReview = (id?: number) => {
     switch (type) {
       case "mypage":
-        router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
+        router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: id } });
         break;
       case "recommand-best":
         break;
     }
-    // router.push(Route.REVIEW_DETAIL());
   };
 
   return (
