@@ -46,7 +46,11 @@ export default function StoreTitle({
         isFlex={type === "map"}
         style={{
           width:
-            type === "mypage-review" ? "100%" : type === "home" ? "75%" : "initial",
+            type === "mypage-review"
+              ? "100%"
+              : type === "home"
+              ? "75%"
+              : "initial",
         }}
       >
         {title ? (
@@ -132,7 +136,7 @@ export default function StoreTitle({
                 .otherwise(() => "N0")}
               style={{ marginLeft: 6 }}
             >
-              999
+              0
             </Text>
           </HeartWrapper>
         </Menu>
