@@ -93,8 +93,10 @@ export const DAY_OF_WEEK_DATA: any = {
 // sortData.ts
 
 export const sortData: any = [
-  { id: 1, val: "관련도순" },
-  { id: 2, val: "최신순" },
+  { id: 1, val: "최신순" },
+  { id: 2, val: "담은순" },
+  { id: 3, val: "인기순" },
+  { id: 4, val: "리뷰 많은순" },
 ];
 
 // tasteData.ts

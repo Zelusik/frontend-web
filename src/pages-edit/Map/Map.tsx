@@ -29,7 +29,7 @@ import LocationTitle from "./components/LocationTitle";
 import FilterSelection from "./components/filter/FilterSelection";
 import Filter from "./components/filter/Filter";
 import FilterButton from "./components/filter/FilterButton";
-import StoreSort from "./components/StoreSort";
+import StoreSort from "../Mark/components/StoreSort";
 
 export default function Map() {
   const router = useRouter();

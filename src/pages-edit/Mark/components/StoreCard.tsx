@@ -12,13 +12,16 @@ import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import Heart from "components/Button/IconButton/Heart/Heart";
 
-const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
+const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
   const hasImage = placeInfo.images ? true : false;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const handleClickPlace = () => {
-    router.push({ pathname: Route.STORE_DETAIL(), query: { id: placeInfo.id } });
+    router.push({
+      pathname: Route.STORE_DETAIL(),
+      query: { id: placeInfo.id },
+    });
   };
 
   return (
@@ -29,7 +32,9 @@ const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
             className="banner"
             slidesPerView={1}
             spaceBetween={20}
-            onSlideChange={(swiper: any) => setCurrentSlideIndex(swiper.activeIndex)}
+            onSlideChange={(swiper: any) =>
+              setCurrentSlideIndex(swiper.activeIndex)
+            }
             allowSlidePrev={currentSlideIndex !== 0}
             allowSlideNext={currentSlideIndex !== placeInfo.images.length - 1}
           >
@@ -111,4 +116,4 @@ const KeywordBox = styled.div`
   gap: 6px;
   overflow-x: auto;
 `;
-export default FoodComponents;
+export default StoreCard;

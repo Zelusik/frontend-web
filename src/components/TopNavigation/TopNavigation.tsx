@@ -12,6 +12,7 @@ import Hr from "components/Hr";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import SortingHeader from "pages-edit/Mark/components/SortingHeader";
 
 const TopNavigation = forwardRef(function Div(
   {
@@ -41,14 +42,12 @@ const TopNavigation = forwardRef(function Div(
       <TitleSelection
         height={match(type)
           .with("store-detail", () => 38)
-          .with("search-place", () => 35)
-          .with("mypage", () => 35)
-          .with("mark", () => 34)
-          .otherwise(() => 38)}
+          .otherwise(() => 35)}
+        padding={match(type)
+          .with("mark", () => 0)
+          .otherwise(() => 0)}
         top={match(type)
-          .with("store-detail", () => 50)
           .with("search-place", () => 126)
-          .with("mypage", () => 50)
           .otherwise(() => 50)}
         topFixed={props.topFixed}
         background={match(type)
@@ -58,10 +57,7 @@ const TopNavigation = forwardRef(function Div(
         <TitleWrapper
           height={match(type)
             .with("store-detail", () => 37)
-            .with("search-place", () => 34)
-            .with("mypage", () => 34)
-            .with("mark", () => 33)
-            .otherwise(() => 37)}
+            .otherwise(() => 34)}
         >
           {titleList.map((data: any, idx: number) => {
             return (
@@ -73,10 +69,7 @@ const TopNavigation = forwardRef(function Div(
                   .otherwise(() => colors.N100)}
                 typo={match(type)
                   .with("store-detail", () => "Headline4")
-                  .with("search-place", () => "Headline3")
-                  .with("mypage", () => "Headline3")
-                  .with("mark", () => "Headline3")
-                  .otherwise(() => "Headline4")}
+                  .otherwise(() => "Headline3")}
                 onClick={() => {
                   props.setCurrentIndex(idx);
                   const middle = props.currentIndex - idx;
@@ -94,16 +87,15 @@ const TopNavigation = forwardRef(function Div(
             );
           })}
         </TitleWrapper>
-        <Hr />
+        <div style={{ padding: "0 20px" }}>
+          <Hr />
+        </div>
       </TitleSelection>
       {props.topFixed && (
         <TopFixed
           height={match(type)
             .with("store-detail", () => 38)
-            .with("search-place", () => 35)
-            .with("mypage", () => 35)
-            .with("mark", () => 35)
-            .otherwise(() => 38)}
+            .otherwise(() => 35)}
         />
       )}
       <Spacing
@@ -114,14 +106,15 @@ const TopNavigation = forwardRef(function Div(
           .with("mark", () => 0)
           .otherwise(() => 30)}
       />
+      {type === "mark" ? <SortingHeader count={props.count} /> : null}
 
       <Swiper
         ref={swiperRef}
         allowSlidePrev={props.currentIndex !== 0}
-        allowSlideNext={props.currentIndex !== children.length - 1}
+        allowSlideNext={props.currentIndex !== children?.length - 1}
         onSlideChange={onSlideChange}
       >
-        {children.map((data: any, idx: number) => {
+        {children?.map((data: any, idx: number) => {
           return <SwiperSlide key={idx}>{data}</SwiperSlide>;
         })}
       </Swiper>
@@ -132,29 +125,39 @@ const TopNavigation = forwardRef(function Div(
 const TitleSelection = styled.div<{
   top: any;
   height: number;
+  padding: number;
   topFixed: any;
   background: string;
 }>`
   width: 100%;
-  height: ${({ height }) => height + "px"};
-  padding: 0 20px;
+  height: ${({ height }) => height}px;
+  padding: 0 ${({ padding }) => padding}px;
 
   position: ${({ topFixed }) => (topFixed ? "fixed" : "relative")};
   top: ${({ topFixed, top }) => (topFixed ? top + "px" : 0)};
   background-color: ${({ background }) => background};
   z-index: 900;
 `;
+
 const TitleWrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height + "px"};
+  padding: 0 20px;
   display: flex;
+  gap: 24px;
+
   flex-direction: row;
   flex-wrap: nowrap;
   white-space: nowrap;
   overflow-x: auto;
 `;
-const TitleLine = styled.div<{ typo: any; action: any; color: string }>`
-  margin-right: 24px;
-  border-bottom: 2px solid ${({ action, color }) => (action ? color : colors.N0)};
+
+const TitleLine = styled.div<{
+  typo: any;
+  action: any;
+  color: string;
+}>`
+  border-bottom: 2px solid
+    ${({ action, color }) => (action ? color : colors.N0)};
 
   ${({ typo }) =>
     css`

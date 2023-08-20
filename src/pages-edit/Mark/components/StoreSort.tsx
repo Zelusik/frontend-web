@@ -5,6 +5,7 @@ import { useAppSelector } from "hooks/useReduxHooks";
 
 import { sortData } from "constants/globalData";
 import Icon from "components/Icon";
+import Text from "components/Text";
 
 export default function StoreSort({}: any) {
   const router = useRouter();
@@ -13,7 +14,9 @@ export default function StoreSort({}: any) {
 
   return (
     <Wrapper onClick={() => openAlert("sort")}>
-      <Menu style={{ marginRight: 4 }}>{sortData[sortId - 1].val}</Menu>
+      <Text typo="Paragraph3" style={{ marginRight: 4 }}>
+        {sortData[sortId - 1].val}
+      </Text>
       <Menu>
         <Icon icon="BottomArrow" width={16} height={16} color="N60" />
       </Menu>
@@ -22,7 +25,6 @@ export default function StoreSort({}: any) {
 }
 
 const Wrapper = styled.div`
-  padding: 0 15px;
   display: flex;
 `;
 
