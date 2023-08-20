@@ -32,9 +32,7 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
             className="banner"
             slidesPerView={1}
             spaceBetween={20}
-            onSlideChange={(swiper: any) =>
-              setCurrentSlideIndex(swiper.activeIndex)
-            }
+            onSlideChange={(swiper: any) => setCurrentSlideIndex(swiper.activeIndex)}
             allowSlidePrev={currentSlideIndex !== 0}
             allowSlideNext={currentSlideIndex !== placeInfo.images.length - 1}
           >
@@ -61,9 +59,9 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
         </div>
         <Heart size={24} placeId={placeInfo.id} isMarked={true} />
       </PlaceInfo>
-      {placeInfo.keywords && placeInfo.images && (
+      {placeInfo.top3Keywords && placeInfo.images && (
         <KeywordBox>
-          {placeInfo.keywords.map((keyword: string) => (
+          {placeInfo.top3Keywords.map((keyword: string) => (
             <Hashtag key={keyword} type="primary" text={keyword} />
           ))}
         </KeywordBox>
