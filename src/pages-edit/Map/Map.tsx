@@ -54,6 +54,11 @@ export default function Map() {
     newMood,
   } = useAppSelector((state) => state.search);
 
+  const [isMarkShow, setIsMarkShow] = useState<boolean>(false);
+  const clickMarkShow = () => {
+    setIsMarkShow(!isMarkShow);
+  };
+
   const filterData = [
     {
       type: "full",
@@ -82,6 +87,7 @@ export default function Map() {
   ];
 
   const { data, isLoading } = useGetPlacesNear();
+  console.log(data);
 
   return (
     <>
@@ -89,6 +95,8 @@ export default function Map() {
         <KakaoMap
           lat={location?.coordinates.lat}
           lng={location?.coordinates.lng}
+          data={data?.contents}
+          isMarkShow={isMarkShow}
         />
       </KakaoMapWrapper>
 
@@ -138,7 +146,7 @@ export default function Map() {
         ) : undefined}
         <Spacing size={8} />
 
-        <FoodSelection />
+        <FoodSelection clickMarkShow={clickMarkShow} />
       </TopWrapper>
 
       {filterAction ? <FilterButton /> : <BottomNavigation />}

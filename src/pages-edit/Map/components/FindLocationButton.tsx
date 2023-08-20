@@ -7,9 +7,7 @@ import Icon from "components/Icon";
 export default function FindLocationButton() {
   const router = useRouter();
 
-  const findingLocation = () => {
-    alert("Find");
-  };
+  const findingLocation = () => {};
 
   return (
     <Wrapper onClick={findingLocation}>

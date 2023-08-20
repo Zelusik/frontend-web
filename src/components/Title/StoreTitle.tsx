@@ -127,7 +127,7 @@ export default function StoreTitle({
               placeId={props.placeId}
               isMarked={props.isMarked}
             />
-            <Text
+            {/* <Text
               typo="Paragraph3"
               color={match(type)
                 .with("home", () => "N0")
@@ -137,7 +137,7 @@ export default function StoreTitle({
               style={{ marginLeft: 6 }}
             >
               0
-            </Text>
+            </Text> */}
           </HeartWrapper>
         </Menu>
       ) : undefined}
