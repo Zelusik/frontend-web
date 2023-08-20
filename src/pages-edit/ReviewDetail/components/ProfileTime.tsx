@@ -4,12 +4,13 @@ import { colors } from "constants/colors";
 
 import Image from "components/Image";
 import Text from "components/Text";
+import { Route } from "constants/Route";
 
-export default function ProfileTime() {
+export default function ProfileTime({ data }: any) {
   const router = useRouter();
 
   const viewProfile = () => {
-    alert("profile");
+    router.push({ pathname: Route.MYPAGE(), query: { id: data.id } });
   };
 
   return (
@@ -17,17 +18,16 @@ export default function ProfileTime() {
       <Image
         type="default"
         alt="프로필 사진"
-        src="https://i.ibb.co/0Z6FNN7/60pt.png"
+        src={data?.profileThumbnailImageUrl}
         size={24}
       />
 
       <Text typo="Paragraph5" color="N80" style={{ marginLeft: 10 }}>
-        고작가
+        {data?.nickname}
       </Text>
-      <Dot />
-      <Text typo="Paragraph4" color="N80">
+      {/* <Text typo="Paragraph4" color="N80">
         21시간 전에 방문
-      </Text>
+      </Text> */}
     </Wrapper>
   );
 }
@@ -37,13 +37,4 @@ const Wrapper = styled.div`
   height: 24px;
   display: flex;
   align-items: center;
-`;
-
-const Dot = styled.div`
-  width: 2px;
-  height: 2px;
-  margin: 0 4px;
-
-  border-radius: 2px;
-  background-color: ${colors.N60};
 `;
