@@ -73,6 +73,8 @@ export default function StoreCard({ data }: any) {
         title={data.name}
         subTitle={data.category}
         onClick={clickStoreDetail}
+        isMarked={data.isMarked}
+        placeId={data.id}
       />
 
       {data.top3Keywords.length === 0 ? undefined : (

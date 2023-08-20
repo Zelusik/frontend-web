@@ -17,7 +17,7 @@ export default function SearchTitle({ type = "home", ...props }: any) {
   return (
     <>
       <Spacing size={50} />
-      <TitleWrapper>
+      <TitleWrapper type={type}>
         <MenuList>
           {type === "home" ? (
             <Icon icon="Logo" />
@@ -33,7 +33,7 @@ export default function SearchTitle({ type = "home", ...props }: any) {
   );
 }
 
-const TitleWrapper = styled.div`
+const TitleWrapper = styled.div<{ type: string }>`
   width: 100%;
   max-width: ${globalValue.MAX_WIDTH}px;
   height: 50px;
@@ -42,7 +42,7 @@ const TitleWrapper = styled.div`
   display: flex;
   position: fixed;
   top: 0;
-  background-color: ${colors.N0};
+  background-color: ${({ type }) => (type === "mark" ? "#fbfbfb" : colors.N0)};
   z-index: 900;
 `;
 

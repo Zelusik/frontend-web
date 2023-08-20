@@ -7,58 +7,58 @@ import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { typography } from "constants/typography";
 import Text from "components/Text/Text";
-import Icon from "components/Icon/Icon";
 import Hashtag from "components/Hashtags/Hashtag";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
+import Heart from "components/Button/IconButton/Heart/Heart";
 
-const FoodComponents = ({ foodInfo }: { foodInfo: any }) => {
+const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
+  const hasImage = placeInfo.images ? true : false;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const hasImage = foodInfo.images ? true : false;
 
-  const clickPlace = () => {
-    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: 1 } });
+  const handleClickPlace = () => {
+    router.push({ pathname: Route.STORE_DETAIL(), query: { id: placeInfo.id } });
   };
 
   return (
-    <FoodComponentWrapper hasImage={hasImage} onClick={clickPlace}>
-      {foodInfo.images && (
+    <FoodComponentWrapper hasImage={hasImage} onClick={handleClickPlace}>
+      {placeInfo.images.length > 0 && (
         <ImageWrapper style={{ position: "relative" }}>
           <Swiper
             className="banner"
             slidesPerView={1}
             spaceBetween={20}
-            onSlideChange={(swiper: any) =>
-              setCurrentSlideIndex(swiper.activeIndex)
-            }
+            onSlideChange={(swiper: any) => setCurrentSlideIndex(swiper.activeIndex)}
+            allowSlidePrev={currentSlideIndex !== 0}
+            allowSlideNext={currentSlideIndex !== placeInfo.images.length - 1}
           >
-            {foodInfo.images.map((image: string, index: number) => (
-              <SwiperSlide key={image}>
-                <Image src={image} alt="음식 사진" type="mark" />
+            {placeInfo.images.map((image: any, index: number) => (
+              <SwiperSlide key={index}>
+                <Image src={image.thumbnailUrl} alt="음식 사진" type="mark" />
               </SwiperSlide>
             ))}
           </Swiper>
           <ImageBadge>{`${currentSlideIndex + 1}/${
-            foodInfo.images.length
+            placeInfo.images.length
           }`}</ImageBadge>
         </ImageWrapper>
       )}
-      <PlaceInfo hasImage={hasImage}>
+      <PlaceInfo>
         <div className="place">
           <Text typo="Headline4" color="N100">
-            {foodInfo.name}
+            {placeInfo.name}
           </Text>
           <Text
             typo="Paragraph1"
-            color="N60"
-          >{`${foodInfo.category} · ${foodInfo.region}`}</Text>
+            color="N100"
+          >{`${placeInfo.category} · ${placeInfo.address.sido} ${placeInfo.address.sgg}`}</Text>
         </div>
-        <Icon icon="Heart" />
+        <Heart size={24} placeId={placeInfo.id} isMarked={true} />
       </PlaceInfo>
-      {foodInfo.keywords && (
+      {placeInfo.keywords && placeInfo.images && (
         <KeywordBox>
-          {foodInfo.keywords.map((keyword: string) => (
+          {placeInfo.keywords.map((keyword: string) => (
             <Hashtag key={keyword} type="primary" text={keyword} />
           ))}
         </KeywordBox>
@@ -92,16 +92,16 @@ const ImageBadge = styled.span`
   border-radius: 100px;
   z-index: 10;
 `;
-const PlaceInfo = styled.div<{ hasImage: boolean }>`
+const PlaceInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 0 10px;
   .place {
     display: flex;
-    flex-direction: ${({ hasImage }) => (hasImage ? "row" : "column")};
-    gap: ${({ hasImage }) => (hasImage ? "8px" : "5px")};
-    align-items: ${({ hasImage }) => (hasImage ? "center" : "initial")};
+    flex-direction: column;
+    gap: 4px;
   }
 `;
 

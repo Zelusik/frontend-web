@@ -47,6 +47,7 @@ export default function StoreCard({ id, data }: any) {
           subTitle={`${data.place.category} · ${data.place.address.sido} ${data.place.address.sgg}`}
           onClick={clickStore}
           isMarked={data.place.isMarked}
+          placeId={id}
         />
       </Wrapper>
       <Spacing size={30} />

@@ -43,6 +43,7 @@ const TopNavigation = forwardRef(function Div(
           .with("store-detail", () => 38)
           .with("search-place", () => 35)
           .with("mypage", () => 35)
+          .with("mark", () => 34)
           .otherwise(() => 38)}
         top={match(type)
           .with("store-detail", () => 50)
@@ -50,12 +51,16 @@ const TopNavigation = forwardRef(function Div(
           .with("mypage", () => 50)
           .otherwise(() => 50)}
         topFixed={props.topFixed}
+        background={match(type)
+          .with("mark", () => "#fbfbfb")
+          .otherwise(() => colors.N0)}
       >
         <TitleWrapper
           height={match(type)
             .with("store-detail", () => 37)
             .with("search-place", () => 34)
             .with("mypage", () => 34)
+            .with("mark", () => 33)
             .otherwise(() => 37)}
         >
           {titleList.map((data: any, idx: number) => {
@@ -63,10 +68,14 @@ const TopNavigation = forwardRef(function Div(
               <TitleLine
                 key={idx}
                 action={idx === props.currentIndex}
+                color={match(type)
+                  .with("mark", () => colors.Orange600)
+                  .otherwise(() => colors.N100)}
                 typo={match(type)
                   .with("store-detail", () => "Headline4")
                   .with("search-place", () => "Headline3")
                   .with("mypage", () => "Headline3")
+                  .with("mark", () => "Headline3")
                   .otherwise(() => "Headline4")}
                 onClick={() => {
                   props.setCurrentIndex(idx);
@@ -93,6 +102,7 @@ const TopNavigation = forwardRef(function Div(
             .with("store-detail", () => 38)
             .with("search-place", () => 35)
             .with("mypage", () => 35)
+            .with("mark", () => 35)
             .otherwise(() => 38)}
         />
       )}
@@ -101,6 +111,7 @@ const TopNavigation = forwardRef(function Div(
           .with("store-detail", () => 30)
           .with("search-place", () => 0)
           .with("mypage", () => 20)
+          .with("mark", () => 0)
           .otherwise(() => 30)}
       />
 
@@ -118,29 +129,38 @@ const TopNavigation = forwardRef(function Div(
   );
 });
 
-const TitleSelection = styled.div<{ top: any; height: number; topFixed: any }>`
+const TitleSelection = styled.div<{
+  top: any;
+  height: number;
+  topFixed: any;
+  background: string;
+}>`
   width: 100%;
   height: ${({ height }) => height + "px"};
   padding: 0 20px;
 
   position: ${({ topFixed }) => (topFixed ? "fixed" : "relative")};
   top: ${({ topFixed, top }) => (topFixed ? top + "px" : 0)};
-  background-color: ${colors.N0};
+  background-color: ${({ background }) => background};
   z-index: 900;
 `;
 const TitleWrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height + "px"};
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: auto;
 `;
-const TitleLine = styled.div<{ typo: any; action: any }>`
+const TitleLine = styled.div<{ typo: any; action: any; color: string }>`
   margin-right: 24px;
-  border-bottom: 2px solid ${({ action }) => (action ? colors.N100 : colors.N0)};
+  border-bottom: 2px solid ${({ action, color }) => (action ? color : colors.N0)};
 
   ${({ typo }) =>
     css`
       ${typography[typo]}
     `};
-  color: ${({ action }) => (action ? colors.N100 : colors.N40)};
+  color: ${({ action, color }) => (action ? color : colors.N40)};
 `;
 
 const TopFixed = styled.div<{ height: number }>`
