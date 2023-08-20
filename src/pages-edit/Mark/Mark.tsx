@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "next/router";
 import BottomNavigation from "components/BottomNavigation";
 import styled from "@emotion/styled";
@@ -13,9 +14,12 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import NewButton from "pages-edit/Mypage/components/NewButton";
 import Text from "components/Text/Text";
 import { Route } from "constants/Route";
+import useDisplaySize from "hooks/useDisplaySize";
+import { globalValue } from "constants/globalValue";
 
 export default function Mark() {
   const router = useRouter();
+  const { height } = useDisplaySize();
   const { data: placeData, fetchNextPage, hasNextPage } = useGetMarkPlaces();
   const { data: keywordData } = useGetMarkKeywords();
 
@@ -35,15 +39,10 @@ export default function Mark() {
 
   const infiniteScrollRef = useRef<any>(null);
   const scrollRef = useRef<any>(null);
-  const foodScrollRef = useRef<any>(null);
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  useIntersectionObserver(infiniteScrollRef, fetchNextPage, !!hasNextPage, {
-    root: foodScrollRef.current,
-    threshold: 1.0,
-    rootMargin: "0px",
-  });
+  useIntersectionObserver(infiniteScrollRef, fetchNextPage, !!hasNextPage, {});
 
   function onScroll() {
     const scrollTop = 50 + 20 + 35;
@@ -84,7 +83,7 @@ export default function Mark() {
       {placeData && (
         <>
           <SearchTitle type="mark" />
-          <MarkWrapper>
+          <MarkWrapper height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
             <Spacing size={20} />
             <TopNavigation
               type="mark"
@@ -99,10 +98,10 @@ export default function Mark() {
                 keywordList &&
                 keywordList.map((keyword: string) => (
                   <TopNavigationInner key={keyword}>
-                    <SortingHeader count={20} />
-                    {placeData?.pages && placeData?.pages.length > 0 ? (
-                      <div className="place-box" ref={foodScrollRef}>
-                        {placeData.pages.map((place) =>
+                    <SortingHeader count={placeData?.[0].totalElements} />
+                    {placeData && placeData?.length > 0 ? (
+                      <div className="place-box">
+                        {placeData.map((place) =>
                           place.contents.map((placeInfo: any) => (
                             <FoodComponents
                               key={placeInfo.id}
@@ -110,9 +109,7 @@ export default function Mark() {
                             />
                           ))
                         )}
-                        <div ref={infiniteScrollRef}>
-                          <Spacing size={150} />
-                        </div>
+                        <div ref={infiniteScrollRef} style={{ height: "30px" }} />
                       </div>
                     ) : (
                       <NoContent>
@@ -136,17 +133,17 @@ export default function Mark() {
   );
 }
 
-const MarkWrapper = styled.div`
-  height: 100%;
+const MarkWrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height + "px"};
   overflow-y: auto;
   background-color: #fbfbfb;
+  overflow-y: scroll;
   .place-box {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    height: 100%;
-    overflow-y: auto;
     padding: 0 15px;
+    height: 100%;
   }
 `;
 
@@ -160,4 +157,6 @@ const NoContent = styled.div`
   text-align: center;
 `;
 
-const TopNavigationInner = styled.div``;
+const TopNavigationInner = styled.div`
+  height: 100%;
+`;
