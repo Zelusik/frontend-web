@@ -1,38 +1,34 @@
 import React from "react";
 import { getMarkPlaces } from "api/places";
-import { useRouter } from "next/router";
 import { useInfiniteQuery } from "react-query";
 
-const useGetMarkPlaces = () => {
-  const { query } = useRouter();
-  const type = Array.isArray(query.type) ? query.type[0] : query.type || "";
-  const keyword = Array.isArray(query.keyword)
-    ? query.keyword[0]
-    : query.keyword || "";
-
-  const {
-    data: responseData,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery(
-    ["markPlaces", query],
-    async ({ pageParam = 0 }) => {
-      return await getMarkPlaces({
+const useGetMarkPlaces = ({ currentIndex, type, keyword }: any) => {
+  const fetchMarkPlaces = async ({ pageParam = 0 }) => {
+    if (keyword !== "") {
+      const params: any = {
         type: type,
         keyword: keyword,
         page: pageParam,
         size: 20,
-      });
-    },
-
-    {
-      getNextPageParam: (lastPage) => {
-        return lastPage.isLast ? undefined : lastPage.number + 1;
-      },
+      };
+      return getMarkPlaces(params);
     }
-  );
+  };
+
+  const {
+    data: responseData,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+  } = useInfiniteQuery([currentIndex, type, keyword], fetchMarkPlaces, {
+    getNextPageParam: (lastPage) => {
+      return lastPage.isLast ? undefined : lastPage.number + 1;
+    },
+  });
   const data = responseData?.pages;
-  return { data, fetchNextPage, hasNextPage };
+  return { data, isLoading, error, fetchNextPage, hasNextPage, refetch };
 };
 
 export default useGetMarkPlaces;

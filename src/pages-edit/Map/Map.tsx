@@ -29,7 +29,7 @@ import LocationTitle from "./components/LocationTitle";
 import FilterSelection from "./components/filter/FilterSelection";
 import Filter from "./components/filter/Filter";
 import FilterButton from "./components/filter/FilterButton";
-import StoreSort from "./components/StoreSort";
+import StoreSort from "../Mark/components/StoreSort";
 
 export default function Map() {
   const router = useRouter();
@@ -53,6 +53,11 @@ export default function Map() {
     mood,
     newMood,
   } = useAppSelector((state) => state.search);
+
+  const [isMarkShow, setIsMarkShow] = useState<boolean>(false);
+  const clickMarkShow = () => {
+    setIsMarkShow(!isMarkShow);
+  };
 
   const filterData = [
     {
@@ -82,6 +87,7 @@ export default function Map() {
   ];
 
   const { data, isLoading } = useGetPlacesNear();
+  console.log(data);
 
   return (
     <>
@@ -89,6 +95,8 @@ export default function Map() {
         <KakaoMap
           lat={location?.coordinates.lat}
           lng={location?.coordinates.lng}
+          data={data?.contents}
+          isMarkShow={isMarkShow}
         />
       </KakaoMapWrapper>
 
@@ -138,7 +146,7 @@ export default function Map() {
         ) : undefined}
         <Spacing size={8} />
 
-        <FoodSelection />
+        <FoodSelection clickMarkShow={clickMarkShow} />
       </TopWrapper>
 
       {filterAction ? <FilterButton /> : <BottomNavigation />}

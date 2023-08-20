@@ -46,7 +46,7 @@ export default function ReviewDetail() {
     };
   }, []);
 
-  const { data, isLoading } = useGetReviewsId(parseInt(router.query.id));
+  const { data, isLoading } = useGetReviewsId(Number(router.query.id));
   console.log(data);
 
   return isLoading ? undefined : (

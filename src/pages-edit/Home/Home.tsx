@@ -35,7 +35,7 @@ export default function Home() {
           .map((data) => (
             <StoreCard key={data.id} data={data} />
           ))}
-        <div ref={scrollRef} style={{ height: "30px" }}></div>
+        <div ref={scrollRef} style={{ height: hasNextPage ? "30px" : "0px" }}></div>
       </Wrapper>
       <BottomNavigation />
     </>

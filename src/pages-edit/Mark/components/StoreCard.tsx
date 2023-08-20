@@ -12,13 +12,16 @@ import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import Heart from "components/Button/IconButton/Heart/Heart";
 
-const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
+const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
   const hasImage = placeInfo.images ? true : false;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const handleClickPlace = () => {
-    router.push({ pathname: Route.STORE_DETAIL(), query: { id: placeInfo.id } });
+    router.push({
+      pathname: Route.STORE_DETAIL(),
+      query: { id: placeInfo.id },
+    });
   };
 
   return (
@@ -56,9 +59,9 @@ const FoodComponents = ({ placeInfo }: { placeInfo: any }) => {
         </div>
         <Heart size={24} placeId={placeInfo.id} isMarked={true} />
       </PlaceInfo>
-      {placeInfo.keywords && placeInfo.images && (
+      {placeInfo.top3Keywords && placeInfo.images && (
         <KeywordBox>
-          {placeInfo.keywords.map((keyword: string) => (
+          {placeInfo.top3Keywords.map((keyword: string) => (
             <Hashtag key={keyword} type="primary" text={keyword} />
           ))}
         </KeywordBox>
@@ -111,4 +114,4 @@ const KeywordBox = styled.div`
   gap: 6px;
   overflow-x: auto;
 `;
-export default FoodComponents;
+export default StoreCard;
