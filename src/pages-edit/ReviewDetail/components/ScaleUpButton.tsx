@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
 import { colors } from "constants/colors";
@@ -12,7 +12,7 @@ export default function ScaleUpButton({ lat, lng }: any) {
   const handleClickScaleUp = () => {
     router.push({
       pathname: Route.MAP_DETAIL(),
-      query: { lat: lat, lng: lng },
+      query: { lat: Number(lat), lng: Number(lng) },
     });
   };
 
