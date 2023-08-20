@@ -8,12 +8,13 @@ import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthState } from "reducer/slices/auth/authSlice";
 import { tasteData } from "data/tasteData";
-import { PostTerms, PutTaste } from "api/auth";
+
 import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
 import { getCookie } from "utils/cookie";
 import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
+import { PostTerms, PutTaste } from "api/members";
 
 const TastePage = () => {
   const router = useRouter();

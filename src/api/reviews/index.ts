@@ -13,15 +13,19 @@ export const getReviewsId = async (reviewId: any) =>
     .then(({ data }) => data)
     .catch((err) => err.response);
 
+export const deleteReview = async (reviewId: any) =>
+  await client
+    .delete(`/reviews/${reviewId}`)
+    .then(({ data }) => data)
+    .catch((err) => err.response);
+
 export const getAutoReview = async ({ keywords, foodInfo }: any) =>
   client
     .get("/reviews/contents/auto-creations", {
       params: {
         placeKeywords: keywords.join(","),
         menus: foodInfo.map((e: any) => e.foodName).join(","),
-        menuKeywords: foodInfo
-          .map((e: any) => e.foodKeyword.join("+"))
-          .join(","),
+        menuKeywords: foodInfo.map((e: any) => e.foodKeyword.join("+")).join(","),
       },
     })
     .then(({ data }) => data)
@@ -46,10 +50,7 @@ export const postReview = async (reviewData: ReviewType) => {
   try {
     formData.append("placeId", String(reviewData.placeId));
     formData.append("keywords", String(reviewData.keywords));
-    formData.append(
-      "autoCreatedContent",
-      String(reviewData.autoCreatedContent)
-    );
+    formData.append("autoCreatedContent", String(reviewData.autoCreatedContent));
     formData.append("content", String(reviewData.content));
 
     reviewData.images.forEach((imageData, index) => {
@@ -90,5 +91,11 @@ export const postReview = async (reviewData: ReviewType) => {
 export const getFeed = async (page: number) =>
   await client
     .get("/reviews/feed", { params: { page } })
+    .then(({ data }) => data)
+    .catch((err) => err.response);
+
+export const getMyReviews = async ({ page, size }: { page: number; size: number }) =>
+  await client
+    .get("/reviews/me", { data: { page, size } })
     .then(({ data }) => data)
     .catch((err) => err.response);

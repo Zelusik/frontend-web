@@ -5,11 +5,11 @@ import { typography } from "constants/typography";
 import { styled } from "styled-components";
 import Loading from "components/Loading";
 
-const ReviewLoading = ({ type }: { type: string }) => {
+const ReviewLoading = ({ type, nickname }: { type: string; nickname: string }) => {
   const [text, setText] = useState(
     type === "review"
       ? "리뷰가 업로드 되고 있어요."
-      : "인공지능에게 닉네임의 리뷰를 전달했어요."
+      : `인공지능에게 ${nickname}님의 리뷰를 전달했어요.`
   );
   useEffect(() => {
     let timer1: any, timer2: any, timer3: any;

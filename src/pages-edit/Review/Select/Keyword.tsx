@@ -19,9 +19,11 @@ import Toast from "components/Toast/Toast";
 import useToast from "hooks/useToast";
 import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
 import ReviewLoading from "../components/ReviewLoading";
+import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 
 const Keyword = () => {
   const route = useRouter();
+  const { data: userInfo } = useGetMyInfo();
   const dispatch = useAppDispatch();
   const { isShowToast, openToast, closeToast } = useToast();
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -92,7 +94,7 @@ const Keyword = () => {
   return (
     <KeywordWrapper>
       {isLoading || isRouteTransition ? (
-        <ReviewLoading type="auto" />
+        <ReviewLoading type="auto" nickname={userInfo?.nickname} />
       ) : (
         <>
           <BackTitle type="black-left-text" text="음식점 리뷰" />

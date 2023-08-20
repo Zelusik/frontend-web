@@ -6,10 +6,10 @@ import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
-import { deleteUser } from "api/user";
 import { deleteCookie } from "utils/cookie";
 import { useRouter } from "next/router";
 import ReportButton from "pages-edit/Report/components/ReportButton";
+import { deleteUser } from "api/members";
 
 const DeleteProfile = () => {
   const router = useRouter();

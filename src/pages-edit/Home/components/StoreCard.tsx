@@ -9,7 +9,7 @@ import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
 import Text from "components/Text";
 
-export default function StoreCard({ id, data }: any) {
+export default function StoreCard({ data }: any) {
   // 가게 id
   const router = useRouter();
   const clickStore = () => {
@@ -47,7 +47,7 @@ export default function StoreCard({ id, data }: any) {
           subTitle={`${data.place.category} · ${data.place.address.sido} ${data.place.address.sgg}`}
           onClick={clickStore}
           isMarked={data.place.isMarked}
-          placeId={id}
+          placeId={data.place.id}
         />
       </Wrapper>
       <Spacing size={30} />

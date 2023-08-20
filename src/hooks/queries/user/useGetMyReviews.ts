@@ -1,5 +1,6 @@
+import { getMyReviews } from "api/reviews";
 import React from "react";
-import { getMyReviews } from "api/user";
+
 import { useQuery } from "react-query";
 
 const useGetMyReviews = ({ page }: { page: number }) => {

@@ -17,9 +17,11 @@ import useToast from "hooks/useToast";
 import Toast from "components/Toast/Toast";
 import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
 import ReviewLoading from "../components/ReviewLoading";
+import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 
 const FoodKeyword = () => {
   const route = useRouter();
+  const { data: userInfo } = useGetMyInfo();
   const dispatch = useAppDispatch();
 
   const { placeInfo } = useAppSelector((state) => state.review);
@@ -94,7 +96,7 @@ const FoodKeyword = () => {
   return (
     <FoodKeywordWrapper>
       {isLoading || isRouteTransition ? (
-        <ReviewLoading type="auto" />
+        <ReviewLoading type="auto" nickname={userInfo?.nickname} />
       ) : (
         <>
           <BackTitle type="black-left-text" text="식사 리뷰" />

@@ -1,12 +1,23 @@
 import styled from "@emotion/styled";
+import { deleteReview } from "api/reviews";
 import AlertButton from "components/Button/AlertButton";
 import RoundButton from "components/Button/RoundButton";
 import Text from "components/Text";
+import { Route } from "constants/Route";
 import useAlert from "hooks/useAlert";
+import { useRouter } from "next/router";
 
 export default function ReviewDelete() {
-  const { closeAlert } = useAlert();
+  const router = useRouter();
 
+  const { closeAlert } = useAlert();
+  const handleDeleteReview = async () => {
+    const res = await deleteReview(router.query.id);
+    if (!res) {
+      closeAlert();
+      router.replace(Route.MYPAGE());
+    }
+  };
   return (
     <DeleteWrapper>
       <Text typo="Paragraph6" color="N100">
@@ -16,7 +27,7 @@ export default function ReviewDelete() {
         <AlertButton type="default" onClick={closeAlert}>
           취소
         </AlertButton>
-        <AlertButton type="primary" onClick={closeAlert}>
+        <AlertButton type="primary" onClick={handleDeleteReview}>
           확인
         </AlertButton>
       </ButtonWrapper>
