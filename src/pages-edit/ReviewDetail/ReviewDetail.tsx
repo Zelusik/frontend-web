@@ -27,8 +27,8 @@ export default function ReviewDetail() {
   const imageRef = useRef<any>(null);
 
   const { width, height } = useDisplaySize();
-  const [mine, setMine] = useState<boolean>(false);
   const [titleChange, setTitleChange] = useState<boolean>(false);
+  const { data, isLoading } = useGetReviewsId(Number(router.query.id));
 
   function onScroll() {
     if (scrollRef.current?.scrollTop >= window.innerWidth + 4 - 20) {
@@ -39,15 +39,11 @@ export default function ReviewDetail() {
   }
 
   useEffect(() => {
-    setMine(router.query.id === "1");
     scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
   }, []);
-
-  const { data, isLoading } = useGetReviewsId(Number(router.query.id));
-  console.log(data);
 
   return isLoading ? undefined : (
     <>
@@ -57,7 +53,7 @@ export default function ReviewDetail() {
           type={
             titleChange
               ? "black-left-text"
-              : mine
+              : data?.writer.isEqualLoginMember
               ? "white-dots-mine"
               : "white-dots"
           }
@@ -70,7 +66,7 @@ export default function ReviewDetail() {
         <ScrollWrapper>
           <Spacing size={20} />
           <StoreTitle
-            type={mine ? "detail-mine" : "detail"}
+            type={data?.writer.isEqualLoginMember ? "detail-mine" : "detail"}
             title={data?.place?.name}
             subTitle={`${data?.place?.category} · ${data?.place?.address?.sido} ${data?.place?.address?.sgg} ${data?.place?.address?.lotNumberAddress}`}
             editNone={true}
@@ -90,10 +86,7 @@ export default function ReviewDetail() {
           </div>
 
           <KakaoMapWrapper height={(width * 23) / 36}>
-            <KakaoMap
-              lat={data?.place?.point?.lat}
-              lng={data?.place?.point?.lng}
-            />
+            <KakaoMap lat={data?.place?.point?.lat} lng={data?.place?.point?.lng} />
             <NoTouch />
             <ScaleUpButton
               lat={data?.place?.point?.lat}
@@ -132,8 +125,7 @@ const TitleWrapper = styled.div<{ visible: boolean }>`
   position: fixed;
   top: 0;
 
-  background-color: ${({ visible }) =>
-    visible ? `${colors.N0}` : `transparents`};
+  background-color: ${({ visible }) => (visible ? `${colors.N0}` : `transparents`)};
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
   z-index: 900;
 `;

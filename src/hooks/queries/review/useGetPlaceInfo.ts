@@ -23,30 +23,28 @@ const useGetPlaceInfo = (image: any) => {
         timeout: Infinity,
       });
 
-      const res: any = await kakaoSearchKeyword(
-        lng || position.coords.longitude,
-        lat || position.coords.latitude,
-        "",
-        1,
-        (res: any) => {
-          dispatch(
-            changeReviewInfo({
-              type: "placeInfo",
-              value: {
-                kakaoPid: res.documents[0].id,
-                name: res.documents[0].place_name,
-                pageUrl: res.documents[0].place_url,
-                categoryName: res.documents[0].category_name,
-                categoryGroupCode: res.documents[0].category_group_code,
-                phone: res.documents[0].phone,
-                lotNumberAddress: res.documents[0].address_name,
-                roadAddress: res.documents[0].raod_address_name,
-                lat: res.documents[0].y,
-                lng: res.documents[0].x,
-              },
-            })
-          );
-        }
+      const res: any = await kakaoSearchKeyword({
+        x: lng || position.coords.longitude,
+        y: lat || position.coords.latitude,
+        keyword: "",
+        page: 1,
+      });
+      dispatch(
+        changeReviewInfo({
+          type: "placeInfo",
+          value: {
+            kakaoPid: res.documents[0].id,
+            name: res.documents[0].place_name,
+            pageUrl: res.documents[0].place_url,
+            categoryName: res.documents[0].category_name,
+            categoryGroupCode: res.documents[0].category_group_code,
+            phone: res.documents[0].phone,
+            lotNumberAddress: res.documents[0].address_name,
+            roadAddress: res.documents[0].raod_address_name,
+            lat: res.documents[0].y,
+            lng: res.documents[0].x,
+          },
+        })
       );
     }
     return null;
