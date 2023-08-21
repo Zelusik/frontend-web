@@ -24,37 +24,23 @@ export const getKeyword = async (params: any) =>
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));
 
-export const kakaoSearchKeyword = async (
-  x: number,
-  y: number,
-  keyword: string,
-  page: number,
-  Fn: any
-) => {
-  let param = "";
-  if (x !== 0 && y !== 0) {
-    param += `x=${x}&y=${y}&radius=1000&sort=distance`;
-    keyword = "음식점";
-  } else {
-    param += "radius=1000";
-  }
-
-  await axios
-    .get(`https://dapi.kakao.com/v2/local/search/keyword.json?${param}`, {
+export const kakaoSearchKeyword = async ({ x, y, keyword, page }: any) => {
+  return await axios
+    .get(`https://dapi.kakao.com/v2/local/search/keyword.json`, {
       headers: {
         Authorization: `KakaoAK ${process.env.KAKAO_SEARCH_API_KEY}`,
       },
       params: {
         page: page,
-        query: keyword,
+        query: keyword || "음식점",
         category_group_code: "FD6,CE7",
         size: 15,
+        sort: "distance",
+        x: x !== null && x !== undefined ? x : undefined,
+        y: y !== null && y !== undefined ? y : undefined,
+        radius: 1000,
       },
     })
-    .then(({ data }) => {
-      Fn(data, page);
-    })
-    .catch((err) => {
-      console.log("kakao keyword err");
-    });
+    .then(({ data }) => data)
+    .catch((err) => err.response);
 };

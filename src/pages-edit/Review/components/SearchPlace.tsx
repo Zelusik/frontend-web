@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { kakaoSearchKeyword } from "api/open-api";
 import Input from "components/Input/Input";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
@@ -10,6 +9,7 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
+import useGetSearchPlace from "hooks/queries/review/useGetSearchPlace";
 
 const SearchPlace = () => {
   const dispatch = useAppDispatch();
@@ -17,59 +17,14 @@ const SearchPlace = () => {
   const { placeInfo } = useAppSelector((state) => state.review);
   const infiniteScorllRef = useRef(null);
   const [value, setValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchPlaceData, setSearchPlaceData] = useState<any>({
-    res: [],
-    page: 1,
-    isLast: false,
+
+  const { data, hasNextPage, fetchNextPage } = useGetSearchPlace({
+    x: value ? 0 : placeInfo.lng,
+    y: value ? 0 : placeInfo.lat,
+    keyword: value,
   });
 
-  const loadMore = () => {
-    if (isLoading || searchPlaceData.isLast) {
-      return;
-    }
-    setIsLoading(true);
-
-    fetchData(searchPlaceData.page + 1, () => {
-      setIsLoading(false);
-    });
-
-    setSearchPlaceData((prev: any) => ({
-      ...prev,
-      page: prev.page + 1,
-    }));
-  };
-
-  const fetchData = (page: number, callback: () => void) => {
-    kakaoSearchKeyword(
-      value ? 0 : placeInfo.lng,
-      value ? 0 : placeInfo.lat,
-      value,
-      page,
-      (res: any) => {
-        setSearchPlaceData((prev: any) => ({
-          ...prev,
-          res: [...prev.res, ...res.documents],
-          isLast: res.meta.is_end, // API 응답에 따라 is_end를 확인
-        }));
-        callback();
-      }
-    );
-  };
-
-  useIntersectionObserver(infiniteScorllRef, loadMore, !searchPlaceData.isLast, {});
-
-  useEffect(() => {
-    setSearchPlaceData({
-      res: [],
-      page: 1,
-      isLast: false,
-    });
-  }, [value]);
-
-  useEffect(() => {
-    fetchData(searchPlaceData.page, () => {});
-  }, [value]);
+  useIntersectionObserver(infiniteScorllRef, fetchNextPage, !!hasNextPage, {});
 
   const handleClickPlace = (place: any) => {
     dispatch(
@@ -104,27 +59,27 @@ const SearchPlace = () => {
         />
       </SearchInput>
       <PlaceWrapper>
-        {searchPlaceData.res.map((data: any, index: number) => {
-          return (
-            <PlaceBox
-              key={index}
-              ref={
-                index === searchPlaceData.res.length - 1 ? infiniteScorllRef : null
-              }
-              onClick={() => handleClickPlace(data)}
-            >
-              <p style={typography.Headline3}>{data.place_name}</p>
-              <p style={{ ...typography.Paragraph3, color: colors.N60 }}>
-                {`${
-                  data.category_name.split(">")[
-                    data.category_name.split(">").length - 1
-                  ]
-                }  · ${data.address_name.split(" ").slice(0, 3).join(" ")} `}
-              </p>
-            </PlaceBox>
-          );
-        })}
+        {data
+          ?.flatMap((place_data) => place_data.documents)
+          .map((place, index) => {
+            return (
+              <PlaceBox key={index} onClick={() => handleClickPlace(place)}>
+                <p style={typography.Headline3}>{place.place_name}</p>
+                <p style={{ ...typography.Paragraph3, color: colors.N60 }}>
+                  {`${
+                    place.category_name.split(">")[
+                      place.category_name.split(">").length - 1
+                    ]
+                  }  · ${place.address_name.split(" ").slice(0, 3).join(" ")} `}
+                </p>
+              </PlaceBox>
+            );
+          })}
       </PlaceWrapper>
+      <div
+        ref={infiniteScorllRef}
+        style={{ height: hasNextPage ? "30px" : "0px" }}
+      ></div>
     </SearchPlaceWrapper>
   );
 };
