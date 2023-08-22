@@ -69,6 +69,8 @@ export default function ReviewDetail() {
             type={data?.writer.isEqualLoginMember ? "detail-mine" : "detail"}
             title={data?.place?.name}
             subTitle={`${data?.place?.category} · ${data?.place?.address?.sido} ${data?.place?.address?.sgg} ${data?.place?.address?.lotNumberAddress}`}
+            placeId={data?.place?.id}
+            isMarked={data?.place?.isMarked}
             editNone={true}
           />
           <Spacing size={16} />
