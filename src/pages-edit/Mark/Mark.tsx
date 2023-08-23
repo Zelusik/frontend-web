@@ -99,10 +99,9 @@ export default function Mark() {
                           .map((place: any, placeIdx: number) => (
                             <StoreCard key={placeIdx} placeInfo={place} />
                           ))}
-                        <div
-                          ref={infinityScrollRef}
-                          style={{ height: hasNextPage ? "30px" : "0px" }}
-                        ></div>
+
+                        <div ref={infinityScrollRef} />
+                        {hasNextPage ? <Loading>로딩중...</Loading> : null}
                       </StoreWrapper>
                       <Spacing size={20} />
                     </>
@@ -153,4 +152,9 @@ const StoreWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+`;
+
+const Loading = styled.div`
+  width: 100%;
+  height: 30px;
 `;

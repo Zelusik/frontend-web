@@ -14,12 +14,14 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 export default function Home() {
   const { height } = useDisplaySize();
-  const { data, fetchNextPage, hasNextPage } = useGetFeed();
-  const scrollRef = useRef(null);
+  const { data, isLoading, fetchNextPage, hasNextPage } = useGetFeed();
+  const infinityScrollRef = useRef(null);
 
-  useIntersectionObserver(scrollRef, fetchNextPage, !!hasNextPage, {});
+  useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  return (
+  return isLoading ? (
+    <>로딩중...</>
+  ) : (
     <>
       <SearchTitle type="home" />
       <Wrapper height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
@@ -35,10 +37,8 @@ export default function Home() {
           .map((data) => (
             <StoreCard key={data?.id} data={data} />
           ))}
-        <div
-          ref={scrollRef}
-          style={{ height: hasNextPage ? "30px" : "0px" }}
-        ></div>
+        <div ref={infinityScrollRef} />
+        {hasNextPage ? <Loading>로딩중...</Loading> : null}
       </Wrapper>
       <BottomNavigation />
     </>
@@ -49,4 +49,9 @@ const Wrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
   padding: 0 20px;
   overflow-y: scroll;
+`;
+
+const Loading = styled.div`
+  width: 100%;
+  height: 30px;
 `;

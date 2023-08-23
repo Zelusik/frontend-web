@@ -5,6 +5,7 @@ import { useInfiniteQuery } from "react-query";
 const useGetFeed = () => {
   const {
     data: responseData,
+    isLoading,
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery(
@@ -19,7 +20,7 @@ const useGetFeed = () => {
     }
   );
   const data = responseData?.pages;
-  return { data, fetchNextPage, hasNextPage };
+  return { data, isLoading, fetchNextPage, hasNextPage };
 };
 
 export default useGetFeed;
