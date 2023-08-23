@@ -9,7 +9,7 @@ const useGetMarkPlaces = ({ currentIndex, type, keyword }: any) => {
         type: type,
         keyword: keyword,
         page: pageParam,
-        size: 20,
+        size: 10,
       };
       return getMarkPlaces(params);
     }
