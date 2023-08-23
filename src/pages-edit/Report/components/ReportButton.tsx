@@ -1,25 +1,26 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 import Spacing from "components/Spacing";
+import Text from "components/Text";
 
 export default function ReportButton({ selected, text, onClick }: any) {
   const router = useRouter();
 
   return (
-    <div onClick={onClick}>
-      <ButtonWrapper>
+    <>
+      <Wrapper onClick={onClick}>
         <Check selected={selected} />
-        <CheckText>{text}</CheckText>
-      </ButtonWrapper>
+        <Text typo="Paragraph4" color="N100">
+          {text}
+        </Text>
+      </Wrapper>
       <Spacing size={16} />
-    </div>
+    </>
   );
 }
 
-const ButtonWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 24px;
   display: flex;
@@ -34,11 +35,4 @@ const Check = styled.div<{ selected: boolean }>`
   border-radius: 20px;
   border: ${({ selected }) =>
     selected ? `6px solid ${colors.Orange500}` : `2px solid ${colors.N40}`};
-`;
-
-const CheckText = styled.div`
-  margin: auto 0;
-  ${css`
-    ${typography.Paragraph4}
-  `}
 `;

@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
-import { globalValue } from "constants/globalValue";
+import useGetReviewsId from "hooks/queries/review-detail/useGetReviewsId";
+import { makeInfo } from "utils/makeInfo";
 
+import { globalValue } from "constants/globalValue";
 import KakaoMap from "components/Share/KakaoMap";
 import Spacing from "components/Spacing";
 import Info from "components/Share/Info";
@@ -18,8 +20,6 @@ import Hashtags from "components/Hashtags";
 import Profile from "./components/ProfileTime";
 import ImageBox from "./components/ImageBox";
 import ScaleUpButton from "./components/ScaleUpButton";
-import { makeInfo } from "utils/makeInfo";
-import useGetReviewsId from "hooks/queries/review-detail/useGetReviewsId";
 
 export default function ReviewDetail() {
   const router = useRouter();
@@ -45,7 +45,9 @@ export default function ReviewDetail() {
     };
   }, [data]);
 
-  return isLoading ? undefined : (
+  return isLoading ? (
+    <>로딩중...</>
+  ) : (
     <>
       <ImageBox ref={imageRef} images={data?.reviewImages} />
       <TitleWrapper visible={titleChange}>

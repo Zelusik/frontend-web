@@ -15,7 +15,7 @@ export default function TextArea({
   onChange,
 }: any) {
   return (
-    <>
+    <Wrapper>
       <TextAreaBox
         placeholder={placeholder}
         value={value}
@@ -23,12 +23,19 @@ export default function TextArea({
         onChange={onChange}
       />
       <Spacing size={12} />
+      {/* <TextWrapper> */}
       <Text typo="Paragraph1" color="N80">
         {text}
       </Text>
-    </>
+      {/* </TextWrapper> */}
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  width: 100%;
+  position: relative;
+`;
 
 const TextAreaBox = styled.textarea<{ size: number }>`
   width: 100%;

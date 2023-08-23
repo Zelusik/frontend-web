@@ -38,7 +38,7 @@ export default function StoreDetail() {
     const scrollTop = (window.innerWidth * 281) / 360 + 20 + 49 + 16 + 40 - 10;
 
     if (
-      data?.storeInfo?.images?.length === 0 &&
+      data?.storeInfo?.placeImages?.length === 0 &&
       scrollRef.current?.scrollTop >= 165 &&
       currentIndex === 1
     ) {
@@ -52,7 +52,7 @@ export default function StoreDetail() {
     }
 
     if (
-      data?.storeInfo?.images?.length === 0 &&
+      data?.storeInfo?.placeImages?.length === 0 &&
       scrollRef.current?.scrollTop >= 25
     ) {
       setTitleChange(true);
@@ -66,7 +66,7 @@ export default function StoreDetail() {
     }
 
     if (
-      data?.storeInfo?.images?.length === 0 &&
+      data?.storeInfo?.placeImages?.length === 0 &&
       scrollRef.current?.scrollTop >= 165
     ) {
       setTopFixed(true);
@@ -84,15 +84,17 @@ export default function StoreDetail() {
     };
   }, [currentIndex, data]);
 
-  return isLoading ? undefined : (
+  return isLoading ? (
+    <>로딩중...</>
+  ) : (
     <>
-      <ImageBox ref={imageRef} images={data?.storeInfo?.images} />
+      <ImageBox ref={imageRef} images={data?.storeInfo?.placeImages} />
       <TitleWrapper visible={titleChange}>
         <BackTitle
           type={
             titleChange
               ? "black-left-text"
-              : data?.storeInfo?.images?.length > 0
+              : data?.storeInfo?.placeImages?.length > 0
               ? "white-dots-store"
               : "black-left-text"
           }
@@ -102,7 +104,9 @@ export default function StoreDetail() {
 
       <Wrapper ref={scrollRef} height={height}>
         <Spacing
-          size={data?.storeInfo?.images?.length > 0 ? (width * 281) / 360 : 50}
+          size={
+            data?.storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50
+          }
         />
 
         <Inner>
@@ -126,7 +130,7 @@ export default function StoreDetail() {
             type="store-detail"
             scrollRef={scrollRef}
             scrollTop={
-              data?.storeInfo?.images?.length === 0
+              data?.storeInfo?.placeImages?.length === 0
                 ? 165
                 : (width * 281) / 360 + 20 + 49 + 16 + 40
             }

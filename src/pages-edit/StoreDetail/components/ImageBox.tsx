@@ -21,10 +21,15 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
       pathname: Route.IMAGE_DETAIL(),
       query: {
         length: images.length,
-        image1: images[0]?.url,
-        image2: images[1]?.url,
-        image3: images[2]?.url,
-        image4: images[3]?.url,
+        image1: images[0]?.imageUrl,
+        image2: images[1]?.imageUrl,
+        image3: images[2]?.imageUrl,
+        image4: images[3]?.imageUrl,
+        image5: images[4]?.imageUrl,
+        image6: images[5]?.imageUrl,
+        image7: images[6]?.imageUrl,
+        image8: images[7]?.imageUrl,
+        image9: images[8]?.imageUrl,
       },
     });
   };
@@ -46,7 +51,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
               type="store-detail"
               src={
                 images?.length > 0
-                  ? images[0]?.thumbnailUrl
+                  ? images[0]?.thumbnailImageUrl
                   : "https://i.ibb.co/2kSZX6Y/60pt.png"
               }
             />
@@ -69,7 +74,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
               <Image
                 alt="디테일 이미지"
                 type="review-detail"
-                src={images[1]?.thumbnailUrl}
+                src={images[1]?.thumbnailImageUrl}
               />
             </ImageHorizonal>
             {images?.length > 2 ? (
@@ -82,7 +87,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
                   <Image
                     alt="디테일 이미지"
                     type="review-detail"
-                    src={images[2]?.thumbnailUrl}
+                    src={images[2]?.thumbnailImageUrl}
                   />
                   {images?.length > 3 ? (
                     <>

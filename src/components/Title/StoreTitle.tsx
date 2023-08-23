@@ -23,21 +23,16 @@ export default function StoreTitle({
         .with("detail", () => 49)
         .with("detail-mine", () => 49)
         .with("map", () => 25)
+        .with("mark", () => 46)
         .with("mypage-review", () => 39)
         .otherwise(() => 58)}
       padding={match(type)
-        .with("home", () => "0 20px")
-        .with("detail", () => "0 20px")
-        .with("detail-mine", () => "0 20px")
-        .with("map", () => "0 20px")
+        .with("mark", () => "0 15px 0 5px")
         .with("mypage-review", () => "0 10px")
-        .otherwise(() => "0")}
+        .otherwise(() => "0 20px")}
       position={type === "home" || type === "mypage-review"}
       bottom={match(type)
         .with("home", () => 26)
-        .with("detail", () => 0)
-        .with("detail-mine", () => 0)
-        .with("map", () => 0)
         .with("mypage-review", () => 15)
         .otherwise(() => 0)}
     >
@@ -60,13 +55,11 @@ export default function StoreTitle({
               .with("detail", () => "Headline6")
               .with("detail-mine", () => "Headline6")
               .with("map", () => "Headline4")
+              .with("mark", () => "Headline4")
               .with("mypage-review", () => "Headline3")
               .otherwise(() => "Headline6")}
             color={match(type)
               .with("home", () => "N0")
-              .with("detail", () => "N100")
-              .with("detail-mine", () => "N100")
-              .with("map", () => "N100")
               .with("mypage-review", () => "N0")
               .otherwise(() => "N100")}
             style={{
@@ -91,13 +84,13 @@ export default function StoreTitle({
               .with("detail", () => "Paragraph3")
               .with("detail-mine", () => "Paragraph3")
               .with("map", () => "Paragraph1")
+              .with("mark", () => "Paragraph1")
               .with("mypage-review", () => "Paragraph2")
               .otherwise(() => "Paragraph3")}
             color={match(type)
               .with("home", () => "N0")
-              .with("detail", () => "N100")
-              .with("detail-mine", () => "N100")
               .with("map", () => "N60")
+              .with("mark", () => "N60")
               .with("mypage-review", () => "N0")
               .otherwise(() => "N100")}
           >
@@ -123,6 +116,7 @@ export default function StoreTitle({
                 .with("home", () => 28)
                 .with("detail", () => 28)
                 .with("map", () => 24)
+                .with("mark", () => 24)
                 .otherwise(() => 28)}
               placeId={props.placeId}
               isMarked={props.isMarked}

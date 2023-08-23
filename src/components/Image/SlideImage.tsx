@@ -14,10 +14,15 @@ export default function SlideImage({
       pathname: Route.IMAGE_DETAIL(),
       query: {
         length: images.length,
-        image1: images[0]?.url,
-        image2: images[1]?.url,
-        image3: images[2]?.url,
-        image4: images[3]?.url,
+        image1: images[0],
+        image2: images[1],
+        image3: images[2],
+        image4: images[3],
+        image5: images[4],
+        image6: images[5],
+        image7: images[6],
+        image8: images[7],
+        image9: images[8],
       },
     });
   };
@@ -30,7 +35,7 @@ export default function SlideImage({
             <Image
               alt="음식 사진"
               key={idx}
-              src={data.thumbnailUrl}
+              src={data}
               marginLeft={idx === 0}
               marginRight={idx === images.length - 1}
               side={side}

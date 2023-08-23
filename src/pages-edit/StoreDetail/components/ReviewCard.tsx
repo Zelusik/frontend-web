@@ -6,7 +6,6 @@ import ProfileTitle from "components/Title/ProfileTitle";
 import Description from "components/Description";
 import Hashtags from "components/Hashtags";
 import SlideImage from "components/Image/SlideImage";
-import { Route } from "constants/Route";
 
 export default function ReivewCard({ data }: any) {
   const router = useRouter();
@@ -23,15 +22,15 @@ export default function ReivewCard({ data }: any) {
         <Spacing size={16} />
       </Wrapper>
 
-      <SlideImage images={data.images} />
+      <SlideImage images={data?.reviewThumbnailImageUrls} />
 
       <Wrapper>
         <Spacing size={10} />
-        <Description text={data.content} />
+        <Description text={data?.content} />
         <Spacing size={10} />
       </Wrapper>
 
-      <Hashtags type="secondary" hashtags={data.keywords} />
+      <Hashtags type="secondary" hashtags={data?.keywords} />
       <Spacing size={40} />
     </>
   );

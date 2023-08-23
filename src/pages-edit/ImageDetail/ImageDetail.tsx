@@ -54,27 +54,89 @@ export default function ImageDetail({}: any) {
       <Swiper
         allowSlidePrev={currentIndex !== 0}
         allowSlideNext={currentIndex !== imageLen - 1}
+        spaceBetween={10}
         onSlideChange={onSlideChange}
         style={{ marginTop: ((height - width) / 2 - 50) * 0.9 }}
       >
         {router.query.image1 !== "" ? (
           <SwiperSlide>
-            <Image type="store-detail" alt="상세 이미지" src={router.query.image1} />
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image1}
+            />
           </SwiperSlide>
         ) : undefined}
         {router.query.image2 !== "" ? (
           <SwiperSlide>
-            <Image type="store-detail" alt="상세 이미지" src={router.query.image2} />
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image2}
+            />
           </SwiperSlide>
         ) : undefined}
         {router.query.image3 !== "" ? (
           <SwiperSlide>
-            <Image type="store-detail" alt="상세 이미지" src={router.query.image3} />
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image3}
+            />
           </SwiperSlide>
         ) : undefined}
         {router.query.image4 !== "" ? (
           <SwiperSlide>
-            <Image type="store-detail" alt="상세 이미지" src={router.query.image4} />
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image4}
+            />
+          </SwiperSlide>
+        ) : undefined}
+        {router.query.image5 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image5}
+            />
+          </SwiperSlide>
+        ) : undefined}
+        {router.query.image6 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image6}
+            />
+          </SwiperSlide>
+        ) : undefined}
+        {router.query.image7 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image7}
+            />
+          </SwiperSlide>
+        ) : undefined}
+        {router.query.image8 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image8}
+            />
+          </SwiperSlide>
+        ) : undefined}
+        {router.query.image9 !== "" ? (
+          <SwiperSlide>
+            <Image
+              type="store-detail"
+              alt="상세 이미지"
+              src={router.query.image9}
+            />
           </SwiperSlide>
         ) : undefined}
       </Swiper>

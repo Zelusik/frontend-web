@@ -11,11 +11,16 @@ import Hashtag from "components/Hashtags/Hashtag";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import Heart from "components/Button/IconButton/Heart/Heart";
+import Hashtags from "components/Hashtags";
+import StoreTitle from "components/Title/StoreTitle";
+import Spacing from "components/Spacing";
+import useDisplaySize from "hooks/useDisplaySize";
+import Number from "components/Share/Number";
 
 const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
-  const hasImage = placeInfo?.images ? true : false;
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const { width } = useDisplaySize();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleClickPlace = () => {
     router.push({
@@ -25,95 +30,81 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
   };
 
   return (
-    <FoodComponentWrapper hasImage={hasImage} onClick={handleClickPlace}>
-      {placeInfo?.images?.length > 0 && (
-        <ImageWrapper style={{ position: "relative" }}>
-          <Swiper
-            className="banner"
-            slidesPerView={1}
-            spaceBetween={20}
-            onSlideChange={(swiper: any) =>
-              setCurrentSlideIndex(swiper.activeIndex)
-            }
-            allowSlidePrev={currentSlideIndex !== 0}
-            allowSlideNext={currentSlideIndex !== placeInfo?.images?.length - 1}
-          >
-            {placeInfo?.images?.map((image: any, index: number) => (
-              <SwiperSlide key={index}>
-                <Image src={image?.thumbnailUrl} alt="음식 사진" type="mark" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <ImageBadge>{`${currentSlideIndex + 1}/${
-            placeInfo?.images?.length
-          }`}</ImageBadge>
-        </ImageWrapper>
-      )}
-      <PlaceInfo>
-        <div className="place">
-          <Text typo="Headline4" color="N100">
-            {placeInfo?.name}
-          </Text>
-          <Text
-            typo="Paragraph1"
-            color="N100"
-          >{`${placeInfo?.category} · ${placeInfo?.address?.sido} ${placeInfo?.address?.sgg}`}</Text>
-        </div>
-        <Heart size={24} placeId={placeInfo?.id} isMarked={true} />
-      </PlaceInfo>
-      {placeInfo?.top3Keywords && placeInfo?.images && (
-        <KeywordBox>
-          {placeInfo?.top3Keywords?.map((keyword: string) => (
-            <Hashtag key={keyword} type="primary" text={keyword} />
-          ))}
-        </KeywordBox>
-      )}
-    </FoodComponentWrapper>
+    <Wrapper hasImage={placeInfo?.images?.length} onClick={handleClickPlace}>
+      <div>
+        {placeInfo?.images?.length > 0 && (
+          <>
+            <NumberWrapper>
+              <Number
+                currentIndex={currentIndex}
+                length={placeInfo?.images?.length}
+              />
+            </NumberWrapper>
+            <Swiper
+              className="banner"
+              slidesPerView={1}
+              spaceBetween={20}
+              onSlideChange={(swiper: any) =>
+                setCurrentIndex(swiper.activeIndex)
+              }
+              allowSlidePrev={currentIndex !== 0}
+              allowSlideNext={currentIndex !== placeInfo?.images?.length - 1}
+              style={{ height: ((width - 25) * 192) / 310 }}
+            >
+              {placeInfo?.images?.map((image: any, index: number) => (
+                <SwiperSlide key={index}>
+                  <Image
+                    src={image?.thumbnailUrl}
+                    alt="음식 사진"
+                    type="mark"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <Spacing size={10} />
+          </>
+        )}
+      </div>
+
+      <StoreTitle
+        type="mark"
+        title={placeInfo?.name}
+        subTitle={`${placeInfo?.category} · ${placeInfo?.address?.sido} ${placeInfo?.address?.sgg}`}
+        isMarked={true}
+        placeId={placeInfo?.id}
+        editNone={true}
+      />
+
+      {placeInfo?.top3Keywords.length > 0 ? (
+        <>
+          <Spacing size={10} />
+          <Hashtags
+            type="hashtags"
+            hashtags={placeInfo?.top3Keywords}
+            side={0}
+          />
+        </>
+      ) : null}
+    </Wrapper>
   );
 };
 
-const FoodComponentWrapper = styled.div<{ hasImage: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
+const Wrapper = styled.div<{ hasImage: boolean }>`
   width: 100%;
-  padding: ${({ hasImage }) => (hasImage ? "16px 10px" : "16px 20px")};
+  padding: ${({ hasImage }) => (hasImage ? "16px 10px" : "16px 5px 16px 15px")};
+
+  position: relative;
+
   border-radius: 12px;
   background-color: ${colors.N0};
   box-shadow: 0px 3px 18px 0px rgba(0, 0, 0, 0.08);
 `;
-const ImageWrapper = styled.div`
-  width: 100%;
-`;
-const ImageBadge = styled.span`
+
+const NumberWrapper = styled.div`
   position: absolute;
-  top: 20px;
-  right: 10px;
-  padding: 4px 11px;
-  ${typography.Paragraph2};
-  color: ${colors.N0};
-  background-color: rgba(32, 35, 48, 0.6);
-  border-radius: 100px;
-  z-index: 10;
-`;
-const PlaceInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-  .place {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+  top: 31px;
+  right: 20px;
+  z-index: 800;
 `;
 
-const KeywordBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 6px;
-  overflow-x: auto;
-`;
 export default StoreCard;
