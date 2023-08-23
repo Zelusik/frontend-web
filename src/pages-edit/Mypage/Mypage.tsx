@@ -47,7 +47,8 @@ export default function Mypage() {
   const { openAlert } = useAlert();
 
   const clickRecommand = () => {
-    if (myreview && myreview[0].contents.length === 0) openAlert("write-review");
+    if (myreview && myreview[0].contents.length === 0)
+      openAlert("write-review");
     else router.push(Route.RECOMMEND_BEST());
   };
 
@@ -57,7 +58,9 @@ export default function Mypage() {
 
     if (
       (currentIndex === 0 ||
-        (currentIndex === 1 && myreview && myreview[0].contents.length === 0)) &&
+        (currentIndex === 1 &&
+          myreview &&
+          myreview[0].contents?.length === 0)) &&
       scrollRef.current?.scrollTop >= scrollTop
     ) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -139,7 +142,8 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) >
+                      ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
@@ -164,7 +168,8 @@ export default function Mypage() {
             </TopNavigationInner>
             <TopNavigationInner
               height={
-                (myreview && myreview[0].contents.length === 0) || currentIndex === 0
+                (myreview && myreview[0].contents?.length === 0) ||
+                currentIndex === 0
                   ? height -
                     (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
                     104.5 +
@@ -174,12 +179,12 @@ export default function Mypage() {
             >
               <Spacing
                 size={
-                  myreview && myreview[0].contents.length === 0
+                  myreview && myreview[0].contents?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
                     : 0
                 }
               />
-              {myreview && myreview[0].contents.length === 0 ? (
+              {myreview && myreview[0].contents?.length === 0 ? (
                 <NewButton
                   onClick={() => {}}
                   marginTop={0}

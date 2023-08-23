@@ -93,8 +93,8 @@ export default function Map() {
     <>
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         <KakaoMap
-          lat={location?.coordinates.lat}
-          lng={location?.coordinates.lng}
+          lat={location?.coordinates?.lat}
+          lng={location?.coordinates?.lng}
           data={data?.contents}
           isMarkShow={isMarkShow}
         />
@@ -117,7 +117,7 @@ export default function Map() {
             )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
-            {data?.contents.map((data: any, idx: number) => {
+            {data?.contents?.map((data: any, idx: number) => {
               return <StoreCard key={idx} data={data} />;
             })}
           </>

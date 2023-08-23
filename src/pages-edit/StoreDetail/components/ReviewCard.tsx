@@ -18,7 +18,7 @@ export default function ReivewCard({ data }: any) {
         <ProfileTitle
           type={mine ? "mine" : "follow"}
           title="고작가"
-          subTitle="움맘마"
+          // subTitle="움맘마"
         />
         <Spacing size={16} />
       </Wrapper>

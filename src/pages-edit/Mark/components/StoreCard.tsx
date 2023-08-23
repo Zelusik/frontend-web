@@ -14,7 +14,7 @@ import Heart from "components/Button/IconButton/Heart/Heart";
 
 const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
-  const hasImage = placeInfo.images ? true : false;
+  const hasImage = placeInfo?.images ? true : false;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const handleClickPlace = () => {
@@ -26,42 +26,44 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
 
   return (
     <FoodComponentWrapper hasImage={hasImage} onClick={handleClickPlace}>
-      {placeInfo.images.length > 0 && (
+      {placeInfo?.images?.length > 0 && (
         <ImageWrapper style={{ position: "relative" }}>
           <Swiper
             className="banner"
             slidesPerView={1}
             spaceBetween={20}
-            onSlideChange={(swiper: any) => setCurrentSlideIndex(swiper.activeIndex)}
+            onSlideChange={(swiper: any) =>
+              setCurrentSlideIndex(swiper.activeIndex)
+            }
             allowSlidePrev={currentSlideIndex !== 0}
-            allowSlideNext={currentSlideIndex !== placeInfo.images.length - 1}
+            allowSlideNext={currentSlideIndex !== placeInfo?.images?.length - 1}
           >
-            {placeInfo.images.map((image: any, index: number) => (
+            {placeInfo?.images?.map((image: any, index: number) => (
               <SwiperSlide key={index}>
-                <Image src={image.thumbnailUrl} alt="음식 사진" type="mark" />
+                <Image src={image?.thumbnailUrl} alt="음식 사진" type="mark" />
               </SwiperSlide>
             ))}
           </Swiper>
           <ImageBadge>{`${currentSlideIndex + 1}/${
-            placeInfo.images.length
+            placeInfo?.images?.length
           }`}</ImageBadge>
         </ImageWrapper>
       )}
       <PlaceInfo>
         <div className="place">
           <Text typo="Headline4" color="N100">
-            {placeInfo.name}
+            {placeInfo?.name}
           </Text>
           <Text
             typo="Paragraph1"
             color="N100"
-          >{`${placeInfo.category} · ${placeInfo.address.sido} ${placeInfo.address.sgg}`}</Text>
+          >{`${placeInfo?.category} · ${placeInfo?.address?.sido} ${placeInfo?.address?.sgg}`}</Text>
         </div>
-        <Heart size={24} placeId={placeInfo.id} isMarked={true} />
+        <Heart size={24} placeId={placeInfo?.id} isMarked={true} />
       </PlaceInfo>
-      {placeInfo.top3Keywords && placeInfo.images && (
+      {placeInfo?.top3Keywords && placeInfo?.images && (
         <KeywordBox>
-          {placeInfo.top3Keywords.map((keyword: string) => (
+          {placeInfo?.top3Keywords?.map((keyword: string) => (
             <Hashtag key={keyword} type="primary" text={keyword} />
           ))}
         </KeywordBox>

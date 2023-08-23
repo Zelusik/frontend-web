@@ -32,29 +32,29 @@ export default function ReviewList({ type = "mypage" }: any) {
     <ReviewWrapper>
       {myreview &&
         myreview
-          .flatMap((review_data) => review_data.contents)
+          .flatMap((review_data) => review_data?.contents)
           .map((data: any) => {
             return (
               <ReviewInner
-                key={data.id}
+                key={data?.id}
                 width={(width - 46) / 2}
-                onClick={() => clickReview(data.id)}
+                onClick={() => clickReview(data?.id)}
               >
                 <Image
                   alt="리뷰 사진"
                   src={
-                    data.images
-                      ? data.images[0].thumbnailUrl
+                    data?.images
+                      ? data?.images[0].thumbnailUrl
                       : "https://i.ibb.co/2kSZX6Y/60pt.png"
                   }
                   type="mypage-review"
                 />
                 <StoreTitle
                   type="mypage-review"
-                  title={data.place?.name || "소이연남"}
+                  title={data?.place?.name || "소이연남"}
                   subTitle={
-                    data.place
-                      ? `${data.place.address.sido} ${data.place.address.sgg}`
+                    data?.place
+                      ? `${data?.place?.address?.sido} ${data?.place?.address?.sgg}`
                       : "음식 카테고리 지역"
                   }
                 />
@@ -64,7 +64,10 @@ export default function ReviewList({ type = "mypage" }: any) {
               </ReviewInner>
             );
           })}
-      <div ref={scrollRef} style={{ height: hasNextPage ? "30px" : "0px" }}></div>
+      <div
+        ref={scrollRef}
+        style={{ height: hasNextPage ? "30px" : "0px" }}
+      ></div>
     </ReviewWrapper>
   );
 }
@@ -92,7 +95,8 @@ const CountWrapper = styled.div<{ action: boolean }>`
 
   border-radius: 999px;
   border: 2px solid ${({ action }) => (action ? colors.Orange400 : colors.N40)};
-  background-color: ${({ action }) => (action ? colors.Orange400 : `transparent`)};
+  background-color: ${({ action }) =>
+    action ? colors.Orange400 : `transparent`};
   z-index: 700;
 
   ${typography.Headline2}

@@ -25,7 +25,7 @@ export default function Mark() {
   const [topFixed, setTopFixed] = useState<boolean>(false);
 
   const { data: keywordData } = useGetMarkKeywords();
-  const keywords = keywordData && [
+  const keywords = keywordData?.keywords && [
     {
       keyword: "전체",
       type: "",
@@ -82,7 +82,9 @@ export default function Mark() {
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
           titleList={keywordList}
-          count={placeData?.[0].totalElements ? placeData?.[0].totalElements : 0}
+          count={
+            placeData?.[0].totalElements ? placeData?.[0].totalElements : 0
+          }
         >
           {keywords?.map((_: any, idx: number) => {
             return (
