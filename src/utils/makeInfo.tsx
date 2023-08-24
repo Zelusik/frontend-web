@@ -12,7 +12,8 @@ export const makeInfo = (data: any): any => {
         {
           info_title: "운영시간",
           info_desc:
-            data?.openingHours?.length === 0 ? (
+            data?.openingHours?.length === 0 ||
+            data?.openingHoursDtos?.length === 0 ? (
               `없음`
             ) : (
               <>

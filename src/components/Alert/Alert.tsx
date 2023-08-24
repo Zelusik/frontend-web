@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
-import { colors } from "constants/colors";
-import { globalValue } from "constants/globalValue";
+import { keyframes } from "@emotion/react";
 import useAlert from "hooks/useAlert";
 import { useAppSelector } from "hooks/useReduxHooks";
+
+import { colors } from "constants/colors";
+import { globalValue } from "constants/globalValue";
 import Logout from "./children/Logout";
 import ReviewDelete from "./children/ReviewDelete";
 import Sort from "./children/Sort";
@@ -22,24 +24,45 @@ export default function Alert() {
   return (
     <>
       <Background onClick={closeAlert} />
-      <AlertWrapper>{COMPONENT[type]}</AlertWrapper>
+      <Wrapper>{COMPONENT[type]}</Wrapper>
     </>
   );
 }
 
-const Background = styled.div`
+const fade = () => keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.4;
+  }
+`;
+
+const slide = () => keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -70%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+`;
+
+const Background = styled.div<{ visible: any }>`
   width: 100%;
   max-width: ${globalValue.MAX_WIDTH}px;
   height: 100%;
 
-  opacity: 0.4;
   position: absolute;
   top: 0;
+
+  animation: ${fade()} 200ms forwards;
   background-color: ${colors.N100};
   z-index: 998;
 `;
 
-const AlertWrapper = styled.div`
+const Wrapper = styled.div`
   width: 72%;
   max-width: 300px;
   padding: 35px 22px;
@@ -47,9 +70,11 @@ const AlertWrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
 
   border-radius: 16px;
   background-color: ${colors.N0};
+
+  animation: ${slide()} 400ms forwards;
+  transition: transform 200ms ease-out;
   z-index: 999;
 `;

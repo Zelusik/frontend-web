@@ -20,6 +20,7 @@ import Hashtags from "components/Hashtags";
 import Profile from "./components/ProfileTime";
 import ImageBox from "./components/ImageBox";
 import ScaleUpButton from "./components/ScaleUpButton";
+import LoadingCircle from "components/Loading/LoadingCircle";
 
 export default function ReviewDetail() {
   const router = useRouter();
@@ -45,9 +46,9 @@ export default function ReviewDetail() {
     };
   }, [data]);
 
-  return isLoading ? (
-    <>로딩중...</>
-  ) : (
+  if (isLoading) return <LoadingCircle />;
+
+  return (
     <>
       <ImageBox ref={imageRef} images={data?.reviewImages} />
       <TitleWrapper visible={titleChange}>

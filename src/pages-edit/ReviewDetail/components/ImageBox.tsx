@@ -63,6 +63,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
       <Swiper
         allowSlidePrev={swiperIndex !== 0}
         allowSlideNext={swiperIndex !== images?.length - 1}
+        spaceBetween={2}
         onSlideChange={onSlideChange}
         style={{ height: width + 4 }}
       >
