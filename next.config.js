@@ -3,7 +3,7 @@ const nextConfig = {};
 const path = require("path");
 
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   poweredByHeader: false,
   swcMinify: false,
   compiler: {
