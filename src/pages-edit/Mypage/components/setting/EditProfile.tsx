@@ -75,7 +75,9 @@ const EditProfile = () => {
         );
       } else {
         const resizingBlob = await imageCompression(file, { maxSizeMB: 5 });
-        const resizedUrl = await imageCompression.getDataUrlFromFile(resizingBlob);
+        const resizedUrl = await imageCompression.getDataUrlFromFile(
+          resizingBlob
+        );
         dispatch(
           changeUserInfo({
             type: "image",
@@ -148,7 +150,7 @@ const EditProfile = () => {
                 성별
               </Text>
               <div className="gender-button">
-                {genderData.map((gender: { value: string; text: string }) => (
+                {/* {genderData.map((gender: { value: string; text: string }) => (
                   <RoundButton
                     key={gender.value}
                     borderRadius="12px"
@@ -159,7 +161,7 @@ const EditProfile = () => {
                   >
                     {gender.text}
                   </RoundButton>
-                ))}
+                ))} */}
               </div>
             </div>
           </ProfileBox>

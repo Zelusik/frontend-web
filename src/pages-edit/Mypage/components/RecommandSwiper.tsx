@@ -64,7 +64,7 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
       <IndexWrapper>
         <IndexInner>
           {datas.map((data: any, idx: number) => {
-            return <Index key={idx} action={currentIndex === idx}></Index>;
+            return <Index key={idx} act={currentIndex === idx}></Index>;
           })}
         </IndexInner>
       </IndexWrapper>
@@ -102,12 +102,12 @@ const IndexInner = styled.div`
   gap: 4px;
 `;
 
-const Index = styled.div<{ action: boolean }>`
+const Index = styled.div<{ act: boolean }>`
   width: 4px;
   height: 4px;
   display: flex;
 
-  animation: ${(props) => trans(props.action)} 0.3s forwards;
+  animation: ${(props) => trans(props.act)} 0.3s forwards;
   border-radius: 2px;
 `;
 

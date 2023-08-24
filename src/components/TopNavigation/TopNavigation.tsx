@@ -61,9 +61,10 @@ const TopNavigation = forwardRef(function Div(
         >
           {titleList.map((data: any, idx: number) => {
             return (
+              // <div key={idx}></div>
               <TitleLine
                 key={idx}
-                action={idx === props.currentIndex}
+                act={idx === props.currentIndex}
                 color={match(type)
                   .with("mark", () => colors.Orange600)
                   .otherwise(() => colors.N100)}
@@ -153,17 +154,17 @@ const TitleWrapper = styled.div<{ height: number }>`
 
 const TitleLine = styled.div<{
   typo: any;
-  action: any;
-  color: string;
+  act: boolean;
+  color: any;
 }>`
-  border-bottom: 2px solid
-    ${({ action, color }) => (action ? color : colors.N0)};
+  border-bottom: 2px solid ${({ act, color }) => (act ? color : colors.N0)};
 
   ${({ typo }) =>
+    typo &&
     css`
       ${typography[typo]}
     `};
-  color: ${({ action, color }) => (action ? color : colors.N40)};
+  color: ${({ act, color }) => (act ? color : colors.N40)};
 `;
 
 const TopFixed = styled.div<{ height: number }>`
