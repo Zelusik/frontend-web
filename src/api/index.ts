@@ -42,7 +42,7 @@ client.interceptors.response.use(
           originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
         })
         .catch((err) => {
-          console.log("/auth/token err", err);
+          window.location.href = "/login";
           return Promise.reject(err);
         });
 
