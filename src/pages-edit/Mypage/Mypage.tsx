@@ -89,7 +89,7 @@ export default function Mypage() {
     return () => {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
-  }, [currentIndex]);
+  }, [currentIndex, myreview]);
 
   if (isLoading) return <LoadingCircle />;
 
@@ -98,7 +98,15 @@ export default function Mypage() {
       <TitleWrapper>
         {mine ? (
           <TitleInner visible={titleChange}>
-            <Text typo="Headline5">{titleChange ? "강남작가" : null}</Text>
+            {router.query.id ? (
+              <BackTitle
+                type="black-left-text"
+                title={titleChange ? "강남작가" : null}
+              />
+            ) : (
+              <Text typo="Headline5">{titleChange ? "강남작가" : null}</Text>
+            )}
+            {/* <Text typo="Headline5">{titleChange ? "강남작가" : null}</Text> */}
             <Setting />
           </TitleInner>
         ) : (

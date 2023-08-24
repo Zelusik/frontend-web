@@ -28,6 +28,7 @@ export default function StoreCard({ data }: any) {
 
         <ProfileTitle
           type="follow"
+          id={data?.writer?.id}
           title={data?.writer?.nickname}
           // subTitle="움맘마"
           profileImg={data?.writer?.image?.thumbnailUrl}
@@ -35,13 +36,13 @@ export default function StoreCard({ data }: any) {
         <Spacing size={16} />
 
         <Image
+          type="home"
           alt="음식 사진"
           src={
             data?.reviewImage?.thumbnailUrl
               ? data?.reviewImage?.thumbnailUrl
               : globalValue.BLANK_IMAGE
           }
-          type="home"
           onClick={clickStore}
         />
 

@@ -35,7 +35,9 @@ export default function Info({ data }: any) {
                 {info.info_desc}
               </Text>
 
-              <IconWrapper>{info.copy ? <Copy /> : undefined}</IconWrapper>
+              <IconWrapper>
+                {info.copy ? <Copy text={info.info_desc} /> : undefined}
+              </IconWrapper>
             </InfoWrapper>
             <Spacing size={8} />
           </div>

@@ -56,7 +56,7 @@ export default function ReviewDetail() {
           type={
             titleChange
               ? "black-left-text"
-              : data?.writer.isEqualLoginMember
+              : data?.writer?.isEqualLoginMember
               ? "white-dots-mine"
               : "white-dots"
           }
@@ -69,7 +69,7 @@ export default function ReviewDetail() {
         <ScrollWrapper>
           <Spacing size={20} />
           <StoreTitle
-            type={data?.writer.isEqualLoginMember ? "detail-mine" : "detail"}
+            type={data?.writer?.isEqualLoginMember ? "detail-mine" : "detail"}
             title={data?.place?.name}
             subTitle={`${data?.place?.category} · ${data?.place?.address?.sido} ${data?.place?.address?.sgg} ${data?.place?.address?.lotNumberAddress}`}
             placeId={data?.place?.id}

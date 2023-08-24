@@ -1,24 +1,27 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import Text from "components/Text";
+import useAlert from "hooks/useAlert";
 
-export default function Copy() {
+export default function Copy({ text = "" }: any) {
+  const { openAlert } = useAlert();
+  const clickCopy = async (text: any) => {
+    await navigator.clipboard.writeText(text);
+    openAlert("copy-text");
+  };
+
   return (
     <MenuList>
-      <Menu typo={{}}>
-        <Icon
-          icon="Copy"
-          width={16}
-          height={16}
-          margin="0 2px 0 0"
-          onClick={() => {
-            alert("copy");
-          }}
-        />
-      </Menu>
-      <Menu typo={typography.Paragraph1}>복사</Menu>
+      <Icon
+        icon="Copy"
+        width={16}
+        height={16}
+        margin="0 2px 0 0"
+        onClick={() => clickCopy(text)}
+      />
+      <Text typo="Paragraph1" color="Mint">
+        복사
+      </Text>
     </MenuList>
   );
 }
@@ -28,16 +31,5 @@ const MenuList = styled.div`
   margin: auto 0;
 
   display: flex;
-`;
-
-const Menu = styled.span<{ typo: any }>`
-  margin: auto 0;
-
-  display: flex;
-  align-items: center;
-  ${({ typo }) =>
-    css`
-      ${typo}
-    `}
-  color: ${colors.Mint};
+  align-item: center;
 `;

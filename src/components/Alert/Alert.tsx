@@ -9,12 +9,14 @@ import Logout from "./children/Logout";
 import ReviewDelete from "./children/ReviewDelete";
 import Sort from "./children/Sort";
 import WriteReview from "./children/WriteReview";
+import CopyText from "./children/CopyText";
 
 const COMPONENT: any = {
   sort: <Sort />,
   "write-review": <WriteReview />,
   "review-delete": <ReviewDelete />,
   logout: <Logout />,
+  "copy-text": <CopyText />,
 };
 
 export default function Alert() {

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
 import RoundButton from "components/Button/RoundButton";
 import Dots from "components/Button/IconButton/Dots";
 import Image from "components/Image";
 import Text from "components/Text";
+import { Route } from "constants/Route";
 
 interface Props {
   type: "follow" | "mine";
@@ -16,15 +18,15 @@ export default function ProfileTitle({
   subTitle,
   ...props
 }: any) {
+  const router = useRouter();
   const [action, setAction] = useState(false);
+  const clickProfile = () => {
+    router.push({ pathname: Route.MYPAGE(), query: { id: props.id } });
+  };
 
   return (
     <TitleWrapper>
-      <Menu
-        onClick={() => {
-          alert("profile");
-        }}
-      >
+      <Menu onClick={clickProfile}>
         <Image
           type="default"
           alt="프로필 이미지"
