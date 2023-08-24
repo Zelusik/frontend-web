@@ -15,6 +15,7 @@ import BottomNavigation from "components/BottomNavigation";
 import { globalValue } from "constants/globalValue";
 import { Route } from "constants/Route";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
+import LoadingCircle from "components/Loading/LoadingCircle";
 
 export default function Mark() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function Mark() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [topFixed, setTopFixed] = useState<boolean>(false);
 
-  const { data: keywordData } = useGetMarkKeywords();
+  const { data: keywordData, isLoading } = useGetMarkKeywords();
   const keywords = keywordData?.keywords && [
     {
       keyword: "전체",
@@ -64,6 +65,8 @@ export default function Mark() {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
   }, [currentIndex]);
+
+  if (isLoading) return <LoadingCircle />;
 
   return (
     <>

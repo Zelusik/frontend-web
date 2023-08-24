@@ -24,7 +24,7 @@ const Description = ({ text = "" }: any) => {
     <TextWrapper onClick={onClick}>
       <Ellipsis typo="Paragraph2">
         {toggleEllipsis(text, limit).string}
-        {text.length > 120 ? <>...</> : undefined}
+        {limit !== text.length && text.length > 120 ? <>...</> : undefined}
       </Ellipsis>
       {text.length > 120 ? (
         <Button ref={contentRef}>

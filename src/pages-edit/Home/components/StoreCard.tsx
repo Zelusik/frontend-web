@@ -8,6 +8,7 @@ import ProfileTitle from "components/Title/ProfileTitle";
 import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
 import Text from "components/Text";
+import { globalValue } from "constants/globalValue";
 
 export default function StoreCard({ data }: any) {
   // 가게 id
@@ -35,11 +36,14 @@ export default function StoreCard({ data }: any) {
 
         <Image
           alt="음식 사진"
-          src={data?.reviewImage?.url}
+          src={
+            data?.reviewImage?.thumbnailUrl
+              ? data?.reviewImage?.thumbnailUrl
+              : globalValue.BLANK_IMAGE
+          }
           type="home"
           onClick={clickStore}
         />
-        {/* <Spacing size={30} /> */}
 
         <StoreTitle
           type="home"

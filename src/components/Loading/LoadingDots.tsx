@@ -1,23 +1,23 @@
 import React from "react";
 import styled from "@emotion/styled";
-import loading from "assets/loading.gif";
+import LoadingGif from "assets/loadingDots.gif";
 import Image from "next/image";
 
-const Loading = () => {
+const LoadingDots = () => {
   return (
-    <LoadingWrapper>
+    <Wrapper>
       <Image
-        src={loading}
+        src={LoadingGif}
         alt="로딩 Gif"
         width={40}
         height={40}
         unoptimized={true}
       />
-    </LoadingWrapper>
+    </Wrapper>
   );
 };
 
-const LoadingWrapper = styled.div`
+const Wrapper = styled.div<{ height: any }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,4 +28,5 @@ const LoadingWrapper = styled.div`
   border-radius: 12px;
   background: rgba(245, 147, 0, 0.1);
 `;
-export default Loading;
+
+export default LoadingDots;

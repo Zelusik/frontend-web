@@ -3,4 +3,5 @@
 export const globalValue = {
   MAX_WIDTH: 820,
   BOTTOM_NAVIGATION_HEIGHT: 88,
+  BLANK_IMAGE: "https://i.ibb.co/2kSZX6Y/60pt.png",
 } as const;

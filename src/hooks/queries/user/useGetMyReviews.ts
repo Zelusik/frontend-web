@@ -5,6 +5,7 @@ import { useInfiniteQuery } from "react-query";
 const useGetMyReviews = () => {
   const {
     data: responseData,
+    isLoading,
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery(
@@ -23,7 +24,7 @@ const useGetMyReviews = () => {
     }
   );
   const data = responseData?.pages;
-  return { data, fetchNextPage, hasNextPage };
+  return { data, isLoading, fetchNextPage, hasNextPage };
 };
 
 export default useGetMyReviews;

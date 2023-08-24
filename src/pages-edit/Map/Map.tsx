@@ -30,6 +30,7 @@ import FilterSelection from "./components/filter/FilterSelection";
 import Filter from "./components/filter/Filter";
 import FilterButton from "./components/filter/FilterButton";
 import StoreSort from "../Mark/components/StoreSort";
+import LoadingCircle from "components/Loading/LoadingCircle";
 
 export default function Map() {
   const router = useRouter();
@@ -87,7 +88,8 @@ export default function Map() {
   ];
 
   const { data, isLoading } = useGetPlacesNear();
-  console.log(data);
+
+  if (isLoading) return <LoadingCircle />;
 
   return (
     <>

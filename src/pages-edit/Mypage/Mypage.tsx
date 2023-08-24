@@ -22,6 +22,7 @@ import RecommandSwiper from "./components/RecommandSwiper";
 import ReviewList from "./components/ReviewList";
 import NewButton from "./components/NewButton";
 import useGetMyReviews from "hooks/queries/user/useGetMyReviews";
+import LoadingCircle from "components/Loading/LoadingCircle";
 
 const RecommandDatas = [
   "https://i.ibb.co/2kSZX6Y/60pt.png",
@@ -35,7 +36,7 @@ export default function Mypage() {
   const router = useRouter();
   const [mine, setMine] = useState<boolean>(true);
   const { width, height } = useDisplaySize();
-  const { data: myreview } = useGetMyReviews();
+  const { data: myreview, isLoading } = useGetMyReviews();
 
   const scrollRef = useRef<any>(null);
 
@@ -89,6 +90,8 @@ export default function Mypage() {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
   }, [currentIndex]);
+
+  if (isLoading) return <LoadingCircle />;
 
   return (
     <>

@@ -1,27 +1,27 @@
+import { useRef } from "react";
 import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
+import useGetFeed from "hooks/queries/home/useGetFeed";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { globalValue } from "constants/globalValue";
 
 import SearchTitle from "components/Title/SearchTitle";
 import Text from "components/Text";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
-
+import LoadingCircle from "components/Loading/LoadingCircle";
 import StoreCard from "./components/StoreCard";
-import useGetFeed from "hooks/queries/review/useGetFeed";
-import { useRef } from "react";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 export default function Home() {
-  const { height } = useDisplaySize();
-  const { data, isLoading, fetchNextPage, hasNextPage } = useGetFeed();
   const infinityScrollRef = useRef(null);
+  const { height } = useDisplaySize();
 
+  const { data, isLoading, fetchNextPage, hasNextPage } = useGetFeed();
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  return isLoading ? (
-    <>로딩중...</>
-  ) : (
+  if (isLoading) return <LoadingCircle />;
+
+  return (
     <>
       <SearchTitle type="home" />
       <Wrapper height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
@@ -34,11 +34,16 @@ export default function Home() {
         <Spacing size={30} />
         {data
           ?.flatMap((page_data) => page_data.contents)
-          .map((data) => (
+          ?.map((data) => (
             <StoreCard key={data?.id} data={data} />
           ))}
         <div ref={infinityScrollRef} />
-        {hasNextPage ? <Loading>로딩중...</Loading> : null}
+        {hasNextPage ? (
+          <>
+            <LoadingCircle size={30} />
+            <Spacing size={30} />
+          </>
+        ) : null}
       </Wrapper>
       <BottomNavigation />
     </>
@@ -49,9 +54,4 @@ const Wrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
   padding: 0 20px;
   overflow-y: scroll;
-`;
-
-const Loading = styled.div`
-  width: 100%;
-  height: 30px;
 `;

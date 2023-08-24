@@ -1,6 +1,9 @@
 import { deleteBookmarks, postBookmarks } from "api/bookmarks";
 import Icon from "components/Icon";
+import useDeleteHeart from "hooks/queries/heart/useDeleteHeart";
+import usePostHeart from "hooks/queries/heart/usePostHeart";
 import { useState } from "react";
+import { useMutation } from "react-query";
 
 interface Props {
   size?: number;
@@ -10,16 +13,20 @@ interface Props {
 
 export default function Heart({ size, placeId, isMarked }: Props) {
   const [marked, setMarked] = useState(isMarked);
+  const { mutate: deleteHeartMutate } = useDeleteHeart();
+  const { mutate: postHeartMutate } = usePostHeart();
+
   const handleClickMark = async (e: any) => {
     e.stopPropagation();
     if (marked) {
-      await deleteBookmarks(placeId);
+      deleteHeartMutate({ placeId });
       setMarked(false);
     } else {
-      await postBookmarks(placeId);
+      postHeartMutate({ placeId });
       setMarked(true);
     }
   };
+
   return (
     <Icon
       icon="Heart"
