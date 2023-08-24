@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { useAppSelector } from "hooks/useReduxHooks";
@@ -31,9 +31,11 @@ import Filter from "./components/filter/Filter";
 import FilterButton from "./components/filter/FilterButton";
 import StoreSort from "../Mark/components/StoreSort";
 import LoadingCircle from "components/Loading/LoadingCircle";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 export default function Map() {
   const router = useRouter();
+  const infinityScrollRef = useRef(null);
   const location: any = useGeolocation();
   const { height } = useDisplaySize();
   const {
@@ -87,9 +89,8 @@ export default function Map() {
     },
   ];
 
-  const { data, isLoading } = useGetPlacesNear();
-
-  if (isLoading) return <LoadingCircle />;
+  const { data, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear();
+  useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   return (
     <>
@@ -106,7 +107,7 @@ export default function Map() {
       <MapBottomSheet>
         {filterAction ? (
           <>
-            {filterData.map((data: any, idx: number) => {
+            {filterData?.map((data: any, idx: number) => {
               return <Filter key={idx} type={data.type} data={data} />;
             })}
           </>
@@ -119,9 +120,28 @@ export default function Map() {
             )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
-            {data?.contents?.map((data: any, idx: number) => {
-              return <StoreCard key={idx} data={data} />;
-            })}
+            {isLoading ? (
+              <LoadingCircle
+                size={
+                  (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) * 0.2
+                }
+              />
+            ) : (
+              <>
+                {data
+                  ?.flatMap((page_data: any) => page_data?.contents)
+                  ?.map((data: any, idx: number) => {
+                    return <StoreCard key={idx} data={data} />;
+                  })}
+                <div ref={infinityScrollRef} />
+                {hasNextPage ? (
+                  <>
+                    <LoadingCircle size={30} />
+                    <Spacing size={30} />
+                  </>
+                ) : null}
+              </>
+            )}
           </>
         )}
       </MapBottomSheet>
