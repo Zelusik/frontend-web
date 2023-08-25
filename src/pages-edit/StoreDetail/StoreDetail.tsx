@@ -17,6 +17,7 @@ import ImageBox from "./components/ImageBox";
 import { globalValue } from "constants/globalValue";
 import useGetStore from "hooks/queries/store-detail/useGetStore";
 import { makeInfo } from "utils/makeInfo";
+import LoadingCircle from "components/Loading/LoadingCircle";
 
 export default function StoreDetail() {
   const router = useRouter();
@@ -84,9 +85,9 @@ export default function StoreDetail() {
     };
   }, [currentIndex, data]);
 
-  return isLoading ? (
-    <>로딩중...</>
-  ) : (
+  if (isLoading) return <LoadingCircle />;
+
+  return (
     <>
       <ImageBox ref={imageRef} images={data?.storeInfo?.placeImages} />
       <TitleWrapper visible={titleChange}>
