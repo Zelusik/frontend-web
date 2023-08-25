@@ -17,7 +17,7 @@ const LoadingCircle = ({ size }: any) => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ height: any }>`
   width: 100%;
   height: ${({ height }) => (height ? `${height}px` : `100vh`)};
 

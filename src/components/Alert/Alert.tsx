@@ -51,7 +51,7 @@ const slide = () => keyframes`
   }
 `;
 
-const Background = styled.div<{ visible: any }>`
+const Background = styled.div`
   width: 100%;
   max-width: ${globalValue.MAX_WIDTH}px;
   height: 100%;

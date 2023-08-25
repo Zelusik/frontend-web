@@ -17,7 +17,7 @@ const LoadingDots = () => {
   );
 };
 
-const Wrapper = styled.div<{ height: any }>`
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
