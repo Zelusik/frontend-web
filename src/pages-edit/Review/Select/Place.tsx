@@ -15,8 +15,9 @@ import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import useGetPlace from "hooks/queries/review/useGetPlace";
 import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
-import Loading from "components/Loading";
+
 import Icon from "components/Icon/Icon";
+import LoadingDots from "components/Loading/LoadingDots";
 
 const Place = () => {
   const router = useRouter();
@@ -47,7 +48,7 @@ const Place = () => {
     <PlaceWrapper>
       {isLoading || placeLoading ? (
         <div className="icon">
-          <Loading />
+          <LoadingDots />
         </div>
       ) : (
         <>

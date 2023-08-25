@@ -3,7 +3,7 @@ import Spacing from "components/Spacing/Spacing";
 import BackTitle from "components/Title/BackTitle";
 import { typography } from "constants/typography";
 import { styled } from "styled-components";
-import Loading from "components/Loading";
+import LoadingDots from "components/Loading/LoadingDots";
 
 const ReviewLoading = ({ type, nickname }: { type: string; nickname: string }) => {
   const [text, setText] = useState(
@@ -39,7 +39,7 @@ const ReviewLoading = ({ type, nickname }: { type: string; nickname: string }) =
       <Spacing size={17} />
       <div style={typography.Headline5}>{text}</div>
       <div className="icon">
-        <Loading />
+        <LoadingDots />
       </div>
     </ReviewLoadingWrapper>
   );
