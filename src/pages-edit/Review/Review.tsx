@@ -96,7 +96,6 @@ const Review = () => {
     } catch (error) {
       imageInfo.lat = "";
       imageInfo.lng = "";
-      console.error("GPS 정보 추출 에러:", error);
     }
     dispatch(changeImageInfo(imageInfo));
   };
