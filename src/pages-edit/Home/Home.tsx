@@ -33,7 +33,7 @@ export default function Home() {
         </Text>
         <Spacing size={30} />
         {data
-          ?.flatMap((page_data) => page_data.contents)
+          ?.flatMap((page_data: any) => page_data.contents)
           ?.map((data) => (
             <StoreCard key={data?.id} data={data} />
           ))}

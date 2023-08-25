@@ -17,11 +17,14 @@ import ProfileSelection from "./components/ProfileSelection";
 import Selection from "./components/Selection";
 import AllDelete from "./components/AllDelete";
 import CurrentSelection from "./components/CurrentSelection";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import LoadingCircle from "components/Loading/LoadingCircle";
 
 export default function SearchPlace() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
-  const { width, height } = useDisplaySize();
+  const infinityScrollRef = useRef<any>(null);
+  const { height } = useDisplaySize();
   const { value } = useAppSelector((state) => state.search);
 
   const [titleChange, setTitleChange] = useState<boolean>(false);
@@ -47,7 +50,11 @@ export default function SearchPlace() {
     }
   }, [newValue]);
 
-  const { data, isLoading } = useGetSearch(currentIndex, keyword);
+  const { data, isLoading, fetchNextPage, hasNextPage } = useGetSearch(
+    currentIndex,
+    keyword
+  );
+  useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   return (
     <>
@@ -69,7 +76,7 @@ export default function SearchPlace() {
             <Inner>
               <AllDelete setCurrentSelection={setCurrentSelection} />
               <Spacing size={30} />
-              {currentSelection.map((data: any, idx: number) => {
+              {currentSelection?.map((data: any, idx: number) => {
                 return (
                   <CurrentSelection
                     key={idx}
@@ -94,17 +101,30 @@ export default function SearchPlace() {
           >
             <TopNavigationInner
               height={
-                data?.contents?.length > (height - 181) / 79
+                data?.[0]?.contents?.length > (height - 181) / 79
                   ? "auto"
                   : height - 35 + "px"
               }
             >
               <Spacing size={146} />
               {currentIndex === 0 && !isLoading ? (
-                data?.contents && data?.contents.length !== 0 ? (
-                  data?.contents.map((data: any, idx: number) => {
-                    return <Selection key={idx} type="location" data={data} />;
-                  })
+                data?.[0]?.contents && data?.[0]?.contents.length !== 0 ? (
+                  <>
+                    {data
+                      ?.flatMap((page_data: any) => page_data.contents)
+                      ?.map((data: any, idx: number) => {
+                        return (
+                          <Selection key={idx} type="location" data={data} />
+                        );
+                      })}
+                    <div ref={infinityScrollRef} />
+                    {hasNextPage ? (
+                      <>
+                        <LoadingCircle size={30} />
+                        <Spacing size={30} />
+                      </>
+                    ) : null}
+                  </>
                 ) : (
                   <NoneText text="지역" />
                 )
@@ -112,17 +132,28 @@ export default function SearchPlace() {
             </TopNavigationInner>
             <TopNavigationInner
               height={
-                data?.documents?.length > (height - 181) / 79
+                data?.[0]?.documents?.length > (height - 181) / 79
                   ? "auto"
                   : height - 35 + "px"
               }
             >
               <Spacing size={146} />
               {currentIndex === 1 && !isLoading ? (
-                data?.documents && data?.documents.length !== 0 ? (
-                  data?.documents.map((data: any, idx: number) => {
-                    return <Selection key={idx} type="store" data={data} />;
-                  })
+                data?.[0]?.documents && data?.[0]?.documents.length !== 0 ? (
+                  <>
+                    {data
+                      ?.flatMap((page_data: any) => page_data.documents)
+                      ?.map((data: any, idx: number) => {
+                        return <Selection key={idx} type="store" data={data} />;
+                      })}
+                    <div ref={infinityScrollRef} />
+                    {hasNextPage ? (
+                      <>
+                        <LoadingCircle size={30} />
+                        <Spacing size={30} />
+                      </>
+                    ) : null}
+                  </>
                 ) : (
                   <NoneText text="음식점" />
                 )
@@ -130,17 +161,28 @@ export default function SearchPlace() {
             </TopNavigationInner>
             <TopNavigationInner
               height={
-                data?.contents?.length > (height - 181) / 62
+                data?.[0]?.contents?.length > (height - 181) / 62
                   ? "auto"
                   : height - 35 + "px"
               }
             >
               <Spacing size={146} />
               {currentIndex === 2 && !isLoading ? (
-                data?.contents && data?.contents.length !== 0 ? (
-                  data?.contents.map((data: any, idx: number) => {
-                    return <ProfileSelection key={idx} data={data} />;
-                  })
+                data?.[0]?.contents && data?.[0]?.contents.length !== 0 ? (
+                  <>
+                    {data
+                      ?.flatMap((page_data: any) => page_data.contents)
+                      ?.map((data: any, idx: number) => {
+                        return <ProfileSelection key={idx} data={data} />;
+                      })}
+                    <div ref={infinityScrollRef} />
+                    {hasNextPage ? (
+                      <>
+                        <LoadingCircle size={30} />
+                        <Spacing size={30} />
+                      </>
+                    ) : null}
+                  </>
                 ) : (
                   <NoneText text="닉네임" />
                 )

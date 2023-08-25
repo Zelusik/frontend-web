@@ -104,9 +104,13 @@ export default function Mark() {
                           ))}
 
                         <div ref={infinityScrollRef} />
-                        {hasNextPage ? <Loading>로딩중...</Loading> : null}
+                        {hasNextPage ? (
+                          <>
+                            <LoadingCircle size={30} />
+                            <Spacing size={20} />
+                          </>
+                        ) : null}
                       </StoreWrapper>
-                      <Spacing size={20} />
                     </>
                   ) : undefined
                 ) : (
@@ -155,9 +159,4 @@ const StoreWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-`;
-
-const Loading = styled.div`
-  width: 100%;
-  height: 30px;
 `;

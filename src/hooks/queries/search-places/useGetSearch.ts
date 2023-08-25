@@ -1,45 +1,58 @@
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { getMeetingPlaces } from "api/meeting-places";
-import { getMembersSearch } from "api/members";
+import { getFeed } from "api/reviews";
 import { getKeyword } from "api/open-api";
+import { getMembersSearch } from "api/members";
 
 const useGetSearch = (currentIndex: number, keyword: any): any => {
-  const { data, isLoading, error, refetch } = useQuery(
-    [currentIndex, keyword],
-    async () => {
-      if (keyword !== "") {
-        const params: any =
-          currentIndex === 1
-            ? {
-                category_group_code: "FD6,CE7",
-                query: keyword,
-                page: 1,
-                size: 10,
-              }
-            : {
-                params: {
-                  keyword: keyword,
-                  page: 0,
-                  size: 10,
-                },
-              };
+  const fetchSearch = async ({ pageParam = 0 }) => {
+    if (keyword !== "") {
+      const params: any =
+        currentIndex === 1
+          ? {
+              category_group_code: "FD6,CE7",
+              query: keyword,
+              page: pageParam + 1,
+              size: 15,
+            }
+          : {
+              params: {
+                keyword: keyword,
+                page: pageParam,
+                size: 15,
+              },
+            };
 
-        const result =
-          currentIndex === 0
-            ? await getMeetingPlaces(params)
-            : currentIndex === 1
-            ? getKeyword(params)
-            : getMembersSearch(params);
-        return result;
+      const result =
+        currentIndex === 0
+          ? await getMeetingPlaces(params)
+          : currentIndex === 1
+          ? await getKeyword(params)
+          : await getMembersSearch(params);
+      return result;
+    }
+  };
+
+  const {
+    data: responseData,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+  } = useInfiniteQuery(["search", currentIndex, keyword], fetchSearch, {
+    getNextPageParam: (lastPage: any) => {
+      if (lastPage) {
+        if (currentIndex === 1) {
+          return lastPage?.meta?.is_end ? undefined : lastPage.number + 1;
+        } else return lastPage.isLast ? undefined : lastPage.number + 1;
+      } else {
+        return undefined;
       }
     },
-    {
-      staleTime: 1000 * 60 * 5,
-      cacheTime: 1000 * 60 * 30,
-    }
-  );
-
-  return { data, isLoading, error, refetch };
+  });
+  const data = responseData?.pages;
+  return { data, isLoading, error, fetchNextPage, hasNextPage, refetch };
 };
 
 export default useGetSearch;
