@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { colors } from "constants/colors";
@@ -6,30 +6,20 @@ import { colors } from "constants/colors";
 import Spacing from "components/Spacing/Spacing";
 import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeAuthState } from "reducer/slices/auth/authSlice";
 
 import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
-import { getCookie } from "utils/cookie";
-import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
-import { postTerms, putTaste } from "api/members";
 import { tasteData } from "constants/globalData";
+import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
+import { changeUserInfo } from "reducer/slices/user/userSlice";
+import { putTaste } from "api/members";
 
-const TastePage = () => {
+const EditTaste = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const accessToken = getCookie("accessToken");
-  const { favoriteFoodCategories, terms } = useAppSelector((state) => state.auth);
-
-  useEffect(() => {
-    dispatch(
-      changeAuthState({
-        type: "favoriteFoodCategories",
-        value: [],
-      })
-    );
-  }, [dispatch]);
+  const { data } = useGetMyInfo();
+  const { favoriteFoodCategories } = useAppSelector((state) => state.user);
 
   const handleClickTaste = (food: string) => {
     if (favoriteFoodCategories.includes(food)) {
@@ -37,14 +27,14 @@ const TastePage = () => {
         (taste: string) => taste !== food
       );
       dispatch(
-        changeAuthState({
+        changeUserInfo({
           type: "favoriteFoodCategories",
           value: tmpFood,
         })
       );
     } else {
       dispatch(
-        changeAuthState({
+        changeUserInfo({
           type: "favoriteFoodCategories",
           value: [...favoriteFoodCategories, food],
         })
@@ -52,16 +42,10 @@ const TastePage = () => {
     }
   };
 
-  const handleClickStart = async () => {
-    if (accessToken !== null) {
-      const termsRes = await postTerms(accessToken, terms);
-      const tasteRes = await putTaste(accessToken, favoriteFoodCategories);
-
-      // refresh token 만료 시 로그인 페이지로
-      if (termsRes.data?.code === 1502 || tasteRes.data?.code === 1502) {
-        router.push(Route.LOGIN());
-      }
-      router.push(Route.HOME());
+  const handleClickEdit = async () => {
+    const tasteRes = await putTaste(null, favoriteFoodCategories);
+    if (!tasteRes.status) {
+      router.back();
     }
   };
 
@@ -98,15 +82,18 @@ const TastePage = () => {
       </MainWrapper>
       <ButtonWrapper>
         <BottomButton
-          text="잇터리 시작하기"
+          text="수정하기"
           radius={8}
           backgroundColor={
             favoriteFoodCategories.length > 0 ? colors.Orange500 : colors.Orange200
           }
           color={colors.N0}
           height="56px"
-          disabled={favoriteFoodCategories.length > 0 ? false : true}
-          onClick={handleClickStart}
+          disabled={
+            String(data?.favoriteFoodCategories.map((e: any) => e.value)) ===
+            String(favoriteFoodCategories)
+          }
+          onClick={handleClickEdit}
         />
       </ButtonWrapper>
     </TasteWrapper>
@@ -132,4 +119,4 @@ const ButtonWrapper = styled.div`
   width: 100%;
   padding: 0 20px 50px;
 `;
-export default TastePage;
+export default EditTaste;

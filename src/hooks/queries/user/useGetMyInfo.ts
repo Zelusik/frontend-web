@@ -30,6 +30,12 @@ const useGetMyInfo = () => {
       );
       dispatch(
         changeUserInfo({
+          type: "favoriteFoodCategories",
+          value: result.favoriteFoodCategories.map((e: any) => e.value),
+        })
+      );
+      dispatch(
+        changeUserInfo({
           type: "image",
           value: {
             url: result.profileImage.imageUrl,

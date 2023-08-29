@@ -100,22 +100,21 @@ export const sortData: any = [
 ];
 
 // tasteData.ts
-
 export const tasteData = [
-  { icon: Korean, val: "한식" },
-  { icon: Japanese, val: "일식" },
-  { icon: Chinese, val: "중식" },
-  { icon: Meat, val: "고기/구이" },
-  { icon: Western, val: "양식" },
-  { icon: Chicken, val: "치킨" },
-  { icon: SnackBar, val: "분식" },
-  { icon: Fastfood, val: "패스트푸드" },
-  { icon: Dessert, val: "디저트" },
-  { icon: Asian, val: "아시안푸드" },
-  { icon: Sandwich, val: "샌드위치" },
-  { icon: Fusion, val: "퓨전/세계" },
-  { icon: Buffet, val: "뷔페" },
-  { icon: Bar, val: "술집" },
+  { icon: Korean, val: "한식", name: "KOREAN" },
+  { icon: Japanese, val: "일식", name: "JAPANESE" },
+  { icon: Chinese, val: "중식", name: "CHINESE" },
+  { icon: Meat, val: "고기/구이", name: "MEAT" },
+  { icon: Western, val: "양식", name: "WESTERN" },
+  { icon: Chicken, val: "치킨", name: "CHICKEN" },
+  { icon: SnackBar, val: "분식", name: "STREET" },
+  { icon: Fastfood, val: "패스트푸드", name: "FAST_FOOD" },
+  { icon: Dessert, val: "디저트", name: "CAFE_DESSERT" },
+  { icon: Asian, val: "아시안푸드", name: "ASIAN" },
+  { icon: Sandwich, val: "샌드위치", name: "SANDWICH" },
+  { icon: Fusion, val: "퓨전/세계", name: "FUSION_WORLD" },
+  { icon: Buffet, val: "뷔페", name: "BUFFET" },
+  { icon: Bar, val: "술집", name: "BAR" },
 ];
 
 export const TASTE_KEYWORD: any = {
