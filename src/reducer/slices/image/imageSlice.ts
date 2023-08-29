@@ -12,6 +12,10 @@ export const imageSlice = createSlice({
     changeImageInfo: (state, { payload }: { payload: ImageType }) => {
       state.push(payload);
     },
+    // 리뷰 수정 시
+    initEditImageInfo: (state, { payload }: { payload: ImageType[] }) => {
+      return [...payload];
+    },
     appendMenuTag: (
       state,
       {
@@ -77,6 +81,7 @@ export const imageSlice = createSlice({
 export const {
   initializeImageInfo,
   changeImageInfo,
+  initEditImageInfo,
   appendMenuTag,
   deleteMenuTag,
   modifyMenuTag,
