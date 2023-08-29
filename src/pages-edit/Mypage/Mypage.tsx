@@ -23,6 +23,7 @@ import ReviewList from "./components/ReviewList";
 import NewButton from "./components/NewButton";
 import useGetMyReviews from "hooks/queries/user/useGetMyReviews";
 import LoadingCircle from "components/Loading/LoadingCircle";
+import useGetMyProfile from "hooks/queries/user/useGetMyProfile";
 
 const RecommandDatas = [
   "https://i.ibb.co/2kSZX6Y/60pt.png",
@@ -37,6 +38,7 @@ export default function Mypage() {
   const [mine, setMine] = useState<boolean>(true);
   const { width, height } = useDisplaySize();
   const { data: myreview, isLoading } = useGetMyReviews();
+  const { data: myProfile, isLoading: isProfileLoading } = useGetMyProfile();
 
   const scrollRef = useRef<any>(null);
 
@@ -48,8 +50,7 @@ export default function Mypage() {
   const { openAlert } = useAlert();
 
   const clickRecommand = () => {
-    if (myreview && myreview[0].contents.length === 0)
-      openAlert("write-review");
+    if (myreview && myreview[0].contents.length === 0) openAlert("write-review");
     else router.push(Route.RECOMMEND_BEST());
   };
 
@@ -59,9 +60,7 @@ export default function Mypage() {
 
     if (
       (currentIndex === 0 ||
-        (currentIndex === 1 &&
-          myreview &&
-          myreview[0].contents?.length === 0)) &&
+        (currentIndex === 1 && myreview && myreview[0].contents?.length === 0)) &&
       scrollRef.current?.scrollTop >= scrollTop
     ) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -91,7 +90,7 @@ export default function Mypage() {
     };
   }, [currentIndex, myreview]);
 
-  if (isLoading) return <LoadingCircle />;
+  if (isLoading || isProfileLoading) return <LoadingCircle />;
 
   return (
     <>
@@ -101,18 +100,18 @@ export default function Mypage() {
             {router.query.id ? (
               <BackTitle
                 type="black-left-text"
-                title={titleChange ? "강남작가" : null}
+                title={titleChange ? myProfile.nickname : null}
               />
             ) : (
-              <Text typo="Headline5">{titleChange ? "강남작가" : null}</Text>
+              <Text typo="Headline5">{titleChange ? myProfile.nickname : null}</Text>
             )}
-            {/* <Text typo="Headline5">{titleChange ? "강남작가" : null}</Text> */}
+            {/* <Text typo="Headline5">{titleChange ? myProfile.nickname : null}</Text> */}
             <Setting />
           </TitleInner>
         ) : (
           <BackTitle
             type={titleChange ? "black-left-text" : "black-dots"}
-            title={titleChange ? "강남작가" : null}
+            title={titleChange ? myProfile.nickname : null}
           />
         )}
       </TitleWrapper>
@@ -125,10 +124,10 @@ export default function Mypage() {
 
         <div style={{ position: "relative" }}>
           <div style={{ padding: "0 20px" }}>
-            <ProfileInfo mine={mine} />
+            <ProfileInfo mine={mine} myProfile={myProfile} />
             <Spacing size={22} />
 
-            <TasteBox />
+            <TasteBox tasteStatistics={myProfile?.tasteStatistics} />
             <Spacing size={40} />
           </div>
 
@@ -153,8 +152,7 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) >
-                      ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *

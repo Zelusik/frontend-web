@@ -71,3 +71,9 @@ export const PutTaste = async (token: any, favoriteFoodCategories: string[]) =>
     )
     .then(({ data }) => data)
     .catch((err) => err.response);
+
+export const getMyProfile = async () =>
+  await client
+    .get("/members/me/profile")
+    .then(({ data }) => data)
+    .catch((err) => err.response);

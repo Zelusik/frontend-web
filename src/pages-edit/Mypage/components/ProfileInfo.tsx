@@ -7,22 +7,22 @@ import Spacing from "components/Spacing";
 import Dots from "components/Button/IconButton/Dots";
 import Text from "components/Text";
 import RoundButton from "components/Button/RoundButton";
-export default function ProfileInfo({ mine }: any) {
+export default function ProfileInfo({ mine, myProfile }: any) {
   const router = useRouter();
 
   const ProfileDatas = [
-    { desc: "게시글", count: 62 },
-    { desc: "영향력", count: 240 },
-    { desc: "팔로워", count: 763 },
-    { desc: "팔로잉", count: 68 },
+    { desc: "게시글", count: myProfile.numOfReviews },
+    { desc: "영향력", count: myProfile.influence },
+    { desc: "팔로워", count: myProfile.numOfFollowers },
+    { desc: "팔로잉", count: myProfile.numOfFollowings },
   ];
 
   return (
     <Wrapper>
       <Menu style={{ marginRight: 24 }}>
         <Image
-          alt="프로팔 사진"
-          src="https://i.ibb.co/2kSZX6Y/60pt.png"
+          alt="프로필 사진"
+          src={myProfile.profileImage.thumbnailImageUrl}
           type="default"
           size={74}
         />
@@ -32,7 +32,7 @@ export default function ProfileInfo({ mine }: any) {
         <TitleWrapper>
           <Menu>
             <Text typo="Headline4" color="N100">
-              강남작가
+              {myProfile.nickname}
             </Text>
           </Menu>
           {mine ? undefined : (
@@ -68,6 +68,7 @@ const Wrapper = styled.div`
   display: flex;
 
   position: relative;
+  align-items: center;
 `;
 
 const Menu = styled.div`
@@ -83,6 +84,7 @@ const TitleWrapper = styled.div`
   display: flex;
 
   justify-content: space-between;
+  height: fit-content;
 `;
 
 const FollowWrapper = styled.div`
