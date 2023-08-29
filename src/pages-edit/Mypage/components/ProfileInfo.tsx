@@ -2,19 +2,18 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "components/Image";
 import { useRouter } from "next/router";
-import { typography } from "constants/typography";
 import Spacing from "components/Spacing";
-import Dots from "components/Button/IconButton/Dots";
 import Text from "components/Text";
 import RoundButton from "components/Button/RoundButton";
-export default function ProfileInfo({ mine, myProfile }: any) {
+
+export default function ProfileInfo({ mine, profile }: any) {
   const router = useRouter();
 
   const ProfileDatas = [
-    { desc: "게시글", count: myProfile.numOfReviews },
-    { desc: "영향력", count: myProfile.influence },
-    { desc: "팔로워", count: myProfile.numOfFollowers },
-    { desc: "팔로잉", count: myProfile.numOfFollowings },
+    { desc: "게시글", count: profile.numOfReviews },
+    { desc: "영향력", count: profile.influence },
+    { desc: "팔로워", count: profile.numOfFollowers },
+    { desc: "팔로잉", count: profile.numOfFollowings },
   ];
 
   return (
@@ -22,7 +21,7 @@ export default function ProfileInfo({ mine, myProfile }: any) {
       <Menu style={{ marginRight: 24 }}>
         <Image
           alt="프로필 사진"
-          src={myProfile.profileImage.thumbnailImageUrl}
+          src={profile.profileImage.thumbnailImageUrl}
           type="default"
           size={74}
         />
@@ -32,7 +31,7 @@ export default function ProfileInfo({ mine, myProfile }: any) {
         <TitleWrapper>
           <Menu>
             <Text typo="Headline4" color="N100">
-              {myProfile.nickname}
+              {profile.nickname}
             </Text>
           </Menu>
           {mine ? undefined : (
