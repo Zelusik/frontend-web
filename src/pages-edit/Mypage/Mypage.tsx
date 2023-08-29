@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
@@ -86,13 +87,13 @@ export default function Mypage() {
 
   useEffect(() => {
     const query = router.query.id;
-    setMine(query ? query === "100" : true);
+    setMine(query ? membersProfile?.isEqualLoginMember : true);
     setScrollHeight(scrollRef.current?.scrollTop);
     scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
-  }, [currentIndex, myreview]);
+  }, [currentIndex, membersProfile]);
 
   if (isLoading || isMembersProfileLoading || isRecommendLoading)
     return <LoadingCircle />;
@@ -130,14 +131,10 @@ export default function Mypage() {
 
         <div style={{ position: "relative" }}>
           <div style={{ padding: "0 20px" }}>
-            <ProfileInfo mine={mine} profile={membersProfile || membersProfile} />
+            <ProfileInfo mine={mine} profile={membersProfile && membersProfile} />
             <Spacing size={22} />
 
-            <TasteBox
-              tasteStatistics={
-                membersProfile?.tasteStatistics || membersProfile?.tasteStatistics
-              }
-            />
+            <TasteBox tasteStatistics={membersProfile?.tasteStatistics} />
             <Spacing size={40} />
           </div>
 
