@@ -14,6 +14,7 @@ import StoreTitle from "components/Title/StoreTitle";
 import Spacing from "components/Spacing";
 import Text from "components/Text";
 import NewButton from "./NewButton";
+import { getAddressInfo } from "utils/getAddressInfo";
 
 export default function RecommandSwiper({ datas, mine, ...props }: any) {
   const router = useRouter();
@@ -24,8 +25,8 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
     setCurrentIndex(newSwiper);
   };
 
-  const clickStoreDetail = () => {
-    router.push({ pathname: Route.STORE_DETAIL(), query: { id: 1 } });
+  const clickReviewDetail = (reviewId: number) => {
+    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: reviewId } });
   };
 
   return (
@@ -42,17 +43,19 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
                 <Image
                   type="home"
                   alt="추천 사진"
-                  src={data}
-                  onClick={clickStoreDetail}
+                  src={data.review.images[0].imageUrl}
+                  onClick={() => clickReviewDetail(data.review.id)}
                 />
                 <NumberWrapper>
                   <Text typo="Paragraph7">{idx + 1}</Text>
                 </NumberWrapper>
                 <StoreTitle
                   type="home"
-                  title="소이연남"
-                  subTitle="음식 카테고리 지역"
-                  onClick={clickStoreDetail}
+                  title={data.review.place.name}
+                  subTitle={getAddressInfo(data.review.place)}
+                  onClick={() => clickReviewDetail(data.review.id)}
+                  isMarked={data.review.place.isMarked}
+                  placeId={data.review.place.id}
                 />
               </ImageWrapper>
             </SwiperSlide>

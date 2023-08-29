@@ -6,7 +6,7 @@ export const postRecommendReviews = async ({
   ranking,
 }: RecommendReviewType) =>
   await client
-    .post("/recommended-reviews", { reviewId, ranking })
+    .post("/members/recommended-reviews", { reviewId, ranking })
     .then(({ data }) => data)
     .catch((err) => err.response);
 
@@ -14,6 +14,18 @@ export const updateRecommendReviews = async (
   recommendedReviews: RecommendReviewType[]
 ) =>
   await client
-    .put("/recommended-reviews/batch-update", { recommendedReviews })
+    .put("/members/recommended-reviews/batch-update", { recommendedReviews })
+    .then(({ data }) => data)
+    .catch((err) => err.response);
+
+export const getMyRecommendReviews = async () =>
+  await client
+    .get("/members/me/recommended-reviews")
+    .then(({ data }) => data)
+    .catch((err) => err.response);
+
+export const getMembersRecommendReviews = async (memeberId: number) =>
+  await client
+    .get(`/members/${memeberId}/recommended-reviews`)
     .then(({ data }) => data)
     .catch((err) => err.response);

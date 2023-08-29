@@ -23,14 +23,8 @@ import ReviewList from "./components/ReviewList";
 import NewButton from "./components/NewButton";
 import useGetMyReviews from "hooks/queries/user/useGetMyReviews";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import useGetMyProfile from "hooks/queries/user/useGetMyProfile";
 import useGetMembersProfile from "hooks/queries/user/useGetMembersProfile";
-
-const RecommandDatas = [
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-  "https://i.ibb.co/2kSZX6Y/60pt.png",
-];
+import useGetRecommendReviews from "hooks/queries/recommend-reviews/useGetRecommendReviews";
 
 // 392 + 35 = 427
 
@@ -39,9 +33,10 @@ export default function Mypage() {
   const [mine, setMine] = useState<boolean>(true);
   const { width, height } = useDisplaySize();
   const { data: myreview, isLoading } = useGetMyReviews();
-  const { data: myProfile, isLoading: isMyProfileLoading } = useGetMyProfile();
   const { data: membersProfile, isLoading: isMembersProfileLoading } =
     useGetMembersProfile();
+  const { data: recommendedReviews, isLoading: isRecommendLoading } =
+    useGetRecommendReviews();
 
   const scrollRef = useRef<any>(null);
 
@@ -49,13 +44,12 @@ export default function Mypage() {
   const [titleChange, setTitleChange] = useState<boolean>(false);
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
   const { openAlert } = useAlert();
 
   const clickRecommand = () => {
     if (myreview && myreview[0].contents.length === 0) openAlert("write-review");
     else {
-      if (RecommandDatas.length === 0) {
+      if (recommendedReviews?.length === 0) {
         localStorage.setItem("state", "postRecommendReview");
       } else {
         localStorage.setItem("state", "updatetRecommendReview");
@@ -92,7 +86,7 @@ export default function Mypage() {
 
   useEffect(() => {
     const query = router.query.id;
-    setMine(query ? query === "1" : true);
+    setMine(query ? query === "100" : true);
     setScrollHeight(scrollRef.current?.scrollTop);
     scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
@@ -100,7 +94,7 @@ export default function Mypage() {
     };
   }, [currentIndex, myreview]);
 
-  if (isLoading || isMyProfileLoading || isMembersProfileLoading)
+  if (isLoading || isMembersProfileLoading || isRecommendLoading)
     return <LoadingCircle />;
 
   return (
@@ -114,7 +108,9 @@ export default function Mypage() {
                 title={titleChange ? membersProfile.nickname : null}
               />
             ) : (
-              <Text typo="Headline5">{titleChange ? myProfile.nickname : null}</Text>
+              <Text typo="Headline5">
+                {titleChange ? membersProfile.nickname : null}
+              </Text>
             )}
             <Setting />
           </TitleInner>
@@ -134,12 +130,12 @@ export default function Mypage() {
 
         <div style={{ position: "relative" }}>
           <div style={{ padding: "0 20px" }}>
-            <ProfileInfo mine={mine} profile={myProfile || membersProfile} />
+            <ProfileInfo mine={mine} profile={membersProfile || membersProfile} />
             <Spacing size={22} />
 
             <TasteBox
               tasteStatistics={
-                myProfile?.tasteStatistics || membersProfile?.tasteStatistics
+                membersProfile?.tasteStatistics || membersProfile?.tasteStatistics
               }
             />
             <Spacing size={40} />
@@ -164,7 +160,7 @@ export default function Mypage() {
             >
               <Spacing
                 size={
-                  RecommandDatas.length === 0
+                  recommendedReviews?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
                     : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
                     ? (height -
@@ -174,7 +170,7 @@ export default function Mypage() {
                     : 0
                 }
               />
-              {RecommandDatas.length === 0 ? (
+              {recommendedReviews?.length === 0 ? (
                 <NewButton
                   onClick={clickRecommand}
                   marginTop={0}
@@ -183,7 +179,7 @@ export default function Mypage() {
                 />
               ) : (
                 <RecommandSwiper
-                  datas={RecommandDatas}
+                  datas={recommendedReviews && recommendedReviews}
                   mine={mine}
                   onClick={clickRecommand}
                 />
