@@ -9,6 +9,7 @@ import useDisplaySize from "hooks/useDisplaySize";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useRouter } from "next/router";
 import { useRef } from "react";
+import { getAddressInfo } from "utils/getAddressInfo";
 
 export default function ReviewList({ type = "mypage" }: any) {
   const router = useRouter();
@@ -53,9 +54,7 @@ export default function ReviewList({ type = "mypage" }: any) {
                   type="mypage-review"
                   title={data?.place?.name || "소이연남"}
                   subTitle={
-                    data?.place
-                      ? `${data?.place?.address?.sido} ${data?.place?.address?.sgg}`
-                      : "음식 카테고리 지역"
+                    data?.place ? getAddressInfo(data?.place) : "음식 카테고리 지역"
                   }
                 />
                 {type === "recommand-best" ? (
@@ -64,10 +63,7 @@ export default function ReviewList({ type = "mypage" }: any) {
               </ReviewInner>
             );
           })}
-      <div
-        ref={scrollRef}
-        style={{ height: hasNextPage ? "30px" : "0px" }}
-      ></div>
+      <div ref={scrollRef} style={{ height: hasNextPage ? "30px" : "0px" }}></div>
     </ReviewWrapper>
   );
 }
@@ -95,8 +91,7 @@ const CountWrapper = styled.div<{ action: boolean }>`
 
   border-radius: 999px;
   border: 2px solid ${({ action }) => (action ? colors.Orange400 : colors.N40)};
-  background-color: ${({ action }) =>
-    action ? colors.Orange400 : `transparent`};
+  background-color: ${({ action }) => (action ? colors.Orange400 : `transparent`)};
   z-index: 700;
 
   ${typography.Headline2}
