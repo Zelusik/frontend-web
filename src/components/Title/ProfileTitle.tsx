@@ -48,7 +48,7 @@ export default function ProfileTitle({
       </Menu>
 
       <Menu>
-        {type !== "mine" ? (
+        {/* {type !== "mine" ? (
           <RoundButton
             type="follow-icon"
             action={action}
@@ -56,7 +56,7 @@ export default function ProfileTitle({
               setAction(!action);
             }}
           />
-        ) : undefined}
+        ) : undefined} */}
         <div style={{ marginLeft: 4 }}>
           <Dots
             type={type === "mine" ? "delete-edit" : "share-report"}

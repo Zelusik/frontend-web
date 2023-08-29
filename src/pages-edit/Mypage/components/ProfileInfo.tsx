@@ -34,11 +34,11 @@ export default function ProfileInfo({ mine, profile }: any) {
               {profile.nickname}
             </Text>
           </Menu>
-          {mine ? undefined : (
+          {/* {mine ? undefined : (
             <Menu>
               <RoundButton type="follow-icon" />
             </Menu>
-          )}
+          )} */}
         </TitleWrapper>
         <Spacing size={16} />
 
