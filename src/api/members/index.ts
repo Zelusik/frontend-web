@@ -52,7 +52,7 @@ export const deleteUser = async (surveyType: string) =>
     .then(({ data }) => data)
     .catch((err) => err.response);
 
-export const PostTerms = async (token: any, termsData: TermsType) =>
+export const postTerms = async (token: any, termsData: TermsType) =>
   await client
     .post("/members/terms", termsData, {
       headers: { Authorization: `Bearer ${token}` },
@@ -60,7 +60,7 @@ export const PostTerms = async (token: any, termsData: TermsType) =>
     .then(({ data }) => data)
     .catch((err) => err.response);
 
-export const PutTaste = async (token: any, favoriteFoodCategories: string[]) => {
+export const putTaste = async (token: any, favoriteFoodCategories: string[]) => {
   const config: any = {
     headers: {},
   };

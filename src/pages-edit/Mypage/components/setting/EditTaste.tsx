@@ -13,7 +13,7 @@ import BackTitle from "components/Title/BackTitle";
 import { tasteData } from "constants/globalData";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import { changeUserInfo } from "reducer/slices/user/userSlice";
-import { PutTaste } from "api/members";
+import { putTaste } from "api/members";
 
 const EditTaste = () => {
   const router = useRouter();
@@ -43,7 +43,7 @@ const EditTaste = () => {
   };
 
   const handleClickEdit = async () => {
-    const tasteRes = await PutTaste(null, favoriteFoodCategories);
+    const tasteRes = await putTaste(null, favoriteFoodCategories);
     if (!tasteRes.status) {
       router.back();
     }

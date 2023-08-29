@@ -13,7 +13,7 @@ import RoundButton from "components/Button/RoundButton";
 import { getCookie } from "utils/cookie";
 import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
-import { PostTerms, PutTaste } from "api/members";
+import { postTerms, putTaste } from "api/members";
 import { tasteData } from "constants/globalData";
 
 const TastePage = () => {
@@ -54,8 +54,8 @@ const TastePage = () => {
 
   const handleClickStart = async () => {
     if (accessToken !== null) {
-      const termsRes = await PostTerms(accessToken, terms);
-      const tasteRes = await PutTaste(accessToken, favoriteFoodCategories);
+      const termsRes = await postTerms(accessToken, terms);
+      const tasteRes = await putTaste(accessToken, favoriteFoodCategories);
 
       // refresh token 만료 시 로그인 페이지로
       if (termsRes.data?.code === 1502 || tasteRes.data?.code === 1502) {
