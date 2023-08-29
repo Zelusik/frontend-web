@@ -9,6 +9,7 @@ import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
 import Text from "components/Text";
 import { globalValue } from "constants/globalValue";
+import { getAddressInfo } from "utils/getAddressInfo";
 
 export default function StoreCard({ data }: any) {
   // 가게 id
@@ -49,7 +50,7 @@ export default function StoreCard({ data }: any) {
         <StoreTitle
           type="home"
           title={data?.place?.name}
-          subTitle={`${data?.place?.category} · ${data?.place?.address?.sido} ${data?.place?.address?.sgg}`}
+          subTitle={getAddressInfo(data?.place)}
           onClick={clickStore}
           isMarked={data?.place?.isMarked}
           placeId={data?.place?.id}
