@@ -7,6 +7,7 @@ import {
 } from "types/review";
 
 const initialState: ReviewType = {
+  reviewId: 0,
   placeId: 0,
   placeInfo: {
     kakaoPid: "",
@@ -40,6 +41,7 @@ export const reviewSlice = createSlice({
         payload: {
           type: string;
           value:
+            | number
             | string
             | string[]
             | PlaceType
