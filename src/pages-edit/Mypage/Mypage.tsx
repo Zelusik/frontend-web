@@ -167,7 +167,7 @@ export default function Mypage() {
                     : 0
                 }
               />
-              {recommendedReviews?.length === 0 ? (
+              {recommendedReviews?.length === 0 && mine ? (
                 <NewButton
                   onClick={clickRecommand}
                   marginTop={0}
