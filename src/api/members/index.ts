@@ -60,17 +60,20 @@ export const PostTerms = async (token: any, termsData: TermsType) =>
     .then(({ data }) => data)
     .catch((err) => err.response);
 
-export const PutTaste = async (token: any, favoriteFoodCategories: string[]) =>
-  await client
-    .put(
-      "/members/favorite-food",
-      { favoriteFoodCategories },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+export const PutTaste = async (token: any, favoriteFoodCategories: string[]) => {
+  const config: any = {
+    headers: {},
+  };
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return await client
+    .put("/members/favorite-food", { favoriteFoodCategories }, config)
     .then(({ data }) => data)
     .catch((err) => err.response);
+};
 
 export const getMyProfile = async () =>
   await client

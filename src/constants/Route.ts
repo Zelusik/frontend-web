@@ -27,6 +27,7 @@ export const Route: RouteType = {
   RECOMMEND_BEST: () => "/mypage/recommand-best",
   SETTING: () => "/mypage/setting",
   EDIT_PROFILE: () => "/mypage/setting/edit-profile",
+  EDIT_TASTE: () => "/mypage/setting/edit-taste",
   NOTIFICATION: () => "/mypage/setting/notification",
   DELETE_PROFILE: () => "/mypage/setting/delete-profile",
   ANNOUNCEMENT: () => "/mypage/setting/announcement",

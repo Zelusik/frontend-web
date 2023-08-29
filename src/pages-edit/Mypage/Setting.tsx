@@ -12,6 +12,7 @@ export default function Setting() {
   const { openAlert } = useAlert();
   const settingProfile = [
     { text: "프로필 수정", route: "EDIT_PROFILE" },
+    { text: "음식 취향 수정", route: "EDIT_TASTE" },
     { text: "알림 설정", route: "NOTIFICATION" },
     { text: "로그아웃", route: "" },
     { text: "회원 탈퇴", route: "DELETE_PROFILE" },
