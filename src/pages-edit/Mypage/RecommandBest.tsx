@@ -7,28 +7,40 @@ import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import useDisplaySize from "hooks/useDisplaySize";
 import ReviewList from "./components/ReviewList";
-
-// 15 개
-const ReviewDatas = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
+import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { initializeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
+import { useRouter } from "next/router";
+import { postRecommendReviews, updateRecommendReviews } from "api/recommend-reviews";
 
 export default function RecommandBest() {
+  const router = useRouter();
   const { height } = useDisplaySize();
+  const dispatch = useAppDispatch();
+  const recommendReview = useAppSelector((state) => state.recommendReview);
+
+  const handleClickReset = () => {
+    dispatch(initializeRecommendReview());
+  };
+
+  const handleClickStore = async () => {
+    const recommendReviews = recommendReview.map((reviewId: any, index: any) => ({
+      reviewId: reviewId,
+      ranking: index + 1,
+    }));
+
+    if (localStorage.getItem("state") === "postRecommendReview") {
+      // 등록
+      for (const reviewData of recommendReviews) {
+        await postRecommendReviews(reviewData);
+      }
+    } else {
+      // 수정
+      await updateRecommendReviews(recommendReviews);
+    }
+    dispatch(initializeRecommendReview());
+    localStorage.removeItem("state");
+    router.back();
+  };
   return (
     <>
       <TitleWrapper>
@@ -44,14 +56,22 @@ export default function RecommandBest() {
       <Spacing size={146} />
 
       <RecommandBestWrapper height={height - 240}>
-        <ReviewList type="recommand-best" datas={ReviewDatas} />
+        <ReviewList type="recommand-best" />
         <Spacing size={30} />
       </RecommandBestWrapper>
 
       <Gradient size={30} />
       <ButtonWrapper>
-        <BottomButton type="default">초기화</BottomButton>
-        <BottomButton type="primary">저장하기</BottomButton>
+        <BottomButton type="default" onClick={handleClickReset} disabled={false}>
+          초기화
+        </BottomButton>
+        <BottomButton
+          type="primary"
+          onClick={handleClickStore}
+          disabled={recommendReview.length !== 3}
+        >
+          저장하기
+        </BottomButton>
       </ButtonWrapper>
     </>
   );

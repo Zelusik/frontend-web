@@ -48,9 +48,15 @@ export default function Mypage() {
   const { openAlert } = useAlert();
 
   const clickRecommand = () => {
-    if (myreview && myreview[0].contents.length === 0)
-      openAlert("write-review");
-    else router.push(Route.RECOMMEND_BEST());
+    if (myreview && myreview[0].contents.length === 0) openAlert("write-review");
+    else {
+      if (RecommandDatas.length === 0) {
+        localStorage.setItem("state", "postRecommendReview");
+      } else {
+        localStorage.setItem("state", "updatetRecommendReview");
+      }
+      router.push(Route.RECOMMEND_BEST());
+    }
   };
 
   function onScroll() {
@@ -59,9 +65,7 @@ export default function Mypage() {
 
     if (
       (currentIndex === 0 ||
-        (currentIndex === 1 &&
-          myreview &&
-          myreview[0].contents?.length === 0)) &&
+        (currentIndex === 1 && myreview && myreview[0].contents?.length === 0)) &&
       scrollRef.current?.scrollTop >= scrollTop
     ) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -153,8 +157,7 @@ export default function Mypage() {
                 size={
                   RecommandDatas.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) >
-                      ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
