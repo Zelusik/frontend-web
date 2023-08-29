@@ -75,7 +75,7 @@ const Review = () => {
     dispatch(initializeReviewInfo());
     const imageInfo: any = {
       image: "",
-      preview: "",
+      imageUrl: "",
       lat: "",
       lng: "",
     };
@@ -85,7 +85,7 @@ const Review = () => {
 
       reader.readAsDataURL(convertedImgBlob);
       imageInfo.image = await imageConvert(file);
-      imageInfo.preview = URL.createObjectURL(convertedImgBlob);
+      imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
 
       const data = await exifr.parse(file);
       const lat = data?.GPSLatitude;

@@ -1,4 +1,5 @@
 export interface ReviewType {
+  reviewId?: number;
   placeId?: number;
   placeInfo: PlaceType;
   foodInfo?: FoodType[];
@@ -38,7 +39,7 @@ export interface FoodType {
 
 export interface OriginalImageDataType {
   image: string;
-  preview: string;
+  imageUrl: string;
   lat: string;
   lng: string;
   menuTag: { x: number; y: number; menu: string }[];

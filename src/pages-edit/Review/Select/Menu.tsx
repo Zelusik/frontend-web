@@ -199,10 +199,10 @@ const Menu = () => {
           onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
         >
           {image.map((imageInfo: ImageType, index: number) => (
-            <SwiperSlide key={imageInfo.preview}>
+            <SwiperSlide key={imageInfo.imageUrl}>
               <Image
                 alt="음식 사진"
-                src={imageInfo.preview}
+                src={imageInfo.imageUrl}
                 type="review"
                 onClick={(event: any) => handleClickImage(event, index)}
               />

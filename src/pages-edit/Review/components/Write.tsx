@@ -16,7 +16,7 @@ import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 
 import { Route } from "constants/Route";
 import ReviewLoading from "./ReviewLoading";
-import { postReview } from "api/reviews";
+import { editReview, postReview } from "api/reviews";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 
 const Write = () => {
@@ -45,10 +45,20 @@ const Write = () => {
 
   const handleClickUploadBtn = async () => {
     setIsLoading(true);
-    const result = await postReview(review);
-
-    if (!result.status) {
-      setShouldRoute(true);
+    if (localStorage.getItem("state") === "edit-review") {
+      const result = await editReview({
+        reviewId: review.reviewId,
+        content: review.content,
+      });
+      if (!result.status) {
+        setShouldRoute(true);
+        localStorage.removeItem("state");
+      }
+    } else {
+      const result = await postReview(review);
+      if (!result.status) {
+        setShouldRoute(true);
+      }
     }
     setIsLoading(false);
   };

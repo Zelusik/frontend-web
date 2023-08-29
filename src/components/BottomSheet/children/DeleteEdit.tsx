@@ -7,21 +7,93 @@ import { Route } from "constants/Route";
 import Icon from "components/Icon";
 import Spacing from "components/Spacing";
 import Text from "components/Text";
+import useGetReviewsId from "hooks/queries/review-detail/useGetReviewsId";
+import { useAppDispatch } from "hooks/useReduxHooks";
+import {
+  changeReviewInfo,
+  initializeReviewInfo,
+} from "reducer/slices/review/reviewSlice";
+import { initEditImageInfo } from "reducer/slices/image/imageSlice";
+import { atmosphereKeyword, foodKeyword } from "data/keywordData";
 
 interface Props {}
 
 export default function DeleteEdit({}: Props) {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { openAlert } = useAlert();
   const { closeBottomSheetQuick } = useBottomSheet({});
+  const reviewId = Number(router.query.id);
+  const { data: reviewData } = useGetReviewsId(reviewId);
 
   const clickPrimary = () => {
     openAlert("review-delete");
     closeBottomSheetQuick();
   };
 
+  const transformData = (reviewImages: any) => {
+    return reviewImages.map((item: any) => ({
+      imageUrl: item.imageUrl,
+      menuTag: item.menuTags.map((tag: any) => ({
+        x: tag.point.x,
+        y: tag.point.y,
+        menu: tag.content,
+      })),
+    }));
+  };
+
+  const transformKeyword = (keywords: string[]) => {
+    // 분위기, 음식 키워드가 한글로 응답값이 오는데 체크는 영어로 하고 있어서 이를 위해 영어로 변환
+    const allKeyword = [...foodKeyword, ...atmosphereKeyword];
+    const euqalsKeyword = ({ str1, str2 }: { str1: string; str2: string }) => {
+      const words1 = str1.split(" ");
+      const words2 = str2.split(" ");
+
+      return words1.some((word1) =>
+        words2.some((word2) => word1.includes(word2) || word2.includes(word1))
+      );
+    };
+    const matchedValues = keywords
+      .flatMap((keyword) => {
+        return allKeyword
+          .filter((obj) => euqalsKeyword({ str1: keyword, str2: obj.text }))
+          .map((obj) => obj.value);
+      })
+      .filter(Boolean);
+    return matchedValues;
+  };
+
+  // foodInfo: [],
   const clickSecondary = () => {
-    router.push(Route.REPORT());
+    dispatch(initializeReviewInfo());
+    dispatch(
+      changeReviewInfo({
+        type: "placeId",
+        value: reviewData.place.id,
+      })
+    );
+    dispatch(
+      changeReviewInfo({
+        type: "reviewId",
+        value: reviewData.id,
+      })
+    );
+    dispatch(
+      changeReviewInfo({
+        type: "keywords",
+        value: transformKeyword(reviewData.keywords),
+      })
+    );
+    dispatch(
+      changeReviewInfo({
+        type: "content",
+        value: reviewData.content,
+      })
+    );
+    const transformed = transformData(reviewData.reviewImages);
+    dispatch(initEditImageInfo(transformed));
+    router.push(Route.REVIEW_MENU());
+    localStorage.setItem("state", "edit-review");
     closeBottomSheetQuick();
   };
 

@@ -61,8 +61,8 @@ const Place = () => {
               onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
             >
               {image.map((preview: any, index: number) => (
-                <SwiperSlide key={preview.preview}>
-                  <Image alt="음식 사진" src={preview.preview} type="review" />
+                <SwiperSlide key={preview.imageUrl}>
+                  <Image alt="음식 사진" src={preview.imageUrl} type="review" />
                 </SwiperSlide>
               ))}
             </Swiper>
