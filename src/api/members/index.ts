@@ -9,7 +9,7 @@ export const getMembersSearch = async (params: any) =>
 
 export const getMyInfo = async () =>
   await client
-    .get("/members")
+    .get("/members/me")
     .then(({ data }) => data)
     .catch((err) => err.response);
 

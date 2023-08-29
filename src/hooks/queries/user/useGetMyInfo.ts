@@ -18,18 +18,6 @@ const useGetMyInfo = () => {
       );
       dispatch(
         changeUserInfo({
-          type: "email",
-          value: result.email,
-        })
-      );
-      dispatch(
-        changeUserInfo({
-          type: "favoriteCategories",
-          value: result.favoriteCategories,
-        })
-      );
-      dispatch(
-        changeUserInfo({
           type: "gender",
           value: result.gender,
         })
@@ -43,7 +31,10 @@ const useGetMyInfo = () => {
       dispatch(
         changeUserInfo({
           type: "image",
-          value: result.image,
+          value: {
+            url: result.profileImage.imageUrl,
+            thumbnailUrl: result.profileImage.thumbnailImageUrl,
+          },
         })
       );
       dispatch(
