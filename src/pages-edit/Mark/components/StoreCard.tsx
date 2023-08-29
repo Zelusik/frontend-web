@@ -16,6 +16,7 @@ import StoreTitle from "components/Title/StoreTitle";
 import Spacing from "components/Spacing";
 import useDisplaySize from "hooks/useDisplaySize";
 import Number from "components/Share/Number";
+import { getAddressInfo } from "utils/getAddressInfo";
 
 const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
   const router = useRouter();
@@ -44,20 +45,14 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
               className="banner"
               slidesPerView={1}
               spaceBetween={20}
-              onSlideChange={(swiper: any) =>
-                setCurrentIndex(swiper.activeIndex)
-              }
+              onSlideChange={(swiper: any) => setCurrentIndex(swiper.activeIndex)}
               allowSlidePrev={currentIndex !== 0}
               allowSlideNext={currentIndex !== placeInfo?.images?.length - 1}
               style={{ height: ((width - 25) * 192) / 310 }}
             >
               {placeInfo?.images?.map((image: any, index: number) => (
                 <SwiperSlide key={index}>
-                  <Image
-                    src={image?.thumbnailUrl}
-                    alt="음식 사진"
-                    type="mark"
-                  />
+                  <Image src={image?.thumbnailUrl} alt="음식 사진" type="mark" />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -69,7 +64,7 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
       <StoreTitle
         type="mark"
         title={placeInfo?.name}
-        subTitle={`${placeInfo?.category} · ${placeInfo?.address?.sido} ${placeInfo?.address?.sgg}`}
+        subTitle={getAddressInfo(placeInfo)}
         isMarked={true}
         placeId={placeInfo?.id}
         editNone={true}
@@ -78,11 +73,7 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
       {placeInfo?.top3Keywords.length > 0 ? (
         <>
           <Spacing size={10} />
-          <Hashtags
-            type="hashtags"
-            hashtags={placeInfo?.top3Keywords}
-            side={0}
-          />
+          <Hashtags type="hashtags" hashtags={placeInfo?.top3Keywords} side={0} />
         </>
       ) : null}
     </Wrapper>

@@ -1,7 +1,5 @@
 export interface UserInfoType {
   birthDay?: string;
-  email: string;
-  favoriteFoodCategories: string[];
   gender: string;
   id: number;
   image: { url: string; thumbnailUrl: string };

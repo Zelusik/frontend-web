@@ -21,6 +21,13 @@ const EditProfile = () => {
   const { data } = useGetMyInfo();
   const { mutate } = useEditMyInfo();
   const user = useAppSelector((state) => state.user);
+  let heic2any: any;
+
+  if (typeof window !== "undefined") {
+    import("heic2any").then((module) => {
+      heic2any = module.default;
+    });
+  }
 
   const genderData = [
     { value: "FEMALE", text: "여성" },
@@ -54,42 +61,68 @@ const EditProfile = () => {
   };
   const handleClickSaveBtn = () => {
     mutate({
-      profileImage: data.image.url === user.image.url ? "" : user.image.url,
+      profileImage:
+        data.profileImage.thumbnailImageUrl === user.image.url ? "" : user.image.url,
       nickname: user.nickname,
       birthDay: user.birthDay,
       gender: genderData.filter((e) => e.text === user.gender)[0].value,
     });
   };
 
+  const isHeicOrHeif = (fileName: string): boolean => {
+    const lowercasedName = fileName.toLowerCase();
+    return lowercasedName.endsWith(".heic") || lowercasedName.endsWith(".heif");
+  };
+
+  const convertHeicToJpeg = async (file: any): Promise<any> => {
+    if (heic2any) {
+      if (isHeicOrHeif(file.name)) {
+        return heic2any({
+          blob: file,
+          toType: "image/jpeg",
+          quality: 0.8,
+        });
+      }
+      return file;
+    }
+    return file;
+  };
+
+  const compressLargeImage = async (file: any): Promise<any> => {
+    if (file.size > 5 * 1024 * 1024) {
+      return imageCompression(file, { maxSizeMB: 5 });
+    }
+    return file;
+  };
+
+  const imageConvert = async (file: any) => {
+    let processedFile = await convertHeicToJpeg(file);
+    processedFile = await compressLargeImage(processedFile);
+
+    return imageCompression.getDataUrlFromFile(processedFile);
+  };
+
   const onDrop = async (acceptedFiles: File[]): Promise<void> => {
     acceptedFiles.forEach(async (file) => {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-      if (file.size <= 5 * 1024 * 1024) {
-        const imageUrl = await imageCompression.getDataUrlFromFile(file);
-        dispatch(
-          changeUserInfo({
-            type: "image",
-            value: { url: imageUrl, thumbnailUrl: imageUrl },
-          })
-        );
-      } else {
-        const resizingBlob = await imageCompression(file, { maxSizeMB: 5 });
-        const resizedUrl = await imageCompression.getDataUrlFromFile(resizingBlob);
-        dispatch(
-          changeUserInfo({
-            type: "image",
-            value: { url: resizedUrl, thumbnailUrl: resizedUrl },
-          })
-        );
-      }
+      const convertedImgBlob = await convertHeicToJpeg(file);
+
+      const image = await imageConvert(file);
+      const imageUrl = URL.createObjectURL(convertedImgBlob);
+
+      dispatch(
+        changeUserInfo({
+          type: "image",
+          value: { url: image, thumbnailUrl: imageUrl },
+        })
+      );
     });
   };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: false,
-    accept: { "image/*": [] },
+    accept: { "image/*": [".heic", ".heif"] },
   });
 
   return (
@@ -173,7 +206,7 @@ const EditProfile = () => {
                 data.birthDay === user.birthDay &&
                 data.nickname === user.nickname &&
                 data.gender === user.gender &&
-                data.image.url === user.image.url
+                data.profileImage.thumbnailImageUrl === user.image.thumbnailUrl
               }
             />
           </BottomWrapper>

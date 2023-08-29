@@ -41,11 +41,7 @@ export default function StoreTitle({
         isFlex={type === "map"}
         style={{
           width:
-            type === "mypage-review"
-              ? "100%"
-              : type === "home"
-              ? "75%"
-              : "initial",
+            type === "mypage-review" ? "100%" : type === "home" ? "75%" : "initial",
         }}
       >
         {title ? (
@@ -93,6 +89,15 @@ export default function StoreTitle({
               .with("mark", () => "N60")
               .with("mypage-review", () => "N0")
               .otherwise(() => "N100")}
+            style={{
+              ...(type === "mypage-review" || type === "home"
+                ? {
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }
+                : {}),
+            }}
           >
             {subTitle}
           </Text>

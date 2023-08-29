@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import useToast from "hooks/useToast";
 import { useRouter } from "next/router";
 import { useRef } from "react";
+import { getAddressInfo } from "utils/getAddressInfo";
 import { changeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
 
 export default function ReviewList({ type = "mypage" }: any) {
@@ -70,9 +71,7 @@ export default function ReviewList({ type = "mypage" }: any) {
                   type="mypage-review"
                   title={data?.place?.name || "소이연남"}
                   subTitle={
-                    data?.place
-                      ? `${data?.place?.address?.sido} ${data?.place?.address?.sgg}`
-                      : "음식 카테고리 지역"
+                    data?.place ? getAddressInfo(data?.place) : "음식 카테고리 지역"
                   }
                 />
                 {type === "recommand-best" ? (
