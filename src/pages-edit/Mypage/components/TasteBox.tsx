@@ -5,7 +5,7 @@ import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 
-export default function TasteBox() {
+export default function TasteBox({ tasteStatistics }: any) {
   return (
     <TasteWrapper>
       <TasteInner>
@@ -13,14 +13,14 @@ export default function TasteBox() {
           <MyTaste>나의 취향은 🤤</MyTaste>
           <Spacing size={14} />
           <Menu>
-            <Hashtag type="default" text="연남" />
+            <Hashtag type="default" text={tasteStatistics.mostVisitedLocation} />
             <MenuSpan>에서</MenuSpan>
-            <Hashtag type="default" text="데이트에 최고" />
+            <Hashtag type="default" text={tasteStatistics.mostTaggedReviewKeyword} />
             <MenuSpan>인</MenuSpan>
           </Menu>
           <Spacing size={8} />
           <Menu>
-            <Hashtag type="default" text="아시안푸드" />
+            <Hashtag type="default" text={tasteStatistics.mostEatenFoodCategory} />
             <MenuSpan>음식점을 가장 많이 방문했어요</MenuSpan>
           </Menu>
         </div>
