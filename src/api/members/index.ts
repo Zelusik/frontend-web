@@ -77,3 +77,9 @@ export const getMyProfile = async () =>
     .get("/members/me/profile")
     .then(({ data }) => data)
     .catch((err) => err.response);
+
+export const getMembersProfile = async (memberId: number) =>
+  await client
+    .get(`/members/${memberId}/profile`)
+    .then(({ data }) => data)
+    .catch((err) => err.response);
