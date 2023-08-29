@@ -49,3 +49,9 @@ export interface TransformedImageDataType {
   image: string;
   menuTags: { content: string; point: { x: number; y: number } }[];
 }
+
+export interface RecommendReviewType {
+  reviewId: number;
+  ranking: number;
+  [key: string]: number;
+}

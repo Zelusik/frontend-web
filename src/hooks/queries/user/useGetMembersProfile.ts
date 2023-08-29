@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { getMembersProfile } from "api/members";
+import { getMembersProfile, getMyProfile } from "api/members";
 import { useRouter } from "next/router";
 
 const useGetMembersProfile = () => {
@@ -8,12 +8,19 @@ const useGetMembersProfile = () => {
   const memberId: any = query.id;
 
   const { data, isLoading, error, refetch } = useQuery(
-    ["membersProfile"],
-    async () => await getMembersProfile(memberId),
+    ["membersProfile", memberId],
+    async () => {
+      if (memberId) {
+        const res = await getMembersProfile(memberId);
+        return res;
+      } else {
+        const res = await getMyProfile();
+        return res;
+      }
+    },
     {
       staleTime: 1000 * 60 * 5,
       cacheTime: 1000 * 60 * 30,
-      enabled: !!memberId,
     }
   );
   return { data, isLoading, error, refetch };

@@ -23,7 +23,7 @@ export default function StoreCard({ data }: any) {
       <Wrapper>
         {/* 선호하는 음식이 아니라면 null */}
         <Text typo="Paragraph1" color="N60">
-          내가 선호하는 음식 카테고리
+          {/* 내가 선호하는 음식 카테고리 */}
         </Text>
         <Spacing size={6} />
 
