@@ -24,6 +24,7 @@ import NewButton from "./components/NewButton";
 import useGetMyReviews from "hooks/queries/user/useGetMyReviews";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import useGetMyProfile from "hooks/queries/user/useGetMyProfile";
+import useGetMembersProfile from "hooks/queries/user/useGetMembersProfile";
 
 const RecommandDatas = [
   "https://i.ibb.co/2kSZX6Y/60pt.png",
@@ -38,7 +39,9 @@ export default function Mypage() {
   const [mine, setMine] = useState<boolean>(true);
   const { width, height } = useDisplaySize();
   const { data: myreview, isLoading } = useGetMyReviews();
-  const { data: myProfile, isLoading: isProfileLoading } = useGetMyProfile();
+  const { data: myProfile, isLoading: isMyProfileLoading } = useGetMyProfile();
+  const { data: membersProfile, isLoading: isMembersProfileLoading } =
+    useGetMembersProfile();
 
   const scrollRef = useRef<any>(null);
 
@@ -90,7 +93,8 @@ export default function Mypage() {
     };
   }, [currentIndex, myreview]);
 
-  if (isLoading || isProfileLoading) return <LoadingCircle />;
+  if (isLoading || isMyProfileLoading || isMembersProfileLoading)
+    return <LoadingCircle />;
 
   return (
     <>
@@ -100,18 +104,17 @@ export default function Mypage() {
             {router.query.id ? (
               <BackTitle
                 type="black-left-text"
-                title={titleChange ? myProfile.nickname : null}
+                title={titleChange ? membersProfile.nickname : null}
               />
             ) : (
               <Text typo="Headline5">{titleChange ? myProfile.nickname : null}</Text>
             )}
-            {/* <Text typo="Headline5">{titleChange ? myProfile.nickname : null}</Text> */}
             <Setting />
           </TitleInner>
         ) : (
           <BackTitle
             type={titleChange ? "black-left-text" : "black-dots"}
-            title={titleChange ? myProfile.nickname : null}
+            title={titleChange ? membersProfile.nickname : null}
           />
         )}
       </TitleWrapper>
@@ -124,10 +127,14 @@ export default function Mypage() {
 
         <div style={{ position: "relative" }}>
           <div style={{ padding: "0 20px" }}>
-            <ProfileInfo mine={mine} myProfile={myProfile} />
+            <ProfileInfo mine={mine} profile={myProfile || membersProfile} />
             <Spacing size={22} />
 
-            <TasteBox tasteStatistics={myProfile?.tasteStatistics} />
+            <TasteBox
+              tasteStatistics={
+                myProfile?.tasteStatistics || membersProfile?.tasteStatistics
+              }
+            />
             <Spacing size={40} />
           </div>
 
