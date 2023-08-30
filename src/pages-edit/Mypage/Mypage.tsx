@@ -31,9 +31,13 @@ import useGetMembersReviews from "hooks/queries/user/useGetMembersReviews";
 
 export default function Mypage() {
   const router = useRouter();
-  const [mine, setMine] = useState<boolean>(true);
   const { width, height } = useDisplaySize();
-  const { data: membersReviews, isLoading } = useGetMembersReviews();
+  const {
+    data: membersReviews,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetMembersReviews();
   const { data: membersProfile, isLoading: isMembersProfileLoading } =
     useGetMembersProfile();
   const { data: recommendedReviews, isLoading: isRecommendLoading } =
@@ -44,7 +48,9 @@ export default function Mypage() {
   const [scrollHeight, setScrollHeight] = useState<number>(0);
   const [titleChange, setTitleChange] = useState<boolean>(false);
   const [topFixed, setTopFixed] = useState<boolean>(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(1);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [mine, setMine] = useState<any>(null);
+
   const { openAlert } = useAlert();
 
   const clickRecommand = () => {
@@ -99,8 +105,12 @@ export default function Mypage() {
   }, [currentIndex, membersProfile]);
 
   useEffect(() => {
-    setCurrentIndex(mine || recommendedReviews?.length !== 0 ? 0 : 1);
-  }, [membersProfile]);
+    if (membersProfile && recommendedReviews) {
+      setCurrentIndex(
+        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0 ? 0 : 1
+      );
+    }
+  }, [membersProfile, recommendedReviews]);
 
   if (isLoading || isMembersProfileLoading || isRecommendLoading)
     return <LoadingCircle />;
@@ -191,8 +201,7 @@ export default function Mypage() {
             </TopNavigationInner>
             <TopNavigationInner
               height={
-                (membersReviews && membersReviews[0].contents?.length === 0) ||
-                currentIndex === 0
+                membersReviews?.[0].contents?.length === 0
                   ? height -
                     (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
                     104.5 +
@@ -202,12 +211,12 @@ export default function Mypage() {
             >
               <Spacing
                 size={
-                  membersReviews && membersReviews[0].contents?.length === 0
+                  membersReviews?.[0].contents?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
                     : 0
                 }
               />
-              {membersReviews && membersReviews[0].contents?.length === 0 ? (
+              {membersReviews?.[0].contents?.length === 0 && mine ? (
                 <NewButton
                   onClick={() => {}}
                   marginTop={0}
@@ -215,14 +224,17 @@ export default function Mypage() {
                   buttonText="첫 리뷰 남기기"
                 />
               ) : (
-                <ReviewList />
+                <ReviewList
+                  membersReviews={membersReviews && membersReviews}
+                  fetchNextPage={fetchNextPage}
+                  hasNextPage={hasNextPage}
+                />
               )}
               <Spacing size={30} />
             </TopNavigationInner>
           </TopNavigation>
         </div>
       </Wrapper>
-
       {mine ? <BottomNavigation /> : null}
     </>
   );
