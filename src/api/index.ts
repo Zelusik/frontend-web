@@ -22,7 +22,7 @@ client.interceptors.response.use(
   },
   async (error) => {
     const { config, response } = error;
-    console.log(response);
+    console.log(error);
     if (response.data.code === 1503 || response.data.code === 1500) {
       const refreshToken = getCookie("refreshToken");
       const originalRequest = config;
@@ -45,7 +45,7 @@ client.interceptors.response.use(
 
         return axios(originalRequest);
       } catch (err) {
-        window.location.href = "/login";
+        //window.location.href = "/login";
         return Promise.reject(err);
       }
     } else {
