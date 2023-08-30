@@ -52,7 +52,7 @@ export default function ReviewList({
   return (
     <ReviewWrapper>
       {membersReviews
-        .flatMap((review_data: any) => review_data?.contents)
+        ?.flatMap((review_data: any) => review_data?.contents)
         .map((data: any) => {
           return (
             <ReviewInner
