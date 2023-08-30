@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
@@ -85,9 +86,7 @@ export default function Mark() {
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
           titleList={keywordList}
-          count={
-            placeData?.[0].totalElements ? placeData?.[0].totalElements : 0
-          }
+          count={placeData?.[0].totalElements ? placeData?.[0].totalElements : 0}
         >
           {keywords?.map((_: any, idx: number) => {
             return (

@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -27,6 +27,12 @@ const TopNavigation = forwardRef(function Div(
 ) {
   const router = useRouter();
   const swiperRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slideTo(props.currentIndex);
+    }
+  }, [props.currentIndex]);
 
   const onSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;
@@ -111,8 +117,8 @@ const TopNavigation = forwardRef(function Div(
 
       <Swiper
         ref={swiperRef}
-        allowSlidePrev={props.currentIndex !== 0}
-        allowSlideNext={props.currentIndex !== children?.length - 1}
+        allowSlidePrev={props.currentIndex > 0}
+        allowSlideNext={props.currentIndex <= children?.length - 1}
         onSlideChange={onSlideChange}
       >
         {children?.map((data: any, idx: number) => {

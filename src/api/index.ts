@@ -8,13 +8,14 @@ const client = axios.create({
 client.interceptors.request.use((config) => {
   const accessToken = getCookie("accessToken");
 
-  !accessToken
-    ? (config.headers["Authorization"] = "")
-    : (config.headers["Authorization"] = `Bearer ${accessToken}`);
+  if (!accessToken) {
+    config.headers["Authorization"] = "";
+  } else {
+    config.headers["Authorization"] = `Bearer ${accessToken}`;
+  }
   return config;
 });
 
-// app render될 때, interceptor
 client.interceptors.response.use(
   (response) => {
     return response;
@@ -26,30 +27,30 @@ client.interceptors.response.use(
       const refreshToken = getCookie("refreshToken");
       const originalRequest = config;
 
-      await axios({
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "post",
-        url: `${process.env.BASE_URL}/auth/token`,
-        data: {
-          refreshToken: refreshToken,
-        },
-      })
-        .then(({ data }) => {
-          setCookie("accessToken", data.accessToken, 1);
-          setCookie("refreshToken", data.refreshToken, 30);
-          originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-        })
-        .catch((err) => {
-          window.location.href = "/login";
-          return Promise.reject(err);
+      try {
+        const { data } = await axios({
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "post",
+          url: `${process.env.BASE_URL}/auth/token`,
+          data: {
+            refreshToken: refreshToken,
+          },
         });
 
-      return axios(originalRequest);
+        setCookie("accessToken", data.accessToken, 1);
+        setCookie("refreshToken", data.refreshToken, 30);
+        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+
+        return axios(originalRequest);
+      } catch (err) {
+        window.location.href = "/login";
+        return Promise.reject(err);
+      }
+    } else {
+      throw error;
     }
-    // error throw
-    throw error;
   }
 );
 

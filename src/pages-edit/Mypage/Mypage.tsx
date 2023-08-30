@@ -22,18 +22,22 @@ import ProfileInfo from "./components/ProfileInfo";
 import RecommandSwiper from "./components/RecommandSwiper";
 import ReviewList from "./components/ReviewList";
 import NewButton from "./components/NewButton";
-import useGetMyReviews from "hooks/queries/user/useGetMyReviews";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import useGetMembersProfile from "hooks/queries/user/useGetMembersProfile";
 import useGetRecommendReviews from "hooks/queries/recommend-reviews/useGetRecommendReviews";
+import useGetMembersReviews from "hooks/queries/user/useGetMembersReviews";
 
 // 392 + 35 = 427
 
 export default function Mypage() {
   const router = useRouter();
-  const [mine, setMine] = useState<boolean>(true);
   const { width, height } = useDisplaySize();
-  const { data: myreview, isLoading } = useGetMyReviews();
+  const {
+    data: membersReviews,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetMembersReviews();
   const { data: membersProfile, isLoading: isMembersProfileLoading } =
     useGetMembersProfile();
   const { data: recommendedReviews, isLoading: isRecommendLoading } =
@@ -45,10 +49,13 @@ export default function Mypage() {
   const [titleChange, setTitleChange] = useState<boolean>(false);
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [mine, setMine] = useState<any>(null);
+
   const { openAlert } = useAlert();
 
   const clickRecommand = () => {
-    if (myreview && myreview[0].contents.length === 0) openAlert("write-review");
+    if (membersReviews && membersReviews[0].contents.length === 0)
+      openAlert("write-review");
     else {
       if (recommendedReviews?.length === 0) {
         localStorage.setItem("state", "postRecommendReview");
@@ -65,7 +72,9 @@ export default function Mypage() {
 
     if (
       (currentIndex === 0 ||
-        (currentIndex === 1 && myreview && myreview[0].contents?.length === 0)) &&
+        (currentIndex === 1 &&
+          membersReviews &&
+          membersReviews[0].contents?.length === 0)) &&
       scrollRef.current?.scrollTop >= scrollTop
     ) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -94,6 +103,14 @@ export default function Mypage() {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
   }, [currentIndex, membersProfile]);
+
+  useEffect(() => {
+    if (membersProfile && recommendedReviews) {
+      setCurrentIndex(
+        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0 ? 0 : 1
+      );
+    }
+  }, [membersProfile, recommendedReviews]);
 
   if (isLoading || isMembersProfileLoading || isRecommendLoading)
     return <LoadingCircle />;
@@ -184,8 +201,7 @@ export default function Mypage() {
             </TopNavigationInner>
             <TopNavigationInner
               height={
-                (myreview && myreview[0].contents?.length === 0) ||
-                currentIndex === 0
+                membersReviews?.[0].contents?.length === 0
                   ? height -
                     (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
                     104.5 +
@@ -195,12 +211,12 @@ export default function Mypage() {
             >
               <Spacing
                 size={
-                  myreview && myreview[0].contents?.length === 0
+                  membersReviews?.[0].contents?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
                     : 0
                 }
               />
-              {myreview && myreview[0].contents?.length === 0 ? (
+              {membersReviews?.[0].contents?.length === 0 && mine ? (
                 <NewButton
                   onClick={() => {}}
                   marginTop={0}
@@ -208,14 +224,17 @@ export default function Mypage() {
                   buttonText="첫 리뷰 남기기"
                 />
               ) : (
-                <ReviewList />
+                <ReviewList
+                  membersReviews={membersReviews && membersReviews}
+                  fetchNextPage={fetchNextPage}
+                  hasNextPage={hasNextPage}
+                />
               )}
               <Spacing size={30} />
             </TopNavigationInner>
           </TopNavigation>
         </div>
       </Wrapper>
-
       {mine ? <BottomNavigation /> : null}
     </>
   );
