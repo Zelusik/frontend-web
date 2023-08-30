@@ -5,7 +5,6 @@ import Toast from "components/Toast/Toast";
 import { colors } from "constants/colors";
 import { Route } from "constants/Route";
 import { typography } from "constants/typography";
-import useGetMyReviews from "hooks/queries/user/useGetMyReviews";
 import useDisplaySize from "hooks/useDisplaySize";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
@@ -14,13 +13,20 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 import { getAddressInfo } from "utils/getAddressInfo";
 import { changeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
+import useGetMembersReviews from "hooks/queries/user/useGetMembersReviews";
+import LoadingCircle from "components/Loading/LoadingCircle";
 
 export default function ReviewList({ type = "mypage" }: any) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { width } = useDisplaySize();
   const recommendReview = useAppSelector((state) => state.recommendReview);
-  const { data: myreview, fetchNextPage, hasNextPage } = useGetMyReviews();
+  const {
+    data: membersReviews,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetMembersReviews();
   const scrollRef = useRef(null);
 
   const { isShowToast, openToast, closeToast } = useToast();
@@ -46,10 +52,11 @@ export default function ReviewList({ type = "mypage" }: any) {
     }
   };
 
+  if (isLoading) return <LoadingCircle />;
   return (
     <ReviewWrapper>
-      {myreview &&
-        myreview
+      {membersReviews &&
+        membersReviews
           .flatMap((review_data) => review_data?.contents)
           .map((data: any) => {
             return (
@@ -61,18 +68,15 @@ export default function ReviewList({ type = "mypage" }: any) {
                 <Image
                   alt="리뷰 사진"
                   src={
-                    data?.images
-                      ? data?.images[0].thumbnailUrl
-                      : "https://i.ibb.co/2kSZX6Y/60pt.png"
+                    data?.reviewThumbnailImageUrls?.[0] ||
+                    data?.images[0].thumbnailUrl
                   }
                   type="mypage-review"
                 />
                 <StoreTitle
                   type="mypage-review"
-                  title={data?.place?.name || "소이연남"}
-                  subTitle={
-                    data?.place ? getAddressInfo(data?.place) : "음식 카테고리 지역"
-                  }
+                  title={data?.place?.name}
+                  subTitle={getAddressInfo(data?.place)}
                 />
                 {type === "recommand-best" ? (
                   <CountWrapper action={recommendReview.includes(data?.id)}>
