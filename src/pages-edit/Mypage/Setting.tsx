@@ -20,14 +20,20 @@ export default function Setting() {
   const settingHelp = [
     { text: "공지사항", route: "ANNOUNCEMENT" },
     { text: "문의하기", route: "INQUIRY" },
-    { text: "개인 정보 처리 방침", route: "PRIVACY_POLICY" },
+    { text: "개인정보 처리방침", route: "" },
   ];
 
-  const handleClickSetting = (route: string) => {
-    if (route) {
-      router.push(Route[route]());
+  const handleClickSetting = (setting: { text: string; route: string }) => {
+    if (setting.route) {
+      router.push(Route[setting.route]());
     } else {
-      openAlert("logout");
+      if (setting.text === "로그아웃") {
+        openAlert("logout");
+      } else {
+        window.open(
+          "https://asdfqweasd.notion.site/b22be65e8d0641cf814d51bcd8c6794a?pvs=4"
+        );
+      }
     }
   };
   return (
@@ -45,7 +51,7 @@ export default function Setting() {
               <div
                 className="section-container"
                 key={setting.text}
-                onClick={() => handleClickSetting(setting.route)}
+                onClick={() => handleClickSetting(setting)}
               >
                 {setting.text}
                 <Icon icon="Chevron" width={24} height={24} color="N100" />
@@ -63,7 +69,7 @@ export default function Setting() {
               <div
                 className="section-container"
                 key={setting.text}
-                onClick={() => handleClickSetting(setting.route)}
+                onClick={() => handleClickSetting(setting)}
               >
                 {setting.text}
                 <Icon icon="Chevron" width={24} height={24} color="N100" />
