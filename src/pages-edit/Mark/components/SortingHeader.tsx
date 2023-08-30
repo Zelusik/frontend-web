@@ -9,7 +9,7 @@ const SortingHeader = ({ count }: { count: number }) => {
       <Text typo="Headline1" color="N50">
         {`총 ${count}개의 음식점`}
       </Text>
-      <StoreFilter />
+      {/* <StoreFilter /> */}
     </SortingHeaderWrapper>
   );
 };
