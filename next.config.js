@@ -6,6 +6,9 @@ module.exports = {
   reactStrictMode: false,
   poweredByHeader: false,
   swcMinify: false,
+  devIndicators: {
+    autoPrerender: false,
+  },
   compiler: {
     styledComponents: {
       fileName: true,
