@@ -90,7 +90,7 @@ export const postReview = async (reviewData: ReviewType) => {
 
 export const getFeed = async (page: number) =>
   await client
-    .get("/reviews/feed", { params: { page, size: 20 } })
+    .get("/reviews/feed", { params: { page, size: 10 } })
     .then(({ data }) => data)
     .catch((err) => err.response);
 

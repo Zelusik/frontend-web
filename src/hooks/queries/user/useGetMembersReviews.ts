@@ -19,7 +19,7 @@ const useGetMembersReviews = () => {
           params: {
             writerId: writerId,
             page: pageParam,
-            size: 15,
+            size: 20,
             embed: "PLACE",
           },
         };
