@@ -22,7 +22,6 @@ client.interceptors.response.use(
   },
   async (error) => {
     const { config, response } = error;
-
     if (response.data.code === 1503 || response.data.code === 1500) {
       const refreshToken = getCookie("refreshToken");
       const originalRequest = config;
