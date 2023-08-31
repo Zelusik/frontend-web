@@ -13,17 +13,13 @@ export default function FoodSelection({ clickMyLocation, clickMarkShow }: any) {
     (state) => state.mapBottomSheet
   );
   const { foodType } = useAppSelector((state) => state.search);
-  const { foodTypeSetting } = useSearch();
-
-  const handleClickFood = (idx: number) => {
-    // let newFoods = foods;
-    // newFoods[idx].action = !newFoods[idx].action;
-    // setFoods(newFoods);
-  };
+  const { foodTypeSetting, newFoodTypeSetting } = useSearch();
 
   const clickFilterButton = (val: string) => {
-    if (foodType === val) foodTypeSetting("");
-    else foodTypeSetting(val);
+    if (foodType === val) {
+      newFoodTypeSetting("");
+      foodTypeSetting("");
+    } else foodTypeSetting(val);
   };
 
   return (
@@ -47,13 +43,9 @@ export default function FoodSelection({ clickMyLocation, clickMarkShow }: any) {
               key={idx}
               left={false}
               right={idx === tasteData.length - 1}
-              onClick={() => handleClickFood(idx)}
+              onClick={() => clickFilterButton(data.val)}
             >
-              <RoundButton
-                type="map-text"
-                action={data.val === foodType}
-                onClick={() => clickFilterButton(data.val)}
-              >
+              <RoundButton type="map-text" action={data.val === foodType}>
                 {data.val}
               </RoundButton>
             </ButtonWrapper>

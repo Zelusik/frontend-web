@@ -35,8 +35,8 @@ const useSearch = () => {
       })
     );
   };
+
   const foodTypeSetting = (val: any) => {
-    newFoodTypeSetting(val);
     dispatch(
       changeFoodType({
         type: "search",
@@ -54,7 +54,6 @@ const useSearch = () => {
     );
   };
   const dayOfWeekSetting = (val: any) => {
-    newDayOfWeekSetting(val);
     dispatch(
       changeDayOfWeek({
         type: "search",
@@ -72,7 +71,6 @@ const useSearch = () => {
     );
   };
   const moodSetting = (val: any) => {
-    newMoodSetting(val);
     dispatch(
       changeMood({
         type: "search",
@@ -87,10 +85,10 @@ const useSearch = () => {
     newMoodSetting(mood);
   };
 
-  const newAll = () => {
-    foodTypeSetting(newFoodType);
-    dayOfWeekSetting(newDayOfWeek);
-    moodSetting(newMood);
+  const newAll = (pickFoodType: any, pickDayOfWeek: any, pickMood: any) => {
+    foodTypeSetting(pickFoodType);
+    dayOfWeekSetting(pickDayOfWeek);
+    moodSetting(pickMood);
   };
 
   const deleteAll = () => {

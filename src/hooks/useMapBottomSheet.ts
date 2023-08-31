@@ -98,6 +98,7 @@ export default function useMapBottomSheet({ ...props }: any) {
   });
 
   useEffect(() => {
+    if (!props.use) return;
     const HEIGHT = window.innerHeight;
     const BOTTOM_SHEET_HEIGHT =
       HEIGHT - 82 - globalValue.BOTTOM_NAVIGATION_HEIGHT;
@@ -156,7 +157,7 @@ export default function useMapBottomSheet({ ...props }: any) {
         ) {
           content.current?.style.setProperty("overflow-y", "hidden");
           differenceY = touchMove.moveTouchY - touchStart.touchY;
-          if (differenceY > 0) return;
+          if (differenceY < -TOP) return;
 
           opacity = -differenceY / TOUCH;
           if (-differenceY / TOUCH > 1) opacity = 0.99;
@@ -171,7 +172,7 @@ export default function useMapBottomSheet({ ...props }: any) {
           touchStart.sheetY < HEIGHT / 2
         ) {
           differenceY = -TOP - touchStart.touchY + touchMove.moveTouchY;
-          if (differenceY < -TOP) return;
+          if (differenceY > 0) return;
 
           opacity = -differenceY / TOUCH;
           if (-differenceY / TOUCH > 1) opacity = 0.99;

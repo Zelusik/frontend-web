@@ -6,11 +6,34 @@ import {
   FOOD_KEYWORD,
   TASTE_KEYWORD,
 } from "constants/globalData";
+import useSearch from "hooks/useSearch";
+import useToast from "hooks/useToast";
 
-const useGetPlacesNear = (): any => {
-  const { foodType, dayOfWeek, mood, location } = useAppSelector(
-    (state) => state.search
-  );
+const useGetPlacesNear = (openToast: any): any => {
+  const {
+    filterAction,
+
+    foodType,
+    dayOfWeek,
+    mood,
+
+    newFoodType,
+    newDayOfWeek,
+    newMood,
+
+    location,
+  } = useAppSelector((state) => state.search);
+  const {
+    filterActionSetting,
+
+    foodTypeSetting,
+    dayOfWeekSetting,
+    moodSetting,
+
+    newFoodTypeSetting,
+    newDayOfWeekSetting,
+    newMoodSetting,
+  } = useSearch();
 
   const {
     data: responseData,
@@ -35,11 +58,30 @@ const useGetPlacesNear = (): any => {
         },
       };
 
-      return await getPlacesNear(params);
+      const result = await getPlacesNear(params);
+
+      if (
+        location.lat !== 0 &&
+        location.lng !== 0 &&
+        result?.totalElements === 0
+      ) {
+        foodTypeSetting(newFoodType);
+        dayOfWeekSetting(newDayOfWeek);
+        moodSetting(newMood);
+        filterActionSetting(filterAction);
+        openToast();
+      } else {
+        newFoodTypeSetting(foodType);
+        newDayOfWeekSetting(dayOfWeek);
+        newMoodSetting(mood);
+      }
+
+      return result;
     },
     {
-      staleTime: 5 * 60 * 1000,
-      cacheTime: 10 * 60 * 1000,
+      // keepPreviousData: true,
+      // staleTime: 5 * 60 * 1000,
+      // cacheTime: 10 * 60 * 1000,
       getNextPageParam: (lastPage) => {
         return lastPage?.isLast ? undefined : lastPage.number + 1;
       },

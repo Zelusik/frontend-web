@@ -15,7 +15,7 @@ export default function LocationTitle({ type, data }: any) {
       </Menu>
       <Text typo="Paragraph5" color="N100">
         {type === "location"
-          ? data && `전체 ${data.length !== 0 ? data.length : 0}곳`
+          ? data && `전체 ${data}곳`
           : addressData
           ? addressData.length !== 0 &&
             `${addressData[0]?.address.address_name.split(" ")[0]} ${

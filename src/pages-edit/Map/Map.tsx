@@ -6,6 +6,7 @@ import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
 import useSearch from "hooks/useSearch";
 import useGetPlacesNear from "hooks/queries/map/useGetPlacesNear";
+import useToast from "hooks/useToast";
 
 import { globalValue } from "constants/globalValue";
 import {
@@ -33,6 +34,7 @@ import StoreSort from "../Mark/components/StoreSort";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LocationError from "./components/LocationError";
+import Toast from "components/Toast";
 
 export default function Map() {
   const router = useRouter();
@@ -40,6 +42,7 @@ export default function Map() {
   const { location } = useAppSelector((state) => state.search);
   const myLocation: any = useGeolocation();
   const { locationSetting } = useSearch();
+  const { isShowToast, openToast, closeToast } = useToast();
 
   const { height } = useDisplaySize();
   const {
@@ -84,44 +87,51 @@ export default function Map() {
     });
   };
 
+  const [pickFoodType, setPickFoodType] = useState<any>("");
+  const [pickDayOfWeek, setPickDayOfWeek] = useState<any>([]);
+  const [pickMood, setPickMood] = useState<any>("");
   const filterData = [
     {
       type: "full",
       text: "음식종류",
       textList: tasteData,
       original: foodType,
-      new: newFoodType,
-      Fn: (val: any) => newFoodTypeSetting(val),
+      new: pickFoodType,
+      Fn: (val: any) => setPickFoodType(val),
     },
     {
       type: "full-radius",
       text: "약속요일",
       textList: dayOfWeekData,
       original: dayOfWeek,
-      new: newDayOfWeek,
-      Fn: (val: any) => newDayOfWeekSetting(val),
+      new: pickDayOfWeek,
+      Fn: (val: any) => setPickDayOfWeek(val),
     },
     {
       type: "full",
       text: "선호하는 분위기",
       textList: atmosphereKeyword,
       original: mood,
-      new: newMood,
-      Fn: (val: any) => newMoodSetting(val),
+      new: pickMood,
+      Fn: (val: any) => setPickMood(val),
     },
   ];
 
   useEffect(() => {
+    setPickFoodType(foodType);
+    setPickDayOfWeek(dayOfWeek);
+    setPickMood(mood);
     setCurrentLocation(location);
-  }, [location]);
+  }, [location, foodType, dayOfWeek, mood]);
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear();
+  const { data, isLoading, fetchNextPage, hasNextPage } =
+    useGetPlacesNear(openToast);
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   return (
     <>
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
-        {location?.error?.code === 1 ? (
+        {myLocation?.error?.code === 1 ? (
           <LocationError />
         ) : !myLocation?.loaded ? (
           <LoadingCircle size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
@@ -150,7 +160,7 @@ export default function Map() {
             {type === "store" ? (
               <StoreSort />
             ) : (
-              <LocationTitle type={type} data={data?.[0]?.contents} />
+              <LocationTitle type={type} data={data?.[0]?.totalElements} />
             )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
@@ -211,8 +221,21 @@ export default function Map() {
           clickMarkShow={clickMarkShow}
         />
       </TopWrapper>
+      {isShowToast && (
+        <Toast message="조건에 일치하는 장소가 없습니다" close={closeToast} />
+      )}
 
-      {filterAction ? <FilterButton /> : <BottomNavigation />}
+      {filterAction ? (
+        <FilterButton
+          filter={{
+            pickFoodType,
+            pickDayOfWeek,
+            pickMood,
+          }}
+        />
+      ) : (
+        <BottomNavigation />
+      )}
     </>
   );
 }

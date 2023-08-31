@@ -11,7 +11,7 @@ import useMapBottomSheet from "hooks/useMapBottomSheet";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { equals } from "utils/equals";
 
-export default function FilterButton({}: any) {
+export default function FilterButton({ filter }: any) {
   const router = useRouter();
   const { foodType, newFoodType, dayOfWeek, newDayOfWeek, mood, newMood } =
     useAppSelector((state) => state.search);
@@ -40,13 +40,17 @@ export default function FilterButton({}: any) {
           <BottomButton
             type="primary"
             disabled={
-              foodType === newFoodType &&
-              equals(dayOfWeek, newDayOfWeek) &&
-              mood === newMood
+              foodType === filter.pickFoodType &&
+              equals(dayOfWeek, filter.pickDayOfWeek) &&
+              mood === filter.pickMood
             }
             onClick={() => {
               filterActionSetting(false);
-              newAll();
+              newAll(
+                filter.pickFoodType,
+                filter.pickDayOfWeek,
+                filter.pickMood
+              );
             }}
           >
             확인
