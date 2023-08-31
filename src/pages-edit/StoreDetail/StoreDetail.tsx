@@ -44,10 +44,7 @@ export default function StoreDetail() {
       currentIndex === 1
     ) {
       scrollRef.current!.scrollTop = 165;
-    } else if (
-      scrollRef.current?.scrollTop >= scrollTop &&
-      currentIndex === 1
-    ) {
+    } else if (scrollRef.current?.scrollTop >= scrollTop && currentIndex === 1) {
       scrollRef.current!.scrollTop = scrollTop;
       return;
     }
@@ -57,10 +54,7 @@ export default function StoreDetail() {
       scrollRef.current?.scrollTop >= 25
     ) {
       setTitleChange(true);
-    } else if (
-      scrollRef.current?.scrollTop >=
-      imageRef.current?.clientHeight - 20
-    ) {
+    } else if (scrollRef.current?.scrollTop >= imageRef.current?.clientHeight - 20) {
       setTitleChange(true);
     } else {
       setTitleChange(false);
@@ -105,9 +99,7 @@ export default function StoreDetail() {
 
       <Wrapper ref={scrollRef} height={height}>
         <Spacing
-          size={
-            data?.storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50
-          }
+          size={data?.storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50}
         />
 
         <Inner>
@@ -119,8 +111,8 @@ export default function StoreDetail() {
               data?.storeInfo &&
               `${data?.storeInfo?.category} · ${data?.storeInfo?.address?.sido} ${data?.storeInfo?.address?.sgg} ${data?.storeInfo?.address?.lotNumberAddress}`
             }
-            isMarked={data.storeInfo.isMarked}
-            placeId={data.storeInfo.id}
+            isMarked={data?.storeInfo?.isMarked}
+            placeId={data?.storeInfo?.id}
           />
 
           <Spacing size={16} />
@@ -153,9 +145,7 @@ export default function StoreDetail() {
               })}
             </div>
             <StoreInfo
-              height={
-                height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"
-              }
+              height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"}
             >
               {makeInfo(data?.storeInfo).map((data: any, idx: number) => {
                 return <Info key={idx} data={data} />;
@@ -198,8 +188,7 @@ const TitleWrapper = styled.div<{ visible: boolean }>`
   top: 0;
   z-index: 900;
 
-  background-color: ${({ visible }) =>
-    visible ? `${colors.N0}` : `transparents`};
+  background-color: ${({ visible }) => (visible ? `${colors.N0}` : `transparents`)};
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
 `;
 

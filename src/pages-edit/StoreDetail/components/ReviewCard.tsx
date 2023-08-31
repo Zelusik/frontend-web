@@ -9,15 +9,17 @@ import SlideImage from "components/Image/SlideImage";
 
 export default function ReivewCard({ data }: any) {
   const router = useRouter();
-  const mine = false;
+  const mine = true;
 
   return (
     <>
       <Wrapper>
         <ProfileTitle
           type={mine ? "mine" : "follow"}
-          title="고작가"
+          title={data.writer.nickname}
           // subTitle="움맘마"
+          profileImg={data.writer.profileThumbnailImageUrl}
+          id={data.writer.id}
         />
         <Spacing size={16} />
       </Wrapper>
