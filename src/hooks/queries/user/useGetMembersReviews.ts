@@ -19,7 +19,7 @@ const useGetMembersReviews = () => {
           params: {
             writerId: writerId,
             page: pageParam,
-            size: 20,
+            size: 10,
             embed: "PLACE",
           },
         };
@@ -28,7 +28,7 @@ const useGetMembersReviews = () => {
       } else {
         const res = await getMyReviews({
           page: pageParam,
-          size: 20,
+          size: 10,
         });
         return res;
       }

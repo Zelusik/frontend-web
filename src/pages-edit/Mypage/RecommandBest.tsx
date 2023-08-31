@@ -10,23 +10,36 @@ import ReviewList from "./components/ReviewList";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { initializeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
 import { useRouter } from "next/router";
-import { postRecommendReviews, updateRecommendReviews } from "api/recommend-reviews";
+import {
+  postRecommendReviews,
+  updateRecommendReviews,
+} from "api/recommend-reviews";
+import useGetMembersReviews from "hooks/queries/user/useGetMembersReviews";
 
 export default function RecommandBest() {
   const router = useRouter();
   const { height } = useDisplaySize();
   const dispatch = useAppDispatch();
   const recommendReview = useAppSelector((state) => state.recommendReview);
+  const {
+    data: membersReviews,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetMembersReviews();
+  console.log(membersReviews);
 
   const handleClickReset = () => {
     dispatch(initializeRecommendReview());
   };
 
   const handleClickStore = async () => {
-    const recommendReviews = recommendReview.map((reviewId: any, index: any) => ({
-      reviewId: reviewId,
-      ranking: index + 1,
-    }));
+    const recommendReviews = recommendReview.map(
+      (reviewId: any, index: any) => ({
+        reviewId: reviewId,
+        ranking: index + 1,
+      })
+    );
 
     if (localStorage.getItem("state") === "postRecommendReview") {
       // 등록
@@ -56,13 +69,20 @@ export default function RecommandBest() {
       <Spacing size={146} />
 
       <RecommandBestWrapper height={height - 240}>
-        <ReviewList type="recommand-best" />
+        <ReviewList
+          type="recommand-best"
+          membersReviews={membersReviews && membersReviews}
+        />
         <Spacing size={30} />
       </RecommandBestWrapper>
 
       <Gradient size={30} />
       <ButtonWrapper>
-        <BottomButton type="default" onClick={handleClickReset} disabled={false}>
+        <BottomButton
+          type="default"
+          onClick={handleClickReset}
+          disabled={false}
+        >
           초기화
         </BottomButton>
         <BottomButton

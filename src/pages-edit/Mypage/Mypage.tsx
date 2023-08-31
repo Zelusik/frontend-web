@@ -32,16 +32,16 @@ import useGetMembersReviews from "hooks/queries/user/useGetMembersReviews";
 export default function Mypage() {
   const router = useRouter();
   const { width, height } = useDisplaySize();
+  const { data: membersProfile, isLoading: isMembersProfileLoading } =
+    useGetMembersProfile();
+  const { data: recommendedReviews, isLoading: isRecommendLoading } =
+    useGetRecommendReviews();
   const {
     data: membersReviews,
     isLoading,
     fetchNextPage,
     hasNextPage,
   } = useGetMembersReviews();
-  const { data: membersProfile, isLoading: isMembersProfileLoading } =
-    useGetMembersProfile();
-  const { data: recommendedReviews, isLoading: isRecommendLoading } =
-    useGetRecommendReviews();
 
   const scrollRef = useRef<any>(null);
 
@@ -102,12 +102,14 @@ export default function Mypage() {
     return () => {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
-  }, [currentIndex, membersProfile]);
+  }, [currentIndex, membersProfile, recommendedReviews, membersReviews]);
 
   useEffect(() => {
     if (membersProfile && recommendedReviews) {
       setCurrentIndex(
-        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0 ? 0 : 1
+        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0
+          ? 0
+          : 1
       );
     }
   }, [membersProfile, recommendedReviews]);
@@ -148,7 +150,10 @@ export default function Mypage() {
 
         <div style={{ position: "relative" }}>
           <div style={{ padding: "0 20px" }}>
-            <ProfileInfo mine={mine} profile={membersProfile && membersProfile} />
+            <ProfileInfo
+              mine={mine}
+              profile={membersProfile && membersProfile}
+            />
             <Spacing size={22} />
 
             <TasteBox tasteStatistics={membersProfile?.tasteStatistics} />
@@ -176,7 +181,8 @@ export default function Mypage() {
                 size={
                   recommendedReviews?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) >
+                      ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
@@ -226,11 +232,19 @@ export default function Mypage() {
                   buttonText="첫 리뷰 남기기"
                 />
               ) : (
-                <ReviewList
-                  membersReviews={membersReviews && membersReviews}
-                  fetchNextPage={fetchNextPage}
-                  hasNextPage={hasNextPage}
-                />
+                <>
+                  <ReviewList
+                    membersReviews={membersReviews && membersReviews}
+                    fetchNextPage={fetchNextPage}
+                    hasNextPage={hasNextPage}
+                  />
+                  {hasNextPage ? (
+                    <>
+                      <Spacing size={24} />
+                      <LoadingCircle size={30} />
+                    </>
+                  ) : null}
+                </>
               )}
               <Spacing size={30} />
             </TopNavigationInner>
