@@ -36,7 +36,7 @@ const SelectMenu = () => {
   const menuTag = useAppSelector((state) => state.menuTag);
   const { foodInfo } = useAppSelector((state) => state.review);
   const [clickedMenu, setClickedMenu] = useState("");
-  console.log(foodInfo);
+
   const handleClickFood = (foodName: string) => {
     setClickedMenu(foodName);
 

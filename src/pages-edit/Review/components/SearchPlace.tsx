@@ -10,14 +10,15 @@ import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import useGetSearchPlace from "hooks/queries/review/useGetSearchPlace";
+import { initEditImageInfo } from "reducer/slices/image/imageSlice";
 
 const SearchPlace = () => {
   const dispatch = useAppDispatch();
   const route = useRouter();
+  const image = useAppSelector((state) => state.image);
   const { placeInfo } = useAppSelector((state) => state.review);
   const infiniteScorllRef = useRef(null);
   const [value, setValue] = useState("");
-
   const { data, hasNextPage, fetchNextPage } = useGetSearchPlace({
     x: value ? 0 : placeInfo.lng,
     y: value ? 0 : placeInfo.lat,
@@ -49,6 +50,14 @@ const SearchPlace = () => {
         type: "foodInfo",
         value: [],
       })
+    );
+    dispatch(
+      initEditImageInfo(
+        image.map((item: any) => ({
+          ...item,
+          menuTag: [],
+        }))
+      )
     );
     route.back();
   };
