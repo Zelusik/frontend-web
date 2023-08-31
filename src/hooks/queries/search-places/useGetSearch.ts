@@ -41,10 +41,10 @@ const useGetSearch = (currentIndex: number, keyword: any): any => {
     hasNextPage,
     refetch,
   } = useInfiniteQuery(["search", currentIndex, keyword], fetchSearch, {
-    getNextPageParam: (lastPage: any) => {
+    getNextPageParam: (lastPage: any, allPages: any) => {
       if (lastPage) {
         if (currentIndex === 1) {
-          return lastPage?.meta?.is_end ? undefined : lastPage.number + 1;
+          return lastPage?.meta?.is_end ? undefined : allPages.length + 1;
         } else return lastPage.isLast ? undefined : lastPage.number + 1;
       } else {
         return undefined;
