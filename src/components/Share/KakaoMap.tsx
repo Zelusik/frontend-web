@@ -13,21 +13,6 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
         center={{ lat: lat, lng: lng }}
         style={{ width: "100%", height: "100%" }}
       >
-        {/* 현재 위치 마커 */}
-        <MapMarker
-          position={{
-            lat: lat,
-            lng: lng,
-          }}
-          image={{
-            src: "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/myplace.png",
-            size: {
-              width: 24,
-              height: 24,
-            },
-          }}
-        />
-
         {/* 마커들 */}
         {data &&
           data?.map((d: any, idx: number) => {
@@ -52,6 +37,21 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
               )
             );
           })}
+
+        {/* 현재 위치 마커 */}
+        <MapMarker
+          position={{
+            lat: props.myLat,
+            lng: props.myLng,
+          }}
+          image={{
+            src: "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/myplace.png",
+            size: {
+              width: 24,
+              height: 24,
+            },
+          }}
+        />
       </Map>
     </MapWrapper>
   );

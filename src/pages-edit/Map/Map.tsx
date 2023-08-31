@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { useAppSelector } from "hooks/useReduxHooks";
@@ -37,7 +37,9 @@ import LocationError from "./components/LocationError";
 export default function Map() {
   const router = useRouter();
   const infinityScrollRef = useRef(null);
-  const location: any = useGeolocation();
+  const { location } = useAppSelector((state) => state.search);
+  const myLocation: any = useGeolocation();
+  const { locationSetting } = useSearch();
 
   const { height } = useDisplaySize();
   const {
@@ -59,9 +61,27 @@ export default function Map() {
     newMood,
   } = useAppSelector((state) => state.search);
 
+  const clickMyLocation = () => {
+    typeSetting("default");
+    locationSetting({
+      lat: myLocation?.coordinates?.lat,
+      lng: myLocation?.coordinates?.lng,
+    });
+  };
   const [isMarkShow, setIsMarkShow] = useState<boolean>(false);
   const clickMarkShow = () => {
+    setCurrentLocation({
+      lat: myLocation?.coordinates?.lat,
+      lng: myLocation?.coordinates?.lng,
+    });
     setIsMarkShow(!isMarkShow);
+  };
+  const [currentLocation, setCurrentLocation] = useState<any>(null);
+  const clickFindLocation = () => {
+    setCurrentLocation({
+      lat: myLocation?.coordinates?.lat,
+      lng: myLocation?.coordinates?.lng,
+    });
   };
 
   const filterData = [
@@ -91,6 +111,10 @@ export default function Map() {
     },
   ];
 
+  useEffect(() => {
+    setCurrentLocation(location);
+  }, [location]);
+
   const { data, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear();
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
@@ -99,20 +123,21 @@ export default function Map() {
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
         {location?.error?.code === 1 ? (
           <LocationError />
-        ) : location?.coordinates?.lat === 0 &&
-          location?.coordinates?.lng === 0 ? (
+        ) : !myLocation?.loaded ? (
           <LoadingCircle size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
         ) : (
           <KakaoMap
-            lat={location?.coordinates?.lat}
-            lng={location?.coordinates?.lng}
+            lat={currentLocation?.lat}
+            lng={currentLocation?.lng}
+            myLat={myLocation?.coordinates?.lat}
+            myLng={myLocation?.coordinates?.lng}
             data={data?.[0]?.contents}
             isMarkShow={isMarkShow}
           />
         )}
       </KakaoMapWrapper>
 
-      <FindLocationButton />
+      <FindLocationButton clickFindLocation={clickFindLocation} />
       <MapBottomSheet>
         {filterAction ? (
           <>
@@ -125,13 +150,11 @@ export default function Map() {
             {type === "store" ? (
               <StoreSort />
             ) : (
-              <LocationTitle type={type} data={data?.contents} />
+              <LocationTitle type={type} data={data?.[0]?.contents} />
             )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
-            {isLoading ||
-            (location?.coordinates?.lat === 0 &&
-              location?.coordinates?.lng === 0) ? (
+            {isLoading || !myLocation?.loaded ? (
               <LoadingCircle
                 size={
                   (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) * 0.2
@@ -183,7 +206,10 @@ export default function Map() {
         ) : undefined}
         <Spacing size={8} />
 
-        <FoodSelection clickMarkShow={clickMarkShow} />
+        <FoodSelection
+          clickMyLocation={clickMyLocation}
+          clickMarkShow={clickMarkShow}
+        />
       </TopWrapper>
 
       {filterAction ? <FilterButton /> : <BottomNavigation />}

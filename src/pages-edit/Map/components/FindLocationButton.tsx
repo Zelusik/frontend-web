@@ -4,13 +4,11 @@ import { colors } from "constants/colors";
 import { globalValue } from "constants/globalValue";
 import Icon from "components/Icon";
 
-export default function FindLocationButton() {
+export default function FindLocationButton({ clickFindLocation }: any) {
   const router = useRouter();
 
-  const findingLocation = () => {};
-
   return (
-    <Wrapper onClick={findingLocation}>
+    <Wrapper onClick={clickFindLocation}>
       <IconWrapper>
         <Icon icon="FindLocation" />
       </IconWrapper>

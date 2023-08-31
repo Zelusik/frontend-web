@@ -16,13 +16,25 @@ const useGeolocation = () => {
   });
   const { locationSetting } = useSearch();
 
-  const onSuccess = (location: {
+  const onMyLocation = (location: {
     coords: { latitude: number; longitude: number };
   }) => {
     locationSetting({
       lat: location.coords.latitude,
       lng: location.coords.longitude,
     });
+    setMyLocation({
+      loaded: true,
+      coordinates: {
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      },
+    });
+  };
+
+  const onLocation = (location: {
+    coords: { latitude: number; longitude: number };
+  }) => {
     setMyLocation({
       loaded: true,
       coordinates: {
@@ -48,19 +60,9 @@ const useGeolocation = () => {
     // }
 
     if (location.lat !== 0 && location.lng !== 0) {
-      locationSetting({
-        lat: location.lat,
-        lng: location.lng,
-      });
-      setMyLocation({
-        loaded: true,
-        coordinates: {
-          lat: location.lat,
-          lng: location.lng,
-        },
-      });
+      navigator.geolocation.getCurrentPosition(onLocation, onError);
     } else {
-      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+      navigator.geolocation.getCurrentPosition(onMyLocation, onError);
     }
   }, []);
 

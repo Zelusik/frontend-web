@@ -7,7 +7,7 @@ import { useAppSelector } from "hooks/useReduxHooks";
 import { tasteData } from "constants/globalData";
 import useSearch from "hooks/useSearch";
 
-export default function FoodSelection({ clickMarkShow }: any) {
+export default function FoodSelection({ clickMyLocation, clickMarkShow }: any) {
   const router = useRouter();
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
@@ -29,7 +29,7 @@ export default function FoodSelection({ clickMarkShow }: any) {
   return (
     <ScrollWrapper visible={visible} actionDelay={actionDelay}>
       <ScrollInner>
-        <ButtonWrapper left={true} right={false}>
+        <ButtonWrapper left={true} right={false} onClick={clickMyLocation}>
           <RoundButton type="map-icon" action={true}>
             내 주변
           </RoundButton>
