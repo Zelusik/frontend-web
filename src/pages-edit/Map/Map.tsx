@@ -32,11 +32,13 @@ import FilterButton from "./components/filter/FilterButton";
 import StoreSort from "../Mark/components/StoreSort";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
+import LocationError from "./components/LocationError";
 
 export default function Map() {
   const router = useRouter();
   const infinityScrollRef = useRef(null);
   const location: any = useGeolocation();
+
   const { height } = useDisplaySize();
   const {
     newFoodTypeSetting,
@@ -95,12 +97,19 @@ export default function Map() {
   return (
     <>
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
-        <KakaoMap
-          lat={location?.coordinates?.lat}
-          lng={location?.coordinates?.lng}
-          data={data?.contents}
-          isMarkShow={isMarkShow}
-        />
+        {location?.error?.code === 1 ? (
+          <LocationError />
+        ) : location?.coordinates?.lat === 0 &&
+          location?.coordinates?.lng === 0 ? (
+          <LoadingCircle size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
+        ) : (
+          <KakaoMap
+            lat={location?.coordinates?.lat}
+            lng={location?.coordinates?.lng}
+            data={data?.[0]?.contents}
+            isMarkShow={isMarkShow}
+          />
+        )}
       </KakaoMapWrapper>
 
       <FindLocationButton />
@@ -120,7 +129,9 @@ export default function Map() {
             )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
-            {isLoading ? (
+            {isLoading ||
+            (location?.coordinates?.lat === 0 &&
+              location?.coordinates?.lng === 0) ? (
               <LoadingCircle
                 size={
                   (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) * 0.2
@@ -131,7 +142,11 @@ export default function Map() {
                 {data
                   ?.flatMap((page_data: any) => page_data?.contents)
                   ?.map((data: any, idx: number) => {
-                    return <StoreCard key={idx} data={data} />;
+                    return (
+                      ((isMarkShow && data?.isMarked) || !isMarkShow) && (
+                        <StoreCard key={idx} data={data} />
+                      )
+                    );
                   })}
                 <div ref={infinityScrollRef} />
                 {hasNextPage ? (
@@ -178,6 +193,7 @@ export default function Map() {
 
 const KakaoMapWrapper = styled.div<{ height: number }>`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: ${({ height }) => height}px;
 
   position: absolute;

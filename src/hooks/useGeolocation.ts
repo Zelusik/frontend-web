@@ -40,12 +40,12 @@ const useGeolocation = () => {
   };
 
   useEffect(() => {
-    if (!("geolocation" in navigator)) {
-      onError({
-        code: 0,
-        message: "Geolocation not supported",
-      });
-    }
+    // if (!("geolocation" in navigator)) {
+    //   onError({
+    //     code: 0,
+    //     message: "Geolocation not supported",
+    //   });
+    // }
 
     if (location.lat !== 0 && location.lng !== 0) {
       locationSetting({

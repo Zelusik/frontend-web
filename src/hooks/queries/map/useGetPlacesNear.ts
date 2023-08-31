@@ -31,10 +31,9 @@ const useGetPlacesNear = (): any => {
           lat: location.lat,
           lng: location.lng,
           page: pageParam,
-          size: 20,
+          size: 10,
         },
       };
-      console.log(params);
 
       return await getPlacesNear(params);
     },

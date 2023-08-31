@@ -10,6 +10,7 @@ import ReviewDelete from "./children/ReviewDelete";
 import Sort from "./children/Sort";
 import WriteReview from "./children/WriteReview";
 import CopyText from "./children/CopyText";
+import LocationSetting from "./children/LocationSetting";
 
 const COMPONENT: any = {
   sort: <Sort />,
@@ -17,6 +18,7 @@ const COMPONENT: any = {
   "review-delete": <ReviewDelete />,
   logout: <Logout />,
   "copy-text": <CopyText />,
+  "location-setting": <LocationSetting />,
 };
 
 export default function Alert() {

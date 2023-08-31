@@ -1,4 +1,3 @@
-import React from "react";
 import { getMarkPlaces } from "api/places";
 import { useInfiniteQuery } from "react-query";
 
