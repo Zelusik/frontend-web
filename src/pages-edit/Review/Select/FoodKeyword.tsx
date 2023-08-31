@@ -91,6 +91,18 @@ const FoodKeyword = () => {
   };
 
   const handleClickSelfBtn = () => {
+    dispatch(
+      changeReviewInfo({
+        type: "autoCreatedContent",
+        value: "",
+      })
+    );
+    dispatch(
+      changeReviewInfo({
+        type: "content",
+        value: "",
+      })
+    );
     route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "self" } });
   };
 
