@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
 import { colors } from "constants/colors";
@@ -35,6 +35,10 @@ const Review = () => {
   const handleCloseToast = () => {
     closeToast();
   };
+
+  useEffect(() => {
+    localStorage.removeItem("state");
+  }, []);
 
   const isHeicOrHeif = (fileName: string): boolean => {
     const lowercasedName = fileName.toLowerCase();
