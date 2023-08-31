@@ -44,6 +44,12 @@ const SearchPlace = () => {
         },
       })
     );
+    dispatch(
+      changeReviewInfo({
+        type: "foodInfo",
+        value: [],
+      })
+    );
     route.back();
   };
 

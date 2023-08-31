@@ -119,18 +119,26 @@ const Menu = () => {
 
   const handleDeleteMenuTag = (menuTag: any, index: number) => {
     dispatch(
-      changeVisible({
-        type: "bottomSheet",
-        value: 0,
-      })
-    );
-
-    dispatch(
       deleteMenuTag({
         index,
         menuTag,
       })
     );
+    const deleteIndex = foodInfo.findIndex(
+      (food: any) => food.foodName === menuTag.menu
+    );
+    if (deleteIndex !== -1) {
+      const updatedFoodInfo = [
+        ...foodInfo.slice(0, deleteIndex),
+        ...foodInfo.slice(deleteIndex + 1),
+      ];
+      dispatch(
+        changeReviewInfo({
+          type: "foodInfo",
+          value: updatedFoodInfo,
+        })
+      );
+    }
   };
 
   const handleDragStart = (e: any, idx: number, index: number) => {
