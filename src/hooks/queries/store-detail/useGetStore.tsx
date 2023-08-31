@@ -1,10 +1,11 @@
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 import { getPlaces, getPlacesId, postPlaces } from "api/places";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { getReviews } from "api/reviews";
 
 const useGetStore = ({ kakaoId, placeId }: any): any => {
   const { placeInfo } = useAppSelector((state) => state.search);
+
   const { data, isLoading, error, refetch } = useQuery(
     ["search"],
     async () => {
@@ -15,6 +16,7 @@ const useGetStore = ({ kakaoId, placeId }: any): any => {
             placeId: kakaoId,
             page: 0,
             size: 10,
+            embed: "WRITER",
           },
         };
         let newPlaceInfo = null;
@@ -38,6 +40,7 @@ const useGetStore = ({ kakaoId, placeId }: any): any => {
             placeId: placeId,
             page: 0,
             size: 10,
+            embed: "WRITER",
           },
         };
 
@@ -54,7 +57,6 @@ const useGetStore = ({ kakaoId, placeId }: any): any => {
       cacheTime: 1000 * 60 * 30,
     }
   );
-
   return { data, isLoading, error, refetch };
 };
 

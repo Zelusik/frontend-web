@@ -41,12 +41,6 @@ const SelectMenu = () => {
     setClickedMenu(foodName);
 
     if (foodInfo.map((e: FoodType) => e.foodName).includes(foodName)) {
-      dispatch(
-        changeReviewInfo({
-          type: "foodInfo",
-          value: foodInfo.filter((e: FoodType) => e.foodName !== foodName),
-        })
-      );
     } else {
       dispatch(
         changeReviewInfo({

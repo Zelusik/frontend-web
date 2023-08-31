@@ -32,7 +32,6 @@ export const Route: RouteType = {
   DELETE_PROFILE: () => "/mypage/setting/delete-profile",
   ANNOUNCEMENT: () => "/mypage/setting/announcement",
   INQUIRY: () => "/mypage/setting/inquiry",
-  PRIVACY_POLICY: () => "/mypage/setting/privacy-policy",
 
   REVIEW_DETAIL: () => "/review-detail",
   IMAGE_DETAIL: () => "/image-detail",

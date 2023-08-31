@@ -13,7 +13,6 @@ import { typography } from "constants/typography";
 import Link from "next/link";
 import BottomButton from "components/Button/BottomButton";
 import { Route } from "constants/Route";
-import BackTitle from "components/Title/BackTitle";
 
 const TermsPage = () => {
   const dispatch = useAppDispatch();
@@ -63,6 +62,9 @@ const TermsPage = () => {
     );
   };
 
+  const handleClickBackBtn = () => {
+    router.push(Route.LOGIN());
+  };
   const handleClickNextBtn = () => {
     router.push(Route.TASTE());
   };
@@ -70,7 +72,15 @@ const TermsPage = () => {
   return (
     <TermsWrapper>
       <TopWrapper>
-        <BackTitle type="black-left-text" text="" />
+        <BackTitle>
+          <Icon
+            icon="LeftArrow"
+            width={24}
+            height={24}
+            color="N100"
+            onClick={handleClickBackBtn}
+          />
+        </BackTitle>
       </TopWrapper>
       <MainWrapper>
         <Spacing size={30} />
@@ -112,7 +122,7 @@ const TermsPage = () => {
                 </div>
                 {term.link && (
                   <Link href={term.link} target="_blank">
-                    <Icon icon="Chevron" />
+                    <Icon icon="Chevron" color="N60" width={16} height={16} />
                   </Link>
                 )}
               </TermContainer>
@@ -144,6 +154,10 @@ const TermsPage = () => {
 const TermsWrapper = styled.div``;
 const TopWrapper = styled.div`
   padding: 30px 20px 0;
+`;
+const BackTitle = styled.div`
+  display: flex;
+  justify-content: flex-start;
 `;
 const MainWrapper = styled.div`
   padding: 0 20px;

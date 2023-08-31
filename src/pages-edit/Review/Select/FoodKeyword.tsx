@@ -18,6 +18,7 @@ import Toast from "components/Toast/Toast";
 import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
 import ReviewLoading from "../components/ReviewLoading";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
+import LoadingDots from "components/Loading/LoadingDots";
 
 const FoodKeyword = () => {
   const route = useRouter();
@@ -34,7 +35,7 @@ const FoodKeyword = () => {
     closeToast();
   };
 
-  const { data } = useGetMenuKeywords({
+  const { data, isLoading: foodKeywordLoading } = useGetMenuKeywords({
     placeCategory: placeInfo.categoryName,
     menus: foodInfo.map((e: FoodType) => e.foodName.replace(",", "")),
   });
@@ -90,6 +91,18 @@ const FoodKeyword = () => {
   };
 
   const handleClickSelfBtn = () => {
+    dispatch(
+      changeReviewInfo({
+        type: "autoCreatedContent",
+        value: "",
+      })
+    );
+    dispatch(
+      changeReviewInfo({
+        type: "content",
+        value: "",
+      })
+    );
     route.push({ pathname: Route.REVIEW_WRITE(), query: { state: "self" } });
   };
 
@@ -99,68 +112,78 @@ const FoodKeyword = () => {
         <ReviewLoading type="auto" nickname={userInfo?.nickname} />
       ) : (
         <>
-          <BackTitle type="black-left-text" text="식사 리뷰" />
-          <Spacing size={20} />
+          {foodKeywordLoading ? (
+            <div className="icon">
+              <LoadingDots />
+            </div>
+          ) : (
+            <>
+              <BackTitle type="black-left-text" text="식사 리뷰" />
+              <Spacing size={20} />
 
-          <MainWrapper>
-            <div style={typography.Headline5}>맛은 어떠셨나요?</div>
-            <KeywordContainer>
-              {data ? (
-                <>
-                  {data.menuKeywords.map(
-                    (
-                      menuInfo: { menu: string; keywords: string[] },
-                      index: number
-                    ) => (
-                      <KeywordBox key={index}>
-                        <span style={typography.Headline2}>{menuInfo.menu}</span>
-                        <div className="keywords">
-                          {menuInfo.keywords.map((keyword) => (
-                            <RoundButton
-                              key={keyword}
-                              borderRadius="12px"
-                              type="text"
-                              height={38}
-                              action={foodInfo
-                                .filter(
-                                  (e: FoodType) => e.foodName === menuInfo.menu
-                                )[0]
-                                .foodKeyword.includes(keyword)}
-                              onClick={() =>
-                                handleClickKeywords({
-                                  food: menuInfo.menu,
-                                  keyword,
-                                })
-                              }
-                            >
-                              {keyword}
-                            </RoundButton>
-                          ))}
-                        </div>
-                      </KeywordBox>
-                    )
-                  )}
-                </>
-              ) : null}
-            </KeywordContainer>
-          </MainWrapper>
-          <BottomWrapper>
-            <span style={{ ...typography.Paragraph1, color: colors.N80 }}>
-              1-3개 선택할 수 있어요
-            </span>
-            <BottomButton
-              text="AI 도움받기"
-              radius={8}
-              backgroundColor={colors.Orange400}
-              color={colors.N0}
-              height="54px"
-              onClick={handleClickAIBtn}
-              disabled={keywords.length === 0}
-            />
-            <ReviewButton onClick={handleClickSelfBtn}>직접 리뷰쓰기</ReviewButton>
-          </BottomWrapper>
-          {isShowToast && (
-            <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
+              <MainWrapper>
+                <div style={typography.Headline5}>맛은 어떠셨나요?</div>
+                <KeywordContainer>
+                  {data ? (
+                    <>
+                      {data.menuKeywords.map(
+                        (
+                          menuInfo: { menu: string; keywords: string[] },
+                          index: number
+                        ) => (
+                          <KeywordBox key={index}>
+                            <span style={typography.Headline2}>{menuInfo.menu}</span>
+                            <div className="keywords">
+                              {menuInfo.keywords.map((keyword) => (
+                                <RoundButton
+                                  key={keyword}
+                                  borderRadius="12px"
+                                  type="text"
+                                  height={38}
+                                  action={foodInfo
+                                    .filter(
+                                      (e: FoodType) => e.foodName === menuInfo.menu
+                                    )[0]
+                                    .foodKeyword.includes(keyword)}
+                                  onClick={() =>
+                                    handleClickKeywords({
+                                      food: menuInfo.menu,
+                                      keyword,
+                                    })
+                                  }
+                                >
+                                  {keyword}
+                                </RoundButton>
+                              ))}
+                            </div>
+                          </KeywordBox>
+                        )
+                      )}
+                    </>
+                  ) : null}
+                </KeywordContainer>
+              </MainWrapper>
+              <BottomWrapper>
+                <span style={{ ...typography.Paragraph1, color: colors.N80 }}>
+                  1-3개 선택할 수 있어요
+                </span>
+                <BottomButton
+                  text="AI 도움받기"
+                  radius={8}
+                  backgroundColor={colors.Orange400}
+                  color={colors.N0}
+                  height="54px"
+                  onClick={handleClickAIBtn}
+                  disabled={keywords.length === 0}
+                />
+                <ReviewButton onClick={handleClickSelfBtn}>
+                  직접 리뷰쓰기
+                </ReviewButton>
+              </BottomWrapper>
+              {isShowToast && (
+                <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
+              )}
+            </>
           )}
         </>
       )}
@@ -172,6 +195,14 @@ const FoodKeywordWrapper = styled.div`
   position: relative;
   height: 100%;
   padding: 0 20px;
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+  }
 `;
 
 const MainWrapper = styled.div`

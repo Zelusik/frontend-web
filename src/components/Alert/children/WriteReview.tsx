@@ -1,8 +1,17 @@
 import styled from "@emotion/styled";
 import RoundButton from "components/Button/RoundButton";
 import Text from "components/Text";
+import { Route } from "constants/Route";
+import useAlert from "hooks/useAlert";
+import { useRouter } from "next/router";
 
 export default function WriteReview() {
+  const router = useRouter();
+  const { closeAlert } = useAlert();
+  const handleClickWriteReview = () => {
+    router.push(Route.REVIEW());
+    closeAlert();
+  };
   return (
     <SortWrapper>
       <Text typo="Paragraph6" color="N100">
@@ -13,7 +22,9 @@ export default function WriteReview() {
         선택할 수 없습니다🥲
       </Text>
       <ButtonWrapper>
-        <RoundButton type="mypage-alert">리뷰 작성하러 가기</RoundButton>
+        <RoundButton type="mypage-alert" onClick={handleClickWriteReview}>
+          리뷰 작성하러 가기
+        </RoundButton>
       </ButtonWrapper>
     </SortWrapper>
   );

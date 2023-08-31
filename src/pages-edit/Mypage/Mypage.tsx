@@ -218,7 +218,9 @@ export default function Mypage() {
               />
               {membersReviews?.[0].contents?.length === 0 && mine ? (
                 <NewButton
-                  onClick={() => {}}
+                  onClick={() => {
+                    router.push(Route.REVIEW());
+                  }}
                   marginTop={0}
                   text="내가 방문한 음식점의 리뷰를 남겨보세요"
                   buttonText="첫 리뷰 남기기"
