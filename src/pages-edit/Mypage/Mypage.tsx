@@ -192,7 +192,7 @@ export default function Mypage() {
                     router.push(Route.REVIEW());
                   }}
                   marginTop={0}
-                  text="리뷰가 3개 이상일 때 베스트 음식점 선택이 가능합니다"
+                  text={"리뷰가 3개 이상일 때 \n 베스트 음식점 선택이 가능합니다"}
                   buttonText="리뷰 작성하러 가기"
                 />
               ) : (

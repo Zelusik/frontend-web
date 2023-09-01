@@ -21,4 +21,7 @@ const NewButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  white-space: pre-line;
+  text-align: center;
 `;

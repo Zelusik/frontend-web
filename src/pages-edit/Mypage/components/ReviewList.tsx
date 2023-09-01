@@ -25,7 +25,7 @@ export default function ReviewList({
   const { width } = useDisplaySize();
   const recommendReview = useAppSelector((state) => state.recommendReview);
   const scrollRef = useRef(null);
-
+  console.log(membersReviews);
   const { isShowToast, openToast, closeToast } = useToast();
 
   useIntersectionObserver(scrollRef, fetchNextPage, !!hasNextPage, {});
@@ -62,7 +62,10 @@ export default function ReviewList({
             >
               <Image
                 alt="리뷰 사진"
-                src={data?.reviewImage?.thumbnailUrl}
+                src={
+                  data?.reviewImage?.thumbnailUrl ||
+                  data?.reviewThumbnailImageUrls[0]
+                }
                 type="mypage-review"
               />
               <StoreTitle
