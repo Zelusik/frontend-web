@@ -62,9 +62,7 @@ export default function ReviewList({
             >
               <Image
                 alt="리뷰 사진"
-                src={
-                  data?.reviewThumbnailImageUrls?.[0] || data?.images[0].thumbnailUrl
-                }
+                src={data?.reviewImage?.thumbnailUrl}
                 type="mypage-review"
               />
               <StoreTitle

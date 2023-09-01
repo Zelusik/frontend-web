@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import useAlert from "hooks/useAlert";
 import useDisplaySize from "hooks/useDisplaySize";
 
 import { colors } from "constants/colors";
@@ -51,19 +50,13 @@ export default function Mypage() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [mine, setMine] = useState<any>(null);
 
-  const { openAlert } = useAlert();
-
   const clickRecommand = () => {
-    if (membersReviews && membersReviews[0].contents.length === 0)
-      openAlert("write-review");
-    else {
-      if (recommendedReviews?.length === 0) {
-        localStorage.setItem("state", "postRecommendReview");
-      } else {
-        localStorage.setItem("state", "updatetRecommendReview");
-      }
-      router.push(Route.RECOMMEND_BEST());
+    if (recommendedReviews?.length === 0) {
+      localStorage.setItem("state", "postRecommendReview");
+    } else {
+      localStorage.setItem("state", "updatetRecommendReview");
     }
+    router.push(Route.RECOMMEND_BEST());
   };
 
   function onScroll() {
@@ -107,9 +100,7 @@ export default function Mypage() {
   useEffect(() => {
     if (membersProfile && recommendedReviews) {
       setCurrentIndex(
-        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0
-          ? 0
-          : 1
+        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0 ? 0 : 1
       );
     }
   }, [membersProfile, recommendedReviews]);
@@ -150,10 +141,7 @@ export default function Mypage() {
 
         <div style={{ position: "relative" }}>
           <div style={{ padding: "0 20px" }}>
-            <ProfileInfo
-              mine={mine}
-              profile={membersProfile && membersProfile}
-            />
+            <ProfileInfo mine={mine} profile={membersProfile && membersProfile} />
             <Spacing size={22} />
 
             <TasteBox tasteStatistics={membersProfile?.tasteStatistics} />
@@ -181,8 +169,7 @@ export default function Mypage() {
                 size={
                   recommendedReviews?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) >
-                      ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
@@ -196,6 +183,15 @@ export default function Mypage() {
                   marginTop={0}
                   text="나만의 추천 음식점을 골라주세요"
                   buttonText="추천 베스트 선택하기"
+                />
+              ) : membersReviews?.[0].numOfElements < 3 && mine ? (
+                <NewButton
+                  onClick={() => {
+                    router.push(Route.REVIEW());
+                  }}
+                  marginTop={0}
+                  text="리뷰가 3개 이상일 때 베스트 음식점 선택이 가능합니다"
+                  buttonText="리뷰 작성하러 가기"
                 />
               ) : (
                 <RecommandSwiper
