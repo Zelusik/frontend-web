@@ -177,7 +177,9 @@ export default function Mypage() {
                     : 0
                 }
               />
-              {recommendedReviews?.length === 0 && mine ? (
+              {recommendedReviews?.length === 0 &&
+              mine &&
+              membersReviews?.[0].numOfElements >= 3 ? (
                 <NewButton
                   onClick={clickRecommand}
                   marginTop={0}
