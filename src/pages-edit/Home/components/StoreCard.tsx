@@ -10,6 +10,7 @@ import StoreTitle from "components/Title/StoreTitle";
 import Text from "components/Text";
 import { globalValue } from "constants/globalValue";
 import { getAddressInfo } from "utils/getAddressInfo";
+import { getTimeSinceVisit } from "utils/getTimeSinceVisit";
 
 export default function StoreCard({ data }: any) {
   // 가게 id
@@ -31,7 +32,7 @@ export default function StoreCard({ data }: any) {
           type="follow"
           id={data?.writer?.id}
           title={data?.writer?.nickname}
-          // subTitle="움맘마"
+          subTitle={getTimeSinceVisit(data?.createdAt)}
           profileImg={data?.writer?.image?.thumbnailUrl}
         />
         <Spacing size={16} />
