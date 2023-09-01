@@ -7,7 +7,6 @@ import { Route } from "constants/Route";
 import Spacing from "components/Spacing";
 import BottomButton from "components/Button/BottomButton";
 import Gradient from "components/Share/Gradient";
-import useMapBottomSheet from "hooks/useMapBottomSheet";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { equals } from "utils/equals";
 
@@ -45,7 +44,7 @@ export default function FilterButton({ filter }: any) {
               mood === filter.pickMood
             }
             onClick={() => {
-              filterActionSetting(false);
+              // filterActionSetting(false);
               newAll(
                 filter.pickFoodType,
                 filter.pickDayOfWeek,

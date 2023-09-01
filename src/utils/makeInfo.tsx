@@ -41,7 +41,7 @@ export const makeInfo = (data: any): any => {
       info_list: [
         {
           info_title: "전화번호",
-          info_desc: data?.phone === "" ? `없음` : data?.phone,
+          info_desc: !data?.phone || data?.phone === "" ? `없음` : data?.phone,
         },
         {
           info_title: "인스타",

@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery, QueryClient, useQueryClient } from "react-query";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { getPlacesNear } from "api/places";
 import {
@@ -7,7 +7,6 @@ import {
   TASTE_KEYWORD,
 } from "constants/globalData";
 import useSearch from "hooks/useSearch";
-import useToast from "hooks/useToast";
 
 const useGetPlacesNear = (openToast: any): any => {
   const {
@@ -43,6 +42,10 @@ const useGetPlacesNear = (openToast: any): any => {
   } = useInfiniteQuery(
     ["map", foodType, dayOfWeek, mood, location],
     async ({ pageParam = 0 }) => {
+      // const queryClient = new QueryClient();
+      // const mapData = await useQueryClient.getQueryData(["map"]);
+      // console.log(mapData);
+
       const params: any = {
         params: {
           daysOfWeek:
@@ -74,14 +77,15 @@ const useGetPlacesNear = (openToast: any): any => {
         newFoodTypeSetting(foodType);
         newDayOfWeekSetting(dayOfWeek);
         newMoodSetting(mood);
+        filterActionSetting(false);
       }
 
       return result;
     },
     {
       // keepPreviousData: true,
-      // staleTime: 5 * 60 * 1000,
-      // cacheTime: 10 * 60 * 1000,
+      staleTime: 0,
+      cacheTime: 0,
       getNextPageParam: (lastPage) => {
         return lastPage?.isLast ? undefined : lastPage.number + 1;
       },

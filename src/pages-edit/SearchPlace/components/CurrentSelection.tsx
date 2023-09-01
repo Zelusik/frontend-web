@@ -77,7 +77,7 @@ export default function CurrentSelection({ idx, data, ...props }: any) {
           style={{ display: "flex" }}
         >
           <Icon icon={Icons[data.type]} width={24} height={24} color="N80" />
-          <div style={{ margin: "auto 0", marginLeft: 8 }}>{data.text}</div>
+          <div style={{ margin: "auto 0", marginLeft: 8 }}>{data?.text}</div>
         </Text>
         <Text typo="Paragraph4" color="N50" onClick={clickDelete}>
           <Icon icon="XButton" width={24} height={24} color="N60" />

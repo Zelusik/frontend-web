@@ -4,8 +4,9 @@ import styled from "@emotion/styled";
 import { Route } from "constants/Route";
 import Text from "components/Text";
 import useSearch from "hooks/useSearch";
+import Spacing from "components/Spacing";
 
-export default function Selection({ type, data, ...props }: any) {
+export default function Selection({ type, data, keyword, ...props }: any) {
   const router = useRouter();
   const { valueSetting, typeSetting, locationSetting, placeInfoSetting } =
     useSearch();
@@ -68,12 +69,51 @@ export default function Selection({ type, data, ...props }: any) {
     }
   };
 
+  const dataSplit =
+    type === "location"
+      ? data?.name?.split(keyword)
+      : data?.place_name?.split(keyword);
+
   return (
     <TitleWrapper onClick={handleClickSelection}>
       <div style={{ margin: "auto 0" }}>
-        <Text typo="Headline4" color="N100">
-          {type === "location" ? data.name : data.place_name}
-        </Text>
+        <div style={{ display: "flex" }}>
+          {dataSplit?.map((d: any, idx: number) => {
+            return (
+              <Text
+                key={idx}
+                typo="Headline4"
+                color="N100"
+                style={{ display: "flex" }}
+              >
+                {d?.split(" ")?.map((d2: any, idx2: number) => {
+                  return (
+                    <span key={idx2}>
+                      {d2}
+                      {d?.split(" ").length - 1 !== idx2 ? <>&nbsp;</> : null}
+                    </span>
+                  );
+                })}
+                {dataSplit?.length - 1 !== idx ? (
+                  <Text typo="Headline4" color="Orange600">
+                    {keyword?.split(" ")?.map((d2: any, idx2: number) => {
+                      return (
+                        <span key={idx2}>
+                          {d2}
+                          {keyword?.split(" ").length - 1 !== idx2 ? (
+                            <>&nbsp;</>
+                          ) : null}
+                        </span>
+                      );
+                    })}
+                  </Text>
+                ) : null}
+              </Text>
+            );
+          })}
+        </div>
+
+        <Spacing size={6} />
         <Text typo="Paragraph4" color="N80">
           {type === "location"
             ? `${data.sido} ${data.sgg !== null ? data.sgg : ``}`

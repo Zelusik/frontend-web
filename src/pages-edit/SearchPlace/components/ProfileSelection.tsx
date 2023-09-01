@@ -5,7 +5,7 @@ import Image from "components/Image";
 import { Route } from "constants/Route";
 import Text from "components/Text";
 
-export default function ProfileSelection({ data }: any) {
+export default function ProfileSelection({ data, keyword }: any) {
   const router = useRouter();
   const handleClickSelection = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
@@ -36,6 +36,8 @@ export default function ProfileSelection({ data }: any) {
     router.push({ pathname: Route.MYPAGE(), query: { id: data.id } });
   };
 
+  const dataSplit = data?.nickname?.split(keyword);
+
   return (
     <TitleWrapper onClick={handleClickSelection}>
       <div style={{ margin: "auto 0", display: "flex" }}>
@@ -44,9 +46,43 @@ export default function ProfileSelection({ data }: any) {
           src={data.profileThumbnailImage}
           type="default"
         />
-        <Text typo="Headline4" color="N100" style={{ marginLeft: 8 }}>
-          {data.nickname}
-        </Text>
+        {dataSplit?.map((d: any, idx: number) => {
+          return (
+            <Text
+              key={idx}
+              typo="Headline4"
+              color="N100"
+              style={{
+                margin: "auto 0",
+                display: "flex",
+                marginLeft: idx === 0 ? 8 : 0,
+              }}
+            >
+              {d?.split(" ")?.map((d2: any, idx2: number) => {
+                return (
+                  <span key={idx2}>
+                    {d2}
+                    {d?.split(" ").length - 1 !== idx2 ? <>&nbsp;</> : null}
+                  </span>
+                );
+              })}
+              {dataSplit?.length - 1 !== idx ? (
+                <Text typo="Headline4" color="Orange600">
+                  {keyword?.split(" ")?.map((d2: any, idx2: number) => {
+                    return (
+                      <span key={idx2}>
+                        {d2}
+                        {keyword?.split(" ").length - 1 !== idx2 ? (
+                          <>&nbsp;</>
+                        ) : null}
+                      </span>
+                    );
+                  })}
+                </Text>
+              ) : null}
+            </Text>
+          );
+        })}
       </div>
     </TitleWrapper>
   );

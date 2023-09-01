@@ -45,23 +45,15 @@ export default function Map() {
   const { isShowToast, openToast, closeToast } = useToast();
 
   const { height } = useDisplaySize();
-  const {
-    newFoodTypeSetting,
-    newDayOfWeekSetting,
-    newMoodSetting,
-    typeSetting,
-  } = useSearch();
+  const { typeSetting } = useSearch();
   const {
     value,
     type,
     filterAction,
 
     foodType,
-    newFoodType,
     dayOfWeek,
-    newDayOfWeek,
     mood,
-    newMood,
   } = useAppSelector((state) => state.search);
 
   const clickMyLocation = () => {

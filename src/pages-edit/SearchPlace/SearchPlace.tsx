@@ -114,7 +114,12 @@ export default function SearchPlace() {
                       ?.flatMap((page_data: any) => page_data.contents)
                       ?.map((data: any, idx: number) => {
                         return (
-                          <Selection key={idx} type="location" data={data} />
+                          <Selection
+                            key={idx}
+                            type="location"
+                            data={data}
+                            keyword={keyword}
+                          />
                         );
                       })}
                     <div ref={infinityScrollRef} />
@@ -144,7 +149,14 @@ export default function SearchPlace() {
                     {data
                       ?.flatMap((page_data: any) => page_data.documents)
                       ?.map((data: any, idx: number) => {
-                        return <Selection key={idx} type="store" data={data} />;
+                        return (
+                          <Selection
+                            key={idx}
+                            type="store"
+                            data={data}
+                            keyword={keyword}
+                          />
+                        );
                       })}
                     <div ref={infinityScrollRef} />
                     {hasNextPage ? (
@@ -173,7 +185,13 @@ export default function SearchPlace() {
                     {data
                       ?.flatMap((page_data: any) => page_data.contents)
                       ?.map((data: any, idx: number) => {
-                        return <ProfileSelection key={idx} data={data} />;
+                        return (
+                          <ProfileSelection
+                            key={idx}
+                            data={data}
+                            keyword={keyword}
+                          />
+                        );
                       })}
                     <div ref={infinityScrollRef} />
                     {hasNextPage ? (

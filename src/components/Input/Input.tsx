@@ -57,6 +57,7 @@ export default function Input({
         placeholder={placeholder}
         value={value}
         disabled={type === "shadow"}
+        onClick={handleClickInput}
         onChange={(e: any) => setValue(e.target.value)}
         onFocus={() => setFocus(true)}
         onBlur={(e: any) => {

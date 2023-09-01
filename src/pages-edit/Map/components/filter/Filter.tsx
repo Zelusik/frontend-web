@@ -23,7 +23,6 @@ export default function Filter({ type, data }: any) {
         else data.Fn(val);
         break;
       case "full-radius":
-        console.log(data.new);
         if (newInclude) data.Fn(data.new.filter((d: any) => d !== val));
         else data.Fn([...data.new, val]);
         break;
