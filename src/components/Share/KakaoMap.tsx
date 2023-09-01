@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
@@ -10,7 +11,17 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
   return (
     <MapWrapper>
       <Map
-        center={{ lat: lat, lng: lng }}
+        isPanto={true}
+        center={{
+          lat: lat,
+          lng: lng,
+        }}
+        onCenterChanged={(map: any) =>
+          props.onCurrentLocation(
+            map.getCenter().getLat(),
+            map.getCenter().getLng()
+          )
+        }
         style={{ width: "100%", height: "100%" }}
       >
         {/* 마커들 */}
