@@ -22,8 +22,7 @@ export default class CustomDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
         });
       const initialProps = await Document.getInitialProps(ctx);
       return {
@@ -53,6 +52,7 @@ export default class CustomDocument extends Document {
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           />
+          <link rel="icon" href="/assets/favicon.ico" />
           <Script
             src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"
             type="text/javascript"
