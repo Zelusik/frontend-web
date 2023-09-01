@@ -7,16 +7,22 @@ import { typography } from "constants/typography";
 
 const fadeInDown = keyframes`
    0% {
-        transform: translate3d(0,-10px,0) translateX(-50%);
+        transform: translate3d(0,-3px,0) translateX(-50%);
+        opacity: 0.5;
     }
 
-    50% {
+    30% {
         transform: translate3d(0,10px,0) translateX(-50%);
         opacity: 1
     }
 
+    78% {
+      transform: translate3d(0,10px,0) translateX(-50%);
+      opacity: 1
+  }
+
     100%{
-      transform: translate3d(0,-10px,0) translateX(-50%);
+      transform: translate3d(0,-3px,0) translateX(-50%);
       opacity: 0;
     }
 `;
@@ -55,7 +61,7 @@ const ToastWrapper = styled.div`
   align-items: center;
   white-space: nowrap;
 
-  animation: ${fadeInDown} 3s forwards;
+  animation: ${fadeInDown} 2s forwards;
   z-index: 1000;
 
   ${typography.Paragraph5}
