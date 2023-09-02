@@ -25,7 +25,6 @@ export default function ReviewList({
   const { width } = useDisplaySize();
   const recommendReview = useAppSelector((state) => state.recommendReview);
   const scrollRef = useRef(null);
-  console.log(membersReviews);
   const { isShowToast, openToast, closeToast } = useToast();
 
   useIntersectionObserver(scrollRef, fetchNextPage, !!hasNextPage, {});
@@ -83,8 +82,13 @@ export default function ReviewList({
             </ReviewInner>
           );
         })}
-      {isShowToast && <Toast message="3개까지만 선택 가능해요" close={closeToast} />}
-      <div ref={scrollRef} style={{ height: hasNextPage ? "30px" : "0px" }}></div>
+      {isShowToast && (
+        <Toast message="3개까지만 선택 가능해요" close={closeToast} />
+      )}
+      <div
+        ref={scrollRef}
+        style={{ height: hasNextPage ? "30px" : "0px" }}
+      ></div>
     </ReviewWrapper>
   );
 }
@@ -115,7 +119,8 @@ const CountWrapper = styled.div<{ action: boolean }>`
 
   border-radius: 999px;
   border: 2px solid ${({ action }) => (action ? colors.Orange400 : colors.N40)};
-  background-color: ${({ action }) => (action ? colors.Orange400 : `transparent`)};
+  background-color: ${({ action }) =>
+    action ? colors.Orange400 : `transparent`};
   z-index: 700;
 
   ${typography.Headline2}

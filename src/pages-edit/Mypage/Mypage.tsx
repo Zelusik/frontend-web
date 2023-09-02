@@ -100,7 +100,9 @@ export default function Mypage() {
   useEffect(() => {
     if (membersProfile && recommendedReviews) {
       setCurrentIndex(
-        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0 ? 0 : 1
+        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0
+          ? 0
+          : 1
       );
     }
   }, [membersProfile, recommendedReviews]);
@@ -141,7 +143,10 @@ export default function Mypage() {
 
         <div style={{ position: "relative" }}>
           <div style={{ padding: "0 20px" }}>
-            <ProfileInfo mine={mine} profile={membersProfile && membersProfile} />
+            <ProfileInfo
+              mine={mine}
+              profile={membersProfile && membersProfile}
+            />
             <Spacing size={22} />
 
             <TasteBox tasteStatistics={membersProfile?.tasteStatistics} />
@@ -169,7 +174,8 @@ export default function Mypage() {
                 size={
                   recommendedReviews?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) > ((width - 60) * 9) / 8 + 108
+                    : height - (550 - scrollHeight) >
+                      ((width - 60) * 9) / 8 + 108
                     ? (height -
                         (550 - scrollHeight) -
                         (((width - 60) * 9) / 8 + 108)) *
@@ -192,7 +198,9 @@ export default function Mypage() {
                     router.push(Route.REVIEW());
                   }}
                   marginTop={0}
-                  text={"리뷰가 3개 이상일 때 \n 베스트 음식점 선택이 가능합니다"}
+                  text={
+                    "리뷰가 3개 이상일 때 \n 베스트 음식점 선택이 가능합니다"
+                  }
                   buttonText="리뷰 작성하러 가기"
                 />
               ) : (
