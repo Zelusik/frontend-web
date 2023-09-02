@@ -15,7 +15,7 @@ const useGetMarkPlaces = ({ currentIndex, type, keyword }: any) => {
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } =
-    useInfiniteQuery([`mark-${currentIndex}`, currentIndex], fetchMarkPlaces, {
+    useInfiniteQuery([`mark`, currentIndex], fetchMarkPlaces, {
       getNextPageParam: (lastPage: any) => {
         return lastPage.isLast ? undefined : lastPage.number + 1;
       },

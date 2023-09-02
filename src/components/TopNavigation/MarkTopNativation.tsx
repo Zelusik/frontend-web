@@ -43,6 +43,7 @@ const MarkTopNavigation = forwardRef(function Div(
 ) {
   const titleScrollRef = useRef<any>(null);
   const swiperRef = useRef<any>(null);
+  let titleTextRef = useRef<any>(null);
   const { width } = useDisplaySize();
 
   const clickTitleList = (ref: any, idx: number) => {
@@ -72,6 +73,16 @@ const MarkTopNavigation = forwardRef(function Div(
   const onSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;
     index.setCurrentIndex(newSwiper);
+
+    const textLeft = titleTextRef?.offsetLeft - 20;
+    const textWidth = titleTextRef?.offsetWidth;
+
+    const scrollLeft = textLeft - (width - 40 - textWidth) / 2;
+    titleScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
+
+    if (scrollRef.current?.scrollTop > scrollTop) {
+      scrollRef.current!.scrollTop = scrollTop;
+    }
   };
 
   //   useEffect(() => {
@@ -105,6 +116,9 @@ const MarkTopNavigation = forwardRef(function Div(
             return (
               <TitleTextWrapper
                 key={idx}
+                ref={(ref: any) => {
+                  if (index.currentIndex === idx) titleTextRef = ref;
+                }}
                 height={match(type)
                   .with("title-scroll", () => 34)
                   .otherwise(() => 34)}
@@ -144,6 +158,9 @@ const MarkTopNavigation = forwardRef(function Div(
         allowSlidePrev={index.currentIndex > 0}
         allowSlideNext={index.currentIndex <= children?.length - 1}
         onSlideChange={onSlideChange}
+        allowTouchMove={
+          props?.touch?.touchMove ? props?.touch?.touchMove : true
+        }
       >
         {children?.map((childrenData: any, idx: number) => {
           return (
