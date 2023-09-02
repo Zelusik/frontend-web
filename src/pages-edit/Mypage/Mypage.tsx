@@ -164,13 +164,17 @@ export default function Mypage() {
           >
             <TopNavigationInner
               height={
-                height -
-                (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
-                104.5 +
-                "px"
+                recommendedReviews?.length === 0 &&
+                mine &&
+                membersReviews?.[0].numOfElements >= 3
+                  ? 50 + "px"
+                  : height -
+                    (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
+                    104.5 +
+                    "px"
               }
             >
-              <Spacing
+              {/* <Spacing
                 size={
                   recommendedReviews?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
@@ -182,9 +186,9 @@ export default function Mypage() {
                       0.5
                     : 0
                 }
-              />
-              {recommendedReviews?.length === 0 &&
-              mine &&
+              /> */}
+              {mine &&
+              recommendedReviews?.length === 0 &&
               membersReviews?.[0].numOfElements >= 3 ? (
                 <NewButton
                   onClick={clickRecommand}
@@ -192,7 +196,7 @@ export default function Mypage() {
                   text="나만의 추천 음식점을 골라주세요"
                   buttonText="추천 베스트 선택하기"
                 />
-              ) : membersReviews?.[0].numOfElements < 3 && mine ? (
+              ) : mine && membersReviews?.[0].numOfElements < 3 ? (
                 <NewButton
                   onClick={() => {
                     router.push(Route.REVIEW());
