@@ -22,6 +22,12 @@
     ],
     "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/icons/*.svg"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/icons/*.svg",
+    "src/components/HorizonalScroll"
+  ],
   "exclude": ["node_modules"]
 }

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
 
-import TopNavigation from "components/TopNavigation";
+import MarkTopNavigation from "components/TopNavigation/MarkTopNativation";
 import SearchTitle from "components/Title/SearchTitle";
 import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
 import Spacing from "components/Spacing";
@@ -17,6 +17,12 @@ import { globalValue } from "constants/globalValue";
 import { Route } from "constants/Route";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LoadingCircle from "components/Loading/LoadingCircle";
+import TopNavigationBox from "components/TopNavigation/TopNavigationBox";
+import { colors } from "constants/colors";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function Mark() {
   const router = useRouter();
@@ -26,7 +32,8 @@ export default function Mark() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [topFixed, setTopFixed] = useState<boolean>(false);
 
-  const { data: keywordData, isLoading } = useGetMarkKeywords();
+  // react-query: titleList
+  const { keywordData, isLoading } = useGetMarkKeywords();
   const keywords = keywordData?.keywords && [
     {
       keyword: "전체",
@@ -34,41 +41,35 @@ export default function Mark() {
     },
     ...keywordData?.keywords,
   ];
-  const keywordList = keywords?.map(
-    (keywordInfo: { keyword: string; type: string }) => keywordInfo.keyword
+  const titleList = keywords?.map(
+    (keywordInfo: { keyword: string; type: string }) => keywordInfo?.keyword
   );
 
-  const {
-    data: placeData,
-    fetchNextPage,
-    hasNextPage,
-  } = useGetMarkPlaces({
+  // react-query: mark
+  const { markData, fetchNextPage, hasNextPage } = useGetMarkPlaces({
     currentIndex,
     type: keywords?.[currentIndex]?.type,
     keyword: keywords?.[currentIndex]?.keyword,
   });
-
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
+  const fixedHeight = height - 70 - 35 - globalValue.BOTTOM_NAVIGATION_HEIGHT;
+  // TopNavigation scroll
   function onScroll() {
     const scrollTop = 20;
 
-    if (scrollRef.current?.scrollTop > scrollTop) {
-      setTopFixed(true);
-    } else {
-      setTopFixed(false);
-    }
+    // console.log(scrollRef.current?.scrollTop);
+    if (scrollRef.current?.scrollTop > scrollTop) setTopFixed(true);
+    else setTopFixed(false);
   }
-
   useEffect(() => {
     scrollRef.current?.addEventListener("scroll", onScroll);
     return () => {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
-  }, [currentIndex]);
+  }, [currentIndex, keywordData, markData]);
 
   if (isLoading) return <LoadingCircle />;
-
   return (
     <>
       <SearchTitle type="mark" />
@@ -78,7 +79,39 @@ export default function Mark() {
         height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
       >
         <Spacing size={20} />
-        <TopNavigation
+        <MarkTopNavigation
+          type="title-scroll"
+          scrollRef={scrollRef}
+          index={{ currentIndex, setCurrentIndex }}
+          top={{ topFixed, setTopFixed }}
+          scrollTop={20}
+          titleList={titleList}
+        >
+          {titleList?.map((titleBox: any, idx: number) => {
+            return (
+              <TopNavigationBox key={idx} height={1000}>
+                <Swiper>
+                  {["", "", ""].map((data: any, idx: number) => {
+                    return (
+                      <SwiperSlide
+                        key={idx}
+                        style={{
+                          width: "100%",
+                          height: 500,
+                          marginBottom: 10,
+                          background: "yellowgreen",
+                        }}
+                      >
+                        Hi
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </TopNavigationBox>
+            );
+          })}
+        </MarkTopNavigation>
+        {/* <MarkTopNavigation
           type="mark"
           scrollRef={scrollRef}
           scrollTop={20}
@@ -86,7 +119,9 @@ export default function Mark() {
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
           titleList={keywordList}
-          count={placeData?.[0].totalElements ? placeData?.[0].totalElements : 0}
+          count={
+            placeData?.[0].totalElements ? placeData?.[0].totalElements : 0
+          }
         >
           {keywords?.map((_: any, idx: number) => {
             return (
@@ -126,7 +161,7 @@ export default function Mark() {
               </TopNavigationInner>
             );
           })}
-        </TopNavigation>
+        </MarkTopNavigation> */}
       </Wrapper>
       <BottomNavigation />
     </>
@@ -134,8 +169,8 @@ export default function Mark() {
 }
 const Wrapper = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
-  overflow-y: scroll;
-  background-color: #fbfbfb;
+  overflow-y: auto;
+  background-color: ${colors["MarkColor"]};
 `;
 
 const NoContent = styled.div`

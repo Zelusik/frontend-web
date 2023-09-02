@@ -13,6 +13,8 @@ export const colors: any = {
   N10: "#F6F7F9",
   N0: "#FFFFFF",
 
+  MarkColor: "#FBFBFB",
+
   Orange600: "#F59300",
   Orange500: "#FF9E0C",
   Orange400: "#FFB442",
