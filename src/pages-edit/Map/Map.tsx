@@ -39,9 +39,18 @@ import Toast from "components/Toast";
 export default function Map() {
   const router = useRouter();
   const infinityScrollRef = useRef(null);
-  const { location } = useAppSelector((state) => state.search);
   const myLocation: any = useGeolocation();
+  const { location } = useAppSelector((state) => state.search);
   const { locationSetting } = useSearch();
+  const [currentLocation, setCurrentLocation] = useState<any>(null);
+  const onCurrentLocation = (lat: any, lng: any) => {
+    setCurrentLocation({
+      center: {
+        lat,
+        lng,
+      },
+    });
+  };
   const { isShowToast, openToast, closeToast } = useToast();
 
   const { height } = useDisplaySize();
@@ -56,29 +65,25 @@ export default function Map() {
     mood,
   } = useAppSelector((state) => state.search);
 
+  // 내 주변
   const clickMyLocation = () => {
     typeSetting("default");
     locationSetting({
-      lat: myLocation?.coordinates?.lat,
-      lng: myLocation?.coordinates?.lng,
+      lat: myLocation?.center?.lat,
+      lng: myLocation?.center?.lng,
     });
   };
+  // 저장
   const [isMarkShow, setIsMarkShow] = useState<boolean>(false);
   const clickMarkShow = () => {
-    setCurrentLocation({
-      lat: myLocation?.coordinates?.lat,
-      lng: myLocation?.coordinates?.lng,
-    });
     setIsMarkShow(!isMarkShow);
   };
-  const [currentLocation, setCurrentLocation] = useState<any>(null);
+  // find
   const clickFindLocation = () => {
-    setCurrentLocation({
-      lat: myLocation?.coordinates?.lat,
-      lng: myLocation?.coordinates?.lng,
-    });
+    onCurrentLocation(myLocation?.center?.lat, myLocation?.center?.lng);
   };
 
+  // filter
   const [pickFoodType, setPickFoodType] = useState<any>("");
   const [pickDayOfWeek, setPickDayOfWeek] = useState<any>([]);
   const [pickMood, setPickMood] = useState<any>("");
@@ -109,11 +114,12 @@ export default function Map() {
     },
   ];
 
+  // 처음 세팅
   useEffect(() => {
     setPickFoodType(foodType);
     setPickDayOfWeek(dayOfWeek);
     setPickMood(mood);
-    setCurrentLocation(location);
+    onCurrentLocation(location?.lat, location?.lng);
   }, [location, foodType, dayOfWeek, mood]);
 
   const { data, isLoading, fetchNextPage, hasNextPage } =
@@ -129,10 +135,11 @@ export default function Map() {
           <LoadingCircle size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
         ) : (
           <KakaoMap
-            lat={currentLocation?.lat}
-            lng={currentLocation?.lng}
-            myLat={myLocation?.coordinates?.lat}
-            myLng={myLocation?.coordinates?.lng}
+            lat={currentLocation?.center?.lat}
+            lng={currentLocation?.center?.lng}
+            myLat={myLocation?.center?.lat}
+            myLng={myLocation?.center?.lng}
+            onCurrentLocation={onCurrentLocation}
             data={data?.[0]?.contents}
             isMarkShow={isMarkShow}
           />

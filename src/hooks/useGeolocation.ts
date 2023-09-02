@@ -4,7 +4,7 @@ import useSearch from "./useSearch";
 
 interface locationType {
   loaded: boolean;
-  coordinates?: { lat: number; lng: number };
+  center?: { lat: number; lng: number };
   error?: { code: number; message: string };
 }
 
@@ -12,9 +12,21 @@ const useGeolocation = () => {
   const { location } = useAppSelector((state) => state.search);
   const [myLocation, setMyLocation] = useState<locationType>({
     loaded: false,
-    coordinates: location,
+    center: location,
   });
   const { locationSetting } = useSearch();
+
+  const onLocation = (location: {
+    coords: { latitude: number; longitude: number };
+  }) => {
+    setMyLocation({
+      loaded: true,
+      center: {
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      },
+    });
+  };
 
   const onMyLocation = (location: {
     coords: { latitude: number; longitude: number };
@@ -25,19 +37,7 @@ const useGeolocation = () => {
     });
     setMyLocation({
       loaded: true,
-      coordinates: {
-        lat: location.coords.latitude,
-        lng: location.coords.longitude,
-      },
-    });
-  };
-
-  const onLocation = (location: {
-    coords: { latitude: number; longitude: number };
-  }) => {
-    setMyLocation({
-      loaded: true,
-      coordinates: {
+      center: {
         lat: location.coords.latitude,
         lng: location.coords.longitude,
       },
