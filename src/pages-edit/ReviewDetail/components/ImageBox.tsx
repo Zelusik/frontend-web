@@ -8,7 +8,7 @@ import TagImage from "components/Image/TagImage";
 import useDisplaySize from "hooks/useDisplaySize";
 import SlideLine from "./SlideLine";
 import FoodTag from "./FoodTag";
-import ImageHashtag from "components/Share/ImageHashtag";
+import ImageHashtag from "components/Common/ImageHashtag";
 
 // const imageDatas = [
 //   {

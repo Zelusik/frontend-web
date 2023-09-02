@@ -15,7 +15,7 @@ import {
   tasteData,
 } from "constants/globalData";
 
-import KakaoMap from "components/Share/KakaoMap";
+import KakaoMap from "components/Common/KakaoMap";
 import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
