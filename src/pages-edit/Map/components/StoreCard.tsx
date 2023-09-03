@@ -8,7 +8,7 @@ import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Route } from "constants/Route";
-import Number from "components/Share/Number";
+import Number from "components/Common/Number";
 import Spacing from "components/Spacing";
 import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";

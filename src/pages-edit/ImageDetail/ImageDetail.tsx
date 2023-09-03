@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import Numbers from "components/Share/Number";
+import Numbers from "components/Common/Number";
 import Spacing from "components/Spacing";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";

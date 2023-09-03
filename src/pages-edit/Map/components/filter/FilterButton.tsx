@@ -6,7 +6,7 @@ import { colors } from "constants/colors";
 import { Route } from "constants/Route";
 import Spacing from "components/Spacing";
 import BottomButton from "components/Button/BottomButton";
-import Gradient from "components/Share/Gradient";
+import Gradient from "components/Common/Gradient";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { equals } from "utils/equals";
 

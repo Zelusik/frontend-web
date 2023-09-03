@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import KakaoMap from "components/Share/KakaoMap";
+import KakaoMap from "components/Common/KakaoMap";
 import BackTitle from "components/Title/BackTitle";
 import { useRouter } from "next/router";
 

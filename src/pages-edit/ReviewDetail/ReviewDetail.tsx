@@ -8,9 +8,9 @@ import useGetReviewsId from "hooks/queries/review-detail/useGetReviewsId";
 import { makeInfo } from "utils/makeInfo";
 
 import { globalValue } from "constants/globalValue";
-import KakaoMap from "components/Share/KakaoMap";
+import KakaoMap from "components/Common/KakaoMap";
 import Spacing from "components/Spacing";
-import Info from "components/Share/Info";
+import Info from "components/Common/Info";
 import Description from "components/Description";
 import Hr from "components/Hr";
 import { colors } from "constants/colors";
@@ -92,7 +92,10 @@ export default function ReviewDetail() {
           </div>
 
           <KakaoMapWrapper height={(width * 23) / 36}>
-            <KakaoMap lat={data?.place?.point?.lat} lng={data?.place?.point?.lng} />
+            <KakaoMap
+              lat={data?.place?.point?.lat}
+              lng={data?.place?.point?.lng}
+            />
             <NoTouch />
             <ScaleUpButton
               lat={data?.place?.point?.lat}
@@ -131,7 +134,8 @@ const TitleWrapper = styled.div<{ visible: boolean }>`
   position: fixed;
   top: 0;
 
-  background-color: ${({ visible }) => (visible ? `${colors.N0}` : `transparents`)};
+  background-color: ${({ visible }) =>
+    visible ? `${colors.N0}` : `transparents`};
   animation: ${(props) => fade(props.visible)} 0.3s forwards;
   z-index: 900;
 `;
