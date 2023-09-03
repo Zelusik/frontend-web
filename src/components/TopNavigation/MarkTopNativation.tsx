@@ -1,0 +1,215 @@
+import React, { useState, useEffect, forwardRef, useRef } from "react";
+import { match } from "ts-pattern";
+import styled from "@emotion/styled";
+import useDisplaySize from "hooks/useDisplaySize";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+import { colors } from "constants/colors";
+import Text from "components/Text";
+import Hr from "components/Hr";
+import Spacing from "components/Spacing";
+import HorizonalScroll from "components/HorizonalScroll/HorizonalScroll";
+import SortingHeader from "pages-edit/Mark/components/SortingHeader";
+
+interface Props {
+  type: "title-scroll" | "default";
+  scrollRef: any;
+
+  index?: any;
+  top?: any;
+  scrollTop?: number;
+
+  titleList: string[];
+  children?: any;
+}
+
+const MarkTopNavigation = forwardRef(function Div(
+  {
+    type,
+    scrollRef,
+
+    index,
+    top,
+    scrollTop = 0,
+
+    titleList,
+    children,
+    ...props
+  }: Props,
+  ref: any
+) {
+  const titleScrollRef = useRef<any>(null);
+  const swiperRef = useRef<any>(null);
+  let titleTextRef = useRef<any>(null);
+  const { width } = useDisplaySize();
+
+  const clickTitleList = (ref: any, idx: number) => {
+    // currentIndex 수장
+    index.setCurrentIndex(idx);
+    const subtrackIndex = index.currentIndex - idx;
+    if (subtrackIndex < 0) {
+      for (let i = 0; i < Math.abs(subtrackIndex); i++)
+        swiperRef.current.swiper.slideNext();
+    } else {
+      for (let i = 0; i < Math.abs(subtrackIndex); i++)
+        swiperRef.current.swiper.slidePrev();
+    }
+
+    // title click -> focus on
+    const textLeft = ref?.nativeEvent?.target?.offsetLeft - 20;
+    const textWidth = ref?.target?.offsetWidth;
+
+    const scrollLeft = textLeft - (width - 40 - textWidth) / 2;
+    titleScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
+
+    if (scrollRef.current?.scrollTop > scrollTop) {
+      scrollRef.current!.scrollTop = scrollTop;
+    }
+  };
+
+  const onSlideChange = (e: any) => {
+    let newSwiper = e.activeIndex;
+    index.setCurrentIndex(newSwiper);
+
+    const textLeft = titleTextRef?.offsetLeft - 20;
+    const textWidth = titleTextRef?.offsetWidth;
+
+    const scrollLeft = textLeft - (width - 40 - textWidth) / 2;
+    titleScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
+
+    if (scrollRef.current?.scrollTop > scrollTop) {
+      scrollRef.current!.scrollTop = scrollTop;
+    }
+  };
+
+  //   useEffect(() => {
+  //     if (swiperRef.current) {
+  //       swiperRef.current.swiper.slideTo(index.currentIndex);
+  //     }
+  //   }, [index.currentIndex]);
+
+  return (
+    <>
+      {/* title 부분 */}
+      <TitleWrapper
+        topFixed={top.topFixed}
+        scrollTop={match(type)
+          .with("title-scroll", () => 50)
+          .otherwise(() => scrollTop)}
+        backgroundColor={match(type)
+          .with("title-scroll", () => "MarkColor")
+          .otherwise(() => "N100")}
+      >
+        <HorizonalScroll
+          ref={titleScrollRef}
+          HorPadding={match(type)
+            .with("title-scroll", () => 20)
+            .otherwise(() => 20)}
+          gap={match(type)
+            .with("title-scroll", () => 20)
+            .otherwise(() => 20)}
+        >
+          {titleList?.map((title: string, idx: number) => {
+            return (
+              <TitleTextWrapper
+                key={idx}
+                ref={(ref: any) => {
+                  if (index.currentIndex === idx) titleTextRef = ref;
+                }}
+                height={match(type)
+                  .with("title-scroll", () => 34)
+                  .otherwise(() => 34)}
+                backgroundColor={
+                  index.currentIndex === idx
+                    ? match(type)
+                        .with("title-scroll", () => "Orange600")
+                        .otherwise(() => "N100")
+                    : "N0"
+                }
+                onClick={(ref: any) => clickTitleList(ref, idx)}
+              >
+                <Text
+                  typo="Headline3"
+                  color={
+                    index.currentIndex === idx
+                      ? match(type)
+                          .with("title-scroll", () => "Orange600")
+                          .otherwise(() => "N100")
+                      : "N40"
+                  }
+                >
+                  {title}
+                </Text>
+              </TitleTextWrapper>
+            );
+          })}
+        </HorizonalScroll>
+        <Hr padding={20} />
+      </TitleWrapper>
+      {top.topFixed ? <Spacing size={35} /> : null}
+
+      {type === "title-scroll" ? <SortingHeader count={props?.count} /> : null}
+      {/* children 부분 */}
+      <Swiper
+        ref={swiperRef}
+        allowSlidePrev={index.currentIndex > 0}
+        allowSlideNext={index.currentIndex <= children?.length - 1}
+        onSlideChange={onSlideChange}
+        allowTouchMove={
+          props?.touch?.touchMove ? props?.touch?.touchMove : true
+        }
+      >
+        {children?.map((childrenData: any, idx: number) => {
+          return (
+            <SwiperSlide
+              key={idx}
+              width={width}
+              style={{
+                padding: `0
+                  ${match(type)
+                    .with("title-scroll", () => 20)
+                    .otherwise(() => 20)}px
+                  `,
+                backgroundColor:
+                  colors[
+                    `${match(type)
+                      .with("title-scroll", () => "MarkColor")
+                      .otherwise(() => "N0")}`
+                  ],
+              }}
+            >
+              <Spacing
+                size={match(type)
+                  .with("title-scroll", () => 19)
+                  .otherwise(() => 20)}
+              />
+              {childrenData}
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </>
+  );
+});
+
+const TitleWrapper = styled.div<{
+  topFixed: boolean;
+  scrollTop: number;
+  backgroundColor: any;
+}>`
+  width: 100%;
+  position: ${({ topFixed }) => (topFixed ? "fixed" : "static")};
+  top: ${({ scrollTop }) => scrollTop}px;
+  background-color: ${({ backgroundColor }) => colors[backgroundColor]};
+  z-index: 900;
+`;
+
+const TitleTextWrapper = styled.div<{ height: number; backgroundColor: any }>`
+  height: ${({ height }) => height}px;
+  border-bottom: 2px solid ${({ backgroundColor }) => colors[backgroundColor]};
+`;
+
+export default MarkTopNavigation;
