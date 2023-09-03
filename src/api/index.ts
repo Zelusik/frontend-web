@@ -30,9 +30,10 @@ client.interceptors.response.use(
         const { data } = await axios({
           headers: {
             "Content-Type": "application/json",
+            "Eatery-API-Minor-Version": 1,
           },
           method: "post",
-          url: `${process.env.BASE_URL}/auth/token`,
+          url: `${process.env.BASE_URL}/v1/auth/token`,
           data: {
             refreshToken: refreshToken,
           },
