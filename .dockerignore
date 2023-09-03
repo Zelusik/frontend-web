@@ -1,1 +1,6 @@
-.next/cache/swc-*
+.pnp* 
+.yarnrc.yml   
+.yarn/    
+
+.next/
+.vscode/
