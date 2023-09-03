@@ -3,9 +3,13 @@ import client from "api";
 // 메뉴 데이터 생성
 export const postMenu = async (placeId: string) =>
   await client
-    .post(`/v1/places/${placeId}/menus`, {
-      headers: { "Eatery-API-Minor-Version": 1 },
-    })
+    .post(
+      `/v1/places/${placeId}/menus`,
+      {},
+      {
+        headers: { "Eatery-API-Minor-Version": 1 },
+      }
+    )
     .then(({ data }) => data)
     .catch((err) => err.response);
 
