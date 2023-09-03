@@ -62,7 +62,9 @@ const EditProfile = () => {
   const handleClickSaveBtn = () => {
     mutate({
       profileImage:
-        data.profileImage.thumbnailImageUrl === user.image.url ? "" : user.image.url,
+        data.profileImage.thumbnailImageUrl === user.image.thumbnailUrl
+          ? ""
+          : user.image.url,
       nickname: user.nickname,
       birthDay: user.birthDay,
       gender: genderData.filter((e) => e.text === user.gender)[0].value,

@@ -13,14 +13,35 @@ export default function TasteBox({ tasteStatistics }: any) {
           <MyTaste>나의 취향은 🤤</MyTaste>
           <Spacing size={14} />
           <Menu>
-            <Hashtag type="default" text={tasteStatistics.mostVisitedLocation} />
+            <Hashtag
+              type="default"
+              text={
+                tasteStatistics?.mostVisitedLocation
+                  ? tasteStatistics?.mostVisitedLocation
+                  : "_____"
+              }
+            />
             <MenuSpan>에서</MenuSpan>
-            <Hashtag type="default" text={tasteStatistics.mostTaggedReviewKeyword} />
+            <Hashtag
+              type="default"
+              text={
+                tasteStatistics?.mostTaggedReviewKeyword
+                  ? tasteStatistics?.mostTaggedReviewKeyword
+                  : "_____"
+              }
+            />
             <MenuSpan>인</MenuSpan>
           </Menu>
           <Spacing size={8} />
           <Menu>
-            <Hashtag type="default" text={tasteStatistics.mostEatenFoodCategory} />
+            <Hashtag
+              type="default"
+              text={
+                tasteStatistics?.mostEatenFoodCategory
+                  ? tasteStatistics?.mostEatenFoodCategory
+                  : "_____"
+              }
+            />
             <MenuSpan>음식점을 가장 많이 방문했어요</MenuSpan>
           </Menu>
         </div>

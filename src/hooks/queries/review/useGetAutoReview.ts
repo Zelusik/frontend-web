@@ -16,13 +16,13 @@ const useGetAutoReview = (isButtonClicked: boolean) => {
         dispatch(
           changeReviewInfo({
             type: "autoCreatedContent",
-            value: result.content,
+            value: result.content.slice(0, 400),
           })
         );
         dispatch(
           changeReviewInfo({
             type: "content",
-            value: result.content,
+            value: result.content.slice(0, 400),
           })
         );
       }

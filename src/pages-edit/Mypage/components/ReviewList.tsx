@@ -10,9 +10,12 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import useToast from "hooks/useToast";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { getAddressInfo } from "utils/getAddressInfo";
-import { changeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
+import {
+  changeRecommendReview,
+  initializeRecommendReview,
+} from "reducer/slices/review/recommendReviewSlice";
 
 export default function ReviewList({
   type = "mypage",
@@ -25,10 +28,13 @@ export default function ReviewList({
   const { width } = useDisplaySize();
   const recommendReview = useAppSelector((state) => state.recommendReview);
   const scrollRef = useRef(null);
-  console.log(membersReviews);
   const { isShowToast, openToast, closeToast } = useToast();
 
   useIntersectionObserver(scrollRef, fetchNextPage, !!hasNextPage, {});
+
+  useEffect(() => {
+    dispatch(initializeRecommendReview());
+  }, []);
 
   const clickReview = (id: number) => {
     switch (type) {

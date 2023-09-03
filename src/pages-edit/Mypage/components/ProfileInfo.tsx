@@ -10,10 +10,10 @@ export default function ProfileInfo({ mine, profile }: any) {
   const router = useRouter();
 
   const ProfileDatas = [
-    { desc: "게시글", count: profile.numOfReviews },
-    { desc: "영향력", count: profile.influence },
-    { desc: "팔로워", count: profile.numOfFollowers },
-    { desc: "팔로잉", count: profile.numOfFollowings },
+    { desc: "게시글", count: profile?.numOfReviews },
+    { desc: "영향력", count: profile?.influence },
+    { desc: "팔로워", count: profile?.numOfFollowers },
+    { desc: "팔로잉", count: profile?.numOfFollowings },
   ];
 
   return (
@@ -21,7 +21,7 @@ export default function ProfileInfo({ mine, profile }: any) {
       <Menu style={{ marginRight: 24 }}>
         <Image
           alt="프로필 사진"
-          src={profile.profileImage.thumbnailImageUrl}
+          src={profile?.profileImage?.thumbnailImageUrl}
           type="default"
           size={74}
         />
