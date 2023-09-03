@@ -1,0 +1,25 @@
+import { getFeed } from "api/reviews";
+import { useInfiniteQuery } from "react-query";
+
+const useGetFeed = () => {
+  const {
+    data: responseData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(
+    ["feed"],
+    async ({ pageParam = 0 }) => await getFeed(pageParam),
+    {
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 10 * 60 * 1000,
+      getNextPageParam: (lastPage) => {
+        return lastPage.isLast ? undefined : lastPage.number + 1;
+      },
+    }
+  );
+  const data = responseData?.pages;
+  return { data, isLoading, fetchNextPage, hasNextPage };
+};
+
+export default useGetFeed;
