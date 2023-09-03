@@ -29,8 +29,6 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
     router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: reviewId } });
   };
 
-  console.log(datas);
-
   return (
     <div style={{ overflow: "hidden" }}>
       <Swiper
