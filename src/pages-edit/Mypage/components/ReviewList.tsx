@@ -10,9 +10,12 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import useToast from "hooks/useToast";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { getAddressInfo } from "utils/getAddressInfo";
-import { changeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
+import {
+  changeRecommendReview,
+  initializeRecommendReview,
+} from "reducer/slices/review/recommendReviewSlice";
 
 export default function ReviewList({
   type = "mypage",
@@ -28,6 +31,10 @@ export default function ReviewList({
   const { isShowToast, openToast, closeToast } = useToast();
 
   useIntersectionObserver(scrollRef, fetchNextPage, !!hasNextPage, {});
+
+  useEffect(() => {
+    dispatch(initializeRecommendReview());
+  }, []);
 
   const clickReview = (id: number) => {
     switch (type) {
@@ -82,13 +89,8 @@ export default function ReviewList({
             </ReviewInner>
           );
         })}
-      {isShowToast && (
-        <Toast message="3개까지만 선택 가능해요" close={closeToast} />
-      )}
-      <div
-        ref={scrollRef}
-        style={{ height: hasNextPage ? "30px" : "0px" }}
-      ></div>
+      {isShowToast && <Toast message="3개까지만 선택 가능해요" close={closeToast} />}
+      <div ref={scrollRef} style={{ height: hasNextPage ? "30px" : "0px" }}></div>
     </ReviewWrapper>
   );
 }
@@ -119,8 +121,7 @@ const CountWrapper = styled.div<{ action: boolean }>`
 
   border-radius: 999px;
   border: 2px solid ${({ action }) => (action ? colors.Orange400 : colors.N40)};
-  background-color: ${({ action }) =>
-    action ? colors.Orange400 : `transparent`};
+  background-color: ${({ action }) => (action ? colors.Orange400 : `transparent`)};
   z-index: 700;
 
   ${typography.Headline2}

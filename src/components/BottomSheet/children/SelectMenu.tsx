@@ -175,5 +175,7 @@ const MenuContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 8px;
   margin-bottom: 57px;
+  height: 100%;
+  overflow-y: auto;
 `;
 export default SelectMenu;
