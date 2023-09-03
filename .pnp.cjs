@@ -551,7 +551,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@babel-parser-npm-7.22.6-f26bcc2411-1f81e2e82a.zip/node_modules/@babel/parser/",\
           "packageDependencies": [\
             ["@babel/parser", "npm:7.22.6"],\
-            ["@babel/types", "npm:7.22.10"]\
+            ["@babel/types", "npm:7.22.11"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2736,10 +2736,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@babel/types", [\
-        ["npm:7.22.10", {\
-          "packageLocation": "./.yarn/cache/@babel-types-npm-7.22.10-ffafe4058f-095c4f4b75.zip/node_modules/@babel/types/",\
+        ["npm:7.22.11", {\
+          "packageLocation": "./.yarn/cache/@babel-types-npm-7.22.11-ff8924a765-431a644689.zip/node_modules/@babel/types/",\
           "packageDependencies": [\
-            ["@babel/types", "npm:7.22.10"],\
+            ["@babel/types", "npm:7.22.11"],\
             ["@babel/helper-string-parser", "npm:7.22.5"],\
             ["@babel/helper-validator-identifier", "npm:7.22.5"],\
             ["to-fast-properties", "npm:2.0.0"]\
@@ -4890,7 +4890,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cacache", "npm:17.1.4"],\
             ["@npmcli/fs", "npm:3.1.0"],\
             ["fs-minipass", "npm:3.0.3"],\
-            ["glob", "npm:10.3.3"],\
+            ["glob", "npm:10.3.4"],\
             ["lru-cache", "npm:7.18.3"],\
             ["minipass", "npm:7.0.3"],\
             ["minipass-collect", "npm:1.0.2"],\
@@ -6687,12 +6687,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["glob", [\
-        ["npm:10.3.3", {\
-          "packageLocation": "./.yarn/cache/glob-npm-10.3.3-2d9abea8c7-29190d3291.zip/node_modules/glob/",\
+        ["npm:10.3.4", {\
+          "packageLocation": "./.yarn/cache/glob-npm-10.3.4-f58cd31f55-176b97c124.zip/node_modules/glob/",\
           "packageDependencies": [\
-            ["glob", "npm:10.3.3"],\
+            ["glob", "npm:10.3.4"],\
             ["foreground-child", "npm:3.1.1"],\
-            ["jackspeak", "npm:2.2.3"],\
+            ["jackspeak", "npm:2.3.1"],\
             ["minimatch", "npm:9.0.3"],\
             ["minipass", "npm:7.0.3"],\
             ["path-scurry", "npm:1.10.1"]\
@@ -7444,10 +7444,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["jackspeak", [\
-        ["npm:2.2.3", {\
-          "packageLocation": "./.yarn/cache/jackspeak-npm-2.2.3-bcc5afec11-8add557045.zip/node_modules/jackspeak/",\
+        ["npm:2.3.1", {\
+          "packageLocation": "./.yarn/cache/jackspeak-npm-2.3.1-261281161e-34ea4d618d.zip/node_modules/jackspeak/",\
           "packageDependencies": [\
-            ["jackspeak", "npm:2.2.3"],\
+            ["jackspeak", "npm:2.3.1"],\
             ["@isaacs/cliui", "npm:8.0.2"],\
             ["@pkgjs/parseargs", "npm:0.11.0"]\
           ],\

@@ -9,7 +9,7 @@ const HorizonalScroll = styled.div<{
 
   display: flex;
   white-space: nowrap;
-  overflow: auto;
+  overflow-x: auto;
 `;
 
 export default HorizonalScroll;

@@ -21,11 +21,18 @@ import TopNavigationBox from "components/TopNavigation/TopNavigationBox";
 import { colors } from "constants/colors";
 import HorizonalScroll from "components/HorizonalScroll";
 
+import Swiper from "components/Swiper";
+import SwiperSlide from "components/Swiper/SwiperSlide";
+
+import { Swiper as Swiper2, SwiperSlide as SwiperSlide2 } from "swiper/react";
+import "swiper/css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 export default function Mark() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
   const infinityScrollRef = useRef<any>(null);
-  const { height } = useDisplaySize();
+  const { width, height } = useDisplaySize();
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [topFixed, setTopFixed] = useState<boolean>(false);
@@ -83,7 +90,46 @@ export default function Mark() {
         height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
       >
         <Spacing size={20} />
-        <MarkTopNavigation
+
+        <Swiper index={{ currentIndex }}>
+          <SwiperSlide width={width} style={{ padding: 20 }}>
+            <HorizonalScroll>
+              <div style={{ height: 100 }}>
+                HorizonalScroll 긴제목테스트 긴제목테스트 긴제목테스트
+                긴제목테스트 긴제목테스트 긴제목테스트 긴제목테스트 긴제목테스트
+              </div>
+            </HorizonalScroll>
+            <Swiper2 allowSlideNext={false}>
+              <SwiperSlide2>
+                <div style={{ height: 100 }}>Hi1</div>
+              </SwiperSlide2>
+              <SwiperSlide2>
+                <div style={{ height: 100 }}>Hi2</div>
+              </SwiperSlide2>
+            </Swiper2>
+          </SwiperSlide>
+
+          <SwiperSlide width={width} style={{ padding: 20 }}>
+            <HorizonalScroll>
+              <div style={{ height: 100 }}>
+                HorizonalScroll2
+                {/* 긴제목테스트 긴제목테스트 긴제목테스트2 긴제목테스트
+                긴제목테스트 긴제목테스트 긴제목테스트 긴제목테스트 */}
+              </div>
+            </HorizonalScroll>
+          </SwiperSlide>
+
+          <SwiperSlide width={width} style={{ padding: 20 }}>
+            <HorizonalScroll>
+              <div style={{ height: 100 }}>
+                HorizonalScroll3
+                {/* 긴제목테스트 긴제목테스트 긴제목테스트3 긴제목테스트
+                긴제목테스트 긴제목테스트 긴제목테스트 긴제목테스트 */}
+              </div>
+            </HorizonalScroll>
+          </SwiperSlide>
+        </Swiper>
+        {/* <MarkTopNavigation
           type="title-scroll"
           scrollRef={scrollRef}
           index={{ currentIndex, setCurrentIndex }}
@@ -137,7 +183,7 @@ export default function Mark() {
               </TopNavigationBox>
             );
           })}
-        </MarkTopNavigation>
+        </MarkTopNavigation> */}
       </Wrapper>
       <BottomNavigation />
     </>
