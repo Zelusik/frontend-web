@@ -13,6 +13,7 @@ export default function TextArea({
   value,
   text,
   onChange,
+  maxLength,
 }: any) {
   return (
     <Wrapper>
@@ -21,6 +22,7 @@ export default function TextArea({
         value={value}
         size={size}
         onChange={onChange}
+        maxLength={maxLength}
       />
       <Spacing size={12} />
       {/* <TextWrapper> */}

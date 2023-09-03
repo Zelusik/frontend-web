@@ -91,6 +91,7 @@ const Write = () => {
                 onChange={handleChangeReview}
                 borderColor={colors.N10}
                 value={review.content}
+                maxLength={400}
               />
               <TextCount>{review.content.length}/400</TextCount>
             </div>
