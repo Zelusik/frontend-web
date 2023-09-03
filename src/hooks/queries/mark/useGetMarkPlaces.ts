@@ -14,14 +14,20 @@ const useGetMarkPlaces = ({ currentIndex, type, keyword }: any) => {
     }
   };
 
-  const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } =
-    useInfiniteQuery([`mark`, currentIndex], fetchMarkPlaces, {
-      getNextPageParam: (lastPage: any) => {
-        return lastPage.isLast ? undefined : lastPage.number + 1;
-      },
-    });
-  const markData = data?.pages;
-  return { markData, isLoading, error, fetchNextPage, hasNextPage, refetch };
+  const {
+    data: responseData,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+  } = useInfiniteQuery(["mark", currentIndex, type, keyword], fetchMarkPlaces, {
+    getNextPageParam: (lastPage) => {
+      return lastPage.isLast ? undefined : lastPage.number + 1;
+    },
+  });
+  const data = responseData?.pages;
+  return { data, isLoading, error, fetchNextPage, hasNextPage, refetch };
 };
 
 export default useGetMarkPlaces;

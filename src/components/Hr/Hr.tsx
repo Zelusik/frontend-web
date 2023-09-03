@@ -1,29 +1,32 @@
+"use client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 
-const Hr = styled.hr<{
+interface Props {
   horizonal?: boolean;
   size?: number;
-  padding?: number;
-  backgroundColor?: any;
-}>`
-  ${({ horizonal = false, size = 1, padding = 0 }) =>
+}
+
+const Hr = ({ horizonal = false, size = 1 }: Props) => {
+  return <HrWrapper horizonal={horizonal} size={size} />;
+};
+
+const HrWrapper = styled.hr<{ horizonal: boolean; size: number }>`
+  ${({ horizonal, size }) =>
     horizonal
       ? css`
           width: ${size}px;
-          height: calc(100% - ${padding}px) px;
-          margin: ${padding}px 0;
+          height: 100%;
         `
       : css`
-          width: calc(100% - ${padding}px) px;
+          width: 100%;
           height: ${size}px;
-          margin: 0 ${padding}px;
         `}
+  margin: 0;
   padding: 0;
   border: 0;
-
-  background-color: ${({ backgroundColor = "N20" }) => colors[backgroundColor]};
+  background-color: ${colors.N20};
 `;
 
 export default Hr;
