@@ -17,7 +17,8 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
           lng: lng,
         }}
         onCenterChanged={(map: any) =>
-          props.onCurrentLocation(
+          props?.onCurrentLocation &&
+          props?.onCurrentLocation(
             map.getCenter().getLat(),
             map.getCenter().getLng()
           )
@@ -28,7 +29,7 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
         {data &&
           data?.map((d: any, idx: number) => {
             return (
-              ((props.isMarkShow && d?.isMarked) || !props.isMarkShow) && (
+              ((props?.isMarkShow && d?.isMarked) || !props?.isMarkShow) && (
                 <MapMarker
                   key={idx}
                   position={{
@@ -52,8 +53,8 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
         {/* 현재 위치 마커 */}
         <MapMarker
           position={{
-            lat: props.myLat,
-            lng: props.myLng,
+            lat: props?.myLat,
+            lng: props?.myLng,
           }}
           image={{
             src: "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/myplace.png",
