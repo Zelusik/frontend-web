@@ -32,7 +32,7 @@ export const editMyInfo = async (myInfo: any) => {
   }
 
   formData.append("nickname", myInfo.nickname);
-  formData.append("birthDay", myInfo.birthDay);
+  myInfo.birthDay && formData.append("birthDay", myInfo.birthDay);
   formData.append("gender", myInfo.gender);
 
   if (myInfo.profileImage) {
