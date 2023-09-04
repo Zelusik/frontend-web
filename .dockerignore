@@ -1,6 +1,7 @@
 .pnp* 
 .yarnrc.yml   
-.yarn/    
+.yarn
 
-.next/
-.vscode/
+.next
+
+.git
