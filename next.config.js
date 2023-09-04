@@ -5,7 +5,6 @@ const path = require("path");
 module.exports = {
   reactStrictMode: false,
   poweredByHeader: false,
-  output: "standalone",
   compiler: {
     styledComponents: {
       fileName: true,
