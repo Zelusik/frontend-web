@@ -259,7 +259,7 @@ const ProfileBox = styled.div`
         border: none;
         ${typography.Paragraph6}
         color: ${colors.N80};
-
+        background-color: ${colors.N0};
         ::placeholder {
           color: ${colors.N40};
         }
@@ -268,6 +268,7 @@ const ProfileBox = styled.div`
         content: attr(placeholder);
         width: 100%;
         color: ${colors.N40};
+        background-color: ${colors.N0};
       }
       input[type="date"]:focus::before,
       input[type="date"]:valid::before {
