@@ -32,7 +32,7 @@ export default function StoreCard({ data }: any) {
   return (
     <Wrapper>
       <Inner onClick={clickStoreDetail}>
-        {data.images.length === 0 ? (
+        {data?.images?.length === 0 ? (
           <Image
             type="map-bottom-sheet"
             alt="음식 사진"
@@ -41,17 +41,20 @@ export default function StoreCard({ data }: any) {
         ) : (
           <>
             <NumberWrapper>
-              <Number currentIndex={currentIndex} length={data.images.length} />
+              <Number
+                currentIndex={currentIndex}
+                length={data?.images?.length}
+              />
             </NumberWrapper>
             <Swiper
               ref={swiperRef}
               allowSlidePrev={currentIndex !== 0}
-              allowSlideNext={currentIndex !== data.images.length - 1}
+              allowSlideNext={currentIndex !== data?.images?.length - 1}
               spaceBetween={20}
               onSlideChange={onSlideChange}
               style={{ height: (width * 32) / 55 }}
             >
-              {data.images.map((image: any, idx: number) => {
+              {data?.images?.map((image: any, idx: number) => {
                 return (
                   <SwiperSlide key={idx}>
                     <Image
@@ -70,17 +73,17 @@ export default function StoreCard({ data }: any) {
 
       <StoreTitle
         type="map"
-        title={data.name}
-        subTitle={data.category}
+        title={data?.name}
+        subTitle={data?.category}
         onClick={clickStoreDetail}
-        isMarked={data.isMarked}
-        placeId={data.id}
+        isMarked={data?.isMarked}
+        placeId={data?.id}
       />
 
-      {data.top3Keywords.length === 0 ? undefined : (
+      {data?.top3Keywords.length === 0 ? undefined : (
         <>
           <Spacing size={10} />
-          <Hashtags hashtags={data.top3Keywords} side={15} />
+          <Hashtags hashtags={data?.top3Keywords} side={15} />
         </>
       )}
       <Spacing size={30} />

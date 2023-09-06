@@ -36,6 +36,8 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LocationError from "./components/LocationError";
 import Toast from "components/Toast";
 
+declare const window: any;
+
 export default function Map() {
   const router = useRouter();
   const infinityScrollRef = useRef(null);
@@ -113,6 +115,20 @@ export default function Map() {
       Fn: (val: any) => setPickMood(val),
     },
   ];
+
+  const requestPermission = () => {
+    console.log(window.ReactNativeWebView);
+    if (window.ReactNativeWebView) {
+      // 모바일이라면 모바일의 카메라 권한을 물어보는 액션을 전달합니다.
+      window.ReactNativeWebView?.postMessage(JSON.stringify(myLocation));
+    } else {
+      // 모바일이 아니라면 모바일 아님을 alert로 띄웁니다.
+    }
+  };
+
+  useEffect(() => {
+    requestPermission();
+  }, [myLocation]);
 
   // 처음 세팅
   useEffect(() => {

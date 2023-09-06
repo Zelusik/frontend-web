@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
-  language: string;
   display: any;
   [index: string]: string | string[] | any;
 }
 
 const initialState: GlobalType = {
-  language: "kor",
   display: {
     width: 0,
     height: 0,

@@ -189,6 +189,9 @@ export default function useBottomSheet({ ...props }: any) {
     sheet.current?.addEventListener("touchstart", handleTouchStart);
     sheet.current?.addEventListener("touchmove", handleTouchMove);
     sheet.current?.addEventListener("touchend", handleTouchEnd);
+
+    // history.pushState({ page: "modal" }, document.title);
+    // showAnimatedModal();
   }, []);
   // }
 
