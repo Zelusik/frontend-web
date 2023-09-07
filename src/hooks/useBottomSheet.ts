@@ -63,7 +63,6 @@ export default function useBottomSheet({ ...props }: any) {
   }, []);
 
   const closeBottomSheetQuick = useCallback((popstate?: any) => {
-    console.log(!popstate);
     if (!popstate) history.back();
     dispatch(
       changeVisible({

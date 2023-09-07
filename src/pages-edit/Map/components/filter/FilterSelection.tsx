@@ -16,15 +16,11 @@ export default function FilterSelection({}: any) {
   const router = useRouter();
   const filterRef = useRef<any>(null);
   const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
-  const { filterActionSetting, moodSetting } = useSearch();
-
-  const handleClickFilter = () => {
-    filterActionSetting(true);
-  };
+  const { handleFilterVisible, handleMood } = useSearch();
 
   const clickFilterButton = (val: any) => {
-    if (mood === val) moodSetting("");
-    else moodSetting(val);
+    if (mood === val) handleMood("");
+    else handleMood(val);
   };
 
   const num: number =
@@ -32,7 +28,7 @@ export default function FilterSelection({}: any) {
 
   return (
     <div style={{ position: "relative" }}>
-      <ButtonWrapper ref={filterRef} onClick={handleClickFilter}>
+      <ButtonWrapper ref={filterRef} onClick={() => handleFilterVisible(true)}>
         <Icon icon="Filter" width={16} height={16} color="Orange600" />
         <Text typo="Headline2" color="Orange600" style={{ marginLeft: 6 }}>
           {num}

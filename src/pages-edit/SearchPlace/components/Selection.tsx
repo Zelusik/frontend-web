@@ -8,15 +8,19 @@ import Spacing from "components/Spacing";
 
 export default function Selection({ type, data, keyword, ...props }: any) {
   const router = useRouter();
-  const { valueSetting, typeSetting, locationSetting, placeInfoSetting } =
-    useSearch();
+  const {
+    handleSearchType,
+    handleSearchValue,
+    handleLocation,
+    handlePlaceInfo,
+  } = useSearch();
 
   const handleClickSelection = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
     if (local) {
       if (type === "location") {
-        locationSetting({ lat: data.point.lat, lng: data.point.lng });
-        valueSetting(data.name);
+        handleLocation({ lat: data.point.lat, lng: data.point.lng });
+        handleSearchValue(data.name);
       }
 
       const repeat = local.filter((d: any) => {
@@ -54,11 +58,11 @@ export default function Selection({ type, data, keyword, ...props }: any) {
 
     switch (type) {
       case "location":
-        typeSetting(type);
+        handleSearchType(type);
         router.push(Route.MAP());
         break;
       case "store":
-        placeInfoSetting(data);
+        handlePlaceInfo(data);
         router.push({
           pathname: Route.STORE_DETAIL(),
           query: { kakaoId: data.id },

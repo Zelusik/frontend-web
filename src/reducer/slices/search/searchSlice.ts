@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
   type: "location" | "store" | "default";
-  filterAction: boolean;
-  actionDelay: boolean;
+  filterVisible: boolean;
 
   foodType: any;
   newFoodType: any;
@@ -20,18 +19,16 @@ interface GlobalType {
 
 const initialState: GlobalType = {
   type: "default",
-  filterAction: false,
-  actionDelay: false,
-
+  filterVisible: false,
   value: "",
+  location: { lat: 0, lng: 0 },
+
   foodType: "",
   newFoodType: "",
   dayOfWeek: [],
   newDayOfWeek: [],
   mood: "",
   newMood: "",
-
-  location: { lat: 0, lng: 0 },
 
   placeInfo: {
     kakaoPid: "",
@@ -52,13 +49,6 @@ export const searchSlice = createSlice({
   initialState,
   reducers: {
     initializeDefaultInfo: () => initialState,
-    changeValue: (
-      state,
-      { payload }: { payload: { type: string; value: any } }
-    ) => {
-      const { value } = payload;
-      state.value = value;
-    },
     changeType: (
       state,
       { payload }: { payload: { type: string; value: any } }
@@ -66,12 +56,19 @@ export const searchSlice = createSlice({
       const { value } = payload;
       state.type = value;
     },
-    changeFilterAction: (
+    changeFilterVisible: (
       state,
       { payload }: { payload: { type: string; value: boolean } }
     ) => {
       const { value } = payload;
-      state.filterAction = value;
+      state.filterVisible = value;
+    },
+    changeValue: (
+      state,
+      { payload }: { payload: { type: string; value: any } }
+    ) => {
+      const { value } = payload;
+      state.value = value;
     },
     changeLocation: (
       state,
@@ -138,11 +135,10 @@ export const searchSlice = createSlice({
 
 export const {
   initializeDefaultInfo,
-  changeValue,
-
   changeType,
+  changeFilterVisible,
+  changeValue,
   changeLocation,
-  changeFilterAction,
 
   changeFoodType,
   changeNewFoodType,

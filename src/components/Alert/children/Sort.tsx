@@ -10,7 +10,7 @@ import { sortData } from "constants/globalData";
 
 export default function Sort() {
   const { sortId } = useAppSelector((state) => state.alert);
-  const { closeAlert, sortIdChange } = useAlert();
+  const { closeAlert, handleSortId } = useAlert();
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function Sort() {
           const action = sortId === idx + 1;
 
           return (
-            <SortInner key={idx} onClick={() => sortIdChange(idx)}>
+            <SortInner key={idx} onClick={() => handleSortId(idx)}>
               <Text typo="Paragraph6" color={action ? "Orange600" : "N100"}>
                 {data.val}
               </Text>

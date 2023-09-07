@@ -36,7 +36,6 @@ const MyApp = ({ Component, pageProps }: any) => {
   const { closeBottomSheetQuick } = useBottomSheet({});
 
   const goBack = () => {
-    console.log("BottomSheetBack");
     closeBottomSheetQuick(true);
   };
 

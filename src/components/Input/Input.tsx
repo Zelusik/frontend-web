@@ -28,7 +28,6 @@ export default function Input({
       case "line":
         break;
       case "shadow":
-        console.log("A");
         router.push(Route.SEARCH_PLACE());
         break;
       default:

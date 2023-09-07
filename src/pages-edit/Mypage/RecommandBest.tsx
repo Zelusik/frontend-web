@@ -27,10 +27,6 @@ export default function RecommandBest() {
     hasNextPage,
   } = useGetMembersReviews();
 
-  const handleClickReset = () => {
-    dispatch(initializeRecommendReview());
-  };
-
   const handleClickStore = async () => {
     const recommendReviews = recommendReview.map(
       (reviewId: any, index: any) => ({
@@ -80,7 +76,7 @@ export default function RecommandBest() {
       <ButtonWrapper>
         <BottomButton
           type="default"
-          onClick={handleClickReset}
+          onClick={() => dispatch(initializeRecommendReview())}
           disabled={false}
         >
           초기화

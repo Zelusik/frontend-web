@@ -5,7 +5,6 @@ import { colors } from "constants/colors";
 import useMapBottomSheet from "hooks/useMapBottomSheet";
 import useDisplaySize from "hooks/useDisplaySize";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeFilterAction } from "reducer/slices/search/searchSlice";
 
 import { globalValue } from "constants/globalValue";
 
@@ -13,25 +12,14 @@ const MapBottomSheet = forwardRef(function Div(
   { children, ...props }: any,
   ref
 ) {
-  const dispatch = useAppDispatch();
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
   );
-
-  const handleClickFilter = () => {
-    dispatch(
-      changeFilterAction({
-        type: "search",
-        value: false,
-      })
-    );
-  };
 
   const { height } = useDisplaySize();
   const { sheet, content } = useMapBottomSheet({
     use: "use",
     visible,
-    handleClickFilter,
   });
 
   useEffect(() => {

@@ -10,7 +10,7 @@ import useSearch from "hooks/useSearch";
 
 const useGetPlacesNear = (openToast: any): any => {
   const {
-    filterAction,
+    filterVisible,
 
     foodType,
     dayOfWeek,
@@ -23,15 +23,15 @@ const useGetPlacesNear = (openToast: any): any => {
     location,
   } = useAppSelector((state) => state.search);
   const {
-    filterActionSetting,
+    handleFilterVisible,
 
-    foodTypeSetting,
-    dayOfWeekSetting,
-    moodSetting,
+    handleFoodType,
+    handleDayOfWeek,
+    handleMood,
 
-    newFoodTypeSetting,
-    newDayOfWeekSetting,
-    newMoodSetting,
+    handleNewFoodType,
+    handleNewDayOfWeek,
+    handleNewMood,
   } = useSearch();
 
   const {
@@ -69,16 +69,16 @@ const useGetPlacesNear = (openToast: any): any => {
         location.lng !== 0 &&
         result?.totalElements === 0
       ) {
-        foodTypeSetting(newFoodType);
-        dayOfWeekSetting(newDayOfWeek);
-        moodSetting(newMood);
-        filterActionSetting(filterAction);
+        handleFoodType(newFoodType);
+        handleDayOfWeek(newDayOfWeek);
+        handleMood(newMood);
+        handleFilterVisible(filterVisible);
         openToast();
       } else {
-        newFoodTypeSetting(foodType);
-        newDayOfWeekSetting(dayOfWeek);
-        newMoodSetting(mood);
-        filterActionSetting(false);
+        handleNewFoodType(foodType);
+        handleNewDayOfWeek(dayOfWeek);
+        handleNewMood(mood);
+        handleFilterVisible(false);
       }
 
       return result;

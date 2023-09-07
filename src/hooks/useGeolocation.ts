@@ -14,7 +14,7 @@ const useGeolocation = () => {
     loaded: false,
     center: location,
   });
-  const { locationSetting } = useSearch();
+  const { handleLocation } = useSearch();
 
   const onLocation = (location: {
     coords: { latitude: number; longitude: number };
@@ -31,7 +31,7 @@ const useGeolocation = () => {
   const onMyLocation = (location: {
     coords: { latitude: number; longitude: number };
   }) => {
-    locationSetting({
+    handleLocation({
       lat: location.coords.latitude,
       lng: location.coords.longitude,
     });

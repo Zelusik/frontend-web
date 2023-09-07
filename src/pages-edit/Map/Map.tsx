@@ -36,7 +36,7 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LocationError from "./components/LocationError";
 import Toast from "components/Toast";
 import useMapBottomSheet from "hooks/useMapBottomSheet";
-import { changeFilterAction } from "reducer/slices/search/searchSlice";
+import { changeFilterVisible } from "reducer/slices/search/searchSlice";
 
 declare const window: any;
 
@@ -45,7 +45,7 @@ export default function Map() {
   const infinityScrollRef = useRef(null);
   const myLocation: any = useGeolocation();
   const { location } = useAppSelector((state) => state.search);
-  const { locationSetting } = useSearch();
+  const { handleLocation } = useSearch();
   const [currentLocation, setCurrentLocation] = useState<any>(null);
   const onCurrentLocation = (lat: any, lng: any) => {
     setCurrentLocation({
@@ -58,11 +58,11 @@ export default function Map() {
   const { isShowToast, openToast, closeToast } = useToast();
 
   const { height } = useDisplaySize();
-  const { typeSetting } = useSearch();
+  const { handleSearchType } = useSearch();
   const {
     value,
     type,
-    filterAction,
+    filterVisible,
 
     foodType,
     dayOfWeek,
@@ -71,8 +71,8 @@ export default function Map() {
 
   // 내 주변
   const clickMyLocation = () => {
-    typeSetting("default");
-    locationSetting({
+    handleSearchType("default");
+    handleLocation({
       lat: myLocation?.center?.lat,
       lng: myLocation?.center?.lng,
     });
@@ -144,7 +144,7 @@ export default function Map() {
   const dispatch = useAppDispatch();
   const handleClickFilter = () => {
     dispatch(
-      changeFilterAction({
+      changeFilterVisible({
         type: "search",
         value: false,
       })
@@ -196,7 +196,7 @@ export default function Map() {
 
       <FindLocationButton clickFindLocation={clickFindLocation} />
       <MapBottomSheet sheet={sheet} content={content}>
-        {filterAction ? (
+        {filterVisible ? (
           <>
             {filterData?.map((data: any, idx: number) => {
               return <Filter key={idx} type={data.type} data={data} />;
@@ -257,7 +257,7 @@ export default function Map() {
               icon="CircleXButton"
               width={24}
               height={24}
-              onClick={() => typeSetting("default")}
+              onClick={() => handleSearchType("default")}
             />
           </IconWrapper>
         ) : undefined}
@@ -272,7 +272,7 @@ export default function Map() {
         <Toast message="조건에 일치하는 장소가 없습니다" close={closeToast} />
       )}
 
-      {filterAction ? (
+      {filterVisible ? (
         <FilterButton
           filter={{
             pickFoodType,
