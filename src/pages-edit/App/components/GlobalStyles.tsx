@@ -52,8 +52,6 @@ const globalCss = css`
     min-height: 100vh;
 
     overflow: hidden;
-    position: fixed;
-    top: 0;
   }
   ::-webkit-scrollbar {
     display: none;
