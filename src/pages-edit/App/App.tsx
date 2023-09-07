@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { cache } from "@emotion/css";
 import { CacheProvider } from "@emotion/react";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 
 import BottomSheet from "components/BottomSheet";
 import Alert from "components/Alert";

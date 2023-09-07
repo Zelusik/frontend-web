@@ -54,6 +54,7 @@ const useGetPlacesNear = (openToast: any): any => {
               : undefined,
           foodCategory: foodType && TASTE_KEYWORD[foodType],
           preferredVibe: mood && FOOD_KEYWORD[mood],
+          onlyMarkedPlaces: false,
           lat: location.lat,
           lng: location.lng,
           page: pageParam,
