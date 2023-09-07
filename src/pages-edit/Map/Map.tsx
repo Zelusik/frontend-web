@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
 import useSearch from "hooks/useSearch";
@@ -35,6 +35,8 @@ import LoadingCircle from "components/Loading/LoadingCircle";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LocationError from "./components/LocationError";
 import Toast from "components/Toast";
+import useMapBottomSheet from "hooks/useMapBottomSheet";
+import { changeFilterAction } from "reducer/slices/search/searchSlice";
 
 declare const window: any;
 
@@ -117,12 +119,9 @@ export default function Map() {
   ];
 
   const requestPermission = () => {
-    console.log(window.ReactNativeWebView);
     if (window.ReactNativeWebView) {
-      // 모바일이라면 모바일의 카메라 권한을 물어보는 액션을 전달합니다.
       window.ReactNativeWebView?.postMessage(JSON.stringify(myLocation));
     } else {
-      // 모바일이 아니라면 모바일 아님을 alert로 띄웁니다.
     }
   };
 
@@ -141,6 +140,39 @@ export default function Map() {
   const { data, isLoading, fetchNextPage, hasNextPage } =
     useGetPlacesNear(openToast);
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
+
+  const dispatch = useAppDispatch();
+  const handleClickFilter = () => {
+    dispatch(
+      changeFilterAction({
+        type: "search",
+        value: false,
+      })
+    );
+  };
+
+  const { visible } = useAppSelector((state) => state.mapBottomSheet);
+  const { sheet, content, closeMapBottomSheet } = useMapBottomSheet({
+    use: "use",
+    visible,
+    handleClickFilter,
+  });
+
+  // const goBack = () => {
+  //   console.log("MapBottomSheetBack");
+  //   closeMapBottomSheet(sheet, true);
+  // };
+
+  // useEffect(() => {
+  //   if (visible === 1) {
+  //     window.addEventListener("popstate", goBack);
+  //     return () => {
+  //       window.removeEventListener("popstate", goBack);
+  //     };
+  //   } else {
+  //     console.log();
+  //   }
+  // }, [visible]);
 
   return (
     <>
@@ -163,7 +195,7 @@ export default function Map() {
       </KakaoMapWrapper>
 
       <FindLocationButton clickFindLocation={clickFindLocation} />
-      <MapBottomSheet>
+      <MapBottomSheet sheet={sheet} content={content}>
         {filterAction ? (
           <>
             {filterData?.map((data: any, idx: number) => {

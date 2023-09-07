@@ -11,6 +11,8 @@ import BottomSheet from "components/BottomSheet";
 import Alert from "components/Alert";
 
 import GlobalStyles from "./components/GlobalStyles";
+import { useEffect } from "react";
+import useBottomSheet from "hooks/useBottomSheet";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
@@ -31,6 +33,21 @@ const App = ({ Component, ...rest }: AppProps) => {
 const MyApp = ({ Component, pageProps }: any) => {
   const { visible } = useAppSelector((state) => state.bottomSheet);
   const { visible: alertVisible } = useAppSelector((state) => state.alert);
+  const { closeBottomSheetQuick } = useBottomSheet({});
+
+  const goBack = () => {
+    console.log("BottomSheetBack");
+    closeBottomSheetQuick(true);
+  };
+
+  useEffect(() => {
+    if (visible === 1) {
+      window.addEventListener("popstate", goBack);
+      return () => {
+        window.removeEventListener("popstate", goBack);
+      };
+    }
+  }, [visible]);
 
   return (
     <CacheProvider value={cache}>

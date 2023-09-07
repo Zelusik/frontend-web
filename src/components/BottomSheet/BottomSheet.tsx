@@ -1,5 +1,5 @@
 "use client";
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 

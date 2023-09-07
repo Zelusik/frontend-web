@@ -28,6 +28,7 @@ export default function Input({
       case "line":
         break;
       case "shadow":
+        console.log("A");
         router.push(Route.SEARCH_PLACE());
         break;
       default:
@@ -56,7 +57,7 @@ export default function Input({
         ref={inputRef}
         placeholder={placeholder}
         value={value}
-        disabled={type === "shadow"}
+        readOnly={type === "shadow"}
         onClick={handleClickInput}
         onChange={(e: any) => setValue(e.target.value)}
         onFocus={() => setFocus(true)}

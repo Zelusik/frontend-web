@@ -82,7 +82,6 @@ export default function useMapBottomSheet({ ...props }: any) {
     originalAll();
   }, []);
 
-  // if (props.use) {
   const metrics = useRef<BottomSheetMetrics>({
     touchStart: {
       sheetY: 0,
@@ -243,11 +242,10 @@ export default function useMapBottomSheet({ ...props }: any) {
       };
     };
 
-    sheet.current!.addEventListener("touchstart", handleTouchStart);
-    sheet.current!.addEventListener("touchmove", handleTouchMove);
-    sheet.current!.addEventListener("touchend", handleTouchEnd);
+    sheet?.current?.addEventListener("touchstart", handleTouchStart);
+    sheet?.current?.addEventListener("touchmove", handleTouchMove);
+    sheet?.current?.addEventListener("touchend", handleTouchEnd);
   }, []);
-  // }
 
   return {
     sheet,
