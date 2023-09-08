@@ -113,6 +113,7 @@ export default function StoreTitle({
                 .with("detail", () => 28)
                 .with("map", () => 24)
                 .otherwise(() => 28)}
+              point={props.point}
             />
           ) : undefined}
           <HeartWrapper marginLeft={type === "map" ? 16 : 20}>

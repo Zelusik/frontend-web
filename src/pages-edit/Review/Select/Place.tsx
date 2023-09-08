@@ -38,6 +38,7 @@ const Place = () => {
 
   const handleClickNextBtn = () => {
     setIsEnabled(true);
+    localStorage.removeItem("point");
   };
 
   const handleClickSearchPlace = () => {

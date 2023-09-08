@@ -43,10 +43,7 @@ export default function StoreCard({ data }: any) {
         ) : (
           <>
             <NumberWrapper>
-              <Number
-                currentIndex={currentIndex}
-                length={data?.images?.length}
-              />
+              <Number currentIndex={currentIndex} length={data?.images?.length} />
             </NumberWrapper>
             <Swiper
               ref={swiperRef}
@@ -80,6 +77,7 @@ export default function StoreCard({ data }: any) {
         onClick={clickStoreDetail}
         isMarked={data?.isMarked}
         placeId={data?.id}
+        point={data?.point}
       />
 
       {data?.top3Keywords.length === 0 ? undefined : (
