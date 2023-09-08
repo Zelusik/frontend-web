@@ -64,7 +64,6 @@ const Review = () => {
 
   const imageConvert = async (file: any) => {
     const processedFile = await compressLargeImage(file);
-
     return imageCompression.getDataUrlFromFile(processedFile);
   };
 
@@ -80,6 +79,7 @@ const Review = () => {
     };
     try {
       const reader = new FileReader();
+      alert(`File Type: ${file.type}, File Name: ${file.name}`);
       const convertedImgBlob = await convertHeicToJpeg(file);
 
       reader.readAsDataURL(convertedImgBlob);
