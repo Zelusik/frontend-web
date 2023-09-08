@@ -8,7 +8,7 @@ import {
 } from "constants/globalData";
 import useSearch from "hooks/useSearch";
 
-const useGetPlacesNear = (openToast: any): any => {
+const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
   const {
     filterVisible,
 
@@ -54,7 +54,7 @@ const useGetPlacesNear = (openToast: any): any => {
               : undefined,
           foodCategory: foodType && TASTE_KEYWORD[foodType],
           preferredVibe: mood && FOOD_KEYWORD[mood],
-          onlyMarkedPlaces: false,
+          onlyMarkedPlaces: isMarkShow,
           lat: location.lat,
           lng: location.lng,
           page: pageParam,
