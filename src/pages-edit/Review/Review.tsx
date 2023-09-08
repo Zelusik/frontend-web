@@ -18,20 +18,10 @@ import BottomNavigation from "components/BottomNavigation/BottomNavigation";
 import Toast from "components/Toast/Toast";
 import imageCompression from "browser-image-compression";
 import useToast from "hooks/useToast";
-import useGeolocation from "hooks/useGeolocation";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  let heic2any: any;
-  const myLocation: any = useGeolocation();
-
-  if (typeof window !== "undefined") {
-    import("heic2any").then((module) => {
-      heic2any = module.default;
-    });
-  }
-
   const { isShowToast, openToast, closeToast } = useToast();
 
   const handleCloseToast = () => {
@@ -48,17 +38,21 @@ const Review = () => {
   };
 
   const convertHeicToJpeg = async (file: any): Promise<any> => {
-    if (heic2any) {
+    const heic2any = (await import("heic2any")).default;
+    try {
       if (isHeicOrHeif(file.name)) {
-        return heic2any({
+        const result = await heic2any({
           blob: file,
           toType: "image/jpeg",
           quality: 0.8,
         });
+        alert(`Blob Size: ${result.size}, Blob Type: ${result.type}`);
+        return result;
       }
       return file;
+    } catch {
+      return file;
     }
-    return file;
   };
 
   const compressLargeImage = async (file: any): Promise<any> => {
@@ -69,8 +63,7 @@ const Review = () => {
   };
 
   const imageConvert = async (file: any) => {
-    let processedFile = await convertHeicToJpeg(file);
-    processedFile = await compressLargeImage(processedFile);
+    const processedFile = await compressLargeImage(file);
 
     return imageCompression.getDataUrlFromFile(processedFile);
   };
@@ -90,9 +83,8 @@ const Review = () => {
       const convertedImgBlob = await convertHeicToJpeg(file);
 
       reader.readAsDataURL(convertedImgBlob);
-      imageInfo.image = await imageConvert(file);
+      imageInfo.image = await imageConvert(convertedImgBlob);
       imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
-
       const data = await exifr.parse(file);
       alert(JSON.stringify(data));
 
@@ -100,12 +92,12 @@ const Review = () => {
         imageInfo.lat = data?.latitude;
         imageInfo.lng = data?.longitude;
       } else {
-        imageInfo.lat = myLocation?.center?.lat;
-        imageInfo.lng = myLocation?.center?.lng;
+        imageInfo.lat = "";
+        imageInfo.lng = "";
       }
     } catch (error) {
-      imageInfo.lat = myLocation?.center?.lat;
-      imageInfo.lng = myLocation?.center?.lng;
+      imageInfo.lat = "";
+      imageInfo.lng = "";
     }
     if (localStorage.getItem("point")) {
       const { lat, lng } = JSON.parse(localStorage.getItem("point") || "{}");
