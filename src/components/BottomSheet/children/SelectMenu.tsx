@@ -8,16 +8,14 @@ import useGetMenus from "hooks/queries/review/useGetMenus";
 import useDisplaySize from "hooks/useDisplaySize";
 
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import {
-  changeVisible,
-  changeVisibleType,
-} from "reducer/slices/bottomSheet/bottomSheetSlice";
+import { changeVisible } from "reducer/slices/bottomSheet/bottomSheetSlice";
 import { appendMenuTag } from "reducer/slices/image/imageSlice";
 import { MenuTagType } from "types/image";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import useToast from "hooks/useToast";
 import { FoodType } from "types/review";
 import LoadingDots from "components/Loading/LoadingDots";
+import useBottomSheet from "hooks/useBottomSheet";
 
 const SelectMenu = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +34,7 @@ const SelectMenu = () => {
   const menuTag = useAppSelector((state) => state.menuTag);
   const { foodInfo } = useAppSelector((state) => state.review);
   const [clickedMenu, setClickedMenu] = useState("");
+  const { openBottomSheet } = useBottomSheet({});
 
   const handleClickFood = (foodName: string) => {
     setClickedMenu(foodName);
@@ -101,12 +100,7 @@ const SelectMenu = () => {
         value: 0,
       })
     );
-    dispatch(
-      changeVisibleType({
-        type: "bottomSheet",
-        value: [1, "registerMenu"],
-      })
-    );
+    openBottomSheet("registerMenu");
   };
 
   return (
