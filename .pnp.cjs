@@ -62,7 +62,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-apple-login", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.6"],\
             ["react-dom", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:18.2.0"],\
             ["react-dropzone", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:14.2.3"],\
-            ["react-hotjar", "npm:6.1.0"],\
             ["react-kakao-maps-sdk", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.9"],\
             ["react-modal-sheet", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:2.0.0"],\
             ["react-query", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:3.39.3"],\
@@ -5679,7 +5678,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-apple-login", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.6"],\
             ["react-dom", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:18.2.0"],\
             ["react-dropzone", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:14.2.3"],\
-            ["react-hotjar", "npm:6.1.0"],\
             ["react-kakao-maps-sdk", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:1.1.9"],\
             ["react-modal-sheet", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:2.0.0"],\
             ["react-query", "virtual:1ba635c771bf76c0118f239bcb2f0787219d6caf39b2746ac0336c285ad1eee0eadb89a0157f2519ce083d80efb6b7dbfa0cdd9d1c32b9a70a9bace810f7908a#npm:3.39.3"],\
@@ -8832,15 +8830,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["react-easy-swipe", "npm:0.0.21"],\
             ["prop-types", "npm:15.8.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["react-hotjar", [\
-        ["npm:6.1.0", {\
-          "packageLocation": "./.yarn/cache/react-hotjar-npm-6.1.0-6e4f496fde-555600eb27.zip/node_modules/react-hotjar/",\
-          "packageDependencies": [\
-            ["react-hotjar", "npm:6.1.0"]\
           ],\
           "linkType": "HARD"\
         }]\
