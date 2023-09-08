@@ -18,11 +18,13 @@ import BottomNavigation from "components/BottomNavigation/BottomNavigation";
 import Toast from "components/Toast/Toast";
 import imageCompression from "browser-image-compression";
 import useToast from "hooks/useToast";
+import useGeolocation from "hooks/useGeolocation";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   let heic2any: any;
+  const myLocation: any = useGeolocation();
 
   if (typeof window !== "undefined") {
     import("heic2any").then((module) => {
@@ -92,14 +94,23 @@ const Review = () => {
       imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
 
       const data = await exifr.parse(file);
-      const lat = data?.GPSLatitude;
-      const lng = data?.GPSLongitude;
+      alert(JSON.stringify(data));
 
-      imageInfo.lat = String(lat[0] + lat[1] / 60 + lat[2] / 3600);
-      imageInfo.lng = String(lng[0] + lng[1] / 60 + lng[2] / 3600);
+      if (data?.latitude || data?.longitude) {
+        imageInfo.lat = data?.latitude;
+        imageInfo.lng = data?.longitude;
+      } else {
+        imageInfo.lat = myLocation?.center?.lat;
+        imageInfo.lng = myLocation?.center?.lng;
+      }
     } catch (error) {
-      imageInfo.lat = "";
-      imageInfo.lng = "";
+      imageInfo.lat = myLocation?.center?.lat;
+      imageInfo.lng = myLocation?.center?.lng;
+    }
+    if (localStorage.getItem("point")) {
+      const { lat, lng } = JSON.parse(localStorage.getItem("point") || "{}");
+      imageInfo.lat = lat;
+      imageInfo.lng = lng;
     }
     dispatch(changeImageInfo(imageInfo));
   };

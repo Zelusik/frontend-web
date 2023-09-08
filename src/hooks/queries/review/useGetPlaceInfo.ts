@@ -9,11 +9,6 @@ const useGetPlaceInfo = (image: any) => {
   const dispatch = useAppDispatch();
   const { placeInfo } = useAppSelector((state) => state.review);
 
-  const getCurrentPosition = (options: any): Promise<GeolocationPosition> =>
-    new Promise((resolve, reject) =>
-      navigator.geolocation.getCurrentPosition(resolve, reject, options)
-    );
-
   const dispatchPlaceInfo = (res: any) => {
     dispatch(
       changeReviewInfo({
@@ -34,23 +29,15 @@ const useGetPlaceInfo = (image: any) => {
     );
   };
 
-  const getKakaoData = async (lng: number | undefined, lat: number | undefined) => {
+  const getKakaoData = async (lng: number, lat: number) => {
     try {
-      if ("geolocation" in navigator) {
-        const position: GeolocationPosition = await getCurrentPosition({
-          enableHighAccuracy: false,
-          maximumAge: 0,
-          timeout: Infinity,
-        });
-
-        const res: any = await kakaoSearchKeyword({
-          x: lng || position.coords.longitude,
-          y: lat || position.coords.latitude,
-          keyword: "",
-          page: 1,
-        });
-        dispatchPlaceInfo(res);
-      }
+      const res: any = await kakaoSearchKeyword({
+        x: lng,
+        y: lat,
+        keyword: "",
+        page: 1,
+      });
+      dispatchPlaceInfo(res);
     } catch (error) {
       const res: any = await kakaoSearchKeyword({
         x: 126.951592,
