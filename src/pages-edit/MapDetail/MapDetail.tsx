@@ -11,6 +11,8 @@ export default function MapDetail() {
         <KakaoMap
           lat={Number(router.query.lat)}
           lng={Number(router.query.lng)}
+          myLat={Number(router.query.myLat)}
+          myLng={Number(router.query.myLng)}
         />
       </KakaoMapWrapper>
       <TitleWrapper>
