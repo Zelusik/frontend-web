@@ -164,7 +164,12 @@ const Keyword = () => {
               onClick={handleClickNextBtn}
               disabled={keywords.length === 0}
             />
-            <ReviewButton onClick={handleClickSelfBtn}>직접 리뷰쓰기</ReviewButton>
+            <ReviewButton
+              onClick={handleClickSelfBtn}
+              disabled={keywords.length === 0}
+            >
+              직접 리뷰쓰기
+            </ReviewButton>
           </BottomWrapper>
           {isShowToast && (
             <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
@@ -213,10 +218,11 @@ const BottomWrapper = styled.div`
   margin-bottom: 40px;
 `;
 
-const ReviewButton = styled.div`
+const ReviewButton = styled.button`
   ${typography.Paragraph5};
   color: ${colors.N60};
   margin-top: 8px;
+  width: 100%;
 `;
 
 export default Keyword;
