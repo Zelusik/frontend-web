@@ -80,11 +80,11 @@ const Review = () => {
     try {
       const reader = new FileReader();
       alert(`File Type: ${file.type}, File Name: ${file.name}`);
-      const convertedImgBlob = await convertHeicToJpeg(file);
+      // const convertedImgBlob = await convertHeicToJpeg(file);
 
-      reader.readAsDataURL(convertedImgBlob);
-      imageInfo.image = await imageConvert(convertedImgBlob);
-      imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
+      // reader.readAsDataURL(convertedImgBlob);
+      // imageInfo.image = await imageConvert(convertedImgBlob);
+      // imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
       const data = await exifr.parse(file);
       alert(JSON.stringify(data));
 
