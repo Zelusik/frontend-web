@@ -26,7 +26,7 @@ const useAlert = () => {
     );
   }, []);
 
-  const sortIdChange = useCallback((idx: number) => {
+  const handleSortId = useCallback((idx: number) => {
     dispatch(
       changeSort({
         type: "alert",
@@ -35,7 +35,7 @@ const useAlert = () => {
     );
   }, []);
 
-  return { openAlert, closeAlert, sortIdChange };
+  return { openAlert, closeAlert, handleSortId };
 };
 
 export default useAlert;

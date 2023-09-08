@@ -12,12 +12,16 @@ import { equals } from "utils/equals";
 
 export default function FilterButton({ filter }: any) {
   const router = useRouter();
-  const { foodType, newFoodType, dayOfWeek, newDayOfWeek, mood, newMood } =
-    useAppSelector((state) => state.search);
-  const { typeSetting, filterActionSetting, deleteAll, newAll } = useSearch();
+  const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
+  const {
+    handleSearchType,
+    handleFilterVisible,
+    updateSelection,
+    deleteSelection,
+  } = useSearch();
 
   const handleClickSelection = () => {
-    typeSetting("location");
+    handleSearchType("location");
     router.push(Route.MAP());
   };
 
@@ -30,8 +34,8 @@ export default function FilterButton({ filter }: any) {
             type="default"
             disabled={false}
             onClick={() => {
-              filterActionSetting(false);
-              deleteAll();
+              handleFilterVisible(false);
+              deleteSelection();
             }}
           >
             초기화
@@ -44,8 +48,8 @@ export default function FilterButton({ filter }: any) {
               mood === filter.pickMood
             }
             onClick={() => {
-              // filterActionSetting(false);
-              newAll(
+              // handleFilterVisible(false);
+              updateSelection(
                 filter.pickFoodType,
                 filter.pickDayOfWeek,
                 filter.pickMood

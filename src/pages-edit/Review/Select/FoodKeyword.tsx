@@ -174,9 +174,12 @@ const FoodKeyword = () => {
                   color={colors.N0}
                   height="54px"
                   onClick={handleClickAIBtn}
-                  disabled={keywords.length === 0}
+                  disabled={foodInfo.flatMap((e: any) => e.foodKeyword).length === 0}
                 />
-                <ReviewButton onClick={handleClickSelfBtn}>
+                <ReviewButton
+                  onClick={handleClickSelfBtn}
+                  disabled={foodInfo.flatMap((e: any) => e.foodKeyword).length === 0}
+                >
                   직접 리뷰쓰기
                 </ReviewButton>
               </BottomWrapper>
@@ -240,10 +243,11 @@ const BottomWrapper = styled.div`
   right: 20px;
   margin-bottom: 40px;
 `;
-const ReviewButton = styled.div`
+const ReviewButton = styled.button`
   ${typography.Paragraph5};
   color: ${colors.N60};
   margin-top: 8px;
+  width: 100%;
 `;
 
 export default FoodKeyword;

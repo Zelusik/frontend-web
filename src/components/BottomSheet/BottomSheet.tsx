@@ -1,5 +1,5 @@
 "use client";
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 
@@ -39,16 +39,12 @@ const BottomSheet = forwardRef(function Div(
     registerMenu: <RegisterMenu />,
   };
 
-  const { closeBottomSheet } = useBottomSheet({});
   const { type, visible, actionDelay } = useAppSelector(
     (state) => state.bottomSheet
   );
+  const { closeBottomSheet } = useBottomSheet({});
+
   const BOTTOMSHEET_HEIGHT = COMPONENT_HEIGHT[type];
-
-  const handleClickBackground = () => {
-    closeBottomSheet(sheet);
-  };
-
   const { sheet, content } = useBottomSheet({
     use: "use",
     visible,
@@ -60,7 +56,7 @@ const BottomSheet = forwardRef(function Div(
       <Background
         actionDelay={actionDelay}
         visible={visible}
-        onClick={handleClickBackground}
+        onClick={() => closeBottomSheet(sheet)}
       />
       <BottomSheetWrapper
         ref={sheet}

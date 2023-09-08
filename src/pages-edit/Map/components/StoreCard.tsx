@@ -13,12 +13,14 @@ import Spacing from "components/Spacing";
 import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
 import Hashtags from "components/Hashtags";
+import { useAppSelector } from "hooks/useReduxHooks";
 
 export default function StoreCard({ data }: any) {
   const router = useRouter();
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { width } = useDisplaySize();
+  const { visible } = useAppSelector((state) => state.mapBottomSheet);
 
   const onSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;

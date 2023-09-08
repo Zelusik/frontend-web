@@ -1,6 +1,6 @@
 import {
   changeDayOfWeek,
-  changeFilterAction,
+  changeFilterVisible,
   changeFoodType,
   changeLocation,
   changeMood,
@@ -15,90 +15,9 @@ import { useAppDispatch, useAppSelector } from "./useReduxHooks";
 
 const useSearch = () => {
   const dispatch = useAppDispatch();
-  const { foodType, newFoodType, dayOfWeek, newDayOfWeek, mood, newMood } =
-    useAppSelector((state) => state.search);
+  const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
 
-  const valueSetting = (val: any) => {
-    dispatch(
-      changeValue({
-        type: "search",
-        value: val,
-      })
-    );
-  };
-
-  const newFoodTypeSetting = (val: any) => {
-    dispatch(
-      changeNewFoodType({
-        type: "search",
-        value: val,
-      })
-    );
-  };
-
-  const foodTypeSetting = (val: any) => {
-    dispatch(
-      changeFoodType({
-        type: "search",
-        value: val,
-      })
-    );
-  };
-
-  const newDayOfWeekSetting = (val: any) => {
-    dispatch(
-      changeNewDayOfWeek({
-        type: "search",
-        value: val,
-      })
-    );
-  };
-  const dayOfWeekSetting = (val: any) => {
-    dispatch(
-      changeDayOfWeek({
-        type: "search",
-        value: val,
-      })
-    );
-  };
-
-  const newMoodSetting = (val: any) => {
-    dispatch(
-      changeNewMood({
-        type: "search",
-        value: val,
-      })
-    );
-  };
-  const moodSetting = (val: any) => {
-    dispatch(
-      changeMood({
-        type: "search",
-        value: val,
-      })
-    );
-  };
-
-  const originalAll = () => {
-    newFoodTypeSetting(foodType);
-    newDayOfWeekSetting(dayOfWeek);
-    newMoodSetting(mood);
-  };
-
-  const newAll = (pickFoodType: any, pickDayOfWeek: any, pickMood: any) => {
-    foodTypeSetting(pickFoodType);
-    dayOfWeekSetting(pickDayOfWeek);
-    moodSetting(pickMood);
-  };
-
-  const deleteAll = () => {
-    foodTypeSetting("");
-    dayOfWeekSetting([]);
-    moodSetting("");
-  };
-
-  //
-  const typeSetting = (type: any) => {
+  const handleSearchType = (type: any) => {
     dispatch(
       changeType({
         type: "search",
@@ -106,12 +25,27 @@ const useSearch = () => {
       })
     );
     if (type === "default") {
-      valueSetting("");
-      deleteAll();
+      handleSearchValue("");
+      deleteSelection();
     }
   };
-
-  const locationSetting = (loc: any) => {
+  const handleSearchValue = (val: any) => {
+    dispatch(
+      changeValue({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+  const handleFilterVisible = (filterVisible: boolean) => {
+    dispatch(
+      changeFilterVisible({
+        type: "search",
+        value: filterVisible,
+      })
+    );
+  };
+  const handleLocation = (loc: any) => {
     dispatch(
       changeLocation({
         type: "search",
@@ -120,17 +54,81 @@ const useSearch = () => {
     );
   };
 
-  const filterActionSetting = (filterAction: any) => {
+  const handleFoodType = (val: any) => {
     dispatch(
-      changeFilterAction({
+      changeFoodType({
         type: "search",
-        value: filterAction,
+        value: val,
+      })
+    );
+  };
+  const handleNewFoodType = (val: any) => {
+    dispatch(
+      changeNewFoodType({
+        type: "search",
+        value: val,
       })
     );
   };
 
+  const handleDayOfWeek = (val: any) => {
+    dispatch(
+      changeDayOfWeek({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+  const handleNewDayOfWeek = (val: any) => {
+    dispatch(
+      changeNewDayOfWeek({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+
+  const handleMood = (val: any) => {
+    dispatch(
+      changeMood({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+  const handleNewMood = (val: any) => {
+    dispatch(
+      changeNewMood({
+        type: "search",
+        value: val,
+      })
+    );
+  };
+
+  const updateNewSelection = () => {
+    handleNewFoodType(foodType);
+    handleNewDayOfWeek(dayOfWeek);
+    handleNewMood(mood);
+  };
+
+  const updateSelection = (
+    pickFoodType: any,
+    pickDayOfWeek: any,
+    pickMood: any
+  ) => {
+    handleFoodType(pickFoodType);
+    handleDayOfWeek(pickDayOfWeek);
+    handleMood(pickMood);
+  };
+
+  const deleteSelection = () => {
+    handleFoodType("");
+    handleDayOfWeek([]);
+    handleMood("");
+  };
+
   //
-  const placeInfoSetting = (placeInfo: any) => {
+  const handlePlaceInfo = (placeInfo: any) => {
     const newPlaceInfo = {
       kakaoPid: placeInfo.id,
       name: placeInfo.place_name,
@@ -152,26 +150,25 @@ const useSearch = () => {
   };
 
   return {
-    valueSetting,
+    handleSearchType,
+    handleSearchValue,
+    handleFilterVisible,
+    handleLocation,
 
-    typeSetting,
-    locationSetting,
-    filterActionSetting,
+    handleFoodType,
+    handleNewFoodType,
 
-    foodTypeSetting,
-    newFoodTypeSetting,
+    handleDayOfWeek,
+    handleNewDayOfWeek,
 
-    dayOfWeekSetting,
-    newDayOfWeekSetting,
+    handleMood,
+    handleNewMood,
 
-    moodSetting,
-    newMoodSetting,
+    updateNewSelection,
+    updateSelection,
+    deleteSelection,
 
-    originalAll,
-    newAll,
-    deleteAll,
-
-    placeInfoSetting,
+    handlePlaceInfo,
   };
 };
 

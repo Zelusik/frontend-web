@@ -56,7 +56,7 @@ export default function Input({
         ref={inputRef}
         placeholder={placeholder}
         value={value}
-        disabled={type === "shadow"}
+        readOnly={type === "shadow"}
         onClick={handleClickInput}
         onChange={(e: any) => setValue(e.target.value)}
         onFocus={() => setFocus(true)}

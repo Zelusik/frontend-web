@@ -1,11 +1,10 @@
 import { globalValue } from "constants/globalValue";
 import { useRef, useEffect, useCallback } from "react";
 import {
-  changeAction,
-  changeVisible,
-  changeVisibleType,
+  changeMapAction,
+  changeMapVisible,
+  changeMapVisibleType,
 } from "reducer/slices/bottomSheet/mapBottomSheetSlice";
-import { changeFilterAction } from "reducer/slices/search/searchSlice";
 import { useAppDispatch } from "./useReduxHooks";
 import useSearch from "./useSearch";
 
@@ -27,11 +26,11 @@ export default function useMapBottomSheet({ ...props }: any) {
   const dispatch = useAppDispatch();
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
-  const { originalAll } = useSearch();
+  const { handleFilterVisible, updateNewSelection } = useSearch();
 
   const moveMapBottomSheet = useCallback((move: any) => {
     dispatch(
-      changeVisible({
+      changeMapVisible({
         type: "mapBottomSheet",
         value: move,
       })
@@ -40,7 +39,7 @@ export default function useMapBottomSheet({ ...props }: any) {
 
   const openMapBottomSheet = useCallback((type: any) => {
     dispatch(
-      changeVisibleType({
+      changeMapVisibleType({
         type: "mapBottomSheet",
         value: [1, type],
       })
@@ -48,14 +47,10 @@ export default function useMapBottomSheet({ ...props }: any) {
   }, []);
 
   const closeMapBottomSheet = useCallback((sheetInner: any) => {
+    handleFilterVisible(false);
+    updateNewSelection();
     dispatch(
-      changeFilterAction({
-        type: "search",
-        value: false,
-      })
-    );
-    dispatch(
-      changeAction({
+      changeMapAction({
         type: "mapBottomSheet",
         value: false,
       })
@@ -63,26 +58,24 @@ export default function useMapBottomSheet({ ...props }: any) {
     sheetInner.current!.style.setProperty("transform", `translateY(-${0}px)`);
     setTimeout(() => {
       dispatch(
-        changeVisible({
+        changeMapVisible({
           type: "mapBottomSheet",
           value: 0,
         })
       );
     }, 300);
-    originalAll();
   }, []);
 
   const closeMapBottomSheetQuick = useCallback(() => {
+    updateNewSelection();
     dispatch(
-      changeVisible({
+      changeMapVisible({
         type: "bottomSheet",
         value: 0,
       })
     );
-    originalAll();
   }, []);
 
-  // if (props.use) {
   const metrics = useRef<BottomSheetMetrics>({
     touchStart: {
       sheetY: 0,
@@ -243,11 +236,10 @@ export default function useMapBottomSheet({ ...props }: any) {
       };
     };
 
-    sheet.current!.addEventListener("touchstart", handleTouchStart);
-    sheet.current!.addEventListener("touchmove", handleTouchMove);
-    sheet.current!.addEventListener("touchend", handleTouchEnd);
+    sheet?.current?.addEventListener("touchstart", handleTouchStart);
+    sheet?.current?.addEventListener("touchmove", handleTouchMove);
+    sheet?.current?.addEventListener("touchend", handleTouchEnd);
   }, []);
-  // }
 
   return {
     sheet,

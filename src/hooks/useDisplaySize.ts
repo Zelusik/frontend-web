@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface BottomSheetMetrics {
   touchStart: {
@@ -14,8 +14,16 @@ interface BottomSheetMetrics {
 }
 
 export default function useDisplaySize() {
-  const [width, setWidth] = useState<number>(0);
-  const [height, setHeight] = useState<number>(0);
+  const initialWidth =
+    typeof window !== "undefined"
+      ? window.innerWidth > 820
+        ? 820
+        : window.innerWidth
+      : 0;
+  const initialHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+
+  const [width, setWidth] = useState<number>(initialWidth);
+  const [height, setHeight] = useState<number>(initialHeight);
 
   const handleResize = () => {
     setWidth(window.innerWidth > 820 ? 820 : window.innerWidth);
@@ -23,9 +31,6 @@ export default function useDisplaySize() {
   };
 
   useEffect(() => {
-    setWidth(window.innerWidth > 820 ? 820 : window.innerWidth);
-    setHeight(window.innerHeight);
-
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);

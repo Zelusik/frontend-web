@@ -34,6 +34,7 @@ export default function useBottomSheet({ ...props }: any) {
   }, []);
 
   const openBottomSheet = useCallback((type: any) => {
+    history.pushState({ page: "modal" }, document.title, "modal");
     dispatch(
       changeVisibleType({
         type: "bottomSheet",
@@ -42,7 +43,7 @@ export default function useBottomSheet({ ...props }: any) {
     );
   }, []);
 
-  const closeBottomSheet = useCallback((sheetInner: any) => {
+  const closeBottomSheet = useCallback((sheetInner: any, popstate?: any) => {
     dispatch(
       changeAction({
         type: "bottomSheet",
@@ -51,6 +52,7 @@ export default function useBottomSheet({ ...props }: any) {
     );
     sheetInner.current?.style.setProperty("transform", `translateY(-${0}px)`);
     setTimeout(() => {
+      if (!popstate) history.back();
       dispatch(
         changeVisible({
           type: "bottomSheet",
@@ -60,7 +62,8 @@ export default function useBottomSheet({ ...props }: any) {
     }, 300);
   }, []);
 
-  const closeBottomSheetQuick = useCallback(() => {
+  const closeBottomSheetQuick = useCallback((popstate?: any) => {
+    if (!popstate) history.back();
     dispatch(
       changeVisible({
         type: "bottomSheet",
@@ -69,7 +72,6 @@ export default function useBottomSheet({ ...props }: any) {
     );
   }, []);
 
-  // if (props.use) {
   const metrics = useRef<BottomSheetMetrics>({
     touchStart: {
       sheetY: 0,
@@ -84,6 +86,7 @@ export default function useBottomSheet({ ...props }: any) {
   });
 
   useEffect(() => {
+    if (!props.use) return;
     const BOTTOMSHEET_BACKGROUND =
       window.innerHeight - props.BOTTOMSHEET_HEIGHT;
 
@@ -189,11 +192,7 @@ export default function useBottomSheet({ ...props }: any) {
     sheet.current?.addEventListener("touchstart", handleTouchStart);
     sheet.current?.addEventListener("touchmove", handleTouchMove);
     sheet.current?.addEventListener("touchend", handleTouchEnd);
-
-    // history.pushState({ page: "modal" }, document.title);
-    // showAnimatedModal();
   }, []);
-  // }
 
   return {
     sheet,

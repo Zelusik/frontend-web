@@ -10,7 +10,7 @@ const Icons = ["LineMarker", "Restaurant", "LineProfile"];
 
 export default function CurrentSelection({ idx, data, ...props }: any) {
   const router = useRouter();
-  const { valueSetting, typeSetting, locationSetting } = useSearch();
+  const { handleSearchType, handleSearchValue, handleLocation } = useSearch();
 
   const clickText = () => {
     const local = JSON.parse(String(localStorage.getItem("currentSelection")));
@@ -29,10 +29,10 @@ export default function CurrentSelection({ idx, data, ...props }: any) {
 
       switch (newValue[0].type) {
         case 0:
-          typeSetting("location");
-          locationSetting({ lat: data.location.lat, lng: data.location.lng });
+          handleSearchType("location");
+          handleLocation({ lat: data.location.lat, lng: data.location.lng });
           router.push(Route.MAP());
-          valueSetting(newValue[0].text);
+          handleSearchValue(newValue[0].text);
           break;
         case 1:
           router.push({

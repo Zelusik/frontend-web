@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
 import useSearch from "hooks/useSearch";
@@ -35,6 +35,8 @@ import LoadingCircle from "components/Loading/LoadingCircle";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LocationError from "./components/LocationError";
 import Toast from "components/Toast";
+import useMapBottomSheet from "hooks/useMapBottomSheet";
+import { changeFilterVisible } from "reducer/slices/search/searchSlice";
 
 declare const window: any;
 
@@ -43,7 +45,7 @@ export default function Map() {
   const infinityScrollRef = useRef(null);
   const myLocation: any = useGeolocation();
   const { location } = useAppSelector((state) => state.search);
-  const { locationSetting } = useSearch();
+  const { handleLocation } = useSearch();
   const [currentLocation, setCurrentLocation] = useState<any>(null);
   const onCurrentLocation = (lat: any, lng: any) => {
     setCurrentLocation({
@@ -56,11 +58,11 @@ export default function Map() {
   const { isShowToast, openToast, closeToast } = useToast();
 
   const { height } = useDisplaySize();
-  const { typeSetting } = useSearch();
+  const { handleSearchType } = useSearch();
   const {
     value,
     type,
-    filterAction,
+    filterVisible,
 
     foodType,
     dayOfWeek,
@@ -69,8 +71,8 @@ export default function Map() {
 
   // 내 주변
   const clickMyLocation = () => {
-    typeSetting("default");
-    locationSetting({
+    handleSearchType("default");
+    handleLocation({
       lat: myLocation?.center?.lat,
       lng: myLocation?.center?.lng,
     });
@@ -117,12 +119,9 @@ export default function Map() {
   ];
 
   const requestPermission = () => {
-    console.log(window.ReactNativeWebView);
     if (window.ReactNativeWebView) {
-      // 모바일이라면 모바일의 카메라 권한을 물어보는 액션을 전달합니다.
       window.ReactNativeWebView?.postMessage(JSON.stringify(myLocation));
     } else {
-      // 모바일이 아니라면 모바일 아님을 alert로 띄웁니다.
     }
   };
 
@@ -141,6 +140,39 @@ export default function Map() {
   const { data, isLoading, fetchNextPage, hasNextPage } =
     useGetPlacesNear(openToast);
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
+
+  const dispatch = useAppDispatch();
+  const handleClickFilter = () => {
+    dispatch(
+      changeFilterVisible({
+        type: "search",
+        value: false,
+      })
+    );
+  };
+
+  const { visible } = useAppSelector((state) => state.mapBottomSheet);
+  const { sheet, content, closeMapBottomSheet } = useMapBottomSheet({
+    use: "use",
+    visible,
+    handleClickFilter,
+  });
+
+  // const goBack = () => {
+  //   console.log("MapBottomSheetBack");
+  //   closeMapBottomSheet(sheet, true);
+  // };
+
+  // useEffect(() => {
+  //   if (visible === 1) {
+  //     window.addEventListener("popstate", goBack);
+  //     return () => {
+  //       window.removeEventListener("popstate", goBack);
+  //     };
+  //   } else {
+  //     console.log();
+  //   }
+  // }, [visible]);
 
   return (
     <>
@@ -163,8 +195,8 @@ export default function Map() {
       </KakaoMapWrapper>
 
       <FindLocationButton clickFindLocation={clickFindLocation} />
-      <MapBottomSheet>
-        {filterAction ? (
+      <MapBottomSheet sheet={sheet} content={content}>
+        {filterVisible ? (
           <>
             {filterData?.map((data: any, idx: number) => {
               return <Filter key={idx} type={data.type} data={data} />;
@@ -225,7 +257,7 @@ export default function Map() {
               icon="CircleXButton"
               width={24}
               height={24}
-              onClick={() => typeSetting("default")}
+              onClick={() => handleSearchType("default")}
             />
           </IconWrapper>
         ) : undefined}
@@ -240,7 +272,7 @@ export default function Map() {
         <Toast message="조건에 일치하는 장소가 없습니다" close={closeToast} />
       )}
 
-      {filterAction ? (
+      {filterVisible ? (
         <FilterButton
           filter={{
             pickFoodType,

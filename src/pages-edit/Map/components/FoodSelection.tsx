@@ -13,13 +13,13 @@ export default function FoodSelection({ clickMyLocation, clickMarkShow }: any) {
     (state) => state.mapBottomSheet
   );
   const { foodType } = useAppSelector((state) => state.search);
-  const { foodTypeSetting, newFoodTypeSetting } = useSearch();
+  const { handleFoodType, handleNewFoodType } = useSearch();
 
   const clickFilterButton = (val: string) => {
     if (foodType === val) {
-      newFoodTypeSetting("");
-      foodTypeSetting("");
-    } else foodTypeSetting(val);
+      handleNewFoodType("");
+      handleFoodType("");
+    } else handleFoodType(val);
   };
 
   return (
