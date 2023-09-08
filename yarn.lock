@@ -3819,7 +3819,6 @@ __metadata:
     react-apple-login: ^1.1.6
     react-dom: 18.2.0
     react-dropzone: ^14.2.3
-    react-hotjar: ^6.1.0
     react-kakao-maps-sdk: ^1.1.9
     react-modal-sheet: ^2.0.0
     react-query: ^3.39.3
@@ -6475,13 +6474,6 @@ __metadata:
   dependencies:
     prop-types: ^15.5.8
   checksum: 225f12a9dd410db1c790220867ab1eb58e2ef0a2bdae8541330805fc5b9905e242ab307b019f9aaed76473849a753f363baff03fa8a77e7a1860d7b41dc83ec0
-  languageName: node
-  linkType: hard
-
-"react-hotjar@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "react-hotjar@npm:6.1.0"
-  checksum: 555600eb277a08ba01268b42d9552a44014fad4fcc5db37229657d386673f0399e9b7e1fb25bf287afeec09ee8f2546def374f448ca68ae23745f4ace03d5e3a
   languageName: node
   linkType: hard
 
