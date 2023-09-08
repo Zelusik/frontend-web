@@ -95,11 +95,15 @@ export default function ReviewDetail() {
             <KakaoMap
               lat={data?.place?.point?.lat}
               lng={data?.place?.point?.lng}
+              myLat={data?.place?.point?.lat}
+              myLng={data?.place?.point?.lng}
             />
             <NoTouch />
             <ScaleUpButton
               lat={data?.place?.point?.lat}
               lng={data?.place?.point?.lng}
+              myLat={data?.place?.point?.lat}
+              myLng={data?.place?.point?.lng}
             />
           </KakaoMapWrapper>
 

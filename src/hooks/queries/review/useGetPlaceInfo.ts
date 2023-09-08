@@ -34,7 +34,7 @@ const useGetPlaceInfo = (image: any) => {
     );
   };
 
-  const getKakaoData = async (lng: number | undefined, lat: number | undefined) => {
+  const getKakaoData = async (lng: any, lat: any) => {
     try {
       if ("geolocation" in navigator) {
         const position: GeolocationPosition = await getCurrentPosition({
@@ -42,14 +42,23 @@ const useGetPlaceInfo = (image: any) => {
           maximumAge: 0,
           timeout: Infinity,
         });
-
-        const res: any = await kakaoSearchKeyword({
-          x: lng || position.coords.longitude,
-          y: lat || position.coords.latitude,
-          keyword: "",
-          page: 1,
-        });
-        dispatchPlaceInfo(res);
+        if (lng !== "" && lat !== "") {
+          const res: any = await kakaoSearchKeyword({
+            x: lng,
+            y: lat,
+            keyword: "",
+            page: 1,
+          });
+          dispatchPlaceInfo(res);
+        } else {
+          const res: any = await kakaoSearchKeyword({
+            x: position.coords.longitude,
+            y: position.coords.latitude,
+            keyword: "",
+            page: 1,
+          });
+          dispatchPlaceInfo(res);
+        }
       }
     } catch (error) {
       const res: any = await kakaoSearchKeyword({

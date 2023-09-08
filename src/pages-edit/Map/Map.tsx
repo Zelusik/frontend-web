@@ -137,8 +137,10 @@ export default function Map() {
     onCurrentLocation(location?.lat, location?.lng);
   }, [location, foodType, dayOfWeek, mood]);
 
-  const { data, isLoading, fetchNextPage, hasNextPage } =
-    useGetPlacesNear(openToast);
+  const { data, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear(
+    openToast,
+    isMarkShow
+  );
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   const dispatch = useAppDispatch();
@@ -264,8 +266,8 @@ export default function Map() {
         <Spacing size={8} />
 
         <FoodSelection
+          mark={{ isMarkShow, clickMarkShow }}
           clickMyLocation={clickMyLocation}
-          clickMarkShow={clickMarkShow}
         />
       </TopWrapper>
       {isShowToast && (

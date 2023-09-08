@@ -5,7 +5,6 @@ const path = require("path");
 module.exports = {
   reactStrictMode: false,
   poweredByHeader: false,
-  transpilePackages: ["react-hotjar"],
   compiler: {
     styledComponents: {
       fileName: true,

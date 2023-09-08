@@ -26,4 +26,5 @@ export const colors: any = {
   LightYellow: "#FFFAD6",
   Mint: "#2BD9BA",
   Shadow: "#000000",
+  MarkColor: "#FBFBFB",
 } as const;

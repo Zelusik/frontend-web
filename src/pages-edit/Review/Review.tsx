@@ -22,14 +22,6 @@ import useToast from "hooks/useToast";
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  let heic2any: any;
-
-  if (typeof window !== "undefined") {
-    import("heic2any").then((module) => {
-      heic2any = module.default;
-    });
-  }
-
   const { isShowToast, openToast, closeToast } = useToast();
 
   const handleCloseToast = () => {
@@ -46,17 +38,21 @@ const Review = () => {
   };
 
   const convertHeicToJpeg = async (file: any): Promise<any> => {
-    if (heic2any) {
+    const heic2any = (await import("heic2any")).default;
+    try {
       if (isHeicOrHeif(file.name)) {
-        return heic2any({
+        const result = await heic2any({
           blob: file,
           toType: "image/jpeg",
           quality: 0.8,
         });
+        //alert(`Blob Size: ${result.size}, Blob Type: ${result.type}`);
+        return result;
       }
       return file;
+    } catch {
+      return file;
     }
-    return file;
   };
 
   const compressLargeImage = async (file: any): Promise<any> => {
@@ -67,9 +63,7 @@ const Review = () => {
   };
 
   const imageConvert = async (file: any) => {
-    let processedFile = await convertHeicToJpeg(file);
-    processedFile = await compressLargeImage(processedFile);
-
+    const processedFile = await compressLargeImage(file);
     return imageCompression.getDataUrlFromFile(processedFile);
   };
 
@@ -85,21 +79,30 @@ const Review = () => {
     };
     try {
       const reader = new FileReader();
+      //alert(`File Type: ${file.type}, File Name: ${file.name}`);
       const convertedImgBlob = await convertHeicToJpeg(file);
 
       reader.readAsDataURL(convertedImgBlob);
-      imageInfo.image = await imageConvert(file);
+      imageInfo.image = await imageConvert(convertedImgBlob);
       imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
-
       const data = await exifr.parse(file);
-      const lat = data?.GPSLatitude;
-      const lng = data?.GPSLongitude;
+      //alert(JSON.stringify(data));
 
-      imageInfo.lat = String(lat[0] + lat[1] / 60 + lat[2] / 3600);
-      imageInfo.lng = String(lng[0] + lng[1] / 60 + lng[2] / 3600);
+      if (data?.latitude || data?.longitude) {
+        imageInfo.lat = data?.latitude;
+        imageInfo.lng = data?.longitude;
+      } else {
+        imageInfo.lat = "";
+        imageInfo.lng = "";
+      }
     } catch (error) {
       imageInfo.lat = "";
       imageInfo.lng = "";
+    }
+    if (localStorage.getItem("point")) {
+      const { lat, lng } = JSON.parse(localStorage.getItem("point") || "{}");
+      imageInfo.lat = lat;
+      imageInfo.lng = lng;
     }
     dispatch(changeImageInfo(imageInfo));
   };
