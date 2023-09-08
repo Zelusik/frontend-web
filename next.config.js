@@ -5,6 +5,7 @@ const path = require("path");
 module.exports = {
   reactStrictMode: false,
   poweredByHeader: false,
+  transpilePackages: ["react-hotjar"],
   compiler: {
     styledComponents: {
       fileName: true,
@@ -22,8 +23,11 @@ module.exports = {
     BASE_URL: process.env.BASE_URL,
     APPLE_REDIRECT_URL: process.env.APPLE_REDIRECT_URL,
     APPLE_CLIENT_ID: process.env.APPLE_CLIENT_ID,
+    PROD_URL: process.env.PROD_URL,
+    HOTJAR_HJID: process.env.HOTJAR_HJID,
+    HOTJAR_HJSV: process.env.HOTJAR_HJSV,
   },
-  webpack(config) {
+  webpack(config, options) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],

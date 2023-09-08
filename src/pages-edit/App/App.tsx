@@ -13,6 +13,7 @@ import Alert from "components/Alert";
 import GlobalStyles from "./components/GlobalStyles";
 import { useEffect } from "react";
 import useBottomSheet from "hooks/useBottomSheet";
+import { hotjar } from "react-hotjar";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
@@ -20,6 +21,19 @@ const App = ({ Component, ...rest }: AppProps) => {
     props: { pageProps },
   } = wrapper.useWrappedStore(rest);
   const queryClient = new QueryClient();
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      const PROD_URL = process.env.PROD_URL as string;
+      const HOTJAR_HJID = Number(process.env.HOTJAR_HJID as string);
+      const HOTJAR_HJSV = Number(process.env.HOTJAR_HJSV as string);
+
+      const isProductionURL = window.location.href.includes(PROD_URL);
+      if (isProductionURL) {
+        hotjar.initialize(HOTJAR_HJID, HOTJAR_HJSV);
+      }
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -39,6 +39,7 @@
     "react-apple-login": "^1.1.6",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-hotjar": "^6.1.0",
     "react-kakao-maps-sdk": "^1.1.9",
     "react-modal-sheet": "^2.0.0",
     "react-query": "^3.39.3",
