@@ -9,6 +9,11 @@ const useGetPlaceInfo = (image: any) => {
   const dispatch = useAppDispatch();
   const { placeInfo } = useAppSelector((state) => state.review);
 
+  const getCurrentPosition = (options: any): Promise<GeolocationPosition> =>
+    new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    );
+
   const dispatchPlaceInfo = (res: any) => {
     dispatch(
       changeReviewInfo({
@@ -29,15 +34,32 @@ const useGetPlaceInfo = (image: any) => {
     );
   };
 
-  const getKakaoData = async (lng: number, lat: number) => {
+  const getKakaoData = async (lng: any, lat: any) => {
     try {
-      const res: any = await kakaoSearchKeyword({
-        x: lng,
-        y: lat,
-        keyword: "",
-        page: 1,
-      });
-      dispatchPlaceInfo(res);
+      if ("geolocation" in navigator) {
+        const position: GeolocationPosition = await getCurrentPosition({
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
+        });
+        if (lng !== "" && lat !== "") {
+          const res: any = await kakaoSearchKeyword({
+            x: lng,
+            y: lat,
+            keyword: "",
+            page: 1,
+          });
+          dispatchPlaceInfo(res);
+        } else {
+          const res: any = await kakaoSearchKeyword({
+            x: position.coords.longitude,
+            y: position.coords.latitude,
+            keyword: "",
+            page: 1,
+          });
+          dispatchPlaceInfo(res);
+        }
+      }
     } catch (error) {
       const res: any = await kakaoSearchKeyword({
         x: 126.951592,
