@@ -52,7 +52,7 @@ export default function useBottomSheet({ ...props }: any) {
     );
     sheetInner.current?.style.setProperty("transform", `translateY(-${0}px)`);
     setTimeout(() => {
-      // if (!popstate) history.back();
+      if (!popstate) history.back();
       dispatch(
         changeVisible({
           type: "bottomSheet",
@@ -63,7 +63,7 @@ export default function useBottomSheet({ ...props }: any) {
   }, []);
 
   const closeBottomSheetQuick = useCallback((popstate?: any) => {
-    // if (!popstate) history.back();
+    if (!popstate) history.back();
     dispatch(
       changeVisible({
         type: "bottomSheet",

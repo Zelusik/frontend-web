@@ -33,7 +33,7 @@ const App = ({ Component, ...rest }: AppProps) => {
 const MyApp = ({ Component, pageProps }: any) => {
   const { visible } = useAppSelector((state) => state.bottomSheet);
   const { visible: alertVisible } = useAppSelector((state) => state.alert);
-  // const { closeBottomSheetQuick } = useBottomSheet({});
+  const { closeBottomSheetQuick } = useBottomSheet({});
   const [isProductionURL, setIsProductionURL] = useState(false);
 
   useEffect(() => {
@@ -47,18 +47,18 @@ const MyApp = ({ Component, pageProps }: any) => {
     }
   }, []);
 
-  // const goBack = () => {
-  //   closeBottomSheetQuick(true);
-  // };
+  const goBack = () => {
+    closeBottomSheetQuick(true);
+  };
 
-  // useEffect(() => {
-  //   if (visible === 1) {
-  //     window.addEventListener("popstate", goBack);
-  //     return () => {
-  //       window.removeEventListener("popstate", goBack);
-  //     };
-  //   }
-  // }, [visible]);
+  useEffect(() => {
+    if (visible === 1) {
+      window.addEventListener("popstate", goBack);
+      return () => {
+        window.removeEventListener("popstate", goBack);
+      };
+    }
+  }, [visible]);
 
   return (
     <CacheProvider value={cache}>
