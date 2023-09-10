@@ -29,6 +29,7 @@ export default function useMapBottomSheet({ ...props }: any) {
   const { handleFilterVisible, updateNewSelection } = useSearch();
 
   const moveMapBottomSheet = useCallback((move: any) => {
+    history.pushState({ page: "modal" }, document.title, "map-modal");
     dispatch(
       changeMapVisible({
         type: "mapBottomSheet",
@@ -46,7 +47,7 @@ export default function useMapBottomSheet({ ...props }: any) {
     );
   }, []);
 
-  const closeMapBottomSheet = useCallback((sheetInner: any) => {
+  const closeMapBottomSheet = useCallback((sheetInner: any, popstate?: any) => {
     handleFilterVisible(false);
     updateNewSelection();
     dispatch(
@@ -57,6 +58,7 @@ export default function useMapBottomSheet({ ...props }: any) {
     );
     sheetInner.current!.style.setProperty("transform", `translateY(-${0}px)`);
     setTimeout(() => {
+      if (!popstate) history.back();
       dispatch(
         changeMapVisible({
           type: "mapBottomSheet",
@@ -66,7 +68,8 @@ export default function useMapBottomSheet({ ...props }: any) {
     }, 300);
   }, []);
 
-  const closeMapBottomSheetQuick = useCallback(() => {
+  const closeMapBottomSheetQuick = useCallback((popstate?: any) => {
+    if (!popstate) history.back();
     updateNewSelection();
     dispatch(
       changeMapVisible({
