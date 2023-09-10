@@ -3816,7 +3816,6 @@ __metadata:
     next-redux-wrapper: ^8.1.0
     polished: ^4.2.2
     react: 18.2.0
-    react-apple-login: ^1.1.6
     react-dom: 18.2.0
     react-dropzone: ^14.2.3
     react-kakao-maps-sdk: ^1.1.9
@@ -6429,17 +6428,6 @@ __metadata:
   version: 5.1.1
   resolution: "quick-lru@npm:5.1.1"
   checksum: a516faa25574be7947969883e6068dbe4aa19e8ef8e8e0fd96cddd6d36485e9106d85c0041a27153286b0770b381328f4072aa40d3b18a19f5f7d2b78b94b5ed
-  languageName: node
-  linkType: hard
-
-"react-apple-login@npm:^1.1.6":
-  version: 1.1.6
-  resolution: "react-apple-login@npm:1.1.6"
-  peerDependencies:
-    prop-types: ^15.5.4
-    react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 06396dbc9749e2e9bdabac7bc5fec5b47c5d0bd8a243a0d87151e13210edb252f0bb0376d8b6ef87ae27babf88a7174ac4fff25565287c059a47d204a1a1ce33
   languageName: node
   linkType: hard
 
