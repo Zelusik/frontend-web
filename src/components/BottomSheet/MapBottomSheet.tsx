@@ -17,10 +17,24 @@ const MapBottomSheet = forwardRef(function Div(
   );
 
   const { height } = useDisplaySize();
-  const { sheet, content } = useMapBottomSheet({
+  const { sheet, content, closeMapBottomSheet } = useMapBottomSheet({
     use: "use",
     visible,
   });
+
+  const goBack = () => {
+    closeMapBottomSheet(sheet, true);
+  };
+
+  useEffect(() => {
+    if (visible === 1) {
+      window.addEventListener("popstate", goBack);
+      return () => {
+        window.removeEventListener("popstate", goBack);
+      };
+    } else {
+    }
+  }, [visible]);
 
   useEffect(() => {
     if (visible) {
