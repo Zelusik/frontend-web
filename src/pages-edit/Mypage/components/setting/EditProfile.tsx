@@ -269,6 +269,7 @@ const ProfileBox = styled.div`
         width: 100%;
         color: ${colors.N40};
         background-color: ${colors.N0};
+        border: 1px solid red;
       }
       input[type="date"]:focus::before,
       input[type="date"]:valid::before {
