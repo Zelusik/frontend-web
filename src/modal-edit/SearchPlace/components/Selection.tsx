@@ -13,6 +13,7 @@ export default function Selection({ type, data, keyword, ...props }: any) {
     handleSearchValue,
     handleLocation,
     handlePlaceInfo,
+    closeSearchPlace,
   } = useSearch();
 
   const handleClickSelection = () => {
@@ -59,7 +60,7 @@ export default function Selection({ type, data, keyword, ...props }: any) {
     switch (type) {
       case "location":
         handleSearchType(type);
-        router.push(Route.MAP());
+        closeSearchPlace();
         break;
       case "store":
         handlePlaceInfo(data);

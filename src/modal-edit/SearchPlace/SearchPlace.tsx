@@ -25,9 +25,7 @@ export default function SearchPlace() {
   const scrollRef = useRef<any>(null);
   const infinityScrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
-  const { value } = useAppSelector((state) => state.search);
-
-  const [titleChange, setTitleChange] = useState<boolean>(false);
+  const { actionDelay, value } = useAppSelector((state) => state.search);
 
   const [newValue, setNewValue] = useState<string>(value);
   const [currentSelection, setCurrentSelection] = useState<any>([]);
@@ -57,8 +55,8 @@ export default function SearchPlace() {
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   return (
-    <>
-      <TitleWrapper visible={titleChange}>
+    <Modal visible={actionDelay}>
+      <TitleWrapper visible={actionDelay}>
         <BackTitle type="black-left-text" />
         <Input
           type="line"
@@ -69,7 +67,7 @@ export default function SearchPlace() {
         <Spacing size={26} />
       </TitleWrapper>
 
-      <Wrapper ref={scrollRef} height={height}>
+      <Wrapper ref={scrollRef} height={height} visible={actionDelay}>
         {newValue === "" ? (
           <>
             <Spacing size={124} />
@@ -209,19 +207,34 @@ export default function SearchPlace() {
           </TopNavigation>
         )}
       </Wrapper>
-    </>
+    </Modal>
   );
 }
 
 const fade = (visible: boolean) => keyframes`
   from {
-    opacity: ${visible && 0};
-    background-color: ${visible ? `transparent` : `${colors.N0}`};
+    opacity: ${visible ? 0 : 1};
   }
   to {
-    opacity: ${visible && 1};
-    background-color: ${visible ? `${colors.N0}` : `transparent`};
+    opacity: ${visible ? 1 : 0};
   }
+`;
+// from {
+//     opacity: ${visible && 0};
+//     background-color: ${visible ? `transparent` : `${colors.N0}`};
+// }
+// to {
+//     opacity: ${visible && 1};
+//     background-color: ${visible ? `${colors.N0}` : `transparent`};
+// }
+
+const Modal = styled.div<{ visible: any }>`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 999;
+  background-color: transparent;
 `;
 
 const TitleWrapper = styled.div<{ visible: boolean }>`
@@ -233,12 +246,14 @@ const TitleWrapper = styled.div<{ visible: boolean }>`
   z-index: 900;
 
   background-color: ${colors.N0};
+  animation: ${({ visible }) => fade(visible)} 300ms forwards;
 `;
 
-const Wrapper = styled.div<{ height: number }>`
+const Wrapper = styled.div<{ height: number; visible: boolean }>`
   height: ${({ height }) => height}px;
   overflow-y: scroll;
   background-color: ${colors.N0};
+  animation: ${({ visible }) => fade(visible)} 300ms forwards;
 `;
 
 const Inner = styled.div<{ height?: number }>`

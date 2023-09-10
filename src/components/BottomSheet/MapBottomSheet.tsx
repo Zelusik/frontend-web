@@ -4,13 +4,13 @@ import { css } from "@emotion/react";
 import { colors } from "constants/colors";
 import useMapBottomSheet from "hooks/useMapBottomSheet";
 import useDisplaySize from "hooks/useDisplaySize";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "hooks/useReduxHooks";
 
 import { globalValue } from "constants/globalValue";
 
 const MapBottomSheet = forwardRef(function Div(
   { children, ...props }: any,
-  ref
+  ref: any
 ) {
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet

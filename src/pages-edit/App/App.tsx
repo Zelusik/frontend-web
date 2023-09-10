@@ -13,6 +13,9 @@ import Alert from "components/Alert";
 import GlobalStyles from "./components/GlobalStyles";
 import { useEffect, useState } from "react";
 import useBottomSheet from "hooks/useBottomSheet";
+import SearchPlace from "modal-edit/SearchPlace";
+import useSearch from "hooks/useSearch";
+import useMapBottomSheet from "hooks/useMapBottomSheet";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
@@ -31,9 +34,19 @@ const App = ({ Component, ...rest }: AppProps) => {
 };
 
 const MyApp = ({ Component, pageProps }: any) => {
-  const { visible } = useAppSelector((state) => state.bottomSheet);
+  const { visible: bottomSheetVisible } = useAppSelector(
+    (state) => state.bottomSheet
+  );
+  const { visible: mapBottomSheetVisible } = useAppSelector(
+    (state) => state.mapBottomSheet
+  );
   const { visible: alertVisible } = useAppSelector((state) => state.alert);
+  const { visible: searchPlaceVisible } = useAppSelector(
+    (state) => state.search
+  );
   const { closeBottomSheetQuick } = useBottomSheet({});
+  const { closeMapBottomSheetQuick } = useMapBottomSheet({});
+  const { closeSearchPlace } = useSearch();
   const [isProductionURL, setIsProductionURL] = useState(false);
 
   useEffect(() => {
@@ -48,17 +61,24 @@ const MyApp = ({ Component, pageProps }: any) => {
   }, []);
 
   const goBack = () => {
-    closeBottomSheetQuick(true);
+    const pathname = location.pathname;
+    if (pathname === "/search-modal") {
+      closeSearchPlace();
+    }
+    // else if (mapBottomSheetVisible === 1) {
+    //   closeMapBottomSheetQuick(true);
+    // }
+    else if (bottomSheetVisible === 1) {
+      closeBottomSheetQuick(true);
+    }
   };
 
   useEffect(() => {
-    if (visible === 1) {
-      window.addEventListener("popstate", goBack);
-      return () => {
-        window.removeEventListener("popstate", goBack);
-      };
-    }
-  }, [visible]);
+    window.addEventListener("popstate", goBack);
+    return () => {
+      window.removeEventListener("popstate", goBack);
+    };
+  }, [bottomSheetVisible, searchPlaceVisible]);
 
   return (
     <CacheProvider value={cache}>
@@ -84,8 +104,9 @@ const MyApp = ({ Component, pageProps }: any) => {
       </Head>
       <Hydrate state={pageProps.dehydratedState}>
         <Component {...pageProps} />
-        {visible ? <BottomSheet /> : null}
+        {bottomSheetVisible ? <BottomSheet /> : null}
         {alertVisible ? <Alert /> : null}
+        {searchPlaceVisible ? <SearchPlace /> : null}
       </Hydrate>
     </CacheProvider>
   );

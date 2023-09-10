@@ -8,10 +8,7 @@ import { Route } from "constants/Route";
 import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
-
-interface Props {
-  type: "line" | "shadow";
-}
+import useSearch from "hooks/useSearch";
 
 export default function Input({
   type = "line",
@@ -21,18 +18,11 @@ export default function Input({
 }: any) {
   const router = useRouter();
   const inputRef = useRef<any>(null);
+  const { openSearchPlace } = useSearch();
   const [focus, setFocus] = useState<boolean>(false);
 
   const handleClickInput = (e: any) => {
-    switch (type) {
-      case "line":
-        break;
-      case "shadow":
-        router.push(Route.SEARCH_PLACE());
-        break;
-      default:
-        break;
-    }
+    if (type === "shadow") openSearchPlace();
   };
 
   return (

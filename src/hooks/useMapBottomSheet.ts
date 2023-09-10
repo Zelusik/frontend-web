@@ -29,7 +29,6 @@ export default function useMapBottomSheet({ ...props }: any) {
   const { handleFilterVisible, updateNewSelection } = useSearch();
 
   const moveMapBottomSheet = useCallback((move: any) => {
-    history.pushState({ page: "modal" }, document.title, "map-modal");
     dispatch(
       changeMapVisible({
         type: "mapBottomSheet",
@@ -39,6 +38,7 @@ export default function useMapBottomSheet({ ...props }: any) {
   }, []);
 
   const openMapBottomSheet = useCallback((type: any) => {
+    history.pushState({ page: "modal" }, document.title, "map-modal");
     dispatch(
       changeMapVisibleType({
         type: "mapBottomSheet",
