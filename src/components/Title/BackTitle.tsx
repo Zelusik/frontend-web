@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
-import { useLocation } from "react-router-dom";
 
 import { colors } from "constants/colors";
 import Icon from "components/Icon";

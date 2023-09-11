@@ -22,7 +22,8 @@ export default function Input({
   const [focus, setFocus] = useState<boolean>(false);
 
   const handleClickInput = (e: any) => {
-    if (type === "shadow") openSearchPlace();
+    if (type === "shadow") router.push(Route.SEARCH_PLACE());
+    // openSearchPlace();
   };
 
   return (

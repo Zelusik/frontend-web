@@ -10,7 +10,7 @@ import useSearch from "hooks/useSearch";
 export default function KakaoMap({ lat, lng, data, ...props }: any) {
   const router = useRouter();
   const { store } = useAppSelector((state) => state.search);
-  const { handleStore, deleteStore } = useSearch();
+  const { handleStore } = useSearch();
 
   return (
     <>

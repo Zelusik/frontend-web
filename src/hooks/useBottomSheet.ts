@@ -34,7 +34,7 @@ export default function useBottomSheet({ ...props }: any) {
   }, []);
 
   const openBottomSheet = useCallback((type: any) => {
-    history.pushState({ page: "modal" }, document.title, "modal");
+    history.pushState({ page: "modal" }, document.title);
     dispatch(
       changeVisibleType({
         type: "bottomSheet",

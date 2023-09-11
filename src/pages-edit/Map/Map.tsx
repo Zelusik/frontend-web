@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
 import useSearch from "hooks/useSearch";
@@ -9,8 +9,14 @@ import useGetPlacesNear from "hooks/queries/map/useGetPlacesNear";
 import useToast from "hooks/useToast";
 
 import { globalValue } from "constants/globalValue";
+import {
+  atmosphereKeyword,
+  dayOfWeekData,
+  tasteData,
+} from "constants/globalData";
 
 import KakaoMap from "components/Common/KakaoMap";
+import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
 import BottomNavigation from "components/BottomNavigation";
 import Spacing from "components/Spacing";
 import Input from "components/Input";
@@ -18,14 +24,21 @@ import Icon from "components/Icon";
 
 import FoodSelection from "./components/FoodSelection";
 import FindLocationButton from "./components/FindLocationButton";
-import FilterButton from "./components/FilterButton";
+import StoreCard from "./components/StoreCard";
+import LocationTitle from "./components/LocationTitle";
+
+import FilterSelection from "./components/filter/FilterSelection";
+import Filter from "./components/filter/Filter";
+import FilterButton from "./components/filter/FilterButton";
+import StoreSort from "../Mark/components/StoreSort";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LocationError from "./components/LocationError";
 import Toast from "components/Toast";
 import useMapBottomSheet from "hooks/useMapBottomSheet";
 import SearchPlace from "modal-edit/SearchPlace";
-import MapBottomSheet from "modal-edit/MapBottomSheet";
+import MapStoreDetail from "modal-edit/MapStoreDetail";
+import useMapStoreDetail from "hooks/useMapStoreDetail";
 
 declare const window: any;
 
@@ -33,7 +46,11 @@ export default function Map() {
   const router = useRouter();
   const infinityScrollRef = useRef(null);
   const myLocation: any = useGeolocation();
-  const { visible, store, location } = useAppSelector((state) => state.search);
+  const {
+    visible,
+    store,
+    location: searchLocation,
+  } = useAppSelector((state) => state.search);
   const { visible: mapBottomSheetVisible } = useAppSelector(
     (state) => state.mapBottomSheet
   );
@@ -90,6 +107,32 @@ export default function Map() {
   const [pickFoodType, setPickFoodType] = useState<any>("");
   const [pickDayOfWeek, setPickDayOfWeek] = useState<any>([]);
   const [pickMood, setPickMood] = useState<any>("");
+  const filterData = [
+    {
+      type: "full",
+      text: "음식종류",
+      textList: tasteData,
+      original: foodType,
+      new: pickFoodType,
+      Fn: (val: any) => setPickFoodType(val),
+    },
+    {
+      type: "full-radius",
+      text: "약속요일",
+      textList: dayOfWeekData,
+      original: dayOfWeek,
+      new: pickDayOfWeek,
+      Fn: (val: any) => setPickDayOfWeek(val),
+    },
+    {
+      type: "full",
+      text: "선호하는 분위기",
+      textList: atmosphereKeyword,
+      original: mood,
+      new: pickMood,
+      Fn: (val: any) => setPickMood(val),
+    },
+  ];
 
   const requestPermission = () => {
     if (window.ReactNativeWebView) {
@@ -107,8 +150,8 @@ export default function Map() {
     setPickFoodType(foodType);
     setPickDayOfWeek(dayOfWeek);
     setPickMood(mood);
-    onCurrentLocation(location?.lat, location?.lng);
-  }, [location, foodType, dayOfWeek, mood]);
+    onCurrentLocation(searchLocation?.lat, searchLocation?.lng);
+  }, [searchLocation, foodType, dayOfWeek, mood]);
 
   const { placeData, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear(
     openToast,
@@ -125,11 +168,23 @@ export default function Map() {
   } = useMapBottomSheet({
     use: "use",
   });
+  const {
+    sheet: mapStoreDetailRef,
+    openMapStoreDetail,
+    closeMapStoreDetail,
+  } = useMapStoreDetail({
+    use: "use",
+  });
 
   const goBack = () => {
     if (mapBottomSheetVisible === 1) {
       closeMapBottomSheet(sheet, true);
-    } else if (store.id !== -1) {
+    } else if (
+      store.id !== -1 &&
+      location.pathname !== "/map-store-detail-modal"
+    ) {
+      history.back();
+      // closeMapBottomSheet(mapStoreDetailRef, true);
     }
   };
 
@@ -140,7 +195,9 @@ export default function Map() {
     };
   }, [mapBottomSheetVisible, store.id]);
 
-  if (visible) return <SearchPlace />;
+  const bottomRef = useRef<any>();
+
+  // if (visible) return <SearchPlace />;
   return (
     <>
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
@@ -157,33 +214,73 @@ export default function Map() {
             onCurrentLocation={onCurrentLocation}
             data={placeData?.flatMap((page_data: any) => page_data?.contents)}
             isMarkShow={isMarkShow}
-            clickMap={() => openMapBottomSheetStore(sheet)}
-            clickMarker={() => closeMapBottomSheetStore(sheet, height)}
+            clickMap={() => {
+              openMapBottomSheetStore(sheet);
+              closeMapStoreDetail(mapStoreDetailRef, height);
+              // if (store.id !== -1) history.back();
+              bottomRef?.current?.style.setProperty(
+                "transform",
+                `translateY(0)`
+              );
+            }}
+            clickMarker={() => {
+              closeMapBottomSheetStore(sheet, height);
+              openMapStoreDetail(mapStoreDetailRef, height, location.pathname);
+              bottomRef?.current?.style.setProperty(
+                "transform",
+                `translateY(88px)`
+              );
+            }}
           />
         )}
       </KakaoMapWrapper>
 
       <FindLocationButton clickFindLocation={clickFindLocation} />
-      <MapBottomSheet
-        sheet={sheet}
-        content={content}
-        filter={{
-          pickFoodType,
-          setPickFoodType,
-          pickDayOfWeek,
-          setPickDayOfWeek,
-          pickMood,
-          setPickMood,
-        }}
-        data={{
-          placeData,
-          isLoading,
-          fetchNextPage,
-          hasNextPage,
-        }}
-        myLocation={myLocation}
-        isMarkShow={isMarkShow}
-      />
+      <MapBottomSheet sheet={sheet} content={content}>
+        {filterVisible ? (
+          <>
+            {filterData?.map((data: any, idx: number) => {
+              return <Filter key={idx} type={data.type} data={data} />;
+            })}
+          </>
+        ) : (
+          <>
+            {type === "store" ? (
+              <StoreSort />
+            ) : (
+              <LocationTitle type={type} data={placeData?.[0]?.totalElements} />
+            )}
+            <Spacing size={14} />
+            {type === "location" ? <FilterSelection /> : null}
+            {isLoading || !myLocation?.loaded ? (
+              <LoadingCircle
+                size={
+                  (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) * 0.2
+                }
+              />
+            ) : (
+              <>
+                {placeData
+                  ?.flatMap((page_data: any) => page_data?.contents)
+                  ?.map((data: any, idx: number) => {
+                    return (
+                      ((isMarkShow && data?.isMarked) || !isMarkShow) && (
+                        <StoreCard key={idx} data={data} />
+                      )
+                    );
+                  })}
+                <div ref={infinityScrollRef} />
+                {hasNextPage ? (
+                  <>
+                    <LoadingCircle size={30} />
+                    <Spacing size={30} />
+                  </>
+                ) : null}
+              </>
+            )}
+          </>
+        )}
+      </MapBottomSheet>
 
       <TopWrapper>
         <Spacing size={15} />
@@ -226,8 +323,10 @@ export default function Map() {
           }}
         />
       ) : (
-        <BottomNavigation />
+        <BottomNavigation ref={bottomRef} />
       )}
+
+      <MapStoreDetail ref={mapStoreDetailRef} />
     </>
   );
 }
@@ -257,4 +356,9 @@ const IconWrapper = styled.div`
   position: absolute;
   top: 29px;
   right: 27px;
+`;
+
+const BottomWrapper = styled.div`
+  position: absolute;
+  bottom: -88px;
 `;
