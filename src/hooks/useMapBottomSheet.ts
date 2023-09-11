@@ -5,7 +5,7 @@ import {
   changeMapVisible,
   changeMapVisibleType,
 } from "reducer/slices/bottomSheet/mapBottomSheetSlice";
-import { useAppDispatch } from "./useReduxHooks";
+import { useAppDispatch, useAppSelector } from "./useReduxHooks";
 import useSearch from "./useSearch";
 
 interface BottomSheetMetrics {
@@ -26,7 +26,7 @@ export default function useMapBottomSheet({ ...props }: any) {
   const dispatch = useAppDispatch();
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
-  const { handleFilterVisible, updateNewSelection } = useSearch();
+  const { handleFilterVisible, updateNewSelection, deleteStore } = useSearch();
 
   const moveMapBottomSheet = useCallback((move: any) => {
     dispatch(
@@ -56,7 +56,7 @@ export default function useMapBottomSheet({ ...props }: any) {
         value: false,
       })
     );
-    sheetInner.current!.style.setProperty("transform", `translateY(-${0}px)`);
+    sheetInner?.current?.style.setProperty("transform", `translateY(-${0}px)`);
     setTimeout(() => {
       if (!popstate) history.back();
       dispatch(
@@ -78,6 +78,23 @@ export default function useMapBottomSheet({ ...props }: any) {
       })
     );
   }, []);
+
+  const openMapBottomSheetStore = useCallback((sheetInner: any) => {
+    deleteStore();
+    sheetInner?.current?.style.setProperty("transform", `translateY(${0}px)`);
+  }, []);
+
+  const closeMapBottomSheetStore = useCallback(
+    (sheetInner: any, height: any) => {
+      const BOTTOM_SHEET_HEIGHT =
+        height - (82 + globalValue.BOTTOM_NAVIGATION_HEIGHT);
+      sheetInner?.current?.style.setProperty(
+        "transform",
+        `translateY(${BOTTOM_SHEET_HEIGHT * 0.3}px)`
+      );
+    },
+    []
+  );
 
   const metrics = useRef<BottomSheetMetrics>({
     touchStart: {
@@ -169,7 +186,6 @@ export default function useMapBottomSheet({ ...props }: any) {
         ) {
           differenceY = -TOP - touchStart.touchY + touchMove.moveTouchY;
           if (differenceY > 0) return;
-
           opacity = -differenceY / TOUCH;
           if (-differenceY / TOUCH > 1) opacity = 0.99;
           else if (-differenceY / TOUCH < 0) opacity = 0.01;
@@ -218,8 +234,9 @@ export default function useMapBottomSheet({ ...props }: any) {
           touchMove.movingDirection === "down" &&
           touchStart.sheetY < HEIGHT / 2
         ) {
-          if (Math.abs(move) > 120 && move < 0) close();
-          else open();
+          if (Math.abs(move) > 120 && move < 0) {
+            close();
+          } else open();
         }
       }
 
@@ -247,9 +264,13 @@ export default function useMapBottomSheet({ ...props }: any) {
   return {
     sheet,
     content,
+
     moveMapBottomSheet,
     openMapBottomSheet,
     closeMapBottomSheet,
     closeMapBottomSheetQuick,
+
+    openMapBottomSheetStore,
+    closeMapBottomSheetStore,
   };
 }

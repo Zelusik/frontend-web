@@ -64,11 +64,7 @@ const MyApp = ({ Component, pageProps }: any) => {
     const pathname = location.pathname;
     if (pathname === "/search-modal") {
       closeSearchPlace();
-    }
-    // else if (mapBottomSheetVisible === 1) {
-    //   closeMapBottomSheetQuick(true);
-    // }
-    else if (bottomSheetVisible === 1) {
+    } else if (bottomSheetVisible === 1) {
       closeBottomSheetQuick(true);
     }
   };

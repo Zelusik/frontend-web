@@ -2,39 +2,19 @@ import { forwardRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { colors } from "constants/colors";
-import useMapBottomSheet from "hooks/useMapBottomSheet";
 import useDisplaySize from "hooks/useDisplaySize";
 import { useAppSelector } from "hooks/useReduxHooks";
 
 import { globalValue } from "constants/globalValue";
 
 const MapBottomSheet = forwardRef(function Div(
-  { children, ...props }: any,
+  { children, sheet, content, ...props }: any,
   ref: any
 ) {
+  const { height } = useDisplaySize();
   const { visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
   );
-
-  const { height } = useDisplaySize();
-  const { sheet, content, closeMapBottomSheet } = useMapBottomSheet({
-    use: "use",
-    visible,
-  });
-
-  const goBack = () => {
-    closeMapBottomSheet(sheet, true);
-  };
-
-  useEffect(() => {
-    if (visible === 1) {
-      window.addEventListener("popstate", goBack);
-      return () => {
-        window.removeEventListener("popstate", goBack);
-      };
-    } else {
-    }
-  }, [visible]);
 
   useEffect(() => {
     if (visible) {

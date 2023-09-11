@@ -29,7 +29,11 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
             )
           }
           style={{ width: "100%", height: "100%" }}
-          onClick={() => deleteStore()}
+          onClick={() => {
+            if (store.id !== -1) {
+              props?.clickMap();
+            }
+          }}
         >
           <CustomOverlayMap
             position={{
@@ -62,7 +66,10 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
                         height: store.id === d?.id ? 72 : 56,
                       },
                     }}
-                    onClick={() => handleStore(d)}
+                    onClick={() => {
+                      handleStore(d);
+                      props?.clickMarker();
+                    }}
                   />
                 )
               );
