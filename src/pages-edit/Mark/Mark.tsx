@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
 
-import TopNavigation from "components/TopNavigation";
 import SearchTitle from "components/Title/SearchTitle";
 import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
 import Spacing from "components/Spacing";
@@ -12,14 +11,12 @@ import useGetMarkPlaces from "hooks/queries/mark/useGetMarkPlaces";
 
 import BottomNavigation from "components/BottomNavigation";
 import { globalValue } from "constants/globalValue";
-import { Route } from "constants/Route";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import StoreContainer from "./components/StoreContainer";
 import MarkTopNavigation from "components/TopNavigation/MarkTopNavigation";
 
 export default function Mark() {
-  const router = useRouter();
   const scrollRef = useRef<any>(null);
   const infinityScrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
@@ -40,10 +37,10 @@ export default function Mark() {
   );
 
   const { markData, fetchNextPage, hasNextPage } = useGetMarkPlaces({
-    index: { idx: currentIndex, currentIndex },
     type: keywords?.[currentIndex]?.type,
     keyword: keywords?.[currentIndex]?.keyword,
   });
+
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   function onScroll() {
@@ -83,7 +80,7 @@ export default function Mark() {
           count={markData?.[0]?.totalElements}
         >
           {titleList?.map((_: any, idx: number) => {
-            // if (markIsLoading) return <LoadingCircle key={idx} />;
+            if (idx !== currentIndex) return null;
             return (
               <TopNavigationInner key={idx} height={"auto"}>
                 <StoreContainer
@@ -95,30 +92,6 @@ export default function Mark() {
             );
           })}
         </MarkTopNavigation>
-        {/* <TopNavigation
-          type="mark"
-          scrollRef={scrollRef}
-          scrollTop={20}
-          topFixed={topFixed}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-          titleList={titleList}
-          // count={
-          //   placeData?.[0].totalElements ? placeData?.[0].totalElements : 0
-          // }
-        >
-          {titleList?.map((_: any, idx: number) => {
-            return (
-              <TopNavigationInner key={idx} height={"auto"}>
-                <StoreContainer
-                  infinityScrollRef={infinityScrollRef}
-                  index={{ idx, currentIndex }}
-                  keywords={keywords}
-                />
-              </TopNavigationInner>
-            );
-          })}
-        </TopNavigation> */}
       </Wrapper>
       <BottomNavigation />
     </>
