@@ -34,13 +34,8 @@ const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
     handleNewMood,
   } = useSearch();
 
-  const {
-    data: responseData,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery(
-    ["map", foodType, dayOfWeek, mood, location],
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
+    ["map", foodType, dayOfWeek, mood, location, isMarkShow],
     async ({ pageParam = 0 }) => {
       // const queryClient = new QueryClient();
       // const mapData = await useQueryClient.getQueryData(["map"]);
@@ -87,40 +82,13 @@ const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
       // keepPreviousData: true,
       staleTime: 0,
       cacheTime: 0,
-      getNextPageParam: (lastPage) => {
+      getNextPageParam: (lastPage: any) => {
         return lastPage?.isLast ? undefined : lastPage.number + 1;
       },
     }
   );
-  const data = responseData?.pages;
-  return { data, isLoading, fetchNextPage, hasNextPage };
-  // const { data, isLoading, error, refetch } = useQuery(
-  //   [foodType, dayOfWeek, mood, location],
-  //   async () => {
-  //     const params: any = {
-  //       params: {
-  //         daysOfWeek:
-  //           dayOfWeek.length !== 0
-  //             ? dayOfWeek.forEach((day: any) => DAY_OF_WEEK_DATA[day])
-  //             : undefined,
-  //         foodCategory: foodType && TASTE_KEYWORD[foodType],
-  //         preferredVibe: mood && FOOD_KEYWORD[mood],
-  //         lat: location.lat,
-  //         lng: location.lng,
-  //         page: 0,
-  //         size: 10,
-  //       },
-  //     };
-  //     const result = await getPlacesNear(params);
-  //     return result;
-  //   },
-  //   {
-  //     staleTime: 1000 * 60 * 5,
-  //     cacheTime: 1000 * 60 * 30,
-  //   }
-  // );
-
-  // return { data, isLoading, error, refetch };
+  const placeData = data?.pages;
+  return { placeData, isLoading, fetchNextPage, hasNextPage };
 };
 
 export default useGetPlacesNear;

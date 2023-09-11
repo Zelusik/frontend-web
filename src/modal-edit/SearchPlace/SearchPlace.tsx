@@ -246,12 +246,14 @@ const TitleWrapper = styled.div<{ visible: boolean }>`
   z-index: 900;
 
   background-color: ${colors.N0};
+  animation: ${({ visible }) => fade(visible)} 300ms forwards;
 `;
 
 const Wrapper = styled.div<{ height: number; visible: boolean }>`
   height: ${({ height }) => height}px;
   overflow-y: scroll;
   background-color: ${colors.N0};
+  animation: ${({ visible }) => fade(visible)} 300ms forwards;
 `;
 
 const Inner = styled.div<{ height?: number }>`

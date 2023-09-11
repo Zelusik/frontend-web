@@ -1,4 +1,5 @@
 import {
+  changeActionDelay,
   changeDayOfWeek,
   changeFilterVisible,
   changeFoodType,
@@ -8,14 +9,49 @@ import {
   changeNewFoodType,
   changeNewMood,
   changePlaceInfo,
+  changeStore,
   changeType,
   changeValue,
+  changeVisible,
 } from "reducer/slices/search/searchSlice";
 import { useAppDispatch, useAppSelector } from "./useReduxHooks";
 
 const useSearch = () => {
   const dispatch = useAppDispatch();
   const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
+
+  const openSearchPlace = () => {
+    history.pushState({ page: "modal" }, document.title, "search-modal");
+    dispatch(
+      changeActionDelay({
+        type: "search",
+        value: true,
+      })
+    );
+    dispatch(
+      changeVisible({
+        type: "search",
+        value: true,
+      })
+    );
+  };
+  const closeSearchPlace = () => {
+    dispatch(
+      changeActionDelay({
+        type: "search",
+        value: false,
+      })
+    );
+    history.back();
+    setTimeout(() => {
+      dispatch(
+        changeVisible({
+          type: "search",
+          value: false,
+        })
+      );
+    }, 200);
+  };
 
   const handleSearchType = (type: any) => {
     dispatch(
@@ -37,6 +73,7 @@ const useSearch = () => {
       })
     );
   };
+
   const handleFilterVisible = (filterVisible: boolean) => {
     dispatch(
       changeFilterVisible({
@@ -128,6 +165,37 @@ const useSearch = () => {
   };
 
   //
+  const handleStore = (store: any) => {
+    dispatch(
+      changeStore({
+        type: "search",
+        value: store,
+      })
+    );
+  };
+  const deleteStore = () => {
+    dispatch(
+      changeStore({
+        type: "search",
+        value: {
+          id: -1,
+          name: "",
+          category: "",
+          images: [],
+          top3Keywords: [],
+
+          isMarked: false,
+          address: {
+            lotNumberAddress: "",
+            roadAddress: "",
+            sgg: "",
+            sido: "",
+          },
+          point: { lat: 0, lng: 0 },
+        },
+      })
+    );
+  };
   const handlePlaceInfo = (placeInfo: any) => {
     const newPlaceInfo = {
       kakaoPid: placeInfo.id,
@@ -150,6 +218,9 @@ const useSearch = () => {
   };
 
   return {
+    openSearchPlace,
+    closeSearchPlace,
+
     handleSearchType,
     handleSearchValue,
     handleFilterVisible,
@@ -168,6 +239,8 @@ const useSearch = () => {
     updateSelection,
     deleteSelection,
 
+    handleStore,
+    deleteStore,
     handlePlaceInfo,
   };
 };
