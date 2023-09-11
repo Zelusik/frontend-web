@@ -1,7 +1,7 @@
 import { getMarkPlaces } from "api/places";
 import { useInfiniteQuery } from "react-query";
 
-const useGetMarkPlaces = ({ index, type, keyword }: any) => {
+const useGetMarkPlaces = ({ type, keyword }: any) => {
   const fetchMarkPlaces = async ({ pageParam = 0 }) => {
     if (keyword !== "") {
       const params: any = {
@@ -15,7 +15,9 @@ const useGetMarkPlaces = ({ index, type, keyword }: any) => {
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } =
-    useInfiniteQuery([`mark-${index.idx}`], fetchMarkPlaces, {
+    useInfiniteQuery([`mark`, keyword], fetchMarkPlaces, {
+      staleTime: 1000 * 60 * 5,
+      cacheTime: 1000 * 60 * 30,
       getNextPageParam: (lastPage: any) => {
         return lastPage.isLast ? undefined : lastPage.number + 1;
       },
