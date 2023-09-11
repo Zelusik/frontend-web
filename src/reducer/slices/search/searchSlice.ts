@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface GlobalType {
   type: "location" | "store" | "default";
+  visible: boolean;
+  actionDelay: boolean;
   filterVisible: boolean;
 
   foodType: any;
@@ -12,6 +14,7 @@ interface GlobalType {
   newMood: any;
 
   location: any;
+  store: any;
 
   placeInfo: any;
   [index: string]: string | string[] | any;
@@ -19,9 +22,10 @@ interface GlobalType {
 
 const initialState: GlobalType = {
   type: "default",
+  visible: false,
+  actionDelay: false,
   filterVisible: false,
   value: "",
-  location: { lat: 0, lng: 0 },
 
   foodType: "",
   newFoodType: "",
@@ -29,6 +33,24 @@ const initialState: GlobalType = {
   newDayOfWeek: [],
   mood: "",
   newMood: "",
+
+  location: { lat: 0, lng: 0 },
+  store: {
+    id: -1,
+    name: "",
+    category: "",
+    images: [],
+    top3Keywords: [],
+
+    isMarked: false,
+    address: {
+      lotNumberAddress: "",
+      roadAddress: "",
+      sgg: "",
+      sido: "",
+    },
+    point: { lat: 0, lng: 0 },
+  },
 
   placeInfo: {
     kakaoPid: "",
@@ -55,6 +77,20 @@ export const searchSlice = createSlice({
     ) => {
       const { value } = payload;
       state.type = value;
+    },
+    changeVisible: (
+      state,
+      { payload }: { payload: { type: string; value: boolean } }
+    ) => {
+      const { value } = payload;
+      state.visible = value;
+    },
+    changeActionDelay: (
+      state,
+      { payload }: { payload: { type: string; value: boolean } }
+    ) => {
+      const { value } = payload;
+      state.actionDelay = value;
     },
     changeFilterVisible: (
       state,
@@ -123,6 +159,13 @@ export const searchSlice = createSlice({
       state.newMood = value;
     },
 
+    changeStore: (
+      state,
+      { payload }: { payload: { type: string; value: any } }
+    ) => {
+      const { value } = payload;
+      state.store = value;
+    },
     changePlaceInfo: (
       state,
       { payload }: { payload: { type: string; value: any } }
@@ -136,6 +179,8 @@ export const searchSlice = createSlice({
 export const {
   initializeDefaultInfo,
   changeType,
+  changeVisible,
+  changeActionDelay,
   changeFilterVisible,
   changeValue,
   changeLocation,
@@ -149,6 +194,7 @@ export const {
   changeMood,
   changeNewMood,
 
+  changeStore,
   changePlaceInfo,
 } = searchSlice.actions;
 

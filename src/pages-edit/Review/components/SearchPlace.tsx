@@ -18,7 +18,7 @@ const SearchPlace = () => {
   const image = useAppSelector((state) => state.image);
   const { placeInfo } = useAppSelector((state) => state.review);
   const infiniteScorllRef = useRef(null);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<any>("");
   const { data, hasNextPage, fetchNextPage } = useGetSearchPlace({
     x: value ? 0 : placeInfo.lng,
     y: value ? 0 : placeInfo.lat,
@@ -70,7 +70,7 @@ const SearchPlace = () => {
           type="line"
           placeholder="리뷰를 쓸 음식점을 검색해보세요."
           value={value}
-          setValue={setValue}
+          setValue={(val: any) => setValue(val)}
         />
       </SearchInput>
       <PlaceWrapper>

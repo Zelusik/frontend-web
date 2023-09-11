@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
 import useSearch from "hooks/useSearch";
@@ -36,7 +36,9 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LocationError from "./components/LocationError";
 import Toast from "components/Toast";
 import useMapBottomSheet from "hooks/useMapBottomSheet";
-import { changeFilterVisible } from "reducer/slices/search/searchSlice";
+import SearchPlace from "modal-edit/SearchPlace";
+import MapStoreDetail from "modal-edit/MapStoreDetail";
+import useMapStoreDetail from "hooks/useMapStoreDetail";
 
 declare const window: any;
 
@@ -44,8 +46,16 @@ export default function Map() {
   const router = useRouter();
   const infinityScrollRef = useRef(null);
   const myLocation: any = useGeolocation();
-  const { location } = useAppSelector((state) => state.search);
+  const {
+    visible,
+    store,
+    location: searchLocation,
+  } = useAppSelector((state) => state.search);
+  const { visible: mapBottomSheetVisible } = useAppSelector(
+    (state) => state.mapBottomSheet
+  );
   const { handleLocation } = useSearch();
+
   const [currentLocation, setCurrentLocation] = useState<any>(null);
   const onCurrentLocation = (lat: any, lng: any) => {
     setCurrentLocation({
@@ -57,7 +67,13 @@ export default function Map() {
   };
   const { isShowToast, openToast, closeToast } = useToast();
 
-  const { height } = useDisplaySize();
+  useEffect(() => {
+    if (store.id !== -1) {
+      onCurrentLocation(store.point.lat, store.point.lng);
+    }
+  }, [store.id]);
+
+  const { width, height } = useDisplaySize();
   const { handleSearchType } = useSearch();
   const {
     value,
@@ -134,32 +150,54 @@ export default function Map() {
     setPickFoodType(foodType);
     setPickDayOfWeek(dayOfWeek);
     setPickMood(mood);
-    onCurrentLocation(location?.lat, location?.lng);
-  }, [location, foodType, dayOfWeek, mood]);
+    onCurrentLocation(searchLocation?.lat, searchLocation?.lng);
+  }, [searchLocation, foodType, dayOfWeek, mood]);
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear(
+  const { placeData, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear(
     openToast,
     isMarkShow
   );
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  const dispatch = useAppDispatch();
-  const handleClickFilter = () => {
-    dispatch(
-      changeFilterVisible({
-        type: "search",
-        value: false,
-      })
-    );
+  const {
+    sheet,
+    content,
+    closeMapBottomSheet,
+    openMapBottomSheetStore,
+    closeMapBottomSheetStore,
+  } = useMapBottomSheet({
+    use: "use",
+  });
+  const {
+    sheet: mapStoreDetailRef,
+    openMapStoreDetail,
+    closeMapStoreDetail,
+  } = useMapStoreDetail({
+    use: "use",
+  });
+
+  const goBack = () => {
+    if (mapBottomSheetVisible === 1) {
+      closeMapBottomSheet(sheet, true);
+    } else if (
+      store.id !== -1 &&
+      location.pathname !== "/map-store-detail-modal"
+    ) {
+      history.back();
+      // closeMapBottomSheet(mapStoreDetailRef, true);
+    }
   };
 
-  const { visible } = useAppSelector((state) => state.mapBottomSheet);
-  // const { sheet, content, closeMapBottomSheet } = useMapBottomSheet({
-  //   use: "use",
-  //   visible,
-  //   handleClickFilter,
-  // });
+  useEffect(() => {
+    window.addEventListener("popstate", goBack);
+    return () => {
+      window.removeEventListener("popstate", goBack);
+    };
+  }, [mapBottomSheetVisible, store.id]);
 
+  const bottomRef = useRef<any>();
+
+  // if (visible) return <SearchPlace />;
   return (
     <>
       <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
@@ -174,14 +212,31 @@ export default function Map() {
             myLat={myLocation?.center?.lat}
             myLng={myLocation?.center?.lng}
             onCurrentLocation={onCurrentLocation}
-            data={data?.[0]?.contents}
+            data={placeData?.flatMap((page_data: any) => page_data?.contents)}
             isMarkShow={isMarkShow}
+            clickMap={() => {
+              openMapBottomSheetStore(sheet);
+              closeMapStoreDetail(mapStoreDetailRef, height);
+              // if (store.id !== -1) history.back();
+              bottomRef?.current?.style.setProperty(
+                "transform",
+                `translateY(0)`
+              );
+            }}
+            clickMarker={() => {
+              closeMapBottomSheetStore(sheet, height);
+              openMapStoreDetail(mapStoreDetailRef, height, location.pathname);
+              bottomRef?.current?.style.setProperty(
+                "transform",
+                `translateY(88px)`
+              );
+            }}
           />
         )}
       </KakaoMapWrapper>
 
       <FindLocationButton clickFindLocation={clickFindLocation} />
-      <MapBottomSheet>
+      <MapBottomSheet sheet={sheet} content={content}>
         {filterVisible ? (
           <>
             {filterData?.map((data: any, idx: number) => {
@@ -193,7 +248,7 @@ export default function Map() {
             {type === "store" ? (
               <StoreSort />
             ) : (
-              <LocationTitle type={type} data={data?.[0]?.totalElements} />
+              <LocationTitle type={type} data={placeData?.[0]?.totalElements} />
             )}
             <Spacing size={14} />
             {type === "location" ? <FilterSelection /> : null}
@@ -205,7 +260,7 @@ export default function Map() {
               />
             ) : (
               <>
-                {data
+                {placeData
                   ?.flatMap((page_data: any) => page_data?.contents)
                   ?.map((data: any, idx: number) => {
                     return (
@@ -234,6 +289,7 @@ export default function Map() {
             type="shadow"
             placeholder="지역, 음식점, 닉네임 검색"
             value={value}
+            setValue={() => {}}
           />
         </InputWrapper>
 
@@ -267,8 +323,10 @@ export default function Map() {
           }}
         />
       ) : (
-        <BottomNavigation />
+        <BottomNavigation ref={bottomRef} />
       )}
+
+      <MapStoreDetail ref={mapStoreDetailRef} />
     </>
   );
 }
@@ -298,4 +356,9 @@ const IconWrapper = styled.div`
   position: absolute;
   top: 29px;
   right: 27px;
+`;
+
+const BottomWrapper = styled.div`
+  position: absolute;
+  bottom: -88px;
 `;

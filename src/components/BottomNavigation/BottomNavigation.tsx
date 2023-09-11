@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "@emotion/styled";
@@ -16,11 +16,11 @@ const navigationDatas = [
   { route: "/mypage", en: "Mypage", val: "마이" },
 ];
 
-const BottomNavigation = () => {
+const BottomNavigation = forwardRef(function Div({}, ref: any) {
   const { pathname } = useRouter();
 
   return (
-    <BottomNavigationWrapper>
+    <Wrapper ref={ref}>
       <Spacing size={10} />
       <MenuList>
         {navigationDatas.map((data: any, idx: number) => {
@@ -37,11 +37,11 @@ const BottomNavigation = () => {
           );
         })}
       </MenuList>
-    </BottomNavigationWrapper>
+    </Wrapper>
   );
-};
+});
 
-const BottomNavigationWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   max-width: ${globalValue.MAX_WIDTH}px;
   height: ${globalValue.BOTTOM_NAVIGATION_HEIGHT}px;
@@ -50,7 +50,9 @@ const BottomNavigationWrapper = styled.div`
   bottom: 0;
   box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
   background-color: ${colors.N0};
-  z-index: 997;
+  // z-index: 997;
+
+  transition: transform 300ms ease-out;
 `;
 
 const MenuList = styled.ul`
