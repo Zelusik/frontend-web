@@ -34,9 +34,7 @@ export default function useMapStoreDetail({ ...props }: any) {
       console.log("openMapStoreDetail " + pathname);
       if (pathname === "/map-store-detail") {
         history.back();
-      } else if (popstate) {
-      } else {
-        console.log("add");
+      } else if (pathname !== "/map-store-detail-modal") {
         history.pushState(
           { page: "modal" },
           document.title,
