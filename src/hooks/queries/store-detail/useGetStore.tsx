@@ -6,58 +6,66 @@ import { getReviews } from "api/reviews";
 const useGetStore = ({ kakaoId, placeId }: any): any => {
   const { placeInfo } = useAppSelector((state) => state.search);
 
-  const { data, isLoading, error, refetch } = useQuery(
-    ["search"],
-    async () => {
-      if (kakaoId) {
-        const testPlaceInfo = await getPlaces(kakaoId);
-        const params: any = {
-          params: {
-            placeId: kakaoId,
-            page: 0,
-            size: 10,
-            embed: "WRITER",
-          },
-        };
-        let newPlaceInfo = null;
+  // 음식점 정보
+  const getStoreInfo = async () => {
+    if (kakaoId) {
+      const storeInfoData = await getPlaces(kakaoId);
 
-        if (testPlaceInfo?.data?.code === 3001) {
-          const postPlaceInfo = await postPlaces(placeInfo);
-          newPlaceInfo = postPlaceInfo;
-        } else {
-          newPlaceInfo = testPlaceInfo;
-          params.params.placeId = testPlaceInfo.id;
-        }
-
-        const reviewsResult = await getReviews(params);
-        return {
-          storeInfo: newPlaceInfo,
-          reviews: reviewsResult,
-        };
+      if (storeInfoData?.data?.code === 3001) {
+        return await postPlaces(placeInfo);
       } else {
-        const params: any = {
-          params: {
-            placeId: placeId,
-            page: 0,
-            size: 10,
-            embed: "WRITER",
-          },
-        };
-
-        const storeInfoData = await getPlacesId(placeId);
-        const reviewsResult = await getReviews(params);
-        return {
-          storeInfo: storeInfoData,
-          reviews: reviewsResult,
-        };
+        return storeInfoData;
       }
-    },
-    {
-      staleTime: 1000 * 60 * 5,
-      cacheTime: 1000 * 60 * 30,
+    } else {
+      return await getPlacesId(placeId);
     }
-  );
-  return { data, isLoading, error, refetch };
+  };
+
+  const {
+    data: storeInfoData,
+    isLoading: isStoreInfoLoading,
+    error,
+    refetch,
+  } = useQuery(["search"], getStoreInfo, {
+    staleTime: 1000 * 60 * 5,
+    cacheTime: 1000 * 60 * 30,
+  });
+
+  // 리뷰 목록 조회
+  const getReviewsWithParams = ({ pageParam = 0 }) => {
+    return getReviews({
+      params: {
+        placeId: placeId || storeInfoData.id,
+        page: pageParam,
+        size: 10,
+        embed: "WRITER",
+      },
+    });
+  };
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading: isReviewsLoading,
+  } = useInfiniteQuery(["reviews", placeId], getReviewsWithParams, {
+    enabled: Boolean(!isStoreInfoLoading && storeInfoData),
+    getNextPageParam: (lastPage) => {
+      return lastPage.isLast ? undefined : lastPage.number + 1;
+    },
+  });
+  const reviewsData = data?.pages;
+
+  return {
+    storeInfoData,
+    isStoreInfoLoading,
+    error,
+    refetch,
+    reviewsData,
+    fetchNextPage,
+    hasNextPage,
+    isReviewsLoading,
+  };
 };
 
 export default useGetStore;

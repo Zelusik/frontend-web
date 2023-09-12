@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
@@ -18,10 +19,12 @@ import { globalValue } from "constants/globalValue";
 import useGetStore from "hooks/queries/store-detail/useGetStore";
 import { makeInfo } from "utils/makeInfo";
 import LoadingCircle from "components/Loading/LoadingCircle";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 export default function StoreDetail() {
   const router = useRouter();
   const scrollRef = useRef<any>(null);
+  const infinityScrollRef = useRef<any>(null);
 
   const imageRef = useRef<any>(null);
   const { width, height } = useDisplaySize();
@@ -30,16 +33,24 @@ export default function StoreDetail() {
   const [topFixed, setTopFixed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const { data, isLoading } = useGetStore({
+  const {
+    isStoreInfoLoading,
+    storeInfoData: storeInfo,
+    reviewsData: reviews,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetStore({
     kakaoId: router.query.kakaoId,
     placeId: Number(router.query.id),
   });
+
+  useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   function onScroll() {
     const scrollTop = (window.innerWidth * 281) / 360 + 20 + 49 + 16 + 40 - 10;
 
     if (
-      data?.storeInfo?.placeImages?.length === 0 &&
+      storeInfo?.placeImages?.length === 0 &&
       scrollRef.current?.scrollTop >= 165 &&
       currentIndex === 1
     ) {
@@ -49,10 +60,7 @@ export default function StoreDetail() {
       return;
     }
 
-    if (
-      data?.storeInfo?.placeImages?.length === 0 &&
-      scrollRef.current?.scrollTop >= 25
-    ) {
+    if (storeInfo?.placeImages?.length === 0 && scrollRef.current?.scrollTop >= 25) {
       setTitleChange(true);
     } else if (scrollRef.current?.scrollTop >= imageRef.current?.clientHeight - 20) {
       setTitleChange(true);
@@ -61,7 +69,7 @@ export default function StoreDetail() {
     }
 
     if (
-      data?.storeInfo?.placeImages?.length === 0 &&
+      storeInfo?.placeImages?.length === 0 &&
       scrollRef.current?.scrollTop >= 165
     ) {
       setTopFixed(true);
@@ -77,54 +85,54 @@ export default function StoreDetail() {
     return () => {
       scrollRef.current?.removeEventListener("scroll", onScroll);
     };
-  }, [currentIndex, data]);
+  }, [currentIndex, storeInfo]);
 
-  if (isLoading) return <LoadingCircle />;
+  if (isStoreInfoLoading) return <LoadingCircle />;
 
   return (
     <>
-      <ImageBox ref={imageRef} images={data?.storeInfo?.placeImages} />
+      <ImageBox ref={imageRef} images={storeInfo?.placeImages} />
       <TitleWrapper visible={titleChange}>
         <BackTitle
           type={
             titleChange
               ? "black-left-text"
-              : data?.storeInfo?.placeImages?.length > 0
+              : storeInfo?.placeImages?.length > 0
               ? "white-dots-store"
               : "black-left-text"
           }
-          title={titleChange ? data?.storeInfo.name : undefined}
+          title={titleChange ? storeInfo?.name : undefined}
         />
       </TitleWrapper>
 
       <Wrapper ref={scrollRef} height={height}>
         <Spacing
-          size={data?.storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50}
+          size={storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50}
         />
 
         <Inner>
           <Spacing size={20} />
           <StoreTitle
             type="detail"
-            title={data?.storeInfo?.name}
+            title={storeInfo?.name}
             subTitle={
-              data?.storeInfo &&
-              `${data?.storeInfo?.category} · ${data?.storeInfo?.address?.sido} ${data?.storeInfo?.address?.sgg} ${data?.storeInfo?.address?.lotNumberAddress}`
+              storeInfo &&
+              `${storeInfo?.category} · ${storeInfo?.address?.sido} ${storeInfo?.address?.sgg} ${storeInfo?.address?.lotNumberAddress}`
             }
-            isMarked={data?.storeInfo?.isMarked}
-            placeId={data?.storeInfo?.id}
-            point={data?.storeInfo?.point}
+            isMarked={storeInfo?.isMarked}
+            placeId={storeInfo?.id}
+            point={storeInfo?.point}
           />
 
           <Spacing size={16} />
-          <Hashtags hashtags={data?.storeInfo?.top3Keywords} />
+          <Hashtags hashtags={storeInfo?.top3Keywords} />
           <Spacing size={40} />
 
           <TopNavigation
             type="store-detail"
             scrollRef={scrollRef}
             scrollTop={
-              data?.storeInfo?.placeImages?.length === 0
+              storeInfo?.placeImages?.length === 0
                 ? 165
                 : (width * 281) / 360 + 20 + 49 + 16 + 40
             }
@@ -141,14 +149,23 @@ export default function StoreDetail() {
                     : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8,
               }}
             >
-              {data?.reviews?.contents.map((review: any, idx: number) => {
-                return <ReviewCard key={idx} data={review} />;
-              })}
+              {reviews
+                ?.flatMap((page_data: any) => page_data.contents)
+                ?.map((review: any, idx: number) => {
+                  return <ReviewCard key={idx} data={review} />;
+                })}
+              <div ref={infinityScrollRef} />
+              {hasNextPage ? (
+                <>
+                  <LoadingCircle size={30} />
+                  <Spacing size={30} />
+                </>
+              ) : null}
             </div>
             <StoreInfo
               height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"}
             >
-              {makeInfo(data?.storeInfo).map((data: any, idx: number) => {
+              {makeInfo(storeInfo && storeInfo).map((data: any, idx: number) => {
                 return <Info key={idx} data={data} />;
               })}
             </StoreInfo>
