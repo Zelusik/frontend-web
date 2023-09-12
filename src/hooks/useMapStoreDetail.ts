@@ -1,9 +1,9 @@
 import { globalValue } from "constants/globalValue";
 import { useRef, useEffect, useCallback } from "react";
 import { useAppDispatch } from "./useReduxHooks";
+import useSearch from "./useSearch";
 
 interface BottomSheetMetrics {
-  pathname: any;
   touchStart: {
     sheetY: number;
     touchY: number;
@@ -19,10 +19,11 @@ interface BottomSheetMetrics {
 export default function useMapStoreDetail({ ...props }: any) {
   const dispatch = useAppDispatch();
   const sheet = useRef<HTMLDivElement>(null);
+  const { deleteStore } = useSearch();
 
   const allOpenMapStoreDetail = useCallback((sheetInner: any, height: any) => {
-    console.log("allOpenMapStoreDetail");
-    history.pushState({ page: "modal" }, document.title, "map-store-detail");
+    if (location.pathname !== "/map-store-detail")
+      history.pushState({ page: "modal" }, document.title, "map-store-detail");
     sheetInner.current!.style.setProperty(
       "transform",
       `translateY(-${height}px)`
@@ -30,9 +31,8 @@ export default function useMapStoreDetail({ ...props }: any) {
   }, []);
 
   const openMapStoreDetail = useCallback(
-    (sheetInner: any, height: any, pathname: any, popstate?: any) => {
-      console.log("openMapStoreDetail " + pathname);
-      if (pathname === "/map-store-detail") {
+    (sheetInner: any, height: any, popstate?: any, pathname?: any) => {
+      if (!popstate) {
         history.back();
       } else if (pathname !== "/map-store-detail-modal") {
         history.pushState(
@@ -50,13 +50,12 @@ export default function useMapStoreDetail({ ...props }: any) {
   );
 
   const closeMapStoreDetail = useCallback((sheetInner: any, popstate?: any) => {
-    console.log("closeMapStoreDetail");
-    history.back();
+    if (!popstate) history.back();
     sheetInner.current!.style.setProperty("transform", `translateY(0)`);
+    deleteStore();
   }, []);
 
   const metrics = useRef<BottomSheetMetrics>({
-    pathname: "",
     touchStart: {
       sheetY: 0,
       touchY: 0,
@@ -95,16 +94,13 @@ export default function useMapStoreDetail({ ...props }: any) {
       }
 
       const TOP =
-        metrics.current.pathname === "/map-store-detail"
-          ? HEIGHT - globalValue.BOTTOM_NAVIGATION_HEIGHT
-          : HEIGHT * 0.3;
+        location.pathname === "/map-store-detail" ? HEIGHT : HEIGHT * 0.3;
 
       let differenceY = touchMove.moveTouchY - touchStart.touchY - TOP;
+      //   console.log(differenceY > -TOP);
       if (
-        (metrics.current.pathname === "/map-store-detail" &&
-          differenceY < -TOP) ||
-        (metrics.current.pathname === "/map-store-detail-modal" &&
-          differenceY > -TOP)
+        (location.pathname === "/map-store-detail" && differenceY < -TOP) ||
+        (location.pathname === "/map-store-detail-modal" && differenceY > -TOP)
       ) {
         return;
       }
@@ -117,23 +113,8 @@ export default function useMapStoreDetail({ ...props }: any) {
       touchMove.differenceY = differenceY;
     };
 
-    const allOpen = () => {
-      allOpenMapStoreDetail(sheet, HEIGHT);
-      metrics.current.pathname = "/map-store-detail";
-    };
     const open = () => {
-      openMapStoreDetail(sheet, HEIGHT, metrics.current.pathname);
-      metrics.current.pathname = "/map-store-detail-modal";
-    };
-    const onlyOpen = () => {
-      openMapStoreDetail(sheet, HEIGHT, metrics.current.pathname, true);
-      metrics.current.pathname = "/map-store-detail-modal";
-    };
-    const close = () => {
-      //   closeMapBottomSheet(sheet);
-      closeMapStoreDetail(sheet, false);
-      sheet.current!.style.setProperty("transform", `translateY(0)`);
-      metrics.current.pathname = "/map";
+      openMapStoreDetail(sheet, HEIGHT, undefined, location.pathname);
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
@@ -141,37 +122,27 @@ export default function useMapStoreDetail({ ...props }: any) {
       const move = touchStart.touchY - touchMove.moveTouchY;
 
       if (Math.abs(move) > 100 && touchMove.movingDirection === "up") {
-        // console.log("UP AllOpen");
-        allOpen();
+        allOpenMapStoreDetail(sheet, HEIGHT);
       } else if (Math.abs(move) < 100 && touchMove.movingDirection === "up") {
-        // console.log("UP Open");
-        onlyOpen();
+        openMapStoreDetail(sheet, HEIGHT, true, location.pathname);
       } else if (
         Math.abs(move) > 100 &&
         touchMove.movingDirection === "down" &&
-        metrics.current.pathname === "/map-store-detail"
+        location.pathname === "/map-store-detail"
       ) {
-        // console.log("DOWN Open");
-        open();
+        openMapStoreDetail(sheet, HEIGHT, undefined, location.pathname);
       } else if (
         Math.abs(move) < 100 &&
         touchMove.movingDirection === "down" &&
-        metrics.current.pathname === "/map-store-detail"
+        location.pathname === "/map-store-detail"
       ) {
-        // console.log("DOWN AllOpen");
-        allOpen();
+        allOpenMapStoreDetail(sheet, HEIGHT);
       } else {
-        // console.log("DOWN OPEN");
-        onlyOpen();
+        openMapStoreDetail(sheet, HEIGHT, true, location.pathname);
       }
-
-      //   console.log(touchMove.movingDirection);
-      //   console.log(touchMove.movingDirection);
-      //   console.log(metrics.current.pathname);
 
       // metrics 초기화.
       metrics.current = {
-        pathname: "",
         touchStart: {
           sheetY: 0,
           touchY: 0,

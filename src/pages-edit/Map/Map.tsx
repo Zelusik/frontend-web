@@ -177,14 +177,15 @@ export default function Map() {
   });
 
   const goBack = () => {
+    const pathname = location.pathname;
     if (mapBottomSheetVisible === 1) {
       closeMapBottomSheet(sheet, true);
-    } else if (
-      store.id !== -1 &&
-      location.pathname !== "/map-store-detail-modal"
-    ) {
-      history.back();
-      // closeMapBottomSheet(mapStoreDetailRef, true);
+    } else if (pathname === "/map-store-detail-modal") {
+      openMapStoreDetail(mapStoreDetailRef, height, true, pathname);
+    } else if (store.id !== -1 && pathname === "/map") {
+      closeMapStoreDetail(mapStoreDetailRef, true);
+      closeMapBottomSheet(sheet, true);
+      bottomRef?.current?.style.setProperty("transform", `translateY(0)`);
     }
   };
 
@@ -216,8 +217,7 @@ export default function Map() {
             isMarkShow={isMarkShow}
             clickMap={() => {
               openMapBottomSheetStore(sheet);
-              closeMapStoreDetail(mapStoreDetailRef, height);
-              // if (store.id !== -1) history.back();
+              closeMapStoreDetail(mapStoreDetailRef);
               bottomRef?.current?.style.setProperty(
                 "transform",
                 `translateY(0)`
@@ -225,7 +225,12 @@ export default function Map() {
             }}
             clickMarker={() => {
               closeMapBottomSheetStore(sheet, height);
-              openMapStoreDetail(mapStoreDetailRef, height, location.pathname);
+              openMapStoreDetail(
+                mapStoreDetailRef,
+                height,
+                true,
+                location.pathname
+              );
               bottomRef?.current?.style.setProperty(
                 "transform",
                 `translateY(88px)`
