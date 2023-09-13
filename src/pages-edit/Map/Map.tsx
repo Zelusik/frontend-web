@@ -45,16 +45,45 @@ declare const window: any;
 export default function Map() {
   const router = useRouter();
   const infinityScrollRef = useRef(null);
+  const bottomRef = useRef<any>();
+  const { height } = useDisplaySize();
+
+  const { handleSearchType } = useSearch();
   const myLocation: any = useGeolocation();
+  const { isShowToast, openToast, closeToast } = useToast();
+  const { handleLocation } = useSearch();
   const {
-    visible,
     store,
     location: searchLocation,
+
+    value,
+    type,
+    filterVisible,
+
+    foodType,
+    dayOfWeek,
+    mood,
   } = useAppSelector((state) => state.search);
   const { visible: mapBottomSheetVisible } = useAppSelector(
     (state) => state.mapBottomSheet
   );
-  const { handleLocation } = useSearch();
+  const {
+    sheet,
+    content,
+    closeMapBottomSheet,
+    openMapBottomSheetStore,
+    closeMapBottomSheetStore,
+    closeMapBottomSheetQuick,
+  } = useMapBottomSheet({
+    use: "use",
+  });
+  const {
+    sheet: mapStoreDetailRef,
+    openMapStoreDetail,
+    closeMapStoreDetail,
+  } = useMapStoreDetail({
+    use: "use",
+  });
 
   const [currentLocation, setCurrentLocation] = useState<any>(null);
   const onCurrentLocation = (lat: any, lng: any) => {
@@ -65,25 +94,6 @@ export default function Map() {
       },
     });
   };
-  const { isShowToast, openToast, closeToast } = useToast();
-
-  useEffect(() => {
-    if (store.id !== -1) {
-      onCurrentLocation(store.point.lat, store.point.lng);
-    }
-  }, [store.id]);
-
-  const { width, height } = useDisplaySize();
-  const { handleSearchType } = useSearch();
-  const {
-    value,
-    type,
-    filterVisible,
-
-    foodType,
-    dayOfWeek,
-    mood,
-  } = useAppSelector((state) => state.search);
 
   // 내 주변
   const clickMyLocation = () => {
@@ -134,47 +144,20 @@ export default function Map() {
     },
   ];
 
-  const requestPermission = () => {
-    if (window.ReactNativeWebView) {
-      window.ReactNativeWebView?.postMessage(JSON.stringify(myLocation));
-    } else {
-    }
-  };
-
   useEffect(() => {
-    requestPermission();
-  }, [myLocation]);
+    if (store.id !== -1) {
+      onCurrentLocation(store.point.lat, store.point.lng);
+    }
+  }, [store.id]);
 
-  // 처음 세팅
+  // fliter, location 처음 세팅
   useEffect(() => {
     setPickFoodType(foodType);
     setPickDayOfWeek(dayOfWeek);
     setPickMood(mood);
     onCurrentLocation(searchLocation?.lat, searchLocation?.lng);
+    closeMapBottomSheetQuick(sheet, true);
   }, [searchLocation, foodType, dayOfWeek, mood]);
-
-  const { placeData, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear(
-    openToast,
-    isMarkShow
-  );
-  useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
-
-  const {
-    sheet,
-    content,
-    closeMapBottomSheet,
-    openMapBottomSheetStore,
-    closeMapBottomSheetStore,
-  } = useMapBottomSheet({
-    use: "use",
-  });
-  const {
-    sheet: mapStoreDetailRef,
-    openMapStoreDetail,
-    closeMapStoreDetail,
-  } = useMapStoreDetail({
-    use: "use",
-  });
 
   const goBack = () => {
     const pathname = location.pathname;
@@ -196,7 +179,12 @@ export default function Map() {
     };
   }, [mapBottomSheetVisible, store.id]);
 
-  const bottomRef = useRef<any>();
+  // data
+  const { placeData, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear(
+    openToast,
+    isMarkShow
+  );
+  useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   // if (visible) return <SearchPlace />;
   return (
@@ -361,9 +349,4 @@ const IconWrapper = styled.div`
   position: absolute;
   top: 29px;
   right: 27px;
-`;
-
-const BottomWrapper = styled.div`
-  position: absolute;
-  bottom: -88px;
 `;

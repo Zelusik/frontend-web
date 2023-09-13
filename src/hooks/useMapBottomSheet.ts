@@ -37,15 +37,23 @@ export default function useMapBottomSheet({ ...props }: any) {
     );
   }, []);
 
-  const openMapBottomSheet = useCallback((type: any) => {
-    history.pushState({ page: "modal" }, document.title, "map-modal");
-    dispatch(
-      changeMapVisibleType({
-        type: "mapBottomSheet",
-        value: [1, type],
-      })
-    );
-  }, []);
+  const openMapBottomSheet = useCallback(
+    (type: any, sheetInner: any, height: any, popstate?: any) => {
+      if (!popstate)
+        history.pushState({ page: "modal" }, document.title, "map-modal");
+      dispatch(
+        changeMapVisibleType({
+          type: "mapBottomSheet",
+          value: [1, type],
+        })
+      );
+      sheetInner?.current?.style.setProperty(
+        "transform",
+        `translateY(${-height}px)`
+      );
+    },
+    []
+  );
 
   const closeMapBottomSheet = useCallback((sheetInner: any, popstate?: any) => {
     handleFilterVisible(false);
@@ -68,16 +76,29 @@ export default function useMapBottomSheet({ ...props }: any) {
     }, 300);
   }, []);
 
-  const closeMapBottomSheetQuick = useCallback((popstate?: any) => {
-    if (!popstate) history.back();
-    updateNewSelection();
-    dispatch(
-      changeMapVisible({
-        type: "bottomSheet",
-        value: 0,
-      })
-    );
-  }, []);
+  const closeMapBottomSheetQuick = useCallback(
+    (sheetInner: any, popstate?: any) => {
+      handleFilterVisible(false);
+      updateNewSelection();
+      dispatch(
+        changeMapAction({
+          type: "mapBottomSheet",
+          value: false,
+        })
+      );
+      sheetInner?.current?.style.setProperty(
+        "transform",
+        `translateY(-${0}px)`
+      );
+      dispatch(
+        changeMapVisible({
+          type: "mapBottomSheet",
+          value: 0,
+        })
+      );
+    },
+    []
+  );
 
   const openMapBottomSheetStore = useCallback((sheetInner: any) => {
     deleteStore();
@@ -201,11 +222,9 @@ export default function useMapBottomSheet({ ...props }: any) {
     };
 
     const open = () => {
-      openMapBottomSheet("primary");
       sheet.current!.style.setProperty("transform", `translateY(${-TOP}px)`);
     };
     const close = () => {
-      closeMapBottomSheet(sheet);
       sheet.current!.style.setProperty("transform", `translateY(0)`);
     };
 
@@ -214,29 +233,37 @@ export default function useMapBottomSheet({ ...props }: any) {
       const move = touchStart.touchY - touchMove.moveTouchY;
 
       if (isContentAreaTouched) {
-        if (
-          (Math.abs(move) > 100 && TOP > touchStart.sheetY) ||
-          (Math.abs(move) < 100 && TOP < touchStart.sheetY)
-        ) {
-          close();
+        if (Math.abs(move) > 100 && TOP > touchStart.sheetY) {
+          closeMapBottomSheet(sheet);
           content.current!.scrollTop = 0;
-        } else open();
+        } else if (Math.abs(move) < 100 && TOP < touchStart.sheetY) {
+          closeMapBottomSheet(sheet, true);
+          content.current!.scrollTop = 0;
+        } else if (Math.abs(move) < 100 && TOP > touchStart.sheetY) {
+          openMapBottomSheet("primary", sheet, TOP, true);
+        } else {
+          openMapBottomSheet("primary", sheet, TOP);
+        }
       } else if (!isContentAreaTouched && content.current!.scrollTop <= 0) {
         if (
           touchMove.movingDirection === "up" &&
           touchStart.sheetY > HEIGHT / 2
         ) {
           if (Math.abs(move) > 50 && move > -TOP) {
-            open();
+            openMapBottomSheet("primary", sheet, TOP);
             content.current?.style.setProperty("overflow-y", "scroll");
-          } else close();
+          } else {
+            closeMapBottomSheet(sheet, true);
+          }
         } else if (
           touchMove.movingDirection === "down" &&
           touchStart.sheetY < HEIGHT / 2
         ) {
           if (Math.abs(move) > 120 && move < 0) {
-            close();
-          } else open();
+            closeMapBottomSheet(sheet);
+          } else {
+            openMapBottomSheet("primary", sheet, TOP, true);
+          }
         }
       }
 

@@ -45,7 +45,6 @@ const MyApp = ({ Component, pageProps }: any) => {
     (state) => state.search
   );
   const { closeBottomSheetQuick } = useBottomSheet({});
-  const { closeMapBottomSheetQuick } = useMapBottomSheet({});
   const { closeSearchPlace } = useSearch();
   const [isProductionURL, setIsProductionURL] = useState(false);
 

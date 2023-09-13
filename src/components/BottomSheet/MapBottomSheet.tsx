@@ -91,7 +91,7 @@ const BottomSheetWrapper = styled.div<{
   border-radius: 16px 16px 0 0;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.12);
   color: ${({ color }) => color};
-  background-color: ${colors.N0};
+  background-color: ${colors["N0"]};
 
   transition: transform 300ms ease-out;
 `;
