@@ -18,10 +18,13 @@ import BottomNavigation from "components/BottomNavigation/BottomNavigation";
 import Toast from "components/Toast/Toast";
 import imageCompression from "browser-image-compression";
 import useToast from "hooks/useToast";
+import { globalValue } from "constants/globalValue";
+import useDisplaySize from "hooks/useDisplaySize";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { height } = useDisplaySize();
   const { isShowToast, openToast, closeToast } = useToast();
 
   const handleCloseToast = () => {
@@ -131,7 +134,7 @@ const Review = () => {
   });
 
   return (
-    <ReviewWrapper>
+    <Wrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
       <BackTitle type="white-dots" text="리뷰쓰기" />
       <MainWrapper>
         <div style={typography.Headline5}>
@@ -156,11 +159,13 @@ const Review = () => {
         />
       )}
       <BottomNavigation />
-    </ReviewWrapper>
+    </Wrapper>
   );
 };
 
-const ReviewWrapper = styled.div``;
+const Wrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
+`;
 
 const MainWrapper = styled.div`
   display: flex;

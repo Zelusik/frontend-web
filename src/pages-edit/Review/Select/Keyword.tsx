@@ -181,7 +181,7 @@ const Keyword = () => {
 };
 
 const KeywordWrapper = styled.div`
-  height: 100%;
+  height: 100vh;
   padding: 0 20px;
 `;
 

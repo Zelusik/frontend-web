@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import useGetSearchPlace from "hooks/queries/review/useGetSearchPlace";
 import { initEditImageInfo } from "reducer/slices/image/imageSlice";
+import Spacing from "components/Spacing";
+import Gradient from "components/Common/Gradient";
 
 const SearchPlace = () => {
   const dispatch = useAppDispatch();
@@ -64,8 +66,8 @@ const SearchPlace = () => {
 
   return (
     <SearchPlaceWrapper>
-      <BackTitle type="black-left-text" />
       <SearchInput>
+        <BackTitle type="black-left-text" />
         <Input
           type="line"
           placeholder="리뷰를 쓸 음식점을 검색해보세요."
@@ -73,6 +75,9 @@ const SearchPlace = () => {
           setValue={(val: any) => setValue(val)}
         />
       </SearchInput>
+      <Spacing size={100} />
+      <Gradient reverse={false} size={26} location={100} />
+
       <PlaceWrapper>
         {data
           ?.flatMap((place_data) => place_data.documents)
@@ -100,13 +105,19 @@ const SearchPlace = () => {
 };
 
 const SearchPlaceWrapper = styled.div`
-  padding: 0 20px;
   height: 100vh;
   overflow-y: scroll;
 `;
-const SearchInput = styled.div``;
+const SearchInput = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 0;
+
+  padding: 0 20px;
+  background-color: ${colors["N0"]};
+`;
 const PlaceWrapper = styled.div`
-  padding: 26px 0;
+  padding: 26px 20px;
   display: flex;
   flex-direction: column;
   gap: 26px;

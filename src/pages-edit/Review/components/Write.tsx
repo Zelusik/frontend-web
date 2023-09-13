@@ -18,6 +18,7 @@ import { Route } from "constants/Route";
 import ReviewLoading from "./ReviewLoading";
 import { editReview, postReview } from "api/reviews";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
+import Gradient from "components/Common/Gradient";
 
 const Write = () => {
   const route = useRouter();
@@ -75,8 +76,11 @@ const Write = () => {
         <ReviewLoading type="review" nickname={data?.nickname} />
       ) : (
         <>
-          <BackTitle type="black-left-text" text="리뷰 작성" />
+          <div style={{ padding: "0 20px" }}>
+            <BackTitle type="black-left-text" text="리뷰 작성" />
+          </div>
           <Spacing size={20} />
+          <Gradient size={30} />
           <MainWrapper>
             <div style={typography.Headline5}>
               {route.query.state === "self"
@@ -126,12 +130,13 @@ const Write = () => {
 };
 
 const WriteWrapper = styled.div`
+  height: 100vh;
   position: relative;
-  height: 100%;
-  padding: 0 20px;
+  // padding: 0 20px;
 `;
 
 const MainWrapper = styled.div`
+  padding: 0 20px;
   .AI {
     ${typography.Paragraph2};
     p {
@@ -148,16 +153,16 @@ const TextCount = styled.div`
   right: 10px;
 `;
 const BottomWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
+  width: 100%;
+  padding: 0 21px;
+  padding-bottom: 40px;
 
-  position: absolute;
+  gap: 8px;
+  position: fixed;
   bottom: 0;
-  left: 20px;
-  right: 20px;
-  margin-bottom: 40px;
+
+  background-color: ${colors["N0"]};
+  z-index: 800;
 `;
 
 export default Write;

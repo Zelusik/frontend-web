@@ -23,6 +23,7 @@ import Icon from "components/Icon/Icon";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { OriginalImageDataType, TransformedImageDataType } from "types/review";
 import useBottomSheet from "hooks/useBottomSheet";
+import useDisplaySize from "hooks/useDisplaySize";
 
 const Menu = () => {
   const router = useRouter();
@@ -272,8 +273,8 @@ const Menu = () => {
 };
 
 const MenuWrapper = styled.div`
+  height: 100vh;
   position: relative;
-  height: 100%;
   padding: 0 20px;
 `;
 

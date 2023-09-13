@@ -18,6 +18,7 @@ import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
 
 import Icon from "components/Icon/Icon";
 import LoadingDots from "components/Loading/LoadingDots";
+import useDisplaySize from "hooks/useDisplaySize";
 
 const Place = () => {
   const router = useRouter();
@@ -59,7 +60,9 @@ const Place = () => {
               className="banner"
               slidesPerView={1}
               spaceBetween={20}
-              onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
+              onSlideChange={(swiper) =>
+                setCurrentSlideIndex(swiper.activeIndex)
+              }
             >
               {image.map((preview: any, index: number) => (
                 <SwiperSlide key={preview.imageUrl}>
@@ -67,7 +70,9 @@ const Place = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
+            <ImageBadge>{`${currentSlideIndex + 1}/${
+              image.length
+            }`}</ImageBadge>
           </ImageWrapper>
           <Spacing size={10} />
           <PlaceContainer>
@@ -95,8 +100,8 @@ const Place = () => {
 };
 
 const PlaceWrapper = styled.div`
+  height: 100vh;
   position: relative;
-  height: 100%;
   padding: 0 20px;
 
   .icon {
