@@ -13,10 +13,13 @@ import useGetSearchPlace from "hooks/queries/review/useGetSearchPlace";
 import { initEditImageInfo } from "reducer/slices/image/imageSlice";
 import Spacing from "components/Spacing";
 import Gradient from "components/Common/Gradient";
+import useDisplaySize from "hooks/useDisplaySize";
 
 const SearchPlace = () => {
   const dispatch = useAppDispatch();
   const route = useRouter();
+  const { height } = useDisplaySize();
+
   const image = useAppSelector((state) => state.image);
   const { placeInfo } = useAppSelector((state) => state.review);
   const infiniteScorllRef = useRef(null);
@@ -65,7 +68,7 @@ const SearchPlace = () => {
   };
 
   return (
-    <SearchPlaceWrapper>
+    <Wrapper height={height}>
       <SearchInput>
         <BackTitle type="black-left-text" />
         <Input
@@ -100,13 +103,13 @@ const SearchPlace = () => {
         ref={infiniteScorllRef}
         style={{ height: hasNextPage ? "30px" : "0px" }}
       ></div>
-    </SearchPlaceWrapper>
+    </Wrapper>
   );
 };
 
-const SearchPlaceWrapper = styled.div`
-  height: 100vh;
-  overflow-y: scroll;
+const Wrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
+  overflow-y: auto;
 `;
 const SearchInput = styled.div`
   width: 100%;

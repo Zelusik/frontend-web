@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
@@ -252,7 +253,11 @@ export default function Map() {
                 }
               />
             ) : (
-              <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
                 {placeData
                   ?.flatMap((page_data: any) => page_data?.contents)
                   ?.map((data: any, idx: number) => {
@@ -269,7 +274,7 @@ export default function Map() {
                     <Spacing size={30} />
                   </>
                 ) : null}
-              </>
+              </motion.div>
             )}
           </>
         )}

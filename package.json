@@ -31,6 +31,7 @@
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.7",
     "exifr": "^7.1.3",
+    "framer-motion": "^10.16.4",
     "heic2any": "^0.0.4",
     "next": "13.4.7",
     "next-redux-wrapper": "^8.1.0",

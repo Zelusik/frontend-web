@@ -37,9 +37,6 @@ const MyApp = ({ Component, pageProps }: any) => {
   const { visible: bottomSheetVisible } = useAppSelector(
     (state) => state.bottomSheet
   );
-  const { visible: mapBottomSheetVisible } = useAppSelector(
-    (state) => state.mapBottomSheet
-  );
   const { visible: alertVisible } = useAppSelector((state) => state.alert);
   const { visible: searchPlaceVisible } = useAppSelector(
     (state) => state.search
