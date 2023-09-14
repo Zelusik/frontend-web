@@ -4,7 +4,7 @@ import { colors } from "constants/colors";
 const Gradient = styled.div<{
   reverse?: boolean;
   size: number;
-  location: number;
+  location?: number;
 }>`
   width: 100%;
   height: ${({ size }) => size}px;

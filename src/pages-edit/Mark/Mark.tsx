@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
 
 import SearchTitle from "components/Title/SearchTitle";
@@ -60,39 +60,48 @@ export default function Mark() {
     };
   }, [currentIndex, keywordData]);
 
-  if (isLoading) return <LoadingCircle />;
   return (
     <>
-      <SearchTitle type="mark" />
-
-      <Wrapper
-        ref={scrollRef}
-        height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-      >
-        <Spacing size={20} />
-        <MarkTopNavigation
-          type="title-scroll"
-          scrollRef={scrollRef}
-          index={{ currentIndex, setCurrentIndex }}
-          top={{ topFixed, setTopFixed }}
-          scrollTop={20}
-          titleList={titleList}
-          count={markData?.[0]?.totalElements}
+      {isLoading ? (
+        <LoadingCircle />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
         >
-          {titleList?.map((_: any, idx: number) => {
-            if (idx !== currentIndex) return null;
-            return (
-              <TopNavigationInner key={idx} height={"auto"}>
-                <StoreContainer
-                  infinityScrollRef={infinityScrollRef}
-                  index={{ idx, currentIndex }}
-                  keywords={keywords}
-                />
-              </TopNavigationInner>
-            );
-          })}
-        </MarkTopNavigation>
-      </Wrapper>
+          <SearchTitle type="mark" />
+
+          <Wrapper
+            ref={scrollRef}
+            height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+          >
+            <Spacing size={20} />
+            <MarkTopNavigation
+              type="title-scroll"
+              scrollRef={scrollRef}
+              index={{ currentIndex, setCurrentIndex }}
+              top={{ topFixed, setTopFixed }}
+              scrollTop={20}
+              titleList={titleList}
+              count={markData?.[0]?.totalElements}
+            >
+              {titleList?.map((_: any, idx: number) => {
+                if (idx !== currentIndex) return null;
+                return (
+                  <TopNavigationInner key={idx} height={"auto"}>
+                    <StoreContainer
+                      infinityScrollRef={infinityScrollRef}
+                      index={{ idx, currentIndex }}
+                      keywords={keywords}
+                    />
+                  </TopNavigationInner>
+                );
+              })}
+            </MarkTopNavigation>
+          </Wrapper>
+        </motion.div>
+      )}
       <BottomNavigation />
     </>
   );

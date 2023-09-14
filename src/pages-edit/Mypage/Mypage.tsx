@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import { keyframes } from "@emotion/react";
 import useDisplaySize from "hooks/useDisplaySize";
 
@@ -107,74 +108,81 @@ export default function Mypage() {
     }
   }, [membersProfile, recommendedReviews]);
 
-  if (isLoading || isMembersProfileLoading || isRecommendLoading)
-    return <LoadingCircle />;
-
   return (
     <>
-      <TitleWrapper>
-        {mine ? (
-          <TitleInner visible={titleChange}>
-            {router.query.id ? (
+      {isLoading || isMembersProfileLoading || isRecommendLoading ? (
+        <LoadingCircle />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <TitleWrapper>
+            {mine ? (
+              <TitleInner visible={titleChange}>
+                {router.query.id ? (
+                  <BackTitle
+                    type="black-left-text"
+                    title={titleChange ? membersProfile.nickname : null}
+                  />
+                ) : (
+                  <Text typo="Headline5">
+                    {titleChange ? membersProfile.nickname : null}
+                  </Text>
+                )}
+                <Setting />
+              </TitleInner>
+            ) : (
               <BackTitle
-                type="black-left-text"
+                type={titleChange ? "black-left-text" : "black-dots"}
                 title={titleChange ? membersProfile.nickname : null}
               />
-            ) : (
-              <Text typo="Headline5">
-                {titleChange ? membersProfile.nickname : null}
-              </Text>
             )}
-            <Setting />
-          </TitleInner>
-        ) : (
-          <BackTitle
-            type={titleChange ? "black-left-text" : "black-dots"}
-            title={titleChange ? membersProfile.nickname : null}
-          />
-        )}
-      </TitleWrapper>
+          </TitleWrapper>
 
-      <Wrapper
-        ref={scrollRef}
-        height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
-      >
-        <Spacing size={60} />
-
-        <div style={{ position: "relative" }}>
-          <div style={{ padding: "0 20px" }}>
-            <ProfileInfo
-              mine={mine}
-              profile={membersProfile && membersProfile}
-            />
-            <Spacing size={22} />
-
-            <TasteBox tasteStatistics={membersProfile?.tasteStatistics} />
-            <Spacing size={40} />
-          </div>
-
-          <TopNavigation
-            type="mypage"
-            scrollRef={scrollRef}
-            scrollTop={342}
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            topFixed={topFixed}
-            titleList={["추천 베스트", "리뷰"]}
+          <Wrapper
+            ref={scrollRef}
+            height={
+              mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height
+            }
           >
-            <TopNavigationInner
-              height={
-                recommendedReviews?.length === 0 &&
-                mine &&
-                membersReviews?.[0].numOfElements >= 3
-                  ? 50 + "px"
-                  : height -
-                    (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
-                    104.5 +
-                    "px"
-              }
-            >
-              {/* <Spacing
+            <Spacing size={60} />
+
+            <div style={{ position: "relative" }}>
+              <div style={{ padding: "0 20px" }}>
+                <ProfileInfo
+                  mine={mine}
+                  profile={membersProfile && membersProfile}
+                />
+                <Spacing size={22} />
+
+                <TasteBox tasteStatistics={membersProfile?.tasteStatistics} />
+                <Spacing size={40} />
+              </div>
+
+              <TopNavigation
+                type="mypage"
+                scrollRef={scrollRef}
+                scrollTop={342}
+                currentIndex={currentIndex}
+                setCurrentIndex={setCurrentIndex}
+                topFixed={topFixed}
+                titleList={["추천 베스트", "리뷰"]}
+              >
+                <TopNavigationInner
+                  height={
+                    recommendedReviews?.length === 0 &&
+                    mine &&
+                    membersReviews?.[0].numOfElements >= 3
+                      ? 50 + "px"
+                      : height -
+                        (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
+                        104.5 +
+                        "px"
+                  }
+                >
+                  {/* <Spacing
                 size={
                   recommendedReviews?.length === 0
                     ? (height - 288 - (390 - scrollHeight)) * 0.5
@@ -187,80 +195,82 @@ export default function Mypage() {
                     : 0
                 }
               /> */}
-              {mine &&
-              recommendedReviews?.length === 0 &&
-              membersReviews?.[0].numOfElements >= 3 ? (
-                <NewButton
-                  onClick={clickRecommand}
-                  marginTop={0}
-                  text="나만의 추천 음식점을 골라주세요"
-                  buttonText="추천 베스트 선택하기"
-                />
-              ) : mine && membersReviews?.[0].numOfElements < 3 ? (
-                <NewButton
-                  onClick={() => {
-                    router.push(Route.REVIEW());
-                  }}
-                  marginTop={0}
-                  text={
-                    "리뷰가 3개 이상일 때 \n 베스트 음식점 선택이 가능합니다"
+                  {mine &&
+                  recommendedReviews?.length === 0 &&
+                  membersReviews?.[0].numOfElements >= 3 ? (
+                    <NewButton
+                      onClick={clickRecommand}
+                      marginTop={0}
+                      text="나만의 추천 음식점을 골라주세요"
+                      buttonText="추천 베스트 선택하기"
+                    />
+                  ) : mine && membersReviews?.[0].numOfElements < 3 ? (
+                    <NewButton
+                      onClick={() => {
+                        router.push(Route.REVIEW());
+                      }}
+                      marginTop={0}
+                      text={
+                        "리뷰가 3개 이상일 때 \n 베스트 음식점 선택이 가능합니다"
+                      }
+                      buttonText="리뷰 작성하러 가기"
+                    />
+                  ) : (
+                    <RecommandSwiper
+                      datas={recommendedReviews && recommendedReviews}
+                      mine={mine}
+                      onClick={clickRecommand}
+                    />
+                  )}
+                </TopNavigationInner>
+                <TopNavigationInner
+                  height={
+                    membersReviews?.[0].contents?.length === 0
+                      ? height -
+                        (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
+                        104.5 +
+                        "px"
+                      : "auto"
                   }
-                  buttonText="리뷰 작성하러 가기"
-                />
-              ) : (
-                <RecommandSwiper
-                  datas={recommendedReviews && recommendedReviews}
-                  mine={mine}
-                  onClick={clickRecommand}
-                />
-              )}
-            </TopNavigationInner>
-            <TopNavigationInner
-              height={
-                membersReviews?.[0].contents?.length === 0
-                  ? height -
-                    (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
-                    104.5 +
-                    "px"
-                  : "auto"
-              }
-            >
-              <Spacing
-                size={
-                  membersReviews?.[0].contents?.length === 0
-                    ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : 0
-                }
-              />
-              {membersReviews?.[0].contents?.length === 0 && mine ? (
-                <NewButton
-                  onClick={() => {
-                    router.push(Route.REVIEW());
-                  }}
-                  marginTop={0}
-                  text="내가 방문한 음식점의 리뷰를 남겨보세요"
-                  buttonText="첫 리뷰 남기기"
-                />
-              ) : (
-                <>
-                  <ReviewList
-                    membersReviews={membersReviews && membersReviews}
-                    fetchNextPage={fetchNextPage}
-                    hasNextPage={hasNextPage}
+                >
+                  <Spacing
+                    size={
+                      membersReviews?.[0].contents?.length === 0
+                        ? (height - 288 - (390 - scrollHeight)) * 0.5
+                        : 0
+                    }
                   />
-                  {hasNextPage ? (
+                  {membersReviews?.[0].contents?.length === 0 && mine ? (
+                    <NewButton
+                      onClick={() => {
+                        router.push(Route.REVIEW());
+                      }}
+                      marginTop={0}
+                      text="내가 방문한 음식점의 리뷰를 남겨보세요"
+                      buttonText="첫 리뷰 남기기"
+                    />
+                  ) : (
                     <>
-                      <Spacing size={24} />
-                      <LoadingCircle size={30} />
+                      <ReviewList
+                        membersReviews={membersReviews && membersReviews}
+                        fetchNextPage={fetchNextPage}
+                        hasNextPage={hasNextPage}
+                      />
+                      {hasNextPage ? (
+                        <>
+                          <Spacing size={24} />
+                          <LoadingCircle size={30} />
+                        </>
+                      ) : null}
                     </>
-                  ) : null}
-                </>
-              )}
-              <Spacing size={30} />
-            </TopNavigationInner>
-          </TopNavigation>
-        </div>
-      </Wrapper>
+                  )}
+                  <Spacing size={30} />
+                </TopNavigationInner>
+              </TopNavigation>
+            </div>
+          </Wrapper>
+        </motion.div>
+      )}
       {mine ? <BottomNavigation /> : null}
     </>
   );

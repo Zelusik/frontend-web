@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
@@ -186,125 +187,147 @@ export default function Map() {
   );
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  // if (visible) return <SearchPlace />;
   return (
     <>
-      <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
-        {myLocation?.error?.code === 1 ? (
-          <LocationError />
-        ) : !myLocation?.loaded ? (
-          <LoadingCircle size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
-        ) : (
-          <KakaoMap
-            lat={currentLocation?.center?.lat}
-            lng={currentLocation?.center?.lng}
-            myLat={myLocation?.center?.lat}
-            myLng={myLocation?.center?.lng}
-            onCurrentLocation={onCurrentLocation}
-            data={placeData?.flatMap((page_data: any) => page_data?.contents)}
-            isMarkShow={isMarkShow}
-            clickMap={() => {
-              openMapBottomSheetStore(sheet);
-              closeMapStoreDetail(mapStoreDetailRef);
-              bottomRef?.current?.style.setProperty(
-                "transform",
-                `translateY(0)`
-              );
-            }}
-            clickMarker={() => {
-              closeMapBottomSheetStore(sheet, height);
-              openMapStoreDetail(
-                mapStoreDetailRef,
-                height,
-                true,
-                location.pathname
-              );
-              bottomRef?.current?.style.setProperty(
-                "transform",
-                `translateY(88px)`
-              );
-            }}
-          />
-        )}
-      </KakaoMapWrapper>
-
-      <FindLocationButton clickFindLocation={clickFindLocation} />
-      <MapBottomSheet sheet={sheet} content={content}>
-        {filterVisible ? (
-          <>
-            {filterData?.map((data: any, idx: number) => {
-              return <Filter key={idx} type={data.type} data={data} />;
-            })}
-          </>
-        ) : (
-          <>
-            {type === "store" ? (
-              <StoreSort />
-            ) : (
-              <LocationTitle type={type} data={placeData?.[0]?.totalElements} />
-            )}
-            <Spacing size={14} />
-            {type === "location" ? <FilterSelection /> : null}
-            {isLoading || !myLocation?.loaded ? (
+      {isLoading || !myLocation?.loaded ? (
+        <LoadingCircle />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <KakaoMapWrapper
+            height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+          >
+            {myLocation?.error?.code === 1 ? (
+              <LocationError />
+            ) : !myLocation?.loaded ? (
               <LoadingCircle
-                size={
-                  (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) * 0.2
-                }
+                size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
               />
             ) : (
+              <KakaoMap
+                lat={currentLocation?.center?.lat}
+                lng={currentLocation?.center?.lng}
+                myLat={myLocation?.center?.lat}
+                myLng={myLocation?.center?.lng}
+                onCurrentLocation={onCurrentLocation}
+                data={placeData?.flatMap(
+                  (page_data: any) => page_data?.contents
+                )}
+                isMarkShow={isMarkShow}
+                clickMap={() => {
+                  openMapBottomSheetStore(sheet);
+                  closeMapStoreDetail(mapStoreDetailRef);
+                  bottomRef?.current?.style.setProperty(
+                    "transform",
+                    `translateY(0)`
+                  );
+                }}
+                clickMarker={() => {
+                  closeMapBottomSheetStore(sheet, height);
+                  openMapStoreDetail(
+                    mapStoreDetailRef,
+                    height,
+                    true,
+                    location.pathname
+                  );
+                  bottomRef?.current?.style.setProperty(
+                    "transform",
+                    `translateY(88px)`
+                  );
+                }}
+              />
+            )}
+          </KakaoMapWrapper>
+
+          <FindLocationButton clickFindLocation={clickFindLocation} />
+          <MapBottomSheet sheet={sheet} content={content}>
+            {filterVisible ? (
               <>
-                {placeData
-                  ?.flatMap((page_data: any) => page_data?.contents)
-                  ?.map((data: any, idx: number) => {
-                    return (
-                      ((isMarkShow && data?.isMarked) || !isMarkShow) && (
-                        <StoreCard key={idx} data={data} />
-                      )
-                    );
-                  })}
-                <div ref={infinityScrollRef} />
-                {hasNextPage ? (
+                {filterData?.map((data: any, idx: number) => {
+                  return <Filter key={idx} type={data.type} data={data} />;
+                })}
+              </>
+            ) : (
+              <>
+                {type === "store" ? (
+                  <StoreSort />
+                ) : (
+                  <LocationTitle
+                    type={type}
+                    data={placeData?.[0]?.totalElements}
+                  />
+                )}
+                <Spacing size={14} />
+                {type === "location" ? <FilterSelection /> : null}
+                {isLoading || !myLocation?.loaded ? (
+                  <LoadingCircle
+                    size={
+                      (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) *
+                      0.2
+                    }
+                  />
+                ) : (
                   <>
-                    <LoadingCircle size={30} />
-                    <Spacing size={30} />
+                    {placeData
+                      ?.flatMap((page_data: any) => page_data?.contents)
+                      ?.map((data: any, idx: number) => {
+                        return (
+                          ((isMarkShow && data?.isMarked) || !isMarkShow) && (
+                            <StoreCard key={idx} data={data} />
+                          )
+                        );
+                      })}
+                    <div ref={infinityScrollRef} />
+                    {hasNextPage ? (
+                      <>
+                        <LoadingCircle size={30} />
+                        <Spacing size={30} />
+                      </>
+                    ) : null}
                   </>
-                ) : null}
+                )}
               </>
             )}
-          </>
-        )}
-      </MapBottomSheet>
+          </MapBottomSheet>
 
-      <TopWrapper>
-        <Spacing size={15} />
-        <InputWrapper>
-          <Input
-            type="shadow"
-            placeholder="지역, 음식점, 닉네임 검색"
-            value={value}
-            setValue={() => {}}
-          />
-        </InputWrapper>
+          <TopWrapper>
+            <Spacing size={15} />
+            <InputWrapper>
+              <Input
+                type="shadow"
+                placeholder="지역, 음식점, 닉네임 검색"
+                value={value}
+                setValue={() => {}}
+              />
+            </InputWrapper>
 
-        {type !== "default" ? (
-          <IconWrapper>
-            <Icon
-              icon="CircleXButton"
-              width={24}
-              height={24}
-              onClick={() => handleSearchType("default")}
+            {type !== "default" ? (
+              <IconWrapper>
+                <Icon
+                  icon="CircleXButton"
+                  width={24}
+                  height={24}
+                  onClick={() => handleSearchType("default")}
+                />
+              </IconWrapper>
+            ) : undefined}
+            <Spacing size={8} />
+
+            <FoodSelection
+              mark={{ isMarkShow, clickMarkShow }}
+              clickMyLocation={clickMyLocation}
             />
-          </IconWrapper>
-        ) : undefined}
-        <Spacing size={8} />
-
-        <FoodSelection
-          mark={{ isMarkShow, clickMarkShow }}
-          clickMyLocation={clickMyLocation}
-        />
-      </TopWrapper>
-      {isShowToast && (
-        <Toast message="조건에 일치하는 장소가 없습니다" close={closeToast} />
+          </TopWrapper>
+          {isShowToast && (
+            <Toast
+              message="조건에 일치하는 장소가 없습니다"
+              close={closeToast}
+            />
+          )}
+        </motion.div>
       )}
 
       {filterVisible ? (
