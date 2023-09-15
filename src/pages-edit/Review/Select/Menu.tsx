@@ -286,6 +286,7 @@ const MenuTag = styled.span<{ x?: number; y?: number }>`
   position: absolute;
   left: ${({ x }) => x}%;
   top: ${({ y }) => y}%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
