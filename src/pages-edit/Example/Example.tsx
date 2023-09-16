@@ -60,6 +60,7 @@ export default function Example() {
     };
   }, [currentIndex, keywordData]);
 
+  const [touch, setTouch] = useState(true);
   return (
     <>
       {isLoading ? (
@@ -81,6 +82,7 @@ export default function Example() {
               type="title-scroll"
               scrollRef={scrollRef}
               index={{ currentIndex, setCurrentIndex }}
+              touch={{ touch, setTouch }}
               top={{ topFixed, setTopFixed }}
               scrollTop={20}
               titleList={titleList}
@@ -89,11 +91,12 @@ export default function Example() {
               {titleList?.map((_: any, idx: number) => {
                 // if (idx !== currentIndex) return null;
                 return (
-                  <TopNavigationInner key={idx} height={height - 300}>
+                  <TopNavigationInner key={idx} height={"auto"}>
                     Hi{idx + 1}
                     <StoreContainer
                       infinityScrollRef={infinityScrollRef}
                       index={{ idx, currentIndex }}
+                      touch={{ touch, setTouch }}
                       keywords={keywords}
                     />
                   </TopNavigationInner>

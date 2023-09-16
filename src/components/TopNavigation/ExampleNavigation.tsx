@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { match } from "ts-pattern";
 import styled from "@emotion/styled";
@@ -14,7 +14,6 @@ import SortingHeader from "pages-edit/Mark/components/SortingHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import ExampleSwiper from "components/ExampleSwiper";
 
 interface Props {
   type: "title-scroll" | "default";
@@ -32,8 +31,10 @@ const ExampleNavigation = forwardRef(function Div(
   {
     type,
     scrollRef,
+    height,
 
     index,
+    touch,
     top,
     scrollTop = 0,
 
@@ -46,7 +47,7 @@ const ExampleNavigation = forwardRef(function Div(
   const router = useRouter();
   const titleScrollRef = useRef<any>(null);
   const swiperScrollRef = useRef<any>(null);
-  let titleTextRef = useRef<any>(null);
+  const [titleTextRef, setTitleTextRef] = useState<any>(null);
   const { width } = useDisplaySize();
 
   const clickTitleList = (ref: any, activeIndex: number) => {
@@ -84,10 +85,10 @@ const ExampleNavigation = forwardRef(function Div(
     index.setCurrentIndex(newSwiper);
 
     // title click -> focus on
-    // const textLeft = titleTextRef?.offsetLeft - 20;
-    // const textWidth = titleTextRef?.offsetWidth;
-    // const scrollLeft = textLeft - (width - 40 - textWidth) / 2;
-    // titleScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
+    const textLeft = titleTextRef?.offsetLeft - 20;
+    const textWidth = titleTextRef?.offsetWidth;
+    const scrollLeft = textLeft - (width - 40 - textWidth) / 2;
+    titleScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
 
     if (scrollRef.current?.scrollTop > scrollTop) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -95,7 +96,7 @@ const ExampleNavigation = forwardRef(function Div(
   };
 
   return (
-    <Wrapper>
+    <div>
       {/* title 부분 */}
       <TitleWrapper
         topFixed={top.topFixed}
@@ -105,6 +106,7 @@ const ExampleNavigation = forwardRef(function Div(
         backgroundColor={match(type)
           .with("title-scroll", () => "MarkColor")
           .otherwise(() => "N100")}
+        style={{ height: height }}
       >
         <HorizonalScroll
           ref={titleScrollRef}
@@ -119,8 +121,13 @@ const ExampleNavigation = forwardRef(function Div(
             return (
               <TitleTextWrapper
                 key={idx}
+                // ref={titleTextRef}
                 ref={(ref: any) => {
-                  if (index.currentIndex === idx) titleTextRef = ref;
+                  if (index.currentIndex === idx) {
+                    // console.log(ref);
+                    setTitleTextRef(ref);
+                    // titleTextRef = ref;
+                  }
                 }}
                 height={match(type)
                   .with("title-scroll", () => 34)
@@ -156,27 +163,45 @@ const ExampleNavigation = forwardRef(function Div(
 
       {type === "title-scroll" ? <SortingHeader count={props?.count} /> : null}
       {/* children 부분 */}
-      <ExampleSwiper index={index}>
+      <Swiper
+        ref={swiperScrollRef}
+        allowSlidePrev={index.currentIndex > 0 && touch.touch}
+        allowSlideNext={
+          index.currentIndex !== children?.length - 1 && touch.touch
+        }
+        onSlideChange={onSlideChange}
+      >
         {children?.map((childrenData: any, idx: number) => {
           return (
-            <div key={idx} style={{ minWidth: width }}>
+            <SwiperSlide
+              key={idx}
+              style={{
+                padding: `0
+                ${match(type)
+                  .with("title-scroll", () => 20)
+                  .otherwise(() => 20)}px
+                `,
+                backgroundColor:
+                  colors[
+                    `${match(type)
+                      .with("title-scroll", () => "MarkColor")
+                      .otherwise(() => "N0")}`
+                  ],
+              }}
+            >
               <Spacing
                 size={match(type)
                   .with("title-scroll", () => 19)
                   .otherwise(() => 20)}
               />
               {childrenData}
-            </div>
+            </SwiperSlide>
           );
         })}
-      </ExampleSwiper>
-    </Wrapper>
+      </Swiper>
+    </div>
   );
 });
-
-const Wrapper = styled.div`
-  overflow-x: hidden;
-`;
 
 const TitleWrapper = styled.div<{
   topFixed: boolean;

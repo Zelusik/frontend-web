@@ -18,9 +18,28 @@ import useDisplaySize from "hooks/useDisplaySize";
 import Number from "components/Common/Number";
 import { getAddressInfo } from "utils/getAddressInfo";
 
-const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const StoreCard = ({ placeInfo, touch }: any) => {
+  var settings = {
+    arrows: false,
+    dots: false,
+    infinite: false,
+
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 300,
+    touchThreshold: 300,
+    pauseOnFocus: true,
+    // variableWidth: true,
+  };
+
   const router = useRouter();
   const { width } = useDisplaySize();
+  const [startX, setStartX] = useState(0);
+  const [moveX, setMoveX] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleClickPlace = () => {
@@ -28,6 +47,35 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
       pathname: Route.STORE_DETAIL(),
       query: { id: placeInfo.id },
     });
+  };
+
+  const onTouchStart = (e: any) => {
+    setStartX(e?.changedTouches[0].clientX);
+    touch.setTouch(false);
+  };
+
+  const onTouchMove = (e: any) => {
+    const newX = e?.changedTouches[0].clientX - startX;
+    setMoveX(e?.changedTouches[0].clientX);
+
+    if (
+      (newX < 0 && currentIndex === placeInfo?.images?.length - 1) ||
+      (newX > 0 && currentIndex === 0)
+    ) {
+      touch.setTouch(true);
+    }
+  };
+
+  const onTouchEnd = (e: any) => {
+    const newX = e?.changedTouches[0].clientX - startX;
+    if (newX < 0 && currentIndex !== placeInfo?.images?.length - 1) {
+      // next
+      setCurrentIndex(currentIndex + 1);
+    } else if (newX > 0 && currentIndex !== 0) {
+      // prev
+      setCurrentIndex(currentIndex - 1);
+    }
+    touch.setTouch(true);
   };
 
   return (
@@ -41,27 +89,35 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
                 length={placeInfo?.images?.length}
               />
             </NumberWrapper>
-            <Swiper
-              className="banner"
-              slidesPerView={1}
-              spaceBetween={20}
-              onSlideChange={(swiper: any) =>
-                setCurrentIndex(swiper.activeIndex)
-              }
-              allowSlidePrev={currentIndex !== 0}
-              allowSlideNext={currentIndex !== placeInfo?.images?.length - 1}
-              style={{ height: ((width - 25) * 192) / 310 }}
+            <div
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+              style={{ overflow: "hidden" }}
             >
-              {placeInfo?.images?.map((image: any, index: number) => (
-                <SwiperSlide key={index}>
-                  <Image
-                    src={image?.thumbnailUrl}
-                    alt="음식 사진"
-                    type="mark"
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+              <StyledSlider
+                {...settings}
+                prev={currentIndex === 0 && moveX - startX > 0}
+                next={
+                  currentIndex === placeInfo?.images?.length - 1 &&
+                  moveX - startX < 0
+                }
+                lastNext={(width - 40) * (placeInfo?.images?.length - 1)}
+              >
+                {placeInfo?.images?.map((image: any, idx: number) => {
+                  return (
+                    // <SwiperSlide key={index}>
+                    <Image
+                      key={idx}
+                      src={image?.thumbnailUrl}
+                      alt="음식 사진"
+                      type="mark"
+                    />
+                    // </SwiperSlide>
+                  );
+                })}
+              </StyledSlider>
+            </div>
             <Spacing size={10} />
           </>
         )}
@@ -99,6 +155,7 @@ const Wrapper = styled.div<{ hasImage: boolean }>`
   border-radius: 12px;
   background-color: ${colors.N0};
   box-shadow: 0px 3px 18px 0px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 `;
 
 const NumberWrapper = styled.div`
@@ -106,6 +163,45 @@ const NumberWrapper = styled.div`
   top: 31px;
   right: 20px;
   z-index: 800;
+`;
+
+const StyledSlider = styled(Slider)<{ prev: any; next: any; lastNext: any }>`
+  .slick-slide {
+    padding: 0 10px; // space(여백)/2
+  }
+  .slick-list {
+    height: 100%;
+    object-fit: cover;
+    display: flex;
+    align-items: center; // 이미지가 정방향이 아닐 경우 가운데 위치
+    margin: 0 -10px; // space(여백)/-2
+  }
+  .slick-track {
+    display: flex;
+    align-items: center;
+    ${({ prev }) =>
+      prev
+        ? `
+        transform: translate3d(0px, 0px, 0px) !important;
+        transition: transform 300ms ease-out;
+        `
+        : ``}
+    ${({ next, lastNext }) =>
+      next
+        ? `
+        transform: translate3d(-${lastNext}px, 0px, 0px) !important;
+        transition: transform 300ms ease-out;
+        `
+        : ``}
+  }
+  .slick-prev {
+    left: 6px;
+    z-index: 999;
+  }
+  .slick-next {
+    right: 6px;
+    z-index: 999;
+  }
 `;
 
 export default StoreCard;
