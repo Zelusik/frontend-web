@@ -2,25 +2,37 @@ import styled from "@emotion/styled";
 import Image from "components/Image/Image";
 import { colors } from "constants/colors";
 import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { typography } from "constants/typography";
-import Text from "components/Text/Text";
-import Hashtag from "components/Hashtags/Hashtag";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
-import Heart from "components/Button/IconButton/Heart/Heart";
 import Hashtags from "components/Hashtags";
 import StoreTitle from "components/Title/StoreTitle";
 import Spacing from "components/Spacing";
 import useDisplaySize from "hooks/useDisplaySize";
-import Number from "components/Common/Number";
 import { getAddressInfo } from "utils/getAddressInfo";
 
-const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
+import CustomSlider from "components/CustomSlider";
+
+const StoreCard = ({ placeInfo, touch }: any) => {
+  var settings = {
+    arrows: false,
+    dots: false,
+    infinite: false,
+
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 300,
+    touchThreshold: 300,
+    pauseOnFocus: true,
+    // variableWidth: true,
+  };
+
   const router = useRouter();
   const { width } = useDisplaySize();
+
+  const [startX, setStartX] = useState(0);
+  const [moveX, setMoveX] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleClickPlace = () => {
@@ -30,38 +42,52 @@ const StoreCard = ({ placeInfo }: { placeInfo: any }) => {
     });
   };
 
+  const onTouchStart = (e: any) => {
+    setStartX(e?.changedTouches[0].clientX);
+    touch.setTouch(false);
+  };
+
+  const onTouchMove = (e: any) => {
+    const newX = e?.changedTouches[0].clientX - startX;
+    setMoveX(e?.changedTouches[0].clientX);
+
+    if (
+      (newX < 0 && currentIndex === placeInfo?.images?.length - 1) ||
+      (newX > 0 && currentIndex === 0)
+    ) {
+      touch.setTouch(true);
+    }
+  };
+
+  const onTouchEnd = (e: any) => {
+    const newX = e?.changedTouches[0].clientX - startX;
+    if (newX < 0 && currentIndex !== placeInfo?.images?.length - 1) {
+      // next
+      setCurrentIndex(currentIndex + 1);
+    } else if (newX > 0 && currentIndex !== 0) {
+      // prev
+      setCurrentIndex(currentIndex - 1);
+    }
+    touch.setTouch(true);
+  };
+
   return (
     <Wrapper hasImage={placeInfo?.images?.length} onClick={handleClickPlace}>
       <div>
         {placeInfo?.images?.length > 0 && (
           <>
-            <NumberWrapper>
-              <Number
-                currentIndex={currentIndex}
-                length={placeInfo?.images?.length}
-              />
-            </NumberWrapper>
-            <Swiper
-              className="banner"
-              slidesPerView={1}
-              spaceBetween={20}
-              onSlideChange={(swiper: any) =>
-                setCurrentIndex(swiper.activeIndex)
-              }
-              allowSlidePrev={currentIndex !== 0}
-              allowSlideNext={currentIndex !== placeInfo?.images?.length - 1}
-              style={{ height: ((width - 25) * 192) / 310 }}
-            >
-              {placeInfo?.images?.map((image: any, index: number) => (
-                <SwiperSlide key={index}>
+            <CustomSlider touch={touch} length={placeInfo?.images?.length}>
+              {placeInfo?.images?.map((image: any, idx: number) => {
+                return (
                   <Image
+                    key={idx}
                     src={image?.thumbnailUrl}
                     alt="음식 사진"
                     type="mark"
                   />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                );
+              })}
+            </CustomSlider>
             <Spacing size={10} />
           </>
         )}
@@ -99,13 +125,7 @@ const Wrapper = styled.div<{ hasImage: boolean }>`
   border-radius: 12px;
   background-color: ${colors.N0};
   box-shadow: 0px 3px 18px 0px rgba(0, 0, 0, 0.08);
-`;
-
-const NumberWrapper = styled.div`
-  position: absolute;
-  top: 31px;
-  right: 20px;
-  z-index: 800;
+  overflow: hidden;
 `;
 
 export default StoreCard;

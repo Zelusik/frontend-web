@@ -16,7 +16,7 @@ interface Props {
 }
 
 const StoreContainer = forwardRef(function Div(
-  { index, keywords, ...props }: any,
+  { index, touch, keywords, ...props }: any,
   ref: any
 ) {
   const router = useRouter();
@@ -42,7 +42,7 @@ const StoreContainer = forwardRef(function Div(
           {markData
             ?.flatMap((place_data: any) => place_data.contents)
             ?.map((place: any, placeIdx: number) => (
-              <StoreCard key={placeIdx} placeInfo={place} />
+              <StoreCard key={placeIdx} placeInfo={place} touch={touch} />
             ))}
 
           <div ref={infinityScrollRef} />
