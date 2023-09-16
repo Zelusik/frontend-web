@@ -1,14 +1,5 @@
 import React, { useEffect, forwardRef, useRef } from "react";
 import styled from "@emotion/styled";
-import useGetMarkPlaces from "hooks/queries/mark/useGetMarkPlaces";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
-import StoreCard from "./StoreCard";
-import NewButton from "pages-edit/Mypage/components/NewButton";
-import { useRouter } from "next/router";
-import { Route } from "constants/Route";
 
 interface Props {
   height?: any;

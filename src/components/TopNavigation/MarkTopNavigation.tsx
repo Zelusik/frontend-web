@@ -33,6 +33,7 @@ const MarkTopNavigation = forwardRef(function Div(
     scrollRef,
 
     index,
+    touch,
     top,
     scrollTop = 0,
 
@@ -45,7 +46,7 @@ const MarkTopNavigation = forwardRef(function Div(
   const router = useRouter();
   const titleScrollRef = useRef<any>(null);
   const swiperScrollRef = useRef<any>(null);
-  let titleTextRef = useRef<any>(null);
+  const [titleTextRef, setTitleTextRef] = useState<any>(null);
   const { width } = useDisplaySize();
 
   const clickTitleList = (ref: any, activeIndex: number) => {
@@ -83,10 +84,10 @@ const MarkTopNavigation = forwardRef(function Div(
     index.setCurrentIndex(newSwiper);
 
     // title click -> focus on
-    // const textLeft = titleTextRef?.offsetLeft - 20;
-    // const textWidth = titleTextRef?.offsetWidth;
-    // const scrollLeft = textLeft - (width - 40 - textWidth) / 2;
-    // titleScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
+    const textLeft = titleTextRef?.offsetLeft - 20;
+    const textWidth = titleTextRef?.offsetWidth;
+    const scrollLeft = textLeft - (width - 40 - textWidth) / 2;
+    titleScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
 
     if (scrollRef.current?.scrollTop > scrollTop) {
       scrollRef.current!.scrollTop = scrollTop;
@@ -119,7 +120,7 @@ const MarkTopNavigation = forwardRef(function Div(
               <TitleTextWrapper
                 key={idx}
                 ref={(ref: any) => {
-                  if (index.currentIndex === idx) titleTextRef = ref;
+                  if (index.currentIndex === idx) setTitleTextRef(ref);
                 }}
                 height={match(type)
                   .with("title-scroll", () => 34)
@@ -157,8 +158,10 @@ const MarkTopNavigation = forwardRef(function Div(
       {/* children 부분 */}
       <Swiper
         ref={swiperScrollRef}
-        allowSlidePrev={index.currentIndex > 0}
-        allowSlideNext={index.currentIndex !== children?.length - 1}
+        allowSlidePrev={index.currentIndex > 0 && touch.touch}
+        allowSlideNext={
+          index.currentIndex !== children?.length - 1 && touch.touch
+        }
         onSlideChange={onSlideChange}
       >
         {children?.map((childrenData: any, idx: number) => {

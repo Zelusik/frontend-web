@@ -60,6 +60,8 @@ export default function Mark() {
     };
   }, [currentIndex, keywordData]);
 
+  const [touch, setTouch] = useState(false);
+
   return (
     <>
       {isLoading ? (
@@ -81,18 +83,19 @@ export default function Mark() {
               type="title-scroll"
               scrollRef={scrollRef}
               index={{ currentIndex, setCurrentIndex }}
+              touch={{ touch, setTouch }}
               top={{ topFixed, setTopFixed }}
               scrollTop={20}
               titleList={titleList}
               count={markData?.[0]?.totalElements}
             >
               {titleList?.map((_: any, idx: number) => {
-                if (idx !== currentIndex) return null;
                 return (
                   <TopNavigationInner key={idx} height={"auto"}>
                     <StoreContainer
                       infinityScrollRef={infinityScrollRef}
                       index={{ idx, currentIndex }}
+                      touch={{ touch, setTouch }}
                       keywords={keywords}
                     />
                   </TopNavigationInner>
