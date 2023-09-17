@@ -11,7 +11,7 @@ const useGetMarkKeywords = () => {
       cacheTime: 1000 * 60 * 30,
     }
   );
-  return { data, isLoading, error };
+  return { keywordData: data, keywordLoading: isLoading, error };
 };
 
 export default useGetMarkKeywords;

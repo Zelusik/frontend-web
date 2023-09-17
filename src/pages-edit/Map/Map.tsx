@@ -10,11 +10,7 @@ import useGetPlacesNear from "hooks/queries/map/useGetPlacesNear";
 import useToast from "hooks/useToast";
 
 import { globalValue } from "constants/globalValue";
-import {
-  atmosphereKeyword,
-  dayOfWeekData,
-  tasteData,
-} from "constants/globalData";
+import { atmosphereKeyword, dayOfWeekData, tasteData } from "constants/globalData";
 
 import KakaoMap from "components/Common/KakaoMap";
 import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
@@ -197,15 +193,11 @@ export default function Map() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <KakaoMapWrapper
-            height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-          >
+          <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
             {myLocation?.error?.code === 1 ? (
               <LocationError />
             ) : !myLocation?.loaded ? (
-              <LoadingCircle
-                size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-              />
+              <LoadingCircle size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
             ) : (
               <KakaoMap
                 lat={currentLocation?.center?.lat}
@@ -213,9 +205,7 @@ export default function Map() {
                 myLat={myLocation?.center?.lat}
                 myLng={myLocation?.center?.lng}
                 onCurrentLocation={onCurrentLocation}
-                data={placeData?.flatMap(
-                  (page_data: any) => page_data?.contents
-                )}
+                data={placeData?.flatMap((page_data: any) => page_data?.contents)}
                 isMarkShow={isMarkShow}
                 clickMap={() => {
                   openMapBottomSheetStore(sheet);
@@ -255,18 +245,14 @@ export default function Map() {
                 {type === "store" ? (
                   <StoreSort />
                 ) : (
-                  <LocationTitle
-                    type={type}
-                    data={placeData?.[0]?.totalElements}
-                  />
+                  <LocationTitle type={type} data={placeData?.[0]?.totalElements} />
                 )}
                 <Spacing size={14} />
                 {type === "location" ? <FilterSelection /> : null}
                 {isLoading || !myLocation?.loaded ? (
                   <LoadingCircle
                     size={
-                      (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) *
-                      0.2
+                      (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) * 0.2
                     }
                   />
                 ) : (
@@ -322,10 +308,7 @@ export default function Map() {
             />
           </TopWrapper>
           {isShowToast && (
-            <Toast
-              message="조건에 일치하는 장소가 없습니다"
-              close={closeToast}
-            />
+            <Toast message="조건에 일치하는 장소가 없습니다" close={closeToast} />
           )}
         </motion.div>
       )}

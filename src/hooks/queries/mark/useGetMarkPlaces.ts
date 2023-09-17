@@ -23,7 +23,14 @@ const useGetMarkPlaces = ({ type, keyword }: any) => {
       },
     });
   const markData = data?.pages;
-  return { markData, isLoading, error, fetchNextPage, hasNextPage, refetch };
+  return {
+    markData,
+    markLoading: isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+  };
 };
 
 export default useGetMarkPlaces;

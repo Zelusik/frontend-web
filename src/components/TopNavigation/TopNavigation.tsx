@@ -118,7 +118,7 @@ const TopNavigation = forwardRef(function Div(
       <Swiper
         ref={swiperRef}
         allowSlidePrev={props.currentIndex > 0}
-        allowSlideNext={props.currentIndex <= children?.length - 1}
+        allowSlideNext={props.currentIndex !== children?.length - 1}
         onSlideChange={onSlideChange}
       >
         {children?.map((data: any, idx: number) => {

@@ -12,11 +12,11 @@ import useGetMarkPlaces from "hooks/queries/mark/useGetMarkPlaces";
 import BottomNavigation from "components/BottomNavigation";
 import { globalValue } from "constants/globalValue";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
-import StoreContainer from "./components/StoreContainer";
-import MarkTopNavigation from "components/TopNavigation/MarkTopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
+import StoreContainer from "./StoreContainer";
+import ExampleNavigation from "components/TopNavigation/ExampleNavigation";
 
-export default function Mark() {
+export default function Example() {
   const scrollRef = useRef<any>(null);
   const infinityScrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
@@ -36,7 +36,7 @@ export default function Mark() {
     (keywordInfo: { keyword: string; type: string }) => keywordInfo?.keyword
   );
 
-  const { markData, markLoading, fetchNextPage, hasNextPage } = useGetMarkPlaces({
+  const { markData, fetchNextPage, hasNextPage } = useGetMarkPlaces({
     type: keywords?.[currentIndex]?.type,
     keyword: keywords?.[currentIndex]?.keyword,
   });
@@ -63,33 +63,36 @@ export default function Mark() {
   const [touch, setTouch] = useState(true);
   return (
     <>
-      <SearchTitle type="mark" />
       {keywordLoading ? (
-        <LoadingCircle size={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
+        <LoadingCircle />
       ) : (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
+          <SearchTitle type="mark" />
+
           <Wrapper
             ref={scrollRef}
             height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
           >
             <Spacing size={20} />
-            <MarkTopNavigation
+            <ExampleNavigation
               type="title-scroll"
               scrollRef={scrollRef}
               index={{ currentIndex, setCurrentIndex }}
-              top={{ topFixed, setTopFixed }}
               touch={{ touch, setTouch }}
+              top={{ topFixed, setTopFixed }}
               scrollTop={20}
               titleList={titleList}
-              count={markLoading ? 0 : markData?.[0]?.totalElements}
+              count={markData?.[0]?.totalElements}
             >
               {titleList?.map((_: any, idx: number) => {
+                // if (idx !== currentIndex) return null;
                 return (
                   <TopNavigationInner key={idx} height={"auto"}>
+                    Hi{idx + 1}
                     <StoreContainer
                       infinityScrollRef={infinityScrollRef}
                       index={{ idx, currentIndex }}
@@ -99,7 +102,7 @@ export default function Mark() {
                   </TopNavigationInner>
                 );
               })}
-            </MarkTopNavigation>
+            </ExampleNavigation>
           </Wrapper>
         </motion.div>
       )}
@@ -114,6 +117,6 @@ const Wrapper = styled.div<{ height: number }>`
 `;
 
 const TopNavigationInner = styled.div<{ height: any }>`
-  height: ${({ height }) => height};
+  height: ${({ height }) => height}px;
   background-color: #fbfbfb;
 `;

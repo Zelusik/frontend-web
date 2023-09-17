@@ -22,6 +22,7 @@ import useDisplaySize from "hooks/useDisplaySize";
 
 const Place = () => {
   const router = useRouter();
+  const { height } = useDisplaySize();
 
   const image = useAppSelector((state) => state.image);
   const { placeInfo } = useAppSelector((state) => state.review);
@@ -47,7 +48,7 @@ const Place = () => {
   };
 
   return (
-    <PlaceWrapper>
+    <Wrapper height={height}>
       {isLoading || placeLoading ? (
         <div className="icon">
           <LoadingDots />
@@ -95,12 +96,12 @@ const Place = () => {
           </BottomWrapper>
         </>
       )}
-    </PlaceWrapper>
+    </Wrapper>
   );
 };
 
-const PlaceWrapper = styled.div`
-  height: 100vh;
+const Wrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   position: relative;
   padding: 0 20px;
 
