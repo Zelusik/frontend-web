@@ -203,6 +203,8 @@ const Menu = () => {
           slidesPerView={1}
           spaceBetween={20}
           onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
+          allowSlidePrev={currentSlideIndex > 0}
+          allowSlideNext={currentSlideIndex < image.length - 1}
         >
           {image.map((imageInfo: ImageType, index: number) => (
             <SwiperSlide key={imageInfo.imageUrl}>

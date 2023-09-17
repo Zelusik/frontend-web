@@ -60,9 +60,9 @@ const Place = () => {
               className="banner"
               slidesPerView={1}
               spaceBetween={20}
-              onSlideChange={(swiper) =>
-                setCurrentSlideIndex(swiper.activeIndex)
-              }
+              onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
+              allowSlidePrev={currentSlideIndex > 0}
+              allowSlideNext={currentSlideIndex < image.length - 1}
             >
               {image.map((preview: any, index: number) => (
                 <SwiperSlide key={preview.imageUrl}>
@@ -70,9 +70,7 @@ const Place = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <ImageBadge>{`${currentSlideIndex + 1}/${
-              image.length
-            }`}</ImageBadge>
+            <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
           </ImageWrapper>
           <Spacing size={10} />
           <PlaceContainer>
