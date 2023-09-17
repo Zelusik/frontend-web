@@ -205,6 +205,8 @@ const Menu = () => {
           slidesPerView={1}
           spaceBetween={20}
           onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
+          allowSlidePrev={currentSlideIndex > 0}
+          allowSlideNext={currentSlideIndex < image.length - 1}
         >
           {image.map((imageInfo: ImageType, index: number) => (
             <SwiperSlide key={imageInfo.imageUrl}>
@@ -288,6 +290,7 @@ const MenuTag = styled.span<{ x?: number; y?: number }>`
   position: absolute;
   left: ${({ x }) => x}%;
   top: ${({ y }) => y}%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
