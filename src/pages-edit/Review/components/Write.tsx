@@ -19,9 +19,12 @@ import ReviewLoading from "./ReviewLoading";
 import { editReview, postReview } from "api/reviews";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import Gradient from "components/Common/Gradient";
+import useDisplaySize from "hooks/useDisplaySize";
 
 const Write = () => {
   const route = useRouter();
+  const { height } = useDisplaySize();
+
   const { data } = useGetMyInfo();
   const dispatch = useAppDispatch();
   const review = useAppSelector((state) => state.review);
@@ -71,7 +74,7 @@ const Write = () => {
   }, [shouldRoute]);
 
   return (
-    <WriteWrapper>
+    <Wrapper height={height}>
       {isLoading || shouldRoute ? (
         <ReviewLoading type="review" nickname={data?.nickname} />
       ) : (
@@ -125,14 +128,13 @@ const Write = () => {
           </BottomWrapper>
         </>
       )}
-    </WriteWrapper>
+    </Wrapper>
   );
 };
 
-const WriteWrapper = styled.div`
-  height: 100vh;
+const Wrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   position: relative;
-  // padding: 0 20px;
 `;
 
 const MainWrapper = styled.div`

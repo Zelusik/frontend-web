@@ -44,7 +44,9 @@
     "react-query": "^3.39.3",
     "react-redux": "^8.1.1",
     "react-responsive-carousel": "^3.2.23",
+    "react-slick": "^0.29.0",
     "redux": "^4.2.1",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^6.0.1",
     "styled-reset": "^4.5.1",
     "swiper": "^10.0.4",
@@ -56,6 +58,7 @@
   "devDependencies": {
     "@babel/runtime": "^7.22.5",
     "@emotion/babel-plugin": "^11.11.0",
+    "@types/react-slick": "^0.23.10",
     "@yarnpkg/pnpify": "^4.0.0-rc.47",
     "babel-plugin-styled-components": "^2.1.4"
   }

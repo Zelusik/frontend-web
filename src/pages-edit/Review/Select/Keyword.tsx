@@ -20,9 +20,12 @@ import useToast from "hooks/useToast";
 import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
 import ReviewLoading from "../components/ReviewLoading";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
+import useDisplaySize from "hooks/useDisplaySize";
 
 const Keyword = () => {
   const route = useRouter();
+  const { height } = useDisplaySize();
+
   const { data: userInfo } = useGetMyInfo();
   const dispatch = useAppDispatch();
   const { isShowToast, openToast, closeToast } = useToast();
@@ -104,7 +107,7 @@ const Keyword = () => {
   };
 
   return (
-    <KeywordWrapper>
+    <Wrapper height={height}>
       {isLoading || isRouteTransition ? (
         <ReviewLoading type="auto" nickname={userInfo?.nickname} />
       ) : (
@@ -176,12 +179,12 @@ const Keyword = () => {
           )}
         </>
       )}
-    </KeywordWrapper>
+    </Wrapper>
   );
 };
 
-const KeywordWrapper = styled.div`
-  height: 100vh;
+const Wrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   padding: 0 20px;
 `;
 

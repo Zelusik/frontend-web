@@ -42,6 +42,9 @@ const MapBottomSheet = forwardRef(function Div(
         actionDelay={actionDelay}
         visible={visible}
         height={height - (82 + globalValue.BOTTOM_NAVIGATION_HEIGHT)}
+        onClick={() => {
+          console.log("A");
+        }}
       >
         <HandleWrapper>
           <Handle />

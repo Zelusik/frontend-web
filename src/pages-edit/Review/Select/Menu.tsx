@@ -27,6 +27,8 @@ import useDisplaySize from "hooks/useDisplaySize";
 
 const Menu = () => {
   const router = useRouter();
+  const { height } = useDisplaySize();
+
   const dispatch = useAppDispatch();
   const menuTagRef = useRef<any>([]);
   const image = useAppSelector((state) => state.image);
@@ -195,7 +197,7 @@ const Menu = () => {
     }
   };
   return (
-    <MenuWrapper>
+    <Wrapper height={height}>
       <BackTitle type="black-left-text" text="메뉴 선택" />
       <ImageWrapper style={{ position: "relative" }}>
         <Swiper
@@ -270,12 +272,12 @@ const Menu = () => {
           disabled={false}
         />
       </BottomWrapper>
-    </MenuWrapper>
+    </Wrapper>
   );
 };
 
-const MenuWrapper = styled.div`
-  height: 100vh;
+const Wrapper = styled.div<{ height: number }>`
+  height: ${({ height }) => height}px;
   position: relative;
   padding: 0 20px;
 `;

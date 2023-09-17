@@ -64,16 +64,16 @@ export default function Mypage() {
     const scrollTop = 10 + 88 + 22 + 182 + 40;
     setScrollHeight(scrollRef.current?.scrollTop);
 
-    if (
-      (currentIndex === 0 ||
-        (currentIndex === 1 &&
-          membersReviews &&
-          membersReviews[0].contents?.length === 0)) &&
-      scrollRef.current?.scrollTop >= scrollTop
-    ) {
-      scrollRef.current!.scrollTop = scrollTop;
-      return;
-    }
+    // if (
+    //   (currentIndex === 0 ||
+    //     (currentIndex === 1 &&
+    //       membersReviews &&
+    //       membersReviews[0].contents?.length === 0)) &&
+    //   scrollRef.current?.scrollTop >= scrollTop
+    // ) {
+    //   scrollRef.current!.scrollTop = scrollTop;
+    //   return;
+    // }
 
     if (scrollRef.current?.scrollTop >= 10) {
       setTitleChange(true);
@@ -101,12 +101,34 @@ export default function Mypage() {
   useEffect(() => {
     if (membersProfile && recommendedReviews) {
       setCurrentIndex(
-        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0
-          ? 0
-          : 1
+        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0 ? 0 : 1
       );
     }
   }, [membersProfile, recommendedReviews]);
+
+  const onHeight = () => {
+    if (currentIndex === 0) {
+      if (recommendedReviews?.length === 0) {
+        return `${
+          height - 105 - (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0)
+        }px`;
+      } else {
+        if (height > ((width - 60) * 9) / 8 + 312) {
+          return `${
+            height - 105 - (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0)
+          }px`;
+        } else return `${((width - 60) * 9) / 8 + 120}px`;
+      }
+    } else {
+      if (membersReviews?.[0].contents?.length === 0) {
+        return `${
+          height - 105 - (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0)
+        }px`;
+      } else {
+        return "auto";
+      }
+    }
+  };
 
   return (
     <>
@@ -143,9 +165,7 @@ export default function Mypage() {
 
           <Wrapper
             ref={scrollRef}
-            height={
-              mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height
-            }
+            height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
           >
             <Spacing size={60} />
 
@@ -170,34 +190,8 @@ export default function Mypage() {
                 topFixed={topFixed}
                 titleList={["추천 베스트", "리뷰"]}
               >
-                <TopNavigationInner
-                  height={
-                    recommendedReviews?.length === 0 &&
-                    mine &&
-                    membersReviews?.[0].numOfElements >= 3
-                      ? 50 + "px"
-                      : height -
-                        (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
-                        104.5 +
-                        "px"
-                  }
-                >
-                  {/* <Spacing
-                size={
-                  recommendedReviews?.length === 0
-                    ? (height - 288 - (390 - scrollHeight)) * 0.5
-                    : height - (550 - scrollHeight) >
-                      ((width - 60) * 9) / 8 + 108
-                    ? (height -
-                        (550 - scrollHeight) -
-                        (((width - 60) * 9) / 8 + 108)) *
-                      0.5
-                    : 0
-                }
-              /> */}
-                  {mine &&
-                  recommendedReviews?.length === 0 &&
-                  membersReviews?.[0].numOfElements >= 3 ? (
+                <TopNavigationInner height={onHeight}>
+                  {mine && recommendedReviews?.length === 0 ? (
                     <NewButton
                       onClick={clickRecommand}
                       marginTop={0}
@@ -223,23 +217,7 @@ export default function Mypage() {
                     />
                   )}
                 </TopNavigationInner>
-                <TopNavigationInner
-                  height={
-                    membersReviews?.[0].contents?.length === 0
-                      ? height -
-                        (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0) -
-                        104.5 +
-                        "px"
-                      : "auto"
-                  }
-                >
-                  <Spacing
-                    size={
-                      membersReviews?.[0].contents?.length === 0
-                        ? (height - 288 - (390 - scrollHeight)) * 0.5
-                        : 0
-                    }
-                  />
+                <TopNavigationInner height={onHeight}>
                   {membersReviews?.[0].contents?.length === 0 && mine ? (
                     <NewButton
                       onClick={() => {

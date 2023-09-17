@@ -1,5 +1,4 @@
 import React, { useEffect, forwardRef, useRef } from "react";
-import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 import useGetMarkPlaces from "hooks/queries/mark/useGetMarkPlaces";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
@@ -10,8 +9,6 @@ import StoreCard from "./StoreCard";
 import NewButton from "pages-edit/Mypage/components/NewButton";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
-import useDisplaySize from "hooks/useDisplaySize";
-import { globalValue } from "constants/globalValue";
 
 interface Props {
   height?: any;
@@ -24,8 +21,6 @@ const StoreContainer = forwardRef(function Div(
 ) {
   const router = useRouter();
   const infinityScrollRef = useRef<any>(null);
-  const { height } = useDisplaySize();
-
   //   react-query: mark
   const { markData, markLoading, fetchNextPage, hasNextPage } =
     useGetMarkPlaces({
@@ -35,18 +30,9 @@ const StoreContainer = forwardRef(function Div(
     });
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  if (markLoading)
-    return (
-      <LoadingCircle
-        size={height - 156 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-      />
-    );
+  if (markLoading) return <LoadingCircle />;
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <>
       {markData?.[0].totalElements !== 0 ? (
         <StoreWrapper>
           {markData
@@ -74,7 +60,7 @@ const StoreContainer = forwardRef(function Div(
           />
         </NoContent>
       )}
-    </motion.div>
+    </>
   );
 });
 

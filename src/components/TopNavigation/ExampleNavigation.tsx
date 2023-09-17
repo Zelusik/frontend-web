@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef, useRef } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { match } from "ts-pattern";
 import styled from "@emotion/styled";
@@ -27,10 +27,11 @@ interface Props {
   children?: any;
 }
 
-const MarkTopNavigation = forwardRef(function Div(
+const ExampleNavigation = forwardRef(function Div(
   {
     type,
     scrollRef,
+    height,
 
     index,
     touch,
@@ -95,7 +96,7 @@ const MarkTopNavigation = forwardRef(function Div(
   };
 
   return (
-    <>
+    <div>
       {/* title 부분 */}
       <TitleWrapper
         topFixed={top.topFixed}
@@ -105,6 +106,7 @@ const MarkTopNavigation = forwardRef(function Div(
         backgroundColor={match(type)
           .with("title-scroll", () => "MarkColor")
           .otherwise(() => "N100")}
+        style={{ height: height }}
       >
         <HorizonalScroll
           ref={titleScrollRef}
@@ -119,8 +121,13 @@ const MarkTopNavigation = forwardRef(function Div(
             return (
               <TitleTextWrapper
                 key={idx}
+                // ref={titleTextRef}
                 ref={(ref: any) => {
-                  if (index.currentIndex === idx) setTitleTextRef(ref);
+                  if (index.currentIndex === idx) {
+                    // console.log(ref);
+                    setTitleTextRef(ref);
+                    // titleTextRef = ref;
+                  }
                 }}
                 height={match(type)
                   .with("title-scroll", () => 34)
@@ -192,7 +199,7 @@ const MarkTopNavigation = forwardRef(function Div(
           );
         })}
       </Swiper>
-    </>
+    </div>
   );
 });
 
@@ -213,4 +220,4 @@ const TitleTextWrapper = styled.div<{ height: number; backgroundColor: any }>`
   border-bottom: 2px solid ${({ backgroundColor }) => colors[backgroundColor]};
 `;
 
-export default MarkTopNavigation;
+export default ExampleNavigation;

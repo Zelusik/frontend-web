@@ -9,14 +9,14 @@ import React, { useState } from "react";
 const KeywordBar = () => {
   const router = useRouter();
   const { query } = useRouter();
-  const { data } = useGetMarkKeywords();
+  const { keywordData } = useGetMarkKeywords();
 
-  const keywordsWithAll = data && [
+  const keywordsWithAll = keywordData && [
     {
       keyword: "전체",
       type: "",
     },
-    ...data.keywords,
+    ...keywordData.keywords,
   ];
   const [clicked, setClicked] = useState(query.keyword || "전체");
   const handleFilteringKeyword = async (keywordInfo: {
@@ -36,16 +36,18 @@ const KeywordBar = () => {
   return (
     <KeywordBarWrapper>
       <div className="keyword-container">
-        {data &&
-          keywordsWithAll.map((keywordInfo: { keyword: string; type: string }) => (
-            <Keyword
-              key={keywordInfo.keyword}
-              clicked={clicked === keywordInfo.keyword}
-              onClick={() => handleFilteringKeyword(keywordInfo)}
-            >
-              {keywordInfo.keyword}
-            </Keyword>
-          ))}
+        {keywordData &&
+          keywordsWithAll.map(
+            (keywordInfo: { keyword: string; type: string }) => (
+              <Keyword
+                key={keywordInfo.keyword}
+                clicked={clicked === keywordInfo.keyword}
+                onClick={() => handleFilteringKeyword(keywordInfo)}
+              >
+                {keywordInfo.keyword}
+              </Keyword>
+            )
+          )}
       </div>
       <Spacing size={16} />
     </KeywordBarWrapper>

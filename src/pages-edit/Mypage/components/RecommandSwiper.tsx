@@ -15,9 +15,11 @@ import Spacing from "components/Spacing";
 import Text from "components/Text";
 import NewButton from "./NewButton";
 import { getAddressInfo } from "utils/getAddressInfo";
+import useDisplaySize from "hooks/useDisplaySize";
 
 export default function RecommandSwiper({ datas, mine, ...props }: any) {
   const router = useRouter();
+  const { width } = useDisplaySize();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const onSlideChange = (e: any) => {
@@ -39,7 +41,7 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
         {datas.map((data: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
-              <ImageWrapper>
+              <ImageWrapper height={((width - 60) * 9) / 8}>
                 <Image
                   type="home"
                   alt="추천 사진"
@@ -91,7 +93,9 @@ const trans = (action: boolean) => keyframes`
   }
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.div<{ height: number }>`
+  max-height: ${({ height }) => height}px;
+  min-height: ${({ height }) => height}px;
   margin: 0 10px;
   position: relative;
 `;
