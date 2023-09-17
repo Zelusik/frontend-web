@@ -82,15 +82,15 @@ const Review = () => {
     };
     try {
       const reader = new FileReader();
-      //alert(`File Type: ${file.type}, File Name: ${file.name}`);
-      const convertedImgBlob = await convertHeicToJpeg(file);
-
-      reader.readAsDataURL(convertedImgBlob);
-      imageInfo.image = await imageConvert(convertedImgBlob);
-      imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
+      reader.readAsDataURL(file);
+      imageInfo.image = await imageConvert(file);
+      imageInfo.imageUrl = URL.createObjectURL(file);
+      //const convertedImgBlob = await convertHeicToJpeg(file);
+      // reader.readAsDataURL(convertedImgBlob);
+      // imageInfo.image = await imageConvert(convertedImgBlob);
+      // imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
       const data = await exifr.parse(file);
-      //alert(JSON.stringify(data));
-
+      alert(JSON.stringify(data));
       if (data?.latitude || data?.longitude) {
         imageInfo.lat = data?.latitude;
         imageInfo.lng = data?.longitude;
