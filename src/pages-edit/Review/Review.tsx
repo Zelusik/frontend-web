@@ -49,7 +49,6 @@ const Review = () => {
           toType: "image/jpeg",
           quality: 0.8,
         });
-        //alert(`Blob Size: ${result.size}, Blob Type: ${result.type}`);
         return result;
       }
       return file;
@@ -82,15 +81,12 @@ const Review = () => {
     };
     try {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-      imageInfo.image = await imageConvert(file);
-      imageInfo.imageUrl = URL.createObjectURL(file);
-      //const convertedImgBlob = await convertHeicToJpeg(file);
-      // reader.readAsDataURL(convertedImgBlob);
-      // imageInfo.image = await imageConvert(convertedImgBlob);
-      // imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
+      const convertedImgBlob = await convertHeicToJpeg(file);
+      reader.readAsDataURL(convertedImgBlob);
+      imageInfo.image = await imageConvert(convertedImgBlob);
+      imageInfo.imageUrl = URL.createObjectURL(convertedImgBlob);
       const data = await exifr.parse(file);
-      alert(JSON.stringify(data));
+
       if (data?.latitude || data?.longitude) {
         imageInfo.lat = data?.latitude;
         imageInfo.lng = data?.longitude;
