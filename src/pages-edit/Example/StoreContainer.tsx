@@ -16,7 +16,7 @@ interface Props {
 }
 
 const StoreContainer = forwardRef(function Div(
-  { index, touch, keywords, ...props }: any,
+  { height, index, touch, keywords, ...props }: any,
   ref: any
 ) {
   const router = useRouter();
@@ -32,7 +32,7 @@ const StoreContainer = forwardRef(function Div(
 
   if (markLoading) return <LoadingCircle />;
   return (
-    <>
+    <div style={{ height: height, overflowY: "auto", padding: "0 15px" }}>
       {markData?.[0].totalElements !== 0 ? (
         <StoreWrapper>
           {markData
@@ -60,7 +60,7 @@ const StoreContainer = forwardRef(function Div(
           />
         </NoContent>
       )}
-    </>
+    </div>
   );
 });
 

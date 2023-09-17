@@ -19,10 +19,9 @@ var settings = {
   infinite: false,
 
   slidesToShow: 1,
-  slidesToScroll: 1,
+  slidesToScroll: false,
   speed: 300,
-  touchThreshold: 300,
-  pauseOnFocus: true,
+  // pauseOnFocus: true,
   // variableWidth: true,
 };
 
@@ -68,9 +67,9 @@ const CustomSlider = forwardRef(function Div(
 
   return (
     <>
-      <NumberWrapper>
+      {/* <NumberWrapper>
         <Number currentIndex={currentIndex} length={length} />
-      </NumberWrapper>
+      </NumberWrapper> */}
       <div
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}

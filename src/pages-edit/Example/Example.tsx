@@ -15,6 +15,9 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import StoreContainer from "./StoreContainer";
 import ExampleNavigation from "components/TopNavigation/ExampleNavigation";
+import CustomSlider from "components/CustomSlider";
+import ExampleCustomSlider from "components/CustomSlider/ExampleSlider";
+import { colors } from "constants/colors";
 
 export default function Example() {
   const scrollRef = useRef<any>(null);
@@ -43,26 +46,33 @@ export default function Example() {
 
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  function onScroll() {
-    const scrollTop = 20;
+  // function onScroll() {
+  //   const scrollTop = 20;
 
-    if (scrollRef.current?.scrollTop > scrollTop) {
-      setTopFixed(true);
-    } else {
-      setTopFixed(false);
-    }
-  }
+  //   if (scrollRef.current?.scrollTop > scrollTop) {
+  //     setTopFixed(true);
+  //   } else {
+  //     setTopFixed(false);
+  //   }
+  // }
 
-  useEffect(() => {
-    scrollRef.current?.addEventListener("scroll", onScroll);
-    return () => {
-      scrollRef.current?.removeEventListener("scroll", onScroll);
-    };
-  }, [currentIndex, keywordData]);
+  // useEffect(() => {
+  //   scrollRef.current?.addEventListener("scroll", onScroll);
+  //   return () => {
+  //     scrollRef.current?.removeEventListener("scroll", onScroll);
+  //   };
+  // }, [currentIndex, keywordData]);
 
+  const [wrapperIndex, setWrapperIndex] = useState(0);
+
+  const [newTouch, setNewTouch] = useState(true);
   const [touch, setTouch] = useState(true);
   return (
-    <>
+    <div
+      style={{
+        background: colors["MarkColor"],
+      }}
+    >
       {keywordLoading ? (
         <LoadingCircle />
       ) : (
@@ -72,42 +82,64 @@ export default function Example() {
           transition={{ duration: 0.5 }}
         >
           <SearchTitle type="mark" />
-
-          <Wrapper
-            ref={scrollRef}
-            height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+          <Spacing size={20} />
+          <ExampleCustomSlider
+            index={{ wrapperIndex, setWrapperIndex }}
+            touch={{ touch, setTouch }}
+            length={titleList?.length}
           >
-            <Spacing size={20} />
-            <ExampleNavigation
-              type="title-scroll"
-              scrollRef={scrollRef}
-              index={{ currentIndex, setCurrentIndex }}
-              touch={{ touch, setTouch }}
-              top={{ topFixed, setTopFixed }}
-              scrollTop={20}
-              titleList={titleList}
-              count={markData?.[0]?.totalElements}
-            >
-              {titleList?.map((_: any, idx: number) => {
-                // if (idx !== currentIndex) return null;
-                return (
-                  <TopNavigationInner key={idx} height={"auto"}>
-                    Hi{idx + 1}
-                    <StoreContainer
-                      infinityScrollRef={infinityScrollRef}
-                      index={{ idx, currentIndex }}
-                      touch={{ touch, setTouch }}
-                      keywords={keywords}
-                    />
-                  </TopNavigationInner>
-                );
-              })}
-            </ExampleNavigation>
-          </Wrapper>
+            {titleList?.map((_: any, idx: number) => {
+              // if (idx !== currentIndex) return null;
+              return (
+                <TopNavigationInner
+                  key={idx}
+                  height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+                >
+                  Hi{idx + 1}
+                  <StoreContainer
+                    infinityScrollRef={infinityScrollRef}
+                    height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+                    index={{ idx, currentIndex }}
+                    touch={{ touch, setTouch }}
+                    keywords={keywords}
+                  />
+                </TopNavigationInner>
+              );
+            })}
+          </ExampleCustomSlider>
+          {/* <ExampleNavigation
+            type="title-scroll"
+            scrollRef={scrollRef}
+            index={{ currentIndex, setCurrentIndex }}
+            touch={{ touch, setTouch }}
+            top={{ topFixed, setTopFixed }}
+            scrollTop={20}
+            titleList={titleList}
+            count={markData?.[0]?.totalElements}
+          >
+            {titleList?.map((_: any, idx: number) => {
+              // if (idx !== currentIndex) return null;
+              return (
+                <TopNavigationInner
+                  key={idx}
+                  height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+                >
+                  Hi{idx + 1}
+                  <StoreContainer
+                    infinityScrollRef={infinityScrollRef}
+                    height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+                    index={{ idx, currentIndex }}
+                    touch={{ touch, setTouch }}
+                    keywords={keywords}
+                  />
+                </TopNavigationInner>
+              );
+            })}
+          </ExampleNavigation> */}
         </motion.div>
       )}
       <BottomNavigation />
-    </>
+    </div>
   );
 }
 const Wrapper = styled.div<{ height: number }>`

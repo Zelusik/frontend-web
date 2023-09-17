@@ -161,7 +161,7 @@ const ExampleNavigation = forwardRef(function Div(
       </TitleWrapper>
       {top.topFixed ? <Spacing size={35} /> : null}
 
-      {type === "title-scroll" ? <SortingHeader count={props?.count} /> : null}
+      {/* {type === "title-scroll" ? <SortingHeader count={props?.count} /> : null} */}
       {/* children 부분 */}
       <Swiper
         ref={swiperScrollRef}
@@ -189,11 +189,6 @@ const ExampleNavigation = forwardRef(function Div(
                   ],
               }}
             >
-              <Spacing
-                size={match(type)
-                  .with("title-scroll", () => 19)
-                  .otherwise(() => 20)}
-              />
               {childrenData}
             </SwiperSlide>
           );
