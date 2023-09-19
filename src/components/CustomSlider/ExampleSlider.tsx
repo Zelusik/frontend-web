@@ -15,64 +15,80 @@ interface Props {
 }
 
 const ExampleCustomSlider = forwardRef(function Div(
-  { children, index, touch, length, ...props }: any,
+  { children, index, touch, length, onSlideChange, ...props }: any,
   ref: any
 ) {
+  const router = useRouter();
+  const { width } = useDisplaySize();
+
+  const [startX, setStartX] = useState(0);
+  const [startY, setStartY] = useState(0);
+  const [moveX, setMoveX] = useState(0);
+  const [wrapperTouch, setWrapperTouch] = useState(true);
+
   var settings = {
     arrows: false,
     dots: false,
     infinite: false,
 
+    pauseOnHover: false,
+    draggable: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 300,
-    // variableWidth: true,
+    swipe: touch.touch,
+    touchMove: touch.touch,
   };
-
-  const router = useRouter();
-  const { width } = useDisplaySize();
-
-  const [startX, setStartX] = useState(0);
-  const [moveX, setMoveX] = useState(0);
 
   const onTouchStart = (e: any) => {
     setStartX(e?.changedTouches[0].clientX);
-    // touch.setTouch(false);
+    setStartY(e?.changedTouches[0].clientY);
   };
 
   const onTouchMove = (e: any) => {
-    // const newX = e?.changedTouches[0].clientX - startX;
     setMoveX(e?.changedTouches[0].clientX);
-    // if (
-    //   (newX < 0 && index.wrapperIndex === length - 1) ||
-    //   (newX > 0 && index.wrapperIndex === 0)
-    // ) {
-    //   touch.setTouch(true);
-    // }
+    setWrapperTouch(touch.touch);
   };
 
   const onTouchEnd = (e: any) => {
     const newX = e?.changedTouches[0].clientX - startX;
-    if (newX < -100 && index.wrapperIndex !== length - 1) {
+    const newY = e?.changedTouches[0].clientY - startY;
+    console.log(newY);
+    if (
+      newY > -100 &&
+      newY < 100 &&
+      newX < -100 &&
+      newX > -width &&
+      index.wrapperIndex !== length - 1 &&
+      wrapperTouch
+    ) {
       // next
-      index.setWrapperIndex(index.wrapperIndex + 1);
-    } else if (newX > 100 && index.wrapperIndex !== 0) {
+      onSlideChange(index.wrapperIndex + 1);
+    } else if (
+      newY > -100 &&
+      newY < 100 &&
+      newX > 100 &&
+      newX < width &&
+      index.wrapperIndex !== 0 &&
+      wrapperTouch
+    ) {
       // prev
-      index.setWrapperIndex(index.wrapperIndex - 1);
+      onSlideChange(index.wrapperIndex - 1);
+      // index.setWrapperIndex(index.wrapperIndex - 1);
     }
-    // touch.setTouch(true);
   };
 
   useEffect(() => {
     const el = document.getElementsByClassName("slick-track")[0];
     el.classList.add("slick-wrapper-track");
+    el.classList.remove("slick-track");
   }, []);
+
+  // console.log(touch.touch);
 
   return (
     <>
-      {/* <NumberWrapper>
-        <Number index.wrapperIndex={index.wrapperIndex} length={length} />
-      </NumberWrapper> */}
+      {/* contents */}
       <div
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
@@ -80,12 +96,10 @@ const ExampleCustomSlider = forwardRef(function Div(
       >
         <StyledSlider
           {...settings}
-          //   className="slick-wrapper"
-          touch={true}
-          //   prev={true}
+          touch={touch.touch}
           prev={index.wrapperIndex === 0 && moveX - startX > 0}
           next={index.wrapperIndex === length - 1 && moveX - startX < 0}
-          transX={(width - 46.8) * length - 1}
+          transX={width * index.wrapperIndex}
         >
           {children}
         </StyledSlider>
@@ -99,6 +113,7 @@ const StyledSlider = styled(Slider)<{
   prev: any;
   next: any;
   transX: any;
+  lasttransX: any;
 }>`
   .slick-list {
     height: 100%;
@@ -109,27 +124,20 @@ const StyledSlider = styled(Slider)<{
   .slick-wrapper-track {
     display: flex;
     align-items: center;
-    ${({ touch, transX }) =>
-      touch
-        ? ``
-        : `
-        transform: translate3d(-${transX}px, 0px, 0px) !important;
-        transition: transform 300ms ease-out;
-        `}
     ${({ prev }) =>
       prev
         ? `
         transform: translate3d(0px, 0px, 0px) !important;
-        transition: transform 300ms ease-out;
         `
         : ``}
     ${({ next, transX }) =>
       next
         ? `
         transform: translate3d(-${transX}px, 0px, 0px) !important;
-        transition: transform 300ms ease-out;
         `
         : ``}
+
+      transition: transform 200ms ease-out;
   }
   .slick-prev {
     left: 6px;

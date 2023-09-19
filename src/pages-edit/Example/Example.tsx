@@ -20,12 +20,10 @@ import ExampleCustomSlider from "components/CustomSlider/ExampleSlider";
 import { colors } from "constants/colors";
 
 export default function Example() {
-  const scrollRef = useRef<any>(null);
   const infinityScrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
 
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [topFixed, setTopFixed] = useState<boolean>(false);
+  const [currentIndex] = useState<number>(0);
 
   const { keywordData, keywordLoading } = useGetMarkKeywords();
   const keywords = keywordData?.keywords && [
@@ -64,9 +62,8 @@ export default function Example() {
   // }, [currentIndex, keywordData]);
 
   const [wrapperIndex, setWrapperIndex] = useState(0);
-
-  const [newTouch, setNewTouch] = useState(true);
   const [touch, setTouch] = useState(true);
+
   return (
     <div
       style={{
@@ -107,46 +104,12 @@ export default function Example() {
               );
             })}
           </ExampleCustomSlider>
-          {/* <ExampleNavigation
-            type="title-scroll"
-            scrollRef={scrollRef}
-            index={{ currentIndex, setCurrentIndex }}
-            touch={{ touch, setTouch }}
-            top={{ topFixed, setTopFixed }}
-            scrollTop={20}
-            titleList={titleList}
-            count={markData?.[0]?.totalElements}
-          >
-            {titleList?.map((_: any, idx: number) => {
-              // if (idx !== currentIndex) return null;
-              return (
-                <TopNavigationInner
-                  key={idx}
-                  height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-                >
-                  Hi{idx + 1}
-                  <StoreContainer
-                    infinityScrollRef={infinityScrollRef}
-                    height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-                    index={{ idx, currentIndex }}
-                    touch={{ touch, setTouch }}
-                    keywords={keywords}
-                  />
-                </TopNavigationInner>
-              );
-            })}
-          </ExampleNavigation> */}
         </motion.div>
       )}
       <BottomNavigation />
     </div>
   );
 }
-const Wrapper = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
-  overflow-y: scroll;
-  background-color: #fbfbfb;
-`;
 
 const TopNavigationInner = styled.div<{ height: any }>`
   height: ${({ height }) => height}px;

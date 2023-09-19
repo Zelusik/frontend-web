@@ -14,35 +14,15 @@ import Heart from "components/Button/IconButton/Heart/Heart";
 import Hashtags from "components/Hashtags";
 import StoreTitle from "components/Title/StoreTitle";
 import Spacing from "components/Spacing";
-import useDisplaySize from "hooks/useDisplaySize";
 import { getAddressInfo } from "utils/getAddressInfo";
 
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CustomSlider from "components/CustomSlider";
+import Number from "components/Common/Number";
 
 const StoreCard = ({ placeInfo, touch }: any) => {
-  var settings = {
-    arrows: false,
-    dots: false,
-    infinite: false,
-
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    speed: 300,
-    touchThreshold: 300,
-    pauseOnFocus: true,
-    // variableWidth: true,
-  };
-
   const router = useRouter();
-  const { width } = useDisplaySize();
-
-  const [startX, setStartX] = useState(0);
-  const [moveX, setMoveX] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   const handleClickPlace = () => {
     router.push({
       pathname: Route.STORE_DETAIL(),
@@ -50,41 +30,24 @@ const StoreCard = ({ placeInfo, touch }: any) => {
     });
   };
 
-  const onTouchStart = (e: any) => {
-    setStartX(e?.changedTouches[0].clientX);
-    touch.setTouch(false);
-  };
-
-  const onTouchMove = (e: any) => {
-    const newX = e?.changedTouches[0].clientX - startX;
-    setMoveX(e?.changedTouches[0].clientX);
-
-    if (
-      (newX < 0 && currentIndex === placeInfo?.images?.length - 1) ||
-      (newX > 0 && currentIndex === 0)
-    ) {
-      touch.setTouch(true);
-    }
-  };
-
-  const onTouchEnd = (e: any) => {
-    const newX = e?.changedTouches[0].clientX - startX;
-    if (newX < 0 && currentIndex !== placeInfo?.images?.length - 1) {
-      // next
-      setCurrentIndex(currentIndex + 1);
-    } else if (newX > 0 && currentIndex !== 0) {
-      // prev
-      setCurrentIndex(currentIndex - 1);
-    }
-    touch.setTouch(true);
-  };
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
     <Wrapper hasImage={placeInfo?.images?.length} onClick={handleClickPlace}>
       <div>
         {placeInfo?.images?.length > 0 && (
           <>
-            <CustomSlider touch={touch} length={placeInfo?.images?.length}>
+            <NumberWrapper>
+              <Number
+                currentIndex={currentIndex}
+                length={placeInfo?.images?.length}
+              />
+            </NumberWrapper>
+            <CustomSlider
+              index={{ currentIndex, setCurrentIndex }}
+              touch={touch}
+              length={placeInfo?.images?.length}
+            >
               {placeInfo?.images?.map((image: any, idx: number) => {
                 return (
                   <Image
@@ -134,6 +97,13 @@ const Wrapper = styled.div<{ hasImage: boolean }>`
   background-color: ${colors.N0};
   box-shadow: 0px 3px 18px 0px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+`;
+
+const NumberWrapper = styled.div`
+  position: absolute;
+  top: 31px;
+  right: 20px;
+  z-index: 800;
 `;
 
 export default StoreCard;

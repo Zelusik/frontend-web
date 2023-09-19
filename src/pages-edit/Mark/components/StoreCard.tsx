@@ -12,6 +12,7 @@ import Spacing from "components/Spacing";
 import { getAddressInfo } from "utils/getAddressInfo";
 
 import CustomSlider from "components/CustomSlider";
+import Number from "components/Common/Number";
 
 const StoreCard = ({ placeInfo, touch }: any) => {
   const router = useRouter();
@@ -22,12 +23,24 @@ const StoreCard = ({ placeInfo, touch }: any) => {
     });
   };
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   return (
     <Wrapper hasImage={placeInfo?.images?.length} onClick={handleClickPlace}>
       <div>
         {placeInfo?.images?.length > 0 && (
           <>
-            <CustomSlider touch={touch} length={placeInfo?.images?.length}>
+            <NumberWrapper>
+              <Number
+                currentIndex={currentIndex}
+                length={placeInfo?.images?.length}
+              />
+            </NumberWrapper>
+            <CustomSlider
+              index={{ currentIndex, setCurrentIndex }}
+              touch={touch}
+              length={placeInfo?.images?.length}
+            >
               {placeInfo?.images?.map((image: any, idx: number) => {
                 return (
                   <Image
@@ -77,6 +90,13 @@ const Wrapper = styled.div<{ hasImage: boolean }>`
   background-color: ${colors.N0};
   box-shadow: 0px 3px 18px 0px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+`;
+
+const NumberWrapper = styled.div`
+  position: absolute;
+  top: 31px;
+  right: 20px;
+  z-index: 800;
 `;
 
 export default StoreCard;

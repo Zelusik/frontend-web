@@ -19,13 +19,11 @@ interface Props {
 }
 
 const StoreContainer = forwardRef(function Div(
-  { index, touch, keywords, ...props }: any,
+  { height, index, touch, keywords, ...props }: any,
   ref: any
 ) {
   const router = useRouter();
   const infinityScrollRef = useRef<any>(null);
-  const { height } = useDisplaySize();
-
   //   react-query: mark
   const { markData, markLoading, fetchNextPage, hasNextPage } =
     useGetMarkPlaces({
@@ -42,11 +40,7 @@ const StoreContainer = forwardRef(function Div(
       />
     );
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div style={{ height: height, overflowY: "auto", padding: "0 15px" }}>
       {markData?.[0].totalElements !== 0 ? (
         <StoreWrapper>
           {markData
@@ -74,7 +68,7 @@ const StoreContainer = forwardRef(function Div(
           />
         </NoContent>
       )}
-    </motion.div>
+    </div>
   );
 });
 

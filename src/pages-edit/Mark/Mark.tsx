@@ -15,14 +15,17 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import StoreContainer from "./components/StoreContainer";
 import MarkTopNavigation from "components/TopNavigation/MarkTopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
+import ExampleCustomSlider from "components/CustomSlider/ExampleSlider";
+import { colors } from "constants/colors";
 
 export default function Mark() {
   const scrollRef = useRef<any>(null);
   const infinityScrollRef = useRef<any>(null);
   const { height } = useDisplaySize();
 
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [topFixed, setTopFixed] = useState<boolean>(false);
+  const [wrapperIndex, setWrapperIndex] = useState(0);
+  const [touch, setTouch] = useState(true);
 
   const { keywordData, keywordLoading } = useGetMarkKeywords();
   const keywords = keywordData?.keywords && [
@@ -38,64 +41,71 @@ export default function Mark() {
 
   const { markData, markLoading, fetchNextPage, hasNextPage } =
     useGetMarkPlaces({
-      type: keywords?.[currentIndex]?.type,
-      keyword: keywords?.[currentIndex]?.keyword,
+      type: keywords?.[wrapperIndex]?.type,
+      keyword: keywords?.[wrapperIndex]?.keyword,
     });
 
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  function onScroll() {
-    const scrollTop = 20;
+  // function onScroll() {
+  //   const scrollTop = 20;
 
-    if (scrollRef.current?.scrollTop > scrollTop) {
-      setTopFixed(true);
-    } else {
-      setTopFixed(false);
-    }
-  }
+  //   if (scrollRef.current?.scrollTop > scrollTop) {
+  //     setTopFixed(true);
+  //   } else {
+  //     setTopFixed(false);
+  //   }
+  // }
 
-  useEffect(() => {
-    scrollRef.current?.addEventListener("scroll", onScroll);
-    return () => {
-      scrollRef.current?.removeEventListener("scroll", onScroll);
-    };
-  }, [currentIndex, keywordData]);
+  // useEffect(() => {
+  //   scrollRef.current?.addEventListener("scroll", onScroll);
+  //   return () => {
+  //     scrollRef.current?.removeEventListener("scroll", onScroll);
+  //   };
+  // }, [wrapperIndex, keywordData]);
 
-  const [touch, setTouch] = useState(true);
   return (
     <>
       <SearchTitle type="mark" />
-      {keywordLoading ? (
-        <LoadingCircle
-          size={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-        />
-      ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Wrapper
-            ref={scrollRef}
-            height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+      <div
+        style={{
+          background: colors["MarkColor"],
+        }}
+      >
+        {keywordLoading ? (
+          <LoadingCircle
+            size={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+          />
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            <Spacing size={20} />
+            <Spacing size={10} />
             <MarkTopNavigation
               type="title-scroll"
               scrollRef={scrollRef}
-              index={{ currentIndex, setCurrentIndex }}
               top={{ topFixed, setTopFixed }}
+              index={{ wrapperIndex, setWrapperIndex }}
               touch={{ touch, setTouch }}
               scrollTop={20}
               titleList={titleList}
               count={markLoading ? 0 : markData?.[0]?.totalElements}
             >
               {titleList?.map((_: any, idx: number) => {
+                // if (idx !== currentIndex) return null;
                 return (
-                  <TopNavigationInner key={idx} height={"auto"}>
+                  <TopNavigationInner
+                    key={idx}
+                    height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+                  >
                     <StoreContainer
                       infinityScrollRef={infinityScrollRef}
-                      index={{ idx, currentIndex }}
+                      height={
+                        height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT
+                      }
+                      index={{ idx }}
                       touch={{ touch, setTouch }}
                       keywords={keywords}
                     />
@@ -103,9 +113,9 @@ export default function Mark() {
                 );
               })}
             </MarkTopNavigation>
-          </Wrapper>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </div>
       <BottomNavigation />
     </>
   );

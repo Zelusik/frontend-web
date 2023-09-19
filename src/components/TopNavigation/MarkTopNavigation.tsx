@@ -14,6 +14,7 @@ import SortingHeader from "pages-edit/Mark/components/SortingHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import ExampleCustomSlider from "components/CustomSlider/ExampleSlider";
 
 interface Props {
   type: "title-scroll" | "default";
@@ -49,19 +50,18 @@ const MarkTopNavigation = forwardRef(function Div(
   const [titleTextRef, setTitleTextRef] = useState<any>(null);
   const { width } = useDisplaySize();
 
-  const clickTitleList = (ref: any, activeIndex: number) => {
-    // currentIndex 수장
-    let newSwiper = activeIndex;
-    index.setCurrentIndex(newSwiper);
+  const clickTitleList = (ref: any, newIndex: number) => {
+    // wrapperIndex 수정
+    index.setWrapperIndex(newIndex);
 
-    const subtrackIndex = index.currentIndex - activeIndex;
-    if (subtrackIndex < 0) {
-      for (let i = 0; i < Math.abs(subtrackIndex); i++)
-        swiperScrollRef.current.swiper.slideNext();
-    } else {
-      for (let i = 0; i < Math.abs(subtrackIndex); i++)
-        swiperScrollRef.current.swiper.slidePrev();
-    }
+    // const subtrackIndex = index.wrapperIndex - newIndex;
+    // if (subtrackIndex < 0) {
+    //   for (let i = 0; i < Math.abs(subtrackIndex); i++)
+    //     swiperScrollRef.current.swiper.slideNext();
+    // } else {
+    //   for (let i = 0; i < Math.abs(subtrackIndex); i++)
+    //     swiperScrollRef.current.swiper.slidePrev();
+    // }
     // swiperScrollRef.current.scrollTo({
     //   left: width * newSwiper,
     //   behavior: "smooth",
@@ -79,9 +79,8 @@ const MarkTopNavigation = forwardRef(function Div(
   };
 
   // swiper scroll
-  const onSlideChange = (e: any) => {
-    let newSwiper = e.activeIndex;
-    index.setCurrentIndex(newSwiper);
+  const onSlideChange = (newIndex: number) => {
+    index.setWrapperIndex(newIndex);
 
     // title click -> focus on
     const textLeft = titleTextRef?.offsetLeft - 20;
@@ -120,13 +119,13 @@ const MarkTopNavigation = forwardRef(function Div(
               <TitleTextWrapper
                 key={idx}
                 ref={(ref: any) => {
-                  if (index.currentIndex === idx) setTitleTextRef(ref);
+                  if (index.wrapperIndex === idx) setTitleTextRef(ref);
                 }}
                 height={match(type)
                   .with("title-scroll", () => 34)
                   .otherwise(() => 34)}
                 backgroundColor={
-                  index.currentIndex === idx
+                  index.wrapperIndex === idx
                     ? match(type)
                         .with("title-scroll", () => "Orange600")
                         .otherwise(() => "N100")
@@ -137,7 +136,7 @@ const MarkTopNavigation = forwardRef(function Div(
                 <Text
                   typo="Headline3"
                   color={
-                    index.currentIndex === idx
+                    index.wrapperIndex === idx
                       ? match(type)
                           .with("title-scroll", () => "Orange600")
                           .otherwise(() => "N100")
@@ -156,42 +155,14 @@ const MarkTopNavigation = forwardRef(function Div(
 
       {type === "title-scroll" ? <SortingHeader count={props?.count} /> : null}
       {/* children 부분 */}
-      <Swiper
-        ref={swiperScrollRef}
-        allowSlidePrev={index.currentIndex > 0 && touch.touch}
-        allowSlideNext={
-          index.currentIndex !== children?.length - 1 && touch.touch
-        }
+      <ExampleCustomSlider
+        index={index}
+        touch={touch}
+        length={titleList?.length}
         onSlideChange={onSlideChange}
       >
-        {children?.map((childrenData: any, idx: number) => {
-          return (
-            <SwiperSlide
-              key={idx}
-              style={{
-                padding: `0
-                ${match(type)
-                  .with("title-scroll", () => 20)
-                  .otherwise(() => 20)}px
-                `,
-                backgroundColor:
-                  colors[
-                    `${match(type)
-                      .with("title-scroll", () => "MarkColor")
-                      .otherwise(() => "N0")}`
-                  ],
-              }}
-            >
-              <Spacing
-                size={match(type)
-                  .with("title-scroll", () => 19)
-                  .otherwise(() => 20)}
-              />
-              {childrenData}
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+        {children}
+      </ExampleCustomSlider>
     </>
   );
 });
