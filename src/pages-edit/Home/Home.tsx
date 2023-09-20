@@ -22,40 +22,38 @@ export default function Home() {
 
   return (
     <>
-      <SearchTitle type="home" />
-      <Wrapper height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
-        <Spacing size={20} />
-        <Text typo="Headline6" color="N100">
-          오늘은
-          <br />
-          어디로 갈까요?
-        </Text>
-        <Spacing size={30} />
-        {isLoading ? (
-          <LoadingCircle
-            size={height - 170 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-          />
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
+      {isLoading ? (
+        <LoadingCircle />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <SearchTitle type="home" />
+          <Wrapper height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
+            <Spacing size={20} />
+            <Text typo="Headline6" color="N100">
+              오늘은
+              <br />
+              어디로 갈까요?
+            </Text>
+            <Spacing size={30} />
             {data
               ?.flatMap((page_data: any) => page_data.contents)
-              ?.map((data) => {
-                return <StoreCard key={data?.id} data={data} />;
-              })}
-          </motion.div>
-        )}
-        <div ref={infinityScrollRef} />
-        {hasNextPage ? (
-          <>
-            <LoadingCircle size={30} />
-            <Spacing size={30} />
-          </>
-        ) : null}
-      </Wrapper>
+              ?.map((data) => (
+                <StoreCard key={data?.id} data={data} />
+              ))}
+            <div ref={infinityScrollRef} />
+            {hasNextPage ? (
+              <>
+                <LoadingCircle size={30} />
+                <Spacing size={30} />
+              </>
+            ) : null}
+          </Wrapper>
+        </motion.div>
+      )}
       <BottomNavigation />
     </>
   );
