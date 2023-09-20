@@ -82,7 +82,7 @@ export default function Mark() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <Spacing size={10} />
+            <Spacing size={20} />
             <MarkTopNavigation
               type="title-scroll"
               scrollRef={scrollRef}

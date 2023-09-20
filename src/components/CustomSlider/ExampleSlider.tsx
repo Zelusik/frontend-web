@@ -19,6 +19,7 @@ const ExampleCustomSlider = forwardRef(function Div(
   ref: any
 ) {
   const router = useRouter();
+  const sliderRef = useRef<any>();
   const { width } = useDisplaySize();
 
   const [startX, setStartX] = useState(0);
@@ -26,7 +27,7 @@ const ExampleCustomSlider = forwardRef(function Div(
   const [moveX, setMoveX] = useState(0);
   const [wrapperTouch, setWrapperTouch] = useState(true);
 
-  var settings = {
+  const settings = {
     arrows: false,
     dots: false,
     infinite: false,
@@ -53,7 +54,6 @@ const ExampleCustomSlider = forwardRef(function Div(
   const onTouchEnd = (e: any) => {
     const newX = e?.changedTouches[0].clientX - startX;
     const newY = e?.changedTouches[0].clientY - startY;
-    console.log(newY);
     if (
       newY > -100 &&
       newY < 100 &&
@@ -74,17 +74,18 @@ const ExampleCustomSlider = forwardRef(function Div(
     ) {
       // prev
       onSlideChange(index.wrapperIndex - 1);
-      // index.setWrapperIndex(index.wrapperIndex - 1);
     }
   };
+
+  useEffect(() => {
+    sliderRef.current.slickGoTo(index.wrapperIndex);
+  }, [index.wrapperIndex]);
 
   useEffect(() => {
     const el = document.getElementsByClassName("slick-track")[0];
     el.classList.add("slick-wrapper-track");
     el.classList.remove("slick-track");
   }, []);
-
-  // console.log(touch.touch);
 
   return (
     <>
@@ -96,6 +97,7 @@ const ExampleCustomSlider = forwardRef(function Div(
       >
         <StyledSlider
           {...settings}
+          ref={sliderRef}
           touch={touch.touch}
           prev={index.wrapperIndex === 0 && moveX - startX > 0}
           next={index.wrapperIndex === length - 1 && moveX - startX < 0}
@@ -124,20 +126,22 @@ const StyledSlider = styled(Slider)<{
   .slick-wrapper-track {
     display: flex;
     align-items: center;
-    ${({ prev }) =>
+    ${({ prev, transX }) =>
       prev
         ? `
         transform: translate3d(0px, 0px, 0px) !important;
         `
-        : ``}
+        : `
+        `}
     ${({ next, transX }) =>
       next
         ? `
         transform: translate3d(-${transX}px, 0px, 0px) !important;
         `
-        : ``}
+        : `
+        `}
 
-      transition: transform 200ms ease-out;
+    transition: transform 200ms ease-out;
   }
   .slick-prev {
     left: 6px;

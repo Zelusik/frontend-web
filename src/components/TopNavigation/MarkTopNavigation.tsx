@@ -47,25 +47,12 @@ const MarkTopNavigation = forwardRef(function Div(
   const router = useRouter();
   const titleScrollRef = useRef<any>(null);
   const swiperScrollRef = useRef<any>(null);
-  const [titleTextRef, setTitleTextRef] = useState<any>(null);
   const { width } = useDisplaySize();
+  const [titleTextRef, setTitleTextRef] = useState<any>(null);
 
   const clickTitleList = (ref: any, newIndex: number) => {
     // wrapperIndex 수정
     index.setWrapperIndex(newIndex);
-
-    // const subtrackIndex = index.wrapperIndex - newIndex;
-    // if (subtrackIndex < 0) {
-    //   for (let i = 0; i < Math.abs(subtrackIndex); i++)
-    //     swiperScrollRef.current.swiper.slideNext();
-    // } else {
-    //   for (let i = 0; i < Math.abs(subtrackIndex); i++)
-    //     swiperScrollRef.current.swiper.slidePrev();
-    // }
-    // swiperScrollRef.current.scrollTo({
-    //   left: width * newSwiper,
-    //   behavior: "smooth",
-    // });
 
     // title click -> focus on
     const textLeft = ref?.nativeEvent?.target?.offsetLeft - 20;
