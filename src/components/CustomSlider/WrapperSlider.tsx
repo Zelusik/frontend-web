@@ -1,9 +1,7 @@
 import React, { useState, useEffect, forwardRef, useRef } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import useDisplaySize from "hooks/useDisplaySize";
-import Number from "components/Common/Number";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -115,7 +113,6 @@ const StyledSlider = styled(Slider)<{
   prev: any;
   next: any;
   transX: any;
-  lasttransX: any;
 }>`
   .slick-list {
     height: 100%;

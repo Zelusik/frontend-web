@@ -15,7 +15,7 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import StoreContainer from "./components/StoreContainer";
 import MarkTopNavigation from "components/TopNavigation/MarkTopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import ExampleCustomSlider from "components/CustomSlider/ExampleSlider";
+import ExampleCustomSlider from "components/CustomSlider/WrapperSlider";
 import { colors } from "constants/colors";
 
 export default function Mark() {

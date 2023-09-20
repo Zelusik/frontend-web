@@ -10,11 +10,7 @@ import Hr from "components/Hr";
 import Spacing from "components/Spacing";
 import HorizonalScroll from "components/HorizonalScroll/HorizonalScroll";
 import SortingHeader from "pages-edit/Mark/components/SortingHeader";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import ExampleCustomSlider from "components/CustomSlider/ExampleSlider";
+import WrapperSlider from "components/CustomSlider/WrapperSlider";
 
 interface Props {
   type: "title-scroll" | "default";
@@ -142,14 +138,14 @@ const MarkTopNavigation = forwardRef(function Div(
 
       {type === "title-scroll" ? <SortingHeader count={props?.count} /> : null}
       {/* children 부분 */}
-      <ExampleCustomSlider
+      <WrapperSlider
         index={index}
         touch={touch}
         length={titleList?.length}
         onSlideChange={onSlideChange}
       >
         {children}
-      </ExampleCustomSlider>
+      </WrapperSlider>
     </>
   );
 });

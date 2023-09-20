@@ -2,7 +2,6 @@ import React, { forwardRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import useDisplaySize from "hooks/useDisplaySize";
-import Number from "components/Common/Number";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -89,7 +88,7 @@ const NumberWrapper = styled.div`
   z-index: 800;
 `;
 
-const StyledSlider = styled(Slider)<{ prev: any; next: any; lastNext: any }>`
+const StyledSlider = styled(Slider)<{ prev: any; next: any; transX: any }>`
   .slick-slide {
     padding: 0 10px; // space(여백)/2
   }
