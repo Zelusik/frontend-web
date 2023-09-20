@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import useDisplaySize from "hooks/useDisplaySize";
 import { globalValue } from "constants/globalValue";
+import SortingHeader from "./SortingHeader";
 
 interface Props {
   height?: any;
@@ -19,13 +20,11 @@ interface Props {
 }
 
 const StoreContainer = forwardRef(function Div(
-  { index, touch, keywords, ...props }: any,
+  { height, index, touch, keywords, ...props }: any,
   ref: any
 ) {
   const router = useRouter();
   const infinityScrollRef = useRef<any>(null);
-  const { height } = useDisplaySize();
-
   //   react-query: mark
   const { markData, markLoading, fetchNextPage, hasNextPage } =
     useGetMarkPlaces({
@@ -42,11 +41,9 @@ const StoreContainer = forwardRef(function Div(
       />
     );
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div style={{ height: height, overflowY: "auto", padding: "0 15px" }}>
+      <SortingHeader count={markLoading ? 0 : markData?.[0]?.totalElements} />
+      <Spacing size={19} />
       {markData?.[0].totalElements !== 0 ? (
         <StoreWrapper>
           {markData
@@ -74,7 +71,7 @@ const StoreContainer = forwardRef(function Div(
           />
         </NoContent>
       )}
-    </motion.div>
+    </div>
   );
 });
 
