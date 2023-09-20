@@ -11,6 +11,7 @@ import Spacing from "components/Spacing";
 import HorizonalScroll from "components/HorizonalScroll/HorizonalScroll";
 import SortingHeader from "pages-edit/Mark/components/SortingHeader";
 import WrapperSlider from "components/CustomSlider/WrapperSlider";
+import Gradient from "components/Common/Gradient";
 
 interface Props {
   type: "title-scroll" | "default";
@@ -136,7 +137,6 @@ const MarkTopNavigation = forwardRef(function Div(
       </TitleWrapper>
       {top.topFixed ? <Spacing size={35} /> : null}
 
-      {type === "title-scroll" ? <SortingHeader count={props?.count} /> : null}
       {/* children 부분 */}
       <WrapperSlider
         index={index}

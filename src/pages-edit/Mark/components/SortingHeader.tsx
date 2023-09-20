@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Text from "components/Text/Text";
-import StoreFilter from "pages-edit/Mark/components/StoreSort";
 import React from "react";
 
 const SortingHeader = ({ count }: { count: number }) => {
@@ -20,7 +19,8 @@ const SortingHeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  padding: 0 20px;
+  // padding: 0 20px;
+  padding: 0 5px;
   padding-top: 16px;
   background-color: #fbfbfb;
 `;

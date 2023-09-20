@@ -15,8 +15,9 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import StoreContainer from "./components/StoreContainer";
 import MarkTopNavigation from "components/TopNavigation/MarkTopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import ExampleCustomSlider from "components/CustomSlider/WrapperSlider";
 import { colors } from "constants/colors";
+import SortingHeader from "./components/SortingHeader";
+import Gradient from "components/Common/Gradient";
 
 export default function Mark() {
   const scrollRef = useRef<any>(null);
@@ -46,23 +47,6 @@ export default function Mark() {
     });
 
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
-
-  // function onScroll() {
-  //   const scrollTop = 20;
-
-  //   if (scrollRef.current?.scrollTop > scrollTop) {
-  //     setTopFixed(true);
-  //   } else {
-  //     setTopFixed(false);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   scrollRef.current?.addEventListener("scroll", onScroll);
-  //   return () => {
-  //     scrollRef.current?.removeEventListener("scroll", onScroll);
-  //   };
-  // }, [wrapperIndex, keywordData]);
 
   return (
     <>
@@ -100,6 +84,7 @@ export default function Mark() {
                     key={idx}
                     height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
                   >
+                    {/* <Gradient reverse={true} size={19} location={32} /> */}
                     <StoreContainer
                       infinityScrollRef={infinityScrollRef}
                       height={

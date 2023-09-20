@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import useDisplaySize from "hooks/useDisplaySize";
 import { globalValue } from "constants/globalValue";
+import SortingHeader from "./SortingHeader";
 
 interface Props {
   height?: any;
@@ -41,6 +42,8 @@ const StoreContainer = forwardRef(function Div(
     );
   return (
     <div style={{ height: height, overflowY: "auto", padding: "0 15px" }}>
+      <SortingHeader count={markLoading ? 0 : markData?.[0]?.totalElements} />
+      <Spacing size={19} />
       {markData?.[0].totalElements !== 0 ? (
         <StoreWrapper>
           {markData

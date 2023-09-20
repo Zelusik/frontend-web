@@ -10,13 +10,13 @@ const Gradient = styled.div<{
   height: ${({ size }) => size}px;
 
   position: absolute;
-  ${({ reverse = true, location = 94 }) =>
-    reverse ? `bottom: ${location}` : `top: ${location}`}px;
+  ${({ reverse = false, location = 94 }) =>
+    reverse ? `top: ${location}` : `bottom: ${location}`}px;
   z-index: 800;
-  background: ${({ reverse = true }) =>
+  background: ${({ reverse = false }) =>
     reverse
-      ? `linear-gradient(transparent, ${colors.N0})`
-      : `linear-gradient(${colors.N0}, transparent)`};
+      ? `linear-gradient(${colors.N0}, transparent)`
+      : `linear-gradient(transparent, ${colors.N0})`};
 `;
 
 export default Gradient;
