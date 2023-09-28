@@ -1,20 +1,25 @@
 import { useInfiniteQuery, useQuery } from "react-query";
-import { getPlaces, getPlacesId, postPlaces } from "api/places";
+import { existencePlace, getPlaces, getPlacesId, postPlaces } from "api/places";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { getReviews } from "api/reviews";
+import { useState } from "react";
 
 const useGetStore = ({ kakaoId, placeId }: any): any => {
   const { placeInfo } = useAppSelector((state) => state.search);
+  const [id, setId] = useState(null);
 
   // 음식점 정보
   const getStoreInfo = async () => {
     if (kakaoId) {
-      const storeInfoData = await getPlaces(kakaoId);
-
-      if (storeInfoData?.data?.code === 3001) {
-        return await postPlaces(placeInfo);
+      const isExistPlace = await existencePlace(kakaoId);
+      if (isExistPlace.existenceOfPlace) {
+        const res = await getPlaces(kakaoId);
+        setId(res.id);
+        return res;
       } else {
-        return storeInfoData;
+        const res = await postPlaces(placeInfo);
+        setId(res.id);
+        return res;
       }
     } else {
       return await getPlacesId(placeId);
@@ -35,7 +40,7 @@ const useGetStore = ({ kakaoId, placeId }: any): any => {
   const getReviewsWithParams = ({ pageParam = 0 }) => {
     return getReviews({
       params: {
-        placeId: placeId || storeInfoData.id,
+        placeId: placeId || id,
         page: pageParam,
         size: 10,
         embed: "WRITER",
@@ -49,7 +54,7 @@ const useGetStore = ({ kakaoId, placeId }: any): any => {
     hasNextPage,
     isLoading: isReviewsLoading,
   } = useInfiniteQuery(["reviews", placeId], getReviewsWithParams, {
-    enabled: Boolean(!isStoreInfoLoading && storeInfoData),
+    enabled: Boolean(!isStoreInfoLoading && id),
     getNextPageParam: (lastPage) => {
       return lastPage.isLast ? undefined : lastPage.number + 1;
     },

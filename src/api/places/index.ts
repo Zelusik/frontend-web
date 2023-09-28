@@ -61,3 +61,13 @@ export const getPlacesNear = async (params: any) => {
     .then(({ data }) => data)
     .catch((err) => err.response);
 };
+
+// kakaoPid로 장소 존재 여부 조회
+export const existencePlace = async (kakaoPid: string) =>
+  await client
+    .get(`/v1/places/existence`, {
+      headers: { "Eatery-API-Minor-Version": 1 },
+      params: { kakaoPid },
+    })
+    .then(({ data }) => data)
+    .catch((err) => err.response);
