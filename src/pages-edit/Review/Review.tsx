@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
 import { colors } from "constants/colors";
@@ -26,6 +26,7 @@ const Review = () => {
   const dispatch = useAppDispatch();
   const { height } = useDisplaySize();
   const { isShowToast, openToast, closeToast } = useToast();
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleCloseToast = () => {
     closeToast();
@@ -33,6 +34,16 @@ const Review = () => {
 
   useEffect(() => {
     localStorage.removeItem("state");
+    if (typeof document !== undefined && window.ReactNativeWebView) {
+      setIsMobile(
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          window.navigator.userAgent
+        )
+      );
+      if (isMobile) {
+        window.ReactNativeWebView.postMessage("mobile");
+      }
+    }
   }, []);
 
   const isHeicOrHeif = (fileName: string): boolean => {
