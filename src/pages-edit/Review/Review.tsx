@@ -34,13 +34,15 @@ const Review = () => {
 
   useEffect(() => {
     localStorage.removeItem("state");
-    if (typeof document !== undefined && window.ReactNativeWebView) {
-      setIsMobile(
+    if (typeof document !== "undefined" && window.ReactNativeWebView) {
+      const isCurrentMobile =
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
           window.navigator.userAgent
-        )
-      );
-      if (isMobile) {
+        );
+
+      setIsMobile(isCurrentMobile);
+
+      if (isCurrentMobile) {
         window.ReactNativeWebView.postMessage("mobile");
       }
     }
