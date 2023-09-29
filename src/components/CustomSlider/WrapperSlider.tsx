@@ -30,11 +30,10 @@ const ExampleCustomSlider = forwardRef(function Div(
     dots: false,
     infinite: false,
 
-    pauseOnHover: false,
-    draggable: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 300,
+
     swipe: touch.touch,
     touchMove: touch.touch,
   };
@@ -49,32 +48,6 @@ const ExampleCustomSlider = forwardRef(function Div(
     setWrapperTouch(touch.touch);
   };
 
-  const onTouchEnd = (e: any) => {
-    const newX = e?.changedTouches[0].clientX - startX;
-    const newY = e?.changedTouches[0].clientY - startY;
-    if (
-      newY > -100 &&
-      newY < 100 &&
-      newX < -100 &&
-      newX > -width &&
-      index.wrapperIndex !== length - 1 &&
-      wrapperTouch
-    ) {
-      // next
-      onSlideChange(index.wrapperIndex + 1);
-    } else if (
-      newY > -100 &&
-      newY < 100 &&
-      newX > 100 &&
-      newX < width &&
-      index.wrapperIndex !== 0 &&
-      wrapperTouch
-    ) {
-      // prev
-      onSlideChange(index.wrapperIndex - 1);
-    }
-  };
-
   useEffect(() => {
     sliderRef.current.slickGoTo(index.wrapperIndex);
   }, [index.wrapperIndex]);
@@ -87,12 +60,7 @@ const ExampleCustomSlider = forwardRef(function Div(
 
   return (
     <>
-      {/* contents */}
-      <div
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
+      <div onTouchStart={onTouchStart} onTouchMove={onTouchMove}>
         <StyledSlider
           {...settings}
           ref={sliderRef}
@@ -100,6 +68,9 @@ const ExampleCustomSlider = forwardRef(function Div(
           prev={index.wrapperIndex === 0 && moveX - startX > 0}
           next={index.wrapperIndex === length - 1 && moveX - startX < 0}
           transX={width * index.wrapperIndex}
+          afterChange={(newIndex: number) => {
+            index.setWrapperIndex(newIndex);
+          }}
         >
           {children}
         </StyledSlider>
@@ -123,21 +94,19 @@ const StyledSlider = styled(Slider)<{
   .slick-wrapper-track {
     display: flex;
     align-items: center;
+
     ${({ prev, transX }) =>
       prev
         ? `
-        transform: translate3d(0px, 0px, 0px) !important;
+          transform: translate3d(0px, 0px, 0px) !important;
         `
-        : `
-        `}
+        : ``}
     ${({ next, transX }) =>
       next
         ? `
-        transform: translate3d(-${transX}px, 0px, 0px) !important;
+          transform: translate3d(-${transX}px, 0px, 0px) !important;
         `
-        : `
-        `}
-
+        : ``}
     transition: transform 200ms ease-out;
   }
   .slick-prev {

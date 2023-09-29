@@ -31,6 +31,7 @@ const CustomSlider = forwardRef(function Div(
     slidesToScroll: 1,
     speed: 300,
     touchThreshold: width,
+    // swipe: false,
   };
 
   const onTouchStart = (e: any) => {
@@ -51,14 +52,6 @@ const CustomSlider = forwardRef(function Div(
   };
 
   const onTouchEnd = (e: any) => {
-    const newX = e?.changedTouches[0].clientX - startX;
-    if (newX < 0 && index.currentIndex !== length - 1) {
-      // next
-      index.setCurrentIndex(index.currentIndex + 1);
-    } else if (newX > 0 && index.currentIndex !== 0) {
-      // prev
-      index.setCurrentIndex(index.currentIndex - 1);
-    }
     touch.setTouch(true);
   };
 
@@ -74,6 +67,9 @@ const CustomSlider = forwardRef(function Div(
         prev={index.currentIndex === 0 && moveX - startX > 0}
         next={index.currentIndex === length - 1 && moveX - startX < 0}
         transX={(width - 30) * (length - 1)}
+        afterChange={(newIndex: number) => {
+          index.setCurrentIndex(newIndex);
+        }}
       >
         {children}
       </StyledSlider>
@@ -88,7 +84,11 @@ const NumberWrapper = styled.div`
   z-index: 800;
 `;
 
-const StyledSlider = styled(Slider)<{ prev: any; next: any; transX: any }>`
+const StyledSlider = styled(Slider)<{
+  prev: any;
+  next: any;
+  transX: any;
+}>`
   .slick-slide {
     padding: 0 10px; // space(여백)/2
   }
@@ -102,6 +102,7 @@ const StyledSlider = styled(Slider)<{ prev: any; next: any; transX: any }>`
   .slick-track {
     display: flex;
     align-items: center;
+
     ${({ prev }) =>
       prev
         ? `
