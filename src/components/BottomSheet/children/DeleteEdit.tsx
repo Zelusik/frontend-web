@@ -75,13 +75,13 @@ export default function DeleteEdit({}: Props) {
     dispatch(
       changeReviewInfo({
         type: "reviewId",
-        value: reviewData.id,
+        value: reviewData?.id,
       })
     );
     dispatch(
       changeReviewInfo({
         type: "keywords",
-        value: transformKeyword(reviewData.keywords),
+        value: transformKeyword(reviewData?.keywords),
       })
     );
     dispatch(

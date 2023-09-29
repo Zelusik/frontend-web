@@ -42,11 +42,11 @@ export default function CurrentSelection({ idx, data, ...props }: any) {
         case 1:
           router.push({
             pathname: Route.STORE_DETAIL(),
-            query: { kakaoId: data.id },
+            query: { kakaoId: data?.id },
           });
           break;
         case 2:
-          router.push({ pathname: Route.MYPAGE(), query: { id: data.id } });
+          router.push({ pathname: Route.MYPAGE(), query: { id: data?.id } });
           break;
         default:
           break;

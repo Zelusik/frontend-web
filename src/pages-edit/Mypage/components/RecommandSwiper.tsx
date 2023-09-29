@@ -35,10 +35,10 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
     <div style={{ overflow: "hidden" }}>
       <Swiper
         allowSlidePrev={currentIndex !== 0}
-        allowSlideNext={currentIndex !== datas.length - 1}
+        allowSlideNext={currentIndex !== datas?.length - 1}
         onSlideChange={onSlideChange}
       >
-        {datas.map((data: any, idx: number) => {
+        {datas?.map((data: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
               <ImageWrapper height={((width - 60) * 9) / 8}>
@@ -68,7 +68,7 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
 
       <IndexWrapper>
         <IndexInner>
-          {datas.map((data: any, idx: number) => {
+          {datas?.map((data: any, idx: number) => {
             return <Index key={idx} act={currentIndex === idx}></Index>;
           })}
         </IndexInner>

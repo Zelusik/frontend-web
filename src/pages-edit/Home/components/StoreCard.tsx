@@ -16,7 +16,7 @@ export default function StoreCard({ data }: any) {
   // 가게 id
   const router = useRouter();
   const clickStore = () => {
-    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: data.id } });
+    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: data?.id } });
   };
 
   return (

@@ -38,7 +38,7 @@ export default function Report() {
         </Text>
         <Spacing size={20} />
 
-        {ReportDatas.map((data: any, idx: number) => {
+        {ReportDatas?.map((data: any, idx: number) => {
           return (
             <ReportButton
               key={idx}

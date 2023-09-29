@@ -54,7 +54,7 @@
     "typescript": "5.1.6",
     "yarn": "^1.22.19"
   },
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "yarn@3.6.3",
   "devDependencies": {
     "@babel/runtime": "^7.22.5",
     "@emotion/babel-plugin": "^11.11.0",

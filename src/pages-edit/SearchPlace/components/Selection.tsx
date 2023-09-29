@@ -33,13 +33,13 @@ export default function Selection({ type, data, keyword, ...props }: any) {
       const newCurrentSelectin = [
         type === "location"
           ? {
-              id: data.id,
+              id: data?.id,
               text: data.name,
               type: 0,
               location: { lat: data.point.lat, lng: data.point.lng },
             }
           : {
-              id: data.id,
+              id: data?.id,
               text: data.place_name,
               type: 1,
               location: { lat: data.y, lng: data.x },
@@ -66,7 +66,7 @@ export default function Selection({ type, data, keyword, ...props }: any) {
         handlePlaceInfo(data);
         router.push({
           pathname: Route.STORE_DETAIL(),
-          query: { kakaoId: data.id },
+          query: { kakaoId: data?.id },
         });
         break;
       default:

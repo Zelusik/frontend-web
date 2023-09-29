@@ -43,7 +43,7 @@ export default function ProfileInfo({ mine, profile }: any) {
         <Spacing size={16} />
 
         <FollowWrapper>
-          {ProfileDatas.map((data: any, idx: number) => {
+          {ProfileDatas?.map((data: any, idx: number) => {
             return (
               <div key={idx}>
                 <Text typo="Headline2" color="N100">

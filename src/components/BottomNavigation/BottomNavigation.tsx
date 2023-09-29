@@ -23,7 +23,7 @@ const BottomNavigation = forwardRef(function Div({}, ref: any) {
     <Wrapper ref={ref}>
       <Spacing size={10} />
       <MenuList>
-        {navigationDatas.map((data: any, idx: number) => {
+        {navigationDatas?.map((data: any, idx: number) => {
           return (
             <Link href={data.route} key={idx}>
               <Menu clicked={pathname === data.route ? "true" : "false"}>

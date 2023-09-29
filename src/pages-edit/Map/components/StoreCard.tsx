@@ -28,7 +28,7 @@ export default function StoreCard({ data }: any) {
   };
 
   const clickStoreDetail = () => {
-    router.push({ pathname: Route.STORE_DETAIL(), query: { id: data.id } });
+    router.push({ pathname: Route.STORE_DETAIL(), query: { id: data?.id } });
   };
 
   return (
@@ -43,7 +43,10 @@ export default function StoreCard({ data }: any) {
         ) : (
           <>
             <NumberWrapper>
-              <Number currentIndex={currentIndex} length={data?.images?.length} />
+              <Number
+                currentIndex={currentIndex}
+                length={data?.images?.length}
+              />
             </NumberWrapper>
             <Swiper
               ref={swiperRef}

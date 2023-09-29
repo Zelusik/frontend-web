@@ -15,7 +15,7 @@ export default function ProfileSelection({ data, keyword }: any) {
       });
       const newCurrentSelection = [
         {
-          id: data.id,
+          id: data?.id,
           text: data.nickname,
           type: 2,
           location: { lat: 0, lng: 0 },
@@ -33,7 +33,7 @@ export default function ProfileSelection({ data, keyword }: any) {
       localStorage.setItem("currentSelection", JSON.stringify([]));
     }
 
-    router.push({ pathname: Route.MYPAGE(), query: { id: data.id } });
+    router.push({ pathname: Route.MYPAGE(), query: { id: data?.id } });
   };
 
   const dataSplit = data?.nickname?.split(keyword);

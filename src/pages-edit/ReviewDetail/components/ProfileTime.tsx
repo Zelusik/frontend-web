@@ -10,7 +10,7 @@ export default function ProfileTime({ data }: any) {
   const router = useRouter();
 
   const viewProfile = () => {
-    router.push({ pathname: Route.MYPAGE(), query: { id: data.id } });
+    router.push({ pathname: Route.MYPAGE(), query: { id: data?.id } });
   };
 
   return (
