@@ -9,7 +9,7 @@ import Text from "components/Text";
 import Hr from "components/Hr";
 import Spacing from "components/Spacing";
 import HorizonalScroll from "components/HorizonalScroll/HorizonalScroll";
-import SortingHeader from "pages-edit/Mark/components/SortingHeader";
+import SortingHeader from "view/Mark/components/SortingHeader";
 import WrapperSlider from "components/CustomSlider/WrapperSlider";
 import Gradient from "components/Common/Gradient";
 

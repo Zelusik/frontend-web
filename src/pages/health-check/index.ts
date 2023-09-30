@@ -1,1 +1,1 @@
-export { default } from "pages-edit/HealthCheck";
+export { default } from "view/HealthCheck";

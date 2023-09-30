@@ -8,17 +8,23 @@ import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import { deleteCookie } from "utils/cookie";
 import { useRouter } from "next/router";
-import ReportButton from "pages-edit/Report/components/ReportButton";
+import ReportButton from "view/Report/components/ReportButton";
 import { deleteUser } from "api/members";
 
 const DeleteProfile = () => {
   const router = useRouter();
 
   const surveyList = [
-    { value: "HARD_TO_WRITE", text: "스토리/탭탭리뷰를 작성하기가 어렵고 불편함" },
+    {
+      value: "HARD_TO_WRITE",
+      text: "스토리/탭탭리뷰를 작성하기가 어렵고 불편함",
+    },
     { value: "FEED_UNUSEFUL", text: "피드의 추천이 유용하지 않음" },
     { value: "REVIEW_NOT_ENOUGH", text: "리뷰가 많지 않아 도움되지 않음" },
-    { value: "NOT_MEET_EXPECTATION", text: "다운로드 시 기대한 내용과 앱이 다름" },
+    {
+      value: "NOT_MEET_EXPECTATION",
+      text: "다운로드 시 기대한 내용과 앱이 다름",
+    },
     { value: "NOT_TRUST", text: "서비스 운영의 신뢰도가 낮음" },
     { value: "ETC", text: "기타" },
   ];
@@ -46,8 +52,8 @@ const DeleteProfile = () => {
       </Text>
       <Spacing size={22} />
       <Notification>
-        회원 탈퇴 시 개인 정보 처리 방침에 따라 탈퇴 후에도 90일간 보관되며, 90일이
-        지난 후에는 완전히 삭제됩니다.
+        회원 탈퇴 시 개인 정보 처리 방침에 따라 탈퇴 후에도 90일간 보관되며,
+        90일이 지난 후에는 완전히 삭제됩니다.
       </Notification>
       <Spacing size={40} />
       <Text typo="Headline3" color="N100">

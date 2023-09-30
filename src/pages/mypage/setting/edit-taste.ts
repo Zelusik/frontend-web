@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Mypage/components/setting/EditTaste";
+export { default } from "view/Mypage/components/setting/EditTaste";

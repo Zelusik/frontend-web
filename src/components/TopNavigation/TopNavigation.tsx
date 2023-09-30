@@ -12,7 +12,7 @@ import Hr from "components/Hr";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
-import SortingHeader from "pages-edit/Mark/components/SortingHeader";
+import SortingHeader from "view/Mark/components/SortingHeader";
 
 const TopNavigation = forwardRef(function Div(
   {
