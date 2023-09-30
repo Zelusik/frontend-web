@@ -34,6 +34,13 @@ const globalCss = css`
     -ms-overflow-style: none;
     scrollbar-width: none;
     box-sizing: border-box;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
   body,

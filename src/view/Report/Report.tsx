@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import Spacing from "components/Spacing";
 import BackTitle from "components/Title/BackTitle";
 import BottomButton from "components/Button/BottomButton";

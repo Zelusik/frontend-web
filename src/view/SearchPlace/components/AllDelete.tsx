@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import BackTitle from "components/Title/BackTitle";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import { css } from "@emotion/react";
 import { colors } from "constants/colors";
 import Text from "components/Text";

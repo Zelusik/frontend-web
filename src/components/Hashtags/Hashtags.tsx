@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 import { css } from "@emotion/react";
-import { typography } from "constants/typography";
 import { match } from "ts-pattern";
 import Hashtag from "./Hashtag";
 

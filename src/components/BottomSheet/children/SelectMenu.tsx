@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import RoundButton from "components/Button/RoundButton";
 import Toast from "components/Toast/Toast";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import useGetMenus from "hooks/queries/review/useGetMenus";
 import useDisplaySize from "hooks/useDisplaySize";
 

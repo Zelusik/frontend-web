@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import { Box, Text, Space, AspectRatio, Image } from "@mantine/core";
 
 import Spacing from "components/Spacing";
-import ProfileTitle from "components/Title/ProfileTitle";
 import Description from "components/Description";
 import Hashtags from "components/Hashtags";
 import SlideImage from "components/Image/SlideImage";
+import BasicTitle from "components/Title/Title";
 
 export default function ReivewCard({ data }: any) {
   const router = useRouter();
@@ -14,12 +15,20 @@ export default function ReivewCard({ data }: any) {
   return (
     <>
       <Wrapper>
-        <ProfileTitle
-          type={mine ? "mine" : "follow"}
-          title={data.writer.nickname}
-          // subTitle="움맘마"
-          profileImg={data.writer.profileThumbnailImageUrl}
-          id={data.writer.id}
+        <BasicTitle
+          height={37}
+          renderLeft={
+            <Image
+              src={
+                data.writer.profileThumbnailImageUrl ||
+                "https://i.ibb.co/2kSZX6Y/60pt.png"
+              }
+              alt="프로필 이미지"
+              w={30}
+              h={30}
+              radius={10}
+            />
+          }
         />
         <Spacing size={16} />
       </Wrapper>

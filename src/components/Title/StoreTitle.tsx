@@ -41,7 +41,11 @@ export default function StoreTitle({
         isFlex={type === "map"}
         style={{
           width:
-            type === "mypage-review" ? "100%" : type === "home" ? "75%" : "initial",
+            type === "mypage-review"
+              ? "100%"
+              : type === "home"
+              ? "75%"
+              : "initial",
         }}
       >
         {title ? (
@@ -124,7 +128,7 @@ export default function StoreTitle({
                 .with("map", () => 24)
                 .with("mark", () => 24)
                 .otherwise(() => 28)}
-              placeId={props.placeId}
+              id={props.placeId}
               isMarked={props.isMarked}
             />
             {/* <Text

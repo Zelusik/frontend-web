@@ -3,7 +3,7 @@ import { keyframes } from "@emotion/react";
 import { colors } from "constants/colors";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 
 const fadeInDown = keyframes`
    0% {

@@ -9,7 +9,7 @@ import Icon from "components/Icon";
 import { termsData } from "data/termsData";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthTermsInfo } from "reducer/slices/auth/authSlice";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import Link from "next/link";
 import BottomButton from "components/Button/BottomButton";
 import { Route } from "constants/Route";
@@ -31,7 +31,9 @@ const TermsPage = () => {
   }, [dispatch]);
 
   const handleClickAllTerms = () => {
-    const trueCount = Object.values(terms).filter((value) => value === true).length;
+    const trueCount = Object.values(terms).filter(
+      (value) => value === true
+    ).length;
     if (trueCount === 5) {
       termsData.map((term) =>
         dispatch(
@@ -92,14 +94,16 @@ const TermsPage = () => {
             style={{
               path: {
                 fill:
-                  Object.values(terms).filter((value) => value === true).length === 5
+                  Object.values(terms).filter((value) => value === true)
+                    .length === 5
                     ? colors.N100
                     : colors.N20,
                 stroke: "none",
               },
               "path:last-child": {
                 stroke:
-                  Object.values(terms).filter((value) => value === true).length === 5
+                  Object.values(terms).filter((value) => value === true)
+                    .length === 5
                     ? colors.N0
                     : colors.N50,
               },

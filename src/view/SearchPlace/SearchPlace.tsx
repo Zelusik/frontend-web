@@ -123,7 +123,7 @@ export default function SearchPlace() {
                     <div ref={infinityScrollRef} />
                     {hasNextPage ? (
                       <>
-                        <LoadingCircle size={30} />
+                        <LoadingCircle height={30} />
                         <Spacing size={30} />
                       </>
                     ) : null}
@@ -159,7 +159,7 @@ export default function SearchPlace() {
                     <div ref={infinityScrollRef} />
                     {hasNextPage ? (
                       <>
-                        <LoadingCircle size={30} />
+                        <LoadingCircle height={30} />
                         <Spacing size={30} />
                       </>
                     ) : null}
@@ -194,7 +194,7 @@ export default function SearchPlace() {
                     <div ref={infinityScrollRef} />
                     {hasNextPage ? (
                       <>
-                        <LoadingCircle size={30} />
+                        <LoadingCircle height={30} />
                         <Spacing size={30} />
                       </>
                     ) : null}

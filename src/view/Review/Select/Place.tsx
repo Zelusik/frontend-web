@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import Image from "components/Image/Image";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -61,7 +61,9 @@ const Place = () => {
               className="banner"
               slidesPerView={1}
               spaceBetween={20}
-              onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
+              onSlideChange={(swiper) =>
+                setCurrentSlideIndex(swiper.activeIndex)
+              }
               allowSlidePrev={currentSlideIndex > 0}
               allowSlideNext={currentSlideIndex < image.length - 1}
             >
@@ -71,7 +73,9 @@ const Place = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
+            <ImageBadge>{`${currentSlideIndex + 1}/${
+              image.length
+            }`}</ImageBadge>
           </ImageWrapper>
           <Spacing size={10} />
           <PlaceContainer>

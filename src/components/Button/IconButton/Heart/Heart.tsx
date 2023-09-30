@@ -1,17 +1,15 @@
-import { deleteBookmarks, postBookmarks } from "api/bookmarks";
-import Icon from "components/Icon";
+import { useState } from "react";
 import useDeleteHeart from "hooks/queries/heart/useDeleteHeart";
 import usePostHeart from "hooks/queries/heart/usePostHeart";
-import { useState } from "react";
-import { useMutation } from "react-query";
+import Icon from "components/Icon";
 
 interface Props {
   size?: number;
-  placeId: number;
+  id: number;
   isMarked?: boolean;
 }
 
-export default function Heart({ size, placeId, isMarked }: Props) {
+export default function Heart({ size, id, isMarked }: Props) {
   const [marked, setMarked] = useState(isMarked);
   const { mutate: deleteHeartMutate } = useDeleteHeart();
   const { mutate: postHeartMutate } = usePostHeart();
@@ -19,10 +17,10 @@ export default function Heart({ size, placeId, isMarked }: Props) {
   const handleClickMark = async (e: any) => {
     e.stopPropagation();
     if (marked) {
-      deleteHeartMutate({ placeId });
+      deleteHeartMutate({ id });
       setMarked(false);
     } else {
-      postHeartMutate({ placeId });
+      postHeartMutate({ id });
       setMarked(true);
     }
   };

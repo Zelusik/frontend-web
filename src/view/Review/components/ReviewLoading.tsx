@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Spacing from "components/Spacing/Spacing";
 import BackTitle from "components/Title/BackTitle";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import { styled } from "styled-components";
 import LoadingDots from "components/Loading/LoadingDots";
 
-const ReviewLoading = ({ type, nickname }: { type: string; nickname: string }) => {
+const ReviewLoading = ({
+  type,
+  nickname,
+}: {
+  type: string;
+  nickname: string;
+}) => {
   const [text, setText] = useState(
     type === "review"
       ? "리뷰가 업로드 되고 있어요."

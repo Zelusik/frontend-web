@@ -14,16 +14,8 @@ interface BottomSheetMetrics {
 }
 
 export default function useDisplaySize() {
-  const initialWidth =
-    typeof window !== "undefined"
-      ? window.innerWidth > 820
-        ? 820
-        : window.innerWidth
-      : 0;
-  const initialHeight = typeof window !== "undefined" ? window.innerHeight : 0;
-
-  const [width, setWidth] = useState<number>(initialWidth);
-  const [height, setHeight] = useState<number>(initialHeight);
+  const [width, setWidth] = useState<number>(0);
+  const [height, setHeight] = useState<number>(0);
 
   const handleResize = () => {
     setWidth(window.innerWidth > 820 ? 820 : window.innerWidth);
@@ -31,6 +23,7 @@ export default function useDisplaySize() {
   };
 
   useEffect(() => {
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);

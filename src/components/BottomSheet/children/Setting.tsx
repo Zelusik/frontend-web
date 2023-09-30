@@ -4,7 +4,7 @@ import Icon from "components/Icon";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
 import { globalValue } from "constants/globalValue";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import { useState } from "react";
 
 const Type: any = {
