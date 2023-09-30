@@ -112,9 +112,7 @@ const Menu = () => {
           value: percentageY,
         })
       );
-    } catch (error) {
-      console.log("handleClickImage", error);
-    }
+    } catch (error) {}
   };
 
   const handleDeleteMenuTag = (menuTag: any, index: number) => {
@@ -179,7 +177,7 @@ const Menu = () => {
       // 마우스 위치를 퍼센트로 변환
       const percentageX = (relativeX / parentRect.width) * 100;
       const percentageY = (relativeY / parentRect.height) * 100;
-      // console.log(percentageX, percentageY, image);
+
       menuTagRef.current[idx].style.left = `${percentageX}%`;
       menuTagRef.current[idx].style.top = `${percentageY}%`;
 

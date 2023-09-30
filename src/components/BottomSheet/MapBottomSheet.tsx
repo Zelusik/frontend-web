@@ -12,9 +12,7 @@ const MapBottomSheet = forwardRef(function Div(
   ref: any
 ) {
   const { height } = useDisplaySize();
-  const { visible, actionDelay } = useAppSelector(
-    (state) => state.mapBottomSheet
-  );
+  const { visible, actionDelay } = useAppSelector((state) => state.mapBottomSheet);
 
   useEffect(() => {
     if (visible) {
@@ -26,10 +24,7 @@ const MapBottomSheet = forwardRef(function Div(
       sheet.current!.style.setProperty("transition", `transform 0ms ease-out`);
 
       setTimeout(() => {
-        sheet.current!.style.setProperty(
-          "transition",
-          `transform 300ms ease-out`
-        );
+        sheet.current!.style.setProperty("transition", `transform 300ms ease-out`);
       }, 100);
     }
   }, []);
@@ -42,9 +37,6 @@ const MapBottomSheet = forwardRef(function Div(
         actionDelay={actionDelay}
         visible={visible}
         height={height - (82 + globalValue.BOTTOM_NAVIGATION_HEIGHT)}
-        onClick={() => {
-          console.log("A");
-        }}
       >
         <HandleWrapper>
           <Handle />

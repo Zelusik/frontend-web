@@ -1,11 +1,7 @@
 import { useInfiniteQuery, QueryClient, useQueryClient } from "react-query";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { getPlacesNear } from "api/places";
-import {
-  DAY_OF_WEEK_DATA,
-  FOOD_KEYWORD,
-  TASTE_KEYWORD,
-} from "constants/globalData";
+import { DAY_OF_WEEK_DATA, FOOD_KEYWORD, TASTE_KEYWORD } from "constants/globalData";
 import useSearch from "hooks/useSearch";
 
 const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
@@ -39,7 +35,6 @@ const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
     async ({ pageParam = 0 }) => {
       // const queryClient = new QueryClient();
       // const mapData = await useQueryClient.getQueryData(["map"]);
-      // console.log(mapData);
 
       const params: any = {
         params: {
@@ -59,11 +54,7 @@ const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
 
       const result = await getPlacesNear(params);
 
-      if (
-        location.lat !== 0 &&
-        location.lng !== 0 &&
-        result?.totalElements === 0
-      ) {
+      if (location.lat !== 0 && location.lng !== 0 && result?.totalElements === 0) {
         handleFoodType(newFoodType);
         handleDayOfWeek(newDayOfWeek);
         handleMood(newMood);

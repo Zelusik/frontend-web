@@ -24,10 +24,7 @@ export default function useMapStoreDetail({ ...props }: any) {
   const allOpenMapStoreDetail = useCallback((sheetInner: any, height: any) => {
     if (location.pathname !== "/map-store-detail")
       history.pushState({ page: "modal" }, document.title, "map-store-detail");
-    sheetInner.current!.style.setProperty(
-      "transform",
-      `translateY(-${height}px)`
-    );
+    sheetInner.current!.style.setProperty("transform", `translateY(-${height}px)`);
   }, []);
 
   const openMapStoreDetail = useCallback(
@@ -93,11 +90,9 @@ export default function useMapStoreDetail({ ...props }: any) {
         touchMove.movingDirection = "down";
       }
 
-      const TOP =
-        location.pathname === "/map-store-detail" ? HEIGHT : HEIGHT * 0.3;
+      const TOP = location.pathname === "/map-store-detail" ? HEIGHT : HEIGHT * 0.3;
 
       let differenceY = touchMove.moveTouchY - touchStart.touchY - TOP;
-      //   console.log(differenceY > -TOP);
       if (
         (location.pathname === "/map-store-detail" && differenceY < -TOP) ||
         (location.pathname === "/map-store-detail-modal" && differenceY > -TOP)
@@ -105,10 +100,7 @@ export default function useMapStoreDetail({ ...props }: any) {
         return;
       }
 
-      sheet.current!.style.setProperty(
-        "transform",
-        `translateY(${differenceY}px)`
-      );
+      sheet.current!.style.setProperty("transform", `translateY(${differenceY}px)`);
 
       touchMove.differenceY = differenceY;
     };
