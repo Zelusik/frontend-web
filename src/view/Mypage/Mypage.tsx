@@ -101,7 +101,9 @@ export default function Mypage() {
   useEffect(() => {
     if (membersProfile && recommendedReviews) {
       setCurrentIndex(
-        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0 ? 0 : 1
+        membersProfile.isEqualLoginMember || recommendedReviews?.length !== 0
+          ? 0
+          : 1
       );
     }
   }, [membersProfile, recommendedReviews]);
@@ -165,7 +167,9 @@ export default function Mypage() {
 
           <Wrapper
             ref={scrollRef}
-            height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
+            height={
+              mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height
+            }
           >
             <Spacing size={60} />
 
@@ -237,7 +241,7 @@ export default function Mypage() {
                       {hasNextPage ? (
                         <>
                           <Spacing size={24} />
-                          <LoadingCircle size={30} />
+                          <LoadingCircle height={30} />
                         </>
                       ) : null}
                     </>

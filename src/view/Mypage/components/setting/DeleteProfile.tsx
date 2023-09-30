@@ -5,7 +5,7 @@ import Spacing from "components/Spacing/Spacing";
 import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import { deleteCookie } from "utils/cookie";
 import { useRouter } from "next/router";
 import ReportButton from "view/Report/components/ReportButton";

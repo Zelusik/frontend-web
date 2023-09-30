@@ -37,7 +37,7 @@ const StoreContainer = forwardRef(function Div(
   if (markLoading)
     return (
       <LoadingCircle
-        size={height - 156 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+        height={height - 156 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
       />
     );
   return (
@@ -55,7 +55,7 @@ const StoreContainer = forwardRef(function Div(
           <div ref={infinityScrollRef} />
           {hasNextPage ? (
             <>
-              <LoadingCircle size={30} />
+              <LoadingCircle height={30} />
               <Spacing size={20} />
             </>
           ) : null}

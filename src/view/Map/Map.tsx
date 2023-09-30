@@ -37,8 +37,6 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LocationError from "./components/LocationError";
 import Toast from "components/Toast";
 import useMapBottomSheet from "hooks/useMapBottomSheet";
-import SearchPlace from "modal-edit/SearchPlace";
-import MapStoreDetail from "modal-edit/MapStoreDetail";
 import useMapStoreDetail from "hooks/useMapStoreDetail";
 
 declare const window: any;
@@ -194,7 +192,9 @@ export default function Map() {
         {myLocation?.error?.code === 1 ? (
           <LocationError />
         ) : !myLocation?.loaded ? (
-          <LoadingCircle size={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
+          <LoadingCircle
+            height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+          />
         ) : (
           <KakaoMap
             lat={currentLocation?.center?.lat}
@@ -248,7 +248,7 @@ export default function Map() {
             {type === "location" ? <FilterSelection /> : null}
             {isLoading || !myLocation?.loaded ? (
               <LoadingCircle
-                size={
+                height={
                   (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) * 0.2
                 }
               />
@@ -270,7 +270,7 @@ export default function Map() {
                 <div ref={infinityScrollRef} />
                 {hasNextPage ? (
                   <>
-                    <LoadingCircle size={30} />
+                    <LoadingCircle height={30} />
                     <Spacing size={30} />
                   </>
                 ) : null}
@@ -324,7 +324,7 @@ export default function Map() {
         <BottomNavigation ref={bottomRef} />
       )}
 
-      <MapStoreDetail ref={mapStoreDetailRef} />
+      {/* <MapStoreDetail ref={mapStoreDetailRef} /> */}
     </>
   );
 }

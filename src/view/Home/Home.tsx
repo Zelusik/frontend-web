@@ -1,66 +1,67 @@
 import { useRef } from "react";
-import styled from "@emotion/styled";
+import { ScrollArea, Box, Text, Space } from "@mantine/core";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGetFeed from "hooks/queries/home/useGetFeed";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { getFeedContentsProps, getFeedProps } from "models/view/homeModel";
 import { globalValue } from "constants/globalValue";
+import { colors } from "constants/colors";
+import { typo } from "constants/typo";
 
-import SearchTitle from "components/Title/SearchTitle";
-import Text from "components/Text";
 import BottomNavigation from "components/BottomNavigation";
-import Spacing from "components/Spacing";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import StoreCard from "./components/StoreCard";
+import Icon from "components/Icon";
+import Title from "components/Title";
+import FeedCard from "./components/FeedCard";
 
 export default function Home() {
   const infinityScrollRef = useRef(null);
   const { height } = useDisplaySize();
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useGetFeed();
+  const { feedDatas, isLoading, fetchNextPage, hasNextPage } = useGetFeed();
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
   return (
     <>
       {isLoading ? (
-        <LoadingCircle />
+        <LoadingCircle height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
       ) : (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <SearchTitle type="home" />
-          <Wrapper height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
-            <Spacing size={20} />
-            <Text typo="Headline6" color="N100">
+          <Title height={50} padding={15} renderLeft={<Icon icon="Logo" />} />
+          <ScrollArea
+            h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+            pl={20}
+            pr={20}
+            scrollbarSize={0}
+          >
+            <Space h={20} />
+            <Text color={colors["N100"]} style={typo["Headline6"]}>
               오늘은
               <br />
               어디로 갈까요?
             </Text>
-            <Spacing size={30} />
-            {data
-              ?.flatMap((page_data: any) => page_data.contents)
-              ?.map((data) => (
-                <StoreCard key={data?.id} data={data} />
+            <Space h={30} />
+            {feedDatas
+              ?.flatMap((page_data: getFeedProps) => page_data?.contents)
+              ?.map((feedData: getFeedContentsProps) => (
+                <FeedCard key={feedData?.id} feedData={feedData} />
               ))}
-            <div ref={infinityScrollRef} />
+            <Box ref={infinityScrollRef} />
             {hasNextPage ? (
               <>
-                <LoadingCircle size={30} />
-                <Spacing size={30} />
+                <LoadingCircle height={30} />
+                <Space h={30} />
               </>
             ) : null}
-          </Wrapper>
+          </ScrollArea>
         </motion.div>
       )}
       <BottomNavigation />
     </>
   );
 }
-
-const Wrapper = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
-  padding: 0 20px;
-  overflow-y: scroll;
-`;

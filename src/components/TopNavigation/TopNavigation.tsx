@@ -11,7 +11,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Hr from "components/Hr";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import SortingHeader from "view/Mark/components/SortingHeader";
 
 const TopNavigation = forwardRef(function Div(

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { colors } from "constants/colors";
 import BottomButton from "components/Button/BottomButton";
@@ -81,7 +81,9 @@ const FoodKeyword = () => {
     dispatch(
       changeReviewInfo({
         type: "foodInfo",
-        value: foodInfo.map((e: FoodType) => (e.foodName === food ? targetFood : e)),
+        value: foodInfo.map((e: FoodType) =>
+          e.foodName === food ? targetFood : e
+        ),
       })
     );
   };
@@ -132,7 +134,9 @@ const FoodKeyword = () => {
                           index: number
                         ) => (
                           <KeywordBox key={index}>
-                            <span style={typography.Headline2}>{menuInfo.menu}</span>
+                            <span style={typography.Headline2}>
+                              {menuInfo.menu}
+                            </span>
                             <div className="keywords">
                               {menuInfo.keywords.map((keyword) => (
                                 <RoundButton
@@ -142,7 +146,8 @@ const FoodKeyword = () => {
                                   height={38}
                                   action={foodInfo
                                     .filter(
-                                      (e: FoodType) => e.foodName === menuInfo.menu
+                                      (e: FoodType) =>
+                                        e.foodName === menuInfo.menu
                                     )[0]
                                     .foodKeyword.includes(keyword)}
                                   onClick={() =>
@@ -174,17 +179,24 @@ const FoodKeyword = () => {
                   color={colors.N0}
                   height="54px"
                   onClick={handleClickAIBtn}
-                  disabled={foodInfo.flatMap((e: any) => e.foodKeyword).length === 0}
+                  disabled={
+                    foodInfo.flatMap((e: any) => e.foodKeyword).length === 0
+                  }
                 />
                 <ReviewButton
                   onClick={handleClickSelfBtn}
-                  disabled={foodInfo.flatMap((e: any) => e.foodKeyword).length === 0}
+                  disabled={
+                    foodInfo.flatMap((e: any) => e.foodKeyword).length === 0
+                  }
                 >
                   직접 리뷰쓰기
                 </ReviewButton>
               </BottomWrapper>
               {isShowToast && (
-                <Toast message="3개까지만 선택 가능해요" close={handleCloseToast} />
+                <Toast
+                  message="3개까지만 선택 가능해요"
+                  close={handleCloseToast}
+                />
               )}
             </>
           )}

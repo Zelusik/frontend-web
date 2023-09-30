@@ -1,6 +1,5 @@
 import { useInfiniteQuery } from "react-query";
 import { getMeetingPlaces } from "api/meeting-places";
-import { getFeed } from "api/reviews";
 import { getKeyword } from "api/open-api";
 import { getMembersSearch } from "api/members";
 

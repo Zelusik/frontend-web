@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { match } from "ts-pattern";
 
 import { Route } from "constants/Route";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
 import useSearch from "hooks/useSearch";

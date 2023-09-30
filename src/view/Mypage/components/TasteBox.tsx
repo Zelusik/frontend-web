@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Hashtag from "components/Hashtags/Hashtag";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 
 export default function TasteBox({ tasteStatistics }: any) {
   return (

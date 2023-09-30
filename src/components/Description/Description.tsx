@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import Icon from "components/Icon";
 
 const Description = ({ text = "" }: any) => {

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Spacing from "components/Spacing/Spacing";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
 import { useRouter } from "next/router";
 import React, { useState } from "react";

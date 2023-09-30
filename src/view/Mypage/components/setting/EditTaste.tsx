@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { colors } from "constants/colors";
 
 import Spacing from "components/Spacing/Spacing";
-import { typography } from "constants/typography";
+import { typography } from "constants/typo";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 
 import BottomButton from "components/Button/BottomButton";
@@ -85,7 +85,9 @@ const EditTaste = () => {
           text="수정하기"
           radius={8}
           backgroundColor={
-            favoriteFoodCategories.length > 0 ? colors.Orange500 : colors.Orange200
+            favoriteFoodCategories.length > 0
+              ? colors.Orange500
+              : colors.Orange200
           }
           color={colors.N0}
           height="56px"

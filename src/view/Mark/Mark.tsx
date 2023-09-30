@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
 
-import SearchTitle from "components/Title/SearchTitle";
 import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
 import Spacing from "components/Spacing";
 import useGetMarkPlaces from "hooks/queries/mark/useGetMarkPlaces";
@@ -16,8 +15,7 @@ import StoreContainer from "./components/StoreContainer";
 import MarkTopNavigation from "components/TopNavigation/MarkTopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { colors } from "constants/colors";
-import SortingHeader from "./components/SortingHeader";
-import Gradient from "components/Common/Gradient";
+import BasicTitle from "components/Title/Title";
 
 export default function Mark() {
   const scrollRef = useRef<any>(null);
@@ -50,7 +48,7 @@ export default function Mark() {
 
   return (
     <>
-      <SearchTitle type="mark" />
+      <BasicTitle textLeft="저장한 음식점" />
       <div
         style={{
           background: colors["MarkColor"],
@@ -58,7 +56,7 @@ export default function Mark() {
       >
         {keywordLoading ? (
           <LoadingCircle
-            size={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+            height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
           />
         ) : (
           <motion.div

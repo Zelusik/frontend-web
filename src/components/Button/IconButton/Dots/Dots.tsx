@@ -1,13 +1,18 @@
 import useBottomSheet from "hooks/useBottomSheet";
 import Icon from "components/Icon";
 
-interface Props {
-  type: string;
+interface DotsProps {
+  type:
+    | "share-report"
+    | "delete-edit"
+    | "report-store"
+    | "selectMenu"
+    | "registerMenu";
   size?: number;
-  color?: any;
+  color?: string;
 }
 
-export default function Dots({ type, size, color }: any) {
+export default function Dots({ type, size, color }: DotsProps) {
   const { openBottomSheet } = useBottomSheet({});
   const handleClickDots = () => {
     openBottomSheet(type);
