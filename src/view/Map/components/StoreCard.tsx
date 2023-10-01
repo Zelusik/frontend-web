@@ -86,7 +86,7 @@ export default function StoreCard({ data }: any) {
       {data?.top3Keywords.length === 0 ? undefined : (
         <>
           <Spacing size={10} />
-          <Hashtags hashtags={data?.top3Keywords} side={15} />
+          <Hashtags hashtagTextDatas={data?.top3Keywords} />
         </>
       )}
       <Spacing size={30} />

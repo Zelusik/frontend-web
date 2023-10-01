@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 
 const Text = styled.div<{ typo?: any; color?: any }>`
   ${({ typo }) => typo && typography[typo]};

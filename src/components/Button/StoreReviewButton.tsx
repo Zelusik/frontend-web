@@ -2,9 +2,10 @@ import { useRouter } from "next/router";
 import { Center, Box, Flex, Text, Space, Image } from "@mantine/core";
 import { Route } from "constants/Route";
 import { colors } from "constants/colors";
-import { typo } from "constants/typo";
+import { typography } from "constants/typography";
 
-interface StoreButtonProps {
+interface StoreReviewButtonProps {
+  type: "store" | "review";
   id: number;
   name: string;
   category: string;
@@ -16,7 +17,8 @@ interface StoreButtonProps {
   categoryTypo?: string;
 }
 
-const StoreButton = ({
+const StoreReviewButton = ({
+  type = "store",
   id,
   name,
   category,
@@ -26,24 +28,28 @@ const StoreButton = ({
   categoryColor,
   nameTypo = "Headline6",
   categoryTypo = "Paragraph4",
-}: StoreButtonProps) => {
+}: StoreReviewButtonProps) => {
   const router = useRouter();
-  const handleClickStore = () => {
+  const handleClick = () => {
     router.push({
-      pathname: Route.REVIEW_DETAIL(),
+      pathname: type === "store" ? Route.STORE_DETAIL() : Route.REVIEW_DETAIL(),
       query: { id },
     });
   };
 
   return (
-    <Flex onClick={handleClickStore}>
+    <Flex onClick={handleClick}>
       <Box>
-        <Text c={colors[nameColor ? nameColor : color]} style={typo[nameTypo]}>
+        <Text
+          c={colors[nameColor ? nameColor : color]}
+          style={typography[nameTypo]}
+        >
           {name}
         </Text>
+        <Space h={4} />
         <Text
           c={colors[categoryColor ? categoryColor : color]}
-          style={typo[categoryTypo]}
+          style={typography[categoryTypo]}
         >
           {category}
         </Text>
@@ -52,4 +58,4 @@ const StoreButton = ({
   );
 };
 
-export default StoreButton;
+export default StoreReviewButton;

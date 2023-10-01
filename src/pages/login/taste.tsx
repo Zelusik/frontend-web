@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { colors } from "constants/colors";
 
 import Spacing from "components/Spacing/Spacing";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthState } from "reducer/slices/auth/authSlice";
 

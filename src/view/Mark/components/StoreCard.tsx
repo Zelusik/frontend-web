@@ -1,102 +1,127 @@
-import styled from "@emotion/styled";
-import Image from "components/Image/Image";
-import { colors } from "constants/colors";
 import React, { useState } from "react";
-import "swiper/css";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useRouter } from "next/router";
+import { Box, Space, AspectRatio, Image } from "@mantine/core";
+import { useAppSelector } from "hooks/useReduxHooks";
+import {
+  getBookmarksContentsImagesProps,
+  getBookmarksContentsProps,
+} from "models/view/markModel";
+
+import { globalValue } from "constants/globalValue";
+import { colors } from "constants/colors";
 import { Route } from "constants/Route";
 import Hashtags from "components/Hashtags";
-import StoreTitle from "components/Title/StoreTitle";
-import Spacing from "components/Spacing";
-import { getAddressInfo } from "utils/getAddressInfo";
 
-import CustomSlider from "components/CustomSlider";
-import Number from "components/Common/Number";
+import InnerSlider from "components/Slider/InnerSlider";
+import ImageCount from "components/Image/ImageCount";
+import Title from "components/Title";
+import StoreReviewButton from "components/Button/StoreReviewButton";
+import Heart from "components/Button/IconButton/Heart";
 
-const StoreCard = ({ placeInfo, touch }: any) => {
+interface StoreCardProps {
+  key?: number;
+  touch: any;
+  markData: getBookmarksContentsProps;
+}
+
+const StoreCard = ({ touch, markData }: StoreCardProps) => {
   const router = useRouter();
-  const handleClickPlace = () => {
+  const { display } = useAppSelector((state) => state.global);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleClickStore = () => {
     router.push({
       pathname: Route.STORE_DETAIL(),
-      query: { id: placeInfo.id },
+      query: { id: markData?.id },
     });
   };
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   return (
-    <Wrapper hasImage={placeInfo?.images?.length} onClick={handleClickPlace}>
-      <div>
-        {placeInfo?.images?.length > 0 && (
+    <>
+      <Box
+        w={display.width - 30}
+        bg={colors["N0"]}
+        pos="relative"
+        style={{
+          margin: "0 15px",
+          padding: "16px 10px",
+          borderRadius: 12,
+          boxShadow: "0px 3px 18px 0px rgba(0, 0, 0, 0.08)",
+        }}
+      >
+        {markData?.images?.length > 0 && (
           <>
-            <NumberWrapper>
-              <Number
-                currentIndex={currentIndex}
-                length={placeInfo?.images?.length}
-              />
-            </NumberWrapper>
-            <CustomSlider
+            <InnerSlider
+              height={((display.width - 50) * 192) / 310}
               index={{ currentIndex, setCurrentIndex }}
               touch={touch}
-              length={placeInfo?.images?.length}
+              length={markData?.images?.length}
             >
-              {placeInfo?.images?.map((image: any, idx: number) => {
-                return (
-                  <Image
-                    key={idx}
-                    src={image?.thumbnailUrl}
-                    alt="음식 사진"
-                    type="mark"
-                  />
-                );
-              })}
-            </CustomSlider>
-            <Spacing size={10} />
+              {markData?.images?.map(
+                (image: getBookmarksContentsImagesProps, idx: number) => {
+                  return (
+                    <AspectRatio
+                      key={idx}
+                      ratio={310 / 192}
+                      onClick={handleClickStore}
+                    >
+                      <Image
+                        src={
+                          globalValue.BLANK_IMAGE
+                          // image?.thumbnailUrl
+                          //   ? image?.thumbnailUrl
+                          //   : globalValue.ERROR_IMAGE
+                        }
+                        alt="음식 이미지"
+                        fit="cover"
+                        radius={12}
+                      />
+                    </AspectRatio>
+                  );
+                }
+              )}
+            </InnerSlider>
+            <ImageCount
+              currentIndex={currentIndex}
+              length={markData?.images?.length}
+            />
+            <Space h={10} />
           </>
         )}
-      </div>
 
-      <StoreTitle
-        type="mark"
-        title={placeInfo?.name}
-        subTitle={getAddressInfo(placeInfo)}
-        isMarked={true}
-        placeId={placeInfo?.id}
-        editNone={true}
-      />
+        <Title
+          height={46}
+          padding={5}
+          renderLeft={
+            <StoreReviewButton
+              type="store"
+              id={markData?.id}
+              name={markData?.name}
+              category={markData?.category}
+              color="N100"
+              nameTypo="Headline4"
+              categoryTypo="Paragraph1"
+            />
+          }
+          renderRight={<Heart id={markData?.id} isMarked={true} size={24} />}
+        />
 
-      {placeInfo?.top3Keywords.length > 0 ? (
-        <>
-          <Spacing size={10} />
-          <Hashtags
-            type="hashtags"
-            hashtags={placeInfo?.top3Keywords}
-            side={0}
-          />
-        </>
-      ) : null}
-    </Wrapper>
+        {markData?.top3Keywords?.length > 0 && (
+          <>
+            <Space h={10} />
+            <Hashtags
+              hashColor={"Orange300"}
+              hashTypo={"Paragraph4"}
+              textColor={"N100"}
+              textTypo={"Paragraph2"}
+              hashtagTextDatas={markData?.top3Keywords}
+            />
+          </>
+        )}
+      </Box>
+      <Space h={20} />
+    </>
   );
 };
-
-const Wrapper = styled.div<{ hasImage: boolean }>`
-  width: 100%;
-  padding: ${({ hasImage }) => (hasImage ? "16px 10px" : "16px 5px 16px 15px")};
-
-  position: relative;
-
-  border-radius: 12px;
-  background-color: ${colors.N0};
-  box-shadow: 0px 3px 18px 0px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-`;
-
-const NumberWrapper = styled.div`
-  position: absolute;
-  top: 31px;
-  right: 20px;
-  z-index: 800;
-`;
 
 export default StoreCard;

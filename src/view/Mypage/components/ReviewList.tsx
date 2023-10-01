@@ -4,7 +4,7 @@ import StoreTitle from "components/Title/StoreTitle";
 import Toast from "components/Toast/Toast";
 import { colors } from "constants/colors";
 import { Route } from "constants/Route";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import useDisplaySize from "hooks/useDisplaySize";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";

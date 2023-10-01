@@ -9,15 +9,15 @@ import Title from "components/Title";
 import Dots from "components/Button/IconButton/Dots";
 import ProfileButton from "components/Button/ProfileButton";
 import Heart from "components/Button/IconButton/Heart";
-import StoreButton from "components/Button/StoreButton";
+import StoreReviewButton from "components/Button/StoreReviewButton";
 import useDisplaySize from "hooks/useDisplaySize";
 
-interface FeedCardProps {
+interface ReviewCardProps {
   key: number;
   feedData: getFeedContentsProps;
 }
 
-export default function FeedCard({ feedData }: FeedCardProps) {
+export default function ReviewCard({ feedData }: ReviewCardProps) {
   const router = useRouter();
   const { width } = useDisplaySize();
   const clickStore = () => {
@@ -30,7 +30,7 @@ export default function FeedCard({ feedData }: FeedCardProps) {
   return (
     <>
       <Box pos="relative">
-        {/* <Text color={colors["N60"]} style={typo["Paragraph1"]}>
+        {/* <Text color={colors["N60"]} style={typography["Paragraph1"]}>
           내가 선호하는 음식 카테고리
         </Text>
         <Space h={6} /> */}
@@ -51,12 +51,13 @@ export default function FeedCard({ feedData }: FeedCardProps) {
         />
         <Space h={16} />
 
-        <AspectRatio ratio={8 / 9} pb={26}>
+        <AspectRatio ratio={8 / 9}>
           <Image
             src={
+              // globalValue.ERROR_IMAGE
               feedData?.reviewImage?.thumbnailUrl
                 ? feedData?.reviewImage?.thumbnailUrl
-                : globalValue.BLANK_IMAGE
+                : globalValue.ERROR_IMAGE
             }
             alt="음식 사진"
             fit="cover"
@@ -67,8 +68,10 @@ export default function FeedCard({ feedData }: FeedCardProps) {
             height={58}
             padding={20}
             position="absolute"
+            bottom={26}
             renderLeft={
-              <StoreButton
+              <StoreReviewButton
+                type="review"
                 id={feedData?.id}
                 name={feedData?.place?.name}
                 category={feedData?.place?.category}

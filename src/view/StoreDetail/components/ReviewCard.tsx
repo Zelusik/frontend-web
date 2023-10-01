@@ -41,7 +41,7 @@ export default function ReivewCard({ data }: any) {
         <Spacing size={10} />
       </Wrapper>
 
-      <Hashtags type="secondary" hashtags={data?.keywords} />
+      <Hashtags hashtagTextDatas={data?.keywords} />
       <Spacing size={40} />
     </>
   );

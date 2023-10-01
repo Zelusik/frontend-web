@@ -1,6 +1,30 @@
 import client from "api";
 import { PlaceType } from "types/review";
 
+export const placesApi = {
+  getFilteringKeywords: async () =>
+    await client
+      .get("/v1/places/bookmarks/filtering-keywords", {
+        headers: { "Eatery-API-Minor-Version": 1 },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+
+  getBookmarks: async (placeInfo: {
+    type: string;
+    keyword: string;
+    page: number;
+    size: number;
+  }) =>
+    await client
+      .get("/v1/places/bookmarks", {
+        headers: { "Eatery-API-Minor-Version": 1 },
+        params: placeInfo,
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+};
+
 export const getPlaces = async (kakaoId: string) =>
   await client
     .get(`/v1/places?`, {
@@ -12,7 +36,9 @@ export const getPlaces = async (kakaoId: string) =>
 
 export const postPlaces = async (placeInfo: PlaceType) =>
   await client
-    .post(`/v1/places?`, placeInfo, { headers: { "Eatery-API-Minor-Version": 1 } })
+    .post(`/v1/places?`, placeInfo, {
+      headers: { "Eatery-API-Minor-Version": 1 },
+    })
     .then(({ data }) => data)
     .catch((err) => err.response);
 
@@ -42,7 +68,9 @@ export const getMarkKeywords = async () =>
 
 export const getPlacesId = async (placeId: number) =>
   await client
-    .get(`/v1/places/${placeId}`, { headers: { "Eatery-API-Minor-Version": 1 } })
+    .get(`/v1/places/${placeId}`, {
+      headers: { "Eatery-API-Minor-Version": 1 },
+    })
     .then(({ data }) => data)
     .catch((err) => err.response);
 

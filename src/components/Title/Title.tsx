@@ -1,13 +1,15 @@
 import React from "react";
 import { Flex, Box, Center, Text, Space } from "@mantine/core";
 import { colors } from "constants/colors";
-import { typo } from "constants/typo";
+import { typography } from "constants/typography";
 
 interface TitleProps {
   height?: number;
   padding?: number;
   position?: "relative" | "absolute";
+  bottom?: number;
   color?: string;
+  background?: string;
 
   renderLeft?: React.ReactNode;
   textLeft?: string;
@@ -22,7 +24,9 @@ const Title = ({
   height = 0,
   padding = 0,
   position = "relative",
+  bottom = 0,
   color = "N100",
+  background = "N0",
 
   renderLeft,
   textLeft = "",
@@ -33,26 +37,26 @@ const Title = ({
   renderRight,
 }: TitleProps) => {
   return (
-    // <Center h={height} style={{ width: "100%" }}>
-    // <Box h={height}>
-    <Box pos="relative">
+    <Box pos="relative" bg={colors[background]}>
       <Flex
         h={height}
         pl={padding}
         pr={padding}
         justify="space-between"
         pos={position}
-        bottom={0}
+        bottom={bottom}
         style={{ width: "100%" }}
       >
         <Flex>
           <Center>{renderLeft && renderLeft}</Center>
-          <Text color={colors[color]} style={typo["Headline5"]}>
-            {textLeft}
-          </Text>
+          <Center>
+            <Text color={colors[color]} style={typography["Headline5"]}>
+              {textLeft}
+            </Text>
+          </Center>
         </Flex>
 
-        <Text color={colors[color]} style={typo["Headline3"]}>
+        <Text color={colors[color]} style={typography["Headline3"]}>
           {textCenter}
         </Text>
 

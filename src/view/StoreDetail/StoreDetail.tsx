@@ -134,7 +134,7 @@ export default function StoreDetail() {
           />
 
           <Spacing size={16} />
-          <Hashtags hashtags={storeInfo?.top3Keywords} />
+          <Hashtags hashtagTextDatas={storeInfo?.top3Keywords} />
           <Spacing size={40} />
 
           <TopNavigation

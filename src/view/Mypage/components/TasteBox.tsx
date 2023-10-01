@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Hashtag from "components/Hashtags/Hashtag";
 import Spacing from "components/Spacing";
 import { colors } from "constants/colors";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 
 export default function TasteBox({ tasteStatistics }: any) {
   return (
@@ -14,8 +14,8 @@ export default function TasteBox({ tasteStatistics }: any) {
           <Spacing size={14} />
           <Menu>
             <Hashtag
-              type="default"
-              text={
+              // type="default"
+              hashtagText={
                 tasteStatistics?.mostVisitedLocation
                   ? tasteStatistics?.mostVisitedLocation
                   : "_____"
@@ -23,8 +23,7 @@ export default function TasteBox({ tasteStatistics }: any) {
             />
             <MenuSpan>에서</MenuSpan>
             <Hashtag
-              type="default"
-              text={
+              hashtagText={
                 tasteStatistics?.mostTaggedReviewKeyword
                   ? tasteStatistics?.mostTaggedReviewKeyword
                   : "_____"
@@ -35,8 +34,7 @@ export default function TasteBox({ tasteStatistics }: any) {
           <Spacing size={8} />
           <Menu>
             <Hashtag
-              type="default"
-              text={
+              hashtagText={
                 tasteStatistics?.mostEatenFoodCategory
                   ? tasteStatistics?.mostEatenFoodCategory
                   : "_____"

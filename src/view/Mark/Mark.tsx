@@ -1,60 +1,58 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import styled from "@emotion/styled";
+import { ScrollArea, Box, Space } from "@mantine/core";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
-
-import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
-import Spacing from "components/Spacing";
-import useGetMarkPlaces from "hooks/queries/mark/useGetMarkPlaces";
+import useGetFilteringKeywords from "hooks/queries/mark/useGetFilteringKeywords";
 
 import BottomNavigation from "components/BottomNavigation";
 import { globalValue } from "constants/globalValue";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import StoreContainer from "./components/StoreContainer";
-import MarkTopNavigation from "components/TopNavigation/MarkTopNavigation";
+import StoreCardContainer from "./components/StoreCardContainer";
+import TopNavigation from "components/TopNavigation/TopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { colors } from "constants/colors";
-import BasicTitle from "components/Title/Title";
+import Title from "components/Title";
+import { useAppDispatch } from "hooks/useReduxHooks";
+import { editDisplaySize } from "reducer/slices/global/globalSlice";
 
-export default function Mark() {
-  const scrollRef = useRef<any>(null);
-  const infinityScrollRef = useRef<any>(null);
-  const { height } = useDisplaySize();
+const Mark = () => {
+  const dispatch = useAppDispatch();
+  const { width, height } = useDisplaySize();
+  dispatch(
+    editDisplaySize({
+      type: "display",
+      value: [width, height],
+    })
+  );
 
-  const [topFixed, setTopFixed] = useState<boolean>(false);
   const [wrapperIndex, setWrapperIndex] = useState(0);
   const [touch, setTouch] = useState(true);
 
-  const { keywordData, keywordLoading } = useGetMarkKeywords();
-  const keywords = keywordData?.keywords && [
+  const { keywordDatas: data, isLoadingKeyword } = useGetFilteringKeywords();
+  const keywordDatas = data?.keywords && [
     {
       keyword: "전체",
       type: "",
     },
-    ...keywordData?.keywords,
+    ...data?.keywords,
   ];
-  const titleList = keywords?.map(
+  const keywordTextDatas: string[] = keywordDatas?.map(
     (keywordInfo: { keyword: string; type: string }) => keywordInfo?.keyword
   );
 
-  const { markData, markLoading, fetchNextPage, hasNextPage } =
-    useGetMarkPlaces({
-      type: keywords?.[wrapperIndex]?.type,
-      keyword: keywords?.[wrapperIndex]?.keyword,
-    });
-
-  useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
-
   return (
     <>
-      <BasicTitle textLeft="저장한 음식점" />
-      <div
-        style={{
-          background: colors["MarkColor"],
-        }}
+      <Title
+        height={50}
+        padding={20}
+        background="Mark"
+        textLeft="저장한 음식점"
+      />
+      <Box
+        h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+        bg={colors["Mark"]}
       >
-        {keywordLoading ? (
+        {isLoadingKeyword ? (
           <LoadingCircle
             height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
           />
@@ -64,52 +62,29 @@ export default function Mark() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <Spacing size={20} />
-            <MarkTopNavigation
-              type="title-scroll"
-              scrollRef={scrollRef}
-              top={{ topFixed, setTopFixed }}
+            <Space h={20} />
+            <TopNavigation
               index={{ wrapperIndex, setWrapperIndex }}
               touch={{ touch, setTouch }}
-              scrollTop={20}
-              titleList={titleList}
-              count={markLoading ? 0 : markData?.[0]?.totalElements}
+              keywordDatas={keywordTextDatas}
             >
-              {titleList?.map((_: any, idx: number) => {
-                // if (idx !== currentIndex) return null;
+              {keywordDatas?.map((_: any, idx: number) => {
                 return (
-                  <TopNavigationInner
+                  <StoreCardContainer
                     key={idx}
-                    height={height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-                  >
-                    {/* <Gradient reverse={true} size={19} location={32} /> */}
-                    <StoreContainer
-                      infinityScrollRef={infinityScrollRef}
-                      height={
-                        height - 105 - globalValue.BOTTOM_NAVIGATION_HEIGHT
-                      }
-                      index={{ idx }}
-                      touch={{ touch, setTouch }}
-                      keywords={keywords}
-                    />
-                  </TopNavigationInner>
+                    touch={{ touch, setTouch }}
+                    type={keywordDatas?.[idx]?.type}
+                    keyword={keywordDatas?.[idx]?.keyword}
+                  />
                 );
               })}
-            </MarkTopNavigation>
+            </TopNavigation>
           </motion.div>
         )}
-      </div>
+      </Box>
       <BottomNavigation />
     </>
   );
-}
-const Wrapper = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
-  overflow-y: scroll;
-  background-color: #fbfbfb;
-`;
+};
 
-const TopNavigationInner = styled.div<{ height: any }>`
-  height: ${({ height }) => height};
-  background-color: #fbfbfb;
-`;
+export default Mark;

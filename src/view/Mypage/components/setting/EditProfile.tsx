@@ -8,7 +8,7 @@ import Spacing from "components/Spacing/Spacing";
 import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeUserInfo } from "reducer/slices/user/userSlice";

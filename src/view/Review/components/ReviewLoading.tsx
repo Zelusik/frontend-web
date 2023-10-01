@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Spacing from "components/Spacing/Spacing";
 import BackTitle from "components/Title/BackTitle";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import { styled } from "styled-components";
 import LoadingDots from "components/Loading/LoadingDots";
 

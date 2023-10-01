@@ -7,13 +7,13 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getFeedContentsProps, getFeedProps } from "models/view/homeModel";
 import { globalValue } from "constants/globalValue";
 import { colors } from "constants/colors";
-import { typo } from "constants/typo";
+import { typography } from "constants/typography";
 
 import BottomNavigation from "components/BottomNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import Icon from "components/Icon";
 import Title from "components/Title";
-import FeedCard from "./components/FeedCard";
+import ReviewCard from "./components/ReviewCard";
 
 export default function Home() {
   const infinityScrollRef = useRef(null);
@@ -24,15 +24,17 @@ export default function Home() {
 
   return (
     <>
+      <Title height={50} padding={20} renderLeft={<Icon icon="Logo" />} />
       {isLoading ? (
-        <LoadingCircle height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT} />
+        <LoadingCircle
+          height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+        />
       ) : (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <Title height={50} padding={15} renderLeft={<Icon icon="Logo" />} />
           <ScrollArea
             h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
             pl={20}
@@ -40,7 +42,7 @@ export default function Home() {
             scrollbarSize={0}
           >
             <Space h={20} />
-            <Text color={colors["N100"]} style={typo["Headline6"]}>
+            <Text color={colors["N100"]} style={typography["Headline6"]}>
               오늘은
               <br />
               어디로 갈까요?
@@ -49,7 +51,7 @@ export default function Home() {
             {feedDatas
               ?.flatMap((page_data: getFeedProps) => page_data?.contents)
               ?.map((feedData: getFeedContentsProps) => (
-                <FeedCard key={feedData?.id} feedData={feedData} />
+                <ReviewCard key={feedData?.id} feedData={feedData} />
               ))}
             <Box ref={infinityScrollRef} />
             {hasNextPage ? (

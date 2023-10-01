@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
 import { colors } from "constants/colors";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import * as exifr from "exifr";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";

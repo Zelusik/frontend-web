@@ -1,22 +1,22 @@
 import styled from "@emotion/styled";
 import Spacing from "components/Spacing/Spacing";
 import { colors } from "constants/colors";
-import { typography } from "constants/typo";
-import useGetMarkKeywords from "hooks/queries/mark/useGetMarkKeywords";
+import { typography } from "constants/typography";
+import useGetMarkKeywords from "hooks/queries/mark/useGetFilteringKeywords";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const KeywordBar = () => {
   const router = useRouter();
   const { query } = useRouter();
-  const { keywordData } = useGetMarkKeywords();
+  const { keywordDatas } = useGetMarkKeywords();
 
-  const keywordsWithAll = keywordData && [
+  const keywordsWithAll = keywordDatas && [
     {
       keyword: "전체",
       type: "",
     },
-    ...keywordData.keywords,
+    ...keywordDatas.keywords,
   ];
   const [clicked, setClicked] = useState(query.keyword || "전체");
   const handleFilteringKeyword = async (keywordInfo: {
@@ -36,7 +36,7 @@ const KeywordBar = () => {
   return (
     <KeywordBarWrapper>
       <div className="keyword-container">
-        {keywordData &&
+        {keywordDatas &&
           keywordsWithAll.map(
             (keywordInfo: { keyword: string; type: string }) => (
               <Keyword

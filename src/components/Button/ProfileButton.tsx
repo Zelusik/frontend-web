@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { Center, Box, Flex, Text, Space, Image } from "@mantine/core";
 import { Route } from "constants/Route";
 import { colors } from "constants/colors";
-import { typo } from "constants/typo";
+import { typography } from "constants/typography";
 
 interface ProfileButtonProps {
   id: number;
@@ -32,10 +32,10 @@ const ProfileButton = ({
       </Center>
       <Space w={8} />
       <Box>
-        <Text c={colors["N100"]} style={typo["Headline2"]}>
+        <Text c={colors["N100"]} style={typography["Headline2"]}>
           {nickname}
         </Text>
-        <Text c={colors["N100"]} style={typo["Paragraph1"]}>
+        <Text c={colors["N100"]} style={typography["Paragraph1"]}>
           {createdAt}
         </Text>
       </Box>

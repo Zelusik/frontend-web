@@ -14,7 +14,7 @@ const Custom404 = () => {
   return (
     <SadBobpool
       height={height}
-      text="잘못된 페이지에 접근하셨습니다."
+      text="잘못된 페이지에 접근하셨습니다"
       buttonText="Home으로 돌아가기"
       buttonClick={handleButtonClick}
     />

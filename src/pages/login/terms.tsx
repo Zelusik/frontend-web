@@ -9,7 +9,7 @@ import Icon from "components/Icon";
 import { termsData } from "data/termsData";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthTermsInfo } from "reducer/slices/auth/authSlice";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import Link from "next/link";
 import BottomButton from "components/Button/BottomButton";
 import { Route } from "constants/Route";

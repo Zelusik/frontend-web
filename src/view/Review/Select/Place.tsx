@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import Image from "components/Image/Image";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

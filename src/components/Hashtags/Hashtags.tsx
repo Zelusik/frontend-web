@@ -1,34 +1,64 @@
 import { useRouter } from "next/router";
+import { Flex } from "@mantine/core";
 import styled from "@emotion/styled";
-import { colors } from "constants/colors";
 import { css } from "@emotion/react";
-import { match } from "ts-pattern";
+
 import Hashtag from "./Hashtag";
+import useDisplaySize from "hooks/useDisplaySize";
+
+interface HashtagsProps {
+  padding?: number;
+  gap?: number;
+
+  color?: any;
+  typo?: any;
+
+  hashColor?: any;
+  hashTypo?: any;
+
+  textColor?: any;
+  textTypo?: any;
+  hashtagTextDatas: any;
+}
 
 export default function Hashtags({
-  type = "primary",
-  hashtags,
-  side = 20,
-}: any) {
+  padding = 0,
+  gap = 6,
+
+  color = "Orange300",
+  typo = "Paragraph4",
+
+  hashColor,
+  hashTypo,
+
+  textColor,
+  textTypo,
+  hashtagTextDatas,
+}: HashtagsProps) {
   const router = useRouter();
 
   return (
-    <HashtagsWrapper>
-      <HashtagsInner>
-        {hashtags?.map((data: string, idx: number) => {
-          return (
-            <Hashtag
-              key={idx}
-              type={type}
-              idx={idx}
-              len={hashtags?.length}
-              side={side}
-              text={data}
-            />
-          );
-        })}
-      </HashtagsInner>
-    </HashtagsWrapper>
+    <Flex
+      pl={padding}
+      pr={padding}
+      gap={gap}
+      // style={{ whiteSpace: "nowrap", overflowX: "auto" }} // 가로 스크롤
+    >
+      {hashtagTextDatas?.map((hashtagText: string, idx: number) => {
+        return (
+          <Hashtag
+            key={idx}
+            color={color}
+            typo={typo}
+            hashColor={hashColor}
+            hashTypo={hashTypo}
+            textColor={textColor}
+            textTypo={textTypo}
+            hashtagText={hashtagText}
+          />
+        );
+      })}
+    </Flex>
   );
 }
 

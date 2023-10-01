@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 
 import Text from "components/Text/Text";

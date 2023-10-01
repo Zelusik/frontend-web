@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Input from "components/Input/Input";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { useRouter } from "next/router";

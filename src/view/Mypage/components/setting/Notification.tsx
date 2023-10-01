@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Spacing from "components/Spacing/Spacing";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import React, { useState } from "react";
 
 const Notification = () => {

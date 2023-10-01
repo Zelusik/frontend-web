@@ -17,7 +17,7 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     initializeDefaultInfo: () => initialState,
-    changeDisplayState: (
+    editDisplaySize: (
       state,
       { payload }: { payload: { type: string; value: number[] } }
     ) => {
@@ -28,7 +28,6 @@ export const globalSlice = createSlice({
   },
 });
 
-export const { initializeDefaultInfo, changeDisplayState } =
-  globalSlice.actions;
+export const { initializeDefaultInfo, editDisplaySize } = globalSlice.actions;
 
 export default globalSlice.reducer;

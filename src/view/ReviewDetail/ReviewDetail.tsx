@@ -79,7 +79,7 @@ export default function ReviewDetail() {
           />
           <Spacing size={16} />
 
-          <Hashtags hashtags={data?.keywords} />
+          <Hashtags hashtagTextDatas={data?.keywords} />
 
           <div style={{ padding: "0 20px" }}>
             <Spacing size={16} />

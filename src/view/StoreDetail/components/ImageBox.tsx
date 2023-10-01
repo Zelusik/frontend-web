@@ -11,7 +11,7 @@ import Image from "components/Image";
 import Spacing from "components/Spacing";
 import Hr from "components/Hr";
 
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 
 const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   const router = useRouter();

@@ -4,7 +4,7 @@ import Spacing from "components/Spacing/Spacing";
 import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
-import { typography } from "constants/typo";
+import { typography } from "constants/typography";
 import { CommonQAData } from "data/commonQAData";
 import React, { useState } from "react";
 
