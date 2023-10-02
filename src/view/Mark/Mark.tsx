@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { ScrollArea, Box, Space } from "@mantine/core";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
+import { useAppDispatch } from "hooks/useReduxHooks";
 import useGetFilteringKeywords from "hooks/queries/mark/useGetFilteringKeywords";
+import { editDisplaySize } from "reducer/slices/global/globalSlice";
 
 import BottomNavigation from "components/BottomNavigation";
 import { globalValue } from "constants/globalValue";
@@ -12,8 +14,6 @@ import TopNavigation from "components/TopNavigation/TopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { colors } from "constants/colors";
 import Title from "components/Title";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { editDisplaySize } from "reducer/slices/global/globalSlice";
 
 const Mark = () => {
   const dispatch = useAppDispatch();

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Box, Flex, Text, Space } from "@mantine/core";
 import { keyframes } from "@emotion/react";
 import { colors } from "constants/colors";
 import styled from "@emotion/styled";

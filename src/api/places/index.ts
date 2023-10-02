@@ -2,6 +2,14 @@ import client from "api";
 import { PlaceType } from "types/review";
 
 export const placesApi = {
+  getNear: async (params: any) => {
+    params.headers = { "Eatery-API-Minor-Version": 1 };
+    return await client
+      .get(`/v1/places/near?`, params)
+      .then(({ data }) => data)
+      .catch((err) => err.response);
+  },
+
   getFilteringKeywords: async () =>
     await client
       .get("/v1/places/bookmarks/filtering-keywords", {

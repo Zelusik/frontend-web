@@ -11,9 +11,11 @@ interface StoreReviewButtonProps {
   category: string;
 
   color?: string;
+
   nameColor?: string;
-  categoryColor?: string;
   nameTypo?: string;
+
+  categoryColor?: string;
   categoryTypo?: string;
 }
 
@@ -25,8 +27,9 @@ const StoreReviewButton = ({
 
   color = "N100",
   nameColor,
-  categoryColor,
   nameTypo = "Headline6",
+
+  categoryColor,
   categoryTypo = "Paragraph4",
 }: StoreReviewButtonProps) => {
   const router = useRouter();

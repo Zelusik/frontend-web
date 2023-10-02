@@ -13,8 +13,8 @@ const ImageCount = ({ currentIndex, length }: ImageCountProps) => {
       h={24}
       justify="end"
       pos="absolute"
-      top={31}
-      right={22}
+      top={16}
+      right={16}
       style={{ zIndex: 1 }}
     >
       <Text

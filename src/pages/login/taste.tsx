@@ -14,7 +14,7 @@ import { getCookie } from "utils/cookie";
 import { Route } from "constants/Route";
 import BackTitle from "components/Title/BackTitle";
 import { postTerms, putTaste } from "api/members";
-import { tasteData } from "constants/globalData";
+import { tasteDatas } from "constants/globalData";
 
 const TastePage = () => {
   const router = useRouter();
@@ -77,7 +77,7 @@ const TastePage = () => {
         <span style={typography.Headline6}>좋아하는 음식을 알려주세요</span>
         <Spacing size={30} />
         <TasteButtonContainer>
-          {tasteData.map((taste) => (
+          {tasteDatas.map((taste) => (
             <RoundButton
               key={taste.val}
               type="taste"

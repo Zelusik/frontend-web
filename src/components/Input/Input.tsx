@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Box, Flex, Text, Space } from "@mantine/core";
 import { match } from "ts-pattern";
 
 import { Route } from "constants/Route";
@@ -10,37 +11,37 @@ import { colors } from "constants/colors";
 import Icon from "components/Icon";
 import useSearch from "hooks/useSearch";
 
-export default function Input({
+const Input = ({
   type = "line",
   placeholder,
   value,
   setValue,
-}: any) {
+  shadow = false,
+}: any) => {
   const router = useRouter();
   const inputRef = useRef<any>(null);
   const { openSearchPlace } = useSearch();
   const [focus, setFocus] = useState<boolean>(false);
 
   const handleClickInput = (e: any) => {
-    if (type === "shadow") router.push(Route.SEARCH_PLACE());
-    // openSearchPlace();
+    if (shadow) router.push(Route.SEARCH_PLACE());
   };
 
   return (
-    <Wrapper
+    <Flex
+      h={50}
+      bg={colors["N0"]}
+      style={{
+        width: "100%",
+        padding: "0 12px",
+
+        alignItems: "center",
+        borderRadius: 8,
+
+        border: shadow ? `` : `1px solid ${colors[focus ? "N100" : "N40"]}`,
+        boxShadow: shadow ? `0px 4px 12px 0px rgba(0, 0, 0, .12)` : ``,
+      }}
       onClick={handleClickInput}
-      borderColor={match(type)
-        .with("line", () => (focus ? "N100" : "N50"))
-        .with("shadow", () => "N0")
-        .otherwise(() => "N100")}
-      shadow={match(type)
-        .with("line", () => false)
-        .with("shadow", () => true)
-        .otherwise(() => false)}
-      borderRadius={match(type)
-        .with("line", () => "12px")
-        .with("shadow", () => "8px")
-        .otherwise(() => "12px")}
     >
       <Icon icon="Search" width={24} height={24} />
       <InputBox
@@ -62,7 +63,7 @@ export default function Input({
         }}
       />
       {type !== "shadow" && focus && value !== "" && (
-        <div tabIndex={0}>
+        <Box tabIndex={0}>
           <Icon
             icon="CircleXButton"
             width={24}
@@ -73,31 +74,11 @@ export default function Input({
               inputRef.current?.focus();
             }}
           />
-        </div>
+        </Box>
       )}
-    </Wrapper>
+    </Flex>
   );
-}
-
-const Wrapper = styled.div<{
-  borderColor: any;
-  shadow: any;
-  borderRadius: any;
-}>`
-  width: 100%;
-  height: 50px;
-  margin: auto;
-  padding: 0 12px;
-
-  display: flex;
-  position: relative;
-  align-items: center;
-
-  border-radius: ${({ borderRadius }) => borderRadius};
-  border: 1px solid ${({ borderColor }) => colors[borderColor]};
-  background-color: ${colors.N0};
-  box-shadow: ${({ shadow }) => shadow && `0px 0px 6px rgba(0, 0, 0, 0.12)`};
-`;
+};
 
 const InputBox = styled.input`
   width: 100%;
@@ -106,13 +87,15 @@ const InputBox = styled.input`
 
   border: 0;
   outline: none;
-  background-color: ${colors.N0};
+  background-color: ${colors["N0"]};
 
   ${css`
-    ${typography.Paragraph6}
+    ${typography["Paragraph6"]}
   `}
   &::placeholder {
-    color: ${colors.N50} !important;
+    color: ${colors["N50"]} !important;
   }
-  color: ${colors.N100};
+  color: ${colors["N100"]};
 `;
+
+export default Input;

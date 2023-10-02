@@ -1,25 +1,29 @@
 import { useState, useEffect, useRef } from "react";
+import { Box, Flex, Text, Space } from "@mantine/core";
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+
 import { useAppSelector } from "hooks/useReduxHooks";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGeolocation from "hooks/useGeolocation";
 import useSearch from "hooks/useSearch";
-import useGetPlacesNear from "hooks/queries/map/useGetPlacesNear";
+import useGetNear from "hooks/queries/map/useGetNear";
 import useToast from "hooks/useToast";
+import useMapBottomSheet from "hooks/useMapBottomSheet";
+import useMapStoreDetail from "hooks/useMapStoreDetail";
+import { useAppDispatch } from "hooks/useReduxHooks";
+import { editDisplaySize } from "reducer/slices/global/globalSlice";
 
 import { globalValue } from "constants/globalValue";
 import {
   atmosphereKeyword,
   dayOfWeekData,
-  tasteData,
+  tasteDatas,
 } from "constants/globalData";
 
 import KakaoMap from "components/Common/KakaoMap";
 import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
 import BottomNavigation from "components/BottomNavigation";
-import Spacing from "components/Spacing";
 import Input from "components/Input";
 import Icon from "components/Icon";
 
@@ -31,21 +35,34 @@ import LocationTitle from "./components/LocationTitle";
 import FilterSelection from "./components/filter/FilterSelection";
 import Filter from "./components/filter/Filter";
 import FilterButton from "./components/filter/FilterButton";
-import StoreSort from "../Mark/components/StoreSort";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
-import LocationError from "./components/LocationError";
 import Toast from "components/Toast";
-import useMapBottomSheet from "hooks/useMapBottomSheet";
-import useMapStoreDetail from "hooks/useMapStoreDetail";
+import SadBobpool from "components/Error/SadBobpool";
+import useAlert from "hooks/useAlert";
+import MapStoreDetail from "./components/MapStoreDetail";
+import {
+  FilterDatasProps,
+  getNearContentsProps,
+  getNearProps,
+} from "models/view/mapModel";
+import Sort from "components/Sort";
 
 declare const window: any;
 
 export default function Map() {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const infinityScrollRef = useRef(null);
   const bottomRef = useRef<any>();
-  const { height } = useDisplaySize();
+  const { width, height } = useDisplaySize();
+  dispatch(
+    editDisplaySize({
+      type: "display",
+      value: [width, height],
+    })
+  );
+  const { openAlert } = useAlert();
 
   const { handleSearchType } = useSearch();
   const myLocation: any = useGeolocation();
@@ -108,22 +125,34 @@ export default function Map() {
     setIsMarkShow(!isMarkShow);
   };
   // find
-  const clickFindLocation = () => {
+  const handleClickFindLocation = () => {
     onCurrentLocation(myLocation?.center?.lat, myLocation?.center?.lng);
+  };
+
+  // map
+  const handleClickMap = () => {
+    openMapBottomSheetStore(sheet);
+    closeMapStoreDetail(mapStoreDetailRef);
+    bottomRef?.current?.style.setProperty("transform", `translateY(0)`);
+  };
+  const handleClickMarker = () => {
+    closeMapBottomSheetStore(sheet, height);
+    openMapStoreDetail(mapStoreDetailRef, height, true, location.pathname);
+    bottomRef?.current?.style.setProperty("transform", `translateY(88px)`);
   };
 
   // filter
   const [pickFoodType, setPickFoodType] = useState<any>("");
   const [pickDayOfWeek, setPickDayOfWeek] = useState<any>([]);
   const [pickMood, setPickMood] = useState<any>("");
-  const filterData = [
+  const filterDatas: FilterDatasProps[] = [
     {
       type: "full",
       text: "음식종류",
-      textList: tasteData,
+      textList: tasteDatas,
       original: foodType,
       new: pickFoodType,
-      Fn: (val: any) => setPickFoodType(val),
+      Fn: (val: string) => setPickFoodType(val),
     },
     {
       type: "full-radius",
@@ -131,7 +160,7 @@ export default function Map() {
       textList: dayOfWeekData,
       original: dayOfWeek,
       new: pickDayOfWeek,
-      Fn: (val: any) => setPickDayOfWeek(val),
+      Fn: (val: string) => setPickDayOfWeek(val),
     },
     {
       type: "full",
@@ -139,7 +168,7 @@ export default function Map() {
       textList: atmosphereKeyword,
       original: mood,
       new: pickMood,
-      Fn: (val: any) => setPickMood(val),
+      Fn: (val: string) => setPickMood(val),
     },
   ];
 
@@ -178,75 +207,79 @@ export default function Map() {
     };
   }, [mapBottomSheetVisible, store.id]);
 
-  // data
-  const { placeData, isLoading, fetchNextPage, hasNextPage } = useGetPlacesNear(
+  const { nearDatas, isLoadingNear, fetchNextPage, hasNextPage } = useGetNear(
     openToast,
     isMarkShow
   );
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  // if (visible) return <SearchPlace />;
   return (
     <>
-      <KakaoMapWrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
+      <Box
+        w={width}
+        h={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+        pos="absolute"
+        style={{ zIndex: 0 }}
+      >
         {myLocation?.error?.code === 1 ? (
-          <LocationError />
+          <>
+            <Space h={116} />
+            <SadBobpool
+              height={height - 116 - height * 0.35}
+              text="지도 권한을 허용해야 볼 수 있어요"
+              buttonText="설정 방법 보기"
+              buttonClick={() => openAlert("location-setting")}
+            />
+          </>
         ) : !myLocation?.loaded ? (
           <LoadingCircle
             height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
           />
         ) : (
           <KakaoMap
+            height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
             lat={currentLocation?.center?.lat}
             lng={currentLocation?.center?.lng}
             myLat={myLocation?.center?.lat}
             myLng={myLocation?.center?.lng}
             onCurrentLocation={onCurrentLocation}
-            data={placeData?.flatMap((page_data: any) => page_data?.contents)}
+            markerDatas={nearDatas?.flatMap(
+              (page_data: getNearProps) => page_data?.contents
+            )}
             isMarkShow={isMarkShow}
-            clickMap={() => {
-              openMapBottomSheetStore(sheet);
-              closeMapStoreDetail(mapStoreDetailRef);
-              bottomRef?.current?.style.setProperty(
-                "transform",
-                `translateY(0)`
-              );
-            }}
-            clickMarker={() => {
-              closeMapBottomSheetStore(sheet, height);
-              openMapStoreDetail(
-                mapStoreDetailRef,
-                height,
-                true,
-                location.pathname
-              );
-              bottomRef?.current?.style.setProperty(
-                "transform",
-                `translateY(88px)`
-              );
-            }}
+            handleClickMap={handleClickMap}
+            handleClickMarker={handleClickMarker}
           />
         )}
-      </KakaoMapWrapper>
+      </Box>
 
-      <FindLocationButton clickFindLocation={clickFindLocation} />
+      <FindLocationButton handleClick={handleClickFindLocation} />
       <MapBottomSheet sheet={sheet} content={content}>
         {filterVisible ? (
           <>
-            {filterData?.map((data: any, idx: number) => {
-              return <Filter key={idx} type={data.type} data={data} />;
+            {filterDatas?.map((filterData: FilterDatasProps, idx: number) => {
+              return (
+                <Filter
+                  key={idx}
+                  type={filterData.type}
+                  filterData={filterData}
+                />
+              );
             })}
           </>
         ) : (
           <>
             {type === "store" ? (
-              <StoreSort />
+              <Sort />
             ) : (
-              <LocationTitle type={type} data={placeData?.[0]?.totalElements} />
+              <LocationTitle
+                type={type}
+                length={nearDatas?.[0]?.totalElements}
+              />
             )}
-            <Spacing size={14} />
-            {type === "location" ? <FilterSelection /> : null}
-            {isLoading || !myLocation?.loaded ? (
+            <Space h={14} />
+            {type === "location" && <FilterSelection />}
+            {isLoadingNear || !myLocation?.loaded ? (
               <LoadingCircle
                 height={
                   (height - 136 - globalValue.BOTTOM_NAVIGATION_HEIGHT) * 0.2
@@ -258,20 +291,20 @@ export default function Map() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                {placeData
-                  ?.flatMap((page_data: any) => page_data?.contents)
-                  ?.map((data: any, idx: number) => {
+                {nearDatas
+                  ?.flatMap((page_data: getNearProps) => page_data?.contents)
+                  ?.map((nearData: getNearContentsProps) => {
                     return (
-                      ((isMarkShow && data?.isMarked) || !isMarkShow) && (
-                        <StoreCard key={idx} data={data} />
+                      ((isMarkShow && nearData?.isMarked) || !isMarkShow) && (
+                        <StoreCard key={nearData?.id} nearData={nearData} />
                       )
                     );
                   })}
-                <div ref={infinityScrollRef} />
+                <Box ref={infinityScrollRef} />
                 {hasNextPage ? (
                   <>
                     <LoadingCircle height={30} />
-                    <Spacing size={30} />
+                    <Space h={30} />
                   </>
                 ) : null}
               </motion.div>
@@ -280,34 +313,35 @@ export default function Map() {
         )}
       </MapBottomSheet>
 
-      <TopWrapper>
-        <Spacing size={15} />
-        <InputWrapper>
+      <Box pos="relative">
+        <Space h={15} />
+        <Flex h={52} pl={15} pr={15}>
           <Input
             type="shadow"
             placeholder="지역, 음식점, 닉네임 검색"
             value={value}
             setValue={() => {}}
+            shadow={true}
           />
-        </InputWrapper>
+        </Flex>
 
-        {type !== "default" ? (
-          <IconWrapper>
+        {type !== "default" && (
+          <Box pos="absolute" top={29} right={27}>
             <Icon
               icon="CircleXButton"
               width={24}
               height={24}
               onClick={() => handleSearchType("default")}
             />
-          </IconWrapper>
-        ) : undefined}
-        <Spacing size={8} />
+          </Box>
+        )}
+        <Space h={8} />
 
         <FoodSelection
           mark={{ isMarkShow, clickMarkShow }}
           clickMyLocation={clickMyLocation}
         />
-      </TopWrapper>
+      </Box>
       {isShowToast && (
         <Toast message="조건에 일치하는 장소가 없습니다" close={closeToast} />
       )}
@@ -324,34 +358,7 @@ export default function Map() {
         <BottomNavigation ref={bottomRef} />
       )}
 
-      {/* <MapStoreDetail ref={mapStoreDetailRef} /> */}
+      <MapStoreDetail ref={mapStoreDetailRef} />
     </>
   );
 }
-
-const KakaoMapWrapper = styled.div<{ height: number }>`
-  width: 100%;
-  max-width: ${globalValue.MAX_WIDTH}px;
-  height: ${({ height }) => height}px;
-
-  position: absolute;
-  top: 0;
-  z-index: 0;
-`;
-
-const TopWrapper = styled.div`
-  width: 100%;
-  position: relative;
-`;
-
-const InputWrapper = styled.div`
-  height: 52px;
-  padding: 0 15px;
-  display: flex;
-`;
-
-const IconWrapper = styled.div`
-  position: absolute;
-  top: 29px;
-  right: 27px;
-`;

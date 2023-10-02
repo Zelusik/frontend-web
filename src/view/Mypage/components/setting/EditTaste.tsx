@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
 import BackTitle from "components/Title/BackTitle";
-import { tasteData } from "constants/globalData";
+import { tasteDatas } from "constants/globalData";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import { changeUserInfo } from "reducer/slices/user/userSlice";
 import { putTaste } from "api/members";
@@ -59,7 +59,7 @@ const EditTaste = () => {
         <span style={typography.Headline6}>좋아하는 음식을 알려주세요</span>
         <Spacing size={30} />
         <TasteButtonContainer>
-          {tasteData.map((taste) => (
+          {tasteDatas.map((taste) => (
             <RoundButton
               key={taste.val}
               type="taste"

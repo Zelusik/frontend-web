@@ -1,30 +1,34 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import styled from "@emotion/styled";
+import { Flex, Box, Text, Button, Space } from "@mantine/core";
+import { typography } from "constants/typography";
+import { colors } from "constants/colors";
+import { FilterDatasProps } from "models/view/mapModel";
 
-import Spacing from "components/Spacing";
-import RoundButton from "components/Button/RoundButton";
-import Text from "components/Text";
+interface FilterProps {
+  key?: number;
+  type: string;
+  filterData: FilterDatasProps;
+}
 
-export default function Filter({ type, data }: any) {
-  const router = useRouter();
-
+const Filter = ({ type, filterData }: FilterProps) => {
   const buttonAction = (val: string) => {
-    const newInclude = data.new ? data.new.includes(val) : false;
+    const newInclude = filterData?.new ? filterData?.new.includes(val) : false;
     return newInclude;
   };
 
   const clickFilterButton = (val: string) => {
-    const newInclude = data.new ? data.new.includes(val) : false;
+    const newInclude = filterData?.new ? filterData?.new.includes(val) : false;
 
     switch (type) {
       case "full":
-        if (newInclude) data.Fn("");
-        else data.Fn(val);
+        if (newInclude) filterData?.Fn("");
+        else filterData?.Fn(val);
         break;
       case "full-radius":
-        if (newInclude) data.Fn(data.new.filter((d: any) => d !== val));
-        else data.Fn([...data.new, val]);
+        if (newInclude)
+          filterData?.Fn(
+            filterData?.new?.filter((data: string) => data !== val)
+          );
+        else filterData?.Fn([...filterData.new, val]);
         break;
       default:
         break;
@@ -32,48 +36,47 @@ export default function Filter({ type, data }: any) {
   };
 
   return (
-    <Wrapper>
-      <Text typo="Headline4" color="N100">
-        {data.text}
+    <Flex pl={20} pr={20} direction="column">
+      <Text c={colors["N100"]} style={typography["Headline4"]}>
+        {filterData?.text}
       </Text>
-      <Spacing size={16} />
+      <Space h={16} />
 
-      <ButtonWrapper>
-        {data.textList.map((data2: any, idx: number) => {
+      <Flex wrap="wrap" gap={8}>
+        {filterData?.textList?.map((data: { val: string }, idx: number) => {
           return (
-            <RoundButton
+            <Button
               key={idx}
-              type={type}
-              action={buttonAction(data2.val)}
-              onClick={() => clickFilterButton(data2.val)}
+              h={38}
+              radius={type === "full-radius" ? 38 : 12}
+              c={colors[buttonAction(data.val) ? "N0" : "N100"]}
+              bg={colors[buttonAction(data.val) ? "Orange600" : "N0"]}
+              style={{
+                width: type === "full-radius" ? 38 : "auto",
+                padding: type === "full-radius" ? 0 : "0 16px",
+                border: `1px solid ${
+                  colors[buttonAction(data.val) ? "Orange600" : "N40"]
+                }`,
+              }}
+              onClick={() => clickFilterButton(data.val)}
             >
-              {data2.val}
-            </RoundButton>
+              {data.val}
+            </Button>
           );
         })}
-      </ButtonWrapper>
+      </Flex>
 
-      {type === "full-radius" ? (
+      {type === "full-radius" && (
         <>
-          <Spacing size={16} />
-          <Text typo="Paragraph1" color="N80">
+          <Space h={16} />
+          <Text c={colors["N80"]} style={typography["Paragraph1"]}>
             해당 요일에 오픈하는 음식점만 보여드릴게요.
           </Text>
         </>
-      ) : undefined}
-      <Spacing size={40} />
-    </Wrapper>
+      )}
+      <Space h={40} />
+    </Flex>
   );
-}
+};
 
-const Wrapper = styled.div`
-  width: 100%;
-  padding: 0 20px;
-  justify-content: space-between;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-`;
+export default Filter;

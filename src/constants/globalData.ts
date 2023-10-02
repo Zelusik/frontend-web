@@ -100,7 +100,7 @@ export const sortData: any = [
 ];
 
 // tasteData.ts
-export const tasteData = [
+export const tasteDatas = [
   { icon: Korean, val: "한식", name: "KOREAN" },
   { icon: Japanese, val: "일식", name: "JAPANESE" },
   { icon: Chinese, val: "중식", name: "CHINESE" },

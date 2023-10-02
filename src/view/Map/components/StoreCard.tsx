@@ -1,25 +1,34 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
-import useDisplaySize from "hooks/useDisplaySize";
+import { Box, Flex, Text, AspectRatio, Image, Space } from "@mantine/core";
+import { useAppSelector } from "hooks/useReduxHooks";
+import {
+  getNearContentsImagesProps,
+  getNearContentsProps,
+} from "models/view/mapModel";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Route } from "constants/Route";
-import Number from "components/Common/Number";
-import Spacing from "components/Spacing";
-import Image from "components/Image";
-import StoreTitle from "components/Title/StoreTitle";
 import Hashtags from "components/Hashtags";
-import { useAppSelector } from "hooks/useReduxHooks";
+import ImageCount from "components/Image/ImageCount";
+import { globalValue } from "constants/globalValue";
+import Title from "components/Title";
+import StoreReviewButton from "components/Button/StoreReviewButton";
+import Heart from "components/Button/IconButton/Heart";
 
-export default function StoreCard({ data }: any) {
+interface StoreCardProps {
+  key?: number;
+  nearData: getNearContentsProps;
+}
+
+const StoreCard = ({ nearData }: StoreCardProps) => {
   const router = useRouter();
   const swiperRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const { width } = useDisplaySize();
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const { display } = useAppSelector((state) => state.global);
   const { visible } = useAppSelector((state) => state.mapBottomSheet);
 
   const onSlideChange = (e: any) => {
@@ -27,85 +36,93 @@ export default function StoreCard({ data }: any) {
     setCurrentIndex(newSwiper);
   };
 
-  const clickStoreDetail = () => {
-    router.push({ pathname: Route.STORE_DETAIL(), query: { id: data?.id } });
+  const handleClickStore = () => {
+    router.push({
+      pathname: Route.STORE_DETAIL(),
+      query: { id: nearData?.id },
+    });
   };
 
   return (
-    <Wrapper>
-      <Inner onClick={clickStoreDetail}>
-        {data?.images?.length === 0 ? (
-          <Image
-            type="map-bottom-sheet"
-            alt="음식 사진"
-            src="https://i.ibb.co/2kSZX6Y/60pt.png"
-          />
-        ) : (
-          <>
-            <NumberWrapper>
-              <Number
-                currentIndex={currentIndex}
-                length={data?.images?.length}
-              />
-            </NumberWrapper>
-            <Swiper
-              ref={swiperRef}
-              allowSlidePrev={currentIndex !== 0}
-              allowSlideNext={currentIndex !== data?.images?.length - 1}
-              spaceBetween={20}
-              onSlideChange={onSlideChange}
-              style={{ height: (width * 32) / 55 }}
-            >
-              {data?.images?.map((image: any, idx: number) => {
+    <Box ml={15} mr={15} pos="relative">
+      {nearData?.images?.length === 0 ? (
+        <AspectRatio ratio={330 / 192}>
+          <Image src={globalValue.BLANK_IMAGE} alt="음식 이미지" radius={12} />
+        </AspectRatio>
+      ) : (
+        <>
+          <Swiper
+            ref={swiperRef}
+            allowSlidePrev={currentIndex !== 0}
+            allowSlideNext={currentIndex !== nearData?.images?.length - 1}
+            spaceBetween={20}
+            onSlideChange={onSlideChange}
+            style={{ height: ((display.width - 30) * 32) / 55 }}
+          >
+            {nearData?.images?.map(
+              (image: getNearContentsImagesProps, idx: number) => {
                 return (
                   <SwiperSlide key={idx}>
-                    <Image
-                      type="map-bottom-sheet"
-                      alt="음식 사진"
-                      src={image.thumbnailUrl}
-                    />
+                    <AspectRatio ratio={330 / 192} onClick={handleClickStore}>
+                      <Image
+                        src={
+                          image?.thumbnailUrl
+                            ? image.thumbnailUrl
+                            : globalValue.ERROR_IMAGE
+                        }
+                        alt="음식 이미지"
+                        radius={12}
+                      />
+                    </AspectRatio>
                   </SwiperSlide>
                 );
-              })}
-            </Swiper>
-          </>
-        )}
-        <Spacing size={16} />
-      </Inner>
-
-      <StoreTitle
-        type="map"
-        title={data?.name}
-        subTitle={data?.category}
-        onClick={clickStoreDetail}
-        isMarked={data?.isMarked}
-        placeId={data?.id}
-        point={data?.point}
-      />
-
-      {data?.top3Keywords.length === 0 ? undefined : (
-        <>
-          <Spacing size={10} />
-          <Hashtags hashtagTextDatas={data?.top3Keywords} />
+              }
+            )}
+          </Swiper>
+          <ImageCount
+            currentIndex={currentIndex}
+            length={nearData?.images?.length}
+          />
         </>
       )}
-      <Spacing size={30} />
-    </Wrapper>
+      <Space h={16} />
+
+      <Title
+        height={47}
+        padding={5}
+        renderLeft={
+          <StoreReviewButton
+            type="store"
+            id={nearData?.id}
+            name={nearData?.name}
+            category={nearData?.category}
+            nameColor="N100"
+            nameTypo="Headline4"
+            categoryColor="N60"
+            categoryTypo="Paragraph1"
+          />
+        }
+        // buttonRight={<Edit />}
+        renderRight={
+          <Heart id={nearData?.id} isMarked={nearData?.isMarked} size={24} />
+        }
+      />
+
+      {nearData?.top3Keywords.length === 0 ? undefined : (
+        <>
+          <Space h={10} />
+          <Hashtags
+            hashColor="Orange600"
+            hashTypo="Paragraph4"
+            textColor="N100"
+            textTypo="Paragraph2"
+            hashtagTextDatas={nearData?.top3Keywords}
+          />
+        </>
+      )}
+      <Space h={30} />
+    </Box>
   );
-}
+};
 
-const NumberWrapper = styled.div`
-  position: absolute;
-  top: 15px;
-  right: 30px;
-  z-index: 800;
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
-  position: relative;
-`;
-
-const Inner = styled.div`
-  padding: 0 15px;
-`;
+export default StoreCard;

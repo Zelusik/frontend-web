@@ -1,20 +1,43 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
+import { Box, Text, Space } from "@mantine/core";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { globalValue } from "constants/globalValue";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useSearch from "hooks/useSearch";
+import { getNearContentsProps } from "models/view/mapModel";
 // https://react-kakao-maps-sdk.jaeseokim.dev/
 
-export default function KakaoMap({ lat, lng, data, ...props }: any) {
+interface KakaoMapProps {
+  height?: number;
+  lat: number;
+  lng: number;
+  markerDatas: getNearContentsProps[];
+
+  // props
+  myLat?: number;
+  myLng?: number;
+
+  isMarkShow?: boolean;
+  onCurrentLocation?: any;
+  handleClickMap?: any;
+  handleClickMarker?: any;
+}
+
+export default function KakaoMap({
+  height,
+  lat,
+  lng,
+  markerDatas,
+  ...props
+}: any) {
   const router = useRouter();
+  const { display } = useAppSelector((state) => state.global);
   const { store } = useAppSelector((state) => state.search);
   const { handleStore } = useSearch();
 
   return (
     <>
-      <MapWrapper>
+      <Box maw={globalValue.MAX_WIDTH} h={height ? height : display.height}>
         <Map
           isPanto={true}
           center={{
@@ -31,7 +54,7 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
           style={{ width: "100%", height: "100%" }}
           onClick={() => {
             if (store.id !== -1) {
-              props?.clickMap();
+              props?.handleClickMap();
             }
           }}
         >
@@ -42,33 +65,36 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
             }}
             yAnchor={1}
           >
-            <CustomOverlay>
-              <span className="title">{store.name}</span>
-            </CustomOverlay>
+            <Box>
+              <Box component="span" className="title">
+                {store.name}
+              </Box>
+            </Box>
           </CustomOverlayMap>
           {/* 마커들 */}
-          {data &&
-            data?.map((d: any, idx: number) => {
+          {markerDatas &&
+            markerDatas?.map((markerData: getNearContentsProps) => {
               return (
-                ((props?.isMarkShow && d?.isMarked) || !props?.isMarkShow) && (
+                ((props?.isMarkShow && markerData?.isMarked) ||
+                  !props?.isMarkShow) && (
                   <MapMarker
-                    key={idx}
+                    key={markerData?.id}
                     position={{
-                      lat: d?.point?.lat,
-                      lng: d?.point?.lng,
+                      lat: Number(markerData?.point?.lat),
+                      lng: Number(markerData?.point?.lng),
                     }}
                     image={{
-                      src: d?.isMarked
+                      src: markerData?.isMarked
                         ? "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/Component36.png"
                         : "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/Component35.png",
                       size: {
-                        width: store.id === d?.id ? 72 : 56,
-                        height: store.id === d?.id ? 72 : 56,
+                        width: store.id === markerData?.id ? 72 : 56,
+                        height: store.id === markerData?.id ? 72 : 56,
                       },
                     }}
                     onClick={() => {
-                      handleStore(d);
-                      props?.clickMarker();
+                      handleStore(markerData);
+                      props?.handleClickMarker();
                     }}
                   />
                 )
@@ -78,8 +104,8 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
           {/* 현재 위치 마커 */}
           <MapMarker
             position={{
-              lat: props?.myLat,
-              lng: props?.myLng,
+              lat: Number(props?.myLat),
+              lng: Number(props?.myLng),
             }}
             image={{
               src: "https://eatery-bucket.s3.ap-northeast-2.amazonaws.com/assets/myplace.png",
@@ -90,15 +116,7 @@ export default function KakaoMap({ lat, lng, data, ...props }: any) {
             }}
           />
         </Map>
-      </MapWrapper>
+      </Box>
     </>
   );
 }
-
-const MapWrapper = styled.div`
-  width: 100%;
-  max-width: ${globalValue.MAX_WIDTH}px;
-  height: 100%;
-`;
-
-const CustomOverlay = styled.div``;

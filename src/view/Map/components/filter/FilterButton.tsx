@@ -1,16 +1,21 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import { Box, Flex, Text, Space, Button } from "@mantine/core";
 import useSearch from "hooks/useSearch";
 
 import { colors } from "constants/colors";
 import { Route } from "constants/Route";
-import Spacing from "components/Spacing";
 import BottomButton from "components/Button/BottomButton";
 import Gradient from "components/Common/Gradient";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { equals } from "utils/equals";
+import { typography } from "constants/typography";
 
-export default function FilterButton({ filter }: any) {
+interface FilterButtonProps {
+  filter: any;
+}
+
+const FilterButton = ({ filter }: FilterButtonProps) => {
   const router = useRouter();
   const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
   const {
@@ -28,10 +33,27 @@ export default function FilterButton({ filter }: any) {
   return (
     <>
       <Gradient size={30} />
-      <FilterButtonWrapper onClick={handleClickSelection}>
-        <div style={{ display: "flex", gap: 8 }}>
-          <BottomButton
-            type="default"
+      <Box
+        pos="fixed"
+        bottom={0}
+        bg={colors["N0"]}
+        style={{
+          width: "100%",
+          padding: "0 17.5px",
+        }}
+        onClick={handleClickSelection}
+      >
+        <Flex gap={8}>
+          <Button
+            h={54}
+            c={colors["N80"]}
+            bg={colors["N0"]}
+            radius={8}
+            style={{
+              ...typography["Paragraph6"],
+              width: "100%",
+              border: `1px solid ${colors["N40"]}`,
+            }}
             disabled={false}
             onClick={() => {
               handleFilterVisible(false);
@@ -39,9 +61,22 @@ export default function FilterButton({ filter }: any) {
             }}
           >
             초기화
-          </BottomButton>
-          <BottomButton
-            type="primary"
+          </Button>
+          <Button
+            h={54}
+            radius={8}
+            c={colors["N0"]}
+            bg={
+              foodType === filter.pickFoodType &&
+              equals(dayOfWeek, filter.pickDayOfWeek) &&
+              mood === filter.pickMood
+                ? "rgba(245, 147, 0 , .4)"
+                : colors["Orange600"]
+            }
+            style={{
+              ...typography["Paragraph6"],
+              width: "100%",
+            }}
             disabled={
               foodType === filter.pickFoodType &&
               equals(dayOfWeek, filter.pickDayOfWeek) &&
@@ -57,22 +92,12 @@ export default function FilterButton({ filter }: any) {
             }}
           >
             확인
-          </BottomButton>
-        </div>
-        <Spacing size={40} />
-      </FilterButtonWrapper>
+          </Button>
+        </Flex>
+        <Space h={40} />
+      </Box>
     </>
   );
-}
+};
 
-const FilterButtonWrapper = styled.div`
-  width: 100%;
-  padding: 0 17.5px;
-
-  gap: 8px;
-  position: fixed;
-  bottom: 0;
-
-  background-color: ${colors.N0};
-  z-index: 800;
-`;
+export default FilterButton;

@@ -1,10 +1,14 @@
 import { useInfiniteQuery, QueryClient, useQueryClient } from "react-query";
 import { useAppSelector } from "hooks/useReduxHooks";
-import { getPlacesNear } from "api/places";
-import { DAY_OF_WEEK_DATA, FOOD_KEYWORD, TASTE_KEYWORD } from "constants/globalData";
+import { placesApi } from "api/places";
+import {
+  DAY_OF_WEEK_DATA,
+  FOOD_KEYWORD,
+  TASTE_KEYWORD,
+} from "constants/globalData";
 import useSearch from "hooks/useSearch";
 
-const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
+const useGetNear = (openToast: any, isMarkShow: any): any => {
   const {
     filterVisible,
 
@@ -52,9 +56,13 @@ const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
         },
       };
 
-      const result = await getPlacesNear(params);
+      const result = await placesApi.getNear(params);
 
-      if (location.lat !== 0 && location.lng !== 0 && result?.totalElements === 0) {
+      if (
+        location.lat !== 0 &&
+        location.lng !== 0 &&
+        result?.totalElements === 0
+      ) {
         handleFoodType(newFoodType);
         handleDayOfWeek(newDayOfWeek);
         handleMood(newMood);
@@ -78,8 +86,12 @@ const useGetPlacesNear = (openToast: any, isMarkShow: any): any => {
       },
     }
   );
-  const placeData = data?.pages;
-  return { placeData, isLoading, fetchNextPage, hasNextPage };
+  return {
+    nearDatas: data?.pages,
+    isLoadingNear: isLoading,
+    fetchNextPage,
+    hasNextPage,
+  };
 };
 
-export default useGetPlacesNear;
+export default useGetNear;
