@@ -10,7 +10,7 @@ import { editDisplaySize } from "reducer/slices/global/globalSlice";
 import BottomNavigation from "components/BottomNavigation";
 import { globalValue } from "constants/globalValue";
 import StoreCardContainer from "./components/StoreCardContainer";
-import TopNavigation from "components/TopNavigation/TopNavigation";
+import TopNavigation from "components/TopNavigation/MarkTopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { colors } from "constants/colors";
 import Title from "components/Title";

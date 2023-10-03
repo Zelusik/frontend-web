@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef, useRef } from "react";
-import { Flex, Box, Text, Divider } from "@mantine/core";
+import { Flex, Text, Divider } from "@mantine/core";
 import useDisplaySize from "hooks/useDisplaySize";
 
 import { colors } from "constants/colors";
@@ -52,19 +52,53 @@ const TopNavigation = forwardRef(function Div({
   const sliderRef = useRef<any>(null);
   const handleSlide = () => {
     // slide -> focus on
-    // const textLeft = keywordTextRef?.offsetLeft - 20;
-    // const textWidth = keywordTextRef?.offsetWidth;
-    // const scrollLeft = textLeft - (display.width - 40 - textWidth) / 2;
-    // keywordsScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
+    const textLeft = keywordTextRef?.offsetLeft - 20;
+    const textWidth = keywordTextRef?.offsetWidth;
+    const scrollLeft = textLeft - (display.width - 40 - textWidth) / 2;
+    keywordsScrollRef.current!.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
   };
 
   return (
-    <Box pos="absolute" top={50}>
-      {/* <Box h={367} /> */}
+    <>
+      {/* title 부분 */}
+      <Flex
+        ref={keywordsScrollRef}
+        h={34}
+        pl={20}
+        pr={20}
+        gap={20}
+        style={{ whiteSpace: "nowrap", overflowX: "auto" }}
+      >
+        {keywordDatas?.map((title: string, idx: number) => {
+          return (
+            <Flex
+              key={idx}
+              ref={(ref: any) => {
+                if (index.wrapperIndex === idx) setKeywordTextRef(ref);
+              }}
+              h={34}
+              direction="column"
+              justify="space-between"
+              onClick={(ref: any) => handleClickKeyword(ref, idx)}
+            >
+              <Text
+                c={colors[index.wrapperIndex === idx ? "Orange600" : "N40"]}
+                style={typography["Headline3"]}
+              >
+                {title}
+              </Text>
+              {index.wrapperIndex === idx && (
+                <Divider size={2} color={colors["Orange600"]} />
+              )}
+            </Flex>
+          );
+        })}
+      </Flex>
+      <Divider ml={20} mr={20} color={colors["N20"]} />
+
       {/* children 부분 */}
       <WrapperSlider
         ref={sliderRef}
-        height={height}
         index={index}
         touch={touch}
         length={keywordDatas?.length}
@@ -72,7 +106,7 @@ const TopNavigation = forwardRef(function Div({
       >
         {children}
       </WrapperSlider>
-    </Box>
+    </>
   );
 });
 

@@ -14,7 +14,7 @@ import {
   postRecommendReviews,
   updateRecommendReviews,
 } from "api/recommend-reviews";
-import useGetMembersReviews from "hooks/queries/user/useGetMembersReviews";
+import useGetMembersReviews from "hooks/queries/user/useGetReviews";
 
 export default function RecommandBest() {
   const router = useRouter();
