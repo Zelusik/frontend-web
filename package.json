@@ -36,7 +36,6 @@
     "@types/styled-components": "^5.1.26",
     "axios": "^1.4.0",
     "browser-image-compression": "^2.0.2",
-    "cdbreact": "^1.5.18",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.7",
     "exifr": "^7.1.3",
