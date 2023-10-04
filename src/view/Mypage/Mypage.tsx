@@ -17,7 +17,6 @@ import { colors } from "constants/colors";
 import { globalValue } from "constants/globalValue";
 import { Route } from "constants/Route";
 
-import TopNavigation from "components/TopNavigation/TopNavigation";
 import BottomNavigation from "components/BottomNavigation";
 import BackTitle from "components/Title/BackTitle";
 import Spacing from "components/Spacing";
@@ -35,6 +34,8 @@ import { typography } from "constants/typography";
 import BackArrow from "components/Button/IconButton/BackArrow";
 import RecommendReviewCardContainer from "./components/RecommendReviewCardContainer";
 import ReviewCardContainer from "./components/ReviewCardContainer";
+
+import TopNavigation from "components/TopNavigation/TopNavigationTest2";
 
 // 392 + 35 = 427
 
@@ -163,38 +164,32 @@ export default function Mypage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <TopNavigation
-            height={height - 85 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-            index={{ wrapperIndex, setWrapperIndex }}
-            touch={{ touch, setTouch }}
-            keywordDatas={["추천 베스트", "리뷰"]}
-          >
-            <RecommendReviewCardContainer
-              scrollRef={scrollRef}
-              scrollRef1={scrollRef1}
-              scrollRef2={scrollRef2}
-              scroll1={scroll1}
-              setScroll1={setScroll1}
-              setTitleChange={setTitleChange}
-              mine={mine}
-              scrollHeight={scrollHeight}
-            />
-            <ReviewCardContainer
-              mine={mine}
-              scrollRef1={scrollRef1}
-              scrollRef2={scrollRef2}
-              scroll2={scroll2}
-              setScroll2={setScroll2}
-              scrollHeight={scrollHeight}
-            />
-          </TopNavigation>
-
-          <Box
+          <ScrollArea
             viewportRef={scrollRef}
             type="never"
-            h={367}
+            h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
             pos="absolute"
-            top={50 - scroll1}
+            top={50}
+            onScrollPositionChange={(position: { x: number; y: number }) => {
+              setScrollHeight(position.y);
+
+              if (position.y < 332) {
+                scrollRef1.current!.style.setProperty("overflow", `hidden`);
+                scrollRef2.current!.style.setProperty("overflow", `hidden`);
+                // scrollRef.current!.scrollTo({
+                //   top: position.y,
+                // });
+              } else {
+                scrollRef1.current!.style.setProperty("overflow", `auto`);
+                scrollRef2.current!.style.setProperty("overflow", `auto`);
+              }
+
+              if (position.y > 10) {
+                setTitleChange(true);
+              } else {
+                setTitleChange(false);
+              }
+            }}
           >
             {/* 332 */}
             <Box
@@ -210,12 +205,34 @@ export default function Mypage() {
               <TasteBox tasteStatistics={profileData?.tasteStatistics} />
               <Space h={40} />
             </Box>
-            <Flex
+            <TopNavigation>
+              <RecommendReviewCardContainer
+                scrollRef={scrollRef}
+                scrollRef1={scrollRef1}
+                scrollRef2={scrollRef2}
+                scroll1={scroll1}
+                setScroll1={setScroll1}
+                setTitleChange={setTitleChange}
+                mine={mine}
+                scrollHeight={scrollHeight}
+              />
+              <ReviewCardContainer
+                mine={mine}
+                scrollRef1={scrollRef1}
+                scrollRef2={scrollRef2}
+                scroll2={scroll2}
+                setScroll2={setScroll2}
+                scrollHeight={scrollHeight}
+              />
+            </TopNavigation>
+            {/* <Flex
               // ref={keywordsScrollRef}
               h={34}
               pl={20}
               pr={20}
               gap={20}
+              pos="sticky"
+              top={0}
               bg={colors["N0"]}
               style={{ whiteSpace: "nowrap", overflowX: "auto" }}
             >
@@ -244,8 +261,33 @@ export default function Mypage() {
                 );
               })}
             </Flex>
-            <Divider ml={20} mr={20} color={colors["N20"]} />
-          </Box>
+            <Divider ml={20} mr={20} color={colors["N20"]} /> */}
+            {/* <TopNavigation
+              height={height - 85 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+              index={{ wrapperIndex, setWrapperIndex }}
+              touch={{ touch, setTouch }}
+              keywordDatas={["추천 베스트", "리뷰"]}
+            >
+              <RecommendReviewCardContainer
+                scrollRef={scrollRef}
+                scrollRef1={scrollRef1}
+                scrollRef2={scrollRef2}
+                scroll1={scroll1}
+                setScroll1={setScroll1}
+                setTitleChange={setTitleChange}
+                mine={mine}
+                scrollHeight={scrollHeight}
+              />
+              <ReviewCardContainer
+                mine={mine}
+                scrollRef1={scrollRef1}
+                scrollRef2={scrollRef2}
+                scroll2={scroll2}
+                setScroll2={setScroll2}
+                scrollHeight={scrollHeight}
+              />
+            </TopNavigation> */}
+          </ScrollArea>
         </motion.div>
       )}
       <Title

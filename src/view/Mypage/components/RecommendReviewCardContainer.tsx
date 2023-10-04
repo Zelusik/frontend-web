@@ -36,9 +36,9 @@ const RecommendReviewCardContainer = ({
     useGetRecommendReviews();
 
   return (
-    <ScrollArea
-      type="never"
-      viewportRef={scrollRef1}
+    <Box
+      // type="never"
+      ref={scrollRef1}
       h={
         display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT
       }
@@ -59,29 +59,16 @@ const RecommendReviewCardContainer = ({
       //     //   scrollRef1.current!.scrollTo({ top: 0 });
       //     // }
       //   }}
-      onScrollPositionChange={(position: { x: number; y: number }) => {
-        // setTest(position.y);
-        console.log(position.y);
-        if (position.y < 332) {
-          // scrollRef2.current!.scrollTo({
-          //   top: position.y,
-          // });
-        }
-        setScroll1(position.y > 332 ? 332 : position.y);
-
-        // if (scroll1 < 332) {
-        //   scrollRef2.current!.scrollTo({ top: 297, behavior: "smooth" });
-        // }
-
-        if (position.y > 10) {
-          setTitleChange(true);
-        } else {
-          setTitleChange(false);
-        }
-      }}
+      // onScrollPositionChange={(position: { x: number; y: number }) => {
+      //   // setScroll1(position.y > 332 ? 332 : position.y);
+      //   // if (scroll1 < 332) {
+      //   //   scrollRef2.current!.scrollTo({ top: 297, behavior: "smooth" });
+      //   // }
+      // }}
+      style={{ overflow: "hidden" }}
     >
-      <Box h={332} />
-      {["", "", "", "", "", "", "", "", "", ""]?.map((data: any, idx: any) => {
+      {/* <Box h={332} /> */}
+      {[...Array(6)]?.map((data: any, idx: any) => {
         return (
           <Box key={idx} h={100}>
             {/* {data?.review?.images?.[0]?.imageUrl} */}
@@ -89,7 +76,7 @@ const RecommendReviewCardContainer = ({
           </Box>
         );
       })}
-    </ScrollArea>
+    </Box>
   );
 };
 

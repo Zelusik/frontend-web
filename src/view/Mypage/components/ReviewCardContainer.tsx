@@ -18,57 +18,33 @@ const ReviewCardContainer = ({
     useGetReviews();
 
   return (
-    <ScrollArea
+    <Box
       type="never"
-      viewportRef={scrollRef2}
+      ref={scrollRef2}
       h={
         display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT
       }
-      onScrollPositionChange={(position: { x: number; y: number }) => {
-        // setTest(position.y);
-        // console.log(position.y - scroll1);
-        if (scroll2 < 332) {
-          scrollRef1.current!.scrollTo({ top: position.y });
-          setScroll2(position.y);
-        } else if (position.y - scroll2 < 0) {
-          setScroll2(position.y);
-        }
-      }}
+      // onScrollPositionChange={(position: { x: number; y: number }) => {
+      //   // setTest(position.y);
+      //   // console.log(position.y - scroll1);
+      //   if (scroll2 < 332) {
+      //     scrollRef1.current!.scrollTo({ top: position.y });
+      //     setScroll2(position.y);
+      //   } else if (position.y - scroll2 < 0) {
+      //     setScroll2(position.y);
+      //   }
+      // }}
+      style={{ overflow: "hidden" }}
     >
-      <Box h={332} />
-      {[
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-      ].map((data: any, idx: any) => {
+      {/* <Box h={332} /> */}
+      {[...Array(15)].map((data: any, idx: any) => {
         return (
           <Box key={idx} h={100}>
             Hi{idx}
           </Box>
         );
       })}
-    </ScrollArea>
+    </Box>
   );
 };
 
