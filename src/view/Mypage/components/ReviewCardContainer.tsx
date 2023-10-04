@@ -35,7 +35,7 @@ const ReviewCardContainer = ({
         }
       }}
     >
-      <Box h={367} />
+      <Box h={332} />
       {[
         "",
         "",

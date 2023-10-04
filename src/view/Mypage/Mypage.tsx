@@ -153,22 +153,6 @@ export default function Mypage() {
 
   return (
     <>
-      <Title
-        height={50}
-        padding={20}
-        renderLeft={
-          !mine && (
-            <>
-              <BackArrow size={24} color="N100" />
-              <Space w={6} />
-            </>
-          )
-        }
-        textLeft={titleChange && profileData?.nickname}
-        renderRight={
-          mine ? <Setting size={24} /> : <Dots type="share-report" size={20} />
-        }
-      />
       {isLoadingProfile ? (
         <LoadingCircle
           height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
@@ -179,6 +163,32 @@ export default function Mypage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
+          <TopNavigation
+            height={height - 85 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+            index={{ wrapperIndex, setWrapperIndex }}
+            touch={{ touch, setTouch }}
+            keywordDatas={["추천 베스트", "리뷰"]}
+          >
+            <RecommendReviewCardContainer
+              scrollRef={scrollRef}
+              scrollRef1={scrollRef1}
+              scrollRef2={scrollRef2}
+              scroll1={scroll1}
+              setScroll1={setScroll1}
+              setTitleChange={setTitleChange}
+              mine={mine}
+              scrollHeight={scrollHeight}
+            />
+            <ReviewCardContainer
+              mine={mine}
+              scrollRef1={scrollRef1}
+              scrollRef2={scrollRef2}
+              scroll2={scroll2}
+              setScroll2={setScroll2}
+              scrollHeight={scrollHeight}
+            />
+          </TopNavigation>
+
           <Box
             viewportRef={scrollRef}
             type="never"
@@ -236,35 +246,24 @@ export default function Mypage() {
             </Flex>
             <Divider ml={20} mr={20} color={colors["N20"]} />
           </Box>
-
-          <TopNavigation
-            height={height - 85 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-            index={{ wrapperIndex, setWrapperIndex }}
-            touch={{ touch, setTouch }}
-            keywordDatas={["추천 베스트", "리뷰"]}
-          >
-            <RecommendReviewCardContainer
-              scrollRef={scrollRef}
-              scrollRef1={scrollRef1}
-              scrollRef2={scrollRef2}
-              scroll1={scroll1}
-              setScroll1={setScroll1}
-              mine={mine}
-              scrollHeight={scrollHeight}
-            />
-            <ReviewCardContainer
-              mine={mine}
-              scrollRef1={scrollRef1}
-              scrollRef2={scrollRef2}
-              scroll2={scroll2}
-              setScroll2={setScroll2}
-              scrollHeight={scrollHeight}
-            />
-          </TopNavigation>
-
-          {/* </Box> */}
         </motion.div>
       )}
+      <Title
+        height={50}
+        padding={20}
+        renderLeft={
+          !mine && (
+            <>
+              <BackArrow size={24} color="N100" />
+              <Space w={6} />
+            </>
+          )
+        }
+        textLeft={titleChange && profileData?.nickname}
+        renderRight={
+          mine ? <Setting size={24} /> : <Dots type="share-report" size={20} />
+        }
+      />
       {mine && <BottomNavigation />}
     </>
   );

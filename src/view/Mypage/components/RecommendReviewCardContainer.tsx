@@ -11,6 +11,7 @@ const RecommendReviewCardContainer = ({
   scrollRef2,
   scroll1,
   setScroll1,
+  setTitleChange,
   mine,
   scrollHeight,
   profile,
@@ -60,19 +61,29 @@ const RecommendReviewCardContainer = ({
       //   }}
       onScrollPositionChange={(position: { x: number; y: number }) => {
         // setTest(position.y);
-        // console.log(position.y - scroll1);
-        if (scroll1 < 332) {
-          scrollRef2.current!.scrollTo({ top: position.y });
-          setScroll1(position.y);
-        } else if (position.y - scroll1 < 0) {
-          setScroll1(position.y);
+        console.log(position.y);
+        if (position.y < 332) {
+          // scrollRef2.current!.scrollTo({
+          //   top: position.y,
+          // });
+        }
+        setScroll1(position.y > 332 ? 332 : position.y);
+
+        // if (scroll1 < 332) {
+        //   scrollRef2.current!.scrollTo({ top: 297, behavior: "smooth" });
+        // }
+
+        if (position.y > 10) {
+          setTitleChange(true);
+        } else {
+          setTitleChange(false);
         }
       }}
     >
-      <Box h={367} />
+      <Box h={332} />
       {["", "", "", "", "", "", "", "", "", ""]?.map((data: any, idx: any) => {
         return (
-          <Box key={idx} h={100} bg={"blue"}>
+          <Box key={idx} h={100}>
             {/* {data?.review?.images?.[0]?.imageUrl} */}
             Hi{idx}
           </Box>

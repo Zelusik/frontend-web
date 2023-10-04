@@ -59,7 +59,7 @@ const TopNavigation = forwardRef(function Div({
   };
 
   return (
-    <Box pos="absolute" top={50}>
+    <Box pos="absolute" top={85}>
       {/* <Box h={367} /> */}
       {/* children 부분 */}
       <WrapperSlider
