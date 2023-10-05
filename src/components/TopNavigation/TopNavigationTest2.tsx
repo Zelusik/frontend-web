@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { makeStyles } from "@material-ui/core";
 import {
   Tab,
   Tabs,
@@ -12,6 +13,7 @@ import {
 import { Box } from "@mantine/core";
 import SwipeableViews from "react-swipeable-views";
 import { colors } from "constants/colors";
+import { useAppSelector } from "hooks/useReduxHooks";
 
 function a11yProps(index: number) {
   return {
@@ -20,97 +22,77 @@ function a11yProps(index: number) {
   };
 }
 
-const StyledTab = styled(Tab)({
-  "&.Mui-selected": {
-    color: "red",
+const tabHeight = "35px"; // default: '48px'
+const useStyles = makeStyles((theme) => ({
+  tabsRoot: {
+    minHeight: tabHeight,
+    height: tabHeight,
   },
-});
+  tabRoot: {
+    minHeight: tabHeight,
+    height: tabHeight,
+    padding: 0,
+  },
+}));
 
 const TopNavigationTest2 = forwardRef(function Div(
-  {
-    children,
-    type = "store-detail",
-    index,
-    scrollRef,
-    scrollTop,
-    titleList = [],
-    ...props
-  }: any,
+  { children, index, keywordDatas }: any,
   ref: any
 ) {
   const router = useRouter();
-  const swiperRef = useRef<any>(null);
-
-  const theme = createTheme({
-    red: "#fff",
-    palette: {
-      primary: {
-        light: "#fff",
-        main: "#3f50b5",
-        dark: "#002884",
-        contrastText: "#fff",
-      },
-      secondary: {
-        light: "#ff7961",
-        main: "#f44336",
-        dark: "#ba000d",
-        contrastText: "#000",
-      },
-    },
-  });
-  const [value, setValue] = useState(0);
+  const { display } = useAppSelector((state) => state.global);
+  const classes = useStyles();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    index.setCurrentIndex(newValue);
   };
-  const handleChangeIndex = (index: number) => {
-    setValue(index);
-  };
-
-  useEffect(() => {
-    if (swiperRef.current) {
-      swiperRef.current.swiper.slideTo(props.currentIndex);
-    }
-  }, [props.currentIndex]);
-
-  const onSlideChange = (e: any) => {
-    // let newSwiper = e.activeIndex;
-    // props.setCurrentIndex(newSwiper);
-    // if (scrollRef.current?.scrollTop > scrollTop) {
-    //   scrollRef.current!.scrollTop = scrollTop;
-    // }
+  const handleChangeIndex = (index: any) => {
+    index.setCurrentIndex(index);
   };
 
   return (
-    <>
-      <Box>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          textColor=""
-          // indicatorColor="secondary"
-          style={{
-            width: 375,
+    <Box pos="sticky" top={0}>
+      <Tabs
+        value={index.currentIndex}
+        onChange={handleChange}
+        textColor=""
+        // indicatorColor="secondary"
+        sx={{
+          ".Mui-selected": {
+            color: colors["Orange600"],
+          },
+        }}
+        TabIndicatorProps={{
+          style: {
+            background: colors["Orange600"],
+          },
+        }}
+        style={{ width: display.width }}
+        classes={{
+          root: classes.tabsRoot,
+        }}
+      >
+        <Tab
+          label="Item One"
+          {...a11yProps(0)}
+          style={{ height: "35px" }}
+          classes={{
+            root: classes.tabRoot,
           }}
-          sx={{
-            ".Mui-selected": {
-              color: colors["Orange600"],
-            },
+        />
+        <Tab
+          label="Item Two"
+          {...a11yProps(1)}
+          style={{ height: "35px" }}
+          classes={{
+            root: classes.tabRoot,
           }}
-          TabIndicatorProps={{
-            style: {
-              background: colors["Orange600"],
-            },
-          }}
-        >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
+        />
+      </Tabs>
 
       <SwipeableViews
         // axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
+        index={index.currentIndex}
         onChangeIndex={handleChangeIndex}
       >
         {children}
@@ -124,7 +106,7 @@ const TopNavigationTest2 = forwardRef(function Div(
           Item Three
         </TabPanel> */}
       </SwipeableViews>
-    </>
+    </Box>
   );
 });
 

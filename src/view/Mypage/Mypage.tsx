@@ -151,6 +151,18 @@ export default function Mypage() {
 
   const [wrapperIndex, setWrapperIndex] = useState(0);
   const [touch, setTouch] = useState(true);
+  const [timeoutId, setTimeoutId] = useState(-1);
+
+  const [startY, setStartY] = useState(0);
+  const [direction, setDirection] = useState("none");
+  const handleTouchStart = (e: any) => {
+    setStartY(e?.changedTouches[0].clientY);
+  };
+  const handleTouchMove = (e: any) => {
+    const newMoveY = e?.changedTouches[0].clientY;
+    if (newMoveY - startY < 0) setDirection("down");
+    else setDirection("up");
+  };
 
   return (
     <>
@@ -170,18 +182,29 @@ export default function Mypage() {
             h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
             pos="absolute"
             top={50}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
             onScrollPositionChange={(position: { x: number; y: number }) => {
-              setScrollHeight(position.y);
+              // console.log(direction);
+              //아래로 내리는 경우
+              if (direction === "down") {
+                if (position.y < 332) {
+                  scrollRef1.current!.style.setProperty("overflow", `hidden`);
+                  scrollRef2.current!.style.setProperty("overflow", `hidden`);
+                } else {
+                  scrollRef1.current!.style.setProperty("overflow", `auto`);
+                  scrollRef2.current!.style.setProperty("overflow", `auto`);
 
-              if (position.y < 332) {
-                scrollRef1.current!.style.setProperty("overflow", `hidden`);
-                scrollRef2.current!.style.setProperty("overflow", `hidden`);
-                // scrollRef.current!.scrollTo({
-                //   top: position.y,
-                // });
-              } else {
-                scrollRef1.current!.style.setProperty("overflow", `auto`);
-                scrollRef2.current!.style.setProperty("overflow", `auto`);
+                  if (currentIndex === 0) {
+                    scrollRef1.current!.scrollTo({
+                      top: position.y - 332,
+                    });
+                  } else {
+                    scrollRef2.current!.scrollTo({
+                      top: position.y - 332,
+                    });
+                  }
+                }
               }
 
               if (position.y > 10) {
@@ -197,6 +220,8 @@ export default function Mypage() {
               pr={20}
               // pos="absolute"
               // bg={colors["N0"]}
+              pos="sticky"
+              top={-332}
               style={{ width: "100%" }}
             >
               <ProfileInfo mine={mine} profile={profileData && profileData} />
@@ -205,7 +230,8 @@ export default function Mypage() {
               <TasteBox tasteStatistics={profileData?.tasteStatistics} />
               <Space h={40} />
             </Box>
-            <TopNavigation>
+
+            <TopNavigation index={{ currentIndex, setCurrentIndex }}>
               <RecommendReviewCardContainer
                 scrollRef={scrollRef}
                 scrollRef1={scrollRef1}
@@ -215,16 +241,20 @@ export default function Mypage() {
                 setTitleChange={setTitleChange}
                 mine={mine}
                 scrollHeight={scrollHeight}
+                direction={direction}
               />
               <ReviewCardContainer
                 mine={mine}
+                scrollRef={scrollRef}
                 scrollRef1={scrollRef1}
                 scrollRef2={scrollRef2}
                 scroll2={scroll2}
                 setScroll2={setScroll2}
                 scrollHeight={scrollHeight}
+                direction={direction}
               />
             </TopNavigation>
+            <Box h={1000} />
             {/* <Flex
               // ref={keywordsScrollRef}
               h={34}

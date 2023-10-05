@@ -12,6 +12,7 @@ const ReviewCardContainer = ({
   mine,
   scrollHeight,
   profile,
+  direction,
 }: any) => {
   const { display } = useAppSelector((state) => state.global);
   const { reviewDatas, isLoadingReview, fetchNextPage, hasNextPage } =
@@ -35,6 +36,15 @@ const ReviewCardContainer = ({
       //   }
       // }}
       style={{ overflow: "hidden" }}
+      onScroll={(e: any) => {
+        if (direction === "up" && e.target.scrollTop > 0) {
+          console.log("A");
+          scrollRef.current!.scrollTo({ top: 332 });
+        } else if (direction === "up" && e.target.scrollTop === 0) {
+          scrollRef1.current!.scrollTo({ top: 0 });
+          scrollRef2.current!.style.setProperty("overflow", `hidden`);
+        }
+      }}
     >
       {/* <Box h={332} /> */}
       {[...Array(15)].map((data: any, idx: any) => {
