@@ -60,8 +60,6 @@ export default function Mypage() {
   const { profileData, isLoadingProfile } = useGetProfile();
   const { recommendReviewDatas, isLoadingRecommendReview } =
     useGetRecommendReviews();
-  const { reviewDatas, isLoadingReview, fetchNextPage, hasNextPage } =
-    useGetReviews();
 
   const clickRecommand = () => {
     if (recommendReviewDatas?.length === 0) {
@@ -80,7 +78,7 @@ export default function Mypage() {
     // return () => {
     //   scrollRef.current?.removeEventListener("scroll", onScroll);
     // };
-  }, [currentIndex, profileData, recommendReviewDatas, reviewDatas]);
+  }, [currentIndex, profileData, recommendReviewDatas]);
 
   useEffect(() => {
     if (profileData && recommendReviewDatas) {
@@ -92,39 +90,12 @@ export default function Mypage() {
     }
   }, [profileData, recommendReviewDatas]);
 
-  const onHeight = () => {
-    if (currentIndex === 0) {
-      if (recommendReviewDatas?.length === 0) {
-        return `${
-          height - 105 - (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0)
-        }px`;
-      } else {
-        if (height > ((width - 60) * 9) / 8 + 312) {
-          return `${
-            height - 105 - (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0)
-          }px`;
-        } else return `${((width - 60) * 9) / 8 + 120}px`;
-      }
-    } else {
-      if (reviewDatas?.[0].contents?.length === 0) {
-        return `${
-          height - 105 - (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0)
-        }px`;
-      } else {
-        return "auto";
-      }
-    }
-  };
-
   const scrollRef1 = useRef<any>(null);
   const [scroll1, setScroll1] = useState(0);
   const scrollRef2 = useRef<any>(null);
   const [scroll2, setScroll2] = useState(0);
 
-  const [wrapperIndex, setWrapperIndex] = useState(0);
-  const [touch, setTouch] = useState(true);
-  const [timeoutId, setTimeoutId] = useState(-1);
-
+  const [touch, setTouch] = useState(false);
   const [startY, setStartY] = useState(0);
   const [direction, setDirection] = useState("none");
   const handleTouchStart = (e: any) => {
@@ -134,6 +105,52 @@ export default function Mypage() {
     const newMoveY = e?.changedTouches[0].clientY;
     if (newMoveY - startY < 0) setDirection("down");
     else setDirection("up");
+  };
+
+  const handleScroll = (position: { x: number; y: number }) => {
+    if (
+      direction === "up" &&
+      currentIndex === 0 &&
+      scrollRef1?.current?.scrollTop <= 0
+    ) {
+      // scrollRef2.current!.scrollTo({ top: 0 });
+      scrollRef1.current!.style.setProperty("overflow", `hidden`);
+      scrollRef2.current!.style.setProperty("overflow", `hidden`);
+    } else if (
+      direction === "up" &&
+      currentIndex === 1 &&
+      scrollRef2?.current?.scrollTop <= 0
+    ) {
+      // scrollRef1.current!.scrollTo({ top: 0 });
+      scrollRef1.current!.style.setProperty("overflow", `hidden`);
+      scrollRef2.current!.style.setProperty("overflow", `hidden`);
+    }
+    //아래로 내리는 경우
+    else if (direction === "down") {
+      if (position.y < 332) {
+        scrollRef1.current!.style.setProperty("overflow", `hidden`);
+        scrollRef2.current!.style.setProperty("overflow", `hidden`);
+      } else {
+        scrollRef1.current!.style.setProperty("overflow", `auto`);
+        scrollRef2.current!.style.setProperty("overflow", `auto`);
+
+        if (currentIndex === 0) {
+          scrollRef1.current!.scrollTo({
+            top: position.y - 332,
+          });
+        } else {
+          scrollRef2.current!.scrollTo({
+            top: position.y - 332,
+          });
+        }
+      }
+    }
+
+    if (position.y > 10) {
+      setTitleChange(true);
+    } else {
+      setTitleChange(false);
+    }
   };
 
   return (
@@ -156,63 +173,16 @@ export default function Mypage() {
             top={50}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
-            onScrollPositionChange={(position: { x: number; y: number }) => {
-              // const scrollTop1: any = scrollRef1?.current?.scrollTop;
-              // const scrollTop2: any = scrollRef2?.current?.scrollTop;
-              if (
-                direction === "up" &&
-                currentIndex === 0 &&
-                scrollRef1?.current?.scrollTop === 0
-              ) {
-                scrollRef2.current!.scrollTo({ top: 0 });
-                scrollRef1.current!.style.setProperty("overflow", `hidden`);
-                scrollRef2.current!.style.setProperty("overflow", `hidden`);
-              } else if (
-                direction === "up" &&
-                currentIndex === 1 &&
-                scrollRef2?.current?.scrollTop === 0
-              ) {
-                scrollRef1.current!.scrollTo({ top: 0 });
-                scrollRef1.current!.style.setProperty("overflow", `hidden`);
-                scrollRef2.current!.style.setProperty("overflow", `hidden`);
-              }
-              //아래로 내리는 경우
-              else if (direction === "down") {
-                if (position.y < 332) {
-                  scrollRef1.current!.style.setProperty("overflow", `hidden`);
-                  scrollRef2.current!.style.setProperty("overflow", `hidden`);
-                } else {
-                  scrollRef1.current!.style.setProperty("overflow", `auto`);
-                  scrollRef2.current!.style.setProperty("overflow", `auto`);
-
-                  if (currentIndex === 0) {
-                    scrollRef1.current!.scrollTo({
-                      top: position.y - 332,
-                    });
-                  } else {
-                    scrollRef2.current!.scrollTo({
-                      top: position.y - 332,
-                    });
-                  }
-                }
-              }
-
-              if (position.y > 10) {
-                setTitleChange(true);
-              } else {
-                setTitleChange(false);
-              }
-            }}
+            onScrollPositionChange={handleScroll}
           >
             {/* 332 */}
             <Box
               pl={20}
               pr={20}
-              // pos="absolute"
-              // bg={colors["N0"]}
+              bg={colors["N0"]}
               pos="sticky"
               top={-332}
-              style={{ width: "100%" }}
+              style={{ width: width }}
             >
               <ProfileInfo mine={mine} profile={profileData && profileData} />
               <Space h={22} />
@@ -222,11 +192,14 @@ export default function Mypage() {
             </Box>
 
             <TopNavigation
+              height={34}
+              padding={20}
               index={{
                 currentIndex,
                 setCurrentIndex,
               }}
-              setCurrentIndex={setCurrentIndex}
+              touch={{ touch, setTouch }}
+              keywordDatas={["추천 베스트", "리뷰"]}
             >
               <RecommendReviewCardContainer
                 scrollRef={scrollRef}
@@ -239,6 +212,7 @@ export default function Mypage() {
                 scrollHeight={scrollHeight}
                 direction={direction}
                 recommendReviewDatas={recommendReviewDatas}
+                touch={{ touch, setTouch }}
               />
               <ReviewCardContainer
                 mine={mine}

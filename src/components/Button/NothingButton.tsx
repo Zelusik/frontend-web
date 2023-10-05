@@ -12,8 +12,8 @@ interface NothingButtonProps {
 
 const NothingButton = ({
   height = "auto",
-  text = "sad bobpool",
-  buttonText = "sad bobpool",
+  text,
+  buttonText = "nothing here",
   buttonClick,
 }: NothingButtonProps) => {
   const router = useRouter();
@@ -21,10 +21,16 @@ const NothingButton = ({
   return (
     <Center h={height}>
       <Box ta="center">
-        <Text p={0} c={colors["N80"]} style={typography["Paragraph5"]}>
-          {text}
-        </Text>
-        <Space h={20} />
+        {text && (
+          <Text
+            p={0}
+            mb={20}
+            c={colors["N80"]}
+            style={typography["Paragraph5"]}
+          >
+            {text}
+          </Text>
+        )}
         <Button
           variant="filled"
           w="auto"
