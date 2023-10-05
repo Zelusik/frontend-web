@@ -35,7 +35,7 @@ import BackArrow from "components/Button/IconButton/BackArrow";
 import RecommendReviewCardContainer from "./components/RecommendReviewCardContainer";
 import ReviewCardContainer from "./components/ReviewCardContainer";
 
-import TopNavigation from "components/TopNavigation/TopNavigationTest2";
+import TopNavigation from "components/TopNavigation/TopNavigation";
 
 // 392 + 35 = 427
 
@@ -71,34 +71,6 @@ export default function Mypage() {
     }
     router.push(Route.RECOMMEND_BEST());
   };
-
-  // function onScroll() {
-  //   const scrollTop = 10 + 88 + 22 + 182 + 40;
-  //   setScrollHeight(scrollRef.current?.scrollTop);
-
-  //   // if (
-  //   //   (currentIndex === 0 ||
-  //   //     (currentIndex === 1 &&
-  //   //       reviewDatas &&
-  //   //       reviewDatas[0].contents?.length === 0)) &&
-  //   //   scrollRef.current?.scrollTop >= scrollTop
-  //   // ) {
-  //   //   scrollRef.current!.scrollTop = scrollTop;
-  //   //   return;
-  //   // }
-
-  //   if (scrollRef.current?.scrollTop >= 10) {
-  //     setTitleChange(true);
-  //   } else {
-  //     setTitleChange(false);
-  //   }
-
-  //   if (scrollRef.current?.scrollTop > scrollTop - 1) {
-  //     setTopFixed(true);
-  //   } else {
-  //     setTopFixed(false);
-  //   }
-  // }
 
   useEffect(() => {
     const query = router.query.id;
@@ -144,9 +116,9 @@ export default function Mypage() {
     }
   };
 
-  const scrollRef1 = useRef();
+  const scrollRef1 = useRef<any>(null);
   const [scroll1, setScroll1] = useState(0);
-  const scrollRef2 = useRef();
+  const scrollRef2 = useRef<any>(null);
   const [scroll2, setScroll2] = useState(0);
 
   const [wrapperIndex, setWrapperIndex] = useState(0);
@@ -185,9 +157,27 @@ export default function Mypage() {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onScrollPositionChange={(position: { x: number; y: number }) => {
-              // console.log(direction);
+              // const scrollTop1: any = scrollRef1?.current?.scrollTop;
+              // const scrollTop2: any = scrollRef2?.current?.scrollTop;
+              if (
+                direction === "up" &&
+                currentIndex === 0 &&
+                scrollRef1?.current?.scrollTop === 0
+              ) {
+                scrollRef2.current!.scrollTo({ top: 0 });
+                scrollRef1.current!.style.setProperty("overflow", `hidden`);
+                scrollRef2.current!.style.setProperty("overflow", `hidden`);
+              } else if (
+                direction === "up" &&
+                currentIndex === 1 &&
+                scrollRef2?.current?.scrollTop === 0
+              ) {
+                scrollRef1.current!.scrollTo({ top: 0 });
+                scrollRef1.current!.style.setProperty("overflow", `hidden`);
+                scrollRef2.current!.style.setProperty("overflow", `hidden`);
+              }
               //아래로 내리는 경우
-              if (direction === "down") {
+              else if (direction === "down") {
                 if (position.y < 332) {
                   scrollRef1.current!.style.setProperty("overflow", `hidden`);
                   scrollRef2.current!.style.setProperty("overflow", `hidden`);
@@ -231,7 +221,13 @@ export default function Mypage() {
               <Space h={40} />
             </Box>
 
-            <TopNavigation index={{ currentIndex, setCurrentIndex }}>
+            <TopNavigation
+              index={{
+                currentIndex,
+                setCurrentIndex,
+              }}
+              setCurrentIndex={setCurrentIndex}
+            >
               <RecommendReviewCardContainer
                 scrollRef={scrollRef}
                 scrollRef1={scrollRef1}
@@ -242,6 +238,7 @@ export default function Mypage() {
                 mine={mine}
                 scrollHeight={scrollHeight}
                 direction={direction}
+                recommendReviewDatas={recommendReviewDatas}
               />
               <ReviewCardContainer
                 mine={mine}

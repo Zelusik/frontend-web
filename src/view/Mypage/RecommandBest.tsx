@@ -21,11 +21,7 @@ export default function RecommandBest() {
   const { height } = useDisplaySize();
   const dispatch = useAppDispatch();
   const recommendReview = useAppSelector((state) => state.recommendReview);
-  const {
-    data: membersReviews,
-    fetchNextPage,
-    hasNextPage,
-  } = useGetMembersReviews();
+  const { reviewDatas, fetchNextPage, hasNextPage } = useGetMembersReviews();
 
   const handleClickStore = async () => {
     const recommendReviews = recommendReview.map(
@@ -65,7 +61,7 @@ export default function RecommandBest() {
       <RecommandBestWrapper height={height - 240}>
         <ReviewList
           type="recommand-best"
-          membersReviews={membersReviews && membersReviews}
+          membersReviews={reviewDatas && reviewDatas}
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
         />

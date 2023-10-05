@@ -16,6 +16,7 @@ import Text from "components/Text";
 import NewButton from "./NewButton";
 import { getAddressInfo } from "utils/getAddressInfo";
 import useDisplaySize from "hooks/useDisplaySize";
+import { globalValue } from "constants/globalValue";
 
 export default function RecommandSwiper({ datas, mine, ...props }: any) {
   const router = useRouter();
@@ -37,15 +38,17 @@ export default function RecommandSwiper({ datas, mine, ...props }: any) {
         allowSlidePrev={currentIndex !== 0}
         allowSlideNext={currentIndex !== datas?.length - 1}
         onSlideChange={onSlideChange}
+        style={{ width: 375 }}
       >
         {datas?.map((data: any, idx: number) => {
           return (
             <SwiperSlide key={idx}>
-              <ImageWrapper height={((width - 60) * 9) / 8}>
+              <ImageWrapper width={width} height={((width - 60) * 9) / 8}>
                 <Image
                   type="home"
                   alt="추천 사진"
-                  src={data.review.images[0].imageUrl}
+                  src={globalValue.BLANK_IMAGE}
+                  // src={data.review.images[0].imageUrl}
                   onClick={() => clickReviewDetail(data.review.id)}
                 />
                 <NumberWrapper>
@@ -93,7 +96,9 @@ const trans = (action: boolean) => keyframes`
   }
 `;
 
-const ImageWrapper = styled.div<{ height: number }>`
+const ImageWrapper = styled.div<{ width: number; height: number }>`
+  max-width: ${({ width }) => width}px;
+  min-width: ${({ width }) => width}px;
   max-height: ${({ height }) => height}px;
   min-height: ${({ height }) => height}px;
   margin: 0 10px;

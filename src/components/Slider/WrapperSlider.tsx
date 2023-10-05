@@ -69,7 +69,7 @@ const WrapperSlider = forwardRef(function Div(
         handleSlide();
         index.setWrapperIndex(newIndex);
       }}
-      style={{ width: display.width }}
+      // style={{ width: display.width }}
     >
       {children}
     </StyledSlider>

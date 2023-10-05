@@ -20,7 +20,6 @@ const ReviewCardContainer = ({
 
   return (
     <Box
-      type="never"
       ref={scrollRef2}
       h={
         display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT
@@ -42,6 +41,7 @@ const ReviewCardContainer = ({
           scrollRef.current!.scrollTo({ top: 332 });
         } else if (direction === "up" && e.target.scrollTop === 0) {
           scrollRef1.current!.scrollTo({ top: 0 });
+          scrollRef1.current!.style.setProperty("overflow", `hidden`);
           scrollRef2.current!.style.setProperty("overflow", `hidden`);
         }
       }}

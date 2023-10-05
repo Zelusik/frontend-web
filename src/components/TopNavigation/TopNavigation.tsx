@@ -1,15 +1,7 @@
 import React, { forwardRef, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core";
-import {
-  Tab,
-  Tabs,
-  TabList,
-  createTheme,
-  useTheme,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import { Box } from "@mantine/core";
 import SwipeableViews from "react-swipeable-views";
 import { colors } from "constants/colors";
@@ -35,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopNavigationTest2 = forwardRef(function Div(
-  { children, index, keywordDatas }: any,
+const TopNavigation = forwardRef(function Div(
+  { children, index, setCurrentIndex, keywordDatas }: any,
   ref: any
 ) {
   const router = useRouter();
@@ -46,8 +38,9 @@ const TopNavigationTest2 = forwardRef(function Div(
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     index.setCurrentIndex(newValue);
   };
-  const handleChangeIndex = (index: any) => {
-    index.setCurrentIndex(index);
+  const handleChangeIndex = (index: number) => {
+    console.log(index);
+    setCurrentIndex(index);
   };
 
   return (
@@ -55,7 +48,7 @@ const TopNavigationTest2 = forwardRef(function Div(
       <Tabs
         value={index.currentIndex}
         onChange={handleChange}
-        textColor=""
+        // textColor=""
         // indicatorColor="secondary"
         sx={{
           ".Mui-selected": {
@@ -94,29 +87,21 @@ const TopNavigationTest2 = forwardRef(function Div(
         // axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={index.currentIndex}
         onChangeIndex={handleChangeIndex}
+        disabled={true}
       >
         {children}
-        {/* <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel> */}
       </SwipeableViews>
     </Box>
   );
 });
 
-export default TopNavigationTest2;
+export default TopNavigation;
 
 // import React, { useState } from "react";
 // import { Tab, Tabs, TabList, useTheme, Box, Typography } from "@mui/material";
 // import SwipeableViews from "react-swipeable-views";
 
-// const TopNavigationTest2Test2 = ({}: any) => {
+// const TopNavigationTest2 = ({}: any) => {
 //   const theme = useTheme();
 //   const [value, setValue] = useState(0);
 
@@ -161,4 +146,4 @@ export default TopNavigationTest2;
 //     </>
 //   );
 // };
-// export default TopNavigationTest2Test2;
+// export default TopNavigationTest2;

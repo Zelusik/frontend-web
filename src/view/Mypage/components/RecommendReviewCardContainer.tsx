@@ -4,6 +4,7 @@ import { ScrollArea, Box, Flex, Text, Space } from "@mantine/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { globalValue } from "constants/globalValue";
 import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
+import RecommandSwiper from "./RecommandSwiper";
 
 const RecommendReviewCardContainer = ({
   scrollRef,
@@ -38,7 +39,6 @@ const RecommendReviewCardContainer = ({
 
   return (
     <Box
-      // type="never"
       ref={scrollRef1}
       h={
         display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT
@@ -74,18 +74,23 @@ const RecommendReviewCardContainer = ({
         } else if (direction === "up" && e.target.scrollTop === 0) {
           scrollRef2.current!.scrollTo({ top: 0 });
           scrollRef1.current!.style.setProperty("overflow", `hidden`);
+          scrollRef2.current!.style.setProperty("overflow", `hidden`);
         }
       }}
     >
       {/* <Box h={332} /> */}
-      {[...Array(6)]?.map((data: any, idx: any) => {
+      {[...Array(3)].map((data: any, idx: any) => {
         return (
           <Box key={idx} h={100}>
-            {/* {data?.review?.images?.[0]?.imageUrl} */}
             Hi{idx}
           </Box>
         );
       })}
+      <RecommandSwiper
+        datas={recommendReviewDatas && recommendReviewDatas}
+        mine={mine}
+        // onClick={clickRecommand}
+      />
     </Box>
   );
 };
