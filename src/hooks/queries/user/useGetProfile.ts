@@ -1,9 +1,9 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { getMembersProfile, getMyProfile } from "api/members";
+import { membersApi } from "api/members";
 import { useRouter } from "next/router";
 
-const useGetMembersProfile = () => {
+const useGetProfile = () => {
   const { query } = useRouter();
   const memberId: any = query.id;
 
@@ -11,10 +11,10 @@ const useGetMembersProfile = () => {
     ["membersProfile", memberId],
     async () => {
       if (memberId) {
-        const res = await getMembersProfile(memberId);
+        const res = await membersApi.getProfile(memberId);
         return res;
       } else {
-        const res = await getMyProfile();
+        const res = await membersApi.getMeProfile();
         return res;
       }
     },
@@ -23,7 +23,7 @@ const useGetMembersProfile = () => {
       cacheTime: 1000 * 60 * 30,
     }
   );
-  return { data, isLoading, error, refetch };
+  return { profileData: data, isLoadingProfile: isLoading, error, refetch };
 };
 
-export default useGetMembersProfile;
+export default useGetProfile;

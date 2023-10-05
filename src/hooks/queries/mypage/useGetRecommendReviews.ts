@@ -1,10 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import {
-  getMembersRecommendReviews,
-  getMyRecommendReviews,
-} from "api/recommend-reviews";
+import { membersApi } from "api/members";
 
 const useGetRecommendReviews = () => {
   const { query } = useRouter();
@@ -14,10 +11,10 @@ const useGetRecommendReviews = () => {
     ["recommendReviews", memberId],
     async () => {
       if (memberId) {
-        const res = await getMembersRecommendReviews(Number(memberId));
+        const res = await membersApi.getRecommendReviews(Number(memberId));
         return res.recommendedReviews;
       } else {
-        const res = await getMyRecommendReviews();
+        const res = await membersApi.getMeRecommendReviews();
         return res.recommendedReviews;
       }
     },
@@ -26,7 +23,12 @@ const useGetRecommendReviews = () => {
       cacheTime: 1000 * 60 * 30,
     }
   );
-  return { data, isLoading, error, refetch };
+  return {
+    recommendReviewDatas: data,
+    isLoadingRecommendReview: isLoading,
+    error,
+    refetch,
+  };
 };
 
 export default useGetRecommendReviews;

@@ -1,17 +1,11 @@
-import { getMyReviews, getReviews } from "api/reviews";
+import { getMyReviews, getReviews, reviewsApi } from "api/reviews";
 import { useRouter } from "next/router";
-import React from "react";
 import { useInfiniteQuery } from "react-query";
 
-const useGetMembersReviews = () => {
+const useGetReviews = () => {
   const { query } = useRouter();
   const writerId: any = query.id;
-  const {
-    data: responseData,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery(
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["membersReviews", writerId],
     async ({ pageParam = 0 }) => {
       if (writerId) {
@@ -23,10 +17,10 @@ const useGetMembersReviews = () => {
             embed: "PLACE",
           },
         };
-        const res = await getReviews(params);
+        const res = await reviewsApi.getReviews(params);
         return res;
       } else {
-        const res = await getMyReviews({
+        const res = await reviewsApi.getReviewsMe({
           page: pageParam,
           size: 10,
         });
@@ -41,8 +35,12 @@ const useGetMembersReviews = () => {
       },
     }
   );
-  const data = responseData?.pages;
-  return { data, isLoading, fetchNextPage, hasNextPage };
+  return {
+    reviewDatas: data?.pages,
+    isLoadingReview: isLoading,
+    fetchNextPage,
+    hasNextPage,
+  };
 };
 
-export default useGetMembersReviews;
+export default useGetReviews;

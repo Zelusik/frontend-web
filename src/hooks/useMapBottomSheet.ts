@@ -221,13 +221,6 @@ export default function useMapBottomSheet({ ...props }: any) {
       touchMove.differenceY = differenceY;
     };
 
-    const open = () => {
-      sheet.current!.style.setProperty("transform", `translateY(${-TOP}px)`);
-    };
-    const close = () => {
-      sheet.current!.style.setProperty("transform", `translateY(0)`);
-    };
-
     const handleTouchEnd = (e: TouchEvent) => {
       const { touchStart, touchMove, isContentAreaTouched } = metrics.current;
       const move = touchStart.touchY - touchMove.moveTouchY;

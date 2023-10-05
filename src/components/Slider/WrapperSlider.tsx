@@ -1,14 +1,14 @@
 import React, { useState, useEffect, forwardRef, useRef } from "react";
 import { Box } from "@mantine/core";
 import styled from "@emotion/styled";
-import { useRouter } from "next/router";
-import useDisplaySize from "hooks/useDisplaySize";
+import { useAppSelector } from "hooks/useReduxHooks";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 interface WrapperSliderProps {
+  height?: number;
   index: any;
   touch: any;
   length: number;
@@ -17,10 +17,10 @@ interface WrapperSliderProps {
 }
 
 const WrapperSlider = forwardRef(function Div(
-  { index, touch, length, handleSlide, children }: WrapperSliderProps,
+  { height, index, touch, length, handleSlide, children }: WrapperSliderProps,
   ref: any
 ) {
-  const { width } = useDisplaySize();
+  const { display } = useAppSelector((state) => state.global);
 
   const [startX, setStartX] = useState(0);
   const [moveX, setMoveX] = useState(0);
@@ -47,6 +47,7 @@ const WrapperSlider = forwardRef(function Div(
   };
 
   useEffect(() => {
+    console.log("A");
     ref.current.slickGoTo(index.wrapperIndex);
   }, [index.wrapperIndex]);
 
@@ -68,6 +69,7 @@ const WrapperSlider = forwardRef(function Div(
         handleSlide();
         index.setWrapperIndex(newIndex);
       }}
+      // style={{ width: display.width }}
     >
       {children}
     </StyledSlider>
