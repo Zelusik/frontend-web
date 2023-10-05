@@ -2,86 +2,91 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Box, Flex, Text, Space, AspectRatio, Image } from "@mantine/core";
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import Swiper from "components/Swiper";
+import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Route } from "constants/Route";
 import { colors } from "constants/colors";
-import Image from "components/Image";
 import StoreTitle from "components/Title/StoreTitle";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
 import NewButton from "./NewButton";
 import { getAddressInfo } from "utils/getAddressInfo";
 import useDisplaySize from "hooks/useDisplaySize";
 import { globalValue } from "constants/globalValue";
+import { useAppSelector } from "hooks/useReduxHooks";
+import NothingButton from "components/Button/NothingButton";
 
-export default function RecommandSwiper({ datas, mine, ...props }: any) {
+export default function RecommandSwiper({
+  recommendReviewDatas,
+  mine,
+  touch,
+}: any) {
   const router = useRouter();
-  const { width } = useDisplaySize();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-  const onSlideChange = (e: any) => {
-    let newSwiper = e.activeIndex;
-    setCurrentIndex(newSwiper);
-  };
 
   const clickReviewDetail = (reviewId: number) => {
     router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: reviewId } });
   };
+  const handleClickRecommendReview = () => {
+    router.push({ pathname: Route.RECOMMEND_BEST() });
+  };
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <>
+      <Space h={20} />
       <Swiper
-        allowSlidePrev={currentIndex !== 0}
-        allowSlideNext={currentIndex !== datas?.length - 1}
-        onSlideChange={onSlideChange}
-        style={{ width: 375 }}
+        index={{ currentIndex, setCurrentIndex }}
+        touch={touch}
+        length={recommendReviewDatas?.length}
       >
-        {datas?.map((data: any, idx: number) => {
+        {recommendReviewDatas?.map((data: any, idx: number) => {
           return (
-            <SwiperSlide key={idx}>
-              <ImageWrapper width={width} height={((width - 60) * 9) / 8}>
+            <SwiperSlide key={idx} style={{ padding: "0 5px" }}>
+              <AspectRatio ratio={300 / 340}>
                 <Image
-                  type="home"
-                  alt="추천 사진"
+                  alt="음식 이미지"
                   src={globalValue.BLANK_IMAGE}
                   // src={data.review.images[0].imageUrl}
+                  radius={12}
                   onClick={() => clickReviewDetail(data.review.id)}
                 />
-                <NumberWrapper>
+                {/* <NumberWrapper>
                   <Text typo="Paragraph7">{idx + 1}</Text>
-                </NumberWrapper>
-                <StoreTitle
+                </NumberWrapper> */}
+                {/* <StoreTitle
                   type="home"
                   title={data.review.place.name}
                   subTitle={getAddressInfo(data.review.place)}
                   onClick={() => clickReviewDetail(data.review.id)}
                   isMarked={data.review.place.isMarked}
                   placeId={data.review.place.id}
-                />
-              </ImageWrapper>
+                /> */}
+              </AspectRatio>
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <Spacing size={26} />
+      <Space h={26} />
 
-      <IndexWrapper>
-        <IndexInner>
-          {datas?.map((data: any, idx: number) => {
-            return <Index key={idx} act={currentIndex === idx}></Index>;
+      <Flex mb={30} justify="center">
+        <Flex gap={4}>
+          {recommendReviewDatas?.map((data: any, idx: number) => {
+            return <Index key={idx} act={currentIndex === idx} />;
           })}
-        </IndexInner>
-      </IndexWrapper>
-      <Spacing size={30} />
+        </Flex>
+      </Flex>
 
-      {mine ? (
-        <NewButton buttonText="추천 베스트 수정하기" onClick={props.onClick} />
-      ) : null}
-    </div>
+      {mine && (
+        <NothingButton
+          buttonText="추천 베스트 수정하기"
+          buttonClick={handleClickRecommendReview}
+        />
+      )}
+      <Space h={20} />
+    </>
   );
 }
 
@@ -96,24 +101,6 @@ const trans = (action: boolean) => keyframes`
   }
 `;
 
-const ImageWrapper = styled.div<{ width: number; height: number }>`
-  max-width: ${({ width }) => width}px;
-  min-width: ${({ width }) => width}px;
-  max-height: ${({ height }) => height}px;
-  min-height: ${({ height }) => height}px;
-  margin: 0 10px;
-  position: relative;
-`;
-
-const IndexWrapper = styled.div`
-  display: flex;
-`;
-const IndexInner = styled.div`
-  margin: 0 auto;
-  display: flex;
-  gap: 4px;
-`;
-
 const Index = styled.div<{ act: boolean }>`
   width: 4px;
   height: 4px;
@@ -121,11 +108,4 @@ const Index = styled.div<{ act: boolean }>`
 
   animation: ${(props) => trans(props.act)} 0.3s forwards;
   border-radius: 2px;
-`;
-
-const NumberWrapper = styled.div`
-  position: absolute;
-  top: 20px;
-  left: 17px;
-  font-style: italic;
 `;

@@ -1,7 +1,9 @@
-import { ScrollArea, Box, Flex, Text, Space } from "@mantine/core";
+import { Box, Flex, Text, Space } from "@mantine/core";
+import LoadingCircle from "components/Loading/LoadingCircle";
 import { globalValue } from "constants/globalValue";
 import useGetReviews from "hooks/queries/user/useGetReviews";
 import { useAppSelector } from "hooks/useReduxHooks";
+import ReviewList from "./ReviewList";
 
 const ReviewCardContainer = ({
   scrollRef,
@@ -21,39 +23,36 @@ const ReviewCardContainer = ({
   return (
     <Box
       ref={scrollRef2}
+      pl={20}
+      pr={20}
       h={
         display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT
       }
-      // onScrollPositionChange={(position: { x: number; y: number }) => {
-      //   // setTest(position.y);
-      //   // console.log(position.y - scroll1);
-      //   if (scroll2 < 332) {
-      //     scrollRef1.current!.scrollTo({ top: position.y });
-      //     setScroll2(position.y);
-      //   } else if (position.y - scroll2 < 0) {
-      //     setScroll2(position.y);
-      //   }
-      // }}
       style={{ overflow: "hidden" }}
-      onScroll={(e: any) => {
-        if (direction === "up" && e.target.scrollTop > 0) {
-          console.log("A");
+      onTouchMove={() => {
+        if (
+          direction === "up" &&
+          scrollRef2?.current?.scrollTop >= 0 &&
+          scrollRef?.current?.scrollTop > 332
+        ) {
           scrollRef.current!.scrollTo({ top: 332 });
-        } else if (direction === "up" && e.target.scrollTop === 0) {
-          scrollRef1.current!.scrollTo({ top: 0 });
-          scrollRef1.current!.style.setProperty("overflow", `hidden`);
-          scrollRef2.current!.style.setProperty("overflow", `hidden`);
         }
       }}
+      // onScroll={(e: any) => {
+      //   e.target.scrollTop
+      // }}
     >
-      {/* <Box h={332} /> */}
-      {[...Array(15)].map((data: any, idx: any) => {
-        return (
-          <Box key={idx} h={100}>
-            Hi{idx}
-          </Box>
-        );
-      })}
+      <ReviewList
+        reviewDatas={reviewDatas}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+      />
+      {hasNextPage && (
+        <>
+          <Space h={24} />
+          <LoadingCircle height={30} />
+        </>
+      )}
     </Box>
   );
 };
