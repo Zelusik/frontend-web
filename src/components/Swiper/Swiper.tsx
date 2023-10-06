@@ -20,10 +20,14 @@ const Swiper = forwardRef(function Div(
     touch.setTouch(true);
   };
   const handleTouchMove = (e: any) => {
-    if (e?.swipeDirection === "next" && index.currentIndex === length - 1) {
+    if (
+      !e?.swipeDirection ||
+      (e?.swipeDirection === "next" && index.currentIndex === length - 1) ||
+      (e?.swipeDirection === "prev" && index.currentIndex === 0)
+    ) {
       touch.setTouch(false);
-    } else if (e?.swipeDirection === "prev" && index.currentIndex === 0) {
-      touch.setTouch(false);
+    } else {
+      touch.setTouch(true);
     }
   };
   const handleTouchEnd = (e: any) => {
