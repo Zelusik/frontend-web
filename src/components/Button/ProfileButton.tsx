@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
-import { Center, Box, Flex, Space, Image } from "@mantine/core";
 import { Route } from "constants/Route";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
-import { Text } from "components/core";
+import { Box, Flex, Image, Space, Text } from "components/core";
 
 interface ProfileButtonProps {
   id: number;
@@ -28,9 +27,9 @@ const ProfileButton = ({
 
   return (
     <Flex onClick={handleClickProfile}>
-      <Center>
-        <Image src={image} w={30} h={30} radius={10} />
-      </Center>
+      {/* <Center> */}
+      <Image alt="" src={image} w={30} h={30} radius={10} />
+      {/* </Center> */}
       <Space w={8} />
       <Box>
         <Text c={colors["N100"]} style={typography["Headline2"]}>

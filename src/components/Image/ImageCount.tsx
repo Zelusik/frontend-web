@@ -1,7 +1,6 @@
-import { Box, Flex, Center } from "@mantine/core";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
-import { Text } from "components/core";
+import { Flex, Text } from "components/core";
 
 interface ImageCountProps {
   currentIndex: number;

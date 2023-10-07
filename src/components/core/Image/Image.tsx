@@ -6,6 +6,7 @@ import { globalValue } from "constants/globalValue";
 type ImageProps = ComponentsProps & {
   alt: string;
   src: any;
+  fit?: string;
 };
 
 const CustomImage = ({ children, ...props }: ImageProps) => {
@@ -16,6 +17,7 @@ const CustomImage = ({ children, ...props }: ImageProps) => {
       width={props?.w}
       style={{
         ...coreStyles(props),
+        objectFit: props?.fit,
         ...props.style,
       }}
     />

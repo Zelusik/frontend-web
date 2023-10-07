@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Box, Flex, Space, AspectRatio, Image } from "@mantine/core";
 
 import Swiper from "components/Swiper";
 import { SwiperSlide } from "swiper/react";
@@ -18,6 +17,7 @@ import useDisplaySize from "hooks/useDisplaySize";
 import { globalValue } from "constants/globalValue";
 import { useAppSelector } from "hooks/useReduxHooks";
 import NothingButton from "components/Button/NothingButton";
+import { AspectRatio, Flex, Image, Space } from "components/core";
 
 export default function RecommandSwiper({
   recommendReviewDatas,

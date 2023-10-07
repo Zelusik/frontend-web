@@ -1,5 +1,4 @@
 import React, { useState, useEffect, forwardRef, useRef } from "react";
-import { Box } from "@mantine/core";
 import styled from "@emotion/styled";
 import { useAppSelector } from "hooks/useReduxHooks";
 

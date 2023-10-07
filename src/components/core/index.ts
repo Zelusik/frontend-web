@@ -6,6 +6,7 @@ import ScrollArea from "./ScrollArea";
 import AspectRatio from "./AspectRatio";
 import Image from "./Image";
 import Divider from "./Divider";
+import Button from "./Button";
 
 export { Box };
 export { Flex };
@@ -15,3 +16,4 @@ export { Divider };
 export { ScrollArea };
 export { AspectRatio };
 export { Image };
+export { Button };

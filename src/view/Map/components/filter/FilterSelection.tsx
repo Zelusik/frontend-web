@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Space, Button } from "@mantine/core";
-import { Text } from "components/core";
+import { Box, Button, Flex, Text } from "components/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useSearch from "hooks/useSearch";
 
@@ -28,7 +27,7 @@ const FilterSelection = () => {
   return (
     <Box pos="relative">
       <Flex
-        ref={filterRef}
+        viewportRef={filterRef}
         h={36}
         pl={13}
         pr={13}

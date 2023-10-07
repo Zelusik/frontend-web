@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import { Box, Space } from "@mantine/core";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { globalValue } from "constants/globalValue";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useSearch from "hooks/useSearch";
 import { getNearContentsProps } from "models/view/mapModel";
+import { Box } from "components/core";
 // https://react-kakao-maps-sdk.jaeseokim.dev/
 
 interface KakaoMapProps {

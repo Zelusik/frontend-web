@@ -11,11 +11,6 @@ import { useAppSelector } from "hooks/useReduxHooks";
 import useBottomSheet from "hooks/useBottomSheet";
 import useSearch from "hooks/useSearch";
 
-import { MantineProvider } from "@mantine/core";
-// import { NotificationsProvider } from "@mantine/notifications";
-import { ModalsProvider } from "@mantine/modals";
-import "@mantine/core/styles.css";
-
 import BottomSheet from "components/BottomSheet";
 import Alert from "components/Alert";
 
@@ -31,60 +26,7 @@ const App = ({ Component, ...rest }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <MantineProvider
-          // withGlobalStyles
-          // withNormalizeCSS
-          theme={{
-            // globalStyles(theme: any) {
-            //   return {
-            //     a: {
-            //       textDecoration: "none",
-            //     },
-            //   };
-            // },
-            defaultRadius: 8,
-            components: {
-              TextInput: {
-                defaultProps: {
-                  placeholder: "입력해주세요",
-                },
-              },
-              Select: {
-                defaultProps: {
-                  placeholder: "선택",
-                },
-              },
-              DatePicker: {
-                defaultProps: {
-                  placeholder: "2023.01.01",
-                  locale: "ko",
-                  inputFormat: "YYYY.MM.DD",
-                },
-              },
-              //
-              //
-              //
-              DateRangePicker: {
-                defaultProps: {
-                  placeholder: "2023.01.01 ~ 2024.01.01",
-                  locale: "ko",
-                  inputFormat: "YYYY.MM.DD",
-                },
-              },
-              Textarea: {
-                defaultProps: {
-                  placeholder: "입력해주세요",
-                },
-              },
-            },
-          }}
-        >
-          {/* <NotificationsProvider position="top-center" zIndex={6000}> */}
-          <ModalsProvider>
-            <MyApp Component={Component} pageProps={pageProps} />
-          </ModalsProvider>
-          {/* </NotificationsProvider> */}
-        </MantineProvider>
+        <MyApp Component={Component} pageProps={pageProps} />
       </Provider>
     </QueryClientProvider>
   );

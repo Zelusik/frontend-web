@@ -6,13 +6,17 @@ import { ComponentsProps } from "models/componentsModal";
 import { colors } from "constants/colors";
 import { coreStyles } from "../coreStyles";
 
+type ButtonProps = ComponentsProps & {
+  disabled?: boolean;
+};
+
 const StyledButton = styled(MaterialButton)((props: any) => ({
   "&.MuiButtonBase-root": {
     // color: colors[props?.bg],
   },
 }));
 
-const Button = ({ children, ...props }: ComponentsProps) => {
+const Button = ({ children, ...props }: ButtonProps) => {
   return (
     <StyledButton
       onClick={props?.onClick}
@@ -20,6 +24,7 @@ const Button = ({ children, ...props }: ComponentsProps) => {
         ...coreStyles(props),
         ...props.style,
       }}
+      disabled={props?.disabled}
     >
       {children}
     </StyledButton>

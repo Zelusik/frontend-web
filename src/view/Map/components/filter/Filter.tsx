@@ -1,5 +1,4 @@
-import { Flex, Box, Button, Space } from "@mantine/core";
-import { Text } from "components/core";
+import { Button, Flex, Space, Text } from "components/core";
 import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 import { FilterDatasProps } from "models/view/mapModel";
@@ -37,7 +36,7 @@ const Filter = ({ type, filterData }: FilterProps) => {
   };
 
   return (
-    <Flex pl={20} pr={20} direction="column">
+    <Flex ph={20} direction="column">
       <Text c={colors["N100"]} style={typography["Headline4"]}>
         {filterData?.text}
       </Text>

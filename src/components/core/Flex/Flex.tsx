@@ -1,11 +1,19 @@
 import React from "react";
+import styled from "@emotion/styled";
 import { Box as MaterialBox } from "@material-ui/core";
 import { ComponentsProps } from "models/componentsModal";
 import { coreStyles } from "../coreStyles";
 
-const Box = ({ children, ...props }: ComponentsProps) => {
+const StyledBox = styled(MaterialBox)``;
+
+const Flex = ({ children, ...props }: ComponentsProps) => {
   return (
-    <MaterialBox
+    <StyledBox
+      ref={props?.viewportRef}
+      onTouchStart={props?.onTouchStart}
+      onTouchMove={props?.onTouchMove}
+      onTouchEnd={props?.onTouchEnd}
+      onClick={props?.onClick}
       style={{
         ...coreStyles(props),
         display: "flex",
@@ -13,8 +21,8 @@ const Box = ({ children, ...props }: ComponentsProps) => {
       }}
     >
       {children}
-    </MaterialBox>
+    </StyledBox>
   );
 };
 
-export default Box;
+export default Flex;

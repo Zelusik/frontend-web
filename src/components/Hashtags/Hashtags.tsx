@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
-import { Flex } from "@mantine/core";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import Hashtag from "./Hashtag";
-import useDisplaySize from "hooks/useDisplaySize";
+import { Flex } from "components/core";
 
 interface HashtagsProps {
   padding?: number;
@@ -39,8 +38,7 @@ export default function Hashtags({
 
   return (
     <Flex
-      pl={padding}
-      pr={padding}
+      ph={padding}
       gap={gap}
       // style={{ whiteSpace: "nowrap", overflowX: "auto" }} // 가로 스크롤
     >

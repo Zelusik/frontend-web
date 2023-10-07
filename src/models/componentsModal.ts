@@ -1,6 +1,7 @@
 export interface ComponentsProps {
   viewportRef?: any;
   key?: string | number;
+  tabIndex?: number;
   children?: any;
 
   style?: any;
@@ -29,19 +30,21 @@ export interface ComponentsProps {
 
   dis?: string;
   flex?: string;
+  direction?: string;
   wrap?: string;
   justify?: string;
   text?: string;
   align?: string;
-  gap?: number;
-  radius?: number;
+  gap?: string | number;
+  radius?: string | number;
   ratio?: number;
+  opacity?: string | number;
 
   pos?: string;
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+  top?: string | number;
+  bottom?: string | number;
+  left?: string | number;
+  right?: string | number;
 
   shadow?: string;
   bg?: string;
@@ -49,5 +52,8 @@ export interface ComponentsProps {
   typo?: string;
   c?: string;
 
+  onTouchStart?: Function;
+  onTouchMove?: Function;
+  onTouchEnd?: Function;
   onClick?: Function;
 }

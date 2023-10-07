@@ -1,6 +1,5 @@
 import { useRef } from "react";
-import { ScrollArea, Box, Space } from "@mantine/core";
-import { Text } from "components/core";
+import { Box, ScrollArea, Space, Text } from "components/core";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGetFeed from "hooks/queries/home/useGetFeed";
@@ -38,9 +37,7 @@ export default function Home() {
         >
           <ScrollArea
             h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-            pl={20}
-            pr={20}
-            scrollbarSize={0}
+            ph={20}
           >
             <Space h={20} />
             <Text color={colors["N100"]} style={typography["Headline6"]}>
@@ -54,7 +51,7 @@ export default function Home() {
               ?.map((feedData: getFeedContentsProps) => (
                 <ReviewCard key={feedData?.id} feedData={feedData} />
               ))}
-            <Box ref={infinityScrollRef} />
+            <Box viewportRef={infinityScrollRef} />
             {hasNextPage ? (
               <>
                 <LoadingCircle height={30} />

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Box, Space, AspectRatio, Image } from "@mantine/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import {
   getBookmarksContentsImagesProps,
@@ -17,6 +16,7 @@ import ImageCount from "components/Image/ImageCount";
 import Title from "components/Title";
 import StoreReviewButton from "components/Button/StoreReviewButton";
 import Heart from "components/Button/IconButton/Heart";
+import { AspectRatio, Box, Image, Space } from "components/core";
 
 interface StoreCardProps {
   key?: number;

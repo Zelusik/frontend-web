@@ -13,6 +13,7 @@ type TextProps = ComponentsProps & {
 const Text = ({ children, ...props }: TextProps) => {
   return (
     <MaterialBox
+      onClick={props?.onClick}
       style={{
         ...coreStyles(props),
         ...typography[props?.typo],

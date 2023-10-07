@@ -59,20 +59,8 @@ export default function Mypage() {
   };
 
   const handleScroll = ({ scrollY }: { scrollX: number; scrollY: number }) => {
-    if (
-      direction === "up" &&
-      currentIndex === 0 &&
-      scrollRef1?.current?.scrollTop <= 0
-    ) {
+    if (direction === "up" && scrollRef1?.current?.scrollTop <= 0) {
       // scrollRef2.current!.scrollTo({ top: 0 });
-      scrollRef1.current!.style.setProperty("overflow", `hidden`);
-      scrollRef2.current!.style.setProperty("overflow", `hidden`);
-    } else if (
-      direction === "up" &&
-      currentIndex === 1 &&
-      scrollRef2?.current?.scrollTop <= 0
-    ) {
-      // scrollRef1.current!.scrollTo({ top: 0 });
       scrollRef1.current!.style.setProperty("overflow", `hidden`);
       scrollRef2.current!.style.setProperty("overflow", `hidden`);
     }

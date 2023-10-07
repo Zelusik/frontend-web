@@ -7,9 +7,6 @@ import { coreStyles } from "../coreStyles";
 type ScrollAreaProps = ComponentsProps & {
   // scroll?: "xy" | "x" | "y" | undefined;
   scroll?: boolean;
-  onTouchStart?: Function;
-  onTouchMove?: Function;
-  onTouchEnd?: Function;
   onScroll?: any;
 };
 
@@ -23,11 +20,13 @@ const ScrollArea = ({ children, ...props }: ScrollAreaProps) => {
       onTouchMove={props?.onTouchMove}
       onTouchEnd={props?.onTouchEnd}
       onScroll={(e: any) =>
+        props?.onScroll &&
         props?.onScroll({
           scrollX: e?.target?.scrollLeft,
           scrollY: e?.target?.scrollTop,
         })
       }
+      onClick={props?.onClick}
       style={{
         ...coreStyles(props),
         overflow: "scroll",

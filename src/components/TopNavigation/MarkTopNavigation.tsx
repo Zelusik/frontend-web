@@ -1,7 +1,6 @@
 import React, { useState, useEffect, forwardRef, useRef } from "react";
-import { Flex } from "@mantine/core";
 import useDisplaySize from "hooks/useDisplaySize";
-import { Divider, Text } from "components/core";
+import { Divider, Flex, Text } from "components/core";
 
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -74,7 +73,7 @@ const TopNavigation = forwardRef(function Div({
           return (
             <Flex
               key={idx}
-              ref={(ref: any) => {
+              viewportRef={(ref: any) => {
                 if (index.wrapperIndex === idx) setKeywordTextRef(ref);
               }}
               h={34}
@@ -83,8 +82,8 @@ const TopNavigation = forwardRef(function Div({
               onClick={(ref: any) => handleClickKeyword(ref, idx)}
             >
               <Text
-                c={colors[index.wrapperIndex === idx ? "Orange600" : "N40"]}
-                style={typography["Headline3"]}
+                c={index.wrapperIndex === idx ? "Orange600" : "N40"}
+                typo="Headline3"
               >
                 {title}
               </Text>

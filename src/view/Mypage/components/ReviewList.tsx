@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { getAddressInfo } from "utils/getAddressInfo";
 import styled from "@emotion/styled";
-import { Box, Flex, Space, AspectRatio } from "@mantine/core";
 import useDisplaySize from "hooks/useDisplaySize";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
@@ -21,6 +20,7 @@ import {
   initializeRecommendReview,
 } from "reducer/slices/review/recommendReviewSlice";
 import { globalValue } from "constants/globalValue";
+import { AspectRatio, Box, Flex, Space } from "components/core";
 
 export default function ReviewList({
   type = "mypage",
@@ -101,7 +101,10 @@ export default function ReviewList({
         {isShowToast && (
           <Toast message="3개까지만 선택 가능해요" close={closeToast} />
         )}
-        <Box ref={scrollRef} style={{ height: hasNextPage ? 30 : 0 }}></Box>
+        <Box
+          viewportRef={scrollRef}
+          style={{ height: hasNextPage ? 30 : 0 }}
+        ></Box>
       </Flex>
       <Space h={20} />
     </>

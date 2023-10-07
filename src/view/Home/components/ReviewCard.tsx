@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { Box, Space, AspectRatio, Image } from "@mantine/core";
 import { Route } from "constants/Route";
 
 import { globalValue } from "constants/globalValue";
@@ -11,6 +10,7 @@ import ProfileButton from "components/Button/ProfileButton";
 import Heart from "components/Button/IconButton/Heart";
 import StoreReviewButton from "components/Button/StoreReviewButton";
 import useDisplaySize from "hooks/useDisplaySize";
+import { AspectRatio, Box, Image, Space } from "components/core";
 
 interface ReviewCardProps {
   key: number;

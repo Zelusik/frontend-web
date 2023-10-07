@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import { ScrollArea, Box, Space } from "@mantine/core";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
 import { useAppDispatch } from "hooks/useReduxHooks";
@@ -14,6 +13,7 @@ import TopNavigation from "components/TopNavigation/MarkTopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { colors } from "constants/colors";
 import Title from "components/Title";
+import { Box, Space } from "components/core";
 
 const Mark = () => {
   const dispatch = useAppDispatch();
@@ -48,10 +48,7 @@ const Mark = () => {
         background="Mark"
         textLeft="저장한 음식점"
       />
-      <Box
-        h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-        bg={colors["Mark"]}
-      >
+      <Box h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT} bg="Mark">
         {isLoadingKeyword ? (
           <LoadingCircle
             height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}

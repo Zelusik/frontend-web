@@ -1,12 +1,11 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { Image } from "@mantine/core";
 
 import Description from "components/Description";
 import Hashtags from "components/Hashtags";
 import SlideImage from "components/Image/SlideImage";
 import BasicTitle from "components/Title/Title";
-import { Space } from "components/core";
+import { Image, Space } from "components/core";
 
 export default function ReivewCard({ data }: any) {
   const router = useRouter();

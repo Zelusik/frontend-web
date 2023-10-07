@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { Box, Flex, Space, Button } from "@mantine/core";
 import useSearch from "hooks/useSearch";
 
 import { colors } from "constants/colors";
@@ -10,6 +9,7 @@ import Gradient from "components/Common/Gradient";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { equals } from "utils/equals";
 import { typography } from "constants/typography";
+import { Box, Button, Flex } from "components/core";
 
 interface FilterButtonProps {
   filter: any;

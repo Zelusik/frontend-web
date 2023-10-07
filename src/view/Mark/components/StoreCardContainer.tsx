@@ -1,6 +1,5 @@
 import React, { useEffect, forwardRef, useRef } from "react";
 import { useRouter } from "next/router";
-import { ScrollArea, Box, Space, Text } from "@mantine/core";
 import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 import useGetBookmarks from "hooks/queries/mark/useGetBookmarks";
@@ -20,6 +19,7 @@ import LoadingCircle from "components/Loading/LoadingCircle";
 import StoreCard from "./StoreCard";
 import StoreCount from "./StoreCount";
 import NothingButton from "components/Button/NothingButton";
+import { Box, ScrollArea, Space } from "components/core";
 
 interface StoreCardContainerProps {
   key?: number;
@@ -58,8 +58,8 @@ const StoreCardContainer = forwardRef(function Div(
   return (
     <ScrollArea
       h={display.height - 100 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-      bg={colors["Mark"]}
-      scrollbarSize={0}
+      bg="Mark"
+      // scrollbarSize={0}
     >
       <motion.div
         initial={{ opacity: 0 }}
@@ -80,7 +80,7 @@ const StoreCardContainer = forwardRef(function Div(
                   markData={markData}
                 />
               ))}
-            <Box ref={infinityScrollRef} />
+            <Box viewportRef={infinityScrollRef} />
             {hasNextPage && (
               <>
                 <LoadingCircle height={30} />
@@ -100,15 +100,5 @@ const StoreCardContainer = forwardRef(function Div(
     </ScrollArea>
   );
 });
-
-const NoContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-
-  height: calc(100vh - 227px);
-  text-align: center;
-`;
 
 export default StoreCardContainer;

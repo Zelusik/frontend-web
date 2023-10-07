@@ -1,8 +1,7 @@
 import React from "react";
-import { Flex, Box, Center, Space } from "@mantine/core";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
-import { Text } from "components/core";
+import { Box, Flex, Space, Text } from "components/core";
 
 interface TitleProps {
   height?: number;
@@ -49,22 +48,26 @@ const Title = ({
         style={{ width: "100%" }}
       >
         <Flex>
-          <Center>{renderLeft && renderLeft}</Center>
-          <Center>
-            <Text color={colors[color]} style={typography["Headline5"]}>
-              {textLeft}
-            </Text>
-          </Center>
+          {/* <Center> */}
+          {renderLeft && renderLeft}
+          {/* </Center> */}
+          {/* <Center> */}
+          <Text typo="Headline5" c={color} style={typography["Headline5"]}>
+            {textLeft}
+          </Text>
+          {/* </Center> */}
         </Flex>
 
-        <Text color={colors[color]} style={typography["Headline3"]}>
+        <Text typo="Headline3" c={color} style={typography["Headline3"]}>
           {textCenter}
         </Text>
 
         <Flex>
           {buttonRight && buttonRight}
           <Space w={4} />
-          <Center>{renderRight && renderRight}</Center>
+          {/* <Center> */}
+          {renderRight && renderRight}
+          {/* </Center> */}
         </Flex>
       </Flex>
     </Box>
