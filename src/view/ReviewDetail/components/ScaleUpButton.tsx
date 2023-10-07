@@ -23,7 +23,7 @@ export default function ScaleUpButton({ lat, lng, myLat, myLng }: any) {
 
   return (
     <Wrapper onClick={handleClickScaleUp}>
-      <Text typo="Heading2" color="N100" style={{ marginRight: 4 }}>
+      <Text typo="Heading2" c="N100" style={{ marginRight: 4 }}>
         크게 보기
       </Text>
       <Icon icon="ScaleUp" />

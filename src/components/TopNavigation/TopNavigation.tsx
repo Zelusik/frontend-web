@@ -67,7 +67,7 @@ const TopNavigation = forwardRef(function Div(
         }}
         classes={{
           root: classes.tabsRoot,
-          scroller: classes.tabsScroller,
+          // scroller: classes.tabsScroller,
           flexContainer: classes.tabsFlexContainer,
         }}
         value={index.currentIndex}

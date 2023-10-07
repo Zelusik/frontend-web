@@ -4,7 +4,7 @@ export default function ImageHashtag({ text, top, left }: any) {
   return (
     <Text
       typo="Paragraph1"
-      color="N0"
+      c="N0"
       style={{
         padding: "6px 10px",
 

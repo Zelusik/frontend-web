@@ -123,7 +123,7 @@ export default function Mypage() {
           transition={{ duration: 0.5 }}
         >
           <ScrollArea
-            viewportRef={scrollRef}
+            veiwportRef={scrollRef}
             h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
             pos="absolute"
             top={50}

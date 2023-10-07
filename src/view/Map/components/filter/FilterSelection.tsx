@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useRouter } from "next/router";
-import { Box, Button, Flex, Text } from "components/core";
+import { Box, Button, Flex, Space, Text } from "components/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useSearch from "hooks/useSearch";
 
@@ -27,10 +27,9 @@ const FilterSelection = () => {
   return (
     <Box pos="relative">
       <Flex
-        viewportRef={filterRef}
+        ref={filterRef}
         h={36}
-        pl={13}
-        pr={13}
+        ph={13}
         pos="absolute"
         left={15}
         bg={colors["N0"]}

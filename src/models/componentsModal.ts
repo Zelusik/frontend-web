@@ -1,5 +1,5 @@
 export interface ComponentsProps {
-  viewportRef?: any;
+  veiwportRef?: any;
   key?: string | number;
   tabIndex?: number;
   children?: any;
@@ -52,8 +52,8 @@ export interface ComponentsProps {
   typo?: string;
   c?: string;
 
-  onTouchStart?: Function;
-  onTouchMove?: Function;
-  onTouchEnd?: Function;
-  onClick?: Function;
+  onTouchStart?: any;
+  onTouchMove?: any;
+  onTouchEnd?: any;
+  onClick?: any;
 }

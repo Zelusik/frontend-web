@@ -2,13 +2,14 @@ import React from "react";
 import { Box as MaterialBox } from "@material-ui/core";
 import styled from "@emotion/styled";
 import { coreStyles } from "../coreStyles";
+import { ComponentsProps } from "models/componentsModal";
 
 const StyledBox = styled(MaterialBox)``;
 
-const Box = ({ children, ...props }: BoxProps) => {
+const Box = ({ children, ...props }: any) => {
   return (
-    <StyledBox
-      ref={props?.viewportRef}
+    <div
+      ref={props?.veiwportRef}
       onTouchStart={props?.onTouchStart}
       onTouchMove={props?.onTouchMove}
       onTouchEnd={props?.onTouchEnd}
@@ -19,7 +20,7 @@ const Box = ({ children, ...props }: BoxProps) => {
       }}
     >
       {children}
-    </StyledBox>
+    </div>
   );
 };
 

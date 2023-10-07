@@ -117,8 +117,7 @@ export default function StoreDetail() {
 
       <Wrapper ref={scrollRef} height={height}>
         <Space
-          h
-          size={storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50}
+          h={storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50}
         />
 
         <Inner>

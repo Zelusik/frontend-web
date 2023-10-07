@@ -80,7 +80,7 @@ const StoreCardContainer = forwardRef(function Div(
                   markData={markData}
                 />
               ))}
-            <Box viewportRef={infinityScrollRef} />
+            <Box ref={infinityScrollRef} />
             {hasNextPage && (
               <>
                 <LoadingCircle height={30} />

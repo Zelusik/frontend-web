@@ -9,7 +9,7 @@ import Gradient from "components/Common/Gradient";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { equals } from "utils/equals";
 import { typography } from "constants/typography";
-import { Box, Button, Flex } from "components/core";
+import { Box, Button, Flex, Space } from "components/core";
 
 interface FilterButtonProps {
   filter: any;

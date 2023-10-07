@@ -31,7 +31,6 @@ const SadBobpool = ({
       </Text>
       <Space h={14} />
       <Button
-        variant="filled"
         w="auto"
         h={38}
         pl={20.5}

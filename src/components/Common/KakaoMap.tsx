@@ -66,9 +66,7 @@ export default function KakaoMap({
             yAnchor={1}
           >
             <Box>
-              <Box component="span" className="title">
-                {store.name}
-              </Box>
+              <Box>{store.name}</Box>
             </Box>
           </CustomOverlayMap>
           {/* 마커들 */}

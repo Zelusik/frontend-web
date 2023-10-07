@@ -163,7 +163,7 @@ const EditProfile = () => {
               </div>
             </div>
             <div className="section">
-              <Text typo="Paragraph2" color="N100">
+              <Text typo="Paragraph2" c="N100">
                 생년월일
               </Text>
               <div className="input-box birth">
@@ -182,7 +182,7 @@ const EditProfile = () => {
             </div>
 
             <div className="section">
-              <Text typo="Paragraph2" color="N100">
+              <Text typo="Paragraph2" c="N100">
                 성별
               </Text>
               <div className="gender-button">

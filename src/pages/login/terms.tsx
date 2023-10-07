@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import Space h "components/Space/he"hmport Icon from "components/Icon";
+import Icon from "components/Icon";
 import { termsData } from "data/termsData";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthTermsInfo } from "reducer/slices/auth/authSlice";
@@ -12,7 +12,6 @@ import Link from "next/link";
 import BottomButton from "components/Button/BottomButton";
 import { Route } from "constants/Route";
 import { Space } from "components/core";
-import Icon from "components/Icon";
 
 const TermsPage = () => {
   const dispatch = useAppDispatch();

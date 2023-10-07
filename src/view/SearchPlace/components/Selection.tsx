@@ -88,7 +88,7 @@ export default function Selection({ type, data, keyword, ...props }: any) {
               <Text
                 key={idx}
                 typo="Headline4"
-                color="N100"
+                c="N100"
                 style={{ display: "flex" }}
               >
                 {d?.split(" ")?.map((d2: any, idx2: number) => {
@@ -100,7 +100,7 @@ export default function Selection({ type, data, keyword, ...props }: any) {
                   );
                 })}
                 {dataSplit?.length - 1 !== idx ? (
-                  <Text typo="Headline4" color="Orange600">
+                  <Text typo="Headline4" c="Orange600">
                     {keyword?.split(" ")?.map((d2: any, idx2: number) => {
                       return (
                         <span key={idx2}>

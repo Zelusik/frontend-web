@@ -14,11 +14,12 @@ const StyledBox = styled(MaterialBox)``;
 
 const ScrollArea = ({ children, ...props }: ScrollAreaProps) => {
   return (
-    <StyledBox
-      ref={props?.viewportRef}
+    <div
+      ref={props?.veiwportRef}
       onTouchStart={props?.onTouchStart}
       onTouchMove={props?.onTouchMove}
       onTouchEnd={props?.onTouchEnd}
+      onClick={props?.onClick}
       onScroll={(e: any) =>
         props?.onScroll &&
         props?.onScroll({
@@ -26,7 +27,6 @@ const ScrollArea = ({ children, ...props }: ScrollAreaProps) => {
           scrollY: e?.target?.scrollTop,
         })
       }
-      onClick={props?.onClick}
       style={{
         ...coreStyles(props),
         overflow: "scroll",
@@ -34,7 +34,7 @@ const ScrollArea = ({ children, ...props }: ScrollAreaProps) => {
       }}
     >
       {children}
-    </StyledBox>
+    </div>
   );
 };
 

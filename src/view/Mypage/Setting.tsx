@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
-import Text from "components/core/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { Route } from "constants/Route";
 import useAlert from "hooks/useAlert";
 import { useRouter } from "next/router";
+import { Text, Space } from "components/core";
 
 export default function Setting() {
   const router = useRouter();
@@ -41,7 +41,7 @@ export default function Setting() {
       <Space h={20} />
       <SettingContainer>
         <div>
-          <Text typo="Paragraph3" color="N60">
+          <Text typo="Paragraph3" c="N60">
             개인
           </Text>
           <Space h={26} />
@@ -59,7 +59,7 @@ export default function Setting() {
           </Section>
         </div>
         <div>
-          <Text typo="Paragraph3" color="N60">
+          <Text typo="Paragraph3" c="N60">
             도움말
           </Text>
           <Space h={26} />

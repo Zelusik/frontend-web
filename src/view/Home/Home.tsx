@@ -40,7 +40,7 @@ export default function Home() {
             ph={20}
           >
             <Space h={20} />
-            <Text color={colors["N100"]} style={typography["Headline6"]}>
+            <Text c={colors["N100"]} style={typography["Headline6"]}>
               오늘은
               <br />
               어디로 갈까요?
@@ -51,7 +51,7 @@ export default function Home() {
               ?.map((feedData: getFeedContentsProps) => (
                 <ReviewCard key={feedData?.id} feedData={feedData} />
               ))}
-            <Box viewportRef={infinityScrollRef} />
+            <Box ref={infinityScrollRef} />
             {hasNextPage ? (
               <>
                 <LoadingCircle height={30} />

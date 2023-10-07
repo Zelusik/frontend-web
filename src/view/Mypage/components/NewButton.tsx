@@ -6,7 +6,7 @@ export default function NewButton({ text, buttonText, onClick }: any) {
   return (
     <NewButtonWrapper onClick={onClick}>
       {text ? (
-        <Text typo="Paragraph5" color="N80">
+        <Text typo="Paragraph5" c="N80">
           {text}
         </Text>
       ) : null}

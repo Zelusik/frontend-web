@@ -7,7 +7,7 @@ export default function NoneText({ text }: any) {
     <Wrapper>
       <Text
         typo="Paragraph5"
-        color="N80"
+        c="N80"
         style={{
           margin: "auto",
           paddingBottom: globalValue.BOTTOM_NAVIGATION_HEIGHT,

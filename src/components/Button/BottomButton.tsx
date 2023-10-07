@@ -37,7 +37,7 @@ const BottomButton = forwardRef(function Button(
     >
       <Text
         typo="Headline3"
-        color={match(type)
+        c={match(type)
           .with("primary", () => "N0")
           .with("default", () => "N80")
           .otherwise(() => "N0")}

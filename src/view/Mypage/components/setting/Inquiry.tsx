@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
-import Text from "components/core/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";

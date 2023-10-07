@@ -19,7 +19,7 @@ export default function Copy({ text = "" }: any) {
         margin="0 2px 0 0"
         onClick={() => clickCopy(text)}
       />
-      <Text typo="Paragraph1" color="Mint">
+      <Text typo="Paragraph1" c="Mint">
         복사
       </Text>
     </MenuList>

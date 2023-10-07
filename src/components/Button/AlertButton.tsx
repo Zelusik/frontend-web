@@ -22,7 +22,7 @@ const AlertButton = forwardRef(function Button(
     >
       <Text
         typo="Paragraph5"
-        color={match(type)
+        c={match(type)
           .with("primary", () => "N0")
           .with("default", () => "N100")
           .otherwise(() => "N100")}

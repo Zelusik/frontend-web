@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
-import port Text from "components/core/Text/Text";
 import BackTitle from "components/Title/BackTitle";
-import { Space } from "components/core";
+import { Space, Text } from "components/core";
 
 const Announcement = () => {
   const announcementList = [
@@ -17,7 +16,7 @@ const Announcement = () => {
       <Section>
         {announcementList.map((title: string) => (
           <div className="section-container" key={title} onClick={() => {}}>
-            <Text typo="Paragraph5" color="N100">
+            <Text typo="Paragraph5" c="N100">
               {title}
             </Text>
             <Icon icon="Chevron" width={20} height={20} color="N100" />

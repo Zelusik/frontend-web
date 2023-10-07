@@ -6,10 +6,10 @@ import { coreStyles } from "../coreStyles";
 
 const StyledBox = styled(MaterialBox)``;
 
-const Flex = ({ children, ...props }: ComponentsProps) => {
+const Flex = ({ children, ...props }: any) => {
   return (
-    <StyledBox
-      ref={props?.viewportRef}
+    <div
+      ref={props?.veiwportRef}
       onTouchStart={props?.onTouchStart}
       onTouchMove={props?.onTouchMove}
       onTouchEnd={props?.onTouchEnd}
@@ -21,7 +21,7 @@ const Flex = ({ children, ...props }: ComponentsProps) => {
       }}
     >
       {children}
-    </StyledBox>
+    </div>
   );
 };
 

@@ -73,7 +73,7 @@ const TopNavigation = forwardRef(function Div({
           return (
             <Flex
               key={idx}
-              viewportRef={(ref: any) => {
+              ref={(ref: any) => {
                 if (index.wrapperIndex === idx) setKeywordTextRef(ref);
               }}
               h={34}

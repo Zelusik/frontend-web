@@ -101,10 +101,7 @@ export default function ReviewList({
         {isShowToast && (
           <Toast message="3개까지만 선택 가능해요" close={closeToast} />
         )}
-        <Box
-          viewportRef={scrollRef}
-          style={{ height: hasNextPage ? 30 : 0 }}
-        ></Box>
+        <Box ref={scrollRef} style={{ height: hasNextPage ? 30 : 0 }}></Box>
       </Flex>
       <Space h={20} />
     </>

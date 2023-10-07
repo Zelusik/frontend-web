@@ -12,7 +12,7 @@ const ReviewCardContainer = ({ refs, mine, direction }: any) => {
 
   return (
     <ScrollArea
-      viewportRef={refs?.scrollRef2}
+      veiwportRef={refs?.scrollRef2}
       ph={20}
       h={
         display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT

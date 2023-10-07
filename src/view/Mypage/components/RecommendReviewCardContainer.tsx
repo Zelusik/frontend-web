@@ -17,7 +17,7 @@ const RecommendReviewCardContainer = ({
 
   return (
     <ScrollArea
-      viewportRef={refs?.scrollRef1}
+      veiwportRef={refs?.scrollRef1}
       ph={20}
       h={
         display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT

@@ -15,7 +15,7 @@ export default function AllDelete({ ...props }: any) {
 
   return (
     <TitleWrapper onClick={clickAllDelete}>
-      <Text typo="Paragraph5" color="N100">
+      <Text typo="Paragraph5" c="N100">
         최근검색
       </Text>
       <Delete typo={typography.Paragraph4} color={colors.N50}>

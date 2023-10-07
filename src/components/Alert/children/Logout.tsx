@@ -19,7 +19,7 @@ export default function Logout() {
 
   return (
     <DeleteWrapper>
-      <Text typo="Paragraph6" color="N100">
+      <Text typo="Paragraph6" c="N100">
         로그아웃 하시겠습니까?
       </Text>
       <ButtonWrapper>

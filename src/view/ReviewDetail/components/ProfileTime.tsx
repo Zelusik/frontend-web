@@ -22,7 +22,7 @@ export default function ProfileTime({ data }: any) {
         size={24}
       />
 
-      <Text typo="Paragraph5" color="N80" style={{ marginLeft: 10 }}>
+      <Text typo="Paragraph5" c="N80" style={{ marginLeft: 10 }}>
         {data?.nickname}
       </Text>
       {/* <Text typo="Paragraph4" color="N80">

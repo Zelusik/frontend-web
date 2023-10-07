@@ -20,7 +20,7 @@ export default function ReviewDelete() {
   };
   return (
     <DeleteWrapper>
-      <Text typo="Paragraph6" color="N100">
+      <Text typo="Paragraph6" c="N100">
         리뷰를 삭제하시겠습니까?
       </Text>
       <ButtonWrapper>
