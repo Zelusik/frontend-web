@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Spacing from "components/Spacing/Spacing";
+import { Space } from "components/core";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -19,7 +19,7 @@ const Notification = () => {
   return (
     <NotificationWrapper>
       <BackTitle type="black-left-text" text="알림설정" />
-      <Spacing size={20} />
+      <Space h={20} />
       <ToggleButtonWrapper>
         {notificationList.map((text) => (
           <div className="toggle-box" key={text}>

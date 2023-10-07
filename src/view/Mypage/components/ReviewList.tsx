@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { getAddressInfo } from "utils/getAddressInfo";
 import styled from "@emotion/styled";
-import { Box, Flex, Text, Space, AspectRatio } from "@mantine/core";
 import useDisplaySize from "hooks/useDisplaySize";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
@@ -21,6 +20,7 @@ import {
   initializeRecommendReview,
 } from "reducer/slices/review/recommendReviewSlice";
 import { globalValue } from "constants/globalValue";
+import { AspectRatio, Box, Flex, Space } from "components/core";
 
 export default function ReviewList({
   type = "mypage",

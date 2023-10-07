@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
-import Spacing from "components/Spacing/Spacing";
-import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
+import { Space, Text } from "components/core";
 
 const Announcement = () => {
   const announcementList = [
@@ -13,11 +12,11 @@ const Announcement = () => {
   return (
     <AnnouncementWrapper>
       <BackTitle type="black-left-text" text="공지사항" />
-      <Spacing size={20} />
+      <Space h={20} />
       <Section>
         {announcementList.map((title: string) => (
           <div className="section-container" key={title} onClick={() => {}}>
-            <Text typo="Paragraph5" color="N100">
+            <Text typo="Paragraph5" c="N100">
               {title}
             </Text>
             <Icon icon="Chevron" width={20} height={20} color="N100" />

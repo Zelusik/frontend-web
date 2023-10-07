@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import { Center, Flex, Text } from "@mantine/core";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import { Flex, Text } from "components/core";
 
 interface HashtagProps {
   key?: number;
@@ -37,22 +37,22 @@ export default function Hashtag({
       bg={colors["Orange100"]}
       style={{ borderRadius: 40 }}
     >
-      <Center>
-        <Text
-          c={colors[hashColor ? hashColor : color]}
-          style={typography[hashTypo ? hashTypo : typo]}
-        >
-          #&nbsp;
-        </Text>
-      </Center>
-      <Center>
-        <Text
-          c={colors[textColor ? textColor : color]}
-          style={typography[textTypo ? textTypo : typo]}
-        >
-          {hashtagText}
-        </Text>
-      </Center>
+      {/* <Center> */}
+      <Text
+        c={colors[hashColor ? hashColor : color]}
+        style={typography[hashTypo ? hashTypo : typo]}
+      >
+        #&nbsp;
+      </Text>
+      {/* </Center> */}
+      {/* <Center> */}
+      <Text
+        c={colors[textColor ? textColor : color]}
+        style={typography[textTypo ? textTypo : typo]}
+      >
+        {hashtagText}
+      </Text>
+      {/* </Center> */}
     </Flex>
   );
 }

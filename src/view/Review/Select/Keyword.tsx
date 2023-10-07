@@ -14,13 +14,13 @@ import { Route } from "constants/Route";
 import { atmosphereKeyword, foodKeyword } from "data/keywordData";
 import RoundButton from "components/Button/RoundButton";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import Spacing from "components/Spacing/Spacing";
 import Toast from "components/Toast/Toast";
 import useToast from "hooks/useToast";
 import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
 import ReviewLoading from "../components/ReviewLoading";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import useDisplaySize from "hooks/useDisplaySize";
+import { Space } from "components/core";
 
 const Keyword = () => {
   const route = useRouter();
@@ -113,7 +113,7 @@ const Keyword = () => {
       ) : (
         <>
           <BackTitle type="black-left-text" text="음식점 리뷰" />
-          <Spacing size={20} />
+          <Space h={20} />
           <MainWrapper>
             <div style={typography.Headline5}>음식점은 어떠셨나요?</div>
             <KeywordContainer>

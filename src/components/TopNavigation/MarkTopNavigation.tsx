@@ -1,6 +1,6 @@
 import React, { useState, useEffect, forwardRef, useRef } from "react";
-import { Flex, Text, Divider } from "@mantine/core";
 import useDisplaySize from "hooks/useDisplaySize";
+import { Divider, Flex, Text } from "components/core";
 
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -82,19 +82,17 @@ const TopNavigation = forwardRef(function Div({
               onClick={(ref: any) => handleClickKeyword(ref, idx)}
             >
               <Text
-                c={colors[index.wrapperIndex === idx ? "Orange600" : "N40"]}
-                style={typography["Headline3"]}
+                c={index.wrapperIndex === idx ? "Orange600" : "N40"}
+                typo="Headline3"
               >
                 {title}
               </Text>
-              {index.wrapperIndex === idx && (
-                <Divider size={2} color={colors["Orange600"]} />
-              )}
+              {index.wrapperIndex === idx && <Divider h={2} c="Orange600" />}
             </Flex>
           );
         })}
       </Flex>
-      <Divider ml={20} mr={20} color={colors["N20"]} />
+      <Divider ml={20} mr={20} c="N20" />
 
       {/* children 부분 */}
       <WrapperSlider

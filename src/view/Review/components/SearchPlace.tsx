@@ -11,9 +11,10 @@ import { useRouter } from "next/router";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import useGetSearchPlace from "hooks/queries/review/useGetSearchPlace";
 import { initEditImageInfo } from "reducer/slices/image/imageSlice";
-import Spacing from "components/Spacing";
+
 import Gradient from "components/Common/Gradient";
 import useDisplaySize from "hooks/useDisplaySize";
+import { Space } from "components/core";
 
 const SearchPlace = () => {
   const dispatch = useAppDispatch();
@@ -78,7 +79,7 @@ const SearchPlace = () => {
           setValue={(val: any) => setValue(val)}
         />
       </SearchInput>
-      <Spacing size={100} />
+      <Space h={100} />
       <Gradient reverse={false} size={26} location={100} />
 
       <PlaceWrapper>

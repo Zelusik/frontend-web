@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import BottomButton from "components/Button/BottomButton";
-import Spacing from "components/Spacing/Spacing";
-import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -10,6 +8,7 @@ import { deleteCookie } from "utils/cookie";
 import { useRouter } from "next/router";
 import ReportButton from "view/Report/components/ReportButton";
 import { deleteUser } from "api/members";
+import { Space, Text } from "components/core";
 
 const DeleteProfile = () => {
   const router = useRouter();
@@ -46,20 +45,20 @@ const DeleteProfile = () => {
   return (
     <DeleteProfileWrapper>
       <BackTitle type="black-left-text" text="회원탈퇴" />
-      <Spacing size={20} />
-      <Text typo="Headline3" color="N100">
+      <Space h={20} />
+      <Text typo="Headline3" c="N100">
         탈퇴 전 확인해 주세요.
       </Text>
-      <Spacing size={22} />
+      <Space h={22} />
       <Notification>
         회원 탈퇴 시 개인 정보 처리 방침에 따라 탈퇴 후에도 90일간 보관되며,
         90일이 지난 후에는 완전히 삭제됩니다.
       </Notification>
-      <Spacing size={40} />
-      <Text typo="Headline3" color="N100">
+      <Space h={40} />
+      <Text typo="Headline3" c="N100">
         탈퇴 사유를 알려주세요.
       </Text>
-      <Spacing size={20} />
+      <Space h={20} />
       <SurveyWrapper>
         {surveyList.map((servey: { value: string; text: string }) => (
           <ReportButton

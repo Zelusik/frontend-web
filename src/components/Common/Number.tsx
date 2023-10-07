@@ -1,10 +1,10 @@
-import Text from "components/Text";
+import Text from "components/core/Text";
 
 export default function Number({ currentIndex, length }: any) {
   return (
     <Text
       typo="Paragraph2"
-      color="N0"
+      c="N0"
       style={{
         padding: "4px 11px",
         borderRadius: 25,

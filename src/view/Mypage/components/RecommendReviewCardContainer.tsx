@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Text, Space } from "@mantine/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { globalValue } from "constants/globalValue";
 import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
 import RecommandSwiper from "./RecommandSwiper";
+import { Box, ScrollArea } from "components/core";
 
 const RecommendReviewCardContainer = ({
   refs,
@@ -16,10 +16,9 @@ const RecommendReviewCardContainer = ({
   const { recommendReviewDatas } = useGetRecommendReviews();
 
   return (
-    <Box
-      ref={refs?.scrollRef1}
-      pl={20}
-      pr={20}
+    <ScrollArea
+      veiwportRef={refs?.scrollRef1}
+      ph={20}
       h={
         display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT
       }
@@ -34,7 +33,7 @@ const RecommendReviewCardContainer = ({
         }
       }}
       // onScroll={(e: any) => {
-      //   e.target.scrollTop
+      //   // e.target.scrollTop
       // }}
     >
       <RecommandSwiper
@@ -42,7 +41,7 @@ const RecommendReviewCardContainer = ({
         mine={mine}
         touch={touch}
       />
-    </Box>
+    </ScrollArea>
   );
 };
 

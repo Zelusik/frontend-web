@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Icon from "components/Icon";
-import Text from "components/Text";
+import Text from "components/core/Text";
 import useAlert from "hooks/useAlert";
 
 export default function Copy({ text = "" }: any) {
@@ -19,7 +19,7 @@ export default function Copy({ text = "" }: any) {
         margin="0 2px 0 0"
         onClick={() => clickCopy(text)}
       />
-      <Text typo="Paragraph1" color="Mint">
+      <Text typo="Paragraph1" c="Mint">
         복사
       </Text>
     </MenuList>

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import AlertButton from "components/Button/AlertButton";
 import RoundButton from "components/Button/RoundButton";
-import Text from "components/Text";
+import { Text } from "components/core";
 import useAlert from "hooks/useAlert";
 import { useRouter } from "next/router";
 import { deleteCookie } from "utils/cookie";
@@ -19,7 +19,7 @@ export default function Logout() {
 
   return (
     <DeleteWrapper>
-      <Text typo="Paragraph6" color="N100">
+      <Text typo="Paragraph6" c="N100">
         로그아웃 하시겠습니까?
       </Text>
       <ButtonWrapper>

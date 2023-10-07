@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
 import { colors } from "constants/colors";
-import Text from "components/Text";
+import Text from "components/core/Text";
 
 const BottomButton = forwardRef(function Button(
   {
@@ -37,7 +37,7 @@ const BottomButton = forwardRef(function Button(
     >
       <Text
         typo="Headline3"
-        color={match(type)
+        c={match(type)
           .with("primary", () => "N0")
           .with("default", () => "N80")
           .otherwise(() => "N0")}

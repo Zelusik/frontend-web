@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
 import { Route } from "constants/Route";
-import Text from "components/Text";
+import Text from "components/core/Text";
 import useSearch from "hooks/useSearch";
-import Spacing from "components/Spacing";
+import { Space } from "components/core";
 
 export default function Selection({ type, data, keyword, ...props }: any) {
   const router = useRouter();
@@ -88,7 +88,7 @@ export default function Selection({ type, data, keyword, ...props }: any) {
               <Text
                 key={idx}
                 typo="Headline4"
-                color="N100"
+                c="N100"
                 style={{ display: "flex" }}
               >
                 {d?.split(" ")?.map((d2: any, idx2: number) => {
@@ -100,7 +100,7 @@ export default function Selection({ type, data, keyword, ...props }: any) {
                   );
                 })}
                 {dataSplit?.length - 1 !== idx ? (
-                  <Text typo="Headline4" color="Orange600">
+                  <Text typo="Headline4" c="Orange600">
                     {keyword?.split(" ")?.map((d2: any, idx2: number) => {
                       return (
                         <span key={idx2}>
@@ -118,8 +118,8 @@ export default function Selection({ type, data, keyword, ...props }: any) {
           })}
         </div>
 
-        <Spacing size={6} />
-        <Text typo="Paragraph4" color="N80">
+        <Space h={6} />
+        <Text typo="Paragraph4" c="N80">
           {type === "location"
             ? `${data.sido} ${data.sgg !== null ? data.sgg : ``}`
             : `${data.address_name.split(" ")[0]} ${

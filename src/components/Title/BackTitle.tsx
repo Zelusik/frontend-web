@@ -5,7 +5,7 @@ import { match } from "ts-pattern";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
 import Dots from "components/Button/IconButton/Dots";
-import Text from "components/Text";
+import Text from "components/core/Text";
 import useSearch from "hooks/useSearch";
 
 interface Props {
@@ -65,7 +65,7 @@ export default function BackTitle({
               .with("white-left", () => "N0")
               .otherwise(() => "N100")}
           />
-          <Text typo="Headline5" color="N100" style={{ marginLeft: 6 }}>
+          <Text typo="Headline5" c="N100" style={{ marginLeft: 6 }}>
             {props.title}
           </Text>
         </Menu>
@@ -74,7 +74,7 @@ export default function BackTitle({
       )}
 
       {text ? (
-        <Text typo="Headline3" color="N100">
+        <Text typo="Headline3" c="N100">
           {text}
         </Text>
       ) : (

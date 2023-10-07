@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Text from "components/Text";
+import Text from "components/core/Text";
 import { globalValue } from "constants/globalValue";
 
 export default function NoneText({ text }: any) {
@@ -7,7 +7,7 @@ export default function NoneText({ text }: any) {
     <Wrapper>
       <Text
         typo="Paragraph5"
-        color="N80"
+        c="N80"
         style={{
           margin: "auto",
           paddingBottom: globalValue.BOTTOM_NAVIGATION_HEIGHT,

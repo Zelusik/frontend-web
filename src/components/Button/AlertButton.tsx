@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
 import { colors } from "constants/colors";
-import Text from "components/Text";
+import Text from "components/core/Text";
 
 const AlertButton = forwardRef(function Button(
   { children, type = "primary", onClick, ...props }: any,
@@ -22,7 +22,7 @@ const AlertButton = forwardRef(function Button(
     >
       <Text
         typo="Paragraph5"
-        color={match(type)
+        c={match(type)
           .with("primary", () => "N0")
           .with("default", () => "N100")
           .otherwise(() => "N100")}

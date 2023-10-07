@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
-import { Box, Flex, Text, Button, Space } from "@mantine/core";
 
+import { Button, Flex, Text } from "components/core";
 import RoundButton from "components/Button/RoundButton";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { tasteDatas } from "constants/globalData";
@@ -57,7 +57,7 @@ export default function FoodSelection({
         radius={40}
         c={colors["N100"]}
         bg={colors["N0"]}
-        leftSection={<Icon icon="Location" style={{ marginRight: -2 }} />}
+        // leftSection={<Icon icon="Location" style={{ marginRight: -2 }} />}
         style={{
           ...typography["Heading2"],
           ...boxStyle,
@@ -70,7 +70,7 @@ export default function FoodSelection({
         radius={40}
         c={colors[mark.isMarkShow ? "N0" : "N100"]}
         bg={colors[mark.isMarkShow ? "Orange600" : "N0"]}
-        leftSection={<Icon icon="Bookmark" style={{ marginRight: -2 }} />}
+        // leftSection={<Icon icon="Bookmark" style={{ marginRight: -2 }} />}
         style={{
           ...typography["Heading2"],
           ...boxStyle,
@@ -87,11 +87,11 @@ export default function FoodSelection({
             radius={40}
             c={colors[tasteData.val === foodType ? "N0" : "N100"]}
             bg={colors[tasteData.val === foodType ? "Orange600" : "N0"]}
-            leftSection={
-              typeof tasteData.icon === "string" && (
-                <Icon icon={tasteData?.icon} style={{ marginRight: -2 }} />
-              )
-            }
+            // leftSection={
+            //   typeof tasteData.icon === "string" && (
+            //     <Icon icon={tasteData?.icon} style={{ marginRight: -2 }} />
+            //   )
+            // }
             style={{
               ...typography["Heading2"],
               ...boxStyle,
@@ -105,28 +105,3 @@ export default function FoodSelection({
     </Flex>
   );
 }
-
-const fade = (actionDelay: number) => keyframes`
-  from {
-    opacity: ${actionDelay ? 1 : 0};
-  }
-  to {
-    opacity: ${actionDelay ? 0 : 1};
-  }
-`;
-
-const ScrollInner = styled.div`
-  height: 42px;
-  display: flex;
-  overflow: auto;
-`;
-
-const ButtonWrapper = styled.div<{ left: boolean; right: boolean }>`
-  height: 40px;
-  margin: auto;
-  margin-left: ${({ left }) => (left ? "15px" : "0")};
-  margin-right: ${({ right }) => (right ? "15px" : "6px")};
-
-  display: inline-block;
-  border-radius: 40px;
-`;

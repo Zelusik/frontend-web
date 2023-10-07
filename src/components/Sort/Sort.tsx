@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
-import { Flex, Text, Center } from "@mantine/core";
 import useAlert from "hooks/useAlert";
 import { useAppSelector } from "hooks/useReduxHooks";
+import { Flex, Text } from "components/core";
 
 import { sortData } from "constants/globalData";
 import Icon from "components/Icon";
@@ -14,16 +13,16 @@ const Sort = () => {
 
   return (
     <Flex onClick={() => openAlert("sort")}>
-      <Center>
-        <Text mr={4} style={typography["Paragraph3"]}>
-          {sortData[sortId - 1].val}
-        </Text>
-      </Center>
-      <Center>
-        <Flex>
-          <Icon icon="BottomArrow" width={16} height={16} color="N60" />
-        </Flex>
-      </Center>
+      {/* <Center> */}
+      <Text mr={4} style={typography["Paragraph3"]}>
+        {sortData[sortId - 1].val}
+      </Text>
+      {/* </Center> */}
+      {/* <Center> */}
+      <Flex>
+        <Icon icon="BottomArrow" width={16} height={16} color="N60" />
+      </Flex>
+      {/* </Center> */}
     </Flex>
   );
 };

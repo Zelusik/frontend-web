@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import Image from "components/Image";
 import { Route } from "constants/Route";
-import Text from "components/Text";
+import Text from "components/core/Text";
 
 export default function ProfileSelection({ data, keyword }: any) {
   const router = useRouter();
@@ -51,7 +51,7 @@ export default function ProfileSelection({ data, keyword }: any) {
             <Text
               key={idx}
               typo="Headline4"
-              color="N100"
+              c="N100"
               style={{
                 margin: "auto 0",
                 display: "flex",
@@ -67,7 +67,7 @@ export default function ProfileSelection({ data, keyword }: any) {
                 );
               })}
               {dataSplit?.length - 1 !== idx ? (
-                <Text typo="Headline4" color="Orange600">
+                <Text typo="Headline4" c="Orange600">
                   {keyword?.split(" ")?.map((d2: any, idx2: number) => {
                     return (
                       <span key={idx2}>

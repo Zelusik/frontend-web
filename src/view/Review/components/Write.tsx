@@ -11,7 +11,6 @@ import BottomButton from "components/Button/BottomButton";
 import BackTitle from "components/Title/BackTitle";
 import { useRouter } from "next/router";
 import TextArea from "components/TextArea/TextArea";
-import Spacing from "components/Spacing/Spacing";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 
 import { Route } from "constants/Route";
@@ -20,6 +19,7 @@ import { editReview, postReview } from "api/reviews";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import Gradient from "components/Common/Gradient";
 import useDisplaySize from "hooks/useDisplaySize";
+import { Space } from "components/core";
 
 const Write = () => {
   const route = useRouter();
@@ -82,7 +82,7 @@ const Write = () => {
           <div style={{ padding: "0 20px" }}>
             <BackTitle type="black-left-text" text="리뷰 작성" />
           </div>
-          <Spacing size={20} />
+          <Space h={20} />
           <Gradient size={30} />
           <MainWrapper>
             <div style={typography.Headline5}>
@@ -90,7 +90,7 @@ const Write = () => {
                 ? "리뷰를 작성해 주세요."
                 : "리뷰를 남겨주세요."}
             </div>
-            <Spacing size={20} />
+            <Space h={20} />
             <div style={{ position: "relative" }}>
               <TextArea
                 size={textAreaHeight}
@@ -104,7 +104,7 @@ const Write = () => {
             </div>
             {route.query.state === "AI" && (
               <div className="AI">
-                <Spacing size={10} />
+                <Space h={10} />
                 <p style={{ color: colors.Orange600 }}>
                   {`*${data?.nickname}*님의 리뷰를 AI가 글로 바꿔드렸어요.`}
                 </p>

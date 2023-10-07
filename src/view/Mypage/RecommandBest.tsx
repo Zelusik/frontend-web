@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import BottomButton from "components/Button/BottomButton";
 import Gradient from "components/Common/Gradient";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
+
+import Text from "components/core/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import useDisplaySize from "hooks/useDisplaySize";
@@ -15,6 +15,7 @@ import {
   updateRecommendReviews,
 } from "api/recommend-reviews";
 import useGetMembersReviews from "hooks/queries/user/useGetReviews";
+import { Space } from "components/core";
 
 export default function RecommandBest() {
   const router = useRouter();
@@ -48,15 +49,15 @@ export default function RecommandBest() {
     <>
       <TitleWrapper>
         <BackTitle type="black-x-button" text="추천 베스트 수정하기" />
-        <Spacing size={20} />
+        <Space h={20} />
         <Text typo="Headline5">
           추천 베스트 3를
           <br />
           선택해주세요!
         </Text>
-        <Spacing size={20} />
+        <Space h={20} />
       </TitleWrapper>
-      <Spacing size={146} />
+      <Space h={146} />
 
       <RecommandBestWrapper height={height - 240}>
         <ReviewList
@@ -65,7 +66,7 @@ export default function RecommandBest() {
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
         />
-        <Spacing size={30} />
+        <Space h={30} />
       </RecommandBestWrapper>
 
       <Gradient size={30} />

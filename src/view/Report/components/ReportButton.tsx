@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { colors } from "constants/colors";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
+
+import Text from "components/core/Text";
+import { Space } from "components/core";
 
 export default function ReportButton({ selected, text, onClick }: any) {
   const router = useRouter();
@@ -11,11 +12,11 @@ export default function ReportButton({ selected, text, onClick }: any) {
     <>
       <Wrapper onClick={onClick}>
         <Check selected={selected} />
-        <Text typo="Paragraph4" color="N100">
+        <Text typo="Paragraph4" c="N100">
           {text}
         </Text>
       </Wrapper>
-      <Spacing size={16} />
+      <Space h={16} />
     </>
   );
 }

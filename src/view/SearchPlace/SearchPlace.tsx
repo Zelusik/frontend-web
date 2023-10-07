@@ -9,7 +9,7 @@ import useGetSearch from "hooks/queries/search-places/useGetSearch";
 
 import { colors } from "constants/colors";
 import TopNavigation from "components/TopNavigation";
-import Spacing from "components/Spacing";
+
 import BackTitle from "components/Title/BackTitle";
 import Input from "components/Input";
 import NoneText from "./components/NoneText";
@@ -19,6 +19,7 @@ import AllDelete from "./components/AllDelete";
 import CurrentSelection from "./components/CurrentSelection";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LoadingCircle from "components/Loading/LoadingCircle";
+import { Space } from "components/core";
 
 export default function SearchPlace() {
   const router = useRouter();
@@ -64,16 +65,16 @@ export default function SearchPlace() {
           value={newValue}
           setValue={setNewValue}
         />
-        <Spacing size={26} />
+        <Space h={26} />
       </TitleWrapper>
 
       <Wrapper ref={scrollRef} height={height} visible={actionDelay}>
         {newValue === "" ? (
           <>
-            <Spacing size={124} />
+            <Space h={124} />
             <Inner>
               <AllDelete setCurrentSelection={setCurrentSelection} />
-              <Spacing size={30} />
+              <Space h={30} />
               {currentSelection?.map((data: any, idx: number) => {
                 return (
                   <CurrentSelection
@@ -104,7 +105,7 @@ export default function SearchPlace() {
                   : height - 35 + "px"
               }
             >
-              <Spacing size={146} />
+              <Space h={146} />
               {currentIndex === 0 && !isLoading ? (
                 data?.[0]?.contents && data?.[0]?.contents.length !== 0 ? (
                   <>
@@ -124,7 +125,7 @@ export default function SearchPlace() {
                     {hasNextPage ? (
                       <>
                         <LoadingCircle height={30} />
-                        <Spacing size={30} />
+                        <Space h={30} />
                       </>
                     ) : null}
                   </>
@@ -140,7 +141,7 @@ export default function SearchPlace() {
                   : height - 35 + "px"
               }
             >
-              <Spacing size={146} />
+              <Space h={146} />
               {currentIndex === 1 && !isLoading ? (
                 data?.[0]?.documents && data?.[0]?.documents.length !== 0 ? (
                   <>
@@ -160,7 +161,7 @@ export default function SearchPlace() {
                     {hasNextPage ? (
                       <>
                         <LoadingCircle height={30} />
-                        <Spacing size={30} />
+                        <Space h={30} />
                       </>
                     ) : null}
                   </>
@@ -176,7 +177,7 @@ export default function SearchPlace() {
                   : height - 35 + "px"
               }
             >
-              <Spacing size={146} />
+              <Space h={146} />
               {currentIndex === 2 && !isLoading ? (
                 data?.[0]?.contents && data?.[0]?.contents.length !== 0 ? (
                   <>
@@ -195,7 +196,7 @@ export default function SearchPlace() {
                     {hasNextPage ? (
                       <>
                         <LoadingCircle height={30} />
-                        <Spacing size={30} />
+                        <Space h={30} />
                       </>
                     ) : null}
                   </>

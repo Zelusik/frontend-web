@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { Center, Box, Flex, Text, Space, Image } from "@mantine/core";
 import { Route } from "constants/Route";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import { Box, Flex, Space, Text } from "components/core";
 
 interface StoreReviewButtonProps {
   type: "store" | "review";

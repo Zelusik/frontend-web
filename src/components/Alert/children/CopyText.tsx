@@ -1,26 +1,21 @@
 import styled from "@emotion/styled";
 
 import useAlert from "hooks/useAlert";
-import { useAppSelector } from "hooks/useReduxHooks";
-
-import Icon from "components/Icon";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
-import { sortData } from "constants/globalData";
+import { Space, Text } from "components/core";
 
 export default function CopyText() {
   const { closeAlert } = useAlert();
 
   return (
     <>
-      <Text typo="Paragraph6" color="N100">
+      <Text typo="Paragraph6" c="N100">
         복사 되었습니다
       </Text>
-      <Spacing size={26} />
+      <Space h={26} />
       <Wrapper>
         <Inner>
           <div />
-          <Text typo="Paragraph6" color="N60" onClick={closeAlert}>
+          <Text typo="Paragraph6" c="N60" onClick={closeAlert}>
             확인
           </Text>
         </Inner>

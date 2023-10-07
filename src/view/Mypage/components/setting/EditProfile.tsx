@@ -4,8 +4,6 @@ import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
 import Icon from "components/Icon/Icon";
 import Image from "components/Image/Image";
-import Spacing from "components/Spacing/Spacing";
-import Text from "components/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -15,6 +13,7 @@ import { changeUserInfo } from "reducer/slices/user/userSlice";
 import useEditMyInfo from "hooks/queries/user/useEditMyInfo";
 import { useDropzone } from "react-dropzone";
 import imageCompression from "browser-image-compression";
+import { Space, Text } from "components/core";
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -144,10 +143,10 @@ const EditProfile = () => {
               <Icon icon="Camera" />
             </div>
           </ImageWrapper>
-          <Spacing size={20} />
+          <Space h={20} />
           <ProfileBox>
             <div className="section">
-              <Text typo="Paragraph2" color="N100">
+              <Text typo="Paragraph2" c="N100">
                 이름/닉네임
                 <span style={{ color: colors.Orange400 }}>*</span>
               </Text>
@@ -158,13 +157,13 @@ const EditProfile = () => {
                   value={user.nickname}
                   onChange={handleChangeNickname}
                 />
-                <Text typo="Paragraph2" color="N60">
+                <Text typo="Paragraph2" c="N60">
                   {`${user.nickname.length}/8`}
                 </Text>
               </div>
             </div>
             <div className="section">
-              <Text typo="Paragraph2" color="N100">
+              <Text typo="Paragraph2" c="N100">
                 생년월일
               </Text>
               <div className="input-box birth">
@@ -183,7 +182,7 @@ const EditProfile = () => {
             </div>
 
             <div className="section">
-              <Text typo="Paragraph2" color="N100">
+              <Text typo="Paragraph2" c="N100">
                 성별
               </Text>
               <div className="gender-button">

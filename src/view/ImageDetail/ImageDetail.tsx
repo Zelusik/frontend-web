@@ -8,10 +8,11 @@ import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import Numbers from "components/Common/Number";
-import Spacing from "components/Spacing";
+
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import Image from "components/Image";
+import { Space } from "components/core";
 
 export default function ImageDetail({}: any) {
   const router = useRouter();
@@ -141,7 +142,7 @@ export default function ImageDetail({}: any) {
         ) : undefined}
       </Swiper>
 
-      <Spacing size={50} />
+      <Space h={50} />
     </ImageDetailWrapper>
   );
 }

@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Text, AspectRatio, Image, Space } from "@mantine/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import {
   getNearContentsImagesProps,
@@ -18,6 +17,7 @@ import { globalValue } from "constants/globalValue";
 import Title from "components/Title";
 import StoreReviewButton from "components/Button/StoreReviewButton";
 import Heart from "components/Button/IconButton/Heart";
+import { AspectRatio, Box, Image, Space } from "components/core";
 
 interface StoreCardProps {
   key?: number;
@@ -44,7 +44,7 @@ const StoreCard = ({ nearData }: StoreCardProps) => {
   };
 
   return (
-    <Box ml={15} mr={15} pos="relative">
+    <Box mh={15} pos="relative">
       {nearData?.images?.length === 0 ? (
         <AspectRatio ratio={330 / 192}>
           <Image src={globalValue.BLANK_IMAGE} alt="음식 이미지" radius={12} />

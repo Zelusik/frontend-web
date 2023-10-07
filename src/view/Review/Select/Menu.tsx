@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Spacing from "components/Spacing/Spacing";
 import { colors } from "constants/colors";
 import BottomButton from "components/Button/BottomButton";
 
@@ -24,6 +23,7 @@ import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { OriginalImageDataType, TransformedImageDataType } from "types/review";
 import useBottomSheet from "hooks/useBottomSheet";
 import useDisplaySize from "hooks/useDisplaySize";
+import { Space } from "components/core";
 
 const Menu = () => {
   const router = useRouter();
@@ -248,7 +248,7 @@ const Menu = () => {
         </Swiper>
         <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
       </ImageWrapper>
-      <Spacing size={10} />
+      <Space h={10} />
       <ExplanationWrapper>
         <div style={typography.Headline5}>메뉴의 이름은 무엇인가요?</div>
         <ExplanationBubble>

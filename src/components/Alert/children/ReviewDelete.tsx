@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { deleteReview } from "api/reviews";
 import AlertButton from "components/Button/AlertButton";
 import RoundButton from "components/Button/RoundButton";
-import Text from "components/Text";
+import { Text } from "components/core";
 import { Route } from "constants/Route";
 import useAlert from "hooks/useAlert";
 import { useRouter } from "next/router";
@@ -20,7 +20,7 @@ export default function ReviewDelete() {
   };
   return (
     <DeleteWrapper>
-      <Text typo="Paragraph6" color="N100">
+      <Text typo="Paragraph6" c="N100">
         리뷰를 삭제하시겠습니까?
       </Text>
       <ButtonWrapper>

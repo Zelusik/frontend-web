@@ -1,32 +1,27 @@
 import React, { forwardRef } from "react";
-import { useRouter } from "next/router";
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { Tab, Tabs } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-import { Box, Text, Divider } from "@mantine/core";
 import SwipeableViews from "react-swipeable-views";
 import { colors } from "constants/colors";
 import { useAppSelector } from "hooks/useReduxHooks";
-import { typography } from "constants/typography";
+import { Box, Divider, Text } from "components/core";
 
 const useStyles = makeStyles({
   tabsRoot: {
     minHeight: (props: any) => props.height,
     height: (props: any) => props.height,
-    padding: (props: any) => `0 ${props.padding}px`,
-    // gap이 적용안됨
-    // padding 적용도 안됨
-    // scroll도 안됨
-    ".MuiTabs-flexContainer": {
-      gap: 24,
-    },
   },
+  tabsFlexContainer: {
+    padding: (props: any) => `0 ${props.padding}px`,
+    gap: (props: any) => props.gap,
+  },
+
   tabRoot: {
     minWidth: "fit-content",
     minHeight: (props: any) => props.height,
     height: (props: any) => props.height,
-    marginRight: (props: any) => props.gap,
     padding: 0,
   },
 });
@@ -64,6 +59,7 @@ const TopNavigation = forwardRef(function Div(
     <Box w={display.width} pos="sticky" top={0}>
       <Tabs
         variant="scrollable"
+        scrollButtons="auto"
         TabIndicatorProps={{
           style: {
             borderBottom: `2px solid ${colors[color]}`,
@@ -71,6 +67,8 @@ const TopNavigation = forwardRef(function Div(
         }}
         classes={{
           root: classes.tabsRoot,
+          // scroller: classes.tabsScroller,
+          flexContainer: classes.tabsFlexContainer,
         }}
         value={index.currentIndex}
         onChange={handleChange}
@@ -82,11 +80,8 @@ const TopNavigation = forwardRef(function Div(
               color={color}
               label={
                 <Text
-                  c={colors[index.currentIndex === idx ? color : "N40"]}
-                  style={{
-                    ...typography["Headline3"],
-                    display: "inline-block",
-                  }}
+                  c={index.currentIndex === idx ? "N100" : "N40"}
+                  typo="Headline3"
                 >
                   {keyword}
                 </Text>
@@ -98,7 +93,7 @@ const TopNavigation = forwardRef(function Div(
           );
         })}
       </Tabs>
-      <Divider color={colors["N20"]} style={{ margin: `0 ${padding}px` }} />
+      <Divider h={1} mh={padding} bg="N20" />
 
       <SwipeableViews
         index={index.currentIndex}

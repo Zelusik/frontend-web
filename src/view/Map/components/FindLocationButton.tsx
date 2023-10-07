@@ -1,7 +1,7 @@
-import { Flex, Box } from "@mantine/core";
 import { colors } from "constants/colors";
 import { globalValue } from "constants/globalValue";
 import Icon from "components/Icon";
+import { Box, Flex } from "components/core";
 
 interface FindLocationButtonProps {
   handleClick: () => void;
@@ -23,11 +23,9 @@ export default function FindLocationButton({
         pt={11}
         pos="absolute"
         right={20}
-        bg={colors["N0"]}
-        style={{
-          borderRadius: "50%",
-          boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.12)",
-        }}
+        bg="N0"
+        radius="50%"
+        shadow="0px 0px 4px rgba(0, 0, 0, 0.12)"
       >
         <Icon icon="FindLocation" />
       </Box>

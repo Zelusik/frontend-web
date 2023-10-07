@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import { Route } from "constants/Route";
 import RoundButton from "components/Button/RoundButton";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import Spacing from "components/Spacing/Spacing";
 import useGetMenuKeywords from "hooks/queries/review/useGetMenuKeywords";
 import { FoodType } from "types/review";
 import useToast from "hooks/useToast";
@@ -19,6 +18,7 @@ import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
 import ReviewLoading from "../components/ReviewLoading";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import LoadingDots from "components/Loading/LoadingDots";
+import { Space } from "components/core";
 
 const FoodKeyword = () => {
   const route = useRouter();
@@ -121,7 +121,7 @@ const FoodKeyword = () => {
           ) : (
             <>
               <BackTitle type="black-left-text" text="식사 리뷰" />
-              <Spacing size={20} />
+              <Space h={20} />
 
               <MainWrapper>
                 <div style={typography.Headline5}>맛은 어떠셨나요?</div>

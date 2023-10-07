@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { ScrollArea, Box, Text, Space } from "@mantine/core";
+import { Box, ScrollArea, Space, Text } from "components/core";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGetFeed from "hooks/queries/home/useGetFeed";
@@ -37,12 +37,10 @@ export default function Home() {
         >
           <ScrollArea
             h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-            pl={20}
-            pr={20}
-            scrollbarSize={0}
+            ph={20}
           >
             <Space h={20} />
-            <Text color={colors["N100"]} style={typography["Headline6"]}>
+            <Text c={colors["N100"]} style={typography["Headline6"]}>
               오늘은
               <br />
               어디로 갈까요?

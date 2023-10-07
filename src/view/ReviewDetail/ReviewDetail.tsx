@@ -9,10 +9,9 @@ import { makeInfo } from "utils/makeInfo";
 
 import { globalValue } from "constants/globalValue";
 import KakaoMap from "components/Common/KakaoMap";
-import Spacing from "components/Spacing";
+
 import Info from "components/Common/Info";
 import Description from "components/Description";
-import Hr from "components/Hr";
 import { colors } from "constants/colors";
 import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
@@ -22,6 +21,7 @@ import Profile from "./components/ProfileTime";
 import ImageBox from "./components/ImageBox";
 import ScaleUpButton from "./components/ScaleUpButton";
 import LoadingCircle from "components/Loading/LoadingCircle";
+import { Divider, Space } from "components/core";
 
 export default function ReviewDetail() {
   const router = useRouter();
@@ -66,9 +66,9 @@ export default function ReviewDetail() {
       </TitleWrapper>
 
       <Wrapper ref={scrollRef} height={height}>
-        <Spacing size={width + 4} />
+        <Space h={width + 4} />
         <ScrollWrapper>
-          <Spacing size={20} />
+          <Space h={20} />
           <StoreTitle
             type={data?.writer?.isEqualLoginMember ? "detail-mine" : "detail"}
             title={data?.place?.name}
@@ -77,18 +77,18 @@ export default function ReviewDetail() {
             isMarked={data?.place?.isMarked}
             editNone={true}
           />
-          <Spacing size={16} />
+          <Space h={16} />
 
           <Hashtags hashtagTextDatas={data?.keywords} />
 
           <div style={{ padding: "0 20px" }}>
-            <Spacing size={16} />
+            <Space h={16} />
             <Description text={data?.content} />
-            <Spacing size={15} />
-            <Hr />
-            <Spacing size={16} />
+            <Space h={15} />
+            <Divider bg="N100" />
+            <Space h={16} />
             <Profile data={data?.writer} />
-            <Spacing size={16} />
+            <Space h={16} />
           </div>
 
           <KakaoMapWrapper height={(width * 23) / 36}>
@@ -108,7 +108,7 @@ export default function ReviewDetail() {
           </KakaoMapWrapper>
 
           <div style={{ padding: "0 20px" }}>
-            <Spacing size={40} />
+            <Space h={40} />
             {makeInfo(data?.place).map((data: any, idx: number) => {
               return <Info key={idx} data={data} />;
             })}

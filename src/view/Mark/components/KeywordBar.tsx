@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import Spacing from "components/Spacing/Spacing";
-import { colors } from "constants/colors";
+import { Space } from "components/core";
 import { typography } from "constants/typography";
 import useGetMarkKeywords from "hooks/queries/mark/useGetFilteringKeywords";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { colors } from "constants/colors";
 
 const KeywordBar = () => {
   const router = useRouter();
@@ -49,7 +49,7 @@ const KeywordBar = () => {
             )
           )}
       </div>
-      <Spacing size={16} />
+      <Space h={16} />
     </KeywordBarWrapper>
   );
 };

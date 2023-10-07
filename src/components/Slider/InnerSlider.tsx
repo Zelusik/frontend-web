@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect } from "react";
-import { Box, Flex, Text, Center } from "@mantine/core";
 import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
+import { Box, Text } from "components/core";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Text, Space, Button } from "@mantine/core";
+import { Box, Button, Flex, Space, Text } from "components/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useSearch from "hooks/useSearch";
 
@@ -29,8 +29,7 @@ const FilterSelection = () => {
       <Flex
         ref={filterRef}
         h={36}
-        pl={13}
-        pr={13}
+        ph={13}
         pos="absolute"
         left={15}
         bg={colors["N0"]}

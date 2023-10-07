@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import { typography } from "constants/typography";
-import Spacing from "components/Spacing";
+
 import BackTitle from "components/Title/BackTitle";
 import BottomButton from "components/Button/BottomButton";
 import ReportButton from "./components/ReportButton";
@@ -11,7 +11,8 @@ import { useState } from "react";
 import TextArea from "components/TextArea";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { reportData, storeReportData } from "constants/globalData";
-import Text from "components/Text";
+import Text from "components/core/Text";
+import { Space } from "components/core";
 
 export default function Report() {
   const router = useRouter();
@@ -32,11 +33,11 @@ export default function Report() {
     <>
       <ReportWrapper>
         <BackTitle type="black-left-text" text="리뷰 신고하기" />
-        <Spacing size={20} />
-        <Text typo="Headline3" color="N100">
+        <Space h={20} />
+        <Text typo="Headline3" c="N100">
           이 리뷰를 신고하는 이유를 알려주세요.
         </Text>
-        <Spacing size={20} />
+        <Space h={20} />
 
         {ReportDatas?.map((data: any, idx: number) => {
           return (
@@ -48,7 +49,7 @@ export default function Report() {
             />
           );
         })}
-        <Spacing size={4} />
+        <Space h={4} />
 
         <TextArea
           size={114}

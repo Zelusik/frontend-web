@@ -1,5 +1,4 @@
 import React, { forwardRef, useState, useEffect, useRef } from "react";
-import { AspectRatio, Image } from "@mantine/core";
 
 import { Swiper as OriginalSwiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

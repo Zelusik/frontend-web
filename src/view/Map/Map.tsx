@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Box, Flex, Text, Space } from "@mantine/core";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
@@ -47,6 +46,7 @@ import {
   getNearProps,
 } from "models/view/mapModel";
 import Sort from "components/Sort";
+import { Box, Flex, Space } from "components/core";
 
 declare const window: any;
 
@@ -315,7 +315,7 @@ export default function Map() {
 
       <Box pos="relative">
         <Space h={15} />
-        <Flex h={52} pl={15} pr={15}>
+        <Flex h={52} ph={15}>
           <Input
             type="shadow"
             placeholder="지역, 음식점, 닉네임 검색"

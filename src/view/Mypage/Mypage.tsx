@@ -1,9 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
-import { ScrollArea, Box, Flex, Text, Space, Divider } from "@mantine/core";
 import { motion } from "framer-motion";
 
 import useDisplaySize from "hooks/useDisplaySize";
@@ -12,9 +9,9 @@ import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews"
 import { useAppDispatch } from "hooks/useReduxHooks";
 import { editDisplaySize } from "reducer/slices/global/globalSlice";
 
-import { colors } from "constants/colors";
 import { globalValue } from "constants/globalValue";
 
+import { Box, Space, ScrollArea } from "components/core";
 import BottomNavigation from "components/BottomNavigation";
 import Setting from "components/Button/IconButton/Setting";
 import LoadingCircle from "components/Loading/LoadingCircle";
@@ -61,27 +58,15 @@ export default function Mypage() {
     else setDirection("up");
   };
 
-  const handleScroll = (position: { x: number; y: number }) => {
-    if (
-      direction === "up" &&
-      currentIndex === 0 &&
-      scrollRef1?.current?.scrollTop <= 0
-    ) {
+  const handleScroll = ({ scrollY }: { scrollX: number; scrollY: number }) => {
+    if (direction === "up" && scrollRef1?.current?.scrollTop <= 0) {
       // scrollRef2.current!.scrollTo({ top: 0 });
-      scrollRef1.current!.style.setProperty("overflow", `hidden`);
-      scrollRef2.current!.style.setProperty("overflow", `hidden`);
-    } else if (
-      direction === "up" &&
-      currentIndex === 1 &&
-      scrollRef2?.current?.scrollTop <= 0
-    ) {
-      // scrollRef1.current!.scrollTo({ top: 0 });
       scrollRef1.current!.style.setProperty("overflow", `hidden`);
       scrollRef2.current!.style.setProperty("overflow", `hidden`);
     }
     //아래로 내리는 경우
     else if (direction === "down") {
-      if (position.y < 332) {
+      if (scrollY < 332) {
         scrollRef1.current!.style.setProperty("overflow", `hidden`);
         scrollRef2.current!.style.setProperty("overflow", `hidden`);
       } else {
@@ -90,17 +75,17 @@ export default function Mypage() {
 
         if (currentIndex === 0) {
           scrollRef1.current!.scrollTo({
-            top: position.y - 332,
+            top: scrollY - 332,
           });
         } else {
           scrollRef2.current!.scrollTo({
-            top: position.y - 332,
+            top: scrollY - 332,
           });
         }
       }
     }
 
-    if (position.y > 10) {
+    if (scrollY > 10) {
       setTitleChange(true);
     } else {
       setTitleChange(false);
@@ -138,28 +123,20 @@ export default function Mypage() {
           transition={{ duration: 0.5 }}
         >
           <ScrollArea
-            viewportRef={scrollRef}
-            type="never"
+            veiwportRef={scrollRef}
             h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
             pos="absolute"
             top={50}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
-            onScrollPositionChange={handleScroll}
+            onScroll={handleScroll}
           >
             {/* 332 */}
-            <Box
-              pl={20}
-              pr={20}
-              bg={colors["N0"]}
-              pos="sticky"
-              top={-332}
-              style={{ width: width }}
-            >
-              <ProfileInfo mine={mine} profile={profileData && profileData} />
+            <Box w={width} ph={20} bg="N0">
+              <ProfileInfo mine={mine} profileData={profileData} />
               <Space h={22} />
 
-              <TasteBox tasteStatistics={profileData?.tasteStatistics} />
+              <TasteBox profileData={profileData?.tasteStatistics} />
               <Space h={40} />
             </Box>
 
@@ -211,14 +188,3 @@ export default function Mypage() {
     </>
   );
 }
-
-const fade = (visible: boolean) => keyframes`
-  from {
-    opacity: ${visible ? 0 : 1};
-    background-color: ${visible ? `transparent` : `${colors.N0}`};
-  }
-  to {
-    opacity: ${visible ? 1 : 0};
-    background-color: ${visible ? `${colors.N0}` : `transparent`};
-  }
-`;

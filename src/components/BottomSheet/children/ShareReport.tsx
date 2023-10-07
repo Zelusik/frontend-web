@@ -4,8 +4,9 @@ import useBottomSheet from "hooks/useBottomSheet";
 
 import { Route } from "constants/Route";
 import Icon from "components/Icon";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
+
+import Text from "components/core/Text";
+import { Space } from "components/core";
 
 interface Props {}
 
@@ -22,17 +23,17 @@ export default function ShareReport({}: Props) {
 
   return (
     <>
-      <Spacing size={10} />
+      <Space h={10} />
       <ReportButton onClick={clickPrimary}>
         <Icon icon="Share" width={20} height={20} />
-        <Text typo="Headline2" color="N100" style={{ marginLeft: 6 }}>
+        <Text typo="Headline2" c="N100" style={{ marginLeft: 6 }}>
           공유하기
         </Text>
       </ReportButton>
-      <Spacing size={26} />
+      <Space h={26} />
       <ReportButton onClick={clickSecondary}>
         <Icon icon="Report" width={20} height={20} />
-        <Text typo="Headline2" color="N100" style={{ marginLeft: 6 }}>
+        <Text typo="Headline2" c="N100" style={{ marginLeft: 6 }}>
           신고하기
         </Text>
       </ReportButton>
