@@ -20,7 +20,7 @@ const Gradient = ({ children, ...props }: GradientProps) => {
         position: "absolute",
         zIndex: 800,
         background: `linear-gradient(to ${props?.direction}, transparent, ${
-          colors[props?.bg]
+          props?.bg ? colors[props?.bg] : colors["N0"]
         })`,
         ...props.style,
       }}

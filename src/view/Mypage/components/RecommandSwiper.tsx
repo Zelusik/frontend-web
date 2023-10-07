@@ -48,7 +48,7 @@ const RecommandSwiper = ({
         length={recommendReviewDatas?.length}
       >
         {recommendReviewDatas?.map(
-          (recommendReviewData: RecommandSwiperProps, idx: number) => {
+          (recommendReviewData: getRecommendReviewsProps, idx: number) => {
             const DATA = recommendReviewData?.review?.place;
 
             return (

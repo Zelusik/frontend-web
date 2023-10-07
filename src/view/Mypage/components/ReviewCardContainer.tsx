@@ -5,7 +5,17 @@ import useGetReviews from "hooks/queries/user/useGetReviews";
 import { useAppSelector } from "hooks/useReduxHooks";
 import ReviewList from "./ReviewList";
 
-const ReviewCardContainer = ({ refs, mine, direction }: any) => {
+interface ReviewCardContainerProps {
+  refs?: any;
+  mine?: boolean;
+  direction?: string;
+}
+
+const ReviewCardContainer = ({
+  refs,
+  mine,
+  direction,
+}: ReviewCardContainerProps) => {
   const { display } = useAppSelector((state) => state.global);
   const { reviewDatas, isLoadingReview, fetchNextPage, hasNextPage } =
     useGetReviews();

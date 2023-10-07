@@ -9,7 +9,7 @@ import { ScrollArea } from "components/core";
 interface RecommendReviewCardContainerProps {
   refs?: any;
   mine?: boolean;
-  direction?: "none" | "up" | "down";
+  direction?: string;
   touch?: any;
 }
 
