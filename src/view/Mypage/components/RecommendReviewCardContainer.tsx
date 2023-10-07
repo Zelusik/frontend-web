@@ -4,14 +4,21 @@ import { useAppSelector } from "hooks/useReduxHooks";
 import { globalValue } from "constants/globalValue";
 import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
 import RecommandSwiper from "./RecommandSwiper";
-import { Box, ScrollArea } from "components/core";
+import { ScrollArea } from "components/core";
+
+interface RecommendReviewCardContainerProps {
+  refs?: any;
+  mine?: boolean;
+  direction?: "none" | "up" | "down";
+  touch?: any;
+}
 
 const RecommendReviewCardContainer = ({
   refs,
   mine,
   direction,
   touch,
-}: any) => {
+}: RecommendReviewCardContainerProps) => {
   const { display } = useAppSelector((state) => state.global);
   const { recommendReviewDatas } = useGetRecommendReviews();
 

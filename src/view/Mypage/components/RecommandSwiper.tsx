@@ -10,20 +10,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Route } from "constants/Route";
 import { colors } from "constants/colors";
-import StoreTitle from "components/Title/StoreTitle";
-import NewButton from "./NewButton";
-import { getAddressInfo } from "utils/getAddressInfo";
-import useDisplaySize from "hooks/useDisplaySize";
-import { globalValue } from "constants/globalValue";
-import { useAppSelector } from "hooks/useReduxHooks";
 import NothingButton from "components/Button/NothingButton";
-import { AspectRatio, Flex, Image, Space } from "components/core";
+import { AspectRatio, Flex, Image, Space, Gradient } from "components/core";
+import Title from "components/Title";
+import StoreReviewButton from "components/Button/StoreReviewButton";
+import Heart from "components/Button/IconButton/Heart";
+import ImageCount from "./ImageCount";
 
-export default function RecommandSwiper({
-  recommendReviewDatas,
-  mine,
-  touch,
-}: any) {
+const RecommandSwiper = ({ recommendReviewDatas, mine, touch }: any) => {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -34,6 +28,7 @@ export default function RecommandSwiper({
     router.push({ pathname: Route.RECOMMEND_BEST() });
   };
 
+  console.log(recommendReviewDatas);
   return (
     <>
       <Space h={20} />
@@ -42,28 +37,47 @@ export default function RecommandSwiper({
         touch={touch}
         length={recommendReviewDatas?.length}
       >
-        {recommendReviewDatas?.map((data: any, idx: number) => {
+        {recommendReviewDatas?.map((recommendReviewData: any, idx: number) => {
           return (
             <SwiperSlide key={idx} style={{ padding: "0 5px" }}>
-              <AspectRatio ratio={300 / 340}>
+              <AspectRatio ratio={300 / 340} radius={12}>
                 <Image
                   alt="음식 이미지"
-                  src={globalValue.BLANK_IMAGE}
-                  // src={data.review.images[0].imageUrl}
-                  radius={12}
-                  onClick={() => clickReviewDetail(data.review.id)}
+                  src={recommendReviewData?.review?.images?.[0]?.imageUrl}
+                  fit="cover"
+                  onClick={() =>
+                    clickReviewDetail(recommendReviewData?.review?.id)
+                  }
                 />
+                <Gradient h={94} bottom={0} bg="N100" dir="bottom" o={0.8} />
+                <Title
+                  height={56}
+                  padding={20}
+                  position="absolute"
+                  bottom={30}
+                  renderLeft={
+                    <StoreReviewButton
+                      type="review"
+                      id={recommendReviewData?.review?.place?.id}
+                      name={recommendReviewData?.review?.place?.name}
+                      category={recommendReviewData?.review?.place?.category}
+                      color="N0"
+                      nameTypo="Headline6"
+                      categoryTypo="Paragraph4"
+                    />
+                  }
+                  renderRight={
+                    <Heart
+                      size={28}
+                      id={recommendReviewData?.review?.place?.id}
+                      isMarked={recommendReviewData?.review?.place?.isMarked}
+                    />
+                  }
+                />
+                <ImageCount currentIndex={idx + 1} />
                 {/* <NumberWrapper>
                   <Text typo="Paragraph7">{idx + 1}</Text>
                 </NumberWrapper> */}
-                {/* <StoreTitle
-                  type="home"
-                  title={data.review.place.name}
-                  subTitle={getAddressInfo(data.review.place)}
-                  onClick={() => clickReviewDetail(data.review.id)}
-                  isMarked={data.review.place.isMarked}
-                  placeId={data.review.place.id}
-                /> */}
               </AspectRatio>
             </SwiperSlide>
           );
@@ -88,7 +102,7 @@ export default function RecommandSwiper({
       <Space h={20} />
     </>
   );
-}
+};
 
 const trans = (action: boolean) => keyframes`
   from {
@@ -109,3 +123,5 @@ const Index = styled.div<{ act: boolean }>`
   animation: ${(props) => trans(props.act)} 0.3s forwards;
   border-radius: 2px;
 `;
+
+export default RecommandSwiper;

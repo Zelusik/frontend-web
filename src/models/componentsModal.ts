@@ -38,13 +38,14 @@ export interface ComponentsProps {
   gap?: string | number;
   radius?: string | number;
   ratio?: number;
-  opacity?: string | number;
+  o?: string | number;
 
   pos?: string;
   top?: string | number;
   bottom?: string | number;
   left?: string | number;
   right?: string | number;
+  zIndex?: number;
 
   shadow?: string;
   bg?: string;

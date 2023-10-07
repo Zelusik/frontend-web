@@ -30,29 +30,23 @@ export default function Hashtag({
   const router = useRouter();
 
   return (
-    <Flex
-      pl={12}
-      pr={12}
-      h={40}
-      bg={colors["Orange100"]}
-      style={{ borderRadius: 40 }}
-    >
-      {/* <Center> */}
-      <Text
-        c={colors[hashColor ? hashColor : color]}
-        style={typography[hashTypo ? hashTypo : typo]}
-      >
-        #&nbsp;
-      </Text>
-      {/* </Center> */}
-      {/* <Center> */}
-      <Text
-        c={colors[textColor ? textColor : color]}
-        style={typography[textTypo ? textTypo : typo]}
-      >
-        {hashtagText}
-      </Text>
-      {/* </Center> */}
+    <Flex h={40} ph={12} bg="Orange100" radius={40}>
+      <Flex justify="center" align="center">
+        <Text
+          c={hashColor ? hashColor : color}
+          typo={hashTypo ? hashTypo : typo}
+        >
+          #&nbsp;
+        </Text>
+      </Flex>
+      <Flex justify="center" align="center">
+        <Text
+          c={textColor ? textColor : color}
+          typo={textTypo ? textTypo : typo}
+        >
+          {hashtagText}
+        </Text>
+      </Flex>
     </Flex>
   );
 }

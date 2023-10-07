@@ -42,9 +42,9 @@ export default function Mypage() {
   const scrollRef1 = useRef<any>(null);
   const scrollRef2 = useRef<any>(null);
 
+  const [mine, setMine] = useState<any>(null);
   const [titleChange, setTitleChange] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [mine, setMine] = useState<any>(null);
 
   const [touch, setTouch] = useState(false);
   const [startY, setStartY] = useState(0);
@@ -135,7 +135,6 @@ export default function Mypage() {
             <Box w={width} ph={20} bg="N0">
               <ProfileInfo mine={mine} profileData={profileData} />
               <Space h={22} />
-
               <TasteBox profileData={profileData?.tasteStatistics} />
               <Space h={40} />
             </Box>

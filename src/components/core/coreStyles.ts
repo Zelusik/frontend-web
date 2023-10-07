@@ -53,13 +53,14 @@ export const coreStyles = (props: ComponentsProps) => {
     gap: props?.gap,
     ratio: props?.ratio,
     borderRadius: props?.radius,
-    opacity: props?.opacity,
+    opacity: props?.o,
 
     position: props?.pos,
     top: props?.top,
     bottom: props?.bottom,
     left: props?.left,
     right: props?.right,
+    zIndex: props?.zIndex,
 
     overflow: "hidden",
 

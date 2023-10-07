@@ -43,17 +43,11 @@ const StoreReviewButton = ({
   return (
     <Flex onClick={handleClick}>
       <Box>
-        <Text
-          c={colors[nameColor ? nameColor : color]}
-          style={typography[nameTypo]}
-        >
+        <Text c={nameColor ? nameColor : color} typo={nameTypo}>
           {name}
         </Text>
         <Space h={4} />
-        <Text
-          c={colors[categoryColor ? categoryColor : color]}
-          style={typography[categoryTypo]}
-        >
+        <Text c={categoryColor ? categoryColor : color} typo={categoryTypo}>
           {category}
         </Text>
       </Box>

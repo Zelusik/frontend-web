@@ -32,7 +32,7 @@ export default function ProfileInfo({ mine, profileData }: ProfileInfoProps) {
           <Text typo="Headline4" c="N100">
             {profileData?.nickname}
           </Text>
-          {!mine && <RoundButton type="follow-icon" />}
+          {/* {!mine && <RoundButton type="follow-icon" />} */}
         </Flex>
         <Space h={16} />
 

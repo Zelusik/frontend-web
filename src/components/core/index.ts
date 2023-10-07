@@ -8,6 +8,7 @@ import Image from "./Image";
 import Divider from "./Divider";
 import Button from "./Button";
 import Input from "./Input";
+import Gradient from "./Gradient";
 
 export { Box };
 export { Flex };
@@ -19,3 +20,4 @@ export { AspectRatio };
 export { Image };
 export { Button };
 export { Input };
+export { Gradient };

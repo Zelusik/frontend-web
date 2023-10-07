@@ -14,7 +14,6 @@ const CustomImage = ({ children, ...props }: ImageProps) => {
     <img
       alt={props?.alt}
       src={globalValue.BLANK_IMAGE}
-      width={props?.w}
       style={{
         ...coreStyles(props),
         objectFit: props?.fit,
@@ -22,6 +21,11 @@ const CustomImage = ({ children, ...props }: ImageProps) => {
       }}
     />
   );
+};
+
+CustomImage.defaultProps = {
+  w: "100%",
+  h: "100%",
 };
 
 export default CustomImage;

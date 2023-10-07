@@ -37,40 +37,42 @@ const Title = ({
   renderRight,
 }: TitleProps) => {
   return (
-    <Box pos="relative" bg={colors[background]}>
-      <Flex
-        h={height}
-        pl={padding}
-        pr={padding}
-        justify="space-between"
-        pos={position}
-        bottom={bottom}
-        style={{ width: "100%" }}
-      >
-        <Flex>
-          {/* <Center> */}
+    <Flex
+      w="100%"
+      h={height}
+      ph={padding}
+      justify="space-between"
+      pos={position}
+      bottom={bottom}
+      zIndex={801}
+    >
+      <Flex>
+        <Flex justify="center" align="center">
           {renderLeft && renderLeft}
-          {/* </Center> */}
-          {/* <Center> */}
-          <Text typo="Headline5" c={color} style={typography["Headline5"]}>
+        </Flex>
+        <Flex justify="center" align="center">
+          <Text typo="Headline5" c={color}>
             {textLeft}
           </Text>
-          {/* </Center> */}
-        </Flex>
-
-        <Text typo="Headline3" c={color} style={typography["Headline3"]}>
-          {textCenter}
-        </Text>
-
-        <Flex>
-          {buttonRight && buttonRight}
-          <Space w={4} />
-          {/* <Center> */}
-          {renderRight && renderRight}
-          {/* </Center> */}
         </Flex>
       </Flex>
-    </Box>
+
+      <Flex justify="center" align="center">
+        <Text typo="Headline3" c={color}>
+          {textCenter}
+        </Text>
+      </Flex>
+
+      <Flex>
+        <Flex justify="center" align="center">
+          {buttonRight && buttonRight}
+        </Flex>
+        <Space w={4} />
+        <Flex justify="center" align="center">
+          {renderRight && renderRight}
+        </Flex>
+      </Flex>
+    </Flex>
   );
 };
 
