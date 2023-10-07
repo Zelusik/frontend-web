@@ -10,17 +10,15 @@ import useToast from "hooks/useToast";
 import { colors } from "constants/colors";
 import { Route } from "constants/Route";
 import { typography } from "constants/typography";
-
-import Image from "components/Image";
-import StoreTitle from "components/Title/StoreTitle";
 import Toast from "components/Toast/Toast";
 
 import {
   changeRecommendReview,
   initializeRecommendReview,
 } from "reducer/slices/review/recommendReviewSlice";
-import { globalValue } from "constants/globalValue";
-import { AspectRatio, Box, Flex, Space } from "components/core";
+import { AspectRatio, Box, Flex, Image, Space } from "components/core";
+import Title from "components/Title";
+import StoreReviewButton from "components/Button/StoreReviewButton";
 
 export default function ReviewList({
   type = "mypage",
@@ -66,66 +64,47 @@ export default function ReviewList({
       <Flex wrap="wrap" gap={6}>
         {reviewDatas
           ?.flatMap((review_data: any) => review_data?.contents)
-          .map((data: any, idx: number) => {
+          .map((reviewData: any, idx: number) => {
             return (
               <AspectRatio
                 key={idx}
                 w={(display.width - 46) / 2}
+                radius={12}
                 ratio={157 / 170}
               >
                 <Image
                   alt="리뷰 사진"
                   src={
-                    globalValue.BLANK_IMAGE
-                    // data?.reviewImage?.thumbnailUrl ||
-                    // data?.reviewThumbnailImageUrls[0]
+                    reviewData?.reviewImage?.thumbnailUrl ||
+                    reviewData?.reviewThumbnailImageUrls?.[0]
                   }
-                  type="mypage-review"
+                />
+                <Title
+                  height={39}
+                  padding={10}
+                  position="absolute"
+                  bottom={15}
+                  renderLeft={
+                    <StoreReviewButton
+                      type="review"
+                      id={reviewData?.place?.id}
+                      name={reviewData?.place?.name}
+                      category={reviewData?.place?.category}
+                      color="N0"
+                      nameTypo="Headline3"
+                      categoryTypo="Paragraph2"
+                    />
+                  }
                 />
               </AspectRatio>
-              //   {/* <StoreTitle
-              //   type="mypage-review"
-              //   title={data?.place?.name}
-              //   subTitle={getAddressInfo(data?.place)}
-              // />
-              // {type === "recommand-best" ? (
-              //   <CountWrapper action={recommendReview.includes(data?.id)}>
-              //     {recommendReview.indexOf(data?.id) !== -1
-              //       ? recommendReview.indexOf(data?.id) + 1
-              //       : ""}
-              //   </CountWrapper>
-              // ) : null} */}
-              // </ReviewInner>
             );
           })}
         {isShowToast && (
           <Toast message="3개까지만 선택 가능해요" close={closeToast} />
         )}
-        <Box ref={scrollRef} style={{ height: hasNextPage ? 30 : 0 }}></Box>
+        <Box veiwportRef={scrollRef} h={hasNextPage ? 30 : 0} />
       </Flex>
       <Space h={20} />
     </>
   );
 }
-
-const CountWrapper = styled.div<{ action: boolean }>`
-  width: 20px;
-  height: 20px;
-
-  position: absolute;
-  top: 10px;
-  right: 10px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 999px;
-  border: 2px solid ${({ action }) => (action ? colors.Orange400 : colors.N40)};
-  background-color: ${({ action }) =>
-    action ? colors.Orange400 : `transparent`};
-  z-index: 700;
-
-  ${typography.Headline2}
-  color: ${colors.N0};
-`;

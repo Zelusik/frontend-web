@@ -28,7 +28,6 @@ const RecommandSwiper = ({ recommendReviewDatas, mine, touch }: any) => {
     router.push({ pathname: Route.RECOMMEND_BEST() });
   };
 
-  console.log(recommendReviewDatas);
   return (
     <>
       <Space h={20} />
@@ -38,6 +37,8 @@ const RecommandSwiper = ({ recommendReviewDatas, mine, touch }: any) => {
         length={recommendReviewDatas?.length}
       >
         {recommendReviewDatas?.map((recommendReviewData: any, idx: number) => {
+          const DATA = recommendReviewData?.review?.place;
+
           return (
             <SwiperSlide key={idx} style={{ padding: "0 5px" }}>
               <AspectRatio ratio={300 / 340} radius={12}>
@@ -49,7 +50,13 @@ const RecommandSwiper = ({ recommendReviewDatas, mine, touch }: any) => {
                     clickReviewDetail(recommendReviewData?.review?.id)
                   }
                 />
-                <Gradient h={94} bottom={0} bg="N100" dir="bottom" o={0.8} />
+                <Gradient
+                  h={94}
+                  bottom={0}
+                  bg="N100"
+                  direction="bottom"
+                  o={0.8}
+                />
                 <Title
                   height={56}
                   padding={20}
@@ -58,26 +65,19 @@ const RecommandSwiper = ({ recommendReviewDatas, mine, touch }: any) => {
                   renderLeft={
                     <StoreReviewButton
                       type="review"
-                      id={recommendReviewData?.review?.place?.id}
-                      name={recommendReviewData?.review?.place?.name}
-                      category={recommendReviewData?.review?.place?.category}
+                      id={DATA?.id}
+                      name={DATA?.name}
+                      category={DATA?.category}
                       color="N0"
                       nameTypo="Headline6"
                       categoryTypo="Paragraph4"
                     />
                   }
                   renderRight={
-                    <Heart
-                      size={28}
-                      id={recommendReviewData?.review?.place?.id}
-                      isMarked={recommendReviewData?.review?.place?.isMarked}
-                    />
+                    <Heart size={28} id={DATA?.id} isMarked={DATA?.isMarked} />
                   }
                 />
                 <ImageCount currentIndex={idx + 1} />
-                {/* <NumberWrapper>
-                  <Text typo="Paragraph7">{idx + 1}</Text>
-                </NumberWrapper> */}
               </AspectRatio>
             </SwiperSlide>
           );

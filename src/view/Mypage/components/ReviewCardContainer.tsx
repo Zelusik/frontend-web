@@ -19,9 +19,10 @@ const ReviewCardContainer = ({ refs, mine, direction }: any) => {
       }
       style={{ overflow: "hidden" }}
       onTouchMove={() => {
+        // console.log(refs?.scrollRef2?.current?.scrollTop === 0);
         if (
           direction === "up" &&
-          refs?.scrollRef2?.current?.scrollTop >= 0 &&
+          refs?.scrollRef2?.current?.scrollTop === 0 &&
           refs?.scrollRef?.current?.scrollTop > 332
         ) {
           refs?.scrollRef.current!.scrollTo({ top: 332 });
@@ -38,8 +39,8 @@ const ReviewCardContainer = ({ refs, mine, direction }: any) => {
       />
       {hasNextPage && (
         <>
-          <Space h={24} />
           <LoadingCircle height={30} />
+          <Space h={24} />
         </>
       )}
     </ScrollArea>

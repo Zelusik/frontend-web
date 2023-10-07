@@ -5,7 +5,7 @@ import { ComponentsProps } from "models/componentsModal";
 import { colors } from "constants/colors";
 
 type GradientProps = ComponentsProps & {
-  dir?: "top" | "right" | "bottom" | "left";
+  direction?: "top" | "right" | "bottom" | "left";
 };
 
 const Gradient = ({ children, ...props }: GradientProps) => {
@@ -19,7 +19,7 @@ const Gradient = ({ children, ...props }: GradientProps) => {
         ...coreStyles(props),
         position: "absolute",
         zIndex: 800,
-        background: `linear-gradient(to ${props?.dir}, transparent, ${
+        background: `linear-gradient(to ${props?.direction}, transparent, ${
           colors[props?.bg]
         })`,
         ...props.style,
@@ -33,7 +33,7 @@ const Gradient = ({ children, ...props }: GradientProps) => {
 Gradient.defaultProps = {
   w: "100%",
   bg: "N0",
-  dir: "top",
+  direction: "top",
 };
 
 export default Gradient;

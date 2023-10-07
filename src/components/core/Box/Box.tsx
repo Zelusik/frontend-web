@@ -6,7 +6,7 @@ import { ComponentsProps } from "models/componentsModal";
 
 const StyledBox = styled(MaterialBox)``;
 
-const Box = ({ children, ...props }: any) => {
+const Box = ({ children, ...props }: ComponentsProps) => {
   return (
     <div
       ref={props?.veiwportRef}

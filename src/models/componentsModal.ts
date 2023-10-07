@@ -30,7 +30,7 @@ export interface ComponentsProps {
 
   dis?: string;
   flex?: string;
-  direction?: string;
+  dir?: string;
   wrap?: string;
   justify?: string;
   text?: string;

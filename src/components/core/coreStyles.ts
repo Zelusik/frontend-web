@@ -45,7 +45,8 @@ export const coreStyles = (props: ComponentsProps) => {
 
     display: props?.dis,
     flex: props?.flex,
-    flexDirection: props?.direction,
+    flexWrap: props?.wrap,
+    flexDirection: props?.dir,
     wrap: props?.wrap,
     justifyContent: props?.justify,
     textAlign: props?.text,

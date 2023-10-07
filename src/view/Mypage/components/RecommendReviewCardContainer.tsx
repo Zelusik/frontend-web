@@ -33,7 +33,7 @@ const RecommendReviewCardContainer = ({
       onTouchMove={() => {
         if (
           direction === "up" &&
-          refs?.scrollRef1?.current?.scrollTop >= 0 &&
+          refs?.scrollRef1?.current?.scrollTop === 0 &&
           refs?.scrollRef?.current?.scrollTop > 332
         ) {
           refs?.scrollRef.current!.scrollTo({ top: 332 });
