@@ -11,7 +11,6 @@ import { colors } from "constants/colors";
 import TopNavigation from "components/TopNavigation";
 
 import BackTitle from "components/Title/BackTitle";
-import Input from "components/Input";
 import NoneText from "./components/NoneText";
 import ProfileSelection from "./components/ProfileSelection";
 import Selection from "./components/Selection";
@@ -19,7 +18,7 @@ import AllDelete from "./components/AllDelete";
 import CurrentSelection from "./components/CurrentSelection";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import { Space } from "components/core";
+import { Space, Input } from "components/core";
 
 export default function SearchPlace() {
   const router = useRouter();

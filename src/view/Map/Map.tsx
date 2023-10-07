@@ -23,7 +23,6 @@ import {
 import KakaoMap from "components/Common/KakaoMap";
 import MapBottomSheet from "components/BottomSheet/MapBottomSheet";
 import BottomNavigation from "components/BottomNavigation";
-import Input from "components/Input";
 import Icon from "components/Icon";
 
 import FoodSelection from "./components/FoodSelection";
@@ -46,7 +45,7 @@ import {
   getNearProps,
 } from "models/view/mapModel";
 import Sort from "components/Sort";
-import { Box, Flex, Space } from "components/core";
+import { Box, Flex, Space, Input } from "components/core";
 
 declare const window: any;
 

@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState } from "react";
 import styled from "@emotion/styled";
-import Input from "components/Input/Input";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -14,7 +13,7 @@ import { initEditImageInfo } from "reducer/slices/image/imageSlice";
 
 import Gradient from "components/Common/Gradient";
 import useDisplaySize from "hooks/useDisplaySize";
-import { Space } from "components/core";
+import { Space, Input } from "components/core";
 
 const SearchPlace = () => {
   const dispatch = useAppDispatch();
