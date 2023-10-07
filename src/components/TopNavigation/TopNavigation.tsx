@@ -1,11 +1,11 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import { Tab, Tabs } from "@mui/material";
 import { styled } from "@mui/material/styles";
-
 import SwipeableViews from "react-swipeable-views";
-import { colors } from "constants/colors";
 import { useAppSelector } from "hooks/useReduxHooks";
+
+import { colors } from "constants/colors";
 import { Box, Divider, Text } from "components/core";
 
 const useStyles = makeStyles({

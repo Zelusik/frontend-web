@@ -12,7 +12,9 @@ const AspectRatio = ({ children, ...props }: AspectRatioProps) => {
     <MaterialBox
       style={{
         ...coreStyles(props),
+        position: "relative",
         aspectRatio: props?.ratio,
+        overflow: "hidden",
         ...props.style,
       }}
     >

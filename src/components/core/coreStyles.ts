@@ -45,7 +45,8 @@ export const coreStyles = (props: ComponentsProps) => {
 
     display: props?.dis,
     flex: props?.flex,
-    flexDirection: props?.direction,
+    flexWrap: props?.wrap,
+    flexDirection: props?.dir,
     wrap: props?.wrap,
     justifyContent: props?.justify,
     textAlign: props?.text,
@@ -53,13 +54,14 @@ export const coreStyles = (props: ComponentsProps) => {
     gap: props?.gap,
     ratio: props?.ratio,
     borderRadius: props?.radius,
-    opacity: props?.opacity,
+    opacity: props?.o,
 
     position: props?.pos,
     top: props?.top,
     bottom: props?.bottom,
     left: props?.left,
     right: props?.right,
+    zIndex: props?.zIndex,
 
     overflow: "hidden",
 

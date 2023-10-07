@@ -299,7 +299,7 @@ export default function Map() {
                       )
                     );
                   })}
-                <Box ref={infinityScrollRef} />
+                <Box veiwportRef={infinityScrollRef} />
                 {hasNextPage ? (
                   <>
                     <LoadingCircle height={30} />

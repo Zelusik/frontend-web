@@ -4,14 +4,21 @@ import { useAppSelector } from "hooks/useReduxHooks";
 import { globalValue } from "constants/globalValue";
 import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
 import RecommandSwiper from "./RecommandSwiper";
-import { Box, ScrollArea } from "components/core";
+import { ScrollArea } from "components/core";
+
+interface RecommendReviewCardContainerProps {
+  refs?: any;
+  mine?: boolean;
+  direction?: string;
+  touch?: any;
+}
 
 const RecommendReviewCardContainer = ({
   refs,
   mine,
   direction,
   touch,
-}: any) => {
+}: RecommendReviewCardContainerProps) => {
   const { display } = useAppSelector((state) => state.global);
   const { recommendReviewDatas } = useGetRecommendReviews();
 
@@ -26,7 +33,7 @@ const RecommendReviewCardContainer = ({
       onTouchMove={() => {
         if (
           direction === "up" &&
-          refs?.scrollRef1?.current?.scrollTop >= 0 &&
+          refs?.scrollRef1?.current?.scrollTop === 0 &&
           refs?.scrollRef?.current?.scrollTop > 332
         ) {
           refs?.scrollRef.current!.scrollTo({ top: 332 });

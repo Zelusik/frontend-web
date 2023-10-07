@@ -51,7 +51,7 @@ export default function Home() {
               ?.map((feedData: getFeedContentsProps) => (
                 <ReviewCard key={feedData?.id} feedData={feedData} />
               ))}
-            <Box ref={infinityScrollRef} />
+            <Box veiwportRef={infinityScrollRef} />
             {hasNextPage ? (
               <>
                 <LoadingCircle height={30} />

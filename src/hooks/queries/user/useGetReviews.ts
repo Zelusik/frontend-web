@@ -1,4 +1,5 @@
 import { getMyReviews, getReviews, reviewsApi } from "api/reviews";
+import { getReviewsProps } from "models/view/mypageModel";
 import { useRouter } from "next/router";
 import { useInfiniteQuery } from "react-query";
 
@@ -30,7 +31,7 @@ const useGetReviews = () => {
     {
       staleTime: 1000 * 60 * 5,
       cacheTime: 1000 * 60 * 30,
-      getNextPageParam: (lastPage) => {
+      getNextPageParam: (lastPage: getReviewsProps) => {
         return lastPage.isLast ? undefined : lastPage.number + 1;
       },
     }

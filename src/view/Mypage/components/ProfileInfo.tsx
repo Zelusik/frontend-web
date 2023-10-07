@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import RoundButton from "components/Button/RoundButton";
 import { Box, Flex, Text, Space, AspectRatio, Image } from "components/core";
+import { getProfileProps } from "models/view/mypageModel";
 
 interface ProfileInfoProps {
   mine: boolean;
-  profileData: any;
+  profileData: getProfileProps;
 }
 
 export default function ProfileInfo({ mine, profileData }: ProfileInfoProps) {
@@ -22,7 +22,7 @@ export default function ProfileInfo({ mine, profileData }: ProfileInfoProps) {
       <AspectRatio miw={74} mr={24} ratio={1}>
         <Image
           alt="프로필 사진"
-          src={profileData?.profileDataImage?.thumbnailImageUrl}
+          src={profileData?.profileImage?.thumbnailImageUrl}
           w={74}
           radius={24}
         />
@@ -32,7 +32,7 @@ export default function ProfileInfo({ mine, profileData }: ProfileInfoProps) {
           <Text typo="Headline4" c="N100">
             {profileData?.nickname}
           </Text>
-          {!mine && <RoundButton type="follow-icon" />}
+          {/* {!mine && <RoundButton type="follow-icon" />} */}
         </Flex>
         <Space h={16} />
 
