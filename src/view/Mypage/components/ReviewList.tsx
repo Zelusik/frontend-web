@@ -19,6 +19,10 @@ import {
 import { AspectRatio, Box, Flex, Image, Space } from "components/core";
 import Title from "components/Title";
 import StoreReviewButton from "components/Button/StoreReviewButton";
+import {
+  getReviewsContentsProps,
+  getReviewsProps,
+} from "models/view/mypageModel";
 
 export default function ReviewList({
   type = "mypage",
@@ -42,7 +46,7 @@ export default function ReviewList({
   const clickReview = (id: number) => {
     switch (type) {
       case "mypage":
-        router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: id } });
+        router.push({ pathname: Route.REVIEW_DETAIL(), query: { id } });
         break;
       case "recommand-best":
         if (recommendReview.length === 3) {
@@ -63,8 +67,8 @@ export default function ReviewList({
       <Space h={20} />
       <Flex wrap="wrap" gap={6}>
         {reviewDatas
-          ?.flatMap((review_data: any) => review_data?.contents)
-          .map((reviewData: any, idx: number) => {
+          ?.flatMap((review_data: getReviewsProps) => review_data?.contents)
+          .map((reviewData: getReviewsContentsProps, idx: number) => {
             return (
               <AspectRatio
                 key={idx}
@@ -74,10 +78,7 @@ export default function ReviewList({
               >
                 <Image
                   alt="리뷰 사진"
-                  src={
-                    reviewData?.reviewImage?.thumbnailUrl ||
-                    reviewData?.reviewThumbnailImageUrls?.[0]
-                  }
+                  src={reviewData?.reviewImage?.thumbnailUrl}
                 />
                 <Title
                   height={39}

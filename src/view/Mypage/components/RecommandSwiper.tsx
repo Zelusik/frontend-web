@@ -16,13 +16,24 @@ import Title from "components/Title";
 import StoreReviewButton from "components/Button/StoreReviewButton";
 import Heart from "components/Button/IconButton/Heart";
 import ImageCount from "./ImageCount";
+import { getRecommendReviewsProps } from "models/view/mypageModel";
 
-const RecommandSwiper = ({ recommendReviewDatas, mine, touch }: any) => {
+interface RecommandSwiperProps {
+  recommendReviewDatas?: getRecommendReviewsProps[];
+  mine?: boolean;
+  touch?: any;
+}
+
+const RecommandSwiper = ({
+  recommendReviewDatas,
+  mine,
+  touch,
+}: RecommandSwiperProps) => {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const clickReviewDetail = (reviewId: number) => {
-    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id: reviewId } });
+  const clickReviewDetail = (id: number) => {
+    router.push({ pathname: Route.REVIEW_DETAIL(), query: { id } });
   };
   const handleClickRecommendReview = () => {
     router.push({ pathname: Route.RECOMMEND_BEST() });
@@ -36,58 +47,64 @@ const RecommandSwiper = ({ recommendReviewDatas, mine, touch }: any) => {
         touch={touch}
         length={recommendReviewDatas?.length}
       >
-        {recommendReviewDatas?.map((recommendReviewData: any, idx: number) => {
-          const DATA = recommendReviewData?.review?.place;
+        {recommendReviewDatas?.map(
+          (recommendReviewData: RecommandSwiperProps, idx: number) => {
+            const DATA = recommendReviewData?.review?.place;
 
-          return (
-            <SwiperSlide key={idx} style={{ padding: "0 5px" }}>
-              <AspectRatio ratio={300 / 340} radius={12}>
-                <Image
-                  alt="음식 이미지"
-                  src={recommendReviewData?.review?.images?.[0]?.imageUrl}
-                  fit="cover"
-                  onClick={() =>
-                    clickReviewDetail(recommendReviewData?.review?.id)
-                  }
-                />
-                <Gradient
-                  h={94}
-                  bottom={0}
-                  bg="N100"
-                  direction="bottom"
-                  o={0.8}
-                />
-                <Title
-                  height={56}
-                  padding={20}
-                  position="absolute"
-                  bottom={30}
-                  renderLeft={
-                    <StoreReviewButton
-                      type="review"
-                      id={DATA?.id}
-                      name={DATA?.name}
-                      category={DATA?.category}
-                      color="N0"
-                      nameTypo="Headline6"
-                      categoryTypo="Paragraph4"
-                    />
-                  }
-                  renderRight={
-                    <Heart size={28} id={DATA?.id} isMarked={DATA?.isMarked} />
-                  }
-                />
-                <ImageCount currentIndex={idx + 1} />
-              </AspectRatio>
-            </SwiperSlide>
-          );
-        })}
+            return (
+              <SwiperSlide key={idx} style={{ padding: "0 5px" }}>
+                <AspectRatio ratio={300 / 340} radius={12}>
+                  <Image
+                    alt="음식 이미지"
+                    src={recommendReviewData?.review?.images?.[0]?.imageUrl}
+                    fit="cover"
+                    onClick={() =>
+                      clickReviewDetail(recommendReviewData?.review?.id)
+                    }
+                  />
+                  <Gradient
+                    h={94}
+                    bottom={0}
+                    bg="N100"
+                    direction="bottom"
+                    o={0.8}
+                  />
+                  <Title
+                    height={56}
+                    padding={20}
+                    position="absolute"
+                    bottom={30}
+                    renderLeft={
+                      <StoreReviewButton
+                        type="review"
+                        id={DATA?.id}
+                        name={DATA?.name}
+                        category={DATA?.category}
+                        color="N0"
+                        nameTypo="Headline6"
+                        categoryTypo="Paragraph4"
+                      />
+                    }
+                    renderRight={
+                      <Heart
+                        size={28}
+                        id={DATA?.id}
+                        isMarked={DATA?.isMarked}
+                      />
+                    }
+                  />
+                  <ImageCount currentIndex={idx + 1} />
+                </AspectRatio>
+              </SwiperSlide>
+            );
+          }
+        )}
       </Swiper>
       <Space h={26} />
 
       <Flex mb={30} justify="center">
         <Flex gap={4}>
-          {recommendReviewDatas?.map((data: any, idx: number) => {
+          {recommendReviewDatas?.map((_: any, idx: number) => {
             return <Index key={idx} act={currentIndex === idx} />;
           })}
         </Flex>

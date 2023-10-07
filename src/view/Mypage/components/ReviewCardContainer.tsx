@@ -19,7 +19,6 @@ const ReviewCardContainer = ({ refs, mine, direction }: any) => {
       }
       style={{ overflow: "hidden" }}
       onTouchMove={() => {
-        // console.log(refs?.scrollRef2?.current?.scrollTop === 0);
         if (
           direction === "up" &&
           refs?.scrollRef2?.current?.scrollTop === 0 &&

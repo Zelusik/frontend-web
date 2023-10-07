@@ -53,7 +53,7 @@ export default function Mypage() {
     setStartY(e?.changedTouches[0].clientY);
   };
   const handleTouchMove = (e: any) => {
-    const newMoveY = e?.changedTouches[0].clientY;
+    const newMoveY = e?.changedTouches?.[0]?.clientY;
     if (newMoveY - startY < 0) setDirection("down");
     else setDirection("up");
   };
@@ -103,7 +103,7 @@ export default function Mypage() {
   useEffect(() => {
     if (profileData && recommendReviewDatas) {
       setCurrentIndex(
-        profileData.isEqualLoginMember || recommendReviewDatas?.length !== 0
+        profileData?.isEqualLoginMember || recommendReviewDatas?.length !== 0
           ? 0
           : 1
       );
