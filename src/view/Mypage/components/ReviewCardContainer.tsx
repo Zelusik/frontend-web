@@ -5,24 +5,14 @@ import useGetReviews from "hooks/queries/user/useGetReviews";
 import { useAppSelector } from "hooks/useReduxHooks";
 import ReviewList from "./ReviewList";
 
-const ReviewCardContainer = ({
-  scrollRef,
-  scrollRef1,
-  scrollRef2,
-  scroll2,
-  setScroll2,
-  mine,
-  scrollHeight,
-  profile,
-  direction,
-}: any) => {
+const ReviewCardContainer = ({ refs, mine, direction }: any) => {
   const { display } = useAppSelector((state) => state.global);
   const { reviewDatas, isLoadingReview, fetchNextPage, hasNextPage } =
     useGetReviews();
 
   return (
     <Box
-      ref={scrollRef2}
+      ref={refs?.scrollRef2}
       pl={20}
       pr={20}
       h={
@@ -32,10 +22,10 @@ const ReviewCardContainer = ({
       onTouchMove={() => {
         if (
           direction === "up" &&
-          scrollRef2?.current?.scrollTop >= 0 &&
-          scrollRef?.current?.scrollTop > 332
+          refs?.scrollRef2?.current?.scrollTop >= 0 &&
+          refs?.scrollRef2?.current?.scrollTop > 332
         ) {
-          scrollRef.current!.scrollTo({ top: 332 });
+          refs?.scrollRef.current!.scrollTo({ top: 332 });
         }
       }}
       // onScroll={(e: any) => {

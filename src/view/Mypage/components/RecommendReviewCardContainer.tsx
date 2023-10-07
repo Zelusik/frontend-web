@@ -7,15 +7,8 @@ import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews"
 import RecommandSwiper from "./RecommandSwiper";
 
 const RecommendReviewCardContainer = ({
-  scrollRef,
-  scrollRef1,
-  scrollRef2,
-  scroll1,
-  setScroll1,
-  setTitleChange,
+  refs,
   mine,
-  scrollHeight,
-  profile,
   direction,
   touch,
 }: any) => {
@@ -24,7 +17,7 @@ const RecommendReviewCardContainer = ({
 
   return (
     <Box
-      ref={scrollRef1}
+      ref={refs?.scrollRef1}
       pl={20}
       pr={20}
       h={
@@ -34,10 +27,10 @@ const RecommendReviewCardContainer = ({
       onTouchMove={() => {
         if (
           direction === "up" &&
-          scrollRef1?.current?.scrollTop >= 0 &&
-          scrollRef?.current?.scrollTop > 332
+          refs?.scrollRef1?.current?.scrollTop >= 0 &&
+          refs?.scrollRef?.current?.scrollTop > 332
         ) {
-          scrollRef.current!.scrollTo({ top: 332 });
+          refs?.scrollRef.current!.scrollTo({ top: 332 });
         }
       }}
       // onScroll={(e: any) => {
