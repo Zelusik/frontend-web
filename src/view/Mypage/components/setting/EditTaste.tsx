@@ -3,8 +3,6 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { colors } from "constants/colors";
 
-import Spacing from "components/Spacing/Spacing";
-import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 
 import BottomButton from "components/Button/BottomButton";
@@ -14,6 +12,8 @@ import { tasteDatas } from "constants/globalData";
 import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
 import { changeUserInfo } from "reducer/slices/user/userSlice";
 import { putTaste } from "api/members";
+import { Space } from "components/core";
+import { typography } from "constants/typography";
 
 const EditTaste = () => {
   const router = useRouter();
@@ -55,9 +55,9 @@ const EditTaste = () => {
         <BackTitle type="black-left-text" text="" />
       </TopWrapper>
       <MainWrapper>
-        <Spacing size={30} />
-        <span style={typography.Headline6}>좋아하는 음식을 알려주세요</span>
-        <Spacing size={30} />
+        <Space h={30} />
+        <span style={typography["Headline6"]}>좋아하는 음식을 알려주세요</span>
+        <Space h={30} />
         <TasteButtonContainer>
           {tasteDatas.map((taste) => (
             <RoundButton

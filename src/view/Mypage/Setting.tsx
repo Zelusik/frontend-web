@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
-import Spacing from "components/Spacing/Spacing";
-import Text from "components/Text/Text";
+import Text from "components/core/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { Route } from "constants/Route";
 import useAlert from "hooks/useAlert";
@@ -39,13 +38,13 @@ export default function Setting() {
   return (
     <SettingWrapper>
       <BackTitle type="black-left-text" text="설정" />
-      <Spacing size={20} />
+      <Space h={20} />
       <SettingContainer>
         <div>
           <Text typo="Paragraph3" color="N60">
             개인
           </Text>
-          <Spacing size={26} />
+          <Space h={26} />
           <Section>
             {settingProfile.map((setting: any) => (
               <div
@@ -63,7 +62,7 @@ export default function Setting() {
           <Text typo="Paragraph3" color="N60">
             도움말
           </Text>
-          <Spacing size={26} />
+          <Space h={26} />
           <Section>
             {settingHelp.map((setting: any) => (
               <div

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { Center, Flex, Box, Text, Space } from "@mantine/core";
+import { Center, Flex, Box, Space } from "@mantine/core";
+import { Text } from "components/core";
 import Icon from "components/Icon";
 import useGetCoordToAddress from "hooks/queries/map/useGetCoordToAddress";
 import { colors } from "constants/colors";

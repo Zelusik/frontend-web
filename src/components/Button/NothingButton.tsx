@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import { Space, Center, Box, Text, Button } from "@mantine/core";
 import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import { Box, Text } from "components/core";
+import Button from "components/core/Button";
 
 interface NothingButtonProps {
   height?: string | number;
@@ -19,34 +19,25 @@ const NothingButton = ({
   const router = useRouter();
 
   return (
-    <Center h={height}>
-      <Box ta="center">
-        {text && (
-          <Text
-            p={0}
-            mb={20}
-            c={colors["N80"]}
-            style={typography["Paragraph5"]}
-          >
-            {text}
-          </Text>
-        )}
-        <Button
-          variant="filled"
-          w="auto"
-          h={48}
-          pl={18.5}
-          pr={18.5}
-          radius={48}
-          bg={colors["Orange600"]}
-          onClick={buttonClick}
-        >
-          <Text c={colors["N0"]} style={typography["Paragraph5"]}>
-            {buttonText}
-          </Text>
-        </Button>
-      </Box>
-    </Center>
+    <Box text="center">
+      {text && (
+        <Text p={0} mb={20} typo="Paragraph5" c="N80">
+          {text}
+        </Text>
+      )}
+      <Button
+        w="auto"
+        h={48}
+        ph={18.5}
+        radius={48}
+        bg="Orange600"
+        onClick={buttonClick}
+      >
+        <Text typo="Paragraph5" c="N0">
+          {buttonText}
+        </Text>
+      </Button>
+    </Box>
   );
 };
 

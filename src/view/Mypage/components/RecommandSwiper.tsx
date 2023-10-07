@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Box, Flex, Text, Space, AspectRatio, Image } from "@mantine/core";
+import { Box, Flex, Space, AspectRatio, Image } from "@mantine/core";
 
 import Swiper from "components/Swiper";
 import { SwiperSlide } from "swiper/react";

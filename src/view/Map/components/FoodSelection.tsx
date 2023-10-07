@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
-import { Box, Flex, Text, Button, Space } from "@mantine/core";
+import { Box, Flex, Button, Space } from "@mantine/core";
 
+import { Text } from "components/core";
 import RoundButton from "components/Button/RoundButton";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { tasteDatas } from "constants/globalData";

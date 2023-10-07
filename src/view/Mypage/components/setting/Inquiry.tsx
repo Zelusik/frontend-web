@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import Icon from "components/Icon/Icon";
-import Spacing from "components/Spacing/Spacing";
-import Text from "components/Text/Text";
+import Text from "components/core/Text/Text";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import { CommonQAData } from "data/commonQAData";
 import React, { useState } from "react";
+import { Space, Text } from "components/core";
 
 const Inquiry = () => {
   const [clickedArr, setClickedArr] = useState<number[]>([]);
@@ -24,31 +24,31 @@ const Inquiry = () => {
   return (
     <InquiryWrapper>
       <BackTitle type="black-left-text" text="" />
-      <Spacing size={20} />
-      <Text typo="Headline5" color="N100">
+      <Space h={20} />
+      <Text typo="Headline5" c="N100">
         문의가 있으신가요?
       </Text>
-      <Spacing size={6} />
-      <Text typo="Paragraph1" color="N80">
+      <Space h={6} />
+      <Text typo="Paragraph1" c="N80">
         이메일로 문의를 주시면, 1-2일 내에 답변이 전송됩니다.
       </Text>
-      <Spacing size={40} />
+      <Space h={40} />
       <div className="email-box">
-        <Text typo="Paragraph5" color="N80">
+        <Text typo="Paragraph5" c="N80">
           이메일
         </Text>
         <div className="email">eatery.bob@gmail.com</div>
       </div>
-      <Spacing size={60} />
-      <Text typo="Headline5" color="N100">
+      <Space h={60} />
+      <Text typo="Headline5" c="N100">
         자주 묻는 질문
       </Text>
-      <Spacing size={30} />
+      <Space h={30} />
       <QuestionWrapper>
         {CommonQAData.map((qa, idx) => (
           <div key={qa.question}>
             <div className="question-box" onClick={() => handleClickQA(idx)}>
-              <Text typo="Paragraph4" color="N80">
+              <Text typo="Paragraph4" c="N80">
                 {qa.question}
               </Text>
               <Icon
@@ -61,7 +61,7 @@ const Inquiry = () => {
             </div>
             {clickedArr.includes(idx) && (
               <div className="answer-box">
-                <Text typo="Paragraph1" color="N80">
+                <Text typo="Paragraph1" c="N80">
                   {qa.ans}
                 </Text>
               </div>
@@ -69,7 +69,7 @@ const Inquiry = () => {
           </div>
         ))}
       </QuestionWrapper>
-      <Spacing size={80} />
+      <Space h={80} />
     </InquiryWrapper>
   );
 };

@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { Flex, Text, Center } from "@mantine/core";
+import { Flex, Center } from "@mantine/core";
 import useAlert from "hooks/useAlert";
 import { useAppSelector } from "hooks/useReduxHooks";
+import { Text } from "components/core";
 
 import { sortData } from "constants/globalData";
 import Icon from "components/Icon";

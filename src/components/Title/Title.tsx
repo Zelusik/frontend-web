@@ -1,7 +1,8 @@
 import React from "react";
-import { Flex, Box, Center, Text, Space } from "@mantine/core";
+import { Flex, Box, Center, Space } from "@mantine/core";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
+import { Text } from "components/core";
 
 interface TitleProps {
   height?: number;

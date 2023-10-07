@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Text, Space, Button } from "@mantine/core";
+import { Box, Flex, Space, Button } from "@mantine/core";
+import { Text } from "components/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import useSearch from "hooks/useSearch";
 

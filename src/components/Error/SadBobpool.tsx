@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
-import { Space, Center, Box, Text, Button } from "@mantine/core";
+import { Space, Center, Box, Button } from "@mantine/core";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
 import BobpoolSvg from "assets/bobpool_error.svg";
+import { Text } from "components/core";
 
 interface SadBobpoolProps {
   height?: string | number;

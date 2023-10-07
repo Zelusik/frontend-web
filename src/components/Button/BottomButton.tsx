@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
 import { colors } from "constants/colors";
-import Text from "components/Text";
+import Text from "components/core/Text";
 
 const BottomButton = forwardRef(function Button(
   {

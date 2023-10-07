@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Space } from "@mantine/core";
+import { Box, Flex, Space } from "@mantine/core";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { globalValue } from "constants/globalValue";
 import useGetReviews from "hooks/queries/user/useGetReviews";

@@ -3,9 +3,7 @@ import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import Spacing from "components/Spacing/Spacing";
-
-import Icon from "components/Icon";
+import Space h "components/Space/he"hmport Icon from "components/Icon";
 import { termsData } from "data/termsData";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { changeAuthTermsInfo } from "reducer/slices/auth/authSlice";
@@ -13,6 +11,8 @@ import { typography } from "constants/typography";
 import Link from "next/link";
 import BottomButton from "components/Button/BottomButton";
 import { Route } from "constants/Route";
+import { Space } from "components/core";
+import Icon from "components/Icon";
 
 const TermsPage = () => {
   const dispatch = useAppDispatch();
@@ -85,9 +85,9 @@ const TermsPage = () => {
         </BackTitle>
       </TopWrapper>
       <MainWrapper>
-        <Spacing size={30} />
+        <Space h={30} />
         <span style={typography.Headline6}>약관에 동의해 주세요</span>
-        <Spacing size={30} />
+        <Space h={30} />
         <AllCheckContainer onClick={handleClickAllTerms}>
           <Icon
             icon="Select"
@@ -111,7 +111,7 @@ const TermsPage = () => {
           />
           <div style={typography.Headline4}>전체 동의하기</div>
         </AllCheckContainer>
-        <Spacing size={30} />
+        <Space h={30} />
         <TermsContainer>
           {termsData.map((term) => {
             return (

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Spacing from "components/Spacing/Spacing";
-import BackTitle from "components/Title/BackTitle";
 import { typography } from "constants/typography";
 import { styled } from "styled-components";
 import LoadingDots from "components/Loading/LoadingDots";
+import { Space } from "components/core";
+import BackTitle from "components/Title/BackTitle";
 
 const ReviewLoading = ({
   type,
@@ -42,7 +42,7 @@ const ReviewLoading = ({
   return (
     <ReviewLoadingWrapper>
       <BackTitle type="black-left-text" text="" />
-      <Spacing size={17} />
+      <Space h={17} />
       <div style={typography.Headline5}>{text}</div>
       <div className="icon">
         <LoadingDots />

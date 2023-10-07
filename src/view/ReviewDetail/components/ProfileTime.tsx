@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { colors } from "constants/colors";
 
 import Image from "components/Image";
-import Text from "components/Text";
+import Text from "components/core/Text";
 import { Route } from "constants/Route";
 
 export default function ProfileTime({ data }: any) {

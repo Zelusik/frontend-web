@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import Image from "components/Image";
 import { Route } from "constants/Route";
-import Text from "components/Text";
+import Text from "components/core/Text";
 
 export default function ProfileSelection({ data, keyword }: any) {
   const router = useRouter();

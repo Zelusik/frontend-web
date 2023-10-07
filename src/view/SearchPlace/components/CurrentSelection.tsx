@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import Spacing from "components/Spacing";
+
 import Icon from "components/Icon";
 import { Route } from "constants/Route";
 import useSearch from "hooks/useSearch";
-import Text from "components/Text";
+import Text from "components/core/Text";
+import { Space } from "components/core";
 
 const Icons = ["LineMarker", "Restaurant", "LineProfile"];
 
@@ -77,18 +78,18 @@ export default function CurrentSelection({ idx, data, ...props }: any) {
       <TitleWrapper>
         <Text
           typo="Paragraph5"
-          color="N100"
+          c="N100"
           onClick={clickText}
           style={{ display: "flex" }}
         >
           <Icon icon={Icons[data.type]} width={24} height={24} color="N80" />
           <div style={{ margin: "auto 0", marginLeft: 8 }}>{data?.text}</div>
         </Text>
-        <Text typo="Paragraph4" color="N50" onClick={clickDelete}>
+        <Text typo="Paragraph4" c="N50" onClick={clickDelete}>
           <Icon icon="XButton" width={24} height={24} color="N60" />
         </Text>
       </TitleWrapper>
-      <Spacing size={20} />
+      <Space h={20} />
     </>
   );
 }

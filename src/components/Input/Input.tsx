@@ -2,8 +2,9 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Box, Flex, Text, Space } from "@mantine/core";
+import { Box, Flex, Space } from "@mantine/core";
 import { match } from "ts-pattern";
+import { Text } from "components/core";
 
 import { Route } from "constants/Route";
 import { typography } from "constants/typography";

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { Box, Flex, Text, Space, Button } from "@mantine/core";
+import { Box, Flex, Space, Button } from "@mantine/core";
 import useSearch from "hooks/useSearch";
 
 import { colors } from "constants/colors";

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Box, Text, Space, AspectRatio, Image } from "@mantine/core";
+import { Box, Space, AspectRatio, Image } from "@mantine/core";
 import { Route } from "constants/Route";
 
 import { globalValue } from "constants/globalValue";

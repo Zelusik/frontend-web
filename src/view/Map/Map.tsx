@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Box, Flex, Text, Space } from "@mantine/core";
+import { Box, Flex, Space } from "@mantine/core";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 

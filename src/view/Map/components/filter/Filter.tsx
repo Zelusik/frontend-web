@@ -1,4 +1,5 @@
-import { Flex, Box, Text, Button, Space } from "@mantine/core";
+import { Flex, Box, Button, Space } from "@mantine/core";
+import { Text } from "components/core";
 import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 import { FilterDatasProps } from "models/view/mapModel";

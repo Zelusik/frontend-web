@@ -6,7 +6,6 @@ import { useAppSelector } from "hooks/useReduxHooks";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Spacing from "components/Spacing/Spacing";
 import { colors } from "constants/colors";
 import BottomButton from "components/Button/BottomButton";
 
@@ -19,6 +18,7 @@ import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
 import Icon from "components/Icon/Icon";
 import LoadingDots from "components/Loading/LoadingDots";
 import useDisplaySize from "hooks/useDisplaySize";
+import { Space } from "components/core";
 
 const Place = () => {
   const router = useRouter();
@@ -77,10 +77,10 @@ const Place = () => {
               image.length
             }`}</ImageBadge>
           </ImageWrapper>
-          <Spacing size={10} />
+          <Space h={10} />
           <PlaceContainer>
             <div style={typography.Headline5}>어느 음식점인가요?</div>
-            <Spacing size={20} />
+            <Space h={20} />
             <PlaceInputWrapper onClick={handleClickSearchPlace}>
               <PlaceInput type="text" value={placeInfo.name} readOnly />
               <Icon icon="Chevron" />

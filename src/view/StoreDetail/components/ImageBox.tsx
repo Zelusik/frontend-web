@@ -8,10 +8,9 @@ import { globalValue } from "constants/globalValue";
 import { Route } from "constants/Route";
 
 import Image from "components/Image";
-import Spacing from "components/Spacing";
-import Hr from "components/Hr";
 
 import { typography } from "constants/typography";
+import { Divider, Space } from "components/core";
 
 const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   const router = useRouter();
@@ -61,7 +60,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
 
       {images?.length > 1 ? (
         <>
-          <Hr size={3} />
+          <Divider h={3} />
           <ImageWrapper>
             <ImageHorizonal
               width={width / 2 - 3}
@@ -79,7 +78,7 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
             </ImageHorizonal>
             {images?.length > 2 ? (
               <>
-                <Spacing size={3} />
+                <Space h={3} />
                 <ImageHorizonal
                   width={width / 2 - 3}
                   height={(width * 281) / 360 / 2 - 1.5}

@@ -8,7 +8,7 @@ import useDisplaySize from "hooks/useDisplaySize";
 import Hashtags from "components/Hashtags";
 import TopNavigation from "components/TopNavigation";
 import Info from "components/Common/Info";
-import Spacing from "components/Spacing";
+
 import { colors } from "constants/colors";
 import BackTitle from "components/Title/BackTitle";
 import StoreTitle from "components/Title/StoreTitle";
@@ -20,6 +20,7 @@ import useGetStore from "hooks/queries/store-detail/useGetStore";
 import { makeInfo } from "utils/makeInfo";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { Space } from "components/core";
 
 export default function StoreDetail() {
   const router = useRouter();
@@ -115,12 +116,13 @@ export default function StoreDetail() {
       </TitleWrapper>
 
       <Wrapper ref={scrollRef} height={height}>
-        <Spacing
+        <Space
+          h
           size={storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50}
         />
 
         <Inner>
-          <Spacing size={20} />
+          <Space h={20} />
           <StoreTitle
             type="detail"
             title={storeInfo?.name}
@@ -133,9 +135,9 @@ export default function StoreDetail() {
             point={storeInfo?.point}
           />
 
-          <Spacing size={16} />
+          <Space h={16} />
           <Hashtags hashtagTextDatas={storeInfo?.top3Keywords} />
-          <Spacing size={40} />
+          <Space h={40} />
 
           <TopNavigation
             type="store-detail"
@@ -167,7 +169,7 @@ export default function StoreDetail() {
               {hasNextPage ? (
                 <>
                   <LoadingCircle height={30} />
-                  <Spacing size={30} />
+                  <Space h={30} />
                 </>
               ) : null}
             </div>

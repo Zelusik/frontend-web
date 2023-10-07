@@ -4,8 +4,8 @@ import useAlert from "hooks/useAlert";
 import { useAppSelector } from "hooks/useReduxHooks";
 
 import Icon from "components/Icon";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
+
+import { Space, Text } from "components/core";
 import { sortData } from "constants/globalData";
 
 export default function Sort() {
@@ -15,14 +15,14 @@ export default function Sort() {
   return (
     <>
       <Text typo="Headline3">정렬기준</Text>
-      <Spacing size={26} />
+      <Space h={26} />
       <SortWrapper>
         {sortData.map((data: any, idx: number) => {
           const action = sortId === idx + 1;
 
           return (
             <SortInner key={idx} onClick={() => handleSortId(idx)}>
-              <Text typo="Paragraph6" color={action ? "Orange600" : "N100"}>
+              <Text typo="Paragraph6" c={action ? "Orange600" : "N100"}>
                 {data.val}
               </Text>
               {action ? (
@@ -33,7 +33,7 @@ export default function Sort() {
         })}
         <SortInner>
           <div />
-          <Text typo="Paragraph6" color="N60" onClick={closeAlert}>
+          <Text typo="Paragraph6" c="N60" onClick={closeAlert}>
             취소
           </Text>
         </SortInner>

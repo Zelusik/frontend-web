@@ -1,7 +1,8 @@
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Space } from "components/core";
 import Icon from "components/Icon";
-import Spacing from "components/Spacing";
+
 import { colors } from "constants/colors";
 import { globalValue } from "constants/globalValue";
 import { typography } from "constants/typography";
@@ -76,12 +77,12 @@ export default function Setting2({ type, visible }: any) {
                   <Icon icon={data.icon} width={20} height={20} />
                   <Text typo={typography.Headline2}>{data.text}</Text>
                 </Box>
-                <Spacing size={6} />
+                <Space h={6} />
               </div>
             );
           })}
         </ButtonWrapper>
-        <Spacing size={34} />
+        <Space h={34} />
       </BottomSheetWrapper>
     </Wrapper>
   );

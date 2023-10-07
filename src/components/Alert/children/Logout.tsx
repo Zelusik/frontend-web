@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import AlertButton from "components/Button/AlertButton";
 import RoundButton from "components/Button/RoundButton";
-import Text from "components/Text";
+import { Text } from "components/core";
 import useAlert from "hooks/useAlert";
 import { useRouter } from "next/router";
 import { deleteCookie } from "utils/cookie";

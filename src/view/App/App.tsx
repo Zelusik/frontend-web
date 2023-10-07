@@ -11,9 +11,6 @@ import { useAppSelector } from "hooks/useReduxHooks";
 import useBottomSheet from "hooks/useBottomSheet";
 import useSearch from "hooks/useSearch";
 
-import { ThemeProvider } from "@material-ui/core";
-import { createTheme } from "@mui/material/styles";
-
 import { MantineProvider } from "@mantine/core";
 // import { NotificationsProvider } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
@@ -23,14 +20,6 @@ import BottomSheet from "components/BottomSheet";
 import Alert from "components/Alert";
 
 import GlobalStyles from "./components/GlobalStyles";
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#000000",
-    },
-  },
-});
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
@@ -42,59 +31,60 @@ const App = ({ Component, ...rest }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <MantineProvider
-            // withGlobalStyles
-            // withNormalizeCSS
-            theme={{
-              // globalStyles(theme: any) {
-              //   return {
-              //     a: {
-              //       textDecoration: "none",
-              //     },
-              //   };
-              // },
-              defaultRadius: 8,
-              components: {
-                TextInput: {
-                  defaultProps: {
-                    placeholder: "입력해주세요",
-                  },
-                },
-                Select: {
-                  defaultProps: {
-                    placeholder: "선택",
-                  },
-                },
-                DatePicker: {
-                  defaultProps: {
-                    placeholder: "2023.01.01",
-                    locale: "ko",
-                    inputFormat: "YYYY.MM.DD",
-                  },
-                },
-                DateRangePicker: {
-                  defaultProps: {
-                    placeholder: "2023.01.01 ~ 2024.01.01",
-                    locale: "ko",
-                    inputFormat: "YYYY.MM.DD",
-                  },
-                },
-                Textarea: {
-                  defaultProps: {
-                    placeholder: "입력해주세요",
-                  },
+        <MantineProvider
+          // withGlobalStyles
+          // withNormalizeCSS
+          theme={{
+            // globalStyles(theme: any) {
+            //   return {
+            //     a: {
+            //       textDecoration: "none",
+            //     },
+            //   };
+            // },
+            defaultRadius: 8,
+            components: {
+              TextInput: {
+                defaultProps: {
+                  placeholder: "입력해주세요",
                 },
               },
-            }}
-          >
-            {/* <NotificationsProvider position="top-center" zIndex={6000}> */}
-            <ModalsProvider>
-              <MyApp Component={Component} pageProps={pageProps} />
-            </ModalsProvider>
-            {/* </NotificationsProvider> */}
-          </MantineProvider>
-        </ThemeProvider>
+              Select: {
+                defaultProps: {
+                  placeholder: "선택",
+                },
+              },
+              DatePicker: {
+                defaultProps: {
+                  placeholder: "2023.01.01",
+                  locale: "ko",
+                  inputFormat: "YYYY.MM.DD",
+                },
+              },
+              //
+              //
+              //
+              DateRangePicker: {
+                defaultProps: {
+                  placeholder: "2023.01.01 ~ 2024.01.01",
+                  locale: "ko",
+                  inputFormat: "YYYY.MM.DD",
+                },
+              },
+              Textarea: {
+                defaultProps: {
+                  placeholder: "입력해주세요",
+                },
+              },
+            },
+          }}
+        >
+          {/* <NotificationsProvider position="top-center" zIndex={6000}> */}
+          <ModalsProvider>
+            <MyApp Component={Component} pageProps={pageProps} />
+          </ModalsProvider>
+          {/* </NotificationsProvider> */}
+        </MantineProvider>
       </Provider>
     </QueryClientProvider>
   );

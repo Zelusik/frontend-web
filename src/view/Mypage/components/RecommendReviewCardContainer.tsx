@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Text, Space } from "@mantine/core";
+import { Box, Flex, Space } from "@mantine/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { globalValue } from "constants/globalValue";
 import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";

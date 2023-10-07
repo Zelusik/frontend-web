@@ -5,7 +5,7 @@ import { match } from "ts-pattern";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
 import Dots from "components/Button/IconButton/Dots";
-import Text from "components/Text";
+import Text from "components/core/Text";
 import useSearch from "hooks/useSearch";
 
 interface Props {

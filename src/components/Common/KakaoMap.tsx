@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Box, Text, Space } from "@mantine/core";
+import { Box, Space } from "@mantine/core";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { globalValue } from "constants/globalValue";
 import { useAppSelector } from "hooks/useReduxHooks";

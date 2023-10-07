@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Text, AspectRatio, Image, Space } from "@mantine/core";
+import { Box, Flex, AspectRatio, Image, Space } from "@mantine/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 import {
   getNearContentsImagesProps,

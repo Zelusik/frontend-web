@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { getAddressInfo } from "utils/getAddressInfo";
 import styled from "@emotion/styled";
-import { Box, Flex, Text, Space, AspectRatio } from "@mantine/core";
+import { Box, Flex, Space, AspectRatio } from "@mantine/core";
 import useDisplaySize from "hooks/useDisplaySize";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";

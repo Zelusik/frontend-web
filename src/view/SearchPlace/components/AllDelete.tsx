@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { typography } from "constants/typography";
 import { css } from "@emotion/react";
 import { colors } from "constants/colors";
-import Text from "components/Text";
+import Text from "components/core/Text";
 
 export default function AllDelete({ ...props }: any) {
   const router = useRouter();

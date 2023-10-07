@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { deleteReview } from "api/reviews";
 import AlertButton from "components/Button/AlertButton";
 import RoundButton from "components/Button/RoundButton";
-import Text from "components/Text";
+import { Text } from "components/core";
 import { Route } from "constants/Route";
 import useAlert from "hooks/useAlert";
 import { useRouter } from "next/router";

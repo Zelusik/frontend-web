@@ -4,9 +4,10 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 
 import { colors } from "constants/colors";
-import Spacing from "components/Spacing";
+
 import Icon from "components/Icon";
 import { globalValue } from "constants/globalValue";
+import { Space } from "components/core";
 
 const navigationDatas = [
   { route: "/", en: "Home", val: "홈" },
@@ -21,7 +22,7 @@ const BottomNavigation = forwardRef(function Div({}, ref: any) {
 
   return (
     <Wrapper ref={ref}>
-      <Spacing size={10} />
+      <Space h={10} />
       <MenuList>
         {navigationDatas?.map((data: any, idx: number) => {
           return (

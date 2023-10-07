@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { Box, Text, Space, AspectRatio, Image } from "@mantine/core";
+import { Image } from "@mantine/core";
 
-import Spacing from "components/Spacing";
 import Description from "components/Description";
 import Hashtags from "components/Hashtags";
 import SlideImage from "components/Image/SlideImage";
 import BasicTitle from "components/Title/Title";
+import { Space } from "components/core";
 
 export default function ReivewCard({ data }: any) {
   const router = useRouter();
@@ -30,19 +30,19 @@ export default function ReivewCard({ data }: any) {
             />
           }
         />
-        <Spacing size={16} />
+        <Space h={16} />
       </Wrapper>
 
       <SlideImage images={data?.reviewThumbnailImageUrls} />
 
       <Wrapper>
-        <Spacing size={10} />
+        <Space h={10} />
         <Description text={data?.content} />
-        <Spacing size={10} />
+        <Space h={10} />
       </Wrapper>
 
       <Hashtags hashtagTextDatas={data?.keywords} />
-      <Spacing size={40} />
+      <Space h={40} />
     </>
   );
 }

@@ -3,8 +3,8 @@ import { match } from "ts-pattern";
 
 import Edit from "components/Button/IconButton/Edit";
 import Heart from "components/Button/IconButton/Heart";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
+
+import Text from "components/core/Text";
 
 interface Props {
   type: "home" | "detail" | "detail-mine" | "map" | "mypage-review";

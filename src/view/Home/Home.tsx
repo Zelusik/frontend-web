@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { ScrollArea, Box, Text, Space } from "@mantine/core";
+import { ScrollArea, Box, Space } from "@mantine/core";
+import { Text } from "components/core";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGetFeed from "hooks/queries/home/useGetFeed";
