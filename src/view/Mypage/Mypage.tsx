@@ -194,6 +194,8 @@ export default function Mypage() {
             <TopNavigation
               height={34}
               padding={20}
+              gap={24}
+              color="N100"
               index={{
                 currentIndex,
                 setCurrentIndex,

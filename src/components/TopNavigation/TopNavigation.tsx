@@ -1,41 +1,59 @@
 import React, { forwardRef, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import { Tab, Tabs } from "@mui/material";
-import { Box, Text } from "@mantine/core";
+import { styled } from "@mui/material/styles";
+
+import { Box, Text, Divider } from "@mantine/core";
 import SwipeableViews from "react-swipeable-views";
 import { colors } from "constants/colors";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { typography } from "constants/typography";
 
-function a11yProps(index: number) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
+const useStyles = makeStyles({
+  tabsRoot: {
+    minHeight: (props: any) => props.height,
+    height: (props: any) => props.height,
+    padding: (props: any) => `0 ${props.padding}px`,
+    // gap이 적용안됨
+    // padding 적용도 안됨
+    // scroll도 안됨
+    ".MuiTabs-flexContainer": {
+      gap: 24,
+    },
+  },
+  tabRoot: {
+    minWidth: "fit-content",
+    minHeight: (props: any) => props.height,
+    height: (props: any) => props.height,
+    marginRight: (props: any) => props.gap,
+    padding: 0,
+  },
+});
+
+const StyledTab = styled(Tab)((props: any) => ({
+  "&.Mui-selected": {
+    color: colors[props.color],
+  },
+}));
 
 const TopNavigation = forwardRef(function Div(
-  { height, padding, index, touch, keywordDatas, children }: any,
+  {
+    height,
+    padding,
+    gap,
+    color = "N100",
+    index,
+    touch,
+    keywordDatas,
+    children,
+  }: any,
   ref: any
 ) {
-  const router = useRouter();
   const { display } = useAppSelector((state) => state.global);
+  const classes = useStyles({ height, padding, gap });
 
-  const useStyles = makeStyles(() => ({
-    tabsRoot: {
-      minHeight: height,
-      height: height,
-    },
-    tabRoot: {
-      minHeight: height,
-      height: height,
-      padding: 0,
-    },
-  }));
-  const classes = useStyles();
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     index.setCurrentIndex(newValue);
   };
   const handleChangeIndex = (newIndex: number) => {
@@ -45,43 +63,42 @@ const TopNavigation = forwardRef(function Div(
   return (
     <Box w={display.width} pos="sticky" top={0}>
       <Tabs
-        value={index.currentIndex}
-        onChange={handleChange}
+        variant="scrollable"
         TabIndicatorProps={{
           style: {
-            borderBottom: `2px solid ${colors["Orange600"]}`,
+            borderBottom: `2px solid ${colors[color]}`,
           },
         }}
-        style={{ margin: `0 ${padding}px` }}
         classes={{
           root: classes.tabsRoot,
         }}
+        value={index.currentIndex}
+        onChange={handleChange}
       >
-        <Tab
-          label={
-            <Text c={colors["Orange600"]} style={typography["Headline3"]}>
-              추천 베스트
-            </Text>
-          }
-          {...a11yProps(0)}
-          classes={{
-            root: classes.tabRoot,
-          }}
-          wrapped
-        />
-        <Tab
-          label={
-            <Text c={colors["Orange600"]} style={typography["Headline3"]}>
-              리뷰
-            </Text>
-          }
-          {...a11yProps(1)}
-          classes={{
-            root: classes.tabRoot,
-          }}
-          wrapped
-        />
+        {keywordDatas?.map((keyword: string, idx: number) => {
+          return (
+            <StyledTab
+              key={idx}
+              color={color}
+              label={
+                <Text
+                  c={colors[index.currentIndex === idx ? color : "N40"]}
+                  style={{
+                    ...typography["Headline3"],
+                    display: "inline-block",
+                  }}
+                >
+                  {keyword}
+                </Text>
+              }
+              classes={{
+                root: classes.tabRoot,
+              }}
+            />
+          );
+        })}
       </Tabs>
+      <Divider color={colors["N20"]} style={{ margin: `0 ${padding}px` }} />
 
       <SwipeableViews
         index={index.currentIndex}
