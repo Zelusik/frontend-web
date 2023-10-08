@@ -4,13 +4,13 @@ import { Route } from "constants/Route";
 import { globalValue } from "constants/globalValue";
 import { getTimeSinceVisit } from "utils/getTimeSinceVisit";
 import { getFeedContentsProps } from "models/view/homeModel";
+
+import { AspectRatio, Box, Gradient, Image, Space } from "components/core";
 import Title from "components/Title";
 import Dots from "components/Button/IconButton/Dots";
 import ProfileButton from "components/Button/ProfileButton";
 import Heart from "components/Button/IconButton/Heart";
 import StoreReviewButton from "components/Button/StoreReviewButton";
-import useDisplaySize from "hooks/useDisplaySize";
-import { AspectRatio, Box, Image, Space } from "components/core";
 
 interface ReviewCardProps {
   key: number;
@@ -19,7 +19,6 @@ interface ReviewCardProps {
 
 export default function ReviewCard({ feedData }: ReviewCardProps) {
   const router = useRouter();
-  const { width } = useDisplaySize();
   const clickStore = () => {
     router.push({
       pathname: Route.REVIEW_DETAIL(),
@@ -51,18 +50,25 @@ export default function ReviewCard({ feedData }: ReviewCardProps) {
         />
         <Space h={16} />
 
-        <AspectRatio ratio={8 / 9}>
+        <AspectRatio ratio={8 / 9} radius={20}>
           <Image
             src={
-              // globalValue.ERROR_IMAGE
               feedData?.reviewImage?.thumbnailUrl
                 ? feedData?.reviewImage?.thumbnailUrl
                 : globalValue.ERROR_IMAGE
             }
             alt="음식 사진"
             fit="cover"
-            radius={20}
             onClick={clickStore}
+          />
+          <Gradient
+            h={100}
+            bottom={0}
+            direction="bottom"
+            o={0.8}
+            style={{
+              background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) -11.22%, rgba(0, 0, 0, 0.00) 100%)`,
+            }}
           />
           <Title
             height={58}

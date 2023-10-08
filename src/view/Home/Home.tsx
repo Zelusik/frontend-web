@@ -1,14 +1,12 @@
 import { useRef } from "react";
-import { Box, ScrollArea, Space, Text } from "components/core";
 import { motion } from "framer-motion";
 import useDisplaySize from "hooks/useDisplaySize";
 import useGetFeed from "hooks/queries/home/useGetFeed";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { getFeedContentsProps, getFeedProps } from "models/view/homeModel";
 import { globalValue } from "constants/globalValue";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
 
+import { Box, ScrollArea, Space, Text } from "components/core";
 import BottomNavigation from "components/BottomNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import Icon from "components/Icon";
@@ -40,7 +38,7 @@ export default function Home() {
             ph={20}
           >
             <Space h={20} />
-            <Text c={colors["N100"]} style={typography["Headline6"]}>
+            <Text c="N100" typo="Headline6">
               오늘은
               <br />
               어디로 갈까요?
