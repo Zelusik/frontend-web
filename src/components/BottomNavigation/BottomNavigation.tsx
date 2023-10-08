@@ -7,7 +7,7 @@ import { colors } from "constants/colors";
 
 import Icon from "components/Icon";
 import { globalValue } from "constants/globalValue";
-import { Space } from "components/core";
+import { Box, Flex, Space } from "components/core";
 
 const navigationDatas = [
   { route: "/", en: "Home", val: "홈" },
@@ -21,60 +21,44 @@ const BottomNavigation = forwardRef(function Div({}, ref: any) {
   const { pathname } = useRouter();
 
   return (
-    <Wrapper ref={ref}>
+    <Box
+      veiwportRef={ref}
+      w="100%"
+      maw={globalValue.MAX_WIDTH}
+      h={globalValue.BOTTOM_NAVIGATION_HEIGHT}
+      pos="fixed"
+      bottom={0}
+      shadow="0px -1px 5px rgba(0, 0, 0, 0.1)"
+      bg="N0"
+      style={{
+        transition: `transform 300ms ease-out`,
+      }}
+    >
       <Space h={10} />
-      <MenuList>
+      <Flex justify="space-around">
         {navigationDatas?.map((data: any, idx: number) => {
           return (
             <Link href={data.route} key={idx}>
-              <Menu clicked={pathname === data.route ? "true" : "false"}>
+              <Flex
+                dir="column"
+                gap={8}
+                text="center"
+                align="center"
+                c={pathname === data.route ? "Orange600" : "N100"}
+                style={{ cursor: "pointer" }}
+              >
                 <Icon
                   icon={data.en}
                   fill={pathname === data.route ? "Orange500" : "N50"}
                 />
                 {data.val}
-              </Menu>
+              </Flex>
             </Link>
           );
         })}
-      </MenuList>
-    </Wrapper>
+      </Flex>
+    </Box>
   );
 });
-
-const Wrapper = styled.div`
-  width: 100%;
-  max-width: ${globalValue.MAX_WIDTH}px;
-  height: ${globalValue.BOTTOM_NAVIGATION_HEIGHT}px;
-
-  position: fixed;
-  bottom: 0;
-  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
-  background-color: ${colors.N0};
-
-  transition: transform 300ms ease-out;
-`;
-
-const MenuList = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-`;
-
-const Menu = styled.li<{ clicked: string }>`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  text-align: center;
-  align-items: center;
-  font-size: 12px;
-  line-height: 24px;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  color: ${(props) => (props.clicked === "true" ? "#F59300" : "#343434")};
-`;
 
 export default BottomNavigation;
