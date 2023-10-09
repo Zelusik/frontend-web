@@ -167,17 +167,21 @@ const EditProfile = () => {
               <Text typo="Paragraph2" color="N100">
                 생년월일
               </Text>
-              <div className="input-box">
+              <div className="input-box birth">
                 <input
+                  id="birth"
                   type="date"
-                  placeholder="생년월일을 선택해주세요"
                   required
-                  value={user.birthDay}
+                  value={user.birthDay || ""}
                   onChange={handleChangeBirthday}
                 />
+                {!user.birthDay && (
+                  <label htmlFor="birth">생년월일을 선택해주세요</label>
+                )}
                 <Icon icon="Chevron" />
               </div>
             </div>
+
             <div className="section">
               <Text typo="Paragraph2" color="N100">
                 성별
@@ -264,15 +268,18 @@ const ProfileBox = styled.div`
           color: ${colors.N40};
         }
       }
-      input[type="date"]::before {
-        content: attr(placeholder);
-        width: 100%;
+    }
+    .birth {
+      label {
         color: ${colors.N40};
-        background-color: ${colors.N0};
+        position: absolute;
+        pointer-events: none;
       }
-      input[type="date"]:focus::before,
-      input[type="date"]:valid::before {
-        display: none;
+      input[type="date"] {
+        color: transparent;
+      }
+      input[type="date"]:valid {
+        color: ${colors.N100};
       }
     }
     .gender-button {

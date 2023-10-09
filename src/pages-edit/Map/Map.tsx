@@ -154,27 +154,11 @@ export default function Map() {
   };
 
   const { visible } = useAppSelector((state) => state.mapBottomSheet);
-  const { sheet, content, closeMapBottomSheet } = useMapBottomSheet({
-    use: "use",
-    visible,
-    handleClickFilter,
-  });
-
-  // const goBack = () => {
-  //   console.log("MapBottomSheetBack");
-  //   closeMapBottomSheet(sheet, true);
-  // };
-
-  // useEffect(() => {
-  //   if (visible === 1) {
-  //     window.addEventListener("popstate", goBack);
-  //     return () => {
-  //       window.removeEventListener("popstate", goBack);
-  //     };
-  //   } else {
-  //     console.log();
-  //   }
-  // }, [visible]);
+  // const { sheet, content, closeMapBottomSheet } = useMapBottomSheet({
+  //   use: "use",
+  //   visible,
+  //   handleClickFilter,
+  // });
 
   return (
     <>
@@ -197,7 +181,7 @@ export default function Map() {
       </KakaoMapWrapper>
 
       <FindLocationButton clickFindLocation={clickFindLocation} />
-      <MapBottomSheet sheet={sheet} content={content}>
+      <MapBottomSheet>
         {filterVisible ? (
           <>
             {filterData?.map((data: any, idx: number) => {
