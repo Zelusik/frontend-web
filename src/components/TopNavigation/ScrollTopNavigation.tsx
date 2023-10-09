@@ -1,73 +1,58 @@
 import React, { forwardRef, useEffect } from "react";
-import { makeStyles } from "@material-ui/core";
-import { Tab, Tabs } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import SwipeableViews from "react-swipeable-views";
 import { useAppSelector } from "hooks/useReduxHooks";
 
-import { colors } from "constants/colors";
-import { Box, Divider, ScrollArea, Text } from "components/core";
+import { Box, ScrollArea } from "components/core";
 import { globalValue } from "constants/globalValue";
 
 const ScrollTopNavigation = forwardRef(function Div(
-  {
-    refs,
-    height,
-    padding,
-    gap,
-    color = "N100",
-    index,
-    touch,
-    keywordDatas,
-    children,
-  }: any,
+  { refs, index, Y, direction, title, children }: any,
   ref: any
 ) {
   const { display } = useAppSelector((state) => state.global);
 
   const handleTouchStart = (e: any) => {
-    // setStartY(e?.changedTouches[0].clientY);
-    // setStartY1(scrollRef1?.current?.scrollTop);
-    // setStartY2(scrollRef2?.current?.scrollTop);
+    let scrollTop = [];
+    for (let i = 1; i < refs?.length; i++) {
+      scrollTop.push(refs?.[i]?.current?.scrollTop);
+    }
+    Y.setStartY([e?.changedTouches[0].clientY, ...scrollTop]);
   };
   const handleTouchMove = (e: any) => {
     const newMoveY = e?.changedTouches?.[0]?.clientY;
-    // if (newMoveY - startY < 0) setDirection("down");
-    // else setDirection("up");
+    if (newMoveY - Y.startY[0] < 0) direction.setDirection("down");
+    else direction.setDirection("up");
   };
 
   const handleScroll = ({ scrollY }: { scrollX: number; scrollY: number }) => {
     if (scrollY < 332) {
-      refs?.scrollRef1.current!.style.setProperty("overflow-y", `hidden`);
-      refs?.scrollRef2.current!.style.setProperty("overflow-y", `hidden`);
+      for (let i = 1; i < refs?.length; i++) {
+        refs?.[i].current!.style.setProperty("overflow-y", `hidden`);
+      }
     } else if (scrollY >= 332) {
-      refs?.scrollRef1.current!.style.setProperty("overflow-y", `scroll`);
-      refs?.scrollRef2.current!.style.setProperty("overflow-y", `scroll`);
+      for (let i = 1; i < refs?.length; i++) {
+        refs?.[i].current!.style.setProperty("overflow-y", `scroll`);
+      }
 
-      //   if (direction === "down") {
-      //     if (currentIndex === 0 && startY1 === 0) {
-      //       refs?.scrollRef1.current!.scrollTo({
-      //         top: scrollY - 332,
-      //       });
-      //     } else if (startY2 === 0) {
-      //       refs?.scrollRef2.current!.scrollTo({
-      //         top: scrollY - 332,
-      //       });
-      //     }
-      //   }
+      if (direction.direction === "down") {
+        if (Y.startY[index.currentIndex + 1] === 0) {
+          refs?.[index.currentIndex + 1].current!.scrollTo({
+            top: scrollY - 332,
+          });
+        }
+      }
     }
 
-    // if (scrollY > 10) {
-    //   setTitleChange(true);
-    // } else {
-    //   setTitleChange(false);
-    // }
+    if (scrollY > 10) {
+      title.setTitleChange(true);
+    } else {
+      title.setTitleChange(false);
+    }
   };
 
   return (
     <ScrollArea
-      veiwportRef={refs?.scrollRef}
-      h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+      veiwportRef={refs?.[0]}
+      h={display.height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
       pos="absolute"
       top={50}
       onTouchStart={handleTouchStart}
