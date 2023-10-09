@@ -10,8 +10,7 @@ export interface onScrollProps {
 }
 
 type ScrollAreaProps = ComponentsProps & {
-  // scroll?: "xy" | "x" | "y" | undefined;
-  scroll?: boolean;
+  scroll?: "xy" | "x" | "y" | undefined;
   onScroll?: any;
 };
 
@@ -35,6 +34,10 @@ const ScrollArea = ({ children, ...props }: ScrollAreaProps) => {
       style={{
         ...coreStyles(props),
         overflow: "scroll",
+        overflowX:
+          props.scroll === "xy" || props.scroll === "x" ? "scroll" : "hidden",
+        overflowY:
+          props.scroll === "xy" || props.scroll === "y" ? "scroll" : "hidden",
         ...props.style,
       }}
     >

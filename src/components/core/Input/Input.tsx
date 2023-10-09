@@ -29,7 +29,7 @@ const Input = ({
   return (
     <Flex
       h={50}
-      bg={colors["N0"]}
+      bg="N0"
       style={{
         width: "100%",
         padding: "0 12px",

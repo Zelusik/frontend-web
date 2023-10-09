@@ -71,6 +71,7 @@ const StoreCard = ({ nearData }: StoreCardProps) => {
                             : globalValue.ERROR_IMAGE
                         }
                         alt="음식 이미지"
+                        fit="cover"
                         radius={12}
                       />
                     </AspectRatio>
@@ -80,6 +81,8 @@ const StoreCard = ({ nearData }: StoreCardProps) => {
             )}
           </Swiper>
           <ImageCount
+            top={16}
+            right={16}
             currentIndex={currentIndex}
             length={nearData?.images?.length}
           />

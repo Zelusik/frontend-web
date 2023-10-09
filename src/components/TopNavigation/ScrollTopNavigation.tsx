@@ -52,6 +52,7 @@ const ScrollTopNavigation = forwardRef(function Div(
   return (
     <ScrollArea
       veiwportRef={refs?.[0]}
+      scroll="y"
       h={display.height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
       pos="absolute"
       top={50}

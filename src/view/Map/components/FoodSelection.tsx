@@ -1,16 +1,12 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
-import { css, keyframes } from "@emotion/react";
-
-import { Button, Flex, Text } from "components/core";
-import RoundButton from "components/Button/RoundButton";
+import { motion } from "framer-motion";
 import { useAppSelector } from "hooks/useReduxHooks";
-import { tasteDatas } from "constants/globalData";
 import useSearch from "hooks/useSearch";
-import { colors } from "constants/colors";
 import { TasteDataProps } from "models/globalDataModel";
-import { typography } from "constants/typography";
+
+import { Button, Flex, ScrollArea, Text } from "components/core";
+
+import { tasteDatas } from "constants/globalData";
 import Icon from "components/Icon";
 
 interface FoodSelectionProps {
@@ -23,14 +19,11 @@ export default function FoodSelection({
   clickMyLocation,
 }: FoodSelectionProps) {
   const router = useRouter();
-  const { visible, actionDelay } = useAppSelector(
-    (state) => state.mapBottomSheet
-  );
+  const { visible } = useAppSelector((state) => state.mapBottomSheet);
   const { foodType } = useAppSelector((state) => state.search);
   const { handleFoodType, handleNewFoodType } = useSearch();
 
   const boxStyle = {
-    padding: "0 16px",
     boxShadow: "0px 0px 12px 0px rgba(0, 0, 0, 0.06)",
   };
 
@@ -42,66 +35,66 @@ export default function FoodSelection({
   };
 
   return (
-    <Flex
-      h={42}
-      opacity={1 - visible}
-      wrap="nowrap"
-      gap={6}
-      style={{
-        padding: "0 15px",
-        display: visible === 1 ? "none" : "flex",
-        overflowX: "auto",
+    <motion.div
+      animate={{
+        opacity: 1 - visible,
       }}
     >
-      <Button
-        radius={40}
-        c={colors["N100"]}
-        bg={colors["N0"]}
-        // leftSection={<Icon icon="Location" style={{ marginRight: -2 }} />}
-        style={{
-          ...typography["Heading2"],
-          ...boxStyle,
-        }}
-        onClick={clickMyLocation}
+      <ScrollArea
+        scroll="x"
+        h={42}
+        ph={15}
+        dis="flex"
+        // dis={visible === 1 ? "none" : "flex"}
+        gap={6}
       >
-        내 주변
-      </Button>
-      <Button
-        radius={40}
-        c={colors[mark.isMarkShow ? "N0" : "N100"]}
-        bg={colors[mark.isMarkShow ? "Orange600" : "N0"]}
-        // leftSection={<Icon icon="Bookmark" style={{ marginRight: -2 }} />}
-        style={{
-          ...typography["Heading2"],
-          ...boxStyle,
-        }}
-        onClick={() => mark.clickMarkShow()}
-      >
-        저장
-      </Button>
+        <Button
+          miw="fit-content"
+          ph={16}
+          leftGap={8}
+          c="N100"
+          bg="N0"
+          typo="Heading2"
+          radius={40}
+          renderLeft={<Icon icon="Location" style={{ marginRight: -2 }} />}
+          style={boxStyle}
+          onClick={clickMyLocation}
+        >
+          내 주변
+        </Button>
+        <Button
+          miw="fit-content"
+          ph={16}
+          leftGap={8}
+          c={mark.isMarkShow ? "N0" : "N100"}
+          bg={mark.isMarkShow ? "Orange600" : "N0"}
+          typo="Heading2"
+          radius={40}
+          renderLeft={<Icon icon="Bookmark" style={{ marginRight: -2 }} />}
+          style={boxStyle}
+          onClick={() => mark.clickMarkShow()}
+        >
+          저장
+        </Button>
 
-      {tasteDatas.map((tasteData: TasteDataProps, idx: number) => {
-        return (
-          <Button
-            key={idx}
-            radius={40}
-            c={colors[tasteData.val === foodType ? "N0" : "N100"]}
-            bg={colors[tasteData.val === foodType ? "Orange600" : "N0"]}
-            // leftSection={
-            //   typeof tasteData.icon === "string" && (
-            //     <Icon icon={tasteData?.icon} style={{ marginRight: -2 }} />
-            //   )
-            // }
-            style={{
-              ...typography["Heading2"],
-              ...boxStyle,
-            }}
-            onClick={() => clickFilterButton(tasteData.val)}
-          >
-            {tasteData.val}
-          </Button>
-        );
-      })}
-    </Flex>
+        {tasteDatas.map((tasteData: TasteDataProps, idx: number) => {
+          return (
+            <Button
+              key={idx}
+              miw="fit-content"
+              ph={16}
+              c={tasteData.val === foodType ? "N0" : "N100"}
+              bg={tasteData.val === foodType ? "Orange600" : "N0"}
+              typo="Heading2"
+              radius={40}
+              style={boxStyle}
+              onClick={() => clickFilterButton(tasteData.val)}
+            >
+              {tasteData.val}
+            </Button>
+          );
+        })}
+      </ScrollArea>
+    </motion.div>
   );
 }

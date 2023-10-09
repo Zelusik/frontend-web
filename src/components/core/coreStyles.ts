@@ -9,7 +9,7 @@ export const coreStyles = (props: ComponentsProps) => {
     maxWidth: props?.maw,
     minWidth: props?.miw,
     maxHeight: props?.mah,
-    minheight: props?.mih,
+    minHeight: props?.mih,
 
     margin: `${
       props?.m
@@ -73,7 +73,7 @@ export const coreStyles = (props: ComponentsProps) => {
     backgroundColor: props?.bg ? colors[props?.bg] : "transparent",
 
     ...typography[props?.typo ? props?.typo : "Headline1"],
-    color: props?.c && colors[props?.c],
+    color: colors[props?.c ? props?.c : "N100"],
   };
 };
 

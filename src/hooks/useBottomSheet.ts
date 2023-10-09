@@ -35,12 +35,14 @@ export default function useBottomSheet({ ...props }: any) {
 
   const openBottomSheet = useCallback((type: any) => {
     history.pushState({ page: "modal" }, document.title, "modal");
-    dispatch(
-      changeVisibleType({
-        type: "bottomSheet",
-        value: [1, type],
-      })
-    );
+    setTimeout(() => {
+      dispatch(
+        changeVisibleType({
+          type: "bottomSheet",
+          value: [1, type],
+        })
+      );
+    }, 400);
   }, []);
 
   const closeBottomSheet = useCallback((sheetInner: any, popstate?: any) => {
@@ -59,7 +61,7 @@ export default function useBottomSheet({ ...props }: any) {
           value: 0,
         })
       );
-    }, 300);
+    }, 400);
   }, []);
 
   const closeBottomSheetQuick = useCallback((popstate?: any) => {

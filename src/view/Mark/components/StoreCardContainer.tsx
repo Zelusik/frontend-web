@@ -57,6 +57,7 @@ const StoreCardContainer = forwardRef(function Div(
 
   return (
     <ScrollArea
+      scroll="y"
       h={display.height - 100 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
       bg="Mark"
     >
