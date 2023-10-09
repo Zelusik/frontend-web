@@ -44,6 +44,7 @@ const Title = ({
       justify="space-between"
       pos={position}
       bottom={bottom}
+      bg={background}
       zIndex={801}
     >
       <Flex>

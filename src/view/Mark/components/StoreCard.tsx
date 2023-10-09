@@ -6,17 +6,21 @@ import {
   getBookmarksContentsProps,
 } from "models/view/markModel";
 
+import Swiper from "components/Swiper";
+import { SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 import { globalValue } from "constants/globalValue";
 import { colors } from "constants/colors";
 import { Route } from "constants/Route";
 import Hashtags from "components/Hashtags";
 
-import InnerSlider from "components/Slider/InnerSlider";
-import ImageCount from "components/Image/ImageCount";
+import { AspectRatio, Box, Image, Space } from "components/core";
 import Title from "components/Title";
 import StoreReviewButton from "components/Button/StoreReviewButton";
 import Heart from "components/Button/IconButton/Heart";
-import { AspectRatio, Box, Image, Space } from "components/core";
+import ImageCount from "components/Image/ImageCount";
 
 interface StoreCardProps {
   key?: number;
@@ -27,7 +31,7 @@ interface StoreCardProps {
 const StoreCard = ({ touch, markData }: StoreCardProps) => {
   const router = useRouter();
   const { display } = useAppSelector((state) => state.global);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [swiperIndex, setSwiperIndex] = useState(0);
 
   const handleClickStore = () => {
     router.push({
@@ -40,31 +44,29 @@ const StoreCard = ({ touch, markData }: StoreCardProps) => {
     <>
       <Box
         w={display.width - 30}
-        bg={colors["N0"]}
+        mh={15}
+        pv={16}
+        ph={10}
+        bg="N0"
         pos="relative"
+        radius={12}
         style={{
-          margin: "0 15px",
-          padding: "16px 10px",
-          borderRadius: 12,
           boxShadow: "0px 3px 18px 0px rgba(0, 0, 0, 0.08)",
         }}
+        onClick={handleClickStore}
       >
         {markData?.images?.length > 0 && (
-          <>
-            <InnerSlider
-              height={((display.width - 50) * 192) / 310}
-              index={{ currentIndex, setCurrentIndex }}
-              touch={touch}
-              length={markData?.images?.length}
-            >
-              {markData?.images?.map(
-                (image: getBookmarksContentsImagesProps, idx: number) => {
-                  return (
-                    <AspectRatio
-                      key={idx}
-                      ratio={310 / 192}
-                      onClick={handleClickStore}
-                    >
+          <Swiper
+            gap={10}
+            index={{ swiperIndex, setSwiperIndex }}
+            touch={touch}
+            length={markData?.images?.length}
+          >
+            {markData?.images?.map(
+              (image: getBookmarksContentsImagesProps, idx: number) => {
+                return (
+                  <SwiperSlide key={idx}>
+                    <AspectRatio ratio={300 / 192} radius={12}>
                       <Image
                         src={
                           globalValue.BLANK_IMAGE
@@ -74,20 +76,21 @@ const StoreCard = ({ touch, markData }: StoreCardProps) => {
                         }
                         alt="음식 이미지"
                         fit="cover"
-                        radius={12}
                       />
                     </AspectRatio>
-                  );
-                }
-              )}
-            </InnerSlider>
-            <ImageCount
-              currentIndex={currentIndex}
-              length={markData?.images?.length}
-            />
-            <Space h={10} />
-          </>
+                  </SwiperSlide>
+                );
+              }
+            )}
+          </Swiper>
         )}
+        <ImageCount
+          top={32}
+          right={26}
+          currentIndex={swiperIndex}
+          length={markData?.images?.length}
+        />
+        <Space h={10} />
 
         <Title
           height={46}
@@ -110,10 +113,10 @@ const StoreCard = ({ touch, markData }: StoreCardProps) => {
           <>
             <Space h={10} />
             <Hashtags
-              hashColor={"Orange300"}
-              hashTypo={"Paragraph4"}
-              textColor={"N100"}
-              textTypo={"Paragraph2"}
+              hashColor="Orange300"
+              hashTypo="Paragraph4"
+              textColor="N100"
+              textTypo="Paragraph2"
               hashtagTextDatas={markData?.top3Keywords}
             />
           </>
