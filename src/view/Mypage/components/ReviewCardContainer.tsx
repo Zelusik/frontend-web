@@ -26,6 +26,7 @@ const ReviewCardContainer = ({
     <InnerTopNavigation
       scrollRef={refs?.[0]}
       innerScrollRef={refs?.[1]}
+      scroll={332}
       padding={20}
       bottomHeight={mine ? 85 : 35}
       direction={direction}

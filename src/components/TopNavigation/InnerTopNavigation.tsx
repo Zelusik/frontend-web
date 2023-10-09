@@ -8,6 +8,7 @@ const InnerTopNavigation = forwardRef(function Div(
   {
     scrollRef,
     innerScrollRef,
+    scroll,
     padding,
     bottomHeight,
     direction,
@@ -20,10 +21,10 @@ const InnerTopNavigation = forwardRef(function Div(
   const handleTouchMove = () => {
     if (
       direction === "up" &&
-      scrollRef?.current?.scrollTop >= 332 &&
+      scrollRef?.current?.scrollTop >= scroll &&
       innerScrollRef?.current?.scrollTop === 0
     ) {
-      scrollRef.current!.scrollTo({ top: 332 });
+      scrollRef.current!.scrollTo({ top: scroll });
     }
   };
 
