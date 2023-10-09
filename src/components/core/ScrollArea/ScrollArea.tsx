@@ -4,6 +4,11 @@ import { ComponentsProps } from "models/componentsModal";
 import styled from "@emotion/styled";
 import { coreStyles } from "../coreStyles";
 
+export interface onScrollProps {
+  scrollX: number;
+  scrollY: number;
+}
+
 type ScrollAreaProps = ComponentsProps & {
   // scroll?: "xy" | "x" | "y" | undefined;
   scroll?: boolean;

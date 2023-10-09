@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Box, ScrollArea, Space } from "components/core";
+import { onScrollProps } from "components/core/ScrollArea/ScrollArea";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { globalValue } from "constants/globalValue";
 import useGetReviews from "hooks/queries/user/useGetReviews";
@@ -31,15 +33,23 @@ const ReviewCardContainer = ({
       onTouchMove={() => {
         if (
           direction === "up" &&
-          refs?.scrollRef2?.current?.scrollTop === 0 &&
-          refs?.scrollRef?.current?.scrollTop > 332
+          refs?.scrollRef?.current?.scrollTop >= 332 &&
+          refs?.scrollRef2?.current?.scrollTop === 0
         ) {
           refs?.scrollRef.current!.scrollTo({ top: 332 });
         }
       }}
-      // onScroll={(e: any) => {
-      //   // e.target.scrollTop
-      // }}
+      onScroll={({ scrollY }: onScrollProps) => {
+        // console.log(scrollY);
+        // if (refs?.scrollRef?.current?.scrollTop < 332 && scrollY !== 0) {
+        //   refs?.scrollRef2.current!.style.setProperty("overflow", `hidden`);
+        //   if (direction === "down") {
+        //     // refs?.scrollRef.current!.scrollTo({
+        //     //   top: scrollY,
+        //     // });
+        //   }
+        // }
+      }}
     >
       <ReviewList
         reviewDatas={reviewDatas}

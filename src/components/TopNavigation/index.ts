@@ -1,1 +1,5 @@
-export { default } from "./TopNavigation";
+import ScrollTopNavigation from "./ScrollTopNavigation";
+import TopNavigation from "./TopNavigation";
+
+export { ScrollTopNavigation };
+export { TopNavigation };

@@ -15,7 +15,6 @@ import { Box, Space, ScrollArea } from "components/core";
 import BottomNavigation from "components/BottomNavigation";
 import Setting from "components/Button/IconButton/Setting";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import TopNavigation from "components/TopNavigation/TopNavigation";
 import Title from "components/Title";
 import Dots from "components/Button/IconButton/Dots";
 import BackArrow from "components/Button/IconButton/BackArrow";
@@ -24,6 +23,7 @@ import TasteBox from "./components/TasteBox";
 import ProfileInfo from "./components/ProfileInfo";
 import RecommendReviewCardContainer from "./components/RecommendReviewCardContainer";
 import ReviewCardContainer from "./components/ReviewCardContainer";
+import { ScrollTopNavigation, TopNavigation } from "components/TopNavigation";
 
 // 392 + 35 = 427
 
@@ -49,8 +49,13 @@ export default function Mypage() {
   const [touch, setTouch] = useState(false);
   const [startY, setStartY] = useState(0);
   const [direction, setDirection] = useState("none");
+
+  const [startY1, setStartY1] = useState(0);
+  const [startY2, setStartY2] = useState(0);
   const handleTouchStart = (e: any) => {
     setStartY(e?.changedTouches[0].clientY);
+    setStartY1(scrollRef1?.current?.scrollTop);
+    setStartY2(scrollRef2?.current?.scrollTop);
   };
   const handleTouchMove = (e: any) => {
     const newMoveY = e?.changedTouches?.[0]?.clientY;
@@ -59,25 +64,19 @@ export default function Mypage() {
   };
 
   const handleScroll = ({ scrollY }: { scrollX: number; scrollY: number }) => {
-    if (direction === "up" && scrollRef1?.current?.scrollTop <= 0) {
-      // scrollRef2.current!.scrollTo({ top: 0 });
-      scrollRef1.current!.style.setProperty("overflow", `hidden`);
-      scrollRef2.current!.style.setProperty("overflow", `hidden`);
-    }
-    //아래로 내리는 경우
-    else if (direction === "down") {
-      if (scrollY < 332) {
-        scrollRef1.current!.style.setProperty("overflow", `hidden`);
-        scrollRef2.current!.style.setProperty("overflow", `hidden`);
-      } else {
-        scrollRef1.current!.style.setProperty("overflow", `auto`);
-        scrollRef2.current!.style.setProperty("overflow", `auto`);
+    if (scrollY < 332) {
+      scrollRef1.current!.style.setProperty("overflow-y", `hidden`);
+      scrollRef2.current!.style.setProperty("overflow-y", `hidden`);
+    } else if (scrollY >= 332) {
+      scrollRef1.current!.style.setProperty("overflow-y", `scroll`);
+      scrollRef2.current!.style.setProperty("overflow-y", `scroll`);
 
-        if (currentIndex === 0) {
+      if (direction === "down") {
+        if (currentIndex === 0 && startY1 === 0) {
           scrollRef1.current!.scrollTo({
             top: scrollY - 332,
           });
-        } else {
+        } else if (startY2 === 0) {
           scrollRef2.current!.scrollTo({
             top: scrollY - 332,
           });
@@ -122,15 +121,7 @@ export default function Mypage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <ScrollArea
-            veiwportRef={scrollRef}
-            h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-            pos="absolute"
-            top={50}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onScroll={handleScroll}
-          >
+          <ScrollTopNavigation>
             {/* 332 */}
             <Box w={width} ph={20} bg="N0">
               <ProfileInfo mine={mine} profileData={profileData} />
@@ -164,7 +155,7 @@ export default function Mypage() {
               />
             </TopNavigation>
             <Box h={1000} />
-          </ScrollArea>
+          </ScrollTopNavigation>
         </motion.div>
       )}
       <Title

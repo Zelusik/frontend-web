@@ -5,6 +5,7 @@ import { globalValue } from "constants/globalValue";
 import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
 import RecommandSwiper from "./RecommandSwiper";
 import { ScrollArea } from "components/core";
+import { onScrollProps } from "components/core/ScrollArea/ScrollArea";
 
 interface RecommendReviewCardContainerProps {
   refs?: any;
@@ -33,13 +34,13 @@ const RecommendReviewCardContainer = ({
       onTouchMove={() => {
         if (
           direction === "up" &&
-          refs?.scrollRef1?.current?.scrollTop === 0 &&
-          refs?.scrollRef?.current?.scrollTop > 332
+          refs?.scrollRef?.current?.scrollTop >= 332 &&
+          refs?.scrollRef1?.current?.scrollTop === 0
         ) {
           refs?.scrollRef.current!.scrollTo({ top: 332 });
         }
       }}
-      // onScroll={(e: any) => {
+      // onScroll={({ scrollY }: onScrollProps) => {
       //   // e.target.scrollTop
       // }}
     >

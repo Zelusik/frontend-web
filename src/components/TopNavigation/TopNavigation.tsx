@@ -48,8 +48,8 @@ const TopNavigation = forwardRef(function Div(
   const { display } = useAppSelector((state) => state.global);
   const classes = useStyles({ height, padding, gap });
 
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    index.setCurrentIndex(newValue);
+  const handleChange = (_: React.SyntheticEvent, newIndex: number) => {
+    index.setCurrentIndex(newIndex);
   };
   const handleChangeIndex = (newIndex: number) => {
     index.setCurrentIndex(newIndex);
@@ -98,7 +98,7 @@ const TopNavigation = forwardRef(function Div(
       <SwipeableViews
         index={index.currentIndex}
         onChangeIndex={handleChangeIndex}
-        disabled={touch.touch && index.currentIndex === 0}
+        disabled={touch.touch}
       >
         {children}
       </SwipeableViews>
