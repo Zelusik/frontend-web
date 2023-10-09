@@ -15,7 +15,7 @@ import { Box, Space, ScrollArea } from "components/core";
 import BottomNavigation from "components/BottomNavigation";
 import Setting from "components/Button/IconButton/Setting";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import TopNavigation from "components/TopNavigation/TopNavigation";
+import { TopNavigation } from "components/TopNavigation";
 import Title from "components/Title";
 import Dots from "components/Button/IconButton/Dots";
 import BackArrow from "components/Button/IconButton/BackArrow";
