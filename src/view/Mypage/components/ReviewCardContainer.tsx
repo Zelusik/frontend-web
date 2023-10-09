@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Box, ScrollArea, Space } from "components/core";
+import { onScrollProps } from "components/core/ScrollArea/ScrollArea";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { globalValue } from "constants/globalValue";
 import useGetReviews from "hooks/queries/user/useGetReviews";
 import { useAppSelector } from "hooks/useReduxHooks";
 import ReviewList from "./ReviewList";
+import { InnerTopNavigation } from "components/TopNavigation";
 
 interface ReviewCardContainerProps {
   refs?: any;
@@ -16,30 +19,16 @@ const ReviewCardContainer = ({
   mine,
   direction,
 }: ReviewCardContainerProps) => {
-  const { display } = useAppSelector((state) => state.global);
   const { reviewDatas, isLoadingReview, fetchNextPage, hasNextPage } =
     useGetReviews();
 
   return (
-    <ScrollArea
-      veiwportRef={refs?.scrollRef2}
-      ph={20}
-      h={
-        display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT
-      }
-      style={{ overflow: "hidden" }}
-      onTouchMove={() => {
-        if (
-          direction === "up" &&
-          refs?.scrollRef2?.current?.scrollTop === 0 &&
-          refs?.scrollRef?.current?.scrollTop > 332
-        ) {
-          refs?.scrollRef.current!.scrollTo({ top: 332 });
-        }
-      }}
-      // onScroll={(e: any) => {
-      //   // e.target.scrollTop
-      // }}
+    <InnerTopNavigation
+      scrollRef={refs?.[0]}
+      innerScrollRef={refs?.[1]}
+      padding={20}
+      bottomHeight={mine ? 85 : 35}
+      direction={direction}
     >
       <ReviewList
         reviewDatas={reviewDatas}
@@ -52,7 +41,7 @@ const ReviewCardContainer = ({
           <Space h={24} />
         </>
       )}
-    </ScrollArea>
+    </InnerTopNavigation>
   );
 };
 

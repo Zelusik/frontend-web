@@ -5,6 +5,8 @@ import { globalValue } from "constants/globalValue";
 import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
 import RecommandSwiper from "./RecommandSwiper";
 import { ScrollArea } from "components/core";
+import { onScrollProps } from "components/core/ScrollArea/ScrollArea";
+import { InnerTopNavigation } from "components/TopNavigation";
 
 interface RecommendReviewCardContainerProps {
   refs?: any;
@@ -19,36 +21,22 @@ const RecommendReviewCardContainer = ({
   direction,
   touch,
 }: RecommendReviewCardContainerProps) => {
-  const { display } = useAppSelector((state) => state.global);
   const { recommendReviewDatas } = useGetRecommendReviews();
 
   return (
-    <ScrollArea
-      veiwportRef={refs?.scrollRef1}
-      ph={20}
-      h={
-        display.height - (mine ? 85 : 35) - globalValue.BOTTOM_NAVIGATION_HEIGHT
-      }
-      style={{ overflow: "hidden" }}
-      onTouchMove={() => {
-        if (
-          direction === "up" &&
-          refs?.scrollRef1?.current?.scrollTop === 0 &&
-          refs?.scrollRef?.current?.scrollTop > 332
-        ) {
-          refs?.scrollRef.current!.scrollTo({ top: 332 });
-        }
-      }}
-      // onScroll={(e: any) => {
-      //   // e.target.scrollTop
-      // }}
+    <InnerTopNavigation
+      scrollRef={refs?.[0]}
+      innerScrollRef={refs?.[1]}
+      padding={20}
+      bottomHeight={mine ? 85 : 35}
+      direction={direction}
     >
       <RecommandSwiper
         recommendReviewDatas={recommendReviewDatas}
         mine={mine}
         touch={touch}
       />
-    </ScrollArea>
+    </InnerTopNavigation>
   );
 };
 

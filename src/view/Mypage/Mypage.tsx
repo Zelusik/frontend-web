@@ -15,7 +15,7 @@ import { Box, Space, ScrollArea } from "components/core";
 import BottomNavigation from "components/BottomNavigation";
 import Setting from "components/Button/IconButton/Setting";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import TopNavigation from "components/TopNavigation/TopNavigation";
+import { TopNavigation } from "components/TopNavigation";
 import Title from "components/Title";
 import Dots from "components/Button/IconButton/Dots";
 import BackArrow from "components/Button/IconButton/BackArrow";
@@ -24,6 +24,7 @@ import TasteBox from "./components/TasteBox";
 import ProfileInfo from "./components/ProfileInfo";
 import RecommendReviewCardContainer from "./components/RecommendReviewCardContainer";
 import ReviewCardContainer from "./components/ReviewCardContainer";
+import { ScrollTopNavigation } from "components/TopNavigation";
 
 // 392 + 35 = 427
 
@@ -47,51 +48,10 @@ export default function Mypage() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const [touch, setTouch] = useState(false);
-  const [startY, setStartY] = useState(0);
   const [direction, setDirection] = useState("none");
-  const handleTouchStart = (e: any) => {
-    setStartY(e?.changedTouches[0].clientY);
-  };
-  const handleTouchMove = (e: any) => {
-    const newMoveY = e?.changedTouches?.[0]?.clientY;
-    if (newMoveY - startY < 0) setDirection("down");
-    else setDirection("up");
-  };
+  const [startY, setStartY] = useState([0, 0, 0]);
 
-  const handleScroll = ({ scrollY }: { scrollX: number; scrollY: number }) => {
-    if (direction === "up" && scrollRef1?.current?.scrollTop <= 0) {
-      // scrollRef2.current!.scrollTo({ top: 0 });
-      scrollRef1.current!.style.setProperty("overflow", `hidden`);
-      scrollRef2.current!.style.setProperty("overflow", `hidden`);
-    }
-    //아래로 내리는 경우
-    else if (direction === "down") {
-      if (scrollY < 332) {
-        scrollRef1.current!.style.setProperty("overflow", `hidden`);
-        scrollRef2.current!.style.setProperty("overflow", `hidden`);
-      } else {
-        scrollRef1.current!.style.setProperty("overflow", `auto`);
-        scrollRef2.current!.style.setProperty("overflow", `auto`);
-
-        if (currentIndex === 0) {
-          scrollRef1.current!.scrollTo({
-            top: scrollY - 332,
-          });
-        } else {
-          scrollRef2.current!.scrollTo({
-            top: scrollY - 332,
-          });
-        }
-      }
-    }
-
-    if (scrollY > 10) {
-      setTitleChange(true);
-    } else {
-      setTitleChange(false);
-    }
-  };
-
+  //
   const { profileData, isLoadingProfile } = useGetProfile();
   const { recommendReviewDatas } = useGetRecommendReviews();
 
@@ -122,14 +82,12 @@ export default function Mypage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <ScrollArea
-            veiwportRef={scrollRef}
-            h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-            pos="absolute"
-            top={50}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onScroll={handleScroll}
+          <ScrollTopNavigation
+            refs={[scrollRef, scrollRef1, scrollRef2]}
+            index={{ currentIndex, setCurrentIndex }}
+            Y={{ startY, setStartY }}
+            direction={{ direction, setDirection }}
+            title={{ titleChange, setTitleChange }}
           >
             {/* 332 */}
             <Box w={width} ph={20} bg="N0">
@@ -152,19 +110,18 @@ export default function Mypage() {
               keywordDatas={["추천 베스트", "리뷰"]}
             >
               <RecommendReviewCardContainer
-                refs={{ scrollRef, scrollRef1, scrollRef2 }}
+                refs={[scrollRef, scrollRef1]}
                 mine={mine}
                 direction={direction}
                 touch={{ touch, setTouch }}
               />
               <ReviewCardContainer
-                refs={{ scrollRef, scrollRef1, scrollRef2 }}
+                refs={[scrollRef, scrollRef2]}
                 mine={mine}
                 direction={direction}
               />
             </TopNavigation>
-            <Box h={1000} />
-          </ScrollArea>
+          </ScrollTopNavigation>
         </motion.div>
       )}
       <Title

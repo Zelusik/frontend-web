@@ -30,7 +30,7 @@ const RecommandSwiper = ({
   touch,
 }: RecommandSwiperProps) => {
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [swiperIndex, setSwiperIndex] = useState<number>(0);
 
   const clickReviewDetail = (id: number) => {
     router.push({ pathname: Route.REVIEW_DETAIL(), query: { id } });
@@ -43,7 +43,7 @@ const RecommandSwiper = ({
     <>
       <Space h={20} />
       <Swiper
-        index={{ currentIndex, setCurrentIndex }}
+        index={{ swiperIndex, setSwiperIndex }}
         touch={touch}
         length={recommendReviewDatas?.length}
       >
@@ -107,7 +107,7 @@ const RecommandSwiper = ({
       <Flex mb={30} justify="center">
         <Flex gap={4}>
           {recommendReviewDatas?.map((_: any, idx: number) => {
-            return <Index key={idx} act={currentIndex === idx} />;
+            return <Index key={idx} act={swiperIndex === idx} />;
           })}
         </Flex>
       </Flex>

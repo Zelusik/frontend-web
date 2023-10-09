@@ -6,7 +6,7 @@ import { keyframes } from "@emotion/react";
 import useDisplaySize from "hooks/useDisplaySize";
 
 import Hashtags from "components/Hashtags";
-import TopNavigation from "components/TopNavigation";
+import { TopNavigation } from "components/TopNavigation";
 import Info from "components/Common/Info";
 
 import { colors } from "constants/colors";

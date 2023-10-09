@@ -8,7 +8,7 @@ import useDebounce from "hooks/useDebounce";
 import useGetSearch from "hooks/queries/search-places/useGetSearch";
 
 import { colors } from "constants/colors";
-import TopNavigation from "components/TopNavigation";
+import { TopNavigation } from "components/TopNavigation";
 
 import BackTitle from "components/Title/BackTitle";
 import NoneText from "./components/NoneText";

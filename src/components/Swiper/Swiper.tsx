@@ -13,16 +13,16 @@ const Swiper = forwardRef(function Div(
 
   const handleSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;
-    index.setCurrentIndex(newSwiper);
+    index.setSwiperIndex(newSwiper);
   };
   const handleTouchStart = (e: any) => {
     touch.setTouch(true);
   };
   const handleTouchMove = (e: any) => {
     if (
-      !e?.swipeDirection ||
-      (e?.swipeDirection === "next" && index.currentIndex === length - 1) ||
-      (e?.swipeDirection === "prev" && index.currentIndex === 0)
+      e?.swipeDirection === undefined ||
+      (e?.swipeDirection === "next" && index.swiperIndex === length - 1) ||
+      (e?.swipeDirection === "prev" && index.swiperIndex === 0)
     ) {
       touch.setTouch(false);
     } else {
@@ -36,8 +36,8 @@ const Swiper = forwardRef(function Div(
   return (
     <OriginalSwiper
       spaceBetween={gap}
-      allowSlidePrev={index.currentIndex !== 0}
-      allowSlideNext={index.currentIndex !== length - 1}
+      allowSlidePrev={index.swiperIndex !== 0}
+      allowSlideNext={index.swiperIndex !== length - 1}
       onSlideChange={handleSlideChange}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
