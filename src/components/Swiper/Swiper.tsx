@@ -16,8 +16,9 @@ const Swiper = forwardRef(function Div(
     touch.setTouch(true);
   };
   const handleTouchMove = (e: any) => {
+    // console.log(e?.swipeDirection);
     if (
-      // e?.swipeDirection === undefined ||
+      e?.swipeDirection === undefined ||
       (e?.swipeDirection === "next" && index.swiperIndex === length - 1) ||
       (e?.swipeDirection === "prev" && index.swiperIndex === 0)
     ) {

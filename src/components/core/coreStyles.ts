@@ -70,7 +70,7 @@ export const coreStyles = (props: ComponentsProps) => {
     overflow: "hidden",
 
     boxShadow: props?.shadow,
-    backgroundColor: props?.bg && colors[props?.bg],
+    backgroundColor: props?.bg ? colors[props?.bg] : "transparent",
 
     ...typography[props?.typo ? props?.typo : "Headline1"],
     color: props?.c && colors[props?.c],

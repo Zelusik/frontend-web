@@ -26,7 +26,7 @@ const Title = ({
   position = "relative",
   bottom = 0,
   color = "N100",
-  background = "N0",
+  background,
 
   renderLeft,
   textLeft = "",
