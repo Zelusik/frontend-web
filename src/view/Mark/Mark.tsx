@@ -9,7 +9,7 @@ import { editDisplaySize } from "reducer/slices/global/globalSlice";
 import BottomNavigation from "components/BottomNavigation";
 import { globalValue } from "constants/globalValue";
 import StoreCardContainer from "./components/StoreCardContainer";
-import TopNavigation from "components/TopNavigation/MarkTopNavigation";
+import { TopNavigation } from "components/TopNavigation";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import { colors } from "constants/colors";
 import Title from "components/Title";
@@ -25,8 +25,8 @@ const Mark = () => {
     })
   );
 
-  const [wrapperIndex, setWrapperIndex] = useState(0);
-  const [touch, setTouch] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [touch, setTouch] = useState(false);
 
   const { keywordDatas: data, isLoadingKeyword } = useGetFilteringKeywords();
   const keywordDatas = data?.keywords && [
@@ -61,7 +61,11 @@ const Mark = () => {
           >
             <Space h={20} />
             <TopNavigation
-              index={{ wrapperIndex, setWrapperIndex }}
+              height={34}
+              padding={20}
+              gap={20}
+              color="Orange600"
+              index={{ currentIndex, setCurrentIndex }}
               touch={{ touch, setTouch }}
               keywordDatas={keywordTextDatas}
             >

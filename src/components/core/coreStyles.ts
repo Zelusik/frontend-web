@@ -14,6 +14,8 @@ export const coreStyles = (props: ComponentsProps) => {
     margin: `${
       props?.m
         ? props?.m
+        : props?.mh && props?.mv
+        ? `${props?.mv ? props?.mv : 0}px ${props?.mh ? props?.mh : 0}px`
         : props?.mh
         ? `${props?.mt ? props?.mt : 0}px ${props?.mh}px ${
             props?.mb ? props?.mb : 0
@@ -30,6 +32,8 @@ export const coreStyles = (props: ComponentsProps) => {
     padding: `${
       props?.p
         ? props?.p
+        : props?.ph && props?.pv
+        ? `${props?.pv ? props?.pv : 0}px ${props?.ph ? props?.ph : 0}px`
         : props?.ph
         ? `${props?.pt ? props?.pt : 0}px ${props?.ph}px ${
             props?.pb ? props?.pb : 0

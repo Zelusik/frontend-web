@@ -13,8 +13,12 @@ const useStyles = makeStyles({
     minHeight: (props: any) => props.height,
     height: (props: any) => props.height,
   },
-  tabsFlexContainer: {
+  tabsScroller: {
     padding: (props: any) => `0 ${props.padding}px`,
+  },
+  tabsFlexContainer: {
+    // width: (props: any) => 1000,
+    // padding: (props: any) => `0 ${props.padding}px`,
     gap: (props: any) => props.gap,
   },
 
@@ -46,7 +50,7 @@ const TopNavigation = forwardRef(function Div(
   ref: any
 ) {
   const { display } = useAppSelector((state) => state.global);
-  const classes = useStyles({ height, padding, gap });
+  const classes = useStyles({ width: display.width, height, padding, gap });
 
   const handleChange = (_: React.SyntheticEvent, newIndex: number) => {
     index.setCurrentIndex(newIndex);
@@ -67,7 +71,7 @@ const TopNavigation = forwardRef(function Div(
         }}
         classes={{
           root: classes.tabsRoot,
-          // scroller: classes.tabsScroller,
+          scroller: classes.tabsScroller,
           flexContainer: classes.tabsFlexContainer,
         }}
         value={index.currentIndex}
@@ -80,7 +84,7 @@ const TopNavigation = forwardRef(function Div(
               color={color}
               label={
                 <Text
-                  c={index.currentIndex === idx ? "N100" : "N40"}
+                  c={index.currentIndex === idx ? color : "N40"}
                   typo="Headline3"
                 >
                   {keyword}

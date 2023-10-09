@@ -19,7 +19,7 @@ import LoadingCircle from "components/Loading/LoadingCircle";
 import StoreCard from "./StoreCard";
 import StoreCount from "./StoreCount";
 import NothingButton from "components/Button/NothingButton";
-import { Box, ScrollArea, Space } from "components/core";
+import { ScrollArea, Box, Space } from "components/core";
 
 interface StoreCardContainerProps {
   key?: number;
@@ -59,7 +59,6 @@ const StoreCardContainer = forwardRef(function Div(
     <ScrollArea
       h={display.height - 100 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
       bg="Mark"
-      // scrollbarSize={0}
     >
       <motion.div
         initial={{ opacity: 0 }}

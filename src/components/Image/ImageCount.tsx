@@ -4,6 +4,8 @@ import { Flex, Text } from "components/core";
 
 interface ImageCountProps {
   color?: string;
+  top?: string | number;
+  right?: string | number;
   style?: any;
 
   currentIndex: number;
@@ -11,23 +13,30 @@ interface ImageCountProps {
 }
 
 const ImageCount = ({
-  color,
+  color = "N0",
+  top,
+  right,
   style,
 
   currentIndex,
   length,
 }: ImageCountProps) => {
   return (
-    <Flex h={24} justify="end" pos="absolute" top={16} right={16} zIndex={1}>
+    <Flex
+      justify="center"
+      align="center"
+      pos="absolute"
+      top={top}
+      right={right}
+      zIndex={1}
+    >
       <Text
-        pl={11}
-        pr={11}
-        h={24}
+        pv={4}
+        ph={11}
         c={color}
-        align="center"
         radius={24}
         typo="Paragraph2"
-        style={style}
+        style={{ ...style, background: "rgba(32, 35, 48, 0.60)" }}
       >
         {currentIndex + 1}/{length}
       </Text>
