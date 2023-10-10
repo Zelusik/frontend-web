@@ -34,6 +34,7 @@ export default function Home() {
           transition={{ duration: 0.5 }}
         >
           <ScrollArea
+            scroll="y"
             h={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
             ph={20}
           >

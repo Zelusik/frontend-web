@@ -41,12 +41,14 @@ export default function useMapBottomSheet({ ...props }: any) {
     (type: any, sheetInner: any, height: any, popstate?: any) => {
       if (!popstate)
         history.pushState({ page: "modal" }, document.title, "map-modal");
-      dispatch(
-        changeMapVisibleType({
-          type: "mapBottomSheet",
-          value: [1, type],
-        })
-      );
+      setTimeout(() => {
+        dispatch(
+          changeMapVisibleType({
+            type: "mapBottomSheet",
+            value: [1, type],
+          })
+        );
+      }, 200);
       sheetInner?.current?.style.setProperty(
         "transform",
         `translateY(${-height}px)`

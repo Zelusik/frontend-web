@@ -44,8 +44,8 @@ export default function FoodSelection({
         scroll="x"
         h={42}
         ph={15}
-        dis="flex"
-        // dis={visible === 1 ? "none" : "flex"}
+        // dis="flex"
+        dis={visible === 1 ? "none" : "flex"}
         gap={6}
       >
         <Button
