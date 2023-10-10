@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import useDisplaySize from "hooks/useDisplaySize";
 import { Box, Text } from "components/core";
 
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useAppSelector } from "hooks/useReduxHooks";
@@ -148,12 +148,14 @@ const StyledSlider = styled(Slider)`
     height: 100%;
     object-fit: cover;
     display: flex;
-    align-els: center; // 이미지가 정방향이 아닐 경우 가운데 위치
+    align-items: center;
+    //align-els: center; // 이미지가 정방향이 아닐 경우 가운데 위치
     margin: 0 -10px; // space(여백)/-2
   }
   .slick-track {
     display: flex;
-    align-els: center;
+    align-items: center;
+    // align-els: center;
   }
   .slick-prev {
     left: 6px;

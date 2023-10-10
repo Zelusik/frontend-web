@@ -23,7 +23,7 @@
     "@types/axios": "^0.14.0",
     "@types/browser-image-compression": "^1.0.9",
     "@types/node": "20.3.3",
-    "@types/react": "18.2.14",
+    "@types/react": "^18.2.27",
     "@types/react-dom": "18.2.6",
     "@types/react-dropzone": "^5.1.0",
     "@types/react-query": "^1.2.9",
@@ -59,7 +59,7 @@
     "typescript": "5.1.6",
     "yarn": "^1.22.19"
   },
-  "packageManager": "yarn@3.6.3",
+  "packageManager": "yarn@1.22.19",
   "devDependencies": {
     "@babel/runtime": "^7.22.5",
     "@emotion/babel-plugin": "^11.11.0",
