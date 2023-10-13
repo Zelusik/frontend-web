@@ -5,7 +5,7 @@ import { typography } from "constants/typography";
 import { Box, Flex, Space, Text } from "components/core";
 
 interface StoreReviewButtonProps {
-  type: "store" | "review";
+  type: "none" | "store" | "review";
   id: number;
   name: string;
   category: string;
@@ -20,7 +20,7 @@ interface StoreReviewButtonProps {
 }
 
 const StoreReviewButton = ({
-  type = "store",
+  type = "none",
   id,
   name,
   category,
@@ -34,6 +34,7 @@ const StoreReviewButton = ({
 }: StoreReviewButtonProps) => {
   const router = useRouter();
   const handleClick = () => {
+    if (type === "none") return;
     router.push({
       pathname: type === "store" ? Route.STORE_DETAIL() : Route.REVIEW_DETAIL(),
       query: { id },
@@ -43,11 +44,11 @@ const StoreReviewButton = ({
   return (
     <Box onClick={handleClick}>
       <Text c={nameColor ? nameColor : color} typo={nameTypo}>
-        {name}
+        {name && name}
       </Text>
       <Space h={4} />
       <Text c={categoryColor ? categoryColor : color} typo={categoryTypo}>
-        {category}
+        {category && category}
       </Text>
     </Box>
   );

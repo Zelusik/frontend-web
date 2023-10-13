@@ -34,7 +34,7 @@ export default function ReviewList({
   const dispatch = useAppDispatch();
   const { display } = useAppSelector((state) => state.global);
   const recommendReview = useAppSelector((state) => state.recommendReview);
-  const scrollRef = useRef(null);
+  const scrollRef = useRef<any>(null);
   const { isShowToast, openToast, closeToast } = useToast();
 
   useIntersectionObserver(scrollRef, fetchNextPage, !!hasNextPage, {});

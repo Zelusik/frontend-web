@@ -1,11 +1,5 @@
 import { useInfiniteQuery, useQuery } from "react-query";
-import {
-  existencePlace,
-  getPlaces,
-  getPlacesId,
-  placesApi,
-  postPlaces,
-} from "api/places";
+import { existencePlace, getPlaces, getPlacesId, postPlaces } from "api/places";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { getReviews } from "api/reviews";
 import { useState } from "react";
@@ -17,18 +11,18 @@ const useGetStore = ({ kakaoId, placeId }: any): any => {
   // 음식점 정보
   const getStoreInfo = async () => {
     if (kakaoId) {
-      const isExistPlace = await placesApi.getExistence(kakaoId);
+      const isExistPlace = await existencePlace(kakaoId);
       if (isExistPlace.existenceOfPlace) {
-        const res = await placesApi.getPlaces(kakaoId);
+        const res = await getPlaces(kakaoId);
         setId(res.id);
         return res;
       } else {
-        const res = await placesApi.postPlaces(placeInfo);
+        const res = await postPlaces(placeInfo);
         setId(res.id);
         return res;
       }
     } else {
-      return await placesApi.getPlacesId(placeId);
+      return await getPlacesId(placeId);
     }
   };
 
@@ -65,14 +59,15 @@ const useGetStore = ({ kakaoId, placeId }: any): any => {
       return lastPage.isLast ? undefined : lastPage.number + 1;
     },
   });
-  const reviewsData = data?.pages;
+  const reviewDatas = data?.pages;
 
   return {
     storeInfoData,
     isStoreInfoLoading,
     error,
     refetch,
-    reviewsData,
+
+    reviewDatas,
     fetchNextPage,
     hasNextPage,
     isReviewsLoading,

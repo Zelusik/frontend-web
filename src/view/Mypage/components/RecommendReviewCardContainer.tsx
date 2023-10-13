@@ -6,6 +6,7 @@ import NothingButton from "components/Button/NothingButton";
 import RecommandSwiper from "./RecommandSwiper";
 import { useRouter } from "next/router";
 import { Route } from "constants/Route";
+import { globalValue } from "constants/globalValue";
 
 interface RecommendReviewCardContainerProps {
   refs?: any;
@@ -39,7 +40,7 @@ const RecommendReviewCardContainer = ({
       innerScrollRef={refs?.[1]}
       scroll={332}
       padding={20}
-      bottomHeight={mine ? 85 : 35}
+      bottomHeight={(mine ? 85 : 35) + globalValue.BOTTOM_NAVIGATION_HEIGHT}
       direction={direction}
     >
       {recommendReviewDatas && recommendReviewDatas?.length > 0 ? (
@@ -50,7 +51,7 @@ const RecommendReviewCardContainer = ({
         />
       ) : (
         <NothingButton
-          height={display.height - 505}
+          height={display.height - 525}
           text="나만의 추천 음식점을 골라주세요"
           buttonText="추천 베스트 선택하기"
           buttonClick={handleClickButton}

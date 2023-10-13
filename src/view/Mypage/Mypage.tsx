@@ -28,7 +28,7 @@ import { ScrollTopNavigation } from "components/TopNavigation";
 
 // 392 + 35 = 427
 
-export default function Mypage() {
+const Mypage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { width, height } = useDisplaySize();
@@ -44,7 +44,7 @@ export default function Mypage() {
   const scrollRef2 = useRef<any>(null);
 
   const [mine, setMine] = useState<any>(null);
-  const [titleChange, setTitleChange] = useState<boolean>(false);
+  const [titleChange, setTitleChange] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const [touch, setTouch] = useState(false);
@@ -88,6 +88,7 @@ export default function Mypage() {
             Y={{ startY, setStartY }}
             direction={{ direction, setDirection }}
             title={{ titleChange, setTitleChange }}
+            bottomHeight={50 + globalValue.BOTTOM_NAVIGATION_HEIGHT}
           >
             {/* 332 */}
             <Box w={width} ph={20} bg="N0">
@@ -135,7 +136,7 @@ export default function Mypage() {
             </>
           )
         }
-        textLeft={titleChange && profileData?.nickname}
+        textLeft={titleChange > 10 ? profileData?.nickname : null}
         renderRight={
           mine ? <Setting size={24} /> : <Dots type="share-report" size={20} />
         }
@@ -143,4 +144,6 @@ export default function Mypage() {
       {mine && <BottomNavigation />}
     </>
   );
-}
+};
+
+export default Mypage;

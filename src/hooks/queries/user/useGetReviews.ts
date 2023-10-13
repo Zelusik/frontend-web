@@ -32,7 +32,7 @@ const useGetReviews = () => {
       staleTime: 1000 * 60 * 5,
       cacheTime: 1000 * 60 * 30,
       getNextPageParam: (lastPage: getReviewsProps) => {
-        return lastPage.isLast ? undefined : lastPage.number + 1;
+        return lastPage?.isLast ? undefined : lastPage?.number + 1;
       },
     }
   );

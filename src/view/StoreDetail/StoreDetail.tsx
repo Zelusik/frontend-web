@@ -1,240 +1,197 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import useDisplaySize from "hooks/useDisplaySize";
 
-import Hashtags from "components/Hashtags";
-import { TopNavigation } from "components/TopNavigation";
-import Info from "components/Common/Info";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import useGetStore from "hooks/queries/store-detail/useGetStore";
+import useDisplaySize from "hooks/useDisplaySize";
+import { useAppDispatch } from "hooks/useReduxHooks";
+import { editDisplaySize } from "reducer/slices/global/globalSlice";
 
 import { colors } from "constants/colors";
-import BackTitle from "components/Title/BackTitle";
-import StoreTitle from "components/Title/StoreTitle";
-
-import ReviewCard from "./components/ReviewCard";
-import ImageBox from "./components/ImageBox";
-import { globalValue } from "constants/globalValue";
-import useGetStore from "hooks/queries/store-detail/useGetStore";
-import { makeInfo } from "utils/makeInfo";
 import LoadingCircle from "components/Loading/LoadingCircle";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import { Space } from "components/core";
+import { Box, ScrollArea, Space } from "components/core";
+import Hashtags from "components/Hashtags/Hashtags";
+import StoreTitle from "components/Title/StoreTitle";
+import ImageBox from "./components/ImageBox";
+import Title from "components/Title";
+import BackArrow from "components/Button/IconButton/BackArrow";
+import Setting from "components/Button/IconButton/Setting";
+import Dots from "components/Button/IconButton/Dots";
+import StoreReviewButton from "components/Button/StoreReviewButton";
+import Heart from "components/Button/IconButton/Heart";
+import Edit from "components/Button/IconButton/Edit";
+import Hashtag from "components/Hashtags/Hashtag";
+import { ScrollTopNavigation, TopNavigation } from "components/TopNavigation";
+import ReviewCardContainer from "./components/ReviewCardContainer";
+import StoreInfoContainer from "./components/StoreInfoContainer";
+import { globalValue } from "constants/globalValue";
+import { makeAddress } from "utils/makeAddress";
 
-export default function StoreDetail() {
+const StoreDetail = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const scrollRef = useRef<any>(null);
+  const scrollRef1 = useRef<any>(null);
+  const scrollRef2 = useRef<any>(null);
   const infinityScrollRef = useRef<any>(null);
 
   const imageRef = useRef<any>(null);
   const { width, height } = useDisplaySize();
+  dispatch(
+    editDisplaySize({
+      type: "display",
+      value: [width, height],
+    })
+  );
 
-  const [titleChange, setTitleChange] = useState<boolean>(false);
-  const [topFixed, setTopFixed] = useState<boolean>(false);
+  const [titleChange, setTitleChange] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
+  const [touch, setTouch] = useState<boolean>(false);
+  const [direction, setDirection] = useState("none");
+  const [startY, setStartY] = useState([0, 0, 0]);
+
   const {
+    storeInfoData,
     isStoreInfoLoading,
-    storeInfoData: storeInfo,
-    reviewsData: reviews,
+    reviewDatas,
     fetchNextPage,
     hasNextPage,
   } = useGetStore({
     kakaoId: router.query.kakaoId,
     placeId: Number(router.query.id),
   });
-
   useIntersectionObserver(infinityScrollRef, fetchNextPage, !!hasNextPage, {});
 
-  function onScroll() {
-    const scrollTop = (window.innerWidth * 281) / 360 + 20 + 49 + 16 + 40 - 10;
-
-    if (
-      storeInfo?.placeImages?.length === 0 &&
-      scrollRef.current?.scrollTop >= 165 &&
-      currentIndex === 1
-    ) {
-      scrollRef.current!.scrollTop = 165;
-    } else if (
-      scrollRef.current?.scrollTop >= scrollTop &&
-      currentIndex === 1
-    ) {
-      scrollRef.current!.scrollTop = scrollTop;
-      return;
-    }
-
-    if (
-      storeInfo?.placeImages?.length === 0 &&
-      scrollRef.current?.scrollTop >= 25
-    ) {
-      setTitleChange(true);
-    } else if (
-      scrollRef.current?.scrollTop >=
-      imageRef.current?.clientHeight - 20
-    ) {
-      setTitleChange(true);
-    } else {
-      setTitleChange(false);
-    }
-
-    if (
-      storeInfo?.placeImages?.length === 0 &&
-      scrollRef.current?.scrollTop >= 165
-    ) {
-      setTopFixed(true);
-    } else if (scrollRef.current?.scrollTop >= scrollTop - 1) {
-      setTopFixed(true);
-    } else {
-      setTopFixed(false);
-    }
-  }
-
-  useEffect(() => {
-    scrollRef.current?.addEventListener("scroll", onScroll);
-    return () => {
-      scrollRef.current?.removeEventListener("scroll", onScroll);
-    };
-  }, [currentIndex, storeInfo]);
-
-  if (isStoreInfoLoading) return <LoadingCircle />;
+  const imageHeight = (width * 281) / 360 + 10;
 
   return (
     <>
-      <ImageBox ref={imageRef} images={storeInfo?.placeImages} />
-      <TitleWrapper visible={titleChange}>
-        <BackTitle
-          type={
-            titleChange
-              ? "black-left-text"
-              : storeInfo?.placeImages?.length > 0
-              ? "white-dots-store"
-              : "black-left-text"
-          }
-          title={titleChange ? storeInfo?.name : undefined}
-        />
-      </TitleWrapper>
-
-      <Wrapper ref={scrollRef} height={height}>
-        <Space
-          h={storeInfo?.placeImages?.length > 0 ? (width * 281) / 360 : 50}
-        />
-
-        <Inner>
-          <Space h={20} />
-          <StoreTitle
-            type="detail"
-            title={storeInfo?.name}
-            subTitle={
-              storeInfo &&
-              `${storeInfo?.category} · ${storeInfo?.address?.sido} ${storeInfo?.address?.sgg} ${storeInfo?.address?.lotNumberAddress}`
+      <Title
+        height={50}
+        padding={20}
+        position="absolute"
+        top={0}
+        background={titleChange > 0 && "N0"}
+        zIndex={802}
+        renderLeft={
+          <BackArrow
+            color={
+              storeInfoData?.placeImages?.length > 0 && titleChange <= 0
+                ? "N0"
+                : "N100"
             }
-            isMarked={storeInfo?.isMarked}
-            placeId={storeInfo?.id}
-            point={storeInfo?.point}
           />
-
-          <Space h={16} />
-          <Hashtags hashtagTextDatas={storeInfo?.top3Keywords} />
-          <Space h={40} />
-
-          <TopNavigation
-            type="store-detail"
-            scrollRef={scrollRef}
-            scrollTop={
-              storeInfo?.placeImages?.length === 0
-                ? 165
-                : (width * 281) / 360 + 20 + 49 + 16 + 40
+        }
+        renderRight={
+          <Dots
+            type="share-report"
+            color={
+              storeInfoData?.placeImages?.length > 0 && titleChange <= 0
+                ? "N0"
+                : "N100"
             }
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            topFixed={topFixed}
-            titleList={["리뷰", "매장정보"]}
+          />
+        }
+      />
+      {isStoreInfoLoading ? (
+        <LoadingCircle height={height - 50} />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <ScrollTopNavigation
+            refs={[scrollRef, scrollRef1, scrollRef2]}
+            index={{ currentIndex, setCurrentIndex }}
+            Y={{ startY, setStartY }}
+            direction={{ direction, setDirection }}
+            title={{ titleChange, setTitleChange }}
+            scrollTop={imageHeight - 40}
+            scroll={
+              (storeInfoData?.placeImages?.length > 0 ? imageHeight : 0) + 155
+            }
+            top={0}
+            bottomHeight={0}
           >
-            <div
-              style={{
-                height:
-                  currentIndex === 0
-                    ? "auto"
-                    : height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8,
-              }}
-            >
-              {reviews
-                ?.flatMap((page_data: any) => page_data.contents)
-                ?.map((review: any, idx: number) => {
-                  return <ReviewCard key={idx} data={review} />;
-                })}
-              <div ref={infinityScrollRef} />
-              {hasNextPage ? (
-                <>
-                  <LoadingCircle height={30} />
-                  <Space h={30} />
-                </>
-              ) : null}
-            </div>
-            <StoreInfo
-              height={
-                height - globalValue.BOTTOM_NAVIGATION_HEIGHT - 29.8 + "px"
+            {/* width * 281 / 360 */}
+            <ImageBox ref={imageRef} images={storeInfoData?.placeImages} />
+            {/* 155 */}
+            <Space h={10} />
+            <Title
+              height={49}
+              padding={20}
+              renderLeft={
+                <StoreReviewButton
+                  type="none"
+                  id={1}
+                  name={storeInfoData?.name}
+                  category={
+                    storeInfoData?.category
+                      ? `${
+                          storeInfoData?.category ? storeInfoData?.category : ""
+                        } · ${makeAddress(storeInfoData?.Address)}`
+                      : ""
+                  }
+                  color="N100"
+                  nameTypo="Headline6"
+                  categoryTypo="Paragraph4"
+                />
               }
+              buttonRight={<Edit size={28} />}
+              paddingRight={16}
+              renderRight={<Heart id={1} />}
+            />
+            <Space h={16} />
+            <Hashtags
+              padding={20}
+              textColor="N100"
+              hashtagTextDatas={storeInfoData?.top3Keywords}
+            />
+            <Space h={40} />
+
+            <TopNavigation
+              height={34}
+              padding={20}
+              gap={24}
+              top={50}
+              color="N100"
+              index={{
+                currentIndex,
+                setCurrentIndex,
+              }}
+              touch={{ touch, setTouch }}
+              keywordDatas={["리뷰", "매장정보"]}
             >
-              {makeInfo(storeInfo && storeInfo).map(
-                (data: any, idx: number) => {
-                  return <Info key={idx} data={data} />;
+              <ReviewCardContainer
+                refs={[scrollRef, scrollRef1]}
+                direction={direction}
+                touch={{ touch, setTouch }}
+                imageSize={
+                  storeInfoData?.placeImages?.length > 0 ? imageHeight : 0
                 }
-              )}
-            </StoreInfo>
-          </TopNavigation>
-        </Inner>
-      </Wrapper>
+                data={reviewDatas}
+                hasNextPage={hasNextPage}
+              />
+              <StoreInfoContainer
+                refs={[scrollRef, scrollRef2]}
+                direction={direction}
+                imageSize={
+                  storeInfoData?.placeImages?.length > 0 ? imageHeight : 0
+                }
+                data={storeInfoData}
+              />
+            </TopNavigation>
+          </ScrollTopNavigation>
+        </motion.div>
+      )}
     </>
   );
-}
+};
 
-const fade = (visible: boolean) => keyframes`
-  from {
-    opacity: ${visible && 0};
-    background-color: ${visible ? `transparent` : `${colors.N0}`};
-  }
-  to {
-    opacity: ${visible && 1};
-    background-color: ${visible ? `${colors.N0}` : `transparent`};
-  }
-`;
-
-const Wrapper = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
-  overflow-y: scroll;
-  background-color: ${colors.N0};
-`;
-
-const Inner = styled.div`
-  position: relative;
-  background-color: ${colors.N0};
-`;
-
-const TitleWrapper = styled.div<{ visible: boolean }>`
-  width: 100%;
-  padding: 0 20px;
-
-  position: fixed;
-  top: 0;
-  z-index: 900;
-
-  background-color: ${({ visible }) =>
-    visible ? `${colors.N0}` : `transparents`};
-  animation: ${(props) => fade(props.visible)} 0.3s forwards;
-`;
-
-const StoreInfo = styled.div<{ height: any }>`
-  height: ${({ height }) => height};
-  padding: 0 20px;
-`;
-
-const Dot = styled.div`
-  width: 2px;
-  height: 2px;
-  margin: 0 4px;
-
-  border-radius: 2px;
-  background-color: ${colors.N60};
-`;
+export default StoreDetail;

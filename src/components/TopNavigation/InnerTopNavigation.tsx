@@ -10,7 +10,7 @@ const InnerTopNavigation = forwardRef(function Div(
     innerScrollRef,
     scroll,
     padding,
-    bottomHeight,
+    bottomHeight = 50,
     direction,
     children,
   }: any,
@@ -32,7 +32,7 @@ const InnerTopNavigation = forwardRef(function Div(
     <ScrollArea
       veiwportRef={innerScrollRef}
       ph={padding}
-      h={display.height - bottomHeight - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+      h={display.height - bottomHeight}
       style={{ overflow: "hidden" }}
       onTouchMove={handleTouchMove}
     >

@@ -20,7 +20,7 @@ interface HashtagsProps {
   hashtagTextDatas: any;
 }
 
-export default function Hashtags({
+const Hashtags = ({
   padding = 0,
   gap = 6,
 
@@ -33,7 +33,7 @@ export default function Hashtags({
   textColor,
   textTypo,
   hashtagTextDatas,
-}: HashtagsProps) {
+}: HashtagsProps) => {
   const router = useRouter();
 
   return (
@@ -58,55 +58,6 @@ export default function Hashtags({
       })}
     </Flex>
   );
-}
+};
 
-const HashtagsWrapper = styled.div`
-  display: flex;
-  white-space: nowrap;
-`;
-
-const HashtagsInner = styled.div`
-  display: flex;
-  overflow: auto;
-`;
-
-const MenuWrapper = styled.div<{
-  marginLeft: boolean;
-  marginRight: boolean;
-  side: number;
-  color: any;
-}>`
-  height: 40px;
-  margin-left: ${({ marginLeft, side }) => (marginLeft ? `${side}px` : "0")};
-  margin-right: ${({ marginRight, side }) =>
-    marginRight ? `${side}px` : "8px"};
-  padding: 0 12px;
-  display: inline-block;
-  border-radius: 40px;
-  background-color: ${({ color }) => color};
-`;
-
-const Menu = styled.div<{ typo: any }>`
-  height: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-`;
-
-const Menuspan = styled.span<{ typo: any; color: any }>`
-  height: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color};
-`;
+export default Hashtags;

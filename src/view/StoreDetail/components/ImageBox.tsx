@@ -10,11 +10,12 @@ import { Route } from "constants/Route";
 import Image from "components/Image";
 
 import { typography } from "constants/typography";
-import { Divider, Space } from "components/core";
+import { AspectRatio, Box, Divider, Flex, Space } from "components/core";
+import { useAppSelector } from "hooks/useReduxHooks";
 
 const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   const router = useRouter();
-  const { width } = useDisplaySize();
+  const { display } = useAppSelector((state) => state.global);
   const handleClickImage = () => {
     router.push({
       pathname: Route.IMAGE_DETAIL(),
@@ -33,74 +34,74 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
     });
   };
 
+  const height = (display.width * 281) / 360 - 3;
+
   return (
-    <ImageBoxWrapper
-      ref={ref}
-      style={{ height: (width * 281) / 360 }}
-      onClick={handleClickImage}
-    >
-      <ImageWrapper>
-        <ImageHorizonal
-          width={images?.length < 2 ? width : width / 2}
-          height={(width * 281) / 360}
+    <>
+      <Flex
+        veiwportRef={ref}
+        w="100%"
+        h={images?.length > 0 ? height : 50}
+        pos="relative"
+        onClick={handleClickImage}
+      >
+        {/* <Box w="100%" h="100%"> */}
+        <AspectRatio
+          w={images?.length < 2 ? display.width : (display.width - 3) / 2}
+          ratio={281 / 360}
         >
-          {images?.length > 0 ? (
+          {images?.length > 0 && (
             <Image
               alt="디테일 이미지"
               type="store-detail"
               src={
                 images?.length > 0
-                  ? images[0]?.thumbnailImageUrl
+                  ? images?.[0]?.thumbnailImageUrl
                   : "https://i.ibb.co/2kSZX6Y/60pt.png"
               }
             />
-          ) : null}
-        </ImageHorizonal>
-      </ImageWrapper>
+          )}
+        </AspectRatio>
+        {/* </Box> */}
 
-      {images?.length > 1 ? (
-        <>
-          <Divider h={3} />
-          <ImageWrapper>
-            <ImageHorizonal
-              width={width / 2 - 3}
-              height={
-                images?.length === 2
-                  ? (width * 281) / 360
-                  : (width * 281) / 360 / 2 - 1.5
-              }
-            >
-              <Image
-                alt="디테일 이미지"
-                type="review-detail"
-                src={images[1]?.thumbnailImageUrl}
-              />
-            </ImageHorizonal>
-            {images?.length > 2 ? (
-              <>
-                <Space h={3} />
-                <ImageHorizonal
-                  width={width / 2 - 3}
-                  height={(width * 281) / 360 / 2 - 1.5}
-                >
-                  <Image
-                    alt="디테일 이미지"
-                    type="review-detail"
-                    src={images[2]?.thumbnailImageUrl}
-                  />
-                  {images?.length > 3 ? (
-                    <>
-                      <ImageCountWrapper />
-                      <ImageCount>+{images?.length - 3}</ImageCount>
-                    </>
-                  ) : undefined}
-                </ImageHorizonal>
-              </>
-            ) : undefined}
-          </ImageWrapper>
-        </>
-      ) : undefined}
-    </ImageBoxWrapper>
+        {images?.length > 1 && (
+          <>
+            <Space w={3} />
+            <Box>
+              <AspectRatio
+                w={(display.width - 3) / 2}
+                h={images?.length < 3 ? height + 3 : height / 2}
+              >
+                <Image
+                  alt="디테일 이미지"
+                  type="review-detail"
+                  src={images?.[1]?.thumbnailImageUrl}
+                />
+              </AspectRatio>
+              {images?.length > 2 && (
+                <>
+                  <Space h={3} />
+                  <AspectRatio w={(display.width - 3) / 2} h={height / 2}>
+                    <Image
+                      alt="디테일 이미지"
+                      type="review-detail"
+                      src={images?.[2]?.thumbnailImageUrl}
+                    />
+                    {images?.length > 3 && (
+                      <>
+                        <ImageCountWrapper />
+                        <ImageCount>+{images?.length - 3}</ImageCount>
+                      </>
+                    )}
+                  </AspectRatio>
+                </>
+              )}
+            </Box>
+          </>
+        )}
+      </Flex>
+      <Space h={10} />
+    </>
   );
 });
 

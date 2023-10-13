@@ -37,7 +37,7 @@ const ReviewCardContainer = ({
       innerScrollRef={refs?.[1]}
       scroll={332}
       padding={20}
-      bottomHeight={mine ? 85 : 35}
+      bottomHeight={(mine ? 85 : 35) + globalValue.BOTTOM_NAVIGATION_HEIGHT}
       direction={direction}
     >
       {reviewDatas &&
@@ -58,7 +58,7 @@ const ReviewCardContainer = ({
         </>
       ) : (
         <NothingButton
-          height={display.height - 505}
+          height={display.height - 525}
           text="내가 방문한 음식점의 리뷰를 남겨보세요"
           buttonText="첫 리뷰 남기기"
           buttonClick={handleClickButton}

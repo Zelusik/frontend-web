@@ -27,6 +27,7 @@ const useStyles = makeStyles({
     minHeight: (props: any) => props.height,
     height: (props: any) => props.height,
     padding: 0,
+    // marginRight: (props: any) => props.gap,
   },
 });
 
@@ -40,17 +41,23 @@ const TopNavigation = forwardRef(function Div(
   {
     height,
     padding,
-    gap,
+    gap = 24,
     color = "N100",
     index,
     touch,
     keywordDatas,
+    top = 0,
     children,
   }: any,
   ref: any
 ) {
   const { display } = useAppSelector((state) => state.global);
-  const classes = useStyles({ width: display.width, height, padding, gap });
+  const classes = useStyles({
+    width: display.width,
+    height,
+    padding,
+    gap,
+  });
 
   const handleChange = (_: React.SyntheticEvent, newIndex: number) => {
     index.setCurrentIndex(newIndex);
@@ -60,7 +67,7 @@ const TopNavigation = forwardRef(function Div(
   };
 
   return (
-    <Box w={display.width} pos="sticky" top={0}>
+    <Box w={display.width} pos="sticky" top={top}>
       <Tabs
         variant="scrollable"
         scrollButtons="auto"

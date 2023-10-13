@@ -19,7 +19,7 @@ export default function ReivewCard({ data }: any) {
           renderLeft={
             <Image
               src={
-                data.writer.profileThumbnailImageUrl ||
+                data?.writer?.profileThumbnailImageUrl ||
                 "https://i.ibb.co/2kSZX6Y/60pt.png"
               }
               alt="프로필 이미지"

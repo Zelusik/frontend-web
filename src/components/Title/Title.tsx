@@ -7,9 +7,11 @@ interface TitleProps {
   height?: number;
   padding?: number;
   position?: "relative" | "absolute";
+  top?: number;
   bottom?: number;
   color?: string;
-  background?: string;
+  background?: any;
+  zIndex?: number;
 
   renderLeft?: React.ReactNode;
   textLeft?: string;
@@ -17,6 +19,7 @@ interface TitleProps {
   textCenter?: string;
 
   buttonRight?: React.ReactNode;
+  paddingRight?: number;
   renderRight?: React.ReactNode;
 }
 
@@ -24,9 +27,11 @@ const Title = ({
   height = 0,
   padding = 0,
   position = "relative",
-  bottom = 0,
+  top,
+  bottom,
   color = "N100",
   background,
+  zIndex = 801,
 
   renderLeft,
   textLeft = "",
@@ -34,6 +39,7 @@ const Title = ({
   textCenter = "",
 
   buttonRight,
+  paddingRight,
   renderRight,
 }: TitleProps) => {
   return (
@@ -43,9 +49,10 @@ const Title = ({
       ph={padding}
       justify="space-between"
       pos={position}
+      top={top}
       bottom={bottom}
       bg={background}
-      zIndex={801}
+      zIndex={zIndex}
     >
       <Flex>
         <Flex justify="center" align="center">
@@ -68,7 +75,7 @@ const Title = ({
         <Flex justify="center" align="center">
           {buttonRight && buttonRight}
         </Flex>
-        <Space w={4} />
+        <Space w={paddingRight} />
         <Flex justify="center" align="center">
           {renderRight && renderRight}
         </Flex>
