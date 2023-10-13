@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/router";
 import { useAppSelector } from "hooks/useReduxHooks";
-import { globalValue } from "constants/globalValue";
 import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
-import RecommandSwiper from "./RecommandSwiper";
-import { ScrollArea } from "components/core";
-import { onScrollProps } from "components/core/ScrollArea/ScrollArea";
 import { InnerTopNavigation } from "components/TopNavigation";
+import NothingButton from "components/Button/NothingButton";
+import RecommandSwiper from "./RecommandSwiper";
+import { useRouter } from "next/router";
+import { Route } from "constants/Route";
 
 interface RecommendReviewCardContainerProps {
   refs?: any;
@@ -21,7 +20,18 @@ const RecommendReviewCardContainer = ({
   direction,
   touch,
 }: RecommendReviewCardContainerProps) => {
+  const router = useRouter();
   const { recommendReviewDatas } = useGetRecommendReviews();
+  const { display } = useAppSelector((state) => state.global);
+
+  const handleClickButton = () => {
+    if (recommendReviewDatas?.length === 0) {
+      localStorage.setItem("state", "postRecommendReview");
+    } else {
+      localStorage.setItem("state", "updatetRecommendReview");
+    }
+    router.push(Route.RECOMMEND_BEST());
+  };
 
   return (
     <InnerTopNavigation
@@ -32,11 +42,20 @@ const RecommendReviewCardContainer = ({
       bottomHeight={mine ? 85 : 35}
       direction={direction}
     >
-      <RecommandSwiper
-        recommendReviewDatas={recommendReviewDatas}
-        mine={mine}
-        touch={touch}
-      />
+      {recommendReviewDatas && recommendReviewDatas?.length > 0 ? (
+        <RecommandSwiper
+          recommendReviewDatas={recommendReviewDatas}
+          mine={mine}
+          touch={touch}
+        />
+      ) : (
+        <NothingButton
+          height={display.height - 505}
+          text="나만의 추천 음식점을 골라주세요"
+          buttonText="추천 베스트 선택하기"
+          buttonClick={handleClickButton}
+        />
+      )}
     </InnerTopNavigation>
   );
 };

@@ -1,10 +1,9 @@
 import { placesApi } from "api/places";
 import { useInfiniteQuery } from "react-query";
 
-const useGetBookmarks = ({ type, keyword }: any) => {
-  console.log();
+const useGetBookmarks = ({ getData, type, keyword }: any) => {
   const fetchBookmarks = async ({ pageParam = 0 }) => {
-    if (keyword !== "") {
+    if (keyword !== "" && getData) {
       const params: any = {
         type: type,
         keyword: keyword,

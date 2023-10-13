@@ -7,6 +7,9 @@ import useGetReviews from "hooks/queries/user/useGetReviews";
 import { useAppSelector } from "hooks/useReduxHooks";
 import ReviewList from "./ReviewList";
 import { InnerTopNavigation } from "components/TopNavigation";
+import NothingButton from "components/Button/NothingButton";
+import { Route } from "constants/Route";
+import { useRouter } from "next/router";
 
 interface ReviewCardContainerProps {
   refs?: any;
@@ -19,8 +22,14 @@ const ReviewCardContainer = ({
   mine,
   direction,
 }: ReviewCardContainerProps) => {
+  const router = useRouter();
   const { reviewDatas, isLoadingReview, fetchNextPage, hasNextPage } =
     useGetReviews();
+  const { display } = useAppSelector((state) => state.global);
+
+  const handleClickButton = () => {
+    router.push(Route.REVIEW());
+  };
 
   return (
     <InnerTopNavigation
@@ -31,16 +40,29 @@ const ReviewCardContainer = ({
       bottomHeight={mine ? 85 : 35}
       direction={direction}
     >
-      <ReviewList
-        reviewDatas={reviewDatas}
-        fetchNextPage={fetchNextPage}
-        hasNextPage={hasNextPage}
-      />
-      {hasNextPage && (
+      {reviewDatas &&
+      reviewDatas?.length > 0 &&
+      reviewDatas?.[0]?.data?.code !== 1200 ? (
         <>
-          <LoadingCircle height={30} />
-          <Space h={24} />
+          <ReviewList
+            reviewDatas={reviewDatas}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
+          {hasNextPage && (
+            <>
+              <LoadingCircle height={30} />
+              <Space h={24} />
+            </>
+          )}
         </>
+      ) : (
+        <NothingButton
+          height={display.height - 505}
+          text="내가 방문한 음식점의 리뷰를 남겨보세요"
+          buttonText="첫 리뷰 남기기"
+          buttonClick={handleClickButton}
+        />
       )}
     </InnerTopNavigation>
   );

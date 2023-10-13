@@ -44,6 +44,9 @@ export interface getRecommendReviewsProps {
 }
 
 export interface getReviewsProps {
+  data?: {
+    code: number;
+  };
   contents: getReviewsContentsProps[];
   hasContent: boolean;
   hasNext: boolean;
