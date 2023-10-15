@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 
 import { typography } from "constants/typography";
 import Icon from "components/Icon";
+import { Box } from "components/core";
 
 const Description = ({ text = "" }: any) => {
   const contentRef = useRef<any>(null);
@@ -21,7 +22,7 @@ const Description = ({ text = "" }: any) => {
   };
 
   return (
-    <TextWrapper onClick={onClick}>
+    <Box pos="relative" onClick={onClick}>
       <Ellipsis typo="Paragraph2">
         {toggleEllipsis(text, limit).string}
         {limit !== text.length && text.length > 120 ? <>...</> : undefined}
@@ -33,13 +34,9 @@ const Description = ({ text = "" }: any) => {
           </span>
         </Button>
       ) : undefined}
-    </TextWrapper>
+    </Box>
   );
 };
-
-const TextWrapper = styled.div`
-  position: relative;
-`;
 
 const Ellipsis = styled.div<{ typo: any }>`
   line-height: 170%;

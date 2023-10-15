@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect } from "react";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { Box, ScrollArea } from "components/core";
+import { ScrollProps } from "components/core/ScrollArea/ScrollArea";
 
 const ScrollTopNavigation = forwardRef(function Div(
   {
@@ -31,7 +32,7 @@ const ScrollTopNavigation = forwardRef(function Div(
     else direction.setDirection("up");
   };
 
-  const handleScroll = ({ scrollY }: { scrollX: number; scrollY: number }) => {
+  const handleScroll = ({ scrollY }: ScrollProps) => {
     if (scrollY < scroll) {
       for (let i = 1; i < refs?.length; i++) {
         refs?.[i].current!.style.setProperty("overflow-y", `hidden`);

@@ -14,6 +14,11 @@ type ScrollAreaProps = ComponentsProps & {
   onScroll?: any;
 };
 
+export interface ScrollProps {
+  scrollX: number;
+  scrollY: number;
+}
+
 const StyledBox = styled(MaterialBox)``;
 
 const ScrollArea = ({ children, ...props }: ScrollAreaProps) => {

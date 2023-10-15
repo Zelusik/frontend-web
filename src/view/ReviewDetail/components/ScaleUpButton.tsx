@@ -5,6 +5,7 @@ import { colors } from "constants/colors";
 import { Route } from "constants/Route";
 import Icon from "components/Icon";
 import Text from "components/core/Text";
+import { Box, Flex } from "components/core";
 
 export default function ScaleUpButton({ lat, lng, myLat, myLng }: any) {
   const router = useRouter();
@@ -22,27 +23,23 @@ export default function ScaleUpButton({ lat, lng, myLat, myLng }: any) {
   };
 
   return (
-    <Wrapper onClick={handleClickScaleUp}>
-      <Text typo="Heading2" c="N100" style={{ marginRight: 4 }}>
+    <Flex
+      h={33}
+      ph={8}
+      pos="absolute"
+      top={15}
+      right={15}
+      align="center"
+      bg="N0"
+      radius={6}
+      shadow="0px 0px 8px 0px rgba(0, 0, 0, 0.06)"
+      zIndex={899}
+      onClick={handleClickScaleUp}
+    >
+      <Text mr={4} typo="Heading2" c="N100">
         크게 보기
       </Text>
       <Icon icon="ScaleUp" />
-    </Wrapper>
+    </Flex>
   );
 }
-
-const Wrapper = styled.div`
-  height: 33px;
-  padding: 0 8px;
-
-  display: flex;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-
-  align-items: center;
-  border-radius: 6px;
-  background-color: ${colors.N0};
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.06);
-  z-index: 899;
-`;

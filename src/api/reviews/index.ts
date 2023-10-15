@@ -26,6 +26,14 @@ export const reviewsApi = {
       .then(({ data }) => data)
       .catch((err) => console.log(err.response));
   },
+
+  getReviewsId: async (reviewId: number) =>
+    await client
+      .get(`/v1/reviews/${reviewId}`, {
+        headers: { "Eatery-API-Minor-Version": 1 },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
 };
 
 export const getReviews = async (params: any) => {

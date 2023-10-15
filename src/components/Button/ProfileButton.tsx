@@ -7,13 +7,15 @@ import { Box, Flex, Image, Space, Text } from "components/core";
 interface ProfileButtonProps {
   id: number;
   image: string;
+  imageSize?: number;
   nickname: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 const ProfileButton = ({
   id,
   image,
+  imageSize = 30,
   nickname,
   createdAt,
 }: ProfileButtonProps) => {
@@ -28,10 +30,10 @@ const ProfileButton = ({
   return (
     <Flex onClick={handleClickProfile}>
       {/* <Center> */}
-      <Image alt="" src={image} w={30} h={30} radius={10} />
+      <Image alt="" src={image} w={imageSize} h={imageSize} radius={10} />
       {/* </Center> */}
       <Space w={8} />
-      <Box>
+      <Box dis="flex" align="center">
         <Text c={colors["N100"]} style={typography["Headline2"]}>
           {nickname}
         </Text>

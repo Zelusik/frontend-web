@@ -134,8 +134,10 @@ const StoreDetail = () => {
                   category={
                     storeInfoData?.category
                       ? `${
-                          storeInfoData?.category ? storeInfoData?.category : ""
-                        } · ${makeAddress(storeInfoData?.Address)}`
+                          storeInfoData?.category
+                            ? storeInfoData?.category + " . "
+                            : ""
+                        }${makeAddress(storeInfoData?.address)}`
                       : ""
                   }
                   color="N100"

@@ -1,12 +1,11 @@
 import { useQuery } from "react-query";
-import { getPlacesId } from "api/places";
-import { getReviewsId } from "api/reviews";
+import { reviewsApi } from "api/reviews";
 
 const useGetReviewsId = (reviewId: number): any => {
   const { data, isLoading, error, refetch } = useQuery(
     [],
     async () => {
-      const result = await getReviewsId(reviewId);
+      const result = await reviewsApi.getReviewsId(reviewId);
       return result;
     },
     {
@@ -15,7 +14,7 @@ const useGetReviewsId = (reviewId: number): any => {
     }
   );
 
-  return { data, isLoading, error, refetch };
+  return { reviewData: data, isReviewLoading: isLoading, error, refetch };
 };
 
 export default useGetReviewsId;
