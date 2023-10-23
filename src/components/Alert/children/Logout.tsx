@@ -14,7 +14,7 @@ export default function Logout() {
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
     closeAlert();
-    router.push("/").then(() => window.scrollTo(0, 0));
+    router.push("/login").then(() => window.scrollTo(0, 0));
   };
 
   return (
