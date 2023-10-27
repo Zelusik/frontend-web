@@ -7,6 +7,7 @@ interface HashtagProps {
   key?: number;
   color?: any;
   typo?: any;
+  background?: any;
 
   hashColor?: any;
   hashTypo?: any;
@@ -19,6 +20,7 @@ interface HashtagProps {
 export default function Hashtag({
   color = "Orange300",
   typo = "Paragraph4",
+  background = "Orange100",
 
   hashColor,
   hashTypo,
@@ -30,7 +32,7 @@ export default function Hashtag({
   const router = useRouter();
 
   return (
-    <Flex h={40} ph={12} bg="Orange100" radius={40}>
+    <Flex h={40} ph={12} bg={background} radius={40}>
       <Flex justify="center" align="center">
         <Text
           c={hashColor ? hashColor : color}

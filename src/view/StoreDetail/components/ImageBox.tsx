@@ -7,7 +7,7 @@ import { globalValue } from "constants/globalValue";
 import { Route } from "constants/Route";
 
 import { typography } from "constants/typography";
-import { AspectRatio, Box, Divider, Flex, Image, Space } from "components/core";
+import { AspectRatio, Box, Flex, Image, Space } from "components/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 
 const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
@@ -42,23 +42,14 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
         pos="relative"
         onClick={handleClickImage}
       >
-        {/* <Box w="100%" h="100%"> */}
         <AspectRatio
           w={images?.length < 2 ? display.width : (display.width - 3) / 2}
           ratio={281 / 360}
         >
           {images?.length > 0 && (
-            <Image
-              alt="디테일 이미지"
-              src={
-                images?.length > 0
-                  ? images?.[0]?.thumbnailImageUrl
-                  : "https://i.ibb.co/2kSZX6Y/60pt.png"
-              }
-            />
+            <Image alt="디테일 이미지" src={images?.[0]?.thumbnailImageUrl} />
           )}
         </AspectRatio>
-        {/* </Box> */}
 
         {images?.length > 1 && (
           <>

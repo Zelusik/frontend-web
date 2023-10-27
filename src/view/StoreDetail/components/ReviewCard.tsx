@@ -1,51 +1,45 @@
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
-
 import Description from "components/Description";
 import Hashtags from "components/Hashtags";
-// import SlideImage from "components/Image/SlideImage";
-import BasicTitle from "components/Title/Title";
-import { Image, Space } from "components/core";
+import { Box, Space } from "components/core";
+import SlideImage from "./ImageSlide";
+import Title from "components/Title";
+import ProfileButton from "components/Button/ProfileButton";
+import { getTimeSinceVisit } from "utils/getTimeSinceVisit";
 
-export default function ReivewCard({ data }: any) {
-  const router = useRouter();
-  const mine = true;
-
+export default function ReivewCard({ data, touch }: any) {
   return (
     <>
-      <Wrapper>
-        <BasicTitle
+      <Box ph={20}>
+        <Title
           height={37}
           renderLeft={
-            <Image
-              src={
-                data?.writer?.profileThumbnailImageUrl ||
-                "https://i.ibb.co/2kSZX6Y/60pt.png"
-              }
-              alt="프로필 이미지"
-              w={30}
-              h={30}
-              radius={10}
+            <ProfileButton
+              id={data?.writer?.id}
+              image={data?.writer?.profileThumbnailImageUrl}
+              nickname={data?.writer?.nickname}
+              createdAt={getTimeSinceVisit(data?.createdAt)}
             />
           }
         />
         <Space h={16} />
-      </Wrapper>
+      </Box>
 
-      {/* <SlideImage images={data?.reviewThumbnailImageUrls} /> */}
+      <SlideImage images={data?.reviewThumbnailImageUrls} touch={touch} />
+      <Space h={10} />
 
-      <Wrapper>
-        <Space h={10} />
+      <Box ph={20}>
         <Description text={data?.content} />
         <Space h={10} />
-      </Wrapper>
 
-      <Hashtags hashtagTextDatas={data?.keywords} />
-      <Space h={40} />
+        <Hashtags
+          hashtagTextDatas={data?.keywords}
+          hashColor="N60"
+          textColor="N100"
+          background="N10"
+        />
+        <Space h={40} />
+      </Box>
     </>
   );
 }
-
-const Wrapper = styled.div`
-  padding: 0 20px;
-`;

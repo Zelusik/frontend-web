@@ -30,6 +30,8 @@ import ReviewCardContainer from "./components/ReviewCardContainer";
 import StoreInfoContainer from "./components/StoreInfoContainer";
 import { globalValue } from "constants/globalValue";
 import { makeAddress } from "utils/makeAddress";
+import useGetStoreInfo from "hooks/queries/store-detail/useGetStoreInfo";
+import useGetReviews from "hooks/queries/store-detail/useGetReviews";
 
 const StoreDetail = () => {
   const dispatch = useAppDispatch();
@@ -55,13 +57,12 @@ const StoreDetail = () => {
   const [direction, setDirection] = useState("none");
   const [startY, setStartY] = useState([0, 0, 0]);
 
-  const {
-    storeInfoData,
-    isStoreInfoLoading,
-    reviewDatas,
-    fetchNextPage,
-    hasNextPage,
-  } = useGetStore({
+  const { storeInfoData, isStoreInfoLoading } = useGetStoreInfo({
+    kakaoId: router.query.kakaoId,
+    placeId: Number(router.query.id),
+  });
+
+  const { reviewDatas, fetchNextPage, hasNextPage } = useGetReviews({
     kakaoId: router.query.kakaoId,
     placeId: Number(router.query.id),
   });
@@ -76,22 +77,28 @@ const StoreDetail = () => {
         padding={20}
         position="absolute"
         top={0}
-        background={titleChange > 0 && "N0"}
+        background={titleChange - ((width * 281) / 360 - 50) > 0 && "N0"}
         zIndex={802}
         renderLeft={
           <BackArrow
             color={
-              storeInfoData?.placeImages?.length > 0 && titleChange <= 0
+              storeInfoData?.placeImages?.length > 0 &&
+              titleChange - ((width * 281) / 360 - 50) <= 0
                 ? "N0"
                 : "N100"
             }
           />
         }
+        paddingLeft={8}
+        textLeft={
+          titleChange - ((width * 281) / 360 - 50) > 0 && storeInfoData?.name
+        }
         renderRight={
           <Dots
             type="share-report"
             color={
-              storeInfoData?.placeImages?.length > 0 && titleChange <= 0
+              storeInfoData?.placeImages?.length > 0 &&
+              titleChange - ((width * 281) / 360 - 50) <= 0
                 ? "N0"
                 : "N100"
             }

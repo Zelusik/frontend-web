@@ -52,123 +52,124 @@ export default function ReviewDetail() {
 
   return (
     <>
-      <ImageBox ref={imageRef} images={reviewData?.reviewImages} />
-      <Title
-        height={50}
-        padding={20}
-        position="absolute"
-        top={0}
-        background={titleChange > width - 50 && "N0"}
-        zIndex={802}
-        renderLeft={
-          <BackArrow color={titleChange <= width - 50 ? "N0" : "N100"} />
-        }
-        paddingLeft={8}
-        textLeft={titleChange > width - 50 && reviewData?.place?.name}
-        renderRight={
-          <Dots
-            type="share-report"
-            color={titleChange <= width - 50 ? "N0" : "N100"}
-          />
-        }
-      />
-
       {isReviewLoading ? (
         <LoadingCircle height={height - 50} />
       ) : (
-        <ScrollArea
-          veiwportRef={scrollRef}
-          scroll="y"
-          h={height}
-          bg="N0"
-          onScroll={handleScroll}
-        >
-          <Space h={width + 4} />
-          <Box pos="relative" bg="N0">
-            <Space h={20} />
-            <Title
-              height={49}
-              padding={20}
-              renderLeft={
-                <StoreReviewButton
-                  type="none"
-                  id={1}
-                  name={reviewData?.place?.name}
-                  category={
-                    reviewData?.place?.category
-                      ? `${
-                          reviewData?.place?.category
-                            ? reviewData?.place?.category + " . "
-                            : ""
-                        }${makeAddress(reviewData?.place?.address)}`
-                      : ""
-                  }
-                  color="N100"
-                  nameTypo="Headline5"
-                  categoryTypo="Paragraph1"
-                />
-              }
-              renderRight={<Heart id={reviewData?.place?.id} />}
-            />
-            <Space h={16} />
-
-            <Hashtags
-              padding={20}
-              textColor="N100"
-              hashtagTextDatas={reviewData?.keywords}
-            />
-
-            <Box ph={20}>
-              <Space h={16} />
-              <Description text={reviewData?.content} />
-              <Space h={15} />
-              <Divider h={1} bg="N20" />
-              <Space h={16} />
+        <>
+          <ImageBox ref={imageRef} images={reviewData?.reviewImages} />
+          <Title
+            height={50}
+            padding={20}
+            position="absolute"
+            top={0}
+            background={titleChange > width - 50 && "N0"}
+            zIndex={802}
+            renderLeft={
+              <BackArrow color={titleChange <= width - 50 ? "N0" : "N100"} />
+            }
+            paddingLeft={8}
+            textLeft={titleChange > width - 50 && reviewData?.place?.name}
+            renderRight={
+              <Dots
+                type="share-report"
+                color={titleChange <= width - 50 ? "N0" : "N100"}
+              />
+            }
+          />
+          <ScrollArea
+            veiwportRef={scrollRef}
+            scroll="y"
+            h={height}
+            bg="N0"
+            onScroll={handleScroll}
+          >
+            <Space h={width + 4} />
+            <Box pos="relative" bg="N0">
+              <Space h={20} />
               <Title
-                height={24}
+                height={49}
+                padding={20}
                 renderLeft={
-                  <ProfileButton
-                    id={reviewData?.writer?.id}
-                    image={reviewData?.writer?.profileThumbnailImageUrl}
-                    imageSize={24}
-                    nickname={reviewData?.writer?.nickname}
+                  <StoreReviewButton
+                    type="none"
+                    id={1}
+                    name={reviewData?.place?.name}
+                    category={
+                      reviewData?.place?.category
+                        ? `${
+                            reviewData?.place?.category
+                              ? reviewData?.place?.category + " . "
+                              : ""
+                          }${makeAddress(reviewData?.place?.address)}`
+                        : ""
+                    }
+                    color="N100"
+                    nameTypo="Headline5"
+                    categoryTypo="Paragraph1"
                   />
                 }
+                renderRight={<Heart id={reviewData?.place?.id} />}
               />
               <Space h={16} />
-            </Box>
 
-            <Box w="100%" h={(width * 23) / 36} pos="relative">
-              <KakaoMap
-                height={(width * 23) / 36}
-                lat={Number(reviewData?.place?.point?.lat)}
-                lng={Number(reviewData?.place?.point?.lng)}
-                myLat={Number(reviewData?.place?.point?.lat)}
-                myLng={Number(reviewData?.place?.point?.lng)}
+              <Hashtags
+                padding={20}
+                textColor="N100"
+                hashtagTextDatas={reviewData?.keywords}
               />
-              <Box
-                w="100%"
-                h={(width * 23) / 36}
-                pos="absolute"
-                top={0}
-                zIndex={800}
-              />
-              <ScaleUpButton
-                lat={reviewData?.place?.point?.lat}
-                lng={reviewData?.place?.point?.lng}
-                myLat={reviewData?.place?.point?.lat}
-                myLng={reviewData?.place?.point?.lng}
-              />
-            </Box>
 
-            <Box ph={20}>
-              <Space h={40} />
-              {makeInfo(reviewData?.place).map((data: any, idx: number) => {
-                return <Info key={idx} data={data} />;
-              })}
+              <Box ph={20}>
+                <Space h={16} />
+                <Description text={reviewData?.content} />
+                <Space h={15} />
+                <Divider h={1} bg="N20" />
+                <Space h={16} />
+                <Title
+                  height={24}
+                  renderLeft={
+                    <ProfileButton
+                      id={reviewData?.writer?.id}
+                      image={reviewData?.writer?.profileThumbnailImageUrl}
+                      imageSize={24}
+                      nickname={reviewData?.writer?.nickname}
+                    />
+                  }
+                />
+                <Space h={16} />
+              </Box>
+
+              <Box w="100%" h={(width * 23) / 36} pos="relative">
+                <KakaoMap
+                  height={(width * 23) / 36}
+                  lat={Number(reviewData?.place?.point?.lat)}
+                  lng={Number(reviewData?.place?.point?.lng)}
+                  myLat={Number(reviewData?.place?.point?.lat)}
+                  myLng={Number(reviewData?.place?.point?.lng)}
+                />
+                <Box
+                  w="100%"
+                  h={(width * 23) / 36}
+                  pos="absolute"
+                  top={0}
+                  zIndex={800}
+                />
+                <ScaleUpButton
+                  lat={reviewData?.place?.point?.lat}
+                  lng={reviewData?.place?.point?.lng}
+                  myLat={reviewData?.place?.point?.lat}
+                  myLng={reviewData?.place?.point?.lng}
+                />
+              </Box>
+
+              <Box ph={20}>
+                <Space h={40} />
+                {makeInfo(reviewData?.place).map((data: any, idx: number) => {
+                  return <Info key={idx} data={data} />;
+                })}
+              </Box>
             </Box>
-          </Box>
-        </ScrollArea>
+          </ScrollArea>
+        </>
       )}
     </>
   );

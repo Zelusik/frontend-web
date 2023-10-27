@@ -16,7 +16,7 @@ const CustomImage = ({ children, ...props }: ImageProps) => {
       src={props?.src || globalValue.BLANK_IMAGE}
       style={{
         ...coreStyles(props),
-        objectFit: props?.fit,
+        objectFit: props?.fit ? props?.fit : "cover",
         ...props.style,
       }}
     />

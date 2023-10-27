@@ -11,6 +11,7 @@ interface HashtagsProps {
 
   color?: any;
   typo?: any;
+  background?: any;
 
   hashColor?: any;
   hashTypo?: any;
@@ -26,6 +27,7 @@ const Hashtags = ({
 
   color = "Orange300",
   typo = "Paragraph4",
+  background,
 
   hashColor,
   hashTypo,
@@ -48,6 +50,7 @@ const Hashtags = ({
             key={idx}
             color={color}
             typo={typo}
+            background={background}
             hashColor={hashColor}
             hashTypo={hashTypo}
             textColor={textColor}
