@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import BottomButton from "components/Button/BottomButton";
 import RoundButton from "components/Button/RoundButton";
 import Icon from "components/Icon/Icon";
-import Image from "components/Image/Image";
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
 import { typography } from "constants/typography";
@@ -13,7 +12,7 @@ import { changeUserInfo } from "reducer/slices/user/userSlice";
 import useEditMyInfo from "hooks/queries/user/useEditMyInfo";
 import { useDropzone } from "react-dropzone";
 import imageCompression from "browser-image-compression";
-import { Space, Text } from "components/core";
+import { Image, Space, Text } from "components/core";
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -133,12 +132,7 @@ const EditProfile = () => {
           <BackTitle type="black-left-text" text="회원 정보 수정" />
           <ImageWrapper {...getRootProps()}>
             <input {...getInputProps()} />
-            <Image
-              alt="프로필 사진"
-              src={user.image.thumbnailUrl}
-              type="default"
-              size={92}
-            />
+            <Image alt="프로필 사진" src={user.image.thumbnailUrl} />
             <div className="icon-wrapper">
               <Icon icon="Camera" />
             </div>

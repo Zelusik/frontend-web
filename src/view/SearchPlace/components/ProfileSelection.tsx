@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import Image from "components/Image";
 import { Route } from "constants/Route";
 import Text from "components/core/Text";
+import { Image } from "components/core";
 
 export default function ProfileSelection({ data, keyword }: any) {
   const router = useRouter();
@@ -41,11 +40,7 @@ export default function ProfileSelection({ data, keyword }: any) {
   return (
     <TitleWrapper onClick={handleClickSelection}>
       <div style={{ margin: "auto 0", display: "flex" }}>
-        <Image
-          alt="프로필 사진"
-          src={data.profileThumbnailImage}
-          type="default"
-        />
+        <Image alt="프로필 사진" src={data.profileThumbnailImage} />
         {dataSplit?.map((d: any, idx: number) => {
           return (
             <Text

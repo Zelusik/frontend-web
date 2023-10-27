@@ -14,6 +14,7 @@ interface TitleProps {
   zIndex?: number;
 
   renderLeft?: React.ReactNode;
+  paddingLeft?: number;
   textLeft?: string;
 
   textCenter?: string;
@@ -34,6 +35,7 @@ const Title = ({
   zIndex = 801,
 
   renderLeft,
+  paddingLeft,
   textLeft = "",
 
   textCenter = "",
@@ -58,6 +60,7 @@ const Title = ({
         <Flex justify="center" align="center">
           {renderLeft && renderLeft}
         </Flex>
+        <Space w={paddingLeft} />
         <Flex justify="center" align="center">
           <Text typo="Headline5" c={color}>
             {textLeft}

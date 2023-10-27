@@ -20,7 +20,7 @@ import { AspectRatio, Box, Image, Space } from "components/core";
 import Title from "components/Title";
 import StoreReviewButton from "components/Button/StoreReviewButton";
 import Heart from "components/Button/IconButton/Heart";
-import ImageCount from "components/Image/ImageCount";
+import ImageCount from "components/ImageCount";
 
 interface StoreCardProps {
   key?: number;

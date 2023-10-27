@@ -12,7 +12,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Route } from "constants/Route";
 import Hashtags from "components/Hashtags";
-import ImageCount from "components/Image/ImageCount";
+import ImageCount from "components/ImageCount";
 import { globalValue } from "constants/globalValue";
 import Title from "components/Title";
 import StoreReviewButton from "components/Button/StoreReviewButton";

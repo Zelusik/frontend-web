@@ -13,7 +13,7 @@ const CustomImage = ({ children, ...props }: ImageProps) => {
   return (
     <img
       alt={props?.alt}
-      src={globalValue.BLANK_IMAGE}
+      src={props?.src || globalValue.BLANK_IMAGE}
       style={{
         ...coreStyles(props),
         objectFit: props?.fit,

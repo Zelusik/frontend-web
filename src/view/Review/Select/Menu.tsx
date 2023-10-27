@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import Image from "components/Image/Image";
 import { typography } from "constants/typography";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 
@@ -23,7 +22,7 @@ import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { OriginalImageDataType, TransformedImageDataType } from "types/review";
 import useBottomSheet from "hooks/useBottomSheet";
 import useDisplaySize from "hooks/useDisplaySize";
-import { Space } from "components/core";
+import { Image, Space } from "components/core";
 
 const Menu = () => {
   const router = useRouter();
@@ -211,7 +210,6 @@ const Menu = () => {
               <Image
                 alt="음식 사진"
                 src={imageInfo.imageUrl}
-                type="review"
                 onClick={(event: any) => handleClickImage(event, index)}
               />
               {imageInfo?.menuTag && (

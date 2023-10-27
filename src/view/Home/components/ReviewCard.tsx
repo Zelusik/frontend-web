@@ -39,8 +39,7 @@ export default function ReviewCard({ feedData }: ReviewCardProps) {
             <ProfileButton
               id={feedData?.writer?.id}
               image={
-                feedData?.writer?.image?.thumbnailUrl ||
-                "https://i.ibb.co/2kSZX6Y/60pt.png"
+                feedData?.writer?.image?.thumbnailUrl || globalValue.ERROR_IMAGE
               }
               nickname={feedData?.writer?.nickname}
               createdAt={getTimeSinceVisit(feedData?.createdAt)}
@@ -50,7 +49,7 @@ export default function ReviewCard({ feedData }: ReviewCardProps) {
         />
         <Space h={16} />
 
-        <AspectRatio ratio={8 / 9} radius={20}>
+        <AspectRatio ratio={8 / 9} radius={20} onClick={clickStore}>
           <Image
             src={
               feedData?.reviewImage?.thumbnailUrl
@@ -59,7 +58,6 @@ export default function ReviewCard({ feedData }: ReviewCardProps) {
             }
             alt="음식 사진"
             fit="cover"
-            onClick={clickStore}
           />
           <Gradient
             h={100}

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 import Description from "components/Description";
 import Hashtags from "components/Hashtags";
-import SlideImage from "components/Image/SlideImage";
+// import SlideImage from "components/Image/SlideImage";
 import BasicTitle from "components/Title/Title";
 import { Image, Space } from "components/core";
 
@@ -32,7 +32,7 @@ export default function ReivewCard({ data }: any) {
         <Space h={16} />
       </Wrapper>
 
-      <SlideImage images={data?.reviewThumbnailImageUrls} />
+      {/* <SlideImage images={data?.reviewThumbnailImageUrls} /> */}
 
       <Wrapper>
         <Space h={10} />

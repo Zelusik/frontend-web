@@ -58,13 +58,17 @@ export default function ReviewDetail() {
         padding={20}
         position="absolute"
         top={0}
-        background={titleChange > width && "N0"}
+        background={titleChange > width - 50 && "N0"}
         zIndex={802}
-        renderLeft={<BackArrow color={titleChange <= width ? "N0" : "N100"} />}
+        renderLeft={
+          <BackArrow color={titleChange <= width - 50 ? "N0" : "N100"} />
+        }
+        paddingLeft={8}
+        textLeft={titleChange > width - 50 && reviewData?.place?.name}
         renderRight={
           <Dots
             type="share-report"
-            color={titleChange <= width ? "N0" : "N100"}
+            color={titleChange <= width - 50 ? "N0" : "N100"}
           />
         }
       />
@@ -124,7 +128,7 @@ export default function ReviewDetail() {
                 height={24}
                 renderLeft={
                   <ProfileButton
-                    id={reviewData?.id}
+                    id={reviewData?.writer?.id}
                     image={reviewData?.writer?.profileThumbnailImageUrl}
                     imageSize={24}
                     nickname={reviewData?.writer?.nickname}
@@ -136,12 +140,19 @@ export default function ReviewDetail() {
 
             <Box w="100%" h={(width * 23) / 36} pos="relative">
               <KakaoMap
-                lat={reviewData?.place?.point?.lat}
-                lng={reviewData?.place?.point?.lng}
-                myLat={reviewData?.place?.point?.lat}
-                myLng={reviewData?.place?.point?.lng}
+                height={(width * 23) / 36}
+                lat={Number(reviewData?.place?.point?.lat)}
+                lng={Number(reviewData?.place?.point?.lng)}
+                myLat={Number(reviewData?.place?.point?.lat)}
+                myLng={Number(reviewData?.place?.point?.lng)}
               />
-              <Box w="100%" h="100%" pos="absolute" top={0} zIndex={800} />
+              <Box
+                w="100%"
+                h={(width * 23) / 36}
+                pos="absolute"
+                top={0}
+                zIndex={800}
+              />
               <ScaleUpButton
                 lat={reviewData?.place?.point?.lat}
                 lng={reviewData?.place?.point?.lng}

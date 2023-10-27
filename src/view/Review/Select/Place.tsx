@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
-import Image from "components/Image/Image";
 import { typography } from "constants/typography";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,7 +17,7 @@ import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
 import Icon from "components/Icon/Icon";
 import LoadingDots from "components/Loading/LoadingDots";
 import useDisplaySize from "hooks/useDisplaySize";
-import { Space } from "components/core";
+import { Image, Space } from "components/core";
 
 const Place = () => {
   const router = useRouter();
@@ -69,7 +68,7 @@ const Place = () => {
             >
               {image.map((preview: any, index: number) => (
                 <SwiperSlide key={preview.imageUrl}>
-                  <Image alt="음식 사진" src={preview.imageUrl} type="review" />
+                  <Image alt="음식 사진" src={preview.imageUrl} />
                 </SwiperSlide>
               ))}
             </Swiper>

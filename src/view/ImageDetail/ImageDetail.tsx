@@ -11,8 +11,7 @@ import Numbers from "components/Common/Number";
 
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
-import Image from "components/Image";
-import { Space } from "components/core";
+import { Image, Space } from "components/core";
 
 export default function ImageDetail({}: any) {
   const router = useRouter();
@@ -61,83 +60,47 @@ export default function ImageDetail({}: any) {
       >
         {router.query.image1 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image1}
-            />
+            <Image alt="상세 이미지" src={router.query.image1} />
           </SwiperSlide>
         ) : undefined}
         {router.query.image2 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image2}
-            />
+            <Image alt="상세 이미지" src={router.query.image2} />
           </SwiperSlide>
         ) : undefined}
         {router.query.image3 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image3}
-            />
+            <Image alt="상세 이미지" src={router.query.image3} />
           </SwiperSlide>
         ) : undefined}
         {router.query.image4 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image4}
-            />
+            <Image alt="상세 이미지" src={router.query.image4} />
           </SwiperSlide>
         ) : undefined}
         {router.query.image5 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image5}
-            />
+            <Image alt="상세 이미지" src={router.query.image5} />
           </SwiperSlide>
         ) : undefined}
         {router.query.image6 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image6}
-            />
+            <Image alt="상세 이미지" src={router.query.image6} />
           </SwiperSlide>
         ) : undefined}
         {router.query.image7 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image7}
-            />
+            <Image alt="상세 이미지" src={router.query.image7} />
           </SwiperSlide>
         ) : undefined}
         {router.query.image8 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image8}
-            />
+            <Image alt="상세 이미지" src={router.query.image8} />
           </SwiperSlide>
         ) : undefined}
         {router.query.image9 !== "" ? (
           <SwiperSlide>
-            <Image
-              type="store-detail"
-              alt="상세 이미지"
-              src={router.query.image9}
-            />
+            <Image alt="상세 이미지" src={router.query.image9} />
           </SwiperSlide>
         ) : undefined}
       </Swiper>

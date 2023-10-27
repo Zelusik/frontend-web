@@ -2,15 +2,12 @@ import { forwardRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import useDisplaySize from "hooks/useDisplaySize";
 import { colors } from "constants/colors";
 import { globalValue } from "constants/globalValue";
 import { Route } from "constants/Route";
 
-import Image from "components/Image";
-
 import { typography } from "constants/typography";
-import { AspectRatio, Box, Divider, Flex, Space } from "components/core";
+import { AspectRatio, Box, Divider, Flex, Image, Space } from "components/core";
 import { useAppSelector } from "hooks/useReduxHooks";
 
 const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
@@ -53,7 +50,6 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
           {images?.length > 0 && (
             <Image
               alt="디테일 이미지"
-              type="store-detail"
               src={
                 images?.length > 0
                   ? images?.[0]?.thumbnailImageUrl
@@ -74,7 +70,6 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
               >
                 <Image
                   alt="디테일 이미지"
-                  type="review-detail"
                   src={images?.[1]?.thumbnailImageUrl}
                 />
               </AspectRatio>
@@ -84,7 +79,6 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
                   <AspectRatio w={(display.width - 3) / 2} h={height / 2}>
                     <Image
                       alt="디테일 이미지"
-                      type="review-detail"
                       src={images?.[2]?.thumbnailImageUrl}
                     />
                     {images?.length > 3 && (
