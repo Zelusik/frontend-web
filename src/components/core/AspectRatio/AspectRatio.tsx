@@ -10,6 +10,10 @@ type AspectRatioProps = ComponentsProps & {
 const AspectRatio = ({ children, ...props }: AspectRatioProps) => {
   return (
     <MaterialBox
+      onTouchStart={props?.onTouchStart}
+      onTouchMove={props?.onTouchMove}
+      onTouchEnd={props?.onTouchEnd}
+      onClick={props?.onClick}
       style={{
         ...coreStyles(props),
         position: "relative",

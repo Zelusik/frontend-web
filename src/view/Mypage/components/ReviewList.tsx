@@ -75,6 +75,7 @@ export default function ReviewList({
                 w={(display.width - 46) / 2}
                 radius={12}
                 ratio={157 / 170}
+                onClick={() => clickReview(reviewData?.place?.id)}
               >
                 <Image
                   alt="리뷰 사진"

@@ -62,7 +62,7 @@ export default function RecommandBest() {
       <RecommandBestWrapper height={height - 240}>
         <ReviewList
           type="recommand-best"
-          membersReviews={reviewDatas && reviewDatas}
+          membersReviews={reviewDatas}
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
         />

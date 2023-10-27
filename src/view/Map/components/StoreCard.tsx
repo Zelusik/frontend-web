@@ -29,7 +29,6 @@ const StoreCard = ({ nearData }: StoreCardProps) => {
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const { display } = useAppSelector((state) => state.global);
-  const { visible } = useAppSelector((state) => state.mapBottomSheet);
 
   const onSlideChange = (e: any) => {
     let newSwiper = e.activeIndex;
