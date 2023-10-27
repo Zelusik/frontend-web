@@ -73,9 +73,10 @@ const Mypage = () => {
   return (
     <>
       {isLoadingProfile ? (
-        <LoadingCircle
-          height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
-        />
+        // <LoadingCircle
+        //   height={mine ? height - globalValue.BOTTOM_NAVIGATION_HEIGHT : height}
+        // />
+        <></>
       ) : (
         <motion.div
           initial={{ opacity: 0 }}
