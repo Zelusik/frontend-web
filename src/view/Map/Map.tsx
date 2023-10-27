@@ -218,7 +218,7 @@ export default function Map() {
         w={width}
         h={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}
         pos="absolute"
-        style={{ zIndex: 0 }}
+        zIndex={0}
       >
         {myLocation?.error?.code === 1 ? (
           <>
