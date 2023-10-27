@@ -20,12 +20,16 @@ import imageCompression from "browser-image-compression";
 import useToast from "hooks/useToast";
 import { globalValue } from "constants/globalValue";
 import useDisplaySize from "hooks/useDisplaySize";
+import useGeolocation from "hooks/useGeolocation";
+import { Box, Flex, Space, Text } from "components/core";
+import Title from "components/Title";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { height } = useDisplaySize();
   const { isShowToast, openToast, closeToast } = useToast();
+  const myLocation: any = useGeolocation();
   const [isMobile, setIsMobile] = useState(false);
 
   const handleCloseToast = () => {
@@ -143,63 +147,44 @@ const Review = () => {
   });
 
   return (
-    <Wrapper height={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
-      <BackTitle type="white-dots" text="리뷰쓰기" />
-      <MainWrapper>
-        <div style={typography.Headline5}>
-          리뷰 작성을 위해
-          <br />
-          사진을 선택해주세요!
-        </div>
-        <InputWrapper>
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            <div className="customButton">
-              <Icon icon="Gallery" />
-              <div style={typography.Headline2}>사진 추가하기</div>
+    <>
+      <Box h={height - globalValue.BOTTOM_NAVIGATION_HEIGHT}>
+        <Title height={50} textCenter="리뷰쓰기" />
+        <Space h={20} />
+        <Flex ph={20} dir="column" gap={20}>
+          <Text typo="Headline5">
+            리뷰 작성을 위해
+            <br />
+            사진을 선택해주세요!
+          </Text>
+          <Flex
+            w={160}
+            h={114}
+            justify="center"
+            align="center"
+            radius={12}
+            bw={1}
+            bc="N40"
+          >
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <div className="customButton">
+                <Icon icon="Gallery" />
+                <div style={typography.Headline2}>사진 추가하기</div>
+              </div>
             </div>
-          </div>
-        </InputWrapper>
-      </MainWrapper>
-      {isShowToast && (
-        <Toast
-          message={"최대 9장의 사진 선택이 가능합니다"}
-          close={handleCloseToast}
-        />
-      )}
+          </Flex>
+        </Flex>
+        {isShowToast && (
+          <Toast
+            message={"최대 9장의 사진 선택이 가능합니다"}
+            close={handleCloseToast}
+          />
+        )}
+      </Box>
       <BottomNavigation />
-    </Wrapper>
+    </>
   );
 };
 
-const Wrapper = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
-`;
-
-const MainWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 160px;
-  height: 114px;
-
-  border-radius: 12px;
-  border: 1px solid ${colors.N40};
-
-  .customButton {
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
-
-    align-items: center;
-  }
-`;
 export default Review;
