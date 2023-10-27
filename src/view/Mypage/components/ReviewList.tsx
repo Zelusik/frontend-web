@@ -16,7 +16,7 @@ import {
   changeRecommendReview,
   initializeRecommendReview,
 } from "reducer/slices/review/recommendReviewSlice";
-import { AspectRatio, Box, Flex, Image, Space } from "components/core";
+import { AspectRatio, Box, Flex, Image, Space, Text } from "components/core";
 import Title from "components/Title";
 import StoreReviewButton from "components/Button/StoreReviewButton";
 import {
@@ -64,7 +64,7 @@ export default function ReviewList({
 
   return (
     <>
-      <Space h={20} />
+      {type === "mypage" && <Space h={20} />}
       <Flex wrap="wrap" gap={6}>
         {reviewDatas
           ?.flatMap((review_data: getReviewsProps) => review_data?.contents)
@@ -98,6 +98,35 @@ export default function ReviewList({
                     />
                   }
                 />
+                {type === "recommand-best" && (
+                  <Box
+                    w={20}
+                    h={20}
+                    pos="absolute"
+                    top={12}
+                    right={12}
+                    dis="flex"
+                    justify="center"
+                    align="center"
+                    radius={20}
+                    bw={2}
+                    bc={
+                      recommendReview.includes(reviewData?.place?.id)
+                        ? "Orange600"
+                        : "N40"
+                    }
+                    bg={
+                      recommendReview.includes(reviewData?.place?.id)
+                        ? "Orange600"
+                        : "transparent"
+                    }
+                  >
+                    <Text c="N0" typo="Headline2">
+                      {recommendReview.indexOf(reviewData?.place?.id) !== -1 &&
+                        recommendReview.indexOf(reviewData?.place?.id) + 1}
+                    </Text>
+                  </Box>
+                )}
               </AspectRatio>
             );
           })}

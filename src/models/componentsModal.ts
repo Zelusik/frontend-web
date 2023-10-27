@@ -32,10 +32,14 @@ export interface ComponentsProps {
   flex?: string;
   dir?: string;
   wrap?: string;
+
   justify?: string;
   text?: string;
   align?: string;
   gap?: string | number;
+
+  bw?: number;
+  bc?: any;
   radius?: string | number;
   ratio?: number;
   o?: string | number;

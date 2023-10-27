@@ -39,6 +39,7 @@ const Button = ({
     <StyledButton
       style={{
         ...coreStyles(props),
+        opacity: disabled ? 0.4 : 1,
         ...props.style,
       }}
       disabled={disabled}

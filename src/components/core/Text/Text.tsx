@@ -16,6 +16,10 @@ const Text = ({ children, ...props }: TextProps) => {
       onClick={props?.onClick}
       style={{
         ...coreStyles(props),
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+
         ...typography[props?.typo],
         color: props?.c && colors[props?.c],
         ...props?.style,

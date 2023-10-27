@@ -52,11 +52,14 @@ export const coreStyles = (props: ComponentsProps) => {
     flexWrap: props?.wrap,
     flexDirection: props?.dir,
     wrap: props?.wrap,
+
     justifyContent: props?.justify,
     textAlign: props?.text,
     alignItems: props?.align,
     gap: props?.gap,
+
     ratio: props?.ratio,
+    border: `${props?.bw}px solid ${colors[props?.bc]}`,
     borderRadius: props?.radius,
     opacity: props?.o,
 

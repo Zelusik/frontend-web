@@ -14,15 +14,17 @@ import {
   postRecommendReviews,
   updateRecommendReviews,
 } from "api/recommend-reviews";
-import useGetMembersReviews from "hooks/queries/user/useGetReviews";
-import { Space } from "components/core";
+import useGetReviews from "hooks/queries/user/useGetReviews";
+import { Box, Button, Flex, ScrollArea, Space } from "components/core";
+import Title from "components/Title";
+import Icon from "components/Icon";
 
 export default function RecommandBest() {
   const router = useRouter();
   const { height } = useDisplaySize();
   const dispatch = useAppDispatch();
   const recommendReview = useAppSelector((state) => state.recommendReview);
-  const { reviewDatas, fetchNextPage, hasNextPage } = useGetMembersReviews();
+  const { reviewDatas, fetchNextPage, hasNextPage } = useGetReviews();
 
   const handleClickStore = async () => {
     const recommendReviews = recommendReview.map(
@@ -45,76 +47,64 @@ export default function RecommandBest() {
     localStorage.removeItem("state");
     router.back();
   };
+
+  const handleClickBack = () => {
+    router.back();
+  };
+
   return (
     <>
-      <TitleWrapper>
-        <BackTitle type="black-x-button" text="추천 베스트 수정하기" />
+      <Box w="100%" ph={20} pos="fixed" bg="N0">
+        <Title
+          height={50}
+          renderLeft={<Box w={24} h={24} />}
+          textCenter="추천 베스트 수정하기"
+          renderRight={<Icon icon="XButton" onClick={handleClickBack} />}
+        />
         <Space h={20} />
         <Text typo="Headline5">
           추천 베스트 3를
           <br />
           선택해주세요!
         </Text>
-        <Space h={20} />
-      </TitleWrapper>
+      </Box>
       <Space h={146} />
 
-      <RecommandBestWrapper height={height - 240}>
+      <ScrollArea scroll="y" h={height - 240} ph={20} bg="N0">
         <ReviewList
           type="recommand-best"
-          membersReviews={reviewDatas}
+          reviewDatas={reviewDatas}
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
         />
-        <Space h={30} />
-      </RecommandBestWrapper>
-
+      </ScrollArea>
       <Gradient size={30} />
-      <ButtonWrapper>
-        <BottomButton
-          type="default"
+
+      <Flex w="100%" h={94} ph={17.5} gap={8} pos="fixed" bottom={0} bg="N0">
+        <Button
+          w="100%"
+          h={54}
+          radius={8}
           onClick={() => dispatch(initializeRecommendReview())}
-          disabled={false}
+          style={{ border: "1px solid #DBDCE2" }}
         >
-          초기화
-        </BottomButton>
-        <BottomButton
-          type="primary"
-          onClick={handleClickStore}
+          <Text c="N100" typo="Headline3">
+            초기화
+          </Text>
+        </Button>
+        <Button
+          w="100%"
+          h={54}
+          radius={8}
           disabled={recommendReview.length !== 3}
+          onClick={handleClickStore}
+          bg="Orange600"
         >
-          저장하기
-        </BottomButton>
-      </ButtonWrapper>
+          <Text c="N0" typo="Headline3">
+            저장하기
+          </Text>
+        </Button>
+      </Flex>
     </>
   );
 }
-
-const RecommandBestWrapper = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
-  padding: 0 20px;
-  overflow-y: scroll;
-`;
-
-const TitleWrapper = styled.div`
-  width: 100%;
-  padding: 0 20px;
-
-  position: fixed;
-  top: 0;
-  z-index: 800;
-  background-color: ${colors.N0};
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  height: 94px;
-  padding: 0 17.5px;
-
-  display: flex;
-  gap: 8px;
-  position: absolute;
-  bottom: 0;
-  z-index: 800;
-  background-color: ${colors.N0};
-`;
