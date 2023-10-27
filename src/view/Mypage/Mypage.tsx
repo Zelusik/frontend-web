@@ -89,7 +89,9 @@ const Mypage = () => {
             Y={{ startY, setStartY }}
             direction={{ direction, setDirection }}
             title={{ titleChange, setTitleChange }}
-            bottomHeight={50 + globalValue.BOTTOM_NAVIGATION_HEIGHT}
+            bottomHeight={
+              50 + (mine ? globalValue.BOTTOM_NAVIGATION_HEIGHT : 0)
+            }
           >
             {/* 332 */}
             <Box w={width} ph={20} bg="N0">

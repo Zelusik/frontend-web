@@ -41,7 +41,7 @@ const ReviewCardContainer = ({
       direction={direction}
     >
       {reviewDatas &&
-      reviewDatas?.length > 0 &&
+      reviewDatas?.[0]?.contents?.length > 0 &&
       reviewDatas?.[0]?.data?.code !== 1200 ? (
         <>
           <ReviewList

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { colors } from "constants/colors";
-import { Box, Flex, Text } from "components/core";
+import { Box, Flex, Space, Text } from "components/core";
 import Button from "components/core/Button";
 
 interface NothingButtonProps {
@@ -22,10 +22,11 @@ const NothingButton = ({
     <Flex h={height} justify="center" align="center">
       <Box text="center">
         {text && (
-          <Text p={0} mb={20} typo="Paragraph5" c="N80">
+          <Text p={0} typo="Paragraph5" c="N80">
             {text}
           </Text>
         )}
+        <Space h={20} />
         <Button
           w="auto"
           h={48}
