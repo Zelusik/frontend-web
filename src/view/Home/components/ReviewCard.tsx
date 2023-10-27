@@ -64,8 +64,6 @@ export default function ReviewCard({ feedData }: ReviewCardProps) {
           <Gradient
             h={100}
             bottom={0}
-            direction="bottom"
-            o={0.8}
             style={{
               background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) -11.22%, rgba(0, 0, 0, 0.00) 100%)`,
             }}

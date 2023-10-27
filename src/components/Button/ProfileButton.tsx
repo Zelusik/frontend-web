@@ -10,6 +10,7 @@ interface ProfileButtonProps {
   imageSize?: number;
   nickname: string;
   createdAt?: string;
+  display?: string;
 }
 
 const ProfileButton = ({
@@ -18,6 +19,7 @@ const ProfileButton = ({
   imageSize = 30,
   nickname,
   createdAt,
+  display = "block",
 }: ProfileButtonProps) => {
   const router = useRouter();
   const handleClickProfile = () => {
@@ -28,16 +30,14 @@ const ProfileButton = ({
   };
 
   return (
-    <Flex onClick={handleClickProfile}>
-      {/* <Center> */}
+    <Flex align="center" onClick={handleClickProfile}>
       <Image alt="" src={image} w={imageSize} h={imageSize} radius={10} />
-      {/* </Center> */}
       <Space w={8} />
-      <Box dis="flex" align="center">
-        <Text c={colors["N100"]} style={typography["Headline2"]}>
+      <Box dis={display} align="center">
+        <Text c="N100" typo="Headline2">
           {nickname}
         </Text>
-        <Text c={colors["N100"]} style={typography["Paragraph1"]}>
+        <Text c="N100" typo="Paragraph1">
           {createdAt}
         </Text>
       </Box>

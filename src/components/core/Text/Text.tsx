@@ -15,7 +15,7 @@ const Text = ({ children, ...props }: TextProps) => {
     <MaterialBox
       onClick={props?.onClick}
       style={{
-        ...coreStyles(props),
+        // ...coreStyles(props),
         ...typography[props?.typo],
         color: props?.c && colors[props?.c],
         ...props?.style,

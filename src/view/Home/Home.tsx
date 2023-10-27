@@ -24,9 +24,10 @@ export default function Home() {
     <>
       <Title height={50} padding={20} renderLeft={<Icon icon="Logo" />} />
       {isLoading ? (
-        <LoadingCircle
-          height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-        />
+        // <LoadingCircle
+        //   height={height - 50 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
+        // />
+        <></>
       ) : (
         <motion.div
           initial={{ opacity: 0 }}
