@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { Route } from "constants/Route";
 import Text from "components/core/Text";
-import { Image } from "components/core";
+import { Box, Image, Space } from "components/core";
 
 export default function ProfileSelection({ data, keyword }: any) {
   const router = useRouter();
@@ -38,20 +38,31 @@ export default function ProfileSelection({ data, keyword }: any) {
   const dataSplit = data?.nickname?.split(keyword);
 
   return (
-    <TitleWrapper onClick={handleClickSelection}>
-      <div style={{ margin: "auto 0", display: "flex" }}>
-        <Image alt="프로필 사진" src={data.profileThumbnailImage} />
+    <Box
+      w="100%"
+      h={62}
+      dis="flex"
+      justify="space-between"
+      onClick={handleClickSelection}
+    >
+      <Box w="100%" mv="auto" dis="flex" align="center">
+        <Image
+          alt="프로필 사진"
+          src={data?.profileThumbnailImage}
+          w={30}
+          h={30}
+          radius={12}
+        />
+        <Space w={8} />
         {dataSplit?.map((d: any, idx: number) => {
           return (
             <Text
               key={idx}
+              mv="auto"
+              ml={idx === 0 ? 8 : 0}
+              dis="flex"
               typo="Headline4"
               c="N100"
-              style={{
-                margin: "auto 0",
-                display: "flex",
-                marginLeft: idx === 0 ? 8 : 0,
-              }}
             >
               {d?.split(" ")?.map((d2: any, idx2: number) => {
                 return (
@@ -61,7 +72,7 @@ export default function ProfileSelection({ data, keyword }: any) {
                   </span>
                 );
               })}
-              {dataSplit?.length - 1 !== idx ? (
+              {dataSplit?.length - 1 !== idx && (
                 <Text typo="Headline4" c="Orange600">
                   {keyword?.split(" ")?.map((d2: any, idx2: number) => {
                     return (
@@ -74,18 +85,11 @@ export default function ProfileSelection({ data, keyword }: any) {
                     );
                   })}
                 </Text>
-              ) : null}
+              )}
             </Text>
           );
         })}
-      </div>
-    </TitleWrapper>
+      </Box>
+    </Box>
   );
 }
-
-const TitleWrapper = styled.div`
-  width: 100%;
-  height: 62px;
-  display: flex;
-  justify-content: space-between;
-`;

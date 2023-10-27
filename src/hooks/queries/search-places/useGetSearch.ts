@@ -28,6 +28,7 @@ const useGetSearch = (currentIndex: number, keyword: any): any => {
           : currentIndex === 1
           ? await getKeyword(params)
           : await getMembersSearch(params);
+
       return result;
     }
   };
@@ -50,8 +51,8 @@ const useGetSearch = (currentIndex: number, keyword: any): any => {
       }
     },
   });
-  const data = responseData?.pages;
-  return { data, isLoading, error, fetchNextPage, hasNextPage, refetch };
+  const searchDatas = responseData?.pages;
+  return { searchDatas, isLoading, error, fetchNextPage, hasNextPage, refetch };
 };
 
 export default useGetSearch;

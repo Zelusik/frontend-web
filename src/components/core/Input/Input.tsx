@@ -28,18 +28,15 @@ const Input = ({
 
   return (
     <Flex
+      w="100%"
       h={50}
+      ph={12}
       bg="N0"
-      style={{
-        width: "100%",
-        padding: "0 12px",
-
-        alignItems: "center",
-        borderRadius: 8,
-
-        border: shadow ? `` : `1px solid ${colors[focus ? "N100" : "N40"]}`,
-        boxShadow: shadow ? `0px 4px 12px 0px rgba(0, 0, 0, .12)` : ``,
-      }}
+      align="center"
+      radius={12}
+      bw={shadow ? 0 : 1}
+      bc={focus ? "N100" : "N40"}
+      shadow={shadow ? `0px 4px 12px 0px rgba(0, 0, 0, .12)` : ``}
       onClick={handleClickInput}
     >
       <Icon icon="Search" width={24} height={24} />
@@ -54,7 +51,7 @@ const Input = ({
         onBlur={(e: any) => {
           const nextText = e.relatedTarget;
           if (nextText !== null) {
-            setValue(nextText.textContent);
+            // setValue(nextText.textContent);
             inputRef.current.focus();
           } else {
             setFocus(false);
@@ -62,7 +59,7 @@ const Input = ({
         }}
       />
       {type !== "shadow" && focus && value !== "" && (
-        <Box tabIndex={0}>
+        <div tabIndex={0}>
           <Icon
             icon="CircleXButton"
             width={24}
@@ -73,7 +70,7 @@ const Input = ({
               inputRef.current?.focus();
             }}
           />
-        </Box>
+        </div>
       )}
     </Flex>
   );
