@@ -5,12 +5,13 @@ import useDisplaySize from "hooks/useDisplaySize";
 import { useAppSelector } from "hooks/useReduxHooks";
 
 import { globalValue } from "constants/globalValue";
+import { Box, Flex } from "components/core";
 
 const MapStoreDetail = forwardRef(function Div(
   { children, ...props }: any,
   ref: any
 ) {
-  const { height } = useDisplaySize();
+  const { display } = useAppSelector((state) => state.global);
   const { store } = useAppSelector((state) => state.search);
   //   const { visible, actionDelay } = useAppSelector(
   //     (state) => state.mapBottomSheet
@@ -20,8 +21,11 @@ const MapStoreDetail = forwardRef(function Div(
 
   return (
     <>
-      <Wrapper ref={ref} height={height}>
-        Hi
+      <Wrapper ref={ref} height={display.height}>
+        <Flex w="100%" mih={20}>
+          <Box w={36} h={4} m="8px auto" radius={2} bg="N40" />
+        </Flex>
+        {children}
       </Wrapper>
     </>
   );
@@ -38,7 +42,6 @@ const Wrapper = styled.div<{
   flex-direction: column;
 
   position: fixed;
-  //   bottom: 0;
   bottom: ${({ height }) => -height}px;
 
   border-radius: 16px;
@@ -47,7 +50,7 @@ const Wrapper = styled.div<{
   background-color: ${colors.N0};
 
   transition: transform 300ms ease-out;
-  background: yellowgreen;
+  background: ${colors["N0"]};
 `;
 //   top: ${({ height }) => `calc(82px + ${height * 0.7}px)`};
 

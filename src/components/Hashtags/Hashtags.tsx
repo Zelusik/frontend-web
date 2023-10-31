@@ -3,9 +3,11 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import Hashtag from "./Hashtag";
-import { Flex } from "components/core";
+import { Flex, ScrollArea } from "components/core";
+import SlendarHashtag from "./SlendarHashtag";
 
 interface HashtagsProps {
+  type?: "slendar" | undefined;
   padding?: number;
   gap?: number;
 
@@ -22,6 +24,7 @@ interface HashtagsProps {
 }
 
 const Hashtags = ({
+  type,
   padding = 0,
   gap = 6,
 
@@ -39,28 +42,54 @@ const Hashtags = ({
   const router = useRouter();
 
   return (
-    <Flex
-      ph={padding}
-      gap={gap}
-      // style={{ whiteSpace: "nowrap", overflowX: "auto" }} // 가로 스크롤
+    <ScrollWrapper
+    // ph={padding}
+    // dis="flex"
+    // gap={gap}
+    // style={{ whiteSpace: "nowrap" }} // 가로 스크롤
     >
-      {hashtagTextDatas?.map((hashtagText: string, idx: number) => {
-        return (
-          <Hashtag
-            key={idx}
-            color={color}
-            typo={typo}
-            background={background}
-            hashColor={hashColor}
-            hashTypo={hashTypo}
-            textColor={textColor}
-            textTypo={textTypo}
-            hashtagText={hashtagText}
-          />
-        );
-      })}
-    </Flex>
+      <ScrollInner gap={gap}>
+        {hashtagTextDatas?.map((hashtagText: string, idx: number) => {
+          return type === "slendar" ? (
+            <SlendarHashtag
+              key={idx}
+              color={color}
+              typo={typo}
+              background={background}
+              hashColor={hashColor}
+              hashTypo={hashTypo}
+              textColor={textColor}
+              textTypo={textTypo}
+              hashtagText={hashtagText}
+            />
+          ) : (
+            <Hashtag
+              key={idx}
+              color={color}
+              typo={typo}
+              background={background}
+              hashColor={hashColor}
+              hashTypo={hashTypo}
+              textColor={textColor}
+              textTypo={textTypo}
+              hashtagText={hashtagText}
+            />
+          );
+        })}
+      </ScrollInner>
+    </ScrollWrapper>
   );
 };
+
+const ScrollWrapper = styled.div`
+  display: flex;
+  white-space: nowrap;
+  overflow: auto;
+`;
+
+const ScrollInner = styled.div<{ gap: number }>`
+  gap: ${({ gap }) => gap}px;
+  display: flex;
+`;
 
 export default Hashtags;

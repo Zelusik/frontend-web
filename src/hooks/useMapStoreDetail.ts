@@ -43,7 +43,7 @@ export default function useMapStoreDetail({ ...props }: any) {
       }
       sheetInner.current!.style.setProperty(
         "transform",
-        `translateY(${-height * 0.3}px)`
+        `translateY(${-255}px)`
       );
     },
     []
@@ -104,12 +104,12 @@ export default function useMapStoreDetail({ ...props }: any) {
         return;
       }
 
-      sheet.current!.style.setProperty(
-        "transform",
-        `translateY(${differenceY}px)`
-      );
+      // sheet.current!.style.setProperty(
+      //   "transform",
+      //   `translateY(${differenceY}px)`
+      // );
 
-      touchMove.differenceY = differenceY;
+      // touchMove.differenceY = differenceY;
     };
 
     const open = () => {
@@ -121,7 +121,7 @@ export default function useMapStoreDetail({ ...props }: any) {
       const move = touchStart.touchY - touchMove.moveTouchY;
 
       if (Math.abs(move) > 100 && touchMove.movingDirection === "up") {
-        allOpenMapStoreDetail(sheet, HEIGHT);
+        // allOpenMapStoreDetail(sheet, HEIGHT);
       } else if (Math.abs(move) < 100 && touchMove.movingDirection === "up") {
         openMapStoreDetail(sheet, HEIGHT, true, location.pathname);
       } else if (
@@ -135,7 +135,7 @@ export default function useMapStoreDetail({ ...props }: any) {
         touchMove.movingDirection === "down" &&
         location.pathname === "/map-store-detail"
       ) {
-        allOpenMapStoreDetail(sheet, HEIGHT);
+        // allOpenMapStoreDetail(sheet, HEIGHT);
       } else {
         openMapStoreDetail(sheet, HEIGHT, true, location.pathname);
       }

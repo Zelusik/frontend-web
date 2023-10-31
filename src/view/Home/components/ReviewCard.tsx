@@ -38,9 +38,7 @@ export default function ReviewCard({ feedData }: ReviewCardProps) {
           renderLeft={
             <ProfileButton
               id={feedData?.writer?.id}
-              image={
-                feedData?.writer?.image?.thumbnailUrl || globalValue.ERROR_IMAGE
-              }
+              image={feedData?.writer?.image?.thumbnailUrl}
               nickname={feedData?.writer?.nickname}
               createdAt={getTimeSinceVisit(feedData?.createdAt)}
             />

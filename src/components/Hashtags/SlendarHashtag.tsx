@@ -17,7 +17,7 @@ interface HashtagProps {
   hashtagText?: string;
 }
 
-const Hashtag = ({
+const SlendarHashtag = ({
   color = "Orange300",
   typo = "Paragraph4",
   background = "Orange100",
@@ -32,7 +32,7 @@ const Hashtag = ({
   const router = useRouter();
 
   return (
-    <Flex h={40} ph={12} bg={background} radius={40}>
+    <Flex w="auto" h={30} ph={12} bg={background} radius={4}>
       <Flex justify="center" align="center">
         <Text
           c={hashColor ? hashColor : color}
@@ -53,4 +53,4 @@ const Hashtag = ({
   );
 };
 
-export default Hashtag;
+export default SlendarHashtag;
