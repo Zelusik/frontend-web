@@ -17,7 +17,7 @@ import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
 import Icon from "components/Icon/Icon";
 import LoadingDots from "components/Loading/LoadingDots";
 import useDisplaySize from "hooks/useDisplaySize";
-import { Image, Space } from "components/core";
+import { AspectRatio, Image, Space } from "components/core";
 
 const Place = () => {
   const router = useRouter();
@@ -68,7 +68,9 @@ const Place = () => {
             >
               {image.map((preview: any, index: number) => (
                 <SwiperSlide key={preview.imageUrl}>
-                  <Image alt="음식 사진" src={preview.imageUrl} />
+                  <AspectRatio ratio={320 / 281} radius={12}>
+                    <Image alt="음식 사진" src={preview.imageUrl} />
+                  </AspectRatio>
                 </SwiperSlide>
               ))}
             </Swiper>

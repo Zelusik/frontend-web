@@ -43,10 +43,11 @@ const Hashtags = ({
 
   return (
     <ScrollWrapper
-    // ph={padding}
-    // dis="flex"
-    // gap={gap}
-    // style={{ whiteSpace: "nowrap" }} // 가로 스크롤
+      padding={padding}
+      // ph={padding}
+      // dis="flex"
+      // gap={gap}
+      // style={{ whiteSpace: "nowrap" }} // 가로 스크롤
     >
       <ScrollInner gap={gap}>
         {hashtagTextDatas?.map((hashtagText: string, idx: number) => {
@@ -81,7 +82,8 @@ const Hashtags = ({
   );
 };
 
-const ScrollWrapper = styled.div`
+const ScrollWrapper = styled.div<{ padding: number }>`
+  padding: ${({ padding }) => `0 ${padding}px`};
   display: flex;
   white-space: nowrap;
   overflow: auto;
