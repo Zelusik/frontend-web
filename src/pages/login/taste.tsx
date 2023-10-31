@@ -1,33 +1,30 @@
-import React, { useEffect } from "react";
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
-import { colors } from "constants/colors";
+import React, { useEffect } from 'react';
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { colors } from 'constants/colors';
 
-import { typography } from "constants/typography";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeAuthState } from "reducer/slices/auth/authSlice";
+import { typography } from 'constants/typography';
+import { useAppDispatch, useAppSelector } from 'hooks/useReduxHooks';
+import { changeAuthState } from 'reducer/slices/auth/authSlice';
 
-import BottomButton from "components/Button/BottomButton";
-import RoundButton from "components/Button/RoundButton";
-import { getCookie } from "utils/cookie";
-import { Route } from "constants/Route";
-import BackTitle from "components/Title/BackTitle";
-import { postTerms, putTaste } from "api/members";
-import { tasteDatas } from "constants/globalData";
-import { Space } from "components/core";
+import RoundButton from 'components/Button/RoundButton';
+import { getCookie } from 'utils/cookie';
+import { Route } from 'constants/Route';
+import BackTitle from 'components/Title/BackTitle';
+import { postTerms, putTaste } from 'api/members';
+import { tasteDatas } from 'constants/globalData';
+import { Button, Space } from 'components/core';
 
 const TastePage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const accessToken = getCookie("accessToken");
-  const { favoriteFoodCategories, terms } = useAppSelector(
-    (state) => state.auth
-  );
+  const accessToken = getCookie('accessToken');
+  const { favoriteFoodCategories, terms } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(
       changeAuthState({
-        type: "favoriteFoodCategories",
+        type: 'favoriteFoodCategories',
         value: [],
       })
     );
@@ -40,14 +37,14 @@ const TastePage = () => {
       );
       dispatch(
         changeAuthState({
-          type: "favoriteFoodCategories",
+          type: 'favoriteFoodCategories',
           value: tmpFood,
         })
       );
     } else {
       dispatch(
         changeAuthState({
-          type: "favoriteFoodCategories",
+          type: 'favoriteFoodCategories',
           value: [...favoriteFoodCategories, food],
         })
       );
@@ -86,10 +83,10 @@ const TastePage = () => {
             >
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: "8px",
-                  alignItems: "center",
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '8px',
+                  alignItems: 'center',
                 }}
               >
                 <taste.icon /> {taste.val}
@@ -99,25 +96,29 @@ const TastePage = () => {
         </TasteButtonContainer>
       </MainWrapper>
       <ButtonWrapper>
-        <BottomButton
-          text="잇터리 시작하기"
+        <Button
+          w="100%"
+          h={54}
           radius={8}
-          backgroundColor={
-            favoriteFoodCategories.length > 0
-              ? colors.Orange500
-              : colors.Orange200
-          }
-          color={colors.N0}
-          height="56px"
           disabled={favoriteFoodCategories.length > 0 ? false : true}
           onClick={handleClickStart}
-        />
+          style={{
+            backgroundColor: colors.Orange500,
+            border: 'none',
+          }}
+        >
+          <div className="button-text">잇터리 시작하기</div>
+        </Button>
       </ButtonWrapper>
     </TasteWrapper>
   );
 };
 
-const TasteWrapper = styled.div``;
+const TasteWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+`;
 const TopWrapper = styled.div`
   padding: 30px 20px 0;
 `;
@@ -135,5 +136,10 @@ const ButtonWrapper = styled.div`
   bottom: 0;
   width: 100%;
   padding: 0 20px 50px;
+
+  .button-text {
+    ${typography.Headline3};
+    color: ${colors.N0};
+  }
 `;
 export default TastePage;
