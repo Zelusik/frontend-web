@@ -8,6 +8,7 @@ import FoodTag from "./FoodTag";
 import ImageHashtag from "components/Common/ImageHashtag";
 import { AspectRatio, Box, Image } from "components/core";
 import { useAppSelector } from "hooks/useReduxHooks";
+import { globalValue } from "constants/globalValue";
 
 const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   const { display } = useAppSelector((state) => state.global);
@@ -37,7 +38,13 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   }, [images]);
 
   return (
-    <Box veiwportRef={ref} w="100%" pos="fixed" top={0}>
+    <Box
+      veiwportRef={ref}
+      w="100%"
+      maw={globalValue.MAX_WIDTH}
+      pos="fixed"
+      top={0}
+    >
       <Swiper
         allowSlidePrev={swiperIndex !== 0}
         allowSlideNext={swiperIndex !== images?.length - 1}

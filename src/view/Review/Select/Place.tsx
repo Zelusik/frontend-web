@@ -69,7 +69,12 @@ const Place = () => {
               {image.map((preview: any, index: number) => (
                 <SwiperSlide key={preview.imageUrl}>
                   <AspectRatio ratio={320 / 281} radius={12}>
-                    <Image alt="음식 사진" src={preview.imageUrl} />
+                    <Image
+                      w="100%"
+                      h="100%"
+                      alt="음식 사진"
+                      src={preview.imageUrl}
+                    />
                   </AspectRatio>
                 </SwiperSlide>
               ))}

@@ -138,6 +138,7 @@ const BottomSheetWrapper = styled.div<{
   visible: number;
 }>`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: ${({ height }) => height + "px"};
 
   display: flex;

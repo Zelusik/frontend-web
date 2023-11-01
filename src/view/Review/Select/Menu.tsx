@@ -22,7 +22,7 @@ import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
 import { OriginalImageDataType, TransformedImageDataType } from "types/review";
 import useBottomSheet from "hooks/useBottomSheet";
 import useDisplaySize from "hooks/useDisplaySize";
-import { Image, Space } from "components/core";
+import { AspectRatio, Image, Space } from "components/core";
 
 const Menu = () => {
   const router = useRouter();
@@ -207,11 +207,18 @@ const Menu = () => {
         >
           {image.map((imageInfo: ImageType, index: number) => (
             <SwiperSlide key={imageInfo.imageUrl}>
-              <Image
-                alt="음식 사진"
-                src={imageInfo.imageUrl}
+              <AspectRatio
+                ratio={320 / 281}
+                radius={12}
                 onClick={(event: any) => handleClickImage(event, index)}
-              />
+              >
+                <Image
+                  w="100%"
+                  h="100%"
+                  alt="음식 사진"
+                  src={imageInfo.imageUrl}
+                />
+              </AspectRatio>
               {imageInfo?.menuTag && (
                 <>
                   {imageInfo.menuTag.map((tag: any, idx: number) => (
