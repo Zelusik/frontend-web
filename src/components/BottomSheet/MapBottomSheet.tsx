@@ -20,6 +20,7 @@ const MapBottomSheet = forwardRef(function Div(
   );
 
   useEffect(() => {
+    content.current?.style.setProperty("overflow-y", "hidden");
     if (visible) {
       const BOTTOM_SHEET_HEIGHT =
         window.innerHeight - 82 - globalValue.BOTTOM_NAVIGATION_HEIGHT;

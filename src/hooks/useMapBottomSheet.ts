@@ -230,9 +230,11 @@ export default function useMapBottomSheet({ ...props }: any) {
       if (isContentAreaTouched) {
         if (Math.abs(move) > 100 && TOP > touchStart.sheetY) {
           closeMapBottomSheet(sheet);
+          content.current?.style.setProperty("overflow-y", "hidden");
           content.current!.scrollTop = 0;
         } else if (Math.abs(move) < 100 && TOP < touchStart.sheetY) {
           closeMapBottomSheet(sheet, true);
+          content.current?.style.setProperty("overflow-y", "hidden");
           content.current!.scrollTop = 0;
         } else if (Math.abs(move) < 100 && TOP > touchStart.sheetY) {
           openMapBottomSheet("primary", sheet, TOP, true);
@@ -249,6 +251,7 @@ export default function useMapBottomSheet({ ...props }: any) {
             content.current?.style.setProperty("overflow-y", "scroll");
           } else {
             closeMapBottomSheet(sheet, true);
+            content.current?.style.setProperty("overflow-y", "hidden");
           }
         } else if (
           touchMove.movingDirection === "down" &&
@@ -256,6 +259,7 @@ export default function useMapBottomSheet({ ...props }: any) {
         ) {
           if (Math.abs(move) > 120 && move < 0) {
             closeMapBottomSheet(sheet);
+            content.current?.style.setProperty("overflow-y", "hidden");
           } else {
             openMapBottomSheet("primary", sheet, TOP, true);
           }
