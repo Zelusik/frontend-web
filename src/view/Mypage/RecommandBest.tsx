@@ -15,6 +15,7 @@ import Icon from "components/Icon";
 import Gradient from "components/Common/Gradient";
 import Text from "components/core/Text";
 import ReviewList from "./components/ReviewList";
+import BackArrow from "components/Button/IconButton/BackArrow";
 
 export default function RecommandBest() {
   const router = useRouter();
@@ -45,10 +46,6 @@ export default function RecommandBest() {
     router.back();
   };
 
-  const handleClickBack = () => {
-    router.back();
-  };
-
   return (
     <>
       <Box w="100%" ph={20} pos="fixed" bg="N0">
@@ -56,7 +53,7 @@ export default function RecommandBest() {
           height={50}
           renderLeft={<Box w={24} h={24} />}
           textCenter="추천 베스트 수정하기"
-          renderRight={<Icon icon="XButton" onClick={handleClickBack} />}
+          renderRight={<BackArrow icon="XButton" />}
         />
         <Space h={20} />
         <Text typo="Headline5">

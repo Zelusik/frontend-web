@@ -64,7 +64,7 @@ export default function Map() {
   );
   const { openAlert } = useAlert();
 
-  const { handleSearchType } = useSearch();
+  const { handleStore, handleSearchType } = useSearch();
   const myLocation: any = useGeolocation();
   const { isShowToast, openToast, closeToast } = useToast();
   const { handleLocation } = useSearch();
@@ -186,6 +186,10 @@ export default function Map() {
     onCurrentLocation(searchLocation?.lat, searchLocation?.lng);
     closeMapBottomSheetQuick(sheet, true);
   }, [searchLocation, foodType, dayOfWeek, mood]);
+
+  useEffect(() => {
+    handleStore({ ...store, id: -1, name: "" });
+  }, []);
 
   const goBack = () => {
     const pathname = location.pathname;
