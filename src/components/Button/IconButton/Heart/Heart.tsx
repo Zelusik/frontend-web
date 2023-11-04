@@ -38,7 +38,7 @@ const Heart = ({ size, id, isMarked }: HeartProps) => {
     <>
       {markAni ? (
         <>
-          {/* <Icon
+          <Icon
             icon="Heart"
             width={size}
             height={size}
@@ -47,7 +47,7 @@ const Heart = ({ size, id, isMarked }: HeartProps) => {
             style={{
               position: "absolute",
             }}
-          /> */}
+          />
           <motion.div
             animate={mark ? "open" : "closed"}
             variants={{

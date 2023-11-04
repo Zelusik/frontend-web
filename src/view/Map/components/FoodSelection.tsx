@@ -19,7 +19,7 @@ export default function FoodSelection({
   clickMyLocation,
 }: FoodSelectionProps) {
   const router = useRouter();
-  const { visible } = useAppSelector((state) => state.mapBottomSheet);
+  const { auto, visible } = useAppSelector((state) => state.mapBottomSheet);
   const { foodType } = useAppSelector((state) => state.search);
   const { handleFoodType, handleNewFoodType } = useSearch();
 
@@ -36,15 +36,17 @@ export default function FoodSelection({
 
   return (
     <motion.div
-      animate={{
-        opacity: 1 - visible,
+      animate={auto === "up" ? "open" : auto === "down" ? "closed" : "none"}
+      variants={{
+        open: { opacity: [1 - visible, 0] },
+        closed: { opacity: [1 - visible, 1] },
       }}
     >
       <ScrollArea
         scroll="x"
         h={42}
         ph={15}
-        // dis="flex"
+        o={1 - visible}
         dis={visible === 1 ? "none" : "flex"}
         gap={6}
       >

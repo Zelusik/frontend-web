@@ -15,7 +15,7 @@ const MapBottomSheet = forwardRef(function Div(
   ref: any
 ) {
   const { height } = useDisplaySize();
-  const { visible, actionDelay } = useAppSelector(
+  const { auto, visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
   );
 
@@ -41,8 +41,11 @@ const MapBottomSheet = forwardRef(function Div(
   return (
     <>
       <motion.div
-        animate={{
-          opacity: visible,
+        animate={auto === "up" ? "open" : auto === "down" ? "closed" : "none"}
+        variants={{
+          none: { opacity: visible },
+          open: { opacity: [visible, 1] },
+          closed: { opacity: [visible, 0] },
         }}
       >
         <Background visible={visible} />

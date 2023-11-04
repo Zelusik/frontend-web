@@ -1,6 +1,7 @@
 import { globalValue } from "constants/globalValue";
 import { useRef, useEffect, useCallback } from "react";
 import {
+  changeAuto,
   changeMapAction,
   changeMapVisible,
   changeMapVisibleType,
@@ -35,6 +36,12 @@ export default function useMapBottomSheet({ ...props }: any) {
         value: move,
       })
     );
+    dispatch(
+      changeAuto({
+        type: "mapBottomSheet",
+        value: "none",
+      })
+    );
   }, []);
 
   const openMapBottomSheet = useCallback(
@@ -52,6 +59,12 @@ export default function useMapBottomSheet({ ...props }: any) {
       sheetInner?.current?.style.setProperty(
         "transform",
         `translateY(${-height}px)`
+      );
+      dispatch(
+        changeAuto({
+          type: "mapBottomSheet",
+          value: "up",
+        })
       );
     },
     []
@@ -76,6 +89,12 @@ export default function useMapBottomSheet({ ...props }: any) {
         })
       );
     }, 300);
+    dispatch(
+      changeAuto({
+        type: "mapBottomSheet",
+        value: "down",
+      })
+    );
   }, []);
 
   const closeMapBottomSheetQuick = useCallback(
@@ -96,6 +115,12 @@ export default function useMapBottomSheet({ ...props }: any) {
         changeMapVisible({
           type: "mapBottomSheet",
           value: 0,
+        })
+      );
+      dispatch(
+        changeAuto({
+          type: "mapBottomSheet",
+          value: "down",
         })
       );
     },
@@ -181,7 +206,8 @@ export default function useMapBottomSheet({ ...props }: any) {
       else if (-differenceY / TOUCH < 0) opacity = 0.01;
 
       if (isContentAreaTouched && differenceY < 0 && differenceY > -TOP) {
-        moveMapBottomSheet(opacity);
+        let opacityFixed = Number(opacity.toFixed(2));
+        if ((opacityFixed * 100) % 10 === 0) moveMapBottomSheet(opacityFixed);
         sheet.current!.style.setProperty(
           "transform",
           `translateY(${differenceY}px)`
@@ -198,7 +224,9 @@ export default function useMapBottomSheet({ ...props }: any) {
           opacity = -differenceY / TOUCH;
           if (-differenceY / TOUCH > 1) opacity = 0.99;
           else if (-differenceY / TOUCH < 0) opacity = 0.01;
-          moveMapBottomSheet(opacity);
+          let opacityFixed = Number(opacity.toFixed(2));
+          if ((opacityFixed * 100) % 10 === 0) moveMapBottomSheet(opacityFixed);
+
           sheet.current!.style.setProperty(
             "transform",
             `translateY(${differenceY}px)`
@@ -209,10 +237,13 @@ export default function useMapBottomSheet({ ...props }: any) {
         ) {
           differenceY = -TOP - touchStart.touchY + touchMove.moveTouchY;
           if (differenceY > 0) return;
+
           opacity = -differenceY / TOUCH;
           if (-differenceY / TOUCH > 1) opacity = 0.99;
           else if (-differenceY / TOUCH < 0) opacity = 0.01;
-          moveMapBottomSheet(opacity);
+          let opacityFixed = Number(opacity.toFixed(2));
+          if ((opacityFixed * 100) % 10 === 0) moveMapBottomSheet(opacityFixed);
+
           sheet.current!.style.setProperty(
             "transform",
             `translateY(${differenceY}px)`
@@ -238,8 +269,10 @@ export default function useMapBottomSheet({ ...props }: any) {
           content.current!.scrollTop = 0;
         } else if (Math.abs(move) < 100 && TOP > touchStart.sheetY) {
           openMapBottomSheet("primary", sheet, TOP, true);
+          content.current?.style.setProperty("overflow-y", "scroll");
         } else {
           openMapBottomSheet("primary", sheet, TOP);
+          content.current?.style.setProperty("overflow-y", "scroll");
         }
       } else if (!isContentAreaTouched && content.current!.scrollTop <= 0) {
         if (
