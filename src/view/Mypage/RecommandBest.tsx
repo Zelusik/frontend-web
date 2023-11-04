@@ -1,23 +1,20 @@
-import styled from "@emotion/styled";
-import BottomButton from "components/Button/BottomButton";
-import Gradient from "components/Common/Gradient";
-
-import Text from "components/core/Text";
-import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
-import useDisplaySize from "hooks/useDisplaySize";
-import ReviewList from "./components/ReviewList";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { initializeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import useDisplaySize from "hooks/useDisplaySize";
+import { initializeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
+import useGetReviews from "hooks/queries/user/useGetReviews";
 import {
   postRecommendReviews,
   updateRecommendReviews,
 } from "api/recommend-reviews";
-import useGetReviews from "hooks/queries/user/useGetReviews";
+
 import { Box, Button, Flex, ScrollArea, Space } from "components/core";
 import Title from "components/Title";
 import Icon from "components/Icon";
+import Gradient from "components/Common/Gradient";
+import Text from "components/core/Text";
+import ReviewList from "./components/ReviewList";
 
 export default function RecommandBest() {
   const router = useRouter();
@@ -70,14 +67,20 @@ export default function RecommandBest() {
       </Box>
       <Space h={146} />
 
-      <ScrollArea scroll="y" h={height - 240} ph={20} bg="N0">
-        <ReviewList
-          type="recommand-best"
-          reviewDatas={reviewDatas}
-          fetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-        />
-      </ScrollArea>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <ScrollArea scroll="y" h={height - 240} ph={20} bg="N0">
+          <ReviewList
+            type="recommand-best"
+            reviewDatas={reviewDatas}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
+        </ScrollArea>
+      </motion.div>
       <Gradient size={30} />
 
       <Flex w="100%" h={94} ph={17.5} gap={8} pos="fixed" bottom={0} bg="N0">

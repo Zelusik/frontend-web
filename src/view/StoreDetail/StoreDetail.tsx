@@ -154,7 +154,12 @@ const StoreDetail = () => {
               }
               buttonRight={<Edit size={28} />}
               paddingRight={16}
-              renderRight={<Heart id={1} />}
+              renderRight={
+                <Heart
+                  id={storeInfoData?.id}
+                  isMarked={storeInfoData?.isMarked}
+                />
+              }
             />
             <Space h={16} />
             <Hashtags

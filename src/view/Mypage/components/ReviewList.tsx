@@ -95,6 +95,7 @@ export default function ReviewList({
                       color="N0"
                       nameTypo="Headline3"
                       categoryTypo="Paragraph2"
+                      disabled={true}
                     />
                   }
                 />

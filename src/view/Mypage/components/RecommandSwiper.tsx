@@ -39,6 +39,13 @@ const RecommandSwiper = ({
     router.push({ pathname: Route.RECOMMEND_BEST() });
   };
 
+  const handleClick = (id: number) => {
+    router.push({
+      pathname: Route.REVIEW_DETAIL(),
+      query: { id },
+    });
+  };
+
   return (
     <>
       <Space h={20} />
@@ -53,14 +60,15 @@ const RecommandSwiper = ({
 
             return (
               <SwiperSlide key={idx} style={{ padding: "0 5px" }}>
-                <AspectRatio ratio={300 / 340} radius={12}>
+                <AspectRatio
+                  ratio={300 / 340}
+                  radius={12}
+                  onClick={() => handleClick(recommendReviewData?.review?.id)}
+                >
                   <Image
                     alt="음식 이미지"
                     src={recommendReviewData?.review?.images?.[0]?.imageUrl}
                     fit="cover"
-                    onClick={() =>
-                      clickReviewDetail(recommendReviewData?.review?.id)
-                    }
                   />
                   <Gradient
                     h={94}

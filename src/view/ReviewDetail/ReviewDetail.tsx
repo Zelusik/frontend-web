@@ -108,7 +108,12 @@ export default function ReviewDetail() {
                     categoryTypo="Paragraph1"
                   />
                 }
-                renderRight={<Heart id={reviewData?.place?.id} />}
+                renderRight={
+                  <Heart
+                    id={reviewData?.place?.id}
+                    isMarked={reviewData?.place?.isMarked}
+                  />
+                }
               />
               <Space h={16} />
 
