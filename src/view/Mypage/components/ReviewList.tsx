@@ -75,7 +75,7 @@ export default function ReviewList({
                 w={(display.width - 46) / 2}
                 radius={12}
                 ratio={157 / 170}
-                onClick={() => clickReview(reviewData?.place?.id)}
+                onClick={() => clickReview(reviewData?.id)}
               >
                 <Image
                   alt="리뷰 사진"
@@ -112,19 +112,19 @@ export default function ReviewList({
                     radius={20}
                     bw={2}
                     bc={
-                      recommendReview.includes(reviewData?.place?.id)
+                      recommendReview.includes(reviewData?.id)
                         ? "Orange600"
                         : "N40"
                     }
                     bg={
-                      recommendReview.includes(reviewData?.place?.id)
+                      recommendReview.includes(reviewData?.id)
                         ? "Orange600"
                         : "transparent"
                     }
                   >
                     <Text c="N0" typo="Headline2">
-                      {recommendReview.indexOf(reviewData?.place?.id) !== -1 &&
-                        recommendReview.indexOf(reviewData?.place?.id) + 1}
+                      {recommendReview.indexOf(reviewData?.id) !== -1 &&
+                        recommendReview.indexOf(reviewData?.id) + 1}
                     </Text>
                   </Box>
                 )}
