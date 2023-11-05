@@ -19,7 +19,7 @@ import { ScrollArea, Box, Space } from "components/core";
 
 interface StoreCardContainerProps {
   key?: number;
-  currentPage: boolean;
+  isEnabled: boolean;
   touch: any;
   type: string;
   keyword: string;
@@ -27,7 +27,7 @@ interface StoreCardContainerProps {
 }
 
 const StoreCardContainer = forwardRef(function Div(
-  { currentPage, touch, type, keyword, children }: StoreCardContainerProps,
+  { isEnabled, touch, type, keyword, children }: StoreCardContainerProps,
   ref: any
 ) {
   const router = useRouter();
@@ -36,7 +36,7 @@ const StoreCardContainer = forwardRef(function Div(
   //   react-query: mark
   const { markDatas, isLoadingMark, fetchNextPage, hasNextPage } =
     useGetBookmarks({
-      currentPage,
+      isEnabled,
       type,
       keyword,
     });

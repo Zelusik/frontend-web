@@ -73,7 +73,7 @@ const Mark = () => {
                 return (
                   <StoreCardContainer
                     key={idx}
-                    currentPage={idx === currentIndex}
+                    isEnabled={idx === currentIndex}
                     touch={{ touch, setTouch }}
                     type={keywordDatas?.[idx]?.type}
                     keyword={keywordDatas?.[idx]?.keyword}

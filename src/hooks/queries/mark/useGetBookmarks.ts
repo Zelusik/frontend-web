@@ -1,7 +1,7 @@
 import { placesApi } from "api/places";
 import { useInfiniteQuery } from "react-query";
 
-const useGetBookmarks = ({ currentPage, type, keyword }: any) => {
+const useGetBookmarks = ({ isEnabled, type, keyword }: any) => {
   const fetchBookmarks = async ({ pageParam = 0 }) => {
     if (keyword !== "") {
       const params: any = {
@@ -18,7 +18,7 @@ const useGetBookmarks = ({ currentPage, type, keyword }: any) => {
     useInfiniteQuery(["mark", keyword], fetchBookmarks, {
       staleTime: 1000 * 60 * 5,
       cacheTime: 1000 * 60 * 30,
-      enabled: currentPage,
+      enabled: isEnabled,
       getNextPageParam: (lastPage: any) => {
         return lastPage?.isLast ? undefined : lastPage?.number + 1;
       },
