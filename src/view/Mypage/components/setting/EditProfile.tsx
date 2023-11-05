@@ -12,7 +12,7 @@ import { changeUserInfo } from "reducer/slices/user/userSlice";
 import useEditMyInfo from "hooks/queries/user/useEditMyInfo";
 import { useDropzone } from "react-dropzone";
 import imageCompression from "browser-image-compression";
-import { Image, Space, Text } from "components/core";
+import { AspectRatio, Image, Space, Text } from "components/core";
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -130,13 +130,20 @@ const EditProfile = () => {
       {data && (
         <>
           <BackTitle type="black-left-text" text="회원 정보 수정" />
-          <ImageWrapper {...getRootProps()}>
+          <AspectRatio w={96} h={96} m="30px auto" {...getRootProps()}>
             <input {...getInputProps()} />
-            <Image alt="프로필 사진" src={user.image.thumbnailUrl} />
-            <div className="icon-wrapper">
-              <Icon icon="Camera" />
-            </div>
-          </ImageWrapper>
+            <Image
+              alt="프로필 사진"
+              src={user.image.thumbnailUrl}
+              w={92}
+              h={92}
+              radius={28}
+            />
+            <Icon
+              icon="Camera"
+              style={{ position: "absolute", bottom: 0, right: 0 }}
+            />
+          </AspectRatio>
           <Space h={20} />
           <ProfileBox>
             <div className="section">
@@ -219,17 +226,6 @@ const EditProfileWrapper = styled.div`
   padding: 0 20px;
   height: 100vh;
   overflow-y: scroll;
-`;
-const ImageWrapper = styled.div`
-  position: relative;
-  margin: 30px auto;
-  width: fit-content;
-
-  .icon-wrapper {
-    position: absolute;
-    right: -10px;
-    bottom: 5px;
-  }
 `;
 
 const ProfileBox = styled.div`

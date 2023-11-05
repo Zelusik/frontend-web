@@ -60,7 +60,7 @@ export const useGetSearchStore = (
   };
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } =
-    useInfiniteQuery(["search", keyword], fetchSearch, {
+    useInfiniteQuery(["search", currentIndex, keyword], fetchSearch, {
       staleTime: 1000 * 60 * 5,
       cacheTime: 1000 * 60 * 30,
       enabled: isEnabled,
