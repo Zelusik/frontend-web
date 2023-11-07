@@ -74,6 +74,18 @@ const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
         })}
       </Swiper>
 
+      {foodTagShow && (
+        <Box
+          w={24}
+          h={24}
+          pos="absolute"
+          left={20}
+          bottom={21}
+          zIndex={900}
+          radius={24}
+          bg="N0"
+        ></Box>
+      )}
       <FoodTag onClick={clickFoodTag} />
       <SlideLine percentage={percentage} />
     </Box>

@@ -34,6 +34,7 @@ const Menu = () => {
   const { foodInfo } = useAppSelector((state) => state.review);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [prevMenuTag, setPrevMenuTag] = useState<MenuTagType>({}); // modifyMenuTag를 위해
+  const [touch, setTouch] = useState<boolean>(false);
 
   const { openBottomSheet } = useBottomSheet({});
   const handleClickImages = () => {
@@ -139,6 +140,7 @@ const Menu = () => {
   };
 
   const handleDragStart = (e: any, idx: number, index: number) => {
+    setTouch(true);
     setPrevMenuTag(image[index].menuTag[idx]);
   };
 
@@ -163,6 +165,7 @@ const Menu = () => {
   };
 
   const handleDragEnd = (e: any, idx: number, index: number) => {
+    setTouch(false);
     const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
     const clientY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
 
@@ -193,6 +196,7 @@ const Menu = () => {
       );
     }
   };
+
   return (
     <Wrapper height={height}>
       <BackTitle type="black-left-text" text="메뉴 선택" />
@@ -202,10 +206,10 @@ const Menu = () => {
           slidesPerView={1}
           spaceBetween={20}
           onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
-          allowSlidePrev={currentSlideIndex > 0}
-          allowSlideNext={currentSlideIndex < image.length - 1}
+          allowSlidePrev={currentSlideIndex > 0 && !touch}
+          allowSlideNext={currentSlideIndex < image?.length - 1 && !touch}
         >
-          {image.map((imageInfo: ImageType, index: number) => (
+          {image?.map((imageInfo: ImageType, index: number) => (
             <SwiperSlide key={imageInfo.imageUrl}>
               <AspectRatio
                 ratio={320 / 281}
@@ -219,35 +223,30 @@ const Menu = () => {
                   src={imageInfo.imageUrl}
                 />
               </AspectRatio>
-              {imageInfo?.menuTag && (
-                <>
-                  {imageInfo.menuTag.map((tag: any, idx: number) => (
-                    <MenuTag
-                      ref={(el) => (menuTagRef.current[idx] = el)}
-                      key={tag.x}
-                      x={tag.x}
-                      y={tag.y}
-                      onTouchStart={(e) => handleDragStart(e, idx, index)}
-                      onTouchMove={(e) => handleDrag(e, idx)}
-                      onTouchEnd={(e) => handleDragEnd(e, idx, index)}
-                    >
-                      {tag.menu}
-
-                      <Icon
-                        icon="XButton"
-                        color="N0"
-                        width={12}
-                        height={12}
-                        onTouchEnd={(event: any) => {
-                          event.preventDefault();
-                          event.stopPropagation();
-                          handleDeleteMenuTag(tag, index);
-                        }}
-                      />
-                    </MenuTag>
-                  ))}
-                </>
-              )}
+              {imageInfo?.menuTag?.map((tag: any, idx: number) => (
+                <MenuTag
+                  ref={(el) => (menuTagRef.current[idx] = el)}
+                  key={tag.x}
+                  x={tag.x}
+                  y={tag.y}
+                  onTouchStart={(e) => handleDragStart(e, idx, index)}
+                  onTouchMove={(e) => handleDrag(e, idx)}
+                  onTouchEnd={(e) => handleDragEnd(e, idx, index)}
+                >
+                  {tag.menu}
+                  <Icon
+                    icon="XButton"
+                    color="N0"
+                    width={12}
+                    height={12}
+                    onTouchEnd={(event: any) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      handleDeleteMenuTag(tag, index);
+                    }}
+                  />
+                </MenuTag>
+              ))}
             </SwiperSlide>
           ))}
         </Swiper>
@@ -301,9 +300,9 @@ const MenuTag = styled.span<{ x?: number; y?: number }>`
   gap: 4px;
 
   border-radius: 8px;
-  color: ${colors.N0} !important;
+  color: ${colors["N0"]} !important;
   background-color: rgba(32, 35, 48, 0.6);
-  ${typography.Paragraph1};
+  ${typography["Paragraph1"]};
   padding: 6px 10px;
 `;
 
@@ -312,8 +311,8 @@ const ImageBadge = styled.span`
   bottom: 40px;
   right: 20px;
   padding: 4px 11px;
-  ${typography.Paragraph2};
-  color: ${colors.N0};
+  ${typography["Paragraph2"]};
+  color: ${colors["N0"]};
   background-color: rgba(32, 35, 48, 0.6);
   border-radius: 100px;
   z-index: 10;
@@ -332,7 +331,7 @@ const BubbleToolTip = styled.div`
   width: 0;
   height: 0;
 
-  border-bottom: 12px solid ${colors.LightOrange};
+  border-bottom: 12px solid ${colors["LightOrange"]};
   border-top: 12px solid transparent;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
