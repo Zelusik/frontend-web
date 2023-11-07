@@ -49,6 +49,7 @@ export default function ReviewDetail() {
   const handleScroll = ({ scrollY }: ScrollProps) => {
     setTitleChange(scrollY);
   };
+  console.log(reviewData);
 
   return (
     <>
@@ -71,7 +72,11 @@ export default function ReviewDetail() {
             textLeft={titleChange > width - 50 && reviewData?.place?.name}
             renderRight={
               <Dots
-                type="share-report"
+                type={
+                  reviewData?.writer?.isEqualLoginMember
+                    ? "delete-edit"
+                    : "share-report"
+                }
                 color={titleChange <= width - 50 ? "N0" : "N100"}
               />
             }

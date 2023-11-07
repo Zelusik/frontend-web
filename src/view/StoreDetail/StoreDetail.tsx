@@ -95,7 +95,7 @@ const StoreDetail = () => {
         }
         renderRight={
           <Dots
-            type="share-report"
+            type="report-store"
             color={
               storeInfoData?.placeImages?.length > 0 &&
               titleChange - ((width * 281) / 360 - 50) <= 0
