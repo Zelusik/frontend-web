@@ -82,3 +82,22 @@ export interface getReviewsContentsProps {
     url: string;
   };
 }
+
+export interface getOtherReviewsContentsProps {
+  id: number;
+  content: string;
+  keywords: string[];
+  place: {
+    id: number;
+    name: string;
+    category: string;
+    address: {
+      lotNumberAddress: string;
+      roadAddress: string | null;
+      sgg: string;
+      sido: string;
+    };
+    isMarked: boolean;
+  };
+  reviewThumbnailImageUrls: string[];
+}
