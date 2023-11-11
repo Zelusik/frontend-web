@@ -15,6 +15,7 @@ import BottomSheet from "components/BottomSheet";
 import Alert from "components/Alert";
 
 import GlobalStyles from "./components/GlobalStyles";
+import { useRouter } from "next/router";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {
@@ -33,6 +34,7 @@ const App = ({ Component, ...rest }: AppProps) => {
 };
 
 const MyApp = ({ Component, pageProps }: any) => {
+  const router = useRouter();
   const { visible: bottomSheetVisible } = useAppSelector(
     (state) => state.bottomSheet
   );
@@ -57,6 +59,9 @@ const MyApp = ({ Component, pageProps }: any) => {
 
   const goBack = () => {
     const pathname = location.pathname;
+    if (pathname === "/map-modal" || pathname === "/map-store-detail-modal") {
+      router.back();
+    }
     if (pathname === "/search-modal") {
       closeSearchPlace();
     } else if (bottomSheetVisible === 1) {

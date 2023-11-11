@@ -50,12 +50,14 @@ const RecommendReviewCardContainer = ({
           touch={touch}
         />
       ) : (
-        <NothingButton
-          height={display.height - 525}
-          text="나만의 추천 음식점을 골라주세요"
-          buttonText="추천 베스트 선택하기"
-          buttonClick={handleClickButton}
-        />
+        mine && (
+          <NothingButton
+            height={display.height - 525}
+            text="나만의 추천 음식점을 골라주세요"
+            buttonText="추천 베스트 선택하기"
+            buttonClick={handleClickButton}
+          />
+        )
       )}
     </InnerTopNavigation>
   );

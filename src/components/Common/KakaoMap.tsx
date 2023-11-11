@@ -5,6 +5,7 @@ import { useAppSelector } from "hooks/useReduxHooks";
 import useSearch from "hooks/useSearch";
 import { getNearContentsProps } from "models/view/mapModel";
 import { Box } from "components/core";
+import { colors } from "constants/colors";
 // https://react-kakao-maps-sdk.jaeseokim.dev/
 
 interface KakaoMapProps {
@@ -65,8 +66,14 @@ export default function KakaoMap({
             }}
             yAnchor={1}
           >
-            <Box>
-              <Box>{store.name}</Box>
+            <Box
+              style={{
+                fontSize: 13,
+                fontWeight: 500,
+                textShadow: `-2px 0px ${colors["N0"]}, 0px 2px ${colors["N0"]}, 2px 0px ${colors["N0"]}, 0px -2px ${colors["N0"]}`,
+              }}
+            >
+              {store?.name}
             </Box>
           </CustomOverlayMap>
           {/* 마커들 */}

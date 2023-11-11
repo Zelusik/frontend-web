@@ -6,6 +6,7 @@ export const colors: any | undefined = {
 
   N100: "#202330",
   N80: "#4C5061",
+  N65: "#797C89",
   N60: "#999CA8",
   N50: "#BDBEC7",
   N40: "#DBDCE2",

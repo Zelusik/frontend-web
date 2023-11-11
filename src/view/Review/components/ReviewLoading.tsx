@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { typography } from "constants/typography";
-import { styled } from "styled-components";
 import LoadingDots from "components/Loading/LoadingDots";
-import { Space } from "components/core";
+import { Box, Flex, Space, Text } from "components/core";
 import BackTitle from "components/Title/BackTitle";
 
 const ReviewLoading = ({
@@ -40,24 +38,17 @@ const ReviewLoading = ({
   }, []);
 
   return (
-    <ReviewLoadingWrapper>
+    <Box h="100%" ph={type === "review" ? 20 : 0}>
       <BackTitle type="black-left-text" text="" />
       <Space h={17} />
-      <div style={typography.Headline5}>{text}</div>
-      <div className="icon">
+      <Text c="N100" typo="Headline5">
+        {text}
+      </Text>
+      <Flex h="80%" justify="center" align="center">
         <LoadingDots />
-      </div>
-    </ReviewLoadingWrapper>
+      </Flex>
+    </Box>
   );
 };
-const ReviewLoadingWrapper = styled.div`
-  height: 100%;
 
-  .icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80%;
-  }
-`;
 export default ReviewLoading;

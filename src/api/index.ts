@@ -45,7 +45,7 @@ client.interceptors.response.use(
 
         return axios(originalRequest);
       } catch (err) {
-        // window.location.href = "/login";
+        window.location.href = "/login";
         return Promise.reject(err);
       }
     } else {

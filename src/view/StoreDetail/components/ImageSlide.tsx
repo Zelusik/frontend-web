@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { Route } from "constants/Route";
 import { AspectRatio, Flex, Image, ScrollArea } from "components/core";
+import { useRef } from "react";
 
 export default function SlideImage({ images = [], touch }: any) {
   const router = useRouter();
@@ -31,13 +32,15 @@ export default function SlideImage({ images = [], touch }: any) {
   };
 
   return (
-    <Flex
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onClick={clickImageDetail}
-      style={{ whiteSpace: "nowrap" }}
-    >
-      <ScrollArea scroll="x" ph={20} dis="flex" gap={8}>
+    <Flex onClick={clickImageDetail} style={{ whiteSpace: "nowrap" }}>
+      <ScrollArea
+        scroll="x"
+        ph={20}
+        dis="flex"
+        gap={8}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {images.map((image: string, idx: number) => {
           return (
             <AspectRatio
@@ -55,29 +58,3 @@ export default function SlideImage({ images = [], touch }: any) {
     </Flex>
   );
 }
-
-const ImageWrapper = styled.div`
-  display: flex;
-  white-space: nowrap;
-`;
-
-const ImageInner = styled.div`
-  display: flex;
-  overflow: auto;
-`;
-
-// const Image = styled.img<{
-//   marginLeft: boolean;
-//   marginRight: boolean;
-//   side: number;
-//   ratio: any;
-// }>`
-//   width: 200px;
-//   margin-left: ${({ marginLeft, side }) => (marginLeft ? `${side}px` : "0")};
-//   margin-right: ${({ marginRight, side }) =>
-//     marginRight ? `${side}px` : "8px"};
-//   display: inline-block;
-//   border-radius: 40px;
-
-//   object-fit: cover;
-// `;

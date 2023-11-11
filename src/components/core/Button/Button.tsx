@@ -1,6 +1,5 @@
 import React from "react";
-import { Button as MaterialButton } from "@material-ui/core";
-import { styled } from "@mui/material/styles";
+import { Button as MaterialButton, styled } from "@material-ui/core";
 
 import { ComponentsProps } from "models/componentsModal";
 import { colors } from "constants/colors";

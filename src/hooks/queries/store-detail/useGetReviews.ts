@@ -7,10 +7,10 @@ const useGetReviews = ({ kakaoId, placeId }: any): any => {
   const { placeInfo } = useAppSelector((state) => state.search);
 
   // 음식점 정보
-  const getStoreInfo = async () => {
+  const getStoreId = async () => {
     if (kakaoId) {
       const isExistPlace = await placesApi.getExistence(kakaoId);
-      if (isExistPlace.existenceOfPlace) {
+      if (isExistPlace && isExistPlace.existenceOfPlace) {
         const res = await placesApi.getPlaces(kakaoId);
         return res.id;
       } else {
@@ -24,11 +24,11 @@ const useGetReviews = ({ kakaoId, placeId }: any): any => {
 
   // 리뷰 목록 조회
   const getReviewsWithParams = async ({ pageParam = 0 }) => {
-    const newId = await getStoreInfo();
+    const newId = await getStoreId();
 
     return getReviews({
       params: {
-        placeId: newId,
+        placeId: newId ? newId : kakaoId,
         page: pageParam,
         size: 10,
         embed: "WRITER",
@@ -41,11 +41,15 @@ const useGetReviews = ({ kakaoId, placeId }: any): any => {
     fetchNextPage,
     hasNextPage,
     isLoading: isReviewsLoading,
-  } = useInfiniteQuery(["reviews", placeId], getReviewsWithParams, {
-    getNextPageParam: (lastPage: any) => {
-      return lastPage?.isLast ? undefined : lastPage?.number + 1;
-    },
-  });
+  } = useInfiniteQuery(
+    ["store-detail-reviews", placeId],
+    getReviewsWithParams,
+    {
+      getNextPageParam: (lastPage: any) => {
+        return lastPage?.isLast ? undefined : lastPage?.number + 1;
+      },
+    }
+  );
   const reviewDatas = data?.pages;
 
   return {

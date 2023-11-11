@@ -95,7 +95,7 @@ const StoreDetail = () => {
         }
         renderRight={
           <Dots
-            type="share-report"
+            type="report-store"
             color={
               storeInfoData?.placeImages?.length > 0 &&
               titleChange - ((width * 281) / 360 - 50) <= 0
@@ -154,7 +154,12 @@ const StoreDetail = () => {
               }
               buttonRight={<Edit size={28} />}
               paddingRight={16}
-              renderRight={<Heart id={1} />}
+              renderRight={
+                <Heart
+                  id={storeInfoData?.id}
+                  isMarked={storeInfoData?.isMarked}
+                />
+              }
             />
             <Space h={16} />
             <Hashtags

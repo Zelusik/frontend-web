@@ -1,7 +1,6 @@
 import React, { useEffect, forwardRef, useRef } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import styled from "@emotion/styled";
 import useGetBookmarks from "hooks/queries/mark/useGetBookmarks";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import { useAppSelector } from "hooks/useReduxHooks";
@@ -10,11 +9,8 @@ import {
   getBookmarksProps,
 } from "models/view/markModel";
 
-import NewButton from "view/Mypage/components/NewButton";
 import { Route } from "constants/Route";
 import { globalValue } from "constants/globalValue";
-import { typography } from "constants/typography";
-import { colors } from "constants/colors";
 import LoadingCircle from "components/Loading/LoadingCircle";
 import StoreCard from "./StoreCard";
 import StoreCount from "./StoreCount";
@@ -23,7 +19,7 @@ import { ScrollArea, Box, Space } from "components/core";
 
 interface StoreCardContainerProps {
   key?: number;
-  getData: boolean;
+  isEnabled: boolean;
   touch: any;
   type: string;
   keyword: string;
@@ -31,7 +27,7 @@ interface StoreCardContainerProps {
 }
 
 const StoreCardContainer = forwardRef(function Div(
-  { getData, touch, type, keyword, children }: StoreCardContainerProps,
+  { isEnabled, touch, type, keyword, children }: StoreCardContainerProps,
   ref: any
 ) {
   const router = useRouter();
@@ -40,7 +36,7 @@ const StoreCardContainer = forwardRef(function Div(
   //   react-query: mark
   const { markDatas, isLoadingMark, fetchNextPage, hasNextPage } =
     useGetBookmarks({
-      getData,
+      isEnabled,
       type,
       keyword,
     });
@@ -50,13 +46,6 @@ const StoreCardContainer = forwardRef(function Div(
     router.push(Route.HOME());
   };
 
-  if (display.width === 0 || isLoadingMark)
-    return (
-      <LoadingCircle
-        height={display.height - 100 - globalValue.BOTTOM_NAVIGATION_HEIGHT}
-      />
-    );
-
   return (
     <ScrollArea
       scroll="y"
@@ -64,8 +53,10 @@ const StoreCardContainer = forwardRef(function Div(
       bg="Mark"
     >
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={markDatas?.[0]?.contents?.length !== 0 && "open"}
+        variants={{
+          open: { opacity: [0, 1] },
+        }}
         transition={{ duration: 0.5 }}
       >
         {markDatas?.[0]?.totalElements !== 0 ? (
@@ -73,20 +64,32 @@ const StoreCardContainer = forwardRef(function Div(
             <StoreCount
               count={isLoadingMark ? 0 : markDatas?.[0]?.totalElements}
             />
-            {markDatas
-              ?.flatMap((place_data: getBookmarksProps) => place_data?.contents)
-              ?.map((markData: getBookmarksContentsProps) => (
-                <StoreCard
-                  key={markData?.id}
-                  touch={touch}
-                  markData={markData}
-                />
-              ))}
-            <Box veiwportRef={infinityScrollRef} />
-            {hasNextPage && (
+            {isLoadingMark ? (
+              <LoadingCircle
+                height={
+                  display.height - 152 - globalValue.BOTTOM_NAVIGATION_HEIGHT
+                }
+              />
+            ) : (
               <>
-                <LoadingCircle height={30} />
-                <Space h={20} />
+                {markDatas
+                  ?.flatMap(
+                    (place_data: getBookmarksProps) => place_data?.contents
+                  )
+                  ?.map((markData: getBookmarksContentsProps) => (
+                    <StoreCard
+                      key={markData?.id}
+                      touch={touch}
+                      markData={markData}
+                    />
+                  ))}
+                <Box veiwportRef={infinityScrollRef} />
+                {hasNextPage && (
+                  <>
+                    <LoadingCircle height={30} />
+                    <Space h={20} />
+                  </>
+                )}
               </>
             )}
           </>

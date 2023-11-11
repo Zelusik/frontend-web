@@ -68,12 +68,7 @@ const StoreCard = ({ touch, markData }: StoreCardProps) => {
                   <SwiperSlide key={idx}>
                     <AspectRatio ratio={300 / 192} radius={12}>
                       <Image
-                        src={
-                          globalValue.BLANK_IMAGE
-                          // image?.thumbnailUrl
-                          //   ? image?.thumbnailUrl
-                          //   : globalValue.ERROR_IMAGE
-                        }
+                        src={image?.thumbnailUrl}
                         alt="음식 이미지"
                         fit="cover"
                       />
@@ -84,13 +79,17 @@ const StoreCard = ({ touch, markData }: StoreCardProps) => {
             )}
           </Swiper>
         )}
-        <ImageCount
-          top={32}
-          right={26}
-          currentIndex={swiperIndex}
-          length={markData?.images?.length}
-        />
-        <Space h={10} />
+        {markData?.images?.length !== 0 && (
+          <>
+            <ImageCount
+              top={32}
+              right={26}
+              currentIndex={swiperIndex}
+              length={markData?.images?.length}
+            />
+            <Space h={10} />
+          </>
+        )}
 
         <Title
           height={46}

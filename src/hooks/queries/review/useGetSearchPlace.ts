@@ -19,7 +19,7 @@ const useGetSearchPlace = ({ x, y, keyword }: any) => {
     },
     {
       getNextPageParam: (lastPage, allPages) => {
-        return lastPage.meta.is_end ? undefined : allPages.length + 1;
+        return lastPage?.meta?.is_end ? undefined : allPages?.length + 1;
       },
     }
   );

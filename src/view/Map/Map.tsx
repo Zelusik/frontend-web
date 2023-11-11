@@ -46,6 +46,7 @@ import {
 } from "models/view/mapModel";
 import Sort from "components/Sort";
 import { Box, Flex, Space, Input } from "components/core";
+import StoreDetailCard from "./components/StoreDetailCard";
 
 declare const window: any;
 
@@ -63,7 +64,7 @@ export default function Map() {
   );
   const { openAlert } = useAlert();
 
-  const { handleSearchType } = useSearch();
+  const { handleStore, handleSearchType } = useSearch();
   const myLocation: any = useGeolocation();
   const { isShowToast, openToast, closeToast } = useToast();
   const { handleLocation } = useSearch();
@@ -137,7 +138,7 @@ export default function Map() {
   const handleClickMarker = () => {
     closeMapBottomSheetStore(sheet, height);
     openMapStoreDetail(mapStoreDetailRef, height, true, location.pathname);
-    bottomRef?.current?.style.setProperty("transform", `translateY(88px)`);
+    // bottomRef?.current?.style.setProperty("transform", `translateY(88px)`);
   };
 
   // filter
@@ -185,6 +186,10 @@ export default function Map() {
     onCurrentLocation(searchLocation?.lat, searchLocation?.lng);
     closeMapBottomSheetQuick(sheet, true);
   }, [searchLocation, foodType, dayOfWeek, mood]);
+
+  useEffect(() => {
+    handleStore({ ...store, id: -1, name: "" });
+  }, []);
 
   const goBack = () => {
     const pathname = location.pathname;
@@ -252,7 +257,9 @@ export default function Map() {
         )}
       </Box>
 
+      {/* {location.pathname !== "/map-store-detail-modal" && ( */}
       <FindLocationButton handleClick={handleClickFindLocation} />
+      {/* )} */}
       <MapBottomSheet sheet={sheet} content={content}>
         {filterVisible ? (
           <>
@@ -345,6 +352,11 @@ export default function Map() {
         <Toast message="조건에 일치하는 장소가 없습니다" close={closeToast} />
       )}
 
+      <MapStoreDetail ref={mapStoreDetailRef}>
+        <LocationTitle type={type} length={nearDatas?.[0]?.totalElements} />
+        <Space h={14} />
+        <StoreDetailCard />
+      </MapStoreDetail>
       {filterVisible ? (
         <FilterButton
           filter={{
@@ -356,8 +368,6 @@ export default function Map() {
       ) : (
         <BottomNavigation ref={bottomRef} />
       )}
-
-      <MapStoreDetail ref={mapStoreDetailRef} />
     </>
   );
 }

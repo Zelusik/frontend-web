@@ -49,6 +49,7 @@ export default function ReviewDetail() {
   const handleScroll = ({ scrollY }: ScrollProps) => {
     setTitleChange(scrollY);
   };
+  console.log(reviewData);
 
   return (
     <>
@@ -71,7 +72,11 @@ export default function ReviewDetail() {
             textLeft={titleChange > width - 50 && reviewData?.place?.name}
             renderRight={
               <Dots
-                type="share-report"
+                type={
+                  reviewData?.writer?.isEqualLoginMember
+                    ? "delete-edit"
+                    : "share-report"
+                }
                 color={titleChange <= width - 50 ? "N0" : "N100"}
               />
             }
@@ -108,7 +113,12 @@ export default function ReviewDetail() {
                     categoryTypo="Paragraph1"
                   />
                 }
-                renderRight={<Heart id={reviewData?.place?.id} />}
+                renderRight={
+                  <Heart
+                    id={reviewData?.place?.id}
+                    isMarked={reviewData?.place?.isMarked}
+                  />
+                }
               />
               <Space h={16} />
 

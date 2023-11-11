@@ -17,6 +17,8 @@ interface StoreReviewButtonProps {
 
   categoryColor?: string;
   categoryTypo?: string;
+
+  disabled?: boolean;
 }
 
 const StoreReviewButton = ({
@@ -31,10 +33,12 @@ const StoreReviewButton = ({
 
   categoryColor,
   categoryTypo = "Paragraph4",
+
+  disabled = false,
 }: StoreReviewButtonProps) => {
   const router = useRouter();
   const handleClick = () => {
-    if (type === "none") return;
+    if (type === "none" || disabled) return;
     router.push({
       pathname: type === "store" ? Route.STORE_DETAIL() : Route.REVIEW_DETAIL(),
       query: { id },

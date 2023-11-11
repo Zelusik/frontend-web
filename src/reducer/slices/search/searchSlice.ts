@@ -104,8 +104,8 @@ export const searchSlice = createSlice({
       state,
       { payload }: { payload: { type: string; value: any } }
     ) => {
-      // const { value } = payload;
-      // state.value = value;
+      const { value } = payload;
+      state.value = value;
     },
     changeLocation: (
       state,
