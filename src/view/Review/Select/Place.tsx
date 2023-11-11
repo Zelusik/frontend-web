@@ -1,23 +1,23 @@
-import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
-import { typography } from "constants/typography";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { colors } from "constants/colors";
-import BottomButton from "components/Button/BottomButton";
+import styled from '@emotion/styled';
+import React, { useEffect, useState } from 'react';
+import { typography } from 'constants/typography';
+import { useAppSelector } from 'hooks/useReduxHooks';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { colors } from 'constants/colors';
+import BottomButton from 'components/Button/BottomButton';
 
-import BackTitle from "components/Title/BackTitle";
-import { useRouter } from "next/router";
-import { Route } from "constants/Route";
-import useGetPlace from "hooks/queries/review/useGetPlace";
-import useGetPlaceInfo from "hooks/queries/review/useGetPlaceInfo";
+import BackTitle from 'components/Title/BackTitle';
+import { useRouter } from 'next/router';
+import { Route } from 'constants/Route';
+import useGetPlace from 'hooks/queries/review/useGetPlace';
+import useGetPlaceInfo from 'hooks/queries/review/useGetPlaceInfo';
 
-import Icon from "components/Icon/Icon";
-import LoadingDots from "components/Loading/LoadingDots";
-import useDisplaySize from "hooks/useDisplaySize";
-import { AspectRatio, Image, Space } from "components/core";
+import Icon from 'components/Icon/Icon';
+import LoadingDots from 'components/Loading/LoadingDots';
+import useDisplaySize from 'hooks/useDisplaySize';
+import { AspectRatio, Image, Space } from 'components/core';
 
 const Place = () => {
   const router = useRouter();
@@ -32,6 +32,13 @@ const Place = () => {
   const { isLoading } = useGetPlaceInfo(image);
 
   useEffect(() => {
+    document.addEventListener('message', (e: any) => {
+      const data = JSON.parse(e.data);
+      console.log('RN 웹뷰 통신', data);
+    });
+  }, []);
+
+  useEffect(() => {
     if (data && !placeLoading && !error) {
       router.push(Route.REVIEW_MENU());
     }
@@ -39,7 +46,7 @@ const Place = () => {
 
   const handleClickNextBtn = () => {
     setIsEnabled(true);
-    localStorage.removeItem("point");
+    localStorage.removeItem('point');
   };
 
   const handleClickSearchPlace = () => {
@@ -55,14 +62,12 @@ const Place = () => {
       ) : (
         <>
           <BackTitle type="black-left-text" text="음식점 선택" />
-          <ImageWrapper style={{ position: "relative" }}>
+          <ImageWrapper style={{ position: 'relative' }}>
             <Swiper
               className="banner"
               slidesPerView={1}
               spaceBetween={20}
-              onSlideChange={(swiper) =>
-                setCurrentSlideIndex(swiper.activeIndex)
-              }
+              onSlideChange={(swiper) => setCurrentSlideIndex(swiper.activeIndex)}
               allowSlidePrev={currentSlideIndex > 0}
               allowSlideNext={currentSlideIndex < image.length - 1}
             >
@@ -79,9 +84,7 @@ const Place = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <ImageBadge>{`${currentSlideIndex + 1}/${
-              image.length
-            }`}</ImageBadge>
+            <ImageBadge>{`${currentSlideIndex + 1}/${image.length}`}</ImageBadge>
           </ImageWrapper>
           <Space h={10} />
           <PlaceContainer>
