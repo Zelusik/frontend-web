@@ -11,7 +11,7 @@ import Numbers from "components/Common/Number";
 
 import BackTitle from "components/Title/BackTitle";
 import { colors } from "constants/colors";
-import { Image, Space } from "components/core";
+import { AspectRatio, Image, Space } from "components/core";
 
 export default function ImageDetail({}: any) {
   const router = useRouter();
@@ -51,59 +51,70 @@ export default function ImageDetail({}: any) {
         </NumberWrapper>
       </TitleWrapper>
 
-      <Swiper
-        allowSlidePrev={currentIndex !== 0}
-        allowSlideNext={currentIndex !== imageLen - 1}
-        spaceBetween={10}
-        onSlideChange={onSlideChange}
-        style={{ marginTop: ((height - width) / 2 - 50) * 0.9 }}
+      <AspectRatio
+        mt={((height - width) / 2 - 50) * 0.9}
+        pos="relative"
+        ratio={1}
       >
-        {router.query.image1 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image1} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-        {router.query.image2 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image2} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-        {router.query.image3 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image3} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-        {router.query.image4 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image4} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-        {router.query.image5 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image5} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-        {router.query.image6 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image6} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-        {router.query.image7 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image7} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-        {router.query.image8 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image8} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-        {router.query.image9 !== "" ? (
-          <SwiperSlide>
-            <Image alt="상세 이미지" src={router.query.image9} h={width} />
-          </SwiperSlide>
-        ) : undefined}
-      </Swiper>
+        <Swiper
+          allowSlidePrev={currentIndex !== 0}
+          allowSlideNext={currentIndex !== imageLen - 1}
+          spaceBetween={10}
+          onSlideChange={onSlideChange}
+          style={{
+            width: width,
+            position: "absolute",
+            top: "50%",
+            transform: "translate(0, -50%)",
+          }}
+        >
+          {router.query.image1 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image1} />
+            </SwiperSlide>
+          ) : undefined}
+          {router.query.image2 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image2} />
+            </SwiperSlide>
+          ) : undefined}
+          {router.query.image3 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image3} />
+            </SwiperSlide>
+          ) : undefined}
+          {router.query.image4 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image4} />
+            </SwiperSlide>
+          ) : undefined}
+          {router.query.image5 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image5} />
+            </SwiperSlide>
+          ) : undefined}
+          {router.query.image6 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image6} />
+            </SwiperSlide>
+          ) : undefined}
+          {router.query.image7 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image7} />
+            </SwiperSlide>
+          ) : undefined}
+          {router.query.image8 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image8} />
+            </SwiperSlide>
+          ) : undefined}
+          {router.query.image9 !== "" ? (
+            <SwiperSlide>
+              <Image alt="상세 이미지" src={router.query.image9} />
+            </SwiperSlide>
+          ) : undefined}
+        </Swiper>
+      </AspectRatio>
 
       <Space h={50} />
     </ImageDetailWrapper>
