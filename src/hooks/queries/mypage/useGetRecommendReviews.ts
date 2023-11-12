@@ -1,14 +1,18 @@
-import React from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { membersApi } from "api/members";
+
+export const recommendReviewsQueryKeys = {
+  id: ["recommendReviews"] as const,
+  byId: (id: string) => ["recommendReviews", id] as const,
+};
 
 const useGetRecommendReviews = () => {
   const { query } = useRouter();
   const memberId: any = query.id;
 
   const { data, isLoading, error, refetch } = useQuery(
-    ["recommendReviews", memberId],
+    recommendReviewsQueryKeys.byId(memberId),
     async () => {
       if (memberId) {
         const res = await membersApi.getRecommendReviews(Number(memberId));

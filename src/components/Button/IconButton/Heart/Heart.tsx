@@ -27,7 +27,7 @@ const Heart = ({ size, id, isMarked }: HeartProps) => {
         postHeartMutate({ id });
       }
       setMarkAni(false);
-    }, 200);
+    }, 100);
   };
 
   useEffect(() => {
@@ -54,7 +54,6 @@ const Heart = ({ size, id, isMarked }: HeartProps) => {
               open: { scale: [0, 1] },
               closed: { scale: [1, 0] },
             }}
-            onClick={handleClickMark}
           >
             <Icon
               icon="Heart"
