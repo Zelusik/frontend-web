@@ -38,10 +38,12 @@ const Place = () => {
       receiver = userAgent.indexOf('android') === -1 ? window : document;
     }
     receiver.addEventListener('message', (e: any) => {
-      console.log('이벤트', e);
-      console.log('데이터', e.data);
-      // const data = JSON.parse(e.data);
-      // console.log('RN 웹뷰 통신', data);
+      try {
+        const data = JSON.parse(e.data);
+        console.log('RN 웹뷰 통신', data);
+      } catch (error) {
+        console.error('JSON 파싱 오류:', error);
+      }
     });
   }, []);
 
