@@ -63,6 +63,7 @@ const StoreDetail = () => {
   });
 
   const { reviewDatas, fetchNextPage, hasNextPage } = useGetReviews({
+    currentIndex,
     kakaoId: router.query.kakaoId,
     placeId: Number(router.query.id),
   });

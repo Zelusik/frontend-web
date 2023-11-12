@@ -3,7 +3,7 @@ import { placesApi } from "api/places";
 import { useAppSelector } from "hooks/useReduxHooks";
 import { getReviews } from "api/reviews";
 
-const useGetReviews = ({ kakaoId, placeId }: any): any => {
+const useGetReviews = ({ currentIndex, kakaoId, placeId }: any): any => {
   const { placeInfo } = useAppSelector((state) => state.search);
 
   // 음식점 정보
@@ -48,6 +48,7 @@ const useGetReviews = ({ kakaoId, placeId }: any): any => {
       getNextPageParam: (lastPage: any) => {
         return lastPage?.isLast ? undefined : lastPage?.number + 1;
       },
+      enabled: currentIndex === 0,
     }
   );
   const reviewDatas = data?.pages;
