@@ -32,7 +32,13 @@ const Place = () => {
   const { isLoading } = useGetPlaceInfo(image);
 
   useEffect(() => {
-    document.addEventListener('message', (e: any) => {
+    console.log('웹뷰 통신');
+    let receiver: any = null;
+    if (typeof window !== undefined) {
+      const userAgent = navigator.userAgent.toLowerCase();
+      receiver = userAgent.indexOf('android') === -1 ? window : document;
+    }
+    receiver.addEventListener('message', (e: any) => {
       const data = JSON.parse(e.data);
       console.log('RN 웹뷰 통신', data);
     });

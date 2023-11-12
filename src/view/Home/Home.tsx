@@ -41,7 +41,7 @@ export default function Home() {
           >
             <Space h={20} />
             <Text c="N100" typo="Headline6">
-              오늘은!!
+              오늘은
               <br />
               어디로 갈까요?
             </Text>
