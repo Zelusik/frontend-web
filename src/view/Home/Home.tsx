@@ -1,17 +1,17 @@
-import { useRef } from "react";
-import { motion } from "framer-motion";
-import useDisplaySize from "hooks/useDisplaySize";
-import useGetFeed from "hooks/queries/home/useGetFeed";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import { getFeedContentsProps, getFeedProps } from "models/view/homeModel";
-import { globalValue } from "constants/globalValue";
+import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import useDisplaySize from 'hooks/useDisplaySize';
+import useGetFeed from 'hooks/queries/home/useGetFeed';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { getFeedContentsProps, getFeedProps } from 'models/view/homeModel';
+import { globalValue } from 'constants/globalValue';
 
-import { Box, ScrollArea, Space, Text } from "components/core";
-import BottomNavigation from "components/BottomNavigation";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import Icon from "components/Icon";
-import Title from "components/Title";
-import ReviewCard from "./components/ReviewCard";
+import { Box, ScrollArea, Space, Text } from 'components/core';
+import BottomNavigation from 'components/BottomNavigation';
+import LoadingCircle from 'components/Loading/LoadingCircle';
+import Icon from 'components/Icon';
+import Title from 'components/Title';
+import ReviewCard from './components/ReviewCard';
 
 export default function Home() {
   const infinityScrollRef = useRef(null);
