@@ -1,10 +1,10 @@
-import React, { useState, useEffect, forwardRef, useRef } from "react";
-import styled from "@emotion/styled";
-import { useAppSelector } from "hooks/useReduxHooks";
+import React, { useState, useEffect, forwardRef, useRef } from 'react';
+import styled from '@emotion/styled';
+import { useAppSelector } from 'hooks/useReduxHooks';
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 interface WrapperSliderProps {
   height?: number;
@@ -46,14 +46,14 @@ const WrapperSlider = forwardRef(function Div(
   };
 
   useEffect(() => {
-    console.log("A");
+    //console.log("A");
     ref.current.slickGoTo(index.wrapperIndex);
   }, [index.wrapperIndex]);
 
   useEffect(() => {
-    const el = document.getElementsByClassName("slick-track")[0];
-    el.classList.add("slick-wrapper-track");
-    el.classList.remove("slick-track");
+    const el = document.getElementsByClassName('slick-track')[0];
+    el.classList.add('slick-wrapper-track');
+    el.classList.remove('slick-track');
   }, []);
 
   return (

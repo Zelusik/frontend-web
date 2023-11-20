@@ -32,22 +32,6 @@ const Place = () => {
   const { isLoading } = useGetPlaceInfo(image);
 
   useEffect(() => {
-    let receiver: any = null;
-    if (typeof window !== undefined) {
-      const userAgent = navigator.userAgent.toLowerCase();
-      receiver = userAgent.indexOf('android') === -1 ? window : document;
-    }
-    receiver.addEventListener('message', (e: any) => {
-      try {
-        const data = JSON.parse(e.data);
-        console.log('RN 웹뷰 통신', data);
-      } catch (error) {
-        console.error('JSON 파싱 오류:', error);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
     if (data && !placeLoading && !error) {
       router.push(Route.REVIEW_MENU());
     }
