@@ -1,16 +1,20 @@
-import { useMutation } from "react-query";
+import { useRouter } from "next/router";
+import { useMutation, useQueryClient } from "react-query";
 import { postBookmarks } from "api/bookmarks";
+import { feedQueryKeys } from "../home/useGetFeed";
+import { recommendReviewsQueryKeys } from "../mypage/useGetRecommendReviews";
 
 const usePostHeart = () => {
-  const { mutate } = useMutation(({ placeId }: any) => postBookmarks(placeId), {
+  const { query } = useRouter();
+  const memberId: any = query.id;
+
+  const queryClient = useQueryClient();
+  return useMutation(({ id }: any) => postBookmarks(id), {
     onSuccess: () => {
-      //   console.log("createPost success");
-    },
-    onError: () => {
-      //   console.log("createPost error");
+      queryClient.invalidateQueries(feedQueryKeys.id);
+      queryClient.invalidateQueries(recommendReviewsQueryKeys.byId(memberId));
     },
   });
-  return { mutate };
 };
 
 export default usePostHeart;

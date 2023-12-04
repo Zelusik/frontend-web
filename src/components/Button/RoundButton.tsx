@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { match } from "ts-pattern";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
-import Text from "components/Text";
+import Text from "components/core/Text";
 
 const RoundButton = forwardRef(function Button(
   {
@@ -58,7 +58,7 @@ const RoundButton = forwardRef(function Button(
         .with("mypage-alert", () => "999px")
         .otherwise(() => "999px")}
       borderColor={match(type)
-        .with("map-icon", () => "N0")
+        .with("map-icon", () => (props.isMarkShow ? "Orange600" : "N0"))
         .with("map-text", () => (action ? "Orange600" : "N0"))
         .with("full", () => (action ? "Orange400" : "N40"))
         .with("full-radius", () => (action ? "Orange400" : "N40"))
@@ -120,7 +120,7 @@ const RoundButton = forwardRef(function Button(
           .with("mypage", () => "Paragraph5")
           .with("mypage-alert", () => "Paragraph5")
           .otherwise(() => "Heading2")}
-        color={match(type)
+        c={match(type)
           .with("map-icon", () => (props.isMarkShow ? "N0" : "N100"))
           .with("map-text", () => (action ? "N0" : "N100"))
           .with("full", () => (action ? "N0" : "N100"))

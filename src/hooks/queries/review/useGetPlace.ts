@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
 import { useQuery } from "react-query";
 import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import { getPlaces, postPlaces } from "api/places";
+import { existencePlace, getPlaces, postPlaces } from "api/places";
 
 const useGetPlace = (isEnabled: boolean) => {
   const dispatch = useAppDispatch();
@@ -15,28 +15,26 @@ const useGetPlace = (isEnabled: boolean) => {
   const { data, isLoading, error, refetch } = useQuery(
     ["place", kakaoPid],
     async () => {
-      const result = await getPlaces(kakaoPid);
-      if (result.status === 404 && result.data.code === 3001) {
-        // 장소를 찾을 수 없으므로 장소 등록
-        const postPlaceRes = await postPlaces(placeInfo);
-        if (postPlaceRes.status === 404) {
-        } else {
-          dispatch(
-            changeReviewInfo({
-              type: "placeId",
-              value: postPlaceRes.id,
-            })
-          );
-        }
-      } else {
+      const isExistPlace = await existencePlace(kakaoPid);
+      if (isExistPlace.existenceOfPlace) {
+        const result = await getPlaces(kakaoPid);
         dispatch(
           changeReviewInfo({
             type: "placeId",
             value: result.id,
           })
         );
+        return result;
+      } else {
+        const postPlaceRes = await postPlaces(placeInfo);
+        dispatch(
+          changeReviewInfo({
+            type: "placeId",
+            value: postPlaceRes.id,
+          })
+        );
+        return postPlaceRes;
       }
-      return result;
     },
     {
       enabled: isEnabled,

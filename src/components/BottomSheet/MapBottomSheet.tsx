@@ -1,42 +1,26 @@
 import { forwardRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import { motion } from "framer-motion";
+
 import { colors } from "constants/colors";
-import useMapBottomSheet from "hooks/useMapBottomSheet";
 import useDisplaySize from "hooks/useDisplaySize";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "hooks/useReduxHooks";
 
 import { globalValue } from "constants/globalValue";
+import { Box, Flex, ScrollArea } from "components/core";
 
 const MapBottomSheet = forwardRef(function Div(
-  { children, ...props }: any,
-  ref
+  { children, sheet, content, ...props }: any,
+  ref: any
 ) {
-  const { visible, actionDelay } = useAppSelector(
+  const { height } = useDisplaySize();
+  const { auto, visible, actionDelay } = useAppSelector(
     (state) => state.mapBottomSheet
   );
 
-  const { height } = useDisplaySize();
-  const { sheet, content, closeMapBottomSheet } = useMapBottomSheet({
-    use: "use",
-    visible,
-  });
-
-  const goBack = () => {
-    closeMapBottomSheet(sheet, true);
-  };
-
   useEffect(() => {
-    if (visible === 1) {
-      window.addEventListener("popstate", goBack);
-      return () => {
-        window.removeEventListener("popstate", goBack);
-      };
-    } else {
-    }
-  }, [visible]);
-
-  useEffect(() => {
+    content.current?.style.setProperty("overflow-y", "hidden");
     if (visible) {
       const BOTTOM_SHEET_HEIGHT =
         window.innerHeight - 82 - globalValue.BOTTOM_NAVIGATION_HEIGHT;
@@ -56,17 +40,35 @@ const MapBottomSheet = forwardRef(function Div(
 
   return (
     <>
-      <Background visible={visible} />
+      <motion.div
+        animate={auto === "up" ? "open" : auto === "down" ? "closed" : "none"}
+        variants={{
+          none: { opacity: visible },
+          open: { opacity: [visible, 1] },
+          closed: { opacity: [visible, 0] },
+        }}
+      >
+        <Background visible={visible} />
+      </motion.div>
       <BottomSheetWrapper
         ref={sheet}
         actionDelay={actionDelay}
         visible={visible}
         height={height - (82 + globalValue.BOTTOM_NAVIGATION_HEIGHT)}
       >
-        <HandleWrapper>
-          <Handle />
-        </HandleWrapper>
-        <BottomSheetContent ref={content}>{children}</BottomSheetContent>
+        <Flex w="100%" mih={20}>
+          <Box w={36} h={4} m="8px auto" radius={2} bg="N40" />
+        </Flex>
+        <ScrollArea
+          veiwportRef={content}
+          scroll="y"
+          style={{
+            overflow: "hidden",
+            "-webkit-overflow-scrolling": "touch",
+          }}
+        >
+          {children}
+        </ScrollArea>
       </BottomSheetWrapper>
     </>
   );
@@ -111,28 +113,9 @@ const BottomSheetWrapper = styled.div<{
   border-radius: 16px 16px 0 0;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.12);
   color: ${({ color }) => color};
-  background-color: ${colors.N0};
+  background-color: ${colors["N0"]};
 
   transition: transform 300ms ease-out;
-`;
-
-const HandleWrapper = styled.div`
-  width: 100%;
-  display: flex;
-`;
-const Handle = styled.div`
-  width: 36px;
-  height: 4px;
-  margin: 8px auto;
-
-  border-radius: 2px;
-  background-color: ${colors.N40};
-`;
-
-const BottomSheetContent = styled.div`
-  overflow: hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
 `;
 
 export default MapBottomSheet;

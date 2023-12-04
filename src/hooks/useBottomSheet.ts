@@ -59,7 +59,7 @@ export default function useBottomSheet({ ...props }: any) {
           value: 0,
         })
       );
-    }, 300);
+    }, 400);
   }, []);
 
   const closeBottomSheetQuick = useCallback((popstate?: any) => {

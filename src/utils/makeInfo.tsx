@@ -6,7 +6,13 @@ export const makeInfo = (data: any): any => {
       info_list: [
         {
           info_title: "위치",
-          info_desc: `${data?.address?.sido} ${data?.address?.sgg} ${data?.address?.lotNumberAddress}`,
+          info_desc: `${data?.address?.sido ? data?.address?.sido : ""} ${
+            data?.address?.sgg ? data?.address?.sgg : ""
+          } ${
+            data?.address?.lotNumberAddress
+              ? data?.address?.lotNumberAddress
+              : ""
+          }`,
           copy: true,
         },
         {

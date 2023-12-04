@@ -1,11 +1,12 @@
 // export type TypeOfColor = typeof colors;
 // export type KeyOfColor = keyof typeof colors;
 
-export const colors: any = {
+export const colors: any | undefined = {
   background: "#1E1E1E",
 
   N100: "#202330",
   N80: "#4C5061",
+  N65: "#797C89",
   N60: "#999CA8",
   N50: "#BDBEC7",
   N40: "#DBDCE2",
@@ -26,5 +27,6 @@ export const colors: any = {
   LightYellow: "#FFFAD6",
   Mint: "#2BD9BA",
   Shadow: "#000000",
+  Mark: "#FBFBFB",
   MarkColor: "#FBFBFB",
 } as const;

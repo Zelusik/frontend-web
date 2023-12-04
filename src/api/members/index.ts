@@ -1,6 +1,38 @@
 import client from "api";
 import { TermsType } from "types/auth";
 
+export const membersApi = {
+  getMeProfile: async () =>
+    await client
+      .get("/v1/members/me/profile", {
+        headers: { "Eatery-API-Minor-Version": 1 },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+  getProfile: async (memberId: number) =>
+    await client
+      .get(`/v1/members/${memberId}/profile`, {
+        headers: { "Eatery-API-Minor-Version": 1 },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+
+  getMeRecommendReviews: async () =>
+    await client
+      .get("/v1/members/me/recommended-reviews", {
+        headers: { "Eatery-API-Minor-Version": 1 },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+  getRecommendReviews: async (memeberId: number) =>
+    await client
+      .get(`/v1/members/${memeberId}/recommended-reviews`, {
+        headers: { "Eatery-API-Minor-Version": 1 },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+};
+
 export const getMembersSearch = async (params: any) => {
   params.headers = { "Eatery-API-Minor-Version": 1 };
   return await client
@@ -63,12 +95,18 @@ export const deleteUser = async (surveyType: string) =>
 export const postTerms = async (token: any, termsData: TermsType) =>
   await client
     .post("/v1/members/terms", termsData, {
-      headers: { Authorization: `Bearer ${token}`, "Eatery-API-Minor-Version": 1 },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Eatery-API-Minor-Version": 1,
+      },
     })
     .then(({ data }) => data)
     .catch((err) => err.response);
 
-export const putTaste = async (token: any, favoriteFoodCategories: string[]) => {
+export const putTaste = async (
+  token: any,
+  favoriteFoodCategories: string[]
+) => {
   const config: any = {
     headers: { "Eatery-API-Minor-Version": 1 },
   };
@@ -85,7 +123,9 @@ export const putTaste = async (token: any, favoriteFoodCategories: string[]) => 
 
 export const getMyProfile = async () =>
   await client
-    .get("/v1/members/me/profile", { headers: { "Eatery-API-Minor-Version": 1 } })
+    .get("/v1/members/me/profile", {
+      headers: { "Eatery-API-Minor-Version": 1 },
+    })
     .then(({ data }) => data)
     .catch((err) => err.response);
 

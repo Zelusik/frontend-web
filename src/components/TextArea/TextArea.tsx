@@ -4,8 +4,7 @@ import styled from "@emotion/styled";
 import { typography } from "constants/typography";
 import { colors } from "constants/colors";
 
-import Text from "components/Text/Text";
-import Spacing from "components/Spacing";
+import { Text, Space } from "components/core";
 
 export default function TextArea({
   size,
@@ -24,9 +23,9 @@ export default function TextArea({
         onChange={onChange}
         maxLength={maxLength}
       />
-      <Spacing size={12} />
+      <Space h={12} />
       {/* <TextWrapper> */}
-      <Text typo="Paragraph1" color="N80">
+      <Text typo="Paragraph1" c="N80">
         {text}
       </Text>
       {/* </TextWrapper> */}

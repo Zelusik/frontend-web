@@ -1,40 +1,81 @@
-import { deleteBookmarks, postBookmarks } from "api/bookmarks";
-import Icon from "components/Icon";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import useDeleteHeart from "hooks/queries/heart/useDeleteHeart";
 import usePostHeart from "hooks/queries/heart/usePostHeart";
-import { useState } from "react";
-import { useMutation } from "react-query";
+import Icon from "components/Icon";
 
-interface Props {
+interface HeartProps {
   size?: number;
-  placeId: number;
+  id: number;
   isMarked?: boolean;
 }
 
-export default function Heart({ size, placeId, isMarked }: Props) {
-  const [marked, setMarked] = useState(isMarked);
+const Heart = ({ size, id, isMarked }: HeartProps) => {
+  const [mark, setMark] = useState(isMarked);
+  const [markAni, setMarkAni] = useState(false);
   const { mutate: deleteHeartMutate } = useDeleteHeart();
   const { mutate: postHeartMutate } = usePostHeart();
 
   const handleClickMark = async (e: any) => {
     e.stopPropagation();
-    if (marked) {
-      deleteHeartMutate({ placeId });
-      setMarked(false);
-    } else {
-      postHeartMutate({ placeId });
-      setMarked(true);
-    }
+    setMark(!mark);
+    setMarkAni(true);
+    setTimeout(() => {
+      if (mark) {
+        deleteHeartMutate({ id });
+      } else {
+        postHeartMutate({ id });
+      }
+      setMarkAni(false);
+    }, 100);
   };
 
+  useEffect(() => {
+    setMark(isMarked);
+  }, [isMarked]);
+
   return (
-    <Icon
-      icon="Heart"
-      width={size}
-      height={size}
-      color={marked ? "Red" : "undefined"}
-      fill={marked ? "Red" : "undefined"}
-      onClick={handleClickMark}
-    />
+    <>
+      {markAni ? (
+        <>
+          <Icon
+            icon="Heart"
+            width={size}
+            height={size}
+            color="undefined"
+            fill="undefined"
+            style={{
+              position: "absolute",
+            }}
+          />
+          <motion.div
+            animate={mark ? "open" : "closed"}
+            variants={{
+              open: { scale: [0, 1] },
+              closed: { scale: [1, 0] },
+            }}
+          >
+            <Icon
+              icon="Heart"
+              width={size}
+              height={size}
+              color="Red"
+              fill="Red"
+            />
+          </motion.div>
+        </>
+      ) : (
+        <Icon
+          icon="Heart"
+          width={size}
+          height={size}
+          color={mark ? "Red" : "undefined"}
+          fill={mark ? "Red" : "undefined"}
+          onClick={handleClickMark}
+        />
+      )}
+    </>
   );
-}
+};
+
+export default Heart;

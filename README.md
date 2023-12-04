@@ -57,5 +57,4 @@
     <li>redux-toolkit</li>
     <li>react-query</li>
     <li>emotion</li>
-    <li>yarn berry</li>
 </ul>

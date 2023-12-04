@@ -73,7 +73,7 @@ const BottomSheet = forwardRef(function Div(
   );
 });
 
-const fade = (actionDelay: number) => keyframes`
+const fade = (actionDelay: boolean) => keyframes`
   from {
     opacity: ${actionDelay ? 0 : 0.7};
   }
@@ -92,7 +92,7 @@ const slide = (actionDelay: number, height: number) => keyframes`
 `;
 
 const Background = styled.div<{
-  actionDelay: number;
+  actionDelay: boolean;
   visible: number;
 }>`
   width: 100%;
@@ -138,6 +138,7 @@ const BottomSheetWrapper = styled.div<{
   visible: number;
 }>`
   width: 100%;
+  max-width: ${globalValue.MAX_WIDTH}px;
   height: ${({ height }) => height + "px"};
 
   display: flex;

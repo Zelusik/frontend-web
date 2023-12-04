@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Mypage/components/setting/Notification";
+export { default } from "view/Mypage/components/setting/Notification";

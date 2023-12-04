@@ -5,7 +5,8 @@ import { match } from "ts-pattern";
 import { colors } from "constants/colors";
 import Icon from "components/Icon";
 import Dots from "components/Button/IconButton/Dots";
-import Text from "components/Text";
+import Text from "components/core/Text";
+import useSearch from "hooks/useSearch";
 
 interface Props {
   type:
@@ -24,8 +25,15 @@ export default function BackTitle({
   ...props
 }: any) {
   const router = useRouter();
+  const { closeSearchPlace } = useSearch();
+
   const clickBack = () => {
-    router.back();
+    const pathname = location.pathname;
+    if (pathname === "/search-modal") {
+      closeSearchPlace();
+    } else {
+      router.back();
+    }
   };
 
   return (
@@ -54,13 +62,10 @@ export default function BackTitle({
               .with("white-dots-store", () => "N0")
               .with("white-dots", () => "N0")
               .with("white-dots-mine", () => "N0")
-              .with("black-dots", () => "N100")
               .with("white-left", () => "N0")
-              .with("black-left-text", () => "N100")
-              .with("map", () => "N100")
-              .otherwise(() => "N0")}
+              .otherwise(() => "N100")}
           />
-          <Text typo="Headline5" color="N100" style={{ marginLeft: 6 }}>
+          <Text typo="Headline5" c="N100" style={{ marginLeft: 6 }}>
             {props.title}
           </Text>
         </Menu>
@@ -69,7 +74,7 @@ export default function BackTitle({
       )}
 
       {text ? (
-        <Text typo="Headline3" color="N100">
+        <Text typo="Headline3" c="N100">
           {text}
         </Text>
       ) : (

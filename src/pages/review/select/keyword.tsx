@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Review/Select/Keyword";
+export { default } from "view/Review/Select/Keyword";

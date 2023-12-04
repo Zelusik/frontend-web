@@ -3,8 +3,8 @@ import { match } from "ts-pattern";
 
 import Edit from "components/Button/IconButton/Edit";
 import Heart from "components/Button/IconButton/Heart";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
+
+import Text from "components/core/Text";
 
 interface Props {
   type: "home" | "detail" | "detail-mine" | "map" | "mypage-review";
@@ -41,7 +41,11 @@ export default function StoreTitle({
         isFlex={type === "map"}
         style={{
           width:
-            type === "mypage-review" ? "100%" : type === "home" ? "75%" : "initial",
+            type === "mypage-review"
+              ? "100%"
+              : type === "home"
+              ? "75%"
+              : "initial",
         }}
       >
         {title ? (
@@ -54,7 +58,7 @@ export default function StoreTitle({
               .with("mark", () => "Headline4")
               .with("mypage-review", () => "Headline3")
               .otherwise(() => "Headline6")}
-            color={match(type)
+            c={match(type)
               .with("home", () => "N0")
               .with("mypage-review", () => "N0")
               .otherwise(() => "N100")}
@@ -83,7 +87,7 @@ export default function StoreTitle({
               .with("mark", () => "Paragraph1")
               .with("mypage-review", () => "Paragraph2")
               .otherwise(() => "Paragraph3")}
-            color={match(type)
+            c={match(type)
               .with("home", () => "N0")
               .with("map", () => "N60")
               .with("mark", () => "N60")
@@ -124,12 +128,12 @@ export default function StoreTitle({
                 .with("map", () => 24)
                 .with("mark", () => 24)
                 .otherwise(() => 28)}
-              placeId={props.placeId}
+              id={props.placeId}
               isMarked={props.isMarked}
             />
             {/* <Text
               typo="Paragraph3"
-              color={match(type)
+              c={match(type)
                 .with("home", () => "N0")
                 .with("detail", () => "N100")
                 .with("map", () => "N100")

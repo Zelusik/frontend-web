@@ -1,85 +1,97 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { colors } from "constants/colors";
 import { css } from "@emotion/react";
-import { typography } from "constants/typography";
-import { match } from "ts-pattern";
-import Hashtag from "./Hashtag";
 
-export default function Hashtags({
-  type = "primary",
-  hashtags,
-  side = 20,
-}: any) {
+import Hashtag from "./Hashtag";
+import { Flex, ScrollArea } from "components/core";
+import SlendarHashtag from "./SlendarHashtag";
+
+interface HashtagsProps {
+  type?: "slendar" | undefined;
+  padding?: number;
+  gap?: number;
+
+  color?: any;
+  typo?: any;
+  background?: any;
+
+  hashColor?: any;
+  hashTypo?: any;
+
+  textColor?: any;
+  textTypo?: any;
+  hashtagTextDatas: any;
+}
+
+const Hashtags = ({
+  type,
+  padding = 0,
+  gap = 6,
+
+  color = "Orange300",
+  typo = "Paragraph4",
+  background,
+
+  hashColor,
+  hashTypo,
+
+  textColor,
+  textTypo,
+  hashtagTextDatas,
+}: HashtagsProps) => {
   const router = useRouter();
 
   return (
-    <HashtagsWrapper>
-      <HashtagsInner>
-        {hashtags?.map((data: string, idx: number) => {
-          return (
+    <ScrollWrapper
+      padding={padding}
+      // ph={padding}
+      // dis="flex"
+      // gap={gap}
+      // style={{ whiteSpace: "nowrap" }} // 가로 스크롤
+    >
+      <ScrollInner gap={gap}>
+        {hashtagTextDatas?.map((hashtagText: string, idx: number) => {
+          return type === "slendar" ? (
+            <SlendarHashtag
+              key={idx}
+              color={color}
+              typo={typo}
+              background={background}
+              hashColor={hashColor}
+              hashTypo={hashTypo}
+              textColor={textColor}
+              textTypo={textTypo}
+              hashtagText={hashtagText}
+            />
+          ) : (
             <Hashtag
               key={idx}
-              type={type}
-              idx={idx}
-              len={hashtags?.length}
-              side={side}
-              text={data}
+              color={color}
+              typo={typo}
+              background={background}
+              hashColor={hashColor}
+              hashTypo={hashTypo}
+              textColor={textColor}
+              textTypo={textTypo}
+              hashtagText={hashtagText}
             />
           );
         })}
-      </HashtagsInner>
-    </HashtagsWrapper>
+      </ScrollInner>
+    </ScrollWrapper>
   );
-}
+};
 
-const HashtagsWrapper = styled.div`
+const ScrollWrapper = styled.div<{ padding: number }>`
+  padding: ${({ padding }) => `0 ${padding}px`};
   display: flex;
   white-space: nowrap;
-`;
-
-const HashtagsInner = styled.div`
-  display: flex;
   overflow: auto;
 `;
 
-const MenuWrapper = styled.div<{
-  marginLeft: boolean;
-  marginRight: boolean;
-  side: number;
-  color: any;
-}>`
-  height: 40px;
-  margin-left: ${({ marginLeft, side }) => (marginLeft ? `${side}px` : "0")};
-  margin-right: ${({ marginRight, side }) =>
-    marginRight ? `${side}px` : "8px"};
-  padding: 0 12px;
-  display: inline-block;
-  border-radius: 40px;
-  background-color: ${({ color }) => color};
+const ScrollInner = styled.div<{ gap: number }>`
+  gap: ${({ gap }) => gap}px;
+  display: flex;
 `;
 
-const Menu = styled.div<{ typo: any }>`
-  height: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-`;
-
-const Menuspan = styled.span<{ typo: any; color: any }>`
-  height: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  ${({ typo }) =>
-    typo &&
-    css`
-      ${typo}
-    `}
-  color: ${({ color }) => color};
-`;
+export default Hashtags;

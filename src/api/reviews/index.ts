@@ -1,6 +1,41 @@
 import client from "api";
 import { ReviewType } from "types/review";
 
+export const reviewsApi = {
+  getFeed: async (page: number) =>
+    await client
+      .get("/v1/reviews/feed", {
+        headers: { "Eatery-API-Minor-Version": 1 },
+        params: { page, size: 10 },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+
+  getReviewsMe: async ({ page, size }: { page: number; size: number }) =>
+    await client
+      .get("/v1/reviews/me", {
+        headers: { "Eatery-API-Minor-Version": 1 },
+        params: { page, size },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+  getReviews: async (params: any) => {
+    params.headers = { "Eatery-API-Minor-Version": 1 };
+    return await client
+      .get(`/v1/reviews?`, params)
+      .then(({ data }) => data)
+      .catch((err) => console.log(err.response));
+  },
+
+  getReviewsId: async (reviewId: number) =>
+    await client
+      .get(`/v1/reviews/${reviewId}`, {
+        headers: { "Eatery-API-Minor-Version": 1 },
+      })
+      .then(({ data }) => data)
+      .catch((err) => err.response),
+};
+
 export const getReviews = async (params: any) => {
   params.headers = { "Eatery-API-Minor-Version": 1 };
   return await client
@@ -11,7 +46,9 @@ export const getReviews = async (params: any) => {
 
 export const getReviewsId = async (reviewId: any) =>
   await client
-    .get(`/v1/reviews/${reviewId}`, { headers: { "Eatery-API-Minor-Version": 1 } })
+    .get(`/v1/reviews/${reviewId}`, {
+      headers: { "Eatery-API-Minor-Version": 1 },
+    })
     .then(({ data }) => data)
     .catch((err) => err.response);
 
@@ -30,7 +67,9 @@ export const getAutoReview = async ({ keywords, foodInfo }: any) =>
       params: {
         placeKeywords: keywords.join(","),
         menus: foodInfo.map((e: any) => e.foodName).join(","),
-        menuKeywords: foodInfo.map((e: any) => e.foodKeyword.join("+")).join(","),
+        menuKeywords: foodInfo
+          .map((e: any) => e.foodKeyword.join("+"))
+          .join(","),
       },
     })
     .then(({ data }) => data)
@@ -55,7 +94,10 @@ export const postReview = async (reviewData: ReviewType) => {
   try {
     formData.append("placeId", String(reviewData.placeId));
     formData.append("keywords", String(reviewData.keywords));
-    formData.append("autoCreatedContent", String(reviewData.autoCreatedContent));
+    formData.append(
+      "autoCreatedContent",
+      String(reviewData.autoCreatedContent)
+    );
     formData.append("content", String(reviewData.content));
 
     reviewData.images.forEach((imageData, index) => {
@@ -96,16 +138,13 @@ export const postReview = async (reviewData: ReviewType) => {
     .catch((err) => err.response);
 };
 
-export const getFeed = async (page: number) =>
-  await client
-    .get("/v1/reviews/feed", {
-      headers: { "Eatery-API-Minor-Version": 1 },
-      params: { page, size: 10 },
-    })
-    .then(({ data }) => data)
-    .catch((err) => err.response);
-
-export const getMyReviews = async ({ page, size }: { page: number; size: number }) =>
+export const getMyReviews = async ({
+  page,
+  size,
+}: {
+  page: number;
+  size: number;
+}) =>
   await client
     .get("/v1/reviews/me", {
       headers: { "Eatery-API-Minor-Version": 1 },

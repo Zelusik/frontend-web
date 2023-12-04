@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import useBottomSheet from "hooks/useBottomSheet";
 
 import Icon from "components/Icon";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
+
+import Text from "components/core/Text";
 import { Route } from "constants/Route";
+import { Space } from "components/core";
 
 interface Props {}
 
@@ -20,10 +21,10 @@ export default function ReportStore({}: Props) {
 
   return (
     <>
-      <Spacing size={10} />
+      <Space h={10} />
       <ReportButton onClick={clickPrimary}>
         <Icon icon="Share" width={20} height={20} />
-        <Text typo="Headline2" color="N100" style={{ marginLeft: 6 }}>
+        <Text typo="Headline2" c="N100" style={{ marginLeft: 6 }}>
           정보 수정 제안하기
         </Text>
       </ReportButton>

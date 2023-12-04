@@ -1,11 +1,12 @@
 import { globalValue } from "constants/globalValue";
 import { useRef, useEffect, useCallback } from "react";
 import {
+  changeAuto,
   changeMapAction,
   changeMapVisible,
   changeMapVisibleType,
 } from "reducer/slices/bottomSheet/mapBottomSheetSlice";
-import { useAppDispatch } from "./useReduxHooks";
+import { useAppDispatch, useAppSelector } from "./useReduxHooks";
 import useSearch from "./useSearch";
 
 interface BottomSheetMetrics {
@@ -26,26 +27,48 @@ export default function useMapBottomSheet({ ...props }: any) {
   const dispatch = useAppDispatch();
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
-  const { handleFilterVisible, updateNewSelection } = useSearch();
+  const { handleFilterVisible, updateNewSelection, deleteStore } = useSearch();
 
   const moveMapBottomSheet = useCallback((move: any) => {
-    history.pushState({ page: "modal" }, document.title, "map-modal");
     dispatch(
       changeMapVisible({
         type: "mapBottomSheet",
         value: move,
       })
     );
-  }, []);
-
-  const openMapBottomSheet = useCallback((type: any) => {
     dispatch(
-      changeMapVisibleType({
+      changeAuto({
         type: "mapBottomSheet",
-        value: [1, type],
+        value: "none",
       })
     );
   }, []);
+
+  const openMapBottomSheet = useCallback(
+    (type: any, sheetInner: any, height: any, popstate?: any) => {
+      if (!popstate)
+        history.pushState({ page: "modal" }, document.title, "map-modal");
+      setTimeout(() => {
+        dispatch(
+          changeMapVisibleType({
+            type: "mapBottomSheet",
+            value: [1, type],
+          })
+        );
+      }, 200);
+      sheetInner?.current?.style.setProperty(
+        "transform",
+        `translateY(${-height}px)`
+      );
+      dispatch(
+        changeAuto({
+          type: "mapBottomSheet",
+          value: "up",
+        })
+      );
+    },
+    []
+  );
 
   const closeMapBottomSheet = useCallback((sheetInner: any, popstate?: any) => {
     handleFilterVisible(false);
@@ -56,7 +79,7 @@ export default function useMapBottomSheet({ ...props }: any) {
         value: false,
       })
     );
-    sheetInner.current!.style.setProperty("transform", `translateY(-${0}px)`);
+    sheetInner?.current?.style.setProperty("transform", `translateY(-${0}px)`);
     setTimeout(() => {
       if (!popstate) history.back();
       dispatch(
@@ -66,18 +89,60 @@ export default function useMapBottomSheet({ ...props }: any) {
         })
       );
     }, 300);
-  }, []);
-
-  const closeMapBottomSheetQuick = useCallback((popstate?: any) => {
-    if (!popstate) history.back();
-    updateNewSelection();
     dispatch(
-      changeMapVisible({
-        type: "bottomSheet",
-        value: 0,
+      changeAuto({
+        type: "mapBottomSheet",
+        value: "down",
       })
     );
   }, []);
+
+  const closeMapBottomSheetQuick = useCallback(
+    (sheetInner: any, popstate?: any) => {
+      handleFilterVisible(false);
+      updateNewSelection();
+      dispatch(
+        changeMapAction({
+          type: "mapBottomSheet",
+          value: false,
+        })
+      );
+      sheetInner?.current?.style.setProperty(
+        "transform",
+        `translateY(-${0}px)`
+      );
+      dispatch(
+        changeMapVisible({
+          type: "mapBottomSheet",
+          value: 0,
+        })
+      );
+      dispatch(
+        changeAuto({
+          type: "mapBottomSheet",
+          value: "down",
+        })
+      );
+    },
+    []
+  );
+
+  const openMapBottomSheetStore = useCallback((sheetInner: any) => {
+    deleteStore();
+    sheetInner?.current?.style.setProperty("transform", `translateY(${0}px)`);
+  }, []);
+
+  const closeMapBottomSheetStore = useCallback(
+    (sheetInner: any, height: any) => {
+      const BOTTOM_SHEET_HEIGHT =
+        height - (82 + globalValue.BOTTOM_NAVIGATION_HEIGHT);
+      sheetInner?.current?.style.setProperty(
+        "transform",
+        `translateY(${BOTTOM_SHEET_HEIGHT * 0.3}px)`
+      );
+    },
+    []
+  );
 
   const metrics = useRef<BottomSheetMetrics>({
     touchStart: {
@@ -141,7 +206,8 @@ export default function useMapBottomSheet({ ...props }: any) {
       else if (-differenceY / TOUCH < 0) opacity = 0.01;
 
       if (isContentAreaTouched && differenceY < 0 && differenceY > -TOP) {
-        moveMapBottomSheet(opacity);
+        let opacityFixed = Number(opacity.toFixed(2));
+        if ((opacityFixed * 100) % 10 === 0) moveMapBottomSheet(opacityFixed);
         sheet.current!.style.setProperty(
           "transform",
           `translateY(${differenceY}px)`
@@ -158,7 +224,9 @@ export default function useMapBottomSheet({ ...props }: any) {
           opacity = -differenceY / TOUCH;
           if (-differenceY / TOUCH > 1) opacity = 0.99;
           else if (-differenceY / TOUCH < 0) opacity = 0.01;
-          moveMapBottomSheet(opacity);
+          let opacityFixed = Number(opacity.toFixed(2));
+          if ((opacityFixed * 100) % 10 === 0) moveMapBottomSheet(opacityFixed);
+
           sheet.current!.style.setProperty(
             "transform",
             `translateY(${differenceY}px)`
@@ -173,7 +241,9 @@ export default function useMapBottomSheet({ ...props }: any) {
           opacity = -differenceY / TOUCH;
           if (-differenceY / TOUCH > 1) opacity = 0.99;
           else if (-differenceY / TOUCH < 0) opacity = 0.01;
-          moveMapBottomSheet(opacity);
+          let opacityFixed = Number(opacity.toFixed(2));
+          if ((opacityFixed * 100) % 10 === 0) moveMapBottomSheet(opacityFixed);
+
           sheet.current!.style.setProperty(
             "transform",
             `translateY(${differenceY}px)`
@@ -184,42 +254,48 @@ export default function useMapBottomSheet({ ...props }: any) {
       touchMove.differenceY = differenceY;
     };
 
-    const open = () => {
-      openMapBottomSheet("primary");
-      sheet.current!.style.setProperty("transform", `translateY(${-TOP}px)`);
-    };
-    const close = () => {
-      closeMapBottomSheet(sheet);
-      sheet.current!.style.setProperty("transform", `translateY(0)`);
-    };
-
     const handleTouchEnd = (e: TouchEvent) => {
       const { touchStart, touchMove, isContentAreaTouched } = metrics.current;
       const move = touchStart.touchY - touchMove.moveTouchY;
 
       if (isContentAreaTouched) {
-        if (
-          (Math.abs(move) > 100 && TOP > touchStart.sheetY) ||
-          (Math.abs(move) < 100 && TOP < touchStart.sheetY)
-        ) {
-          close();
+        if (Math.abs(move) > 100 && TOP > touchStart.sheetY) {
+          closeMapBottomSheet(sheet);
+          content.current?.style.setProperty("overflow-y", "hidden");
           content.current!.scrollTop = 0;
-        } else open();
+        } else if (Math.abs(move) < 100 && TOP < touchStart.sheetY) {
+          closeMapBottomSheet(sheet, true);
+          content.current?.style.setProperty("overflow-y", "hidden");
+          content.current!.scrollTop = 0;
+        } else if (Math.abs(move) < 100 && TOP > touchStart.sheetY) {
+          openMapBottomSheet("primary", sheet, TOP, true);
+          content.current?.style.setProperty("overflow-y", "scroll");
+        } else {
+          openMapBottomSheet("primary", sheet, TOP);
+          content.current?.style.setProperty("overflow-y", "scroll");
+        }
       } else if (!isContentAreaTouched && content.current!.scrollTop <= 0) {
         if (
           touchMove.movingDirection === "up" &&
           touchStart.sheetY > HEIGHT / 2
         ) {
           if (Math.abs(move) > 50 && move > -TOP) {
-            open();
+            openMapBottomSheet("primary", sheet, TOP);
             content.current?.style.setProperty("overflow-y", "scroll");
-          } else close();
+          } else {
+            closeMapBottomSheet(sheet, true);
+            content.current?.style.setProperty("overflow-y", "hidden");
+          }
         } else if (
           touchMove.movingDirection === "down" &&
           touchStart.sheetY < HEIGHT / 2
         ) {
-          if (Math.abs(move) > 120 && move < 0) close();
-          else open();
+          if (Math.abs(move) > 120 && move < 0) {
+            closeMapBottomSheet(sheet);
+            content.current?.style.setProperty("overflow-y", "hidden");
+          } else {
+            openMapBottomSheet("primary", sheet, TOP, true);
+          }
         }
       }
 
@@ -247,9 +323,13 @@ export default function useMapBottomSheet({ ...props }: any) {
   return {
     sheet,
     content,
+
     moveMapBottomSheet,
     openMapBottomSheet,
     closeMapBottomSheet,
     closeMapBottomSheetQuick,
+
+    openMapBottomSheetStore,
+    closeMapBottomSheetStore,
   };
 }

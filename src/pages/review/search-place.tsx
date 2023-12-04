@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Review/components/SearchPlace";
+export { default } from "view/Review/components/SearchPlace";

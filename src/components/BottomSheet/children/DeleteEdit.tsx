@@ -5,8 +5,8 @@ import useAlert from "hooks/useAlert";
 
 import { Route } from "constants/Route";
 import Icon from "components/Icon";
-import Spacing from "components/Spacing";
-import Text from "components/Text";
+
+import Text from "components/core/Text";
 import useGetReviewsId from "hooks/queries/review-detail/useGetReviewsId";
 import { useAppDispatch } from "hooks/useReduxHooks";
 import {
@@ -15,6 +15,7 @@ import {
 } from "reducer/slices/review/reviewSlice";
 import { initEditImageInfo } from "reducer/slices/image/imageSlice";
 import { atmosphereKeyword, foodKeyword } from "data/keywordData";
+import { Space } from "components/core";
 
 interface Props {}
 
@@ -75,13 +76,13 @@ export default function DeleteEdit({}: Props) {
     dispatch(
       changeReviewInfo({
         type: "reviewId",
-        value: reviewData.id,
+        value: reviewData?.id,
       })
     );
     dispatch(
       changeReviewInfo({
         type: "keywords",
-        value: transformKeyword(reviewData.keywords),
+        value: transformKeyword(reviewData?.keywords),
       })
     );
     dispatch(
@@ -99,17 +100,17 @@ export default function DeleteEdit({}: Props) {
 
   return (
     <>
-      <Spacing size={10} />
+      <Space h={10} />
       <ReportButton onClick={clickPrimary}>
         <Icon icon="Trash" width={20} height={20} />
-        <Text typo="Headline2" color="N100" style={{ marginLeft: 6 }}>
+        <Text typo="Headline2" c="N100" style={{ marginLeft: 6 }}>
           삭제하기
         </Text>
       </ReportButton>
-      <Spacing size={26} />
+      <Space h={26} />
       <ReportButton onClick={clickSecondary}>
         <Icon icon="Edit" width={20} height={20} />
-        <Text typo="Headline2" color="N100" style={{ marginLeft: 6 }}>
+        <Text typo="Headline2" c="N100" style={{ marginLeft: 6 }}>
           수정하기
         </Text>
       </ReportButton>

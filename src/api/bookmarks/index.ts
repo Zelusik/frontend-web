@@ -1,7 +1,7 @@
 import client from "api";
 
 // 장소 북마크
-export const postBookmarks = async (placeId: number) =>
+export const postBookmarks = async (placeId: number) => {
   await client
     .post(
       "/v1/bookmarks",
@@ -10,7 +10,7 @@ export const postBookmarks = async (placeId: number) =>
     )
     .then(({ data }) => data)
     .catch((err) => err.response);
-
+};
 // 장소 북마크 취소
 export const deleteBookmarks = async (placeId: number) =>
   await client

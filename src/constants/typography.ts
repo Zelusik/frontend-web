@@ -1,8 +1,5 @@
 import { colors } from "./colors";
 
-// export type TypeOfTypo = typeof typography;
-// export type KeyOfTypo = keyof typeof typography;
-
 export const typography: any = {
   Headline6: {
     fontSize: 24,

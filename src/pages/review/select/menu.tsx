@@ -1,1 +1,1 @@
-export { default } from "pages-edit/Review/Select/Menu";
+export { default } from "view/Review/Select/Menu";

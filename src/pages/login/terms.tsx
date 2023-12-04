@@ -1,18 +1,17 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-import { colors } from "constants/colors";
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import Spacing from "components/Spacing/Spacing";
-
-import Icon from "components/Icon";
-import { termsData } from "data/termsData";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeAuthTermsInfo } from "reducer/slices/auth/authSlice";
-import { typography } from "constants/typography";
-import Link from "next/link";
-import BottomButton from "components/Button/BottomButton";
-import { Route } from "constants/Route";
+import { colors } from 'constants/colors';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Icon from 'components/Icon';
+import { termsData } from 'data/termsData';
+import { useAppDispatch, useAppSelector } from 'hooks/useReduxHooks';
+import { changeAuthTermsInfo } from 'reducer/slices/auth/authSlice';
+import { typography } from 'constants/typography';
+import Link from 'next/link';
+import { Route } from 'constants/Route';
+import { Space } from 'components/core';
+import { Button } from 'components/core';
 
 const TermsPage = () => {
   const dispatch = useAppDispatch();
@@ -83,9 +82,9 @@ const TermsPage = () => {
         </BackTitle>
       </TopWrapper>
       <MainWrapper>
-        <Spacing size={30} />
+        <Space h={30} />
         <span style={typography.Headline6}>약관에 동의해 주세요</span>
-        <Spacing size={30} />
+        <Space h={30} />
         <AllCheckContainer onClick={handleClickAllTerms}>
           <Icon
             icon="Select"
@@ -95,9 +94,9 @@ const TermsPage = () => {
                   Object.values(terms).filter((value) => value === true).length === 5
                     ? colors.N100
                     : colors.N20,
-                stroke: "none",
+                stroke: 'none',
               },
-              "path:last-child": {
+              'path:last-child': {
                 stroke:
                   Object.values(terms).filter((value) => value === true).length === 5
                     ? colors.N0
@@ -107,7 +106,7 @@ const TermsPage = () => {
           />
           <div style={typography.Headline4}>전체 동의하기</div>
         </AllCheckContainer>
-        <Spacing size={30} />
+        <Space h={30} />
         <TermsContainer>
           {termsData.map((term) => {
             return (
@@ -116,7 +115,7 @@ const TermsPage = () => {
                   <Icon
                     icon="Check"
                     onClick={() => handleClickTerms(term)}
-                    color={terms[term.key] ? "N80" : "N40"}
+                    color={terms[term.key] ? 'N80' : 'N40'}
                   />
                   <p>{term.val}</p>
                 </div>
@@ -131,27 +130,31 @@ const TermsPage = () => {
         </TermsContainer>
       </MainWrapper>
       <ButtonWrapper>
-        <BottomButton
-          text="다음으로"
+        <Button
+          w="100%"
+          h={54}
           radius={8}
-          backgroundColor={
-            terms.isNotMinor && terms.service && terms.userInfo
-              ? colors.Orange500
-              : colors.Orange200
-          }
-          color={colors.N0}
-          height="56px"
           disabled={
             terms.isNotMinor && terms.service && terms.userInfo ? false : true
           }
           onClick={handleClickNextBtn}
-        />
+          style={{
+            backgroundColor: colors.Orange500,
+            border: 'none',
+          }}
+        >
+          <div className="button-text">다음으로</div>
+        </Button>
       </ButtonWrapper>
     </TermsWrapper>
   );
 };
 
-const TermsWrapper = styled.div``;
+const TermsWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+`;
 const TopWrapper = styled.div`
   padding: 30px 20px 0;
 `;
@@ -202,5 +205,10 @@ const ButtonWrapper = styled.div`
   bottom: 0;
   width: 100%;
   padding: 0 20px 50px;
+
+  .button-text {
+    ${typography.Headline3};
+    color: ${colors.N0};
+  }
 `;
 export default TermsPage;

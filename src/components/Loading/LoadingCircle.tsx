@@ -1,29 +1,18 @@
 import React from "react";
-import styled from "@emotion/styled";
-import LoadingGif from "assets/loadingCircle.gif";
 import Image from "next/image";
+import LoadingGif from "assets/loadingCircle.gif";
+import { Flex } from "components/core";
 
-const LoadingCircle = ({ size }: any) => {
+interface LoadingCircleProps {
+  height?: string | number;
+}
+
+const LoadingCircle = ({ height = "auto" }: LoadingCircleProps) => {
   return (
-    <Wrapper height={size}>
-      <Image
-        src={LoadingGif}
-        alt="로딩 Gif"
-        width={28}
-        height={28}
-        unoptimized={true}
-      />
-    </Wrapper>
+    <Flex h={height} justify="center" align="center">
+      <Image src={LoadingGif} alt="로딩중 이미지" width={28} height={28} />
+    </Flex>
   );
 };
-
-const Wrapper = styled.div<{ height: any }>`
-  width: 100%;
-  height: ${({ height }) => (height ? `${height}px` : `100vh`)};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 export default LoadingCircle;
