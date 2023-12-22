@@ -6,7 +6,6 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document";
-import { ServerStyleSheet } from "styled-components";
 import Script from "next/script";
 import { KAKAO_URL, NEXT_PUBLIC_KAKAO_APP_JS_KEY } from "api/open-api";
 
@@ -14,34 +13,22 @@ const KAKAO_SDK_URL = `${KAKAO_URL}/maps/sdk.js?appkey=${NEXT_PUBLIC_KAKAO_APP_J
 
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const sheet = new ServerStyleSheet();
-    const originalRenderPage = ctx.renderPage;
     const page = await ctx.renderPage();
     const { css, ids } = await renderStatic(page.html);
 
-    try {
-      ctx.renderPage = () =>
-        originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
-        });
-      const initialProps = await Document.getInitialProps(ctx);
-      return {
-        ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            {sheet.getStyleElement()}
-            <style
-              data-emotion={`css ${ids.join(" ")}`}
-              dangerouslySetInnerHTML={{ __html: css }}
-            />
-          </>
-        ),
-      };
-    } finally {
-      sheet.seal();
-    }
+    const initialProps = await Document.getInitialProps(ctx);
+    return {
+      ...initialProps,
+      styles: (
+        <>
+          {initialProps.styles}
+          <style
+            data-emotion={`css ${ids.join(" ")}`}
+            dangerouslySetInnerHTML={{ __html: css }}
+          />
+        </>
+      ),
+    };
   }
 
   public render() {
