@@ -1,9 +1,9 @@
 import React from "react";
 import { Box as MaterialBox } from "@material-ui/core";
-import { ComponentsProps } from "models/componentsModal";
+import { ComponentsProps } from "@/models/componentsModal";
 import { coreStyles } from "../coreStyles";
-import { typography } from "constants/typography";
-import { colors } from "constants/colors";
+import { typography } from "@/constants/typography";
+import { colors } from "@/constants/colors";
 
 type TextProps = ComponentsProps & {
   c?: any;

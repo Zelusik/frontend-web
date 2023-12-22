@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-const useToast = () => {
+export const useToast = () => {
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
 
   const openToast = useCallback(() => setIsShowToast(true), [setIsShowToast]);
@@ -14,5 +14,3 @@ const useToast = () => {
 
   return { isShowToast, openToast, closeToast, toggleToast };
 };
-
-export default useToast;

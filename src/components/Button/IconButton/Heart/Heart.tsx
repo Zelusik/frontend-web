@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import useDeleteHeart from "hooks/queries/heart/useDeleteHeart";
-import usePostHeart from "hooks/queries/heart/usePostHeart";
-import Icon from "components/Icon";
+import useDeleteHeart from "@/hooks/queries/heart/useDeleteHeart";
+import usePostHeart from "@/hooks/queries/heart/usePostHeart";
+import { Icon } from "@/components";
 
 interface HeartProps {
   size?: number;

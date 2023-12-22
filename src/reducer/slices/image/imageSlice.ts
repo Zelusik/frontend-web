@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ImageType, MenuTagType } from "types/image";
+import { ImageType, MenuTagType } from "@/types/image";
 
 // 이미지를 보여줄 path, 위도 경도 등을 저장할 slice
 const initialState: ImageType[] = [];
@@ -47,7 +47,11 @@ export const imageSlice = createSlice({
       const { index, menuTag } = payload;
       state[index].menuTag = state[index].menuTag.filter(
         (tag: any) =>
-          !(tag.x === menuTag.x && tag.y === menuTag.y && tag.menu === menuTag.menu)
+          !(
+            tag.x === menuTag.x &&
+            tag.y === menuTag.y &&
+            tag.menu === menuTag.menu
+          )
       );
     },
     modifyMenuTag: (

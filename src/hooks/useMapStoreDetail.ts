@@ -1,7 +1,7 @@
-import { globalValue } from "constants/globalValue";
+import { globalValue } from "@/constants/globalValue";
 import { useRef, useEffect, useCallback } from "react";
 import { useAppDispatch } from "./useReduxHooks";
-import useSearch from "./useSearch";
+import { useSearch } from "./useSearch";
 
 interface BottomSheetMetrics {
   touchStart: {
@@ -16,7 +16,7 @@ interface BottomSheetMetrics {
   };
 }
 
-export default function useMapStoreDetail({ ...props }: any) {
+export function useMapStoreDetail({ ...props }: any) {
   const dispatch = useAppDispatch();
   const sheet = useRef<HTMLDivElement>(null);
   const { deleteStore } = useSearch();

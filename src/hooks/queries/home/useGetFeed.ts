@@ -1,5 +1,5 @@
-import { reviewsApi } from "api/reviews";
-import { getFeedProps } from "models/view/homeModel";
+import { reviewsApi } from "@/api/reviews";
+import { getFeedProps } from "@/models/view/homeModel";
 import { useInfiniteQuery } from "react-query";
 
 export const feedQueryKeys = {

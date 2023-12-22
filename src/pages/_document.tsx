@@ -1,4 +1,4 @@
-import { renderStatic } from "utils/renderer";
+import { renderStatic } from "@/utils/renderer";
 import Document, {
   Html,
   Head,
@@ -7,7 +7,7 @@ import Document, {
   DocumentContext,
 } from "next/document";
 import Script from "next/script";
-import { KAKAO_URL, NEXT_PUBLIC_KAKAO_APP_JS_KEY } from "api/open-api";
+import { KAKAO_URL, NEXT_PUBLIC_KAKAO_APP_JS_KEY } from "@/api/open-api";
 
 const KAKAO_SDK_URL = `${KAKAO_URL}/maps/sdk.js?appkey=${NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false`;
 

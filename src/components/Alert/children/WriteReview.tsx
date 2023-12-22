@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import RoundButton from "components/Button/RoundButton";
-import { Text } from "components/core";
-import { Route } from "constants/Route";
-import useAlert from "hooks/useAlert";
+import RoundButton from "@/components/Button/RoundButton";
+import { Text } from "@/components/core";
+import { Route } from "@/constants";
+import { useAlert } from "@/hooks";
 import { useRouter } from "next/router";
 
 export default function WriteReview() {

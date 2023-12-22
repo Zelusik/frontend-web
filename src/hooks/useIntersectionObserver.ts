@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from "react";
 
-function useIntersectionObserver(
+export function useIntersectionObserver(
   target: RefObject<Element>,
   handleIntersect: () => void,
   enabled = true,
@@ -30,5 +30,3 @@ function useIntersectionObserver(
     return () => observer.unobserve(el);
   }, [target, handleIntersect, root, threshold, rootMargin, enabled]);
 }
-
-export default useIntersectionObserver;

@@ -2,9 +2,9 @@ import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { match } from "ts-pattern";
-import { colors } from "constants/colors";
-import Icon from "components/Icon";
-import Text from "components/core/Text";
+import { colors } from "@/constants";
+import { Icon } from "@/components/Icon";
+import { Text } from "@/components/core";
 
 const RoundButton = forwardRef(function Button(
   {

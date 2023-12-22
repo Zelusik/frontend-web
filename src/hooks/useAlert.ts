@@ -2,10 +2,10 @@ import { useState, useCallback } from "react";
 import {
   changeAlertVisible,
   changeSort,
-} from "reducer/slices/alert/alertSlice";
+} from "@/reducer/slices/alert/alertSlice";
 import { useAppDispatch } from "./useReduxHooks";
 
-const useAlert = () => {
+export const useAlert = () => {
   const dispatch = useAppDispatch();
 
   const openAlert = useCallback((type: string) => {
@@ -37,5 +37,3 @@ const useAlert = () => {
 
   return { openAlert, closeAlert, handleSortId };
 };
-
-export default useAlert;

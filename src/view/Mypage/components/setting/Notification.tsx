@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { Space } from "components/core";
-import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
+import { Space } from "@/components/core";
+import BackTitle from "@/components/Title/BackTitle";
+import { colors, typography } from "@/constants";
 import React, { useState } from "react";
 
 const Notification = () => {

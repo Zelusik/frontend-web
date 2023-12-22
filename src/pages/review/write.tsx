@@ -1,1 +1,1 @@
-export { default } from "view/Review/components/Write";
+export { default } from "@/view/Review/components/Write";

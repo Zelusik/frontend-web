@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import Icon from "components/Icon/Icon";
-import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { CommonQAData } from "data/commonQAData";
+import { Icon } from "@/components/Icon";
+import BackTitle from "@/components/Title/BackTitle";
+import { colors } from "@/constants/colors";
+import { typography } from "@/constants/typography";
+import { CommonQAData } from "@/data/commonQAData";
 import React, { useState } from "react";
-import { Space, Text } from "components/core";
+import { Space, Text } from "@/components/core";
 
 const Inquiry = () => {
   const [clickedArr, setClickedArr] = useState<number[]>([]);

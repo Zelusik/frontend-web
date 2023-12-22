@@ -5,10 +5,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import SlideLine from "./SlideLine";
 import FoodTag from "./FoodTag";
-import ImageHashtag from "components/Common/ImageHashtag";
-import { AspectRatio, Box, Image } from "components/core";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { globalValue } from "constants/globalValue";
+import ImageHashtag from "@/components/Common/ImageHashtag";
+import { AspectRatio, Box, Image } from "@/components/core";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { globalValue } from "@/constants/globalValue";
 
 const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   const { display } = useAppSelector((state) => state.global);

@@ -2,13 +2,13 @@ import { forwardRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { colors } from "constants/colors";
-import { globalValue } from "constants/globalValue";
-import { Route } from "constants/Route";
+import { colors } from "@/constants/colors";
+import { globalValue } from "@/constants/globalValue";
+import { Route } from "@/constants/Route";
 
-import { typography } from "constants/typography";
-import { AspectRatio, Box, Flex, Image, Space } from "components/core";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { typography } from "@/constants/typography";
+import { AspectRatio, Box, Flex, Image, Space } from "@/components/core";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 
 const ImageBox = forwardRef(function Div({ images }: any, ref: any) {
   const router = useRouter();

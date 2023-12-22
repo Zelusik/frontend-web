@@ -1,4 +1,4 @@
-import Text from "components/core/Text";
+import { Text } from "@/components/core";
 
 export default function ImageHashtag({ text, top, left }: any) {
   return (

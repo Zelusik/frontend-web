@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import { ScrollArea, Space } from "components/core";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import { useGetSearchProfile } from "hooks/queries/search-places/useGetSearch";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { ScrollArea, Space } from "@/components/core";
+import LoadingCircle from "@/components/Loading/LoadingCircle";
+import { useGetSearchProfile } from "@/hooks/queries/search-places/useGetSearch";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 import NoneText from "./NoneText";
 import Selection from "./Selection";
 import ProfileSelection from "./ProfileSelection";

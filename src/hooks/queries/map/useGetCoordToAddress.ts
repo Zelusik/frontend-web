@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { getCoordToAddress } from "api/open-api";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { getCoordToAddress } from "@/api/open-api";
 
 const useGetCoordToAddress = (): any => {
   const { location } = useAppSelector((state) => state.search);

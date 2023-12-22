@@ -1,23 +1,19 @@
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import { useAppSelector } from "hooks/useReduxHooks";
-import useSearch from "hooks/useSearch";
-import { TasteDataProps } from "models/globalDataModel";
+import { useAppSelector, useSearch } from "@/hooks";
+import { TasteDataProps } from "@/models/globalDataModel";
 
-import { Button, Flex, ScrollArea, Text } from "components/core";
+import { Icon } from "@/components";
+import { Button, ScrollArea } from "@/components/core";
 
-import { tasteDatas } from "constants/globalData";
-import Icon from "components/Icon";
+import { tasteDatas } from "@/constants";
 
 interface FoodSelectionProps {
   mark: any;
-  clickMyLocation: () => void;
+  onClickMyLocation: () => void;
 }
 
-export default function FoodSelection({
-  mark,
-  clickMyLocation,
-}: FoodSelectionProps) {
+export function FoodSelection({ mark, onClickMyLocation }: FoodSelectionProps) {
   const router = useRouter();
   const { auto, visible } = useAppSelector((state) => state.mapBottomSheet);
   const { foodType } = useAppSelector((state) => state.search);
@@ -60,7 +56,7 @@ export default function FoodSelection({
           radius={40}
           renderLeft={<Icon icon="Location" style={{ marginRight: -2 }} />}
           style={boxStyle}
-          onClick={clickMyLocation}
+          onClick={onClickMyLocation}
         >
           내 주변
         </Button>

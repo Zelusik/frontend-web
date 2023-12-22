@@ -13,10 +13,10 @@ import {
   changeType,
   changeValue,
   changeVisible,
-} from "reducer/slices/search/searchSlice";
+} from "@/reducer/slices/search/searchSlice";
 import { useAppDispatch, useAppSelector } from "./useReduxHooks";
 
-const useSearch = () => {
+export const useSearch = () => {
   const dispatch = useAppDispatch();
   const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
 
@@ -244,5 +244,3 @@ const useSearch = () => {
     handlePlaceInfo,
   };
 };
-
-export default useSearch;

@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import useDisplaySize from "hooks/useDisplaySize";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import useGetFilteringKeywords from "hooks/queries/mark/useGetFilteringKeywords";
-import { editDisplaySize } from "reducer/slices/global/globalSlice";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { useAppDispatch } from "@/hooks/useReduxHooks";
+import useGetFilteringKeywords from "@/hooks/queries/mark/useGetFilteringKeywords";
+import { editDisplaySize } from "@/reducer/slices/global/globalSlice";
 
-import BottomNavigation from "components/BottomNavigation";
-import { globalValue } from "constants/globalValue";
+import BottomNavigation from "@/components/BottomNavigation";
+import { globalValue } from "@/constants/globalValue";
 import StoreCardContainer from "./components/StoreCardContainer";
-import { TopNavigation } from "components/TopNavigation";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import { colors } from "constants/colors";
-import Title from "components/Title";
-import { Box, Space } from "components/core";
+import { TopNavigation } from "@/components/TopNavigation";
+import LoadingCircle from "@/components/Loading/LoadingCircle";
+import { colors } from "@/constants/colors";
+import Title from "@/components/Title";
+import { Box, Space } from "@/components/core";
 
 const Mark = () => {
   const dispatch = useAppDispatch();

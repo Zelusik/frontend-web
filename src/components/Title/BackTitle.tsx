@@ -2,11 +2,11 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
 
-import { colors } from "constants/colors";
-import Icon from "components/Icon";
-import Dots from "components/Button/IconButton/Dots";
-import Text from "components/core/Text";
-import useSearch from "hooks/useSearch";
+import { colors } from "@/constants/colors";
+import Icon from "@/components/Icon";
+import Dots from "@/components/Button/IconButton/Dots";
+import Text from "@/components/core/Text";
+import useSearch from "@/hooks/useSearch";
 
 interface Props {
   type:

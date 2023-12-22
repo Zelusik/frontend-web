@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
-import { colors } from "constants/colors";
-import { Box, Flex, Space, Text } from "components/core";
-import Button from "components/core/Button";
+import { Box, Flex, Space, Text, Button } from "@/components/core";
 
 interface NothingButtonProps {
   height?: string | number;

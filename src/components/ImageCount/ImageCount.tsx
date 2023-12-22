@@ -1,6 +1,6 @@
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { Flex, Text } from "components/core";
+import { colors } from "@/constants/colors";
+import { typography } from "@/constants/typography";
+import { Flex, Text } from "@/components/core";
 
 interface ImageCountProps {
   color?: string;

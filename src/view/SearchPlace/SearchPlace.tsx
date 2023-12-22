@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import useDisplaySize from "hooks/useDisplaySize";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { editDisplaySize } from "reducer/slices/global/globalSlice";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { useAppDispatch } from "@/hooks/useReduxHooks";
+import { editDisplaySize } from "@/reducer/slices/global/globalSlice";
 
-import { TopNavigation } from "components/TopNavigation";
-import Title from "components/Title";
-import { Box, Input, ScrollArea, Space } from "components/core";
+import { TopNavigation } from "@/components/TopNavigation";
+import Title from "@/components/Title";
+import { Box, Input, ScrollArea, Space } from "@/components/core";
 
-import { useAppSelector } from "hooks/useReduxHooks";
-import useDebounce from "hooks/useDebounce";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import useDebounce from "@/hooks/useDebounce";
 
 import AllDelete from "./components/AllDelete";
 import CurrentSelection from "./components/CurrentSelection";
-import BackArrow from "components/Button/IconButton/BackArrow";
+import BackArrow from "@/components/Button/IconButton/BackArrow";
 import LocationContainer from "./components/LocationContainer";
 import StoreContainer from "./components/StoreContainer";
 import ProfileContainer from "./components/ProfileContainer";

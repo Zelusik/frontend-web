@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppSelector } from "./useReduxHooks";
-import useSearch from "./useSearch";
+import { useSearch } from "./useSearch";
 
 interface locationType {
   loaded: boolean;
@@ -8,7 +8,7 @@ interface locationType {
   error?: { code: number; message: string };
 }
 
-const useGeolocation = () => {
+export const useGeoLocation = () => {
   const { location } = useAppSelector((state) => state.search);
   const [myLocation, setMyLocation] = useState<locationType>({
     loaded: false,
@@ -68,5 +68,3 @@ const useGeolocation = () => {
 
   return myLocation;
 };
-
-export default useGeolocation;

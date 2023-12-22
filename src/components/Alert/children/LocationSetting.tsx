@@ -1,13 +1,8 @@
 import styled from "@emotion/styled";
 
-import useAlert from "hooks/useAlert";
-import { useAppSelector } from "hooks/useReduxHooks";
-
-import Icon from "components/Icon";
-
-import { Space, Text } from "components/core";
-import { sortData } from "constants/globalData";
-import { colors } from "constants/colors";
+import { useAlert } from "@/hooks/useAlert";
+import { Space, Text } from "@/components/core";
+import { colors } from "@/constants";
 
 export default function LocationSetting() {
   const { closeAlert } = useAlert();

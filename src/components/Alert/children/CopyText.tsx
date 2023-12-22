@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import useAlert from "hooks/useAlert";
-import { Space, Text } from "components/core";
+import { useAlert } from "@/hooks";
+import { Space, Text } from "@/components/core";
 
 export default function CopyText() {
   const { closeAlert } = useAlert();

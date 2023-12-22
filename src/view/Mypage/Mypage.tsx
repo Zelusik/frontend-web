@@ -3,28 +3,28 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
-import useDisplaySize from "hooks/useDisplaySize";
-import useGetProfile from "hooks/queries/user/useGetProfile";
-import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { editDisplaySize } from "reducer/slices/global/globalSlice";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import useGetProfile from "@/hooks/queries/user/useGetProfile";
+import useGetRecommendReviews from "@/hooks/queries/mypage/useGetRecommendReviews";
+import { useAppDispatch } from "@/hooks/useReduxHooks";
+import { editDisplaySize } from "@/reducer/slices/global/globalSlice";
 
-import { globalValue } from "constants/globalValue";
+import { globalValue } from "@/constants/globalValue";
 
-import { Box, Space, ScrollArea } from "components/core";
-import BottomNavigation from "components/BottomNavigation";
-import Setting from "components/Button/IconButton/Setting";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import { TopNavigation } from "components/TopNavigation";
-import Title from "components/Title";
-import Dots from "components/Button/IconButton/Dots";
-import BackArrow from "components/Button/IconButton/BackArrow";
+import { Box, Space, ScrollArea } from "@/components/core";
+import BottomNavigation from "@/components/BottomNavigation";
+import Setting from "@/components/Button/IconButton/Setting";
+import LoadingCircle from "@/components/Loading/LoadingCircle";
+import { TopNavigation } from "@/components/TopNavigation";
+import Title from "@/components/Title";
+import Dots from "@/components/Button/IconButton/Dots";
+import BackArrow from "@/components/Button/IconButton/BackArrow";
 
 import TasteBox from "./components/TasteBox";
 import ProfileInfo from "./components/ProfileInfo";
 import RecommendReviewCardContainer from "./components/RecommendReviewCardContainer";
 import ReviewCardContainer from "./components/ReviewCardContainer";
-import { ScrollTopNavigation } from "components/TopNavigation";
+import { ScrollTopNavigation } from "@/components/TopNavigation";
 
 // 392 + 35 = 427
 

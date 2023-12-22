@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import Icon from "components/Icon/Icon";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
 import * as exifr from "exifr";
-import { useAppDispatch } from "hooks/useReduxHooks";
+import { useAppDispatch } from "@/hooks/useReduxHooks";
 import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
 import {
   changeImageInfo,
   initializeImageInfo,
-} from "reducer/slices/image/imageSlice";
-import { Route } from "constants/Route";
-import BackTitle from "components/Title/BackTitle";
-import { initializeReviewInfo } from "reducer/slices/review/reviewSlice";
-import BottomNavigation from "components/BottomNavigation/BottomNavigation";
-import Toast from "components/Toast/Toast";
+} from "@/reducer/slices/image/imageSlice";
+import { Route } from "@/constants/Route";
+import { initializeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import { BottomNavigation, Toast, Icon, Title } from "@/components";
 import imageCompression from "browser-image-compression";
-import useToast from "hooks/useToast";
-import { globalValue } from "constants/globalValue";
-import useDisplaySize from "hooks/useDisplaySize";
-import useGeolocation from "hooks/useGeolocation";
-import { Box, Flex, Space, Text } from "components/core";
-import Title from "components/Title";
+import { useToast, useDisplaySize } from "@/hooks";
+import { globalValue, typography } from "@/constants";
+import { Box, Flex, Space, Text } from "@/components/core";
 
 const Review = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { height } = useDisplaySize();
   const { isShowToast, openToast, closeToast } = useToast();
-  const myLocation: any = useGeolocation();
   const [isMobile, setIsMobile] = useState(false);
 
   const handleCloseToast = () => {

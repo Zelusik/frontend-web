@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { InnerTopNavigation } from "components/TopNavigation";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import { Space } from "components/core";
+import { InnerTopNavigation } from "@/components/TopNavigation";
+import { LoadingCircle } from "@/components/Loading";
+import { Space } from "@/components/core";
 
 import ReviewCard from "./ReviewCard";
 

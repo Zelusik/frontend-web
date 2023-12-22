@@ -1,17 +1,17 @@
-import Korean from "assets/taste/Korean.svg";
-import Japanese from "assets/taste/Japanese.svg";
-import Chinese from "assets/taste/Chinese.svg";
-import Meat from "assets/taste/Meat.svg";
-import Western from "assets/taste/Western.svg";
-import Chicken from "assets/taste/Chicken.svg";
-import SnackBar from "assets/taste/SnackBar.svg";
-import Fastfood from "assets/taste/Fastfood.svg";
-import Dessert from "assets/taste/Dessert.svg";
-import Asian from "assets/taste/Asian.svg";
-import Sandwich from "assets/taste/Sandwich.svg";
-import Fusion from "assets/taste/Fusion.svg";
-import Buffet from "assets/taste/Buffet.svg";
-import Bar from "assets/taste/Bar.svg";
+import Korean from "@/assets/taste/Korean.svg";
+import Japanese from "@/assets/taste/Japanese.svg";
+import Chinese from "@/assets/taste/Chinese.svg";
+import Meat from "@/assets/taste/Meat.svg";
+import Western from "@/assets/taste/Western.svg";
+import Chicken from "@/assets/taste/Chicken.svg";
+import SnackBar from "@/assets/taste/SnackBar.svg";
+import Fastfood from "@/assets/taste/Fastfood.svg";
+import Dessert from "@/assets/taste/Dessert.svg";
+import Asian from "@/assets/taste/Asian.svg";
+import Sandwich from "@/assets/taste/Sandwich.svg";
+import Fusion from "@/assets/taste/Fusion.svg";
+import Buffet from "@/assets/taste/Buffet.svg";
+import Bar from "@/assets/taste/Bar.svg";
 
 // keywordData.ts
 

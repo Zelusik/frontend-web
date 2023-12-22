@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import { useAppSelector } from "hooks/useReduxHooks";
-import Hashtags from "components/Hashtags";
-import Title from "components/Title";
-import StoreReviewButton from "components/Button/StoreReviewButton";
-import { AspectRatio, Box, Image, Space } from "components/core";
-import { Route } from "constants/Route";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import Hashtags from "@/components/Hashtags";
+import Title from "@/components/Title";
+import StoreReviewButton from "@/components/Button/StoreReviewButton";
+import { AspectRatio, Box, Image, Space } from "@/components/core";
+import { Route } from "@/constants/Route";
 
-const StoreDetailCard = () => {
+export const StoreDetailCard = () => {
   const router = useRouter();
   const { store } = useAppSelector((state) => state.search);
 
@@ -50,5 +50,3 @@ const StoreDetailCard = () => {
     </Box>
   );
 };
-
-export default StoreDetailCard;

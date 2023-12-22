@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { Box } from "components/core";
-import Text from "components/core/Text";
-import { globalValue } from "constants/globalValue";
+import { Box } from "@/components/core";
+import Text from "@/components/core/Text";
+import { globalValue } from "@/constants/globalValue";
 
 export default function NoneText({ text }: any) {
   return (

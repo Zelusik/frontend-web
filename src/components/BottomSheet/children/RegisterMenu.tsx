@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { colors } from "constants/colors";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { appendMenuTag } from "reducer/slices/image/imageSlice";
-import { changeVisible } from "reducer/slices/bottomSheet/bottomSheetSlice";
-import useGetMenus from "hooks/queries/review/useGetMenus";
-import { patchMenu } from "api/places-menus";
+import { colors } from "@/constants/colors";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
+import { appendMenuTag } from "@/reducer/slices/image/imageSlice";
+import { changeVisible } from "@/reducer/slices/bottomSheet/bottomSheetSlice";
+import useGetMenus from "@/hooks/queries/review/useGetMenus";
+import { patchMenu } from "@/api/places-menus";
 
 const RegisterMenu = () => {
   const { refetch } = useGetMenus();

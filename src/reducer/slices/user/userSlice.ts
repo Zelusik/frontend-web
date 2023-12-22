@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserInfoType } from "types/user";
+import { UserInfoType } from "@/types/user";
 
 const initialState: UserInfoType = {
   birthDay: "",
@@ -23,7 +23,11 @@ export const userSlice = createSlice({
       }: {
         payload: {
           type: string;
-          value: number | string | string[] | { url: string; thumbnailUrl: string };
+          value:
+            | number
+            | string
+            | string[]
+            | { url: string; thumbnailUrl: string };
         };
       }
     ) => {

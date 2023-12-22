@@ -1,15 +1,13 @@
-import { useState } from "react";
-import { Box, ScrollArea, Space } from "components/core";
-import { onScrollProps } from "components/core/ScrollArea/ScrollArea";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import { globalValue } from "constants/globalValue";
-import useGetReviews from "hooks/queries/user/useGetReviews";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { Space } from "@/components/core";
+import { globalValue } from "@/constants/globalValue";
+import useGetReviews from "@/hooks/queries/user/useGetReviews";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 import ReviewList from "./ReviewList";
-import { InnerTopNavigation } from "components/TopNavigation";
-import NothingButton from "components/Button/NothingButton";
-import { Route } from "constants/Route";
+import { InnerTopNavigation } from "@/components/TopNavigation";
+import NothingButton from "@/components/Button/NothingButton";
+import { Route } from "@/constants/Route";
 import { useRouter } from "next/router";
+import { LoadingCircle } from "@/components/Loading";
 
 interface ReviewCardContainerProps {
   refs?: any;

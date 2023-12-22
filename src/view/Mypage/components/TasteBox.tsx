@@ -1,5 +1,5 @@
-import { Box, Flex, Space, Text } from "components/core";
-import Hashtag from "components/Hashtags/Hashtag";
+import { Box, Flex, Space, Text } from "@/components/core";
+import Hashtag from "@/components/Hashtags/Hashtag";
 
 export default function TasteBox({ profileData }: any) {
   return (

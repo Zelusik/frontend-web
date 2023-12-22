@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import BobpoolSvg from "assets/bobpool_error.svg";
-import { Box, Space, Text, Button, Flex } from "components/core";
+import BobpoolSvg from "@/assets/bobpool_error.svg";
+import { Box, Space, Text, Button, Flex } from "@/components/core";
 
 interface SadBobpoolProps {
   height?: string | number;
@@ -11,7 +9,7 @@ interface SadBobpoolProps {
   buttonClick?: () => void;
 }
 
-const SadBobpool = ({
+export const SadBobpool = ({
   height = "auto",
   text = "sad bobpool",
   buttonText = "sad bobpool",
@@ -47,5 +45,3 @@ const SadBobpool = ({
     </Flex>
   );
 };
-
-export default SadBobpool;

@@ -3,12 +3,10 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { Route } from "constants/Route";
-import { typography } from "constants/typography";
-import { colors } from "constants/colors";
-import Icon from "components/Icon";
-import useSearch from "hooks/useSearch";
-import { Box, Flex } from "components/core";
+import { Icon } from "@/components";
+import { Route, typography, colors } from "@/constants";
+import { useSearch } from "@/hooks";
+import { Flex } from "@/components/core";
 
 const Input = ({
   type = "line",

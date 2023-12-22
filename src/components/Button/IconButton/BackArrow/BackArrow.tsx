@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import Icon from "components/Icon";
-import { Button } from "components/core";
+import { Icon } from "@/components";
+import { Button } from "@/components/core";
 
 interface BackArrowProps {
   icon?: any;

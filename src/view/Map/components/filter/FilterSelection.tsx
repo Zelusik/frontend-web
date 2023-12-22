@@ -1,17 +1,16 @@
 import { useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { useAppSelector } from "hooks/useReduxHooks";
-import useSearch from "hooks/useSearch";
+import { useAppSelector, useSearch } from "@/hooks";
+import { Icon } from "@/components";
 
-import { colors } from "constants/colors";
-import { atmosphereKeyword } from "constants/globalData";
+import { colors } from "@/constants/colors";
+import { atmosphereKeyword } from "@/constants/globalData";
 
-import Icon from "components/Icon";
-import RoundButton from "components/Button/RoundButton";
-import { Space, Text } from "components/core";
+import RoundButton from "@/components/Button/RoundButton";
+import { Space, Text } from "@/components/core";
 
-export default function FilterSelection({}: any) {
+export function FilterSelection({}: any) {
   const router = useRouter();
   const filterRef = useRef<any>(null);
   const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
@@ -89,15 +88,15 @@ const ScrollList = styled.div<{ marginRight: boolean }>`
 `;
 // import { useRef } from "react";
 // import { useRouter } from "next/router";
-// import { Box, Button, Flex, Space, Text } from "components/core";
-// import { useAppSelector } from "hooks/useReduxHooks";
-// import useSearch from "hooks/useSearch";
+// import { Box, Button, Flex, Space, Text } from "@/components/core";
+// import { useAppSelector } from "@/hooks/useReduxHooks";
+// import useSearch from "@/hooks/useSearch";
 
-// import { colors } from "constants/colors";
-// import { atmosphereKeyword } from "constants/globalData";
+// import { colors } from "@/constants/colors";
+// import { atmosphereKeyword } from "@/constants/globalData";
 
-// import Icon from "components/Icon";
-// import { typography } from "constants/typography";
+// import Icon from "@/components/Icon";
+// import { typography } from "@/constants/typography";
 
 // const FilterSelection = () => {
 //   const router = useRouter();

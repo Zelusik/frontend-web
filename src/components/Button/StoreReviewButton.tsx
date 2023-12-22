@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
-import { Route } from "constants/Route";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { Box, Flex, Space, Text } from "components/core";
+import { Route } from "@/constants";
+import { Box, Space, Text } from "@/components/core";
 
 interface StoreReviewButtonProps {
   type: "none" | "store" | "review";

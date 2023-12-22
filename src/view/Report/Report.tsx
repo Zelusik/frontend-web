@@ -2,17 +2,16 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { typography } from "constants/typography";
+import { typography } from "@/constants/typography";
 
-import BackTitle from "components/Title/BackTitle";
-import BottomButton from "components/Button/BottomButton";
+import BackTitle from "@/components/Title/BackTitle";
+import BottomButton from "@/components/Button/BottomButton";
 import ReportButton from "./components/ReportButton";
 import { useState } from "react";
-import TextArea from "components/TextArea";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { reportData, storeReportData } from "constants/globalData";
-import Text from "components/core/Text";
-import { Space } from "components/core";
+import { TextArea } from "@/components";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { reportData, storeReportData } from "@/constants/globalData";
+import { Text, Space } from "@/components/core";
 
 export default function Report() {
   const router = useRouter();

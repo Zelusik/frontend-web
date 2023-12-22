@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 
-import useAlert from "hooks/useAlert";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector, useAlert } from "@/hooks";
 
-import Icon from "components/Icon";
+import { Icon } from "@/components/Icon";
 
-import { Space, Text } from "components/core";
-import { sortData } from "constants/globalData";
+import { Space, Text } from "@/components/core";
+import { sortData } from "@/constants/globalData";
 
 export default function Sort() {
   const { sortId } = useAppSelector((state) => state.alert);

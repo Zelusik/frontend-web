@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useQuery } from "react-query";
-import { placesApi } from "api/places";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { getReviews } from "api/reviews";
+import { placesApi } from "@/api/places";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { getReviews } from "@/api/reviews";
 import { useState } from "react";
 
 const useGetStore = async ({ kakaoId, placeId }: any) => {
@@ -82,9 +82,9 @@ const useGetStore = async ({ kakaoId, placeId }: any) => {
 export default useGetStore;
 
 // import { useInfiniteQuery, useQuery } from "react-query";
-// import { placesApi } from "api/places";
-// import { useAppSelector } from "hooks/useReduxHooks";
-// import { getReviews } from "api/reviews";
+// import { placesApi } from "@/api/places";
+// import { useAppSelector } from "@/hooks/useReduxHooks";
+// import { getReviews } from "@/api/reviews";
 // import { useState } from "react";
 
 // const useGetStore = ({ kakaoId, placeId }: any): any => {

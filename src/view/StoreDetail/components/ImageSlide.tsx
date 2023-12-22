@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { Route } from "constants/Route";
-import { AspectRatio, Flex, Image, ScrollArea } from "components/core";
+import { Route } from "@/constants/Route";
+import { AspectRatio, Flex, Image, ScrollArea } from "@/components/core";
 import { useRef } from "react";
 
 export default function SlideImage({ images = [], touch }: any) {

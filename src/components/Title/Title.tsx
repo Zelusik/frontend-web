@@ -1,7 +1,7 @@
 import React from "react";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { Box, Flex, Space, Text } from "components/core";
+import { colors } from "@/constants/colors";
+import { typography } from "@/constants/typography";
+import { Box, Flex, Space, Text } from "@/components/core";
 
 interface TitleProps {
   height?: number;

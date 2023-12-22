@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TermsType } from "types/auth";
+import { TermsType } from "@/types/auth";
 
 interface AuthType {
   accessToken: string;

@@ -1,29 +1,23 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { getAddressInfo } from "utils/getAddressInfo";
-import styled from "@emotion/styled";
-import useDisplaySize from "hooks/useDisplaySize";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useIntersectionObserver, useToast } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
 
-import useToast from "hooks/useToast";
-import { colors } from "constants/colors";
-import { Route } from "constants/Route";
-import { typography } from "constants/typography";
-import Toast from "components/Toast/Toast";
+import { Route } from "@/constants/Route";
+import { Toast } from "@/components/Toast";
 
 import {
   changeRecommendReview,
   initializeRecommendReview,
-} from "reducer/slices/review/recommendReviewSlice";
-import { AspectRatio, Box, Flex, Image, Space, Text } from "components/core";
-import Title from "components/Title";
-import StoreReviewButton from "components/Button/StoreReviewButton";
+} from "@/reducer/slices/review/recommendReviewSlice";
+import { AspectRatio, Box, Flex, Image, Space, Text } from "@/components/core";
+import Title from "@/components/Title";
+import StoreReviewButton from "@/components/Button/StoreReviewButton";
 import {
   getOtherReviewsContentsProps,
   getReviewsContentsProps,
   getReviewsProps,
-} from "models/view/mypageModel";
+} from "@/models/view/mypageModel";
 
 export default function ReviewList({
   type = "mypage",

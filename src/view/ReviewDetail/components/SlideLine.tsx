@@ -1,7 +1,7 @@
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Box } from "components/core";
-import { colors } from "constants/colors";
+import { Box } from "@/components/core";
+import { colors } from "@/constants/colors";
 
 export default function FoodTagLine({ percentage }: any) {
   return (

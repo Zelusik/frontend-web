@@ -1,12 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { typography } from "constants/typography";
-import { colors } from "constants/colors";
+import { typography, colors } from "@/constants";
 
-import { Text, Space } from "components/core";
+import { Text, Space } from "@/components/core";
 
-export default function TextArea({
+export function TextArea({
   size,
   placeholder,
   value,

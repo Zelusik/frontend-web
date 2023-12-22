@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import RoundButton from "components/Button/RoundButton";
-import { Space, Text } from "components/core";
+import RoundButton from "@/components/Button/RoundButton";
+import { Space, Text } from "@/components/core";
 
-export default function Filter({ type, filterData }: any) {
+export function Filter({ type, filterData }: any) {
   const router = useRouter();
 
   const buttonAction = (val: string) => {
@@ -76,10 +76,10 @@ const ButtonWrapper = styled.div`
   gap: 8px;
 `;
 
-// import { Button, Flex, Space, Text } from "components/core";
-// import { typography } from "constants/typography";
-// import { colors } from "constants/colors";
-// import { FilterDatasProps } from "models/view/mapModel";
+// import { Button, Flex, Space, Text } from "@/components/core";
+// import { typography } from "@/constants/typography";
+// import { colors } from "@/constants/colors";
+// import { FilterDatasProps } from "@/models/view/mapModel";
 
 // interface FilterProps {
 //   key?: number;

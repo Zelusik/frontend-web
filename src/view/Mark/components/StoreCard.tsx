@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 import {
   getBookmarksContentsImagesProps,
   getBookmarksContentsProps,
-} from "models/view/markModel";
+} from "@/models/view/markModel";
 
-import Swiper from "components/Swiper";
+import Swiper from "@/components/Swiper";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import { globalValue } from "constants/globalValue";
-import { colors } from "constants/colors";
-import { Route } from "constants/Route";
-import Hashtags from "components/Hashtags";
+import { globalValue } from "@/constants/globalValue";
+import { colors } from "@/constants/colors";
+import { Route } from "@/constants/Route";
+import Hashtags from "@/components/Hashtags";
 
-import { AspectRatio, Box, Image, Space } from "components/core";
-import Title from "components/Title";
-import StoreReviewButton from "components/Button/StoreReviewButton";
-import Heart from "components/Button/IconButton/Heart";
-import ImageCount from "components/ImageCount";
+import { AspectRatio, Box, Image, Space } from "@/components/core";
+import Title from "@/components/Title";
+import StoreReviewButton from "@/components/Button/StoreReviewButton";
+import Heart from "@/components/Button/IconButton/Heart";
+import ImageCount from "@/components/ImageCount";
 
 interface StoreCardProps {
   key?: number;

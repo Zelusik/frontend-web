@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
-import AlertButton from "components/Button/AlertButton";
-import RoundButton from "components/Button/RoundButton";
-import { Text } from "components/core";
-import useAlert from "hooks/useAlert";
+import AlertButton from "@/components/Button/AlertButton";
+import { Text } from "@/components/core";
+import { useAlert } from "@/hooks";
 import { useRouter } from "next/router";
-import { deleteCookie } from "utils/cookie";
+import { deleteCookie } from "@/utils/cookie";
 
 export default function Logout() {
   const router = useRouter();

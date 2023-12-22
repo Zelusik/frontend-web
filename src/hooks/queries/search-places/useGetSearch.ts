@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "react-query";
-import { getMeetingPlaces } from "api/meeting-places";
-import { getKeyword } from "api/open-api";
-import { getMembersSearch } from "api/members";
+import { getMeetingPlaces } from "@/api/meeting-places";
+import { getKeyword } from "@/api/open-api";
+import { getMembersSearch } from "@/api/members";
 
 export const useGetSearchLocation = (
   isEnabled: boolean,

@@ -1,5 +1,5 @@
 import React from "react";
-import { placesApi } from "api/places";
+import { placesApi } from "@/api/places";
 import { useQuery } from "react-query";
 
 const useGetFilteringKeywords = () => {

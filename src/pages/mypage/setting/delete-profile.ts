@@ -1,1 +1,1 @@
-export { default } from "view/Mypage/components/setting/DeleteProfile";
+export { default } from "@/view/Mypage/components/setting/DeleteProfile";

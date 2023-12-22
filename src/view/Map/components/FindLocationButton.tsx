@@ -1,14 +1,12 @@
-import { globalValue } from "constants/globalValue";
-import Icon from "components/Icon";
-import { Box, Flex } from "components/core";
+import { globalValue } from "@/constants/globalValue";
+import { Icon } from "@/components";
+import { Box, Flex } from "@/components/core";
 
 interface FindLocationButtonProps {
   handleClick: () => void;
 }
 
-export default function FindLocationButton({
-  handleClick,
-}: FindLocationButtonProps) {
+export function FindLocationButton({ handleClick }: FindLocationButtonProps) {
   return (
     <Box
       w={40}

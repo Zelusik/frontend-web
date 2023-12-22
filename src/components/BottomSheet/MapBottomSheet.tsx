@@ -3,14 +3,12 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 
-import { colors } from "constants/colors";
-import useDisplaySize from "hooks/useDisplaySize";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { colors, globalValue } from "@/constants";
+import { useDisplaySize, useAppSelector } from "@/hooks";
 
-import { globalValue } from "constants/globalValue";
-import { Box, Flex, ScrollArea } from "components/core";
+import { Box, Flex, ScrollArea } from "@/components/core";
 
-const MapBottomSheet = forwardRef(function Div(
+export const MapBottomSheet = forwardRef(function Div(
   { children, sheet, content, ...props }: any,
   ref: any
 ) {
@@ -117,5 +115,3 @@ const BottomSheetWrapper = styled.div<{
 
   transition: transform 300ms ease-out;
 `;
-
-export default MapBottomSheet;

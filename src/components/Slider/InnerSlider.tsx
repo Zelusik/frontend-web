@@ -1,12 +1,12 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import useDisplaySize from "hooks/useDisplaySize";
-import { Box, Text } from "components/core";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { Box, Text } from "@/components/core";
 
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 
 interface InnerSliderProps {
   height?: string | number;

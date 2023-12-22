@@ -1,5 +1,5 @@
 import React from "react";
-import { kakaoSearchKeyword } from "api/open-api";
+import { kakaoSearchKeyword } from "@/api/open-api";
 import { useInfiniteQuery } from "react-query";
 
 const useGetSearchPlace = ({ x, y, keyword }: any) => {

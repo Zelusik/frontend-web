@@ -1,1 +1,1 @@
-export { default } from "view/Map";
+export { default } from "@/view/Map";

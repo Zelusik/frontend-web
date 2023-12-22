@@ -1,9 +1,9 @@
 // 장소 선택 후 넘어갈 때 만약 장소 조회 후 없다면 저장
 import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
 import { useQuery } from "react-query";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import { existencePlace, getPlaces, postPlaces } from "api/places";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import { existencePlace, getPlaces, postPlaces } from "@/api/places";
 
 const useGetPlace = (isEnabled: boolean) => {
   const dispatch = useAppDispatch();

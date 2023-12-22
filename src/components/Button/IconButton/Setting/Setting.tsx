@@ -1,7 +1,7 @@
-import { Button } from "components/core";
-import Icon from "components/Icon";
-import { Route } from "constants/Route";
 import { useRouter } from "next/router";
+import { Button } from "@/components/core";
+import { Icon } from "@/components";
+import { Route } from "@/constants";
 
 interface Props {
   margin?: string;

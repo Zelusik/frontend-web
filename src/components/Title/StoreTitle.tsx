@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
 
-import Edit from "components/Button/IconButton/Edit";
-import Heart from "components/Button/IconButton/Heart";
+import Edit from "@/components/Button/IconButton/Edit";
+import Heart from "@/components/Button/IconButton/Heart";
 
-import Text from "components/core/Text";
+import Text from "@/components/core/Text";
 
 interface Props {
   type: "home" | "detail" | "detail-mine" | "map" | "mypage-review";

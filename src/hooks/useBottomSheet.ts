@@ -3,7 +3,7 @@ import {
   changeAction,
   changeVisible,
   changeVisibleType,
-} from "reducer/slices/bottomSheet/bottomSheetSlice";
+} from "@/reducer/slices/bottomSheet/bottomSheetSlice";
 import { useAppDispatch } from "./useReduxHooks";
 
 interface BottomSheetMetrics {
@@ -19,7 +19,7 @@ interface BottomSheetMetrics {
   isContentAreaTouched: boolean;
 }
 
-export default function useBottomSheet({ ...props }: any) {
+export function useBottomSheet({ ...props }: any) {
   const dispatch = useAppDispatch();
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);

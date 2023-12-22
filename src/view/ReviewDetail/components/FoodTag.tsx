@@ -1,5 +1,5 @@
-import { Box } from "components/core";
-import Icon from "components/Icon";
+import { Box } from "@/components/core";
+import Icon from "@/components/Icon";
 
 export default function FoodTag({ onClick }: any) {
   return (

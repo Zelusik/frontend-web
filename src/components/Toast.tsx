@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { keyframes } from "@emotion/react";
-import { colors } from "constants/colors";
+import { colors } from "@/constants/colors";
 import styled from "@emotion/styled";
-import Icon from "components/Icon/Icon";
-import { typography } from "constants/typography";
+import { Icon } from "@/components";
+import { typography } from "@/constants/typography";
 
 const fadeInDown = keyframes`
    0% {
@@ -27,7 +27,13 @@ const fadeInDown = keyframes`
     }
 `;
 
-const Toast = ({ message, close }: { message: string; close: () => void }) => {
+export const Toast = ({
+  message,
+  close,
+}: {
+  message: string;
+  close: () => void;
+}) => {
   useEffect(() => {
     setTimeout(() => {
       close();
@@ -66,5 +72,3 @@ const ToastWrapper = styled.div`
 
   ${typography.Paragraph5}
 `;
-
-export default Toast;

@@ -2,7 +2,7 @@ import React from "react";
 import { Box as MaterialBox } from "@material-ui/core";
 import styled from "@emotion/styled";
 import { coreStyles } from "../coreStyles";
-import { ComponentsProps } from "models/componentsModal";
+import { ComponentsProps } from "@/models/componentsModal";
 
 const StyledBox = styled(MaterialBox)``;
 

@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import useSearch from "hooks/useSearch";
+import { useSearch } from "@/hooks";
 
-import { colors } from "constants/colors";
-import { Route } from "constants/Route";
-import BottomButton from "components/Button/BottomButton";
-import Gradient from "components/Common/Gradient";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { equals } from "utils/equals";
-import { Space } from "components/core";
+import { colors } from "@/constants/colors";
+import { Route } from "@/constants/Route";
+import BottomButton from "@/components/Button/BottomButton";
+import Gradient from "@/components/Common/Gradient";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { equals } from "@/utils/equals";
+import { Space } from "@/components/core";
 
-export default function FilterButton({ filter }: any) {
+export function FilterButton({ filter }: any) {
   const router = useRouter();
   const { foodType, dayOfWeek, mood } = useAppSelector((state) => state.search);
   const {
@@ -78,16 +78,16 @@ const FilterButtonWrapper = styled.div`
 `;
 // import { useRouter } from "next/router";
 // import styled from "@emotion/styled";
-// import useSearch from "hooks/useSearch";
+// import useSearch from "@/hooks/useSearch";
 
-// import { colors } from "constants/colors";
-// import { Route } from "constants/Route";
-// import BottomButton from "components/Button/BottomButton";
-// import Gradient from "components/Common/Gradient";
-// import { useAppSelector } from "hooks/useReduxHooks";
-// import { equals } from "utils/equals";
-// import { typography } from "constants/typography";
-// import { Box, Button, Flex, Space } from "components/core";
+// import { colors } from "@/constants/colors";
+// import { Route } from "@/constants/Route";
+// import BottomButton from "@/components/Button/BottomButton";
+// import Gradient from "@/components/Common/Gradient";
+// import { useAppSelector } from "@/hooks/useReduxHooks";
+// import { equals } from "@/utils/equals";
+// import { typography } from "@/constants/typography";
+// import { Box, Button, Flex, Space } from "@/components/core";
 
 // interface FilterButtonProps {
 //   filter: any;

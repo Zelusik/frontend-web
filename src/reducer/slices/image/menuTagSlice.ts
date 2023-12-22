@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { MenuTagType } from "types/image";
+import { MenuTagType } from "@/types/image";
 
 const initialState: MenuTagType = {
   x: 0,

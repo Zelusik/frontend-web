@@ -1,6 +1,6 @@
 import { css, Global } from "@emotion/react";
-import { colors } from "constants/colors";
-import { globalValue } from "constants/globalValue";
+import { colors } from "@/constants/colors";
+import { globalValue } from "@/constants/globalValue";
 
 export default function GlobalStyle({}: any) {
   return <Global styles={globalCss} />;

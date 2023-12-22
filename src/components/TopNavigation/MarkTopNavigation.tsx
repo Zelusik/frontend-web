@@ -1,12 +1,12 @@
 import React, { useState, useEffect, forwardRef, useRef } from "react";
-import useDisplaySize from "hooks/useDisplaySize";
-import { Divider, Flex, Text } from "components/core";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { Divider, Flex, Text } from "@/components/core";
 
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import WrapperSlider from "components/Slider/WrapperSlider";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { globalValue } from "constants/globalValue";
+import { colors } from "@/constants/colors";
+import { typography } from "@/constants/typography";
+import WrapperSlider from "@/components/Slider/WrapperSlider";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { globalValue } from "@/constants/globalValue";
 
 interface TopNavigationProps {
   height?: number;

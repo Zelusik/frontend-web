@@ -1,1 +1,1 @@
-export { default } from "view/Mypage/components/setting/EditProfile";
+export { default } from "@/view/Mypage/components/setting/EditProfile";

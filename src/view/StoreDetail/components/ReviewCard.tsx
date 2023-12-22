@@ -1,11 +1,10 @@
-import { useRouter } from "next/router";
-import Description from "components/Description";
-import Hashtags from "components/Hashtags";
-import { Box, Space } from "components/core";
+import Description from "@/components/Description";
+import Hashtags from "@/components/Hashtags";
+import { Box, Space } from "@/components/core";
 import SlideImage from "./ImageSlide";
-import Title from "components/Title";
-import ProfileButton from "components/Button/ProfileButton";
-import { getTimeSinceVisit } from "utils/getTimeSinceVisit";
+import Title from "@/components/Title";
+import ProfileButton from "@/components/Button/ProfileButton";
+import { getTimeSinceVisit } from "@/utils/getTimeSinceVisit";
 
 export default function ReivewCard({ data, touch }: any) {
   return (

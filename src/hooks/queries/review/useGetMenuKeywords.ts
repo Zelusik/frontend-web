@@ -1,5 +1,5 @@
 import React from "react";
-import { getMenuKeywords } from "api/menu-keywords";
+import { getMenuKeywords } from "@/api/menu-keywords";
 import { useQuery } from "react-query";
 
 export interface GetKeyWrodsProps {

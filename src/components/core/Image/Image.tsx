@@ -1,7 +1,7 @@
 import React from "react";
-import { ComponentsProps } from "models/componentsModal";
+import { ComponentsProps } from "@/models/componentsModal";
 import { coreStyles } from "../coreStyles";
-import { globalValue } from "constants/globalValue";
+import { globalValue } from "@/constants/globalValue";
 
 type ImageProps = ComponentsProps & {
   alt: string;

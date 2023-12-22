@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { Route } from "constants/Route";
-import Text from "components/core/Text";
-import { Box, Image, Space } from "components/core";
+import { Route } from "@/constants/Route";
+import Text from "@/components/core/Text";
+import { Box, Image, Space } from "@/components/core";
 
 export default function ProfileSelection({ data, keyword }: any) {
   const router = useRouter();

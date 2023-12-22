@@ -1,8 +1,8 @@
 import React, { forwardRef, useEffect } from "react";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 
-import { ScrollArea } from "components/core";
-import { globalValue } from "constants/globalValue";
+import { ScrollArea } from "@/components/core";
+import { globalValue } from "@/constants/globalValue";
 
 const InnerTopNavigation = forwardRef(function Div(
   {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Box as MaterialBox } from "@material-ui/core";
 import { coreStyles } from "../coreStyles";
-import { ComponentsProps } from "models/componentsModal";
-import { colors } from "constants/colors";
+import { ComponentsProps } from "@/models/componentsModal";
+import { colors } from "@/constants/colors";
 
 type GradientProps = ComponentsProps & {
   direction?: "top" | "right" | "bottom" | "left";

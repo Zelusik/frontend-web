@@ -1,8 +1,8 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
 import { useQuery } from "react-query";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import { getAutoReview } from "api/reviews";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import { getAutoReview } from "@/api/reviews";
 
 const useGetAutoReview = (isButtonClicked: boolean) => {
   const dispatch = useAppDispatch();

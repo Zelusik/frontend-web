@@ -1,21 +1,18 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import useBottomSheet from "hooks/useBottomSheet";
-import useAlert from "hooks/useAlert";
+import { useBottomSheet, useAlert, useAppDispatch } from "@/hooks";
 
-import { Route } from "constants/Route";
-import Icon from "components/Icon";
+import { Route } from "@/constants";
+import { Icon } from "@/components";
 
-import Text from "components/core/Text";
-import useGetReviewsId from "hooks/queries/review-detail/useGetReviewsId";
-import { useAppDispatch } from "hooks/useReduxHooks";
+import { Text, Space } from "@/components/core";
+import useGetReviewsId from "@/hooks/queries/review-detail/useGetReviewsId";
 import {
   changeReviewInfo,
   initializeReviewInfo,
-} from "reducer/slices/review/reviewSlice";
-import { initEditImageInfo } from "reducer/slices/image/imageSlice";
-import { atmosphereKeyword, foodKeyword } from "data/keywordData";
-import { Space } from "components/core";
+} from "@/reducer/slices/review/reviewSlice";
+import { initEditImageInfo } from "@/reducer/slices/image/imageSlice";
+import { atmosphereKeyword, foodKeyword } from "@/data/keywordData";
 
 interface Props {}
 

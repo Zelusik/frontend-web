@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import useAlert from "hooks/useAlert";
-import { useAppSelector } from "hooks/useReduxHooks";
+import useAlert from "@/hooks/useAlert";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 
-import { colors } from "constants/colors";
-import { globalValue } from "constants/globalValue";
+import { colors } from "@/constants/colors";
+import { globalValue } from "@/constants/globalValue";
 import Logout from "./children/Logout";
 import ReviewDelete from "./children/ReviewDelete";
 import Sort from "./children/Sort";

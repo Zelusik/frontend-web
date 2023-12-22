@@ -3,11 +3,11 @@ import { forwardRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 
-import useBottomSheet from "hooks/useBottomSheet";
-import { useAppSelector } from "hooks/useReduxHooks";
-import useDisplaySize from "hooks/useDisplaySize";
-import { colors } from "constants/colors";
-import { globalValue } from "constants/globalValue";
+import useBottomSheet from "@/hooks/useBottomSheet";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { colors } from "@/constants/colors";
+import { globalValue } from "@/constants/globalValue";
 
 import SelectMenu from "./children/SelectMenu";
 import RegisterMenu from "./children/RegisterMenu";

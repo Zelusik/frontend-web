@@ -2,10 +2,10 @@ import React, { forwardRef, useEffect } from "react";
 import { makeStyles, styled } from "@material-ui/core";
 import { Tab, Tabs } from "@mui/material";
 import SwipeableViews from "react-swipeable-views";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 
-import { colors } from "constants/colors";
-import { Box, Divider, Text } from "components/core";
+import { colors } from "@/constants/colors";
+import { Box, Divider, Text } from "@/components/core";
 
 const useStyles = makeStyles({
   tabsRoot: {

@@ -1,4 +1,4 @@
-import client from "api";
+import client from "@/api";
 
 // 메뉴 데이터 생성
 export const postMenu = async (placeId: string) =>

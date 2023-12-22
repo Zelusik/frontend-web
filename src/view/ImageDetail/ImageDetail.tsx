@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import useDisplaySize from "hooks/useDisplaySize";
+import useDisplaySize from "@/hooks/useDisplaySize";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import Numbers from "components/Common/Number";
+import Numbers from "@/components/Common/Number";
 
-import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
-import { AspectRatio, Image, Space } from "components/core";
+import BackTitle from "@/components/Title/BackTitle";
+import { colors } from "@/constants/colors";
+import { AspectRatio, Image, Space } from "@/components/core";
 
 export default function ImageDetail({}: any) {
   const router = useRouter();

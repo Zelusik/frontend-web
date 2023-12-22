@@ -1,13 +1,13 @@
-import { globalValue } from "constants/globalValue";
+import { globalValue } from "@/constants/globalValue";
 import { useRef, useEffect, useCallback } from "react";
 import {
   changeAuto,
   changeMapAction,
   changeMapVisible,
   changeMapVisibleType,
-} from "reducer/slices/bottomSheet/mapBottomSheetSlice";
+} from "@/reducer/slices/bottomSheet/mapBottomSheetSlice";
 import { useAppDispatch, useAppSelector } from "./useReduxHooks";
-import useSearch from "./useSearch";
+import { useSearch } from "./useSearch";
 
 interface BottomSheetMetrics {
   touchStart: {
@@ -23,7 +23,7 @@ interface BottomSheetMetrics {
   isContentAreaTouched: boolean;
 }
 
-export default function useMapBottomSheet({ ...props }: any) {
+export function useMapBottomSheet({ ...props }: any) {
   const dispatch = useAppDispatch();
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);

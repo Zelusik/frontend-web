@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import { membersApi } from "api/members";
+import { membersApi } from "@/api/members";
 
 export const recommendReviewsQueryKeys = {
   id: ["recommendReviews"] as const,

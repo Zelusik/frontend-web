@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { Flex, Text } from "components/core";
+import { Flex, Text } from "../core";
 
 interface HashtagProps {
   key?: number;

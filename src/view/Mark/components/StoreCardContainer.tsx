@@ -1,21 +1,21 @@
 import React, { useEffect, forwardRef, useRef } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import useGetBookmarks from "hooks/queries/mark/useGetBookmarks";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import { useAppSelector } from "hooks/useReduxHooks";
+import useGetBookmarks from "@/hooks/queries/mark/useGetBookmarks";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 import {
   getBookmarksContentsProps,
   getBookmarksProps,
-} from "models/view/markModel";
+} from "@/models/view/markModel";
 
-import { Route } from "constants/Route";
-import { globalValue } from "constants/globalValue";
-import LoadingCircle from "components/Loading/LoadingCircle";
+import { Route } from "@/constants/Route";
+import { globalValue } from "@/constants/globalValue";
+import LoadingCircle from "@/components/Loading/LoadingCircle";
 import StoreCard from "./StoreCard";
 import StoreCount from "./StoreCount";
-import NothingButton from "components/Button/NothingButton";
-import { ScrollArea, Box, Space } from "components/core";
+import NothingButton from "@/components/Button/NothingButton";
+import { ScrollArea, Box, Space } from "@/components/core";
 
 interface StoreCardContainerProps {
   key?: number;

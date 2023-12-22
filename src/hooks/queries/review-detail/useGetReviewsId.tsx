@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { reviewsApi } from "api/reviews";
+import { reviewsApi } from "@/api/reviews";
 
 const useGetReviewsId = (reviewId: number): any => {
   const { data, isLoading, error, refetch } = useQuery(

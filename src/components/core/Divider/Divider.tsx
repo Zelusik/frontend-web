@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentsProps } from "models/componentsModal";
+import { ComponentsProps } from "@/models/componentsModal";
 import { coreStyles } from "../coreStyles";
 
 const Divider = ({ children, ...props }: ComponentsProps) => {

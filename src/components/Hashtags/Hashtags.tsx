@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 
 import Hashtag from "./Hashtag";
-import { Flex, ScrollArea } from "components/core";
 import SlendarHashtag from "./SlendarHashtag";
 
 interface HashtagsProps {

@@ -1,28 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { typography } from "@/constants/typography";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { colors } from "constants/colors";
-import BottomButton from "components/Button/BottomButton";
+import { colors } from "@/constants/colors";
+import BottomButton from "@/components/Button/BottomButton";
 
-import BackTitle from "components/Title/BackTitle";
+import BackTitle from "@/components/Title/BackTitle";
 import { useRouter } from "next/router";
-import { Route } from "constants/Route";
-import { deleteMenuTag, modifyMenuTag } from "reducer/slices/image/imageSlice";
-import { ImageType, MenuTagType } from "types/image";
-import { setCurrentImageIndex } from "reducer/slices/image/currIdxSlice";
-import { changeMenuTag } from "reducer/slices/image/menuTagSlice";
-import Icon from "components/Icon/Icon";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import { OriginalImageDataType, TransformedImageDataType } from "types/review";
-import useBottomSheet from "hooks/useBottomSheet";
-import useDisplaySize from "hooks/useDisplaySize";
-import { AspectRatio, Image, Space } from "components/core";
+import { Route } from "@/constants/Route";
+import {
+  deleteMenuTag,
+  modifyMenuTag,
+} from "@/reducer/slices/image/imageSlice";
+import { ImageType, MenuTagType } from "@/types/image";
+import { setCurrentImageIndex } from "@/reducer/slices/image/currIdxSlice";
+import { changeMenuTag } from "@/reducer/slices/image/menuTagSlice";
+import Icon from "@/components/Icon";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import {
+  OriginalImageDataType,
+  TransformedImageDataType,
+} from "@/types/review";
+import useBottomSheet from "@/hooks/useBottomSheet";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { AspectRatio, Image, Space } from "@/components/core";
 
 const Menu = () => {
   const router = useRouter();

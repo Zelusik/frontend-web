@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getPlacesId } from "api/places";
+import { getPlacesId } from "@/api/places";
 
 const useGetPlacesId = (placeId: number): any => {
   const { data, isLoading, error, refetch } = useQuery(

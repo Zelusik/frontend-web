@@ -1,24 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { colors } from "constants/colors";
-import BottomButton from "components/Button/BottomButton";
-import BackTitle from "components/Title/BackTitle";
+import { typography } from "@/constants/typography";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
+import { colors } from "@/constants/colors";
+import BottomButton from "@/components/Button/BottomButton";
+import BackTitle from "@/components/Title/BackTitle";
 import { useRouter } from "next/router";
-import { Route } from "constants/Route";
-import RoundButton from "components/Button/RoundButton";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import useGetMenuKeywords from "hooks/queries/review/useGetMenuKeywords";
-import { FoodType } from "types/review";
-import useToast from "hooks/useToast";
-import Toast from "components/Toast/Toast";
-import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
+import { Route } from "@/constants/Route";
+import RoundButton from "@/components/Button/RoundButton";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import useGetMenuKeywords from "@/hooks/queries/review/useGetMenuKeywords";
+import { FoodType } from "@/types/review";
+import useToast from "@/hooks/useToast";
+import Toast from "@/components/Toast";
+import useGetAutoReview from "@/hooks/queries/review/useGetAutoReview";
 import ReviewLoading from "../components/ReviewLoading";
-import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
-import LoadingDots from "components/Loading/LoadingDots";
-import { Space } from "components/core";
+import useGetMyInfo from "@/hooks/queries/user/useGetMyInfo";
+import LoadingDots from "@/components/Loading/LoadingDots";
+import { Space } from "@/components/core";
 
 const FoodKeyword = () => {
   const route = useRouter();

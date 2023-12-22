@@ -1,7 +1,12 @@
 import { useInfiniteQuery, useQuery } from "react-query";
-import { existencePlace, getPlaces, getPlacesId, postPlaces } from "api/places";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { getReviews } from "api/reviews";
+import {
+  existencePlace,
+  getPlaces,
+  getPlacesId,
+  postPlaces,
+} from "@/api/places";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { getReviews } from "@/api/reviews";
 import { useState } from "react";
 
 const useGetStore = ({ kakaoId, placeId }: any): any => {

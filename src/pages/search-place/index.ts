@@ -1,1 +1,1 @@
-export { default } from "view/SearchPlace";
+export { default } from "@/view/SearchPlace";

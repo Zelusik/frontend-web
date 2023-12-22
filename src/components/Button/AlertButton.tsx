@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { match } from "ts-pattern";
-import { colors } from "constants/colors";
-import Text from "components/core/Text";
+import { colors } from "@/constants";
+import { Text } from "@/components/core";
 
 const AlertButton = forwardRef(function Button(
   { children, type = "primary", onClick, ...props }: any,

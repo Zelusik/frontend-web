@@ -4,7 +4,7 @@ import {
   PlaceType,
   ReviewType,
   TransformedImageDataType,
-} from "types/review";
+} from "@/types/review";
 
 const initialState: ReviewType = {
   reviewId: 0,

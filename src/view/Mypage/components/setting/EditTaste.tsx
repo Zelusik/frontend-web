@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { colors } from "constants/colors";
+import { colors, typography } from "@/constants";
 
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
-import BottomButton from "components/Button/BottomButton";
-import RoundButton from "components/Button/RoundButton";
-import BackTitle from "components/Title/BackTitle";
-import { tasteDatas } from "constants/globalData";
-import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
-import { changeUserInfo } from "reducer/slices/user/userSlice";
-import { putTaste } from "api/members";
-import { Space } from "components/core";
-import { typography } from "constants/typography";
+import BottomButton from "@/components/Button/BottomButton";
+import RoundButton from "@/components/Button/RoundButton";
+import BackTitle from "@/components/Title/BackTitle";
+import { tasteDatas } from "@/constants/globalData";
+import useGetMyInfo from "@/hooks/queries/user/useGetMyInfo";
+import { changeUserInfo } from "@/reducer/slices/user/userSlice";
+import { putTaste } from "@/api/members";
+import { Space } from "@/components/core";
 
 const EditTaste = () => {
   const router = useRouter();

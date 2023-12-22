@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
-import Icon from "components/Icon";
-import { Route } from "constants/Route";
-import useSearch from "hooks/useSearch";
-import Text from "components/core/Text";
-import { Space } from "components/core";
+import Icon from "@/components/Icon";
+import { Route } from "@/constants/Route";
+import useSearch from "@/hooks/useSearch";
+import Text from "@/components/core/Text";
+import { Space } from "@/components/core";
 
 const Icons = ["LineMarker", "Restaurant", "LineProfile"];
 

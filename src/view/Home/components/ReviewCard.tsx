@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
-import { Route } from "constants/Route";
+import { Route } from "@/constants/Route";
 
-import { globalValue } from "constants/globalValue";
-import { getTimeSinceVisit } from "utils/getTimeSinceVisit";
-import { getFeedContentsProps } from "models/view/homeModel";
+import { globalValue } from "@/constants/globalValue";
+import { getTimeSinceVisit } from "@/utils/getTimeSinceVisit";
+import { getFeedContentsProps } from "@/models/view/homeModel";
 
-import { AspectRatio, Box, Gradient, Image, Space } from "components/core";
-import Title from "components/Title";
-import Dots from "components/Button/IconButton/Dots";
-import ProfileButton from "components/Button/ProfileButton";
-import Heart from "components/Button/IconButton/Heart";
-import StoreReviewButton from "components/Button/StoreReviewButton";
+import { AspectRatio, Box, Gradient, Image, Space } from "@/components/core";
+import Title from "@/components/Title";
+import Dots from "@/components/Button/IconButton/Dots";
+import ProfileButton from "@/components/Button/ProfileButton";
+import Heart from "@/components/Button/IconButton/Heart";
+import StoreReviewButton from "@/components/Button/StoreReviewButton";
 
 interface ReviewCardProps {
   key: number;

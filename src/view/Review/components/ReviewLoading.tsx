@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import LoadingDots from "components/Loading/LoadingDots";
-import { Box, Flex, Space, Text } from "components/core";
-import BackTitle from "components/Title/BackTitle";
+import LoadingDots from "@/components/Loading/LoadingDots";
+import { Box, Flex, Space, Text } from "@/components/core";
+import BackTitle from "@/components/Title/BackTitle";
 
 const ReviewLoading = ({
   type,

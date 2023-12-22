@@ -13,7 +13,7 @@ interface BottomSheetMetrics {
   isContentAreaTouched: boolean;
 }
 
-export default function useDisplaySize() {
+export function useDisplaySize() {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
 

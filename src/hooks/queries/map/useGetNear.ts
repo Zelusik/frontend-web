@@ -1,12 +1,12 @@
 import { useInfiniteQuery, QueryClient, useQueryClient } from "react-query";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { placesApi } from "api/places";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { placesApi } from "@/api/places";
 import {
   DAY_OF_WEEK_DATA,
   FOOD_KEYWORD,
   TASTE_KEYWORD,
-} from "constants/globalData";
-import useSearch from "hooks/useSearch";
+} from "@/constants/globalData";
+import useSearch from "@/hooks/useSearch";
 
 const useGetNear = (openToast: any, isMarkShow: any): any => {
   const {

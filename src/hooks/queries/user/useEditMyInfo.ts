@@ -1,4 +1,4 @@
-import { editMyInfo } from "api/members";
+import { editMyInfo } from "@/api/members";
 import { useMutation, useQueryClient } from "react-query";
 
 const useEditMyInfo = () => {

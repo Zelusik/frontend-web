@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { Box, Flex, Text, Space, AspectRatio, Image } from "components/core";
-import { getProfileProps } from "models/view/mypageModel";
+import { Box, Flex, Text, Space, AspectRatio, Image } from "@/components/core";
+import { getProfileProps } from "@/models/view/mypageModel";
 
 interface ProfileInfoProps {
   mine: boolean;

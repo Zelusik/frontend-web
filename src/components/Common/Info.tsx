@@ -1,13 +1,9 @@
-import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
-import Copy from "components/Button/IconButton/Copy";
-import Text from "components/core/Text";
-import { Space } from "components/core";
+import Copy from "@/components/Button/IconButton/Copy";
+import { Space, Text } from "@/components/core";
 
 export default function Info({ data }: any) {
-  const router = useRouter();
-
   return (
     <>
       <Space h={30} />

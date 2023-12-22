@@ -1,1 +1,1 @@
-export { default } from "view/Mypage/components/setting/Announcement";
+export { default } from "@/view/Mypage/components/setting/Announcement";

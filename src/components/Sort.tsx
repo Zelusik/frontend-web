@@ -1,13 +1,10 @@
-import { useRouter } from "next/router";
-import useAlert from "hooks/useAlert";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { Flex, Text } from "components/core";
+import { useAlert, useAppSelector } from "@/hooks";
+import { Flex, Text } from "@/components/core";
 
-import { sortData } from "constants/globalData";
-import Icon from "components/Icon";
-import { typography } from "constants/typography";
+import { sortData, typography } from "@/constants";
+import { Icon } from "@/components";
 
-const Sort = () => {
+export const Sort = () => {
   const { sortId } = useAppSelector((state) => state.alert);
   const { openAlert } = useAlert();
 
@@ -26,5 +23,3 @@ const Sort = () => {
     </Flex>
   );
 };
-
-export default Sort;

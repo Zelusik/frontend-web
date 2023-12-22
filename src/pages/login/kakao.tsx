@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { KakaoLogin } from "api/auth";
+import { KakaoLogin } from "@/api/auth";
 import axios from "axios";
-import { Route } from "constants/Route";
-import { useAppDispatch } from "hooks/useReduxHooks";
+import { Route } from "@/constants/Route";
+import { useAppDispatch } from "@/hooks/useReduxHooks";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { changeAuthState } from "reducer/slices/auth/authSlice";
-import { setCookie } from "utils/cookie";
+import { changeAuthState } from "@/reducer/slices/auth/authSlice";
+import { setCookie } from "@/utils/cookie";
 
 const KakaoRedirectPage = () => {
   const router = useRouter();

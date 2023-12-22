@@ -1,5 +1,5 @@
-import client from "api";
-import { PlaceType } from "types/review";
+import client from "@/api";
+import { PlaceType } from "@/types/review";
 
 export const placesApi = {
   getPlaces: async (kakaoId: string) =>

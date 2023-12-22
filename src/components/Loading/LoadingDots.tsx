@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
-import LoadingGif from "assets/loadingDots.gif";
 import Image from "next/image";
 
 const LoadingDots = () => {
   return (
     <Wrapper>
       <Image
-        src={LoadingGif}
+        src="/assets/loadingDots.gif"
         alt="로딩 Gif"
         width={40}
         height={40}

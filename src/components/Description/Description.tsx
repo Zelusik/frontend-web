@@ -2,9 +2,9 @@ import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { typography } from "constants/typography";
-import Icon from "components/Icon";
-import { Box } from "components/core";
+import { typography } from "@/constants/typography";
+import { Icon } from "@/components/Icon";
+import { Box } from "@/components/core";
 
 const Description = ({ text = "" }: any) => {
   const contentRef = useRef<any>(null);

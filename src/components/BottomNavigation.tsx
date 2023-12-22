@@ -1,13 +1,10 @@
 import React, { forwardRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import styled from "@emotion/styled";
 
-import { colors } from "constants/colors";
-
-import Icon from "components/Icon";
-import { globalValue } from "constants/globalValue";
-import { Box, Flex, Space } from "components/core";
+import { Icon } from "@/components";
+import { globalValue } from "@/constants/globalValue";
+import { Box, Flex, Space } from "@/components/core";
 
 const navigationDatas = [
   { route: "/", en: "Home", val: "홈" },
@@ -17,7 +14,7 @@ const navigationDatas = [
   { route: "/mypage", en: "Mypage", val: "마이" },
 ];
 
-const BottomNavigation = forwardRef(function Div({}, ref: any) {
+export const BottomNavigation = forwardRef(function Div({}, ref: any) {
   const { pathname } = useRouter();
 
   return (
@@ -60,5 +57,3 @@ const BottomNavigation = forwardRef(function Div({}, ref: any) {
     </Box>
   );
 });
-
-export default BottomNavigation;

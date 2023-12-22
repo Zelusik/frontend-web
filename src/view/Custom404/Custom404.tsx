@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import useDisplaySize from "hooks/useDisplaySize";
-import SadBobpool from "components/Error/SadBobpool";
-import { Route } from "constants/Route";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import SadBobpool from "@/components/SadBobpool";
+import { Route } from "@/constants/Route";
 
 const Custom404 = () => {
   const router = useRouter();

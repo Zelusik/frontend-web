@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
-import { Route } from "constants/Route";
-import Text from "components/core/Text";
-import useSearch from "hooks/useSearch";
-import { Space } from "components/core";
+import { Route } from "@/constants/Route";
+import Text from "@/components/core/Text";
+import useSearch from "@/hooks/useSearch";
+import { Space } from "@/components/core";
 
 export default function Selection({ type, data, keyword, ...props }: any) {
   const router = useRouter();

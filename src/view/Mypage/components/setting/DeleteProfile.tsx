@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import BottomButton from "components/Button/BottomButton";
-import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { deleteCookie } from "utils/cookie";
+import BottomButton from "@/components/Button/BottomButton";
+import BackTitle from "@/components/Title/BackTitle";
+import { colors, typography } from "@/constants";
+import { deleteCookie } from "@/utils/cookie";
 import { useRouter } from "next/router";
-import ReportButton from "view/Report/components/ReportButton";
-import { deleteUser } from "api/members";
-import { Space, Text } from "components/core";
+import ReportButton from "@/view/Report/components/ReportButton";
+import { deleteUser } from "@/api/members";
+import { Space, Text } from "@/components/core";
 
 const DeleteProfile = () => {
   const router = useRouter();

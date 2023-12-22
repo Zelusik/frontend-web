@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { typography } from "@/constants/typography";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
 
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { colors } from "constants/colors";
-import BottomButton from "components/Button/BottomButton";
+import { colors } from "@/constants/colors";
+import BottomButton from "@/components/Button/BottomButton";
 
-import BackTitle from "components/Title/BackTitle";
+import BackTitle from "@/components/Title/BackTitle";
 import { useRouter } from "next/router";
-import TextArea from "components/TextArea/TextArea";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
+import TextArea from "@/components/TextArea/TextArea";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
 
-import { Route } from "constants/Route";
+import { Route } from "@/constants/Route";
 import ReviewLoading from "./ReviewLoading";
-import { editReview, postReview } from "api/reviews";
-import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
-import Gradient from "components/Common/Gradient";
-import useDisplaySize from "hooks/useDisplaySize";
-import { Space } from "components/core";
+import { editReview, postReview } from "@/api/reviews";
+import useGetMyInfo from "@/hooks/queries/user/useGetMyInfo";
+import Gradient from "@/components/Common/Gradient";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { Space } from "@/components/core";
 
 const Write = () => {
   const route = useRouter();

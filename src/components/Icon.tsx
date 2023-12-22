@@ -2,8 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import * as icons from "components/Icon/icons";
-import { colors } from "constants/colors";
+import * as icons from "@/components/Icon/icons";
+import { colors } from "@/constants";
 
 interface Props {
   icon: string;
@@ -20,7 +20,7 @@ interface Props {
   onTouchEnd?: any;
 }
 
-const Icon = ({
+export const Icon = ({
   icon,
   width,
   height,
@@ -84,5 +84,3 @@ const IconWrapper = styled.div<{
     ${styles}
   `}
 `;
-
-export default Icon;

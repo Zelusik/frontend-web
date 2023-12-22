@@ -1,4 +1,4 @@
-import { Flex, Text } from "components/core";
+import { Flex, Text } from "@/components/core";
 
 interface ImageCountProps {
   currentIndex: number;

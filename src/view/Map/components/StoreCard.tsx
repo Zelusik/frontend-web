@@ -1,30 +1,30 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 import {
   getNearContentsImagesProps,
   getNearContentsProps,
-} from "models/view/mapModel";
+} from "@/models/view/mapModel";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import { Route } from "constants/Route";
-import Hashtags from "components/Hashtags";
-import ImageCount from "components/ImageCount";
-import { globalValue } from "constants/globalValue";
-import Title from "components/Title";
-import StoreReviewButton from "components/Button/StoreReviewButton";
-import Heart from "components/Button/IconButton/Heart";
-import { AspectRatio, Box, Image, Space } from "components/core";
+import { Route } from "@/constants/Route";
+import Hashtags from "@/components/Hashtags";
+import ImageCount from "@/components/ImageCount";
+import { globalValue } from "@/constants/globalValue";
+import Title from "@/components/Title";
+import StoreReviewButton from "@/components/Button/StoreReviewButton";
+import Heart from "@/components/Button/IconButton/Heart";
+import { AspectRatio, Box, Image, Space } from "@/components/core";
 
 interface StoreCardProps {
   key?: number;
   nearData: getNearContentsProps;
 }
 
-const StoreCard = ({ nearData }: StoreCardProps) => {
+export const StoreCard = ({ nearData }: StoreCardProps) => {
   const router = useRouter();
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -126,5 +126,3 @@ const StoreCard = ({ nearData }: StoreCardProps) => {
     </Box>
   );
 };
-
-export default StoreCard;

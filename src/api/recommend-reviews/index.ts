@@ -1,5 +1,5 @@
-import client from "api";
-import { RecommendReviewType } from "types/review";
+import client from "@/api";
+import { RecommendReviewType } from "@/types/review";
 
 export const postRecommendReviews = async ({
   reviewId,

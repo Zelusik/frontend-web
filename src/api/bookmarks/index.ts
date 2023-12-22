@@ -1,4 +1,4 @@
-import client from "api";
+import client from "@/api";
 
 // 장소 북마크
 export const postBookmarks = async (placeId: number) => {

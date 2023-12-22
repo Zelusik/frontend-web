@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import RoundButton from "components/Button/RoundButton";
-import Text from "components/core/Text";
+import RoundButton from "@/components/Button/RoundButton";
+import Text from "@/components/core/Text";
 
 export default function NewButton({ text, buttonText, onClick }: any) {
   return (

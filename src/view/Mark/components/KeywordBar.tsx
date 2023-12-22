@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { Space } from "components/core";
-import { typography } from "constants/typography";
-import useGetMarkKeywords from "hooks/queries/mark/useGetFilteringKeywords";
+import { Space } from "@/components/core";
+import { typography } from "@/constants/typography";
+import useGetMarkKeywords from "@/hooks/queries/mark/useGetFilteringKeywords";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { colors } from "constants/colors";
+import { colors } from "@/constants/colors";
 
 const KeywordBar = () => {
   const router = useRouter();

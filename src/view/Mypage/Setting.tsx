@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import Icon from "components/Icon/Icon";
-import BackTitle from "components/Title/BackTitle";
-import { Route } from "constants/Route";
-import useAlert from "hooks/useAlert";
+import Icon from "@/components/Icon";
+import BackTitle from "@/components/Title/BackTitle";
+import { Route } from "@/constants/Route";
+import useAlert from "@/hooks/useAlert";
 import { useRouter } from "next/router";
-import { Text, Space } from "components/core";
+import { Text, Space } from "@/components/core";
 
 export default function Setting() {
   const router = useRouter();

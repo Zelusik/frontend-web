@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text } from "components/core";
+import { Flex, Text } from "@/components/core";
 
 interface StoreCountProps {
   count: number;

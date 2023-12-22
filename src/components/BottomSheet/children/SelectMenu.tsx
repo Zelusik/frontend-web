@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import RoundButton from "components/Button/RoundButton";
-import Toast from "components/Toast/Toast";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import useGetMenus from "hooks/queries/review/useGetMenus";
-import useDisplaySize from "hooks/useDisplaySize";
+import RoundButton from "@/components/Button/RoundButton";
+import { Toast } from "@/components";
+import { colors, typography } from "@/constants";
+import useGetMenus from "@/hooks/queries/review/useGetMenus";
+import { useDisplaySize, useToast, useBottomSheet } from "@/hooks";
 
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeVisible } from "reducer/slices/bottomSheet/bottomSheetSlice";
-import { appendMenuTag } from "reducer/slices/image/imageSlice";
-import { MenuTagType } from "types/image";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import useToast from "hooks/useToast";
-import { FoodType } from "types/review";
-import LoadingDots from "components/Loading/LoadingDots";
-import useBottomSheet from "hooks/useBottomSheet";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
+import { changeVisible } from "@/reducer/slices/bottomSheet/bottomSheetSlice";
+import { appendMenuTag } from "@/reducer/slices/image/imageSlice";
+import { MenuTagType } from "@/types/image";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import { FoodType } from "@/types/review";
+import LoadingDots from "@/components/Loading/LoadingDots";
 
 const SelectMenu = () => {
   const dispatch = useAppDispatch();

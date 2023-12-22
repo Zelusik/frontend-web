@@ -1,8 +1,8 @@
 import React from "react";
 import { Button as MaterialButton, styled } from "@material-ui/core";
 
-import { ComponentsProps } from "models/componentsModal";
-import { colors } from "constants/colors";
+import { ComponentsProps } from "@/models/componentsModal";
+import { colors } from "@/constants/colors";
 import { coreStyles } from "../coreStyles";
 import Space from "../Space";
 

@@ -1,11 +1,11 @@
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Space } from "components/core";
-import Icon from "components/Icon";
+import { Space } from "@/components/core";
+import { Icon } from "@/components";
 
-import { colors } from "constants/colors";
-import { globalValue } from "constants/globalValue";
-import { typography } from "constants/typography";
+import { colors } from "@/constants/colors";
+import { globalValue } from "@/constants/globalValue";
+import { typography } from "@/constants/typography";
 import { useState } from "react";
 
 const Type: any = {

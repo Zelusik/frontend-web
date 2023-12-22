@@ -1,4 +1,4 @@
-import client from "api";
+import client from "@/api";
 
 export const getMeetingPlaces = async (params: any) => {
   params.headers = { "Eatery-API-Minor-Version": 1 };

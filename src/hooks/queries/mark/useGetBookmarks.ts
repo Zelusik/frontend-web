@@ -1,4 +1,4 @@
-import { placesApi } from "api/places";
+import { placesApi } from "@/api/places";
 import { useInfiniteQuery } from "react-query";
 
 const useGetBookmarks = ({ isEnabled, type, keyword }: any) => {

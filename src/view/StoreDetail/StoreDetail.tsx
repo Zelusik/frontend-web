@@ -1,37 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
 
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import useGetStore from "hooks/queries/store-detail/useGetStore";
-import useDisplaySize from "hooks/useDisplaySize";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { editDisplaySize } from "reducer/slices/global/globalSlice";
+import {
+  useIntersectionObserver,
+  useDisplaySize,
+  useAppDispatch,
+} from "@/hooks";
+import { editDisplaySize } from "@/reducer/slices/global/globalSlice";
 
-import { colors } from "constants/colors";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import { Box, ScrollArea, Space } from "components/core";
-import Hashtags from "components/Hashtags/Hashtags";
-import StoreTitle from "components/Title/StoreTitle";
+import { Space } from "@/components/core";
+import Hashtags from "@/components/Hashtags/Hashtags";
 import ImageBox from "./components/ImageBox";
-import Title from "components/Title";
-import BackArrow from "components/Button/IconButton/BackArrow";
-import Setting from "components/Button/IconButton/Setting";
-import Dots from "components/Button/IconButton/Dots";
-import StoreReviewButton from "components/Button/StoreReviewButton";
-import Heart from "components/Button/IconButton/Heart";
-import Edit from "components/Button/IconButton/Edit";
-import Hashtag from "components/Hashtags/Hashtag";
-import { ScrollTopNavigation, TopNavigation } from "components/TopNavigation";
+import Title from "@/components/Title";
+import BackArrow from "@/components/Button/IconButton/BackArrow";
+import Dots from "@/components/Button/IconButton/Dots";
+import StoreReviewButton from "@/components/Button/StoreReviewButton";
+import Heart from "@/components/Button/IconButton/Heart";
+import Edit from "@/components/Button/IconButton/Edit";
+import { ScrollTopNavigation, TopNavigation } from "@/components/TopNavigation";
 import ReviewCardContainer from "./components/ReviewCardContainer";
 import StoreInfoContainer from "./components/StoreInfoContainer";
-import { globalValue } from "constants/globalValue";
-import { makeAddress } from "utils/makeAddress";
-import useGetStoreInfo from "hooks/queries/store-detail/useGetStoreInfo";
-import useGetReviews from "hooks/queries/store-detail/useGetReviews";
+import { makeAddress } from "@/utils/makeAddress";
+import useGetStoreInfo from "@/hooks/queries/store-detail/useGetStoreInfo";
+import useGetReviews from "@/hooks/queries/store-detail/useGetReviews";
+import { LoadingCircle } from "@/components/Loading";
 
 const StoreDetail = () => {
   const dispatch = useAppDispatch();

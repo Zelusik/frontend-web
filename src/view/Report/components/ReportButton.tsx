@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { colors } from "constants/colors";
+import { colors } from "@/constants/colors";
 
-import Text from "components/core/Text";
-import { Space } from "components/core";
+import Text from "@/components/core/Text";
+import { Space } from "@/components/core";
 
 export default function ReportButton({ selected, text, onClick }: any) {
   const router = useRouter();

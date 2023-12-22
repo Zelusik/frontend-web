@@ -1,21 +1,21 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import useDisplaySize from "hooks/useDisplaySize";
-import { initializeRecommendReview } from "reducer/slices/review/recommendReviewSlice";
-import useGetReviews from "hooks/queries/user/useGetReviews";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { initializeRecommendReview } from "@/reducer/slices/review/recommendReviewSlice";
+import useGetReviews from "@/hooks/queries/user/useGetReviews";
 import {
   postRecommendReviews,
   updateRecommendReviews,
-} from "api/recommend-reviews";
+} from "@/api/recommend-reviews";
 
-import { Box, Button, Flex, ScrollArea, Space } from "components/core";
-import Title from "components/Title";
-import Icon from "components/Icon";
-import Gradient from "components/Common/Gradient";
-import Text from "components/core/Text";
+import { Box, Button, Flex, ScrollArea, Space } from "@/components/core";
+import Title from "@/components/Title";
+import Icon from "@/components/Icon";
+import Gradient from "@/components/Common/Gradient";
+import Text from "@/components/core/Text";
 import ReviewList from "./components/ReviewList";
-import BackArrow from "components/Button/IconButton/BackArrow";
+import BackArrow from "@/components/Button/IconButton/BackArrow";
 
 export default function RecommandBest() {
   const router = useRouter();

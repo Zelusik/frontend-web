@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { changeUserInfo } from "reducer/slices/user/userSlice";
-import { getMyInfo } from "api/members";
+import { useAppDispatch } from "@/hooks/useReduxHooks";
+import { changeUserInfo } from "@/reducer/slices/user/userSlice";
+import { getMyInfo } from "@/api/members";
 
 const useGetMyInfo = () => {
   const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import { ComponentsProps } from "models/componentsModal";
+import { colors } from "@/constants/colors";
+import { typography } from "@/constants/typography";
+import { ComponentsProps } from "@/models/componentsModal";
 
 export const coreStyles = (props: ComponentsProps) => {
   return {

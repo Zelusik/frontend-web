@@ -1,15 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/router";
-import useGetReviews from "hooks/queries/user/useGetReviews";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { useAppSelector } from "@/hooks";
 
-import { InnerTopNavigation } from "components/TopNavigation";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import { Space } from "components/core";
+import { InnerTopNavigation } from "@/components/TopNavigation";
 
-import ReviewCard from "./ReviewCard";
-import { makeInfo } from "utils/makeInfo";
-import Info from "components/Common/Info";
+import { makeInfo } from "@/utils/makeInfo";
+import Info from "@/components/Common/Info";
 
 interface StoreInfoContainerProps {
   refs?: any;

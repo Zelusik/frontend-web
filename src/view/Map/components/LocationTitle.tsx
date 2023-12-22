@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
-import useGetCoordToAddress from "hooks/queries/map/useGetCoordToAddress";
+import useGetCoordToAddress from "@/hooks/queries/map/useGetCoordToAddress";
 
-import { Box, Flex, Text } from "components/core";
-import Icon from "components/Icon";
+import { Box, Flex, Text } from "@/components/core";
+import { Icon } from "@/components";
 
 interface LocationTitleProps {
   type: "location" | "store";
   length?: number;
 }
 
-const LocationTitle = ({ type, length }: LocationTitleProps) => {
+export const LocationTitle = ({ type, length }: LocationTitleProps) => {
   const router = useRouter();
   const { data: addressData } = useGetCoordToAddress();
 
@@ -31,5 +31,3 @@ const LocationTitle = ({ type, length }: LocationTitleProps) => {
     </Flex>
   );
 };
-
-export default LocationTitle;

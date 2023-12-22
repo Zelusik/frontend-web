@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, setCookie } from "utils/cookie";
+import { getCookie, setCookie } from "@/utils/cookie";
 
 const client = axios.create({
   baseURL: process.env.BASE_URL,

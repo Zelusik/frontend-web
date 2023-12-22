@@ -1,5 +1,5 @@
-import client from "api";
-import { ReviewType } from "types/review";
+import client from "@/api";
+import { ReviewType } from "@/types/review";
 
 export const reviewsApi = {
   getFeed: async (page: number) =>

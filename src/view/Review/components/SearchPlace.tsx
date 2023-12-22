@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState } from "react";
 import styled from "@emotion/styled";
-import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import BackTitle from "@/components/Title/BackTitle";
+import { colors } from "@/constants/colors";
+import { typography } from "@/constants/typography";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
 import { useRouter } from "next/router";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import useGetSearchPlace from "hooks/queries/review/useGetSearchPlace";
-import { initEditImageInfo } from "reducer/slices/image/imageSlice";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import useGetSearchPlace from "@/hooks/queries/review/useGetSearchPlace";
+import { initEditImageInfo } from "@/reducer/slices/image/imageSlice";
 
-import Gradient from "components/Common/Gradient";
-import useDisplaySize from "hooks/useDisplaySize";
-import { Space, Input } from "components/core";
+import Gradient from "@/components/Common/Gradient";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { Space, Input } from "@/components/core";
 
 const SearchPlace = () => {
   const dispatch = useAppDispatch();

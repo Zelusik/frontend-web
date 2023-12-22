@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import wrapper from "store";
+import wrapper from "@/stores";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
@@ -7,15 +7,13 @@ import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { cache } from "@emotion/css";
 import { CacheProvider } from "@emotion/react";
 
-import { useAppSelector } from "hooks/useReduxHooks";
-import useBottomSheet from "hooks/useBottomSheet";
-import useSearch from "hooks/useSearch";
-
-import BottomSheet from "components/BottomSheet";
-import Alert from "components/Alert";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { useBottomSheet, useSearch } from "@/hooks";
+import Alert from "@/components/Alert";
 
 import GlobalStyles from "./components/GlobalStyles";
 import { useRouter } from "next/router";
+import BottomSheet from "@/components/BottomSheet/BottomSheet";
 
 const App = ({ Component, ...rest }: AppProps) => {
   const {

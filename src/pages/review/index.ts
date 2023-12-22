@@ -1,1 +1,1 @@
-export { default } from "view/Review";
+export { default } from "@/view/Review";

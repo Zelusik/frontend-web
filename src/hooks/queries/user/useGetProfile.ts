@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { membersApi } from "api/members";
+import { membersApi } from "@/api/members";
 import { useRouter } from "next/router";
 
 const useGetProfile = () => {

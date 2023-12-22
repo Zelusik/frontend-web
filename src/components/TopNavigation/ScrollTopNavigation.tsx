@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect } from "react";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { Box, ScrollArea } from "components/core";
-import { ScrollProps } from "components/core/ScrollArea/ScrollArea";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { Box, ScrollArea } from "@/components/core";
+import { ScrollProps } from "@/components/core/ScrollArea/ScrollArea";
 
 const ScrollTopNavigation = forwardRef(function Div(
   {

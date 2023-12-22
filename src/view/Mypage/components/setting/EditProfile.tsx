@@ -1,18 +1,17 @@
 import React from "react";
 import styled from "@emotion/styled";
-import BottomButton from "components/Button/BottomButton";
-import RoundButton from "components/Button/RoundButton";
-import Icon from "components/Icon/Icon";
-import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeUserInfo } from "reducer/slices/user/userSlice";
-import useEditMyInfo from "hooks/queries/user/useEditMyInfo";
+import BottomButton from "@/components/Button/BottomButton";
+import RoundButton from "@/components/Button/RoundButton";
+import { Icon } from "@/components";
+import BackTitle from "@/components/Title/BackTitle";
+import { colors, typography } from "@/constants";
+import useGetMyInfo from "@/hooks/queries/user/useGetMyInfo";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { changeUserInfo } from "@/reducer/slices/user/userSlice";
+import useEditMyInfo from "@/hooks/queries/user/useEditMyInfo";
 import { useDropzone } from "react-dropzone";
 import imageCompression from "browser-image-compression";
-import { AspectRatio, Image, Space, Text } from "components/core";
+import { AspectRatio, Image, Space, Text } from "@/components/core";
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -58,15 +57,15 @@ const EditProfile = () => {
     );
   };
   const handleClickSaveBtn = () => {
-    mutate({
-      profileImage:
-        data.profileImage.thumbnailImageUrl === user.image.thumbnailUrl
-          ? ""
-          : user.image.url,
-      nickname: user.nickname,
-      birthDay: user.birthDay,
-      gender: genderData.filter((e) => e.text === user.gender)[0].value,
-    });
+    // mutate({
+    //   profileImage:
+    //     data.profileImage.thumbnailImageUrl === user.image.thumbnailUrl
+    //       ? ""
+    //       : user.image.url,
+    //   nickname: user.nickname,
+    //   birthDay: user.birthDay,
+    //   gender: genderData.filter((e) => e.text === user.gender)[0].value,
+    // });
   };
 
   const isHeicOrHeif = (fileName: string): boolean => {

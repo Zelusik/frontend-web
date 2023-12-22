@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { typography } from "constants/typography";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { typography } from "@/constants/typography";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
 
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { colors } from "constants/colors";
-import BottomButton from "components/Button/BottomButton";
+import { colors } from "@/constants/colors";
+import BottomButton from "@/components/Button/BottomButton";
 
-import BackTitle from "components/Title/BackTitle";
+import BackTitle from "@/components/Title/BackTitle";
 import { useRouter } from "next/router";
-import { Route } from "constants/Route";
-import { atmosphereKeyword, foodKeyword } from "data/keywordData";
-import RoundButton from "components/Button/RoundButton";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import Toast from "components/Toast/Toast";
-import useToast from "hooks/useToast";
-import useGetAutoReview from "hooks/queries/review/useGetAutoReview";
+import { Route } from "@/constants/Route";
+import { atmosphereKeyword, foodKeyword } from "@/data/keywordData";
+import RoundButton from "@/components/Button/RoundButton";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import { Toast } from "@/components/Toast";
+import { useToast } from "@/hooks/useToast";
+import useGetAutoReview from "@/hooks/queries/review/useGetAutoReview";
 import ReviewLoading from "../components/ReviewLoading";
-import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
-import useDisplaySize from "hooks/useDisplaySize";
-import { Space } from "components/core";
+import useGetMyInfo from "@/hooks/queries/user/useGetMyInfo";
+import { useDisplaySize } from "@/hooks/useDisplaySize";
+import { Space } from "@/components/core";
 
 const Keyword = () => {
   const route = useRouter();

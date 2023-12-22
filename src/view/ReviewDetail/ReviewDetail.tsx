@@ -1,31 +1,29 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import useDisplaySize from 'hooks/useDisplaySize';
-import useGetReviewsId from 'hooks/queries/review-detail/useGetReviewsId';
-import { makeInfo } from 'utils/makeInfo';
+import { useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useDisplaySize } from "@/hooks";
+import useGetReviewsId from "@/hooks/queries/review-detail/useGetReviewsId";
+import { makeInfo } from "@/utils/makeInfo";
 
-import { globalValue } from 'constants/globalValue';
-import KakaoMap from 'components/Common/KakaoMap';
+import { KakaoMap } from "@/components/Common";
 
-import Info from 'components/Common/Info';
-import Description from 'components/Description';
-import Hashtags from 'components/Hashtags';
+import Info from "@/components/Common/Info";
+import Description from "@/components/Description";
+import Hashtags from "@/components/Hashtags";
 
-import ImageBox from './components/ImageBox';
-import ScaleUpButton from './components/ScaleUpButton';
-import LoadingCircle from 'components/Loading/LoadingCircle';
-import { Box, Divider, ScrollArea, Space } from 'components/core';
-import Title from 'components/Title';
-import BackArrow from 'components/Button/IconButton/BackArrow';
-import Dots from 'components/Button/IconButton/Dots';
-import { useAppDispatch } from 'hooks/useReduxHooks';
-import { editDisplaySize } from 'reducer/slices/global/globalSlice';
-import { ScrollProps } from 'components/core/ScrollArea/ScrollArea';
-import StoreReviewButton from 'components/Button/StoreReviewButton';
-import Heart from 'components/Button/IconButton/Heart';
-import { makeAddress } from 'utils/makeAddress';
-import ProfileButton from 'components/Button/ProfileButton';
+import ImageBox from "./components/ImageBox";
+import ScaleUpButton from "./components/ScaleUpButton";
+import { LoadingCircle } from "@/components/Loading";
+import { Box, Divider, ScrollArea, Space } from "@/components/core";
+import Title from "@/components/Title";
+import BackArrow from "@/components/Button/IconButton/BackArrow";
+import Dots from "@/components/Button/IconButton/Dots";
+import { useAppDispatch } from "@/hooks/useReduxHooks";
+import { editDisplaySize } from "@/reducer/slices/global/globalSlice";
+import { ScrollProps } from "@/components/core/ScrollArea/ScrollArea";
+import StoreReviewButton from "@/components/Button/StoreReviewButton";
+import Heart from "@/components/Button/IconButton/Heart";
+import { makeAddress } from "@/utils/makeAddress";
+import ProfileButton from "@/components/Button/ProfileButton";
 
 export default function ReviewDetail() {
   const dispatch = useAppDispatch();
@@ -36,13 +34,15 @@ export default function ReviewDetail() {
   const { width, height } = useDisplaySize();
   dispatch(
     editDisplaySize({
-      type: 'display',
+      type: "display",
       value: [width, height],
     })
   );
 
   const [titleChange, setTitleChange] = useState<number>(0);
-  const { reviewData, isReviewLoading } = useGetReviewsId(Number(router.query.id));
+  const { reviewData, isReviewLoading } = useGetReviewsId(
+    Number(router.query.id)
+  );
 
   const handleScroll = ({ scrollY }: ScrollProps) => {
     setTitleChange(scrollY);
@@ -60,10 +60,10 @@ export default function ReviewDetail() {
             padding={20}
             position="absolute"
             top={0}
-            background={titleChange > width - 50 && 'N0'}
+            background={titleChange > width - 50 && "N0"}
             zIndex={802}
             renderLeft={
-              <BackArrow color={titleChange <= width - 50 ? 'N0' : 'N100'} />
+              <BackArrow color={titleChange <= width - 50 ? "N0" : "N100"} />
             }
             paddingLeft={8}
             textLeft={titleChange > width - 50 && reviewData?.place?.name}
@@ -71,10 +71,10 @@ export default function ReviewDetail() {
               <Dots
                 type={
                   reviewData?.writer?.isEqualLoginMember
-                    ? 'delete-edit'
-                    : 'share-report'
+                    ? "delete-edit"
+                    : "share-report"
                 }
-                color={titleChange <= width - 50 ? 'N0' : 'N100'}
+                color={titleChange <= width - 50 ? "N0" : "N100"}
               />
             }
           />
@@ -100,10 +100,10 @@ export default function ReviewDetail() {
                       reviewData?.place?.category
                         ? `${
                             reviewData?.place?.category
-                              ? reviewData?.place?.category + ' . '
-                              : ''
+                              ? reviewData?.place?.category + " . "
+                              : ""
                           }${makeAddress(reviewData?.place?.address)}`
-                        : ''
+                        : ""
                     }
                     color="N100"
                     nameTypo="Headline5"

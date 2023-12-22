@@ -1,5 +1,5 @@
-import { getMyReviews, getReviews, reviewsApi } from "api/reviews";
-import { getReviewsProps } from "models/view/mypageModel";
+import { getMyReviews, getReviews, reviewsApi } from "@/api/reviews";
+import { getReviewsProps } from "@/models/view/mypageModel";
 import { useRouter } from "next/router";
 import { useInfiniteQuery } from "react-query";
 

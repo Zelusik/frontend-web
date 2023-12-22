@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import useBottomSheet from "hooks/useBottomSheet";
+import { useBottomSheet } from "@/hooks";
 
-import { Route } from "constants/Route";
-import Icon from "components/Icon";
-
-import Text from "components/core/Text";
-import { Space } from "components/core";
+import { Route } from "@/constants";
+import { Icon } from "@/components";
+import { Space, Text } from "@/components/core";
 
 interface Props {}
 

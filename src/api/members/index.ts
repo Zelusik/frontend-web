@@ -1,5 +1,5 @@
-import client from "api";
-import { TermsType } from "types/auth";
+import client from "@/api";
+import { TermsType } from "@/types/auth";
 
 export const membersApi = {
   getMeProfile: async () =>

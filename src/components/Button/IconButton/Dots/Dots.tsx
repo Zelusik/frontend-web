@@ -1,6 +1,6 @@
-import useBottomSheet from "hooks/useBottomSheet";
-import Icon from "components/Icon";
-import { Button } from "components/core";
+import { useBottomSheet } from "@/hooks";
+import { Icon } from "@/components";
+import { Button } from "@/components/core";
 
 interface DotsProps {
   type:

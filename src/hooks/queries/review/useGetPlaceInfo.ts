@@ -1,8 +1,8 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/useReduxHooks";
 import { useQuery } from "react-query";
-import { changeReviewInfo } from "reducer/slices/review/reviewSlice";
-import { kakaoSearchKeyword } from "api/open-api";
+import { changeReviewInfo } from "@/reducer/slices/review/reviewSlice";
+import { kakaoSearchKeyword } from "@/api/open-api";
 
 // 리뷰 작성 시 처음에 장소 위치 알아오기 위해 사용
 const useGetPlaceInfo = (image: any) => {

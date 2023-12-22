@@ -1,11 +1,9 @@
 import { useRouter } from "next/router";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
-import { globalValue } from "constants/globalValue";
-import { useAppSelector } from "hooks/useReduxHooks";
-import useSearch from "hooks/useSearch";
-import { getNearContentsProps } from "models/view/mapModel";
-import { Box } from "components/core";
-import { colors } from "constants/colors";
+import { globalValue, colors } from "@/constants";
+import { useAppSelector, useSearch } from "@/hooks";
+import { getNearContentsProps } from "@/models/view/mapModel";
+import { Box } from "@/components/core";
 // https://react-kakao-maps-sdk.jaeseokim.dev/
 
 interface KakaoMapProps {
@@ -19,18 +17,12 @@ interface KakaoMapProps {
   myLng?: number;
 
   isMarkShow?: boolean;
-  onCurrentLocation?: any;
+  onFindCurrentLocation?: any;
   handleClickMap?: any;
   handleClickMarker?: any;
 }
 
-export default function KakaoMap({
-  height,
-  lat,
-  lng,
-  markerDatas,
-  ...props
-}: any) {
+export function KakaoMap({ height, lat, lng, markerDatas, ...props }: any) {
   const router = useRouter();
   const { display } = useAppSelector((state) => state.global);
   const { store } = useAppSelector((state) => state.search);
@@ -46,8 +38,8 @@ export default function KakaoMap({
             lng: lng,
           }}
           onCenterChanged={(map: any) =>
-            props?.onCurrentLocation &&
-            props?.onCurrentLocation(
+            props?.onFindCurrentLocation &&
+            props?.onFindCurrentLocation(
               map.getCenter().getLat(),
               map.getCenter().getLng()
             )

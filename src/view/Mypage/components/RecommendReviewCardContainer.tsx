@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { useAppSelector } from "hooks/useReduxHooks";
-import useGetRecommendReviews from "hooks/queries/mypage/useGetRecommendReviews";
-import { InnerTopNavigation } from "components/TopNavigation";
-import NothingButton from "components/Button/NothingButton";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import useGetRecommendReviews from "@/hooks/queries/mypage/useGetRecommendReviews";
+import { InnerTopNavigation } from "@/components/TopNavigation";
+import NothingButton from "@/components/Button/NothingButton";
 import RecommandSwiper from "./RecommandSwiper";
 import { useRouter } from "next/router";
-import { Route } from "constants/Route";
-import { globalValue } from "constants/globalValue";
+import { Route } from "@/constants/Route";
+import { globalValue } from "@/constants/globalValue";
 
 interface RecommendReviewCardContainerProps {
   refs?: any;

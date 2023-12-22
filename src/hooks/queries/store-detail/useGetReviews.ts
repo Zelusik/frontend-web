@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useQuery } from "react-query";
-import { placesApi } from "api/places";
-import { useAppSelector } from "hooks/useReduxHooks";
-import { getReviews } from "api/reviews";
+import { placesApi } from "@/api/places";
+import { useAppSelector } from "@/hooks/useReduxHooks";
+import { getReviews } from "@/api/reviews";
 
 const useGetReviews = ({ currentIndex, kakaoId, placeId }: any): any => {
   const { placeInfo } = useAppSelector((state) => state.search);

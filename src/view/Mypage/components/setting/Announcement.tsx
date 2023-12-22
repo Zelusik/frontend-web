@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Icon from "components/Icon/Icon";
-import BackTitle from "components/Title/BackTitle";
-import { Space, Text } from "components/core";
+import { Icon } from "@/components/Icon";
+import BackTitle from "@/components/Title/BackTitle";
+import { Space, Text } from "@/components/core";
 
 const Announcement = () => {
   const announcementList = [

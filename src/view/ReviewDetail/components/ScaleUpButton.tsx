@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 
-import { colors } from "constants/colors";
-import { Route } from "constants/Route";
-import Icon from "components/Icon";
-import Text from "components/core/Text";
-import { Box, Flex } from "components/core";
+import { colors } from "@/constants/colors";
+import { Route } from "@/constants/Route";
+import Icon from "@/components/Icon";
+import Text from "@/components/core/Text";
+import { Box, Flex } from "@/components/core";
 
 export default function ScaleUpButton({ lat, lng, myLat, myLng }: any) {
   const router = useRouter();

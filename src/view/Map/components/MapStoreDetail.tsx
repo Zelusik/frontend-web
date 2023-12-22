@@ -1,13 +1,12 @@
 import { forwardRef, useEffect } from "react";
 import styled from "@emotion/styled";
-import { colors } from "constants/colors";
-import useDisplaySize from "hooks/useDisplaySize";
-import { useAppSelector } from "hooks/useReduxHooks";
+import { colors } from "@/constants/colors";
+import { useAppSelector } from "@/hooks/useReduxHooks";
 
-import { globalValue } from "constants/globalValue";
-import { Box, Flex } from "components/core";
+import { globalValue } from "@/constants/globalValue";
+import { Box, Flex } from "@/components/core";
 
-const MapStoreDetail = forwardRef(function Div(
+export const MapStoreDetail = forwardRef(function Div(
   { children, ...props }: any,
   ref: any
 ) {
@@ -53,5 +52,3 @@ const Wrapper = styled.div<{
   background: ${colors["N0"]};
 `;
 //   top: ${({ height }) => `calc(82px + ${height * 0.7}px)`};
-
-export default MapStoreDetail;

@@ -1,4 +1,4 @@
-import client from "api";
+import client from "@/api";
 import axios from "axios";
 
 export const KakaoLogin = async (kakaoAccessToken: string) =>
@@ -17,7 +17,10 @@ export const AppleLogin = async (userInfo: {
 }) =>
   await axios
     .post(`${process.env.BASE_URL}/v1/auth/login/apple`, userInfo, {
-      headers: { "Content-Type": "application/json", "Eatery-API-Minor-Version": 1 },
+      headers: {
+        "Content-Type": "application/json",
+        "Eatery-API-Minor-Version": 1,
+      },
     })
     .then(({ data }) => data)
     .catch((err) => console.log(err.response));

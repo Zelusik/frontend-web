@@ -3,20 +3,20 @@ import { useRouter } from "next/router";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import Swiper from "components/Swiper";
+import Swiper from "@/components/Swiper";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import { Route } from "constants/Route";
-import { colors } from "constants/colors";
-import NothingButton from "components/Button/NothingButton";
-import { AspectRatio, Flex, Image, Space, Gradient } from "components/core";
-import Title from "components/Title";
-import StoreReviewButton from "components/Button/StoreReviewButton";
-import Heart from "components/Button/IconButton/Heart";
+import { Route } from "@/constants/Route";
+import { colors } from "@/constants/colors";
+import NothingButton from "@/components/Button/NothingButton";
+import { AspectRatio, Flex, Image, Space, Gradient } from "@/components/core";
+import Title from "@/components/Title";
+import StoreReviewButton from "@/components/Button/StoreReviewButton";
+import Heart from "@/components/Button/IconButton/Heart";
 import ImageCount from "./ImageCount";
-import { getRecommendReviewsProps } from "models/view/mypageModel";
+import { getRecommendReviewsProps } from "@/models/view/mypageModel";
 
 interface RecommandSwiperProps {
   recommendReviewDatas?: getRecommendReviewsProps[];

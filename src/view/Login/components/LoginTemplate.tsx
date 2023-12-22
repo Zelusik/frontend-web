@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Icon from "components/Icon";
+import Icon from "@/components/Icon";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
