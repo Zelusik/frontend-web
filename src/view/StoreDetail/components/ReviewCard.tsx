@@ -1,11 +1,11 @@
-import { useRouter } from "next/router";
-import Description from "components/Description";
-import Hashtags from "components/Hashtags";
-import { Box, Space } from "components/core";
-import SlideImage from "./ImageSlide";
-import Title from "components/Title";
-import ProfileButton from "components/Button/ProfileButton";
-import { getTimeSinceVisit } from "utils/getTimeSinceVisit";
+import { useRouter } from 'next/router';
+import Description from 'components/Description';
+import Hashtags from 'components/Hashtags';
+import { Box, Space } from 'components/core';
+import SlideImage from './ImageSlide';
+import Title from 'components/Title';
+import ProfileButton from 'components/Button/ProfileButton';
+import { getTimeSinceVisit } from 'utils/getTimeSinceVisit';
 
 export default function ReivewCard({ data, touch }: any) {
   return (
@@ -29,7 +29,7 @@ export default function ReivewCard({ data, touch }: any) {
       <Space h={10} />
 
       <Box ph={20}>
-        <Description text={data?.content} />
+        <Description text={data?.content || ''} />
         <Space h={10} />
 
         <Hashtags
