@@ -127,7 +127,7 @@ export default function ReviewDetail() {
 
               <Box ph={20}>
                 <Space h={16} />
-                <Description text={reviewData?.content} />
+                <Description text={reviewData?.content || ''} />
                 <Space h={15} />
                 <Divider h={1} bg="N20" />
                 <Space h={16} />
