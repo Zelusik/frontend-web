@@ -1,37 +1,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import { motion } from "framer-motion";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
+import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 
-import useIntersectionObserver from "hooks/useIntersectionObserver";
-import useGetStore from "hooks/queries/store-detail/useGetStore";
-import useDisplaySize from "hooks/useDisplaySize";
-import { useAppDispatch } from "hooks/useReduxHooks";
-import { editDisplaySize } from "reducer/slices/global/globalSlice";
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import useDisplaySize from 'hooks/useDisplaySize';
+import { useAppDispatch } from 'hooks/useReduxHooks';
+import { editDisplaySize } from 'reducer/slices/global/globalSlice';
 
-import { colors } from "constants/colors";
-import LoadingCircle from "components/Loading/LoadingCircle";
-import { Box, ScrollArea, Space } from "components/core";
-import Hashtags from "components/Hashtags/Hashtags";
-import StoreTitle from "components/Title/StoreTitle";
-import ImageBox from "./components/ImageBox";
-import Title from "components/Title";
-import BackArrow from "components/Button/IconButton/BackArrow";
-import Setting from "components/Button/IconButton/Setting";
-import Dots from "components/Button/IconButton/Dots";
-import StoreReviewButton from "components/Button/StoreReviewButton";
-import Heart from "components/Button/IconButton/Heart";
-import Edit from "components/Button/IconButton/Edit";
-import Hashtag from "components/Hashtags/Hashtag";
-import { ScrollTopNavigation, TopNavigation } from "components/TopNavigation";
-import ReviewCardContainer from "./components/ReviewCardContainer";
-import StoreInfoContainer from "./components/StoreInfoContainer";
-import { globalValue } from "constants/globalValue";
-import { makeAddress } from "utils/makeAddress";
-import useGetStoreInfo from "hooks/queries/store-detail/useGetStoreInfo";
-import useGetReviews from "hooks/queries/store-detail/useGetReviews";
+import { colors } from 'constants/colors';
+import LoadingCircle from 'components/Loading/LoadingCircle';
+import { Box, ScrollArea, Space } from 'components/core';
+import Hashtags from 'components/Hashtags/Hashtags';
+import StoreTitle from 'components/Title/StoreTitle';
+import ImageBox from './components/ImageBox';
+import Title from 'components/Title';
+import BackArrow from 'components/Button/IconButton/BackArrow';
+import Setting from 'components/Button/IconButton/Setting';
+import Dots from 'components/Button/IconButton/Dots';
+import StoreReviewButton from 'components/Button/StoreReviewButton';
+import Heart from 'components/Button/IconButton/Heart';
+import Edit from 'components/Button/IconButton/Edit';
+import Hashtag from 'components/Hashtags/Hashtag';
+import { ScrollTopNavigation, TopNavigation } from 'components/TopNavigation';
+import ReviewCardContainer from './components/ReviewCardContainer';
+import StoreInfoContainer from './components/StoreInfoContainer';
+import { globalValue } from 'constants/globalValue';
+import { makeAddress } from 'utils/makeAddress';
+import useGetStoreInfo from 'hooks/queries/store-detail/useGetStoreInfo';
+import useGetReviews from 'hooks/queries/store-detail/useGetReviews';
 
 const StoreDetail = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +44,7 @@ const StoreDetail = () => {
   const { width, height } = useDisplaySize();
   dispatch(
     editDisplaySize({
-      type: "display",
+      type: 'display',
       value: [width, height],
     })
   );
@@ -54,7 +53,7 @@ const StoreDetail = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const [touch, setTouch] = useState<boolean>(false);
-  const [direction, setDirection] = useState("none");
+  const [direction, setDirection] = useState('none');
   const [startY, setStartY] = useState([0, 0, 0]);
 
   const { storeInfoData, isStoreInfoLoading } = useGetStoreInfo({
@@ -78,15 +77,15 @@ const StoreDetail = () => {
         padding={20}
         position="absolute"
         top={0}
-        background={titleChange - ((width * 281) / 360 - 50) > 0 && "N0"}
+        background={titleChange - ((width * 281) / 360 - 50) > 0 && 'N0'}
         zIndex={802}
         renderLeft={
           <BackArrow
             color={
               storeInfoData?.placeImages?.length > 0 &&
               titleChange - ((width * 281) / 360 - 50) <= 0
-                ? "N0"
-                : "N100"
+                ? 'N0'
+                : 'N100'
             }
           />
         }
@@ -100,8 +99,8 @@ const StoreDetail = () => {
             color={
               storeInfoData?.placeImages?.length > 0 &&
               titleChange - ((width * 281) / 360 - 50) <= 0
-                ? "N0"
-                : "N100"
+                ? 'N0'
+                : 'N100'
             }
           />
         }
@@ -121,9 +120,7 @@ const StoreDetail = () => {
             direction={{ direction, setDirection }}
             title={{ titleChange, setTitleChange }}
             scrollTop={imageHeight - 40}
-            scroll={
-              (storeInfoData?.placeImages?.length > 0 ? imageHeight : 0) + 155
-            }
+            scroll={(storeInfoData?.placeImages?.length > 0 ? imageHeight : 0) + 155}
             top={0}
             bottomHeight={0}
           >
@@ -143,10 +140,10 @@ const StoreDetail = () => {
                     storeInfoData?.category
                       ? `${
                           storeInfoData?.category
-                            ? storeInfoData?.category + " . "
-                            : ""
+                            ? storeInfoData?.category + ' . '
+                            : ''
                         }${makeAddress(storeInfoData?.address)}`
-                      : ""
+                      : ''
                   }
                   color="N100"
                   nameTypo="Headline6"
@@ -156,10 +153,7 @@ const StoreDetail = () => {
               buttonRight={<Edit size={28} />}
               paddingRight={16}
               renderRight={
-                <Heart
-                  id={storeInfoData?.id}
-                  isMarked={storeInfoData?.isMarked}
-                />
+                <Heart id={storeInfoData?.id} isMarked={storeInfoData?.isMarked} />
               }
             />
             <Space h={16} />
@@ -181,24 +175,20 @@ const StoreDetail = () => {
                 setCurrentIndex,
               }}
               touch={{ touch, setTouch }}
-              keywordDatas={["리뷰", "매장정보"]}
+              keywordDatas={['리뷰', '매장정보']}
             >
               <ReviewCardContainer
                 refs={[scrollRef, scrollRef1]}
                 direction={direction}
                 touch={{ touch, setTouch }}
-                imageSize={
-                  storeInfoData?.placeImages?.length > 0 ? imageHeight : 0
-                }
+                imageSize={storeInfoData?.placeImages?.length > 0 ? imageHeight : 0}
                 data={reviewDatas}
                 hasNextPage={hasNextPage}
               />
               <StoreInfoContainer
                 refs={[scrollRef, scrollRef2]}
                 direction={direction}
-                imageSize={
-                  storeInfoData?.placeImages?.length > 0 ? imageHeight : 0
-                }
+                imageSize={storeInfoData?.placeImages?.length > 0 ? imageHeight : 0}
                 data={storeInfoData}
               />
             </TopNavigation>
