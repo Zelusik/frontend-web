@@ -1,12 +1,12 @@
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
-import useBottomSheet from "hooks/useBottomSheet";
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import useBottomSheet from 'hooks/useBottomSheet';
 
-import Icon from "components/Icon";
+import Icon from 'components/Icon';
 
-import Text from "components/core/Text";
-import { Route } from "constants/Route";
-import { Space } from "components/core";
+import Text from 'components/core/Text';
+import { Route } from 'constants/Route';
+import { Space } from 'components/core';
 
 interface Props {}
 
@@ -15,7 +15,7 @@ export default function ReportStore({}: Props) {
   const { closeBottomSheetQuick } = useBottomSheet({});
 
   const clickPrimary = () => {
-    router.push(Route.REPORT());
+    router.push(Route.PLACE_SUGGESTION());
     closeBottomSheetQuick();
   };
 
