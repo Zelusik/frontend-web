@@ -1,19 +1,20 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { HYDRATE } from "next-redux-wrapper";
-import { combineReducers } from "redux";
-import alertSlice from "./alert/alertSlice";
-import authSlice from "./auth/authSlice";
-import bottomSheetSlice from "./bottomSheet/bottomSheetSlice";
-import mapBottomSheetSlice from "./bottomSheet/mapBottomSheetSlice";
-import globalSlice from "./global/globalSlice";
-import imageSlice from "./image/imageSlice";
-import reviewSlice from "./review/reviewSlice";
-import searchSlice from "./search/searchSlice";
-import currIdxSlice from "./image/currIdxSlice";
-import menuTagSlice from "./image/menuTagSlice";
-import userSlice from "./user/userSlice";
-import recommendReviewSlice from "./review/recommendReviewSlice";
-import topNavigationSlice from "./topNativation/topNavigationSlice";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
+import { combineReducers } from 'redux';
+import alertSlice from './alert/alertSlice';
+import authSlice from './auth/authSlice';
+import bottomSheetSlice from './bottomSheet/bottomSheetSlice';
+import mapBottomSheetSlice from './bottomSheet/mapBottomSheetSlice';
+import globalSlice from './global/globalSlice';
+import imageSlice from './image/imageSlice';
+import reviewSlice from './review/reviewSlice';
+import searchSlice from './search/searchSlice';
+import currIdxSlice from './image/currIdxSlice';
+import menuTagSlice from './image/menuTagSlice';
+import userSlice from './user/userSlice';
+import recommendReviewSlice from './review/recommendReviewSlice';
+import topNavigationSlice from './topNativation/topNavigationSlice';
+import reportReviewSlice from './review/reportReviewSlice';
 
 const rootReducer = (state: any, action: PayloadAction<any>) => {
   switch (action.type) {
@@ -37,6 +38,7 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
         recommendReview: recommendReviewSlice,
         topNavigation: topNavigationSlice,
         user: userSlice,
+        reportReview: reportReviewSlice,
       });
       return combineReducer(state, action);
     }

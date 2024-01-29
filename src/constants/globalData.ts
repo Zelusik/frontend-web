@@ -163,21 +163,21 @@ export const termsData = [
 // reportData.ts
 
 export const storeReportData = [
-  { val: '음식점의 위치' },
-  { val: '운영 시간' },
-  { val: '휴무일 정보' },
-  { val: '전화번호' },
-  { val: 'sns 정보' },
-  { val: '기타' },
+  { key: '음식점의 위치', val: '음식점의 위치' },
+  { key: '운영 시간', val: '운영 시간' },
+  { key: '휴무일 정보', val: '휴무일 정보' },
+  { key: '전화번호', val: '전화번호' },
+  { key: 'sns 정보', val: 'sns 정보' },
+  { key: '기타', val: '기타' },
 ];
 
-export const reportData = [
-  { val: '해당 음식점과 관련 없는 내용임' },
-  { val: '광고/홍보성 게시글임' },
-  { val: '선정적이거나 폭력, 혐오적임' },
-  { val: '무단 도용, 사칭, 저작권 침해가 의심됨' },
-  { val: '개인 정보 노출이 우려됨' },
-  { val: '기타' },
+export const reportData: { key: string; val: string }[] = [
+  { key: 'UNRELATED', val: '해당 음식점과 관련 없는 내용임' },
+  { key: 'ADVERTISING', val: '광고/홍보성 게시글임' },
+  { key: 'SENSATIONAL', val: '선정적이거나 폭력, 혐오적임' },
+  { key: 'UNAUTHORIZED', val: '무단 도용, 사칭, 저작권 침해가 의심됨' },
+  { key: 'PRIVACY', val: '개인 정보 노출이 우려됨' },
+  { key: 'ETC', val: '기타' },
 ];
 
 // placeSuggestionData.ts

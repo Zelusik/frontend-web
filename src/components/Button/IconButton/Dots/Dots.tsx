@@ -1,21 +1,23 @@
-import useBottomSheet from "hooks/useBottomSheet";
-import Icon from "components/Icon";
-import { Button } from "components/core";
+import useBottomSheet from 'hooks/useBottomSheet';
+import Icon from 'components/Icon';
+import { Button } from 'components/core';
 
 interface DotsProps {
   type:
-    | "share-report"
-    | "delete-edit"
-    | "report-store"
-    | "selectMenu"
-    | "registerMenu";
+    | 'share-report'
+    | 'delete-edit'
+    | 'report-store'
+    | 'selectMenu'
+    | 'registerMenu';
   size?: number;
   color?: string;
+  onClick?: () => void;
 }
 
-export default function Dots({ type, size = 24, color }: DotsProps) {
+export default function Dots({ type, size = 24, color, onClick }: DotsProps) {
   const { openBottomSheet } = useBottomSheet({});
   const handleClickDots = () => {
+    onClick && onClick();
     openBottomSheet(type);
   };
 
