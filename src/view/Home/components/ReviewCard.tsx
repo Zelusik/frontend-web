@@ -1,16 +1,18 @@
-import { useRouter } from "next/router";
-import { Route } from "constants/Route";
+import { useRouter } from 'next/router';
+import { Route } from 'constants/Route';
 
-import { globalValue } from "constants/globalValue";
-import { getTimeSinceVisit } from "utils/getTimeSinceVisit";
-import { getFeedContentsProps } from "models/view/homeModel";
+import { globalValue } from 'constants/globalValue';
+import { getTimeSinceVisit } from 'utils/getTimeSinceVisit';
+import { getFeedContentsProps } from 'models/view/homeModel';
 
-import { AspectRatio, Box, Gradient, Image, Space } from "components/core";
-import Title from "components/Title";
-import Dots from "components/Button/IconButton/Dots";
-import ProfileButton from "components/Button/ProfileButton";
-import Heart from "components/Button/IconButton/Heart";
-import StoreReviewButton from "components/Button/StoreReviewButton";
+import { AspectRatio, Box, Gradient, Image, Space } from 'components/core';
+import Title from 'components/Title';
+import Dots from 'components/Button/IconButton/Dots';
+import ProfileButton from 'components/Button/ProfileButton';
+import Heart from 'components/Button/IconButton/Heart';
+import StoreReviewButton from 'components/Button/StoreReviewButton';
+import { useDispatch } from 'react-redux';
+import { setReviewId } from 'reducer/slices/review/reportReviewSlice';
 
 interface ReviewCardProps {
   key: number;
@@ -18,6 +20,7 @@ interface ReviewCardProps {
 }
 
 export default function ReviewCard({ feedData }: ReviewCardProps) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const clickStore = () => {
     router.push({
@@ -43,7 +46,14 @@ export default function ReviewCard({ feedData }: ReviewCardProps) {
               createdAt={getTimeSinceVisit(feedData?.createdAt)}
             />
           }
-          renderRight={<Dots type="share-report" size={20} color="N80" />}
+          renderRight={
+            <Dots
+              type="share-report"
+              size={20}
+              color="N80"
+              onClick={() => dispatch(setReviewId(feedData?.id))}
+            />
+          }
         />
         <Space h={16} />
 
