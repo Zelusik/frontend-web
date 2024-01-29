@@ -1,12 +1,12 @@
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
-import useBottomSheet from "hooks/useBottomSheet";
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import useBottomSheet from 'hooks/useBottomSheet';
 
-import { Route } from "constants/Route";
-import Icon from "components/Icon";
+import { Route } from 'constants/Route';
+import Icon from 'components/Icon';
 
-import Text from "components/core/Text";
-import { Space } from "components/core";
+import Text from 'components/core/Text';
+import { Space } from 'components/core';
 
 interface Props {}
 
@@ -24,13 +24,13 @@ export default function ShareReport({}: Props) {
   return (
     <>
       <Space h={10} />
-      <ReportButton onClick={clickPrimary}>
+      {/* <ReportButton onClick={clickPrimary}>
         <Icon icon="Share" width={20} height={20} />
         <Text typo="Headline2" c="N100" style={{ marginLeft: 6 }}>
           공유하기
         </Text>
       </ReportButton>
-      <Space h={26} />
+      <Space h={26} /> */}
       <ReportButton onClick={clickSecondary}>
         <Icon icon="Report" width={20} height={20} />
         <Text typo="Headline2" c="N100" style={{ marginLeft: 6 }}>
