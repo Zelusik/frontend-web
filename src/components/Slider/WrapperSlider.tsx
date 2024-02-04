@@ -1,4 +1,10 @@
-import React, { useState, useEffect, forwardRef, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useRef,
+  ComponentType,
+} from 'react';
 import styled from '@emotion/styled';
 import { useAppSelector } from 'hooks/useReduxHooks';
 
@@ -76,7 +82,7 @@ const WrapperSlider = forwardRef(function Div(
   );
 });
 
-const StyledSlider = styled(Slider)`
+const StyledSlider = styled(Slider as ComponentType<any>)`
   .slick-list {
     height: 100%;
     object-fit: cover;

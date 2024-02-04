@@ -1,12 +1,13 @@
-import React, { forwardRef, useState, useEffect } from "react";
-import styled from "@emotion/styled";
-import useDisplaySize from "hooks/useDisplaySize";
-import { Box, Text } from "components/core";
+import React, { forwardRef, useState, useEffect, ComponentType } from 'react';
+import styled from '@emotion/styled';
+import useDisplaySize from 'hooks/useDisplaySize';
+import { Box, Text } from 'components/core';
 
-import Slider, { Settings } from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { useAppSelector } from "hooks/useReduxHooks";
+import Slider, { Settings } from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useAppSelector } from 'hooks/useReduxHooks';
+import { SliderProps } from '@material-ui/core';
 
 interface InnerSliderProps {
   height?: string | number;
@@ -17,7 +18,7 @@ interface InnerSliderProps {
 }
 
 const InnerSlider = forwardRef(function Div(
-  { height = "auto", index, touch, length, children }: InnerSliderProps,
+  { height = 'auto', index, touch, length, children }: InnerSliderProps,
   ref: any
 ) {
   const { display } = useAppSelector((state) => state.global);
@@ -125,7 +126,7 @@ const InnerSlider = forwardRef(function Div(
       style={{
         minHeight: height,
         maxHeight: height,
-        overflow: "hidden",
+        overflow: 'hidden',
       }}
     >
       <StyledSlider
@@ -140,7 +141,7 @@ const InnerSlider = forwardRef(function Div(
   );
 });
 
-const StyledSlider = styled(Slider)`
+const StyledSlider = styled(Slider as ComponentType<any>)`
   .slick-slide {
     padding: 0 10px; // space(여백)/2
   }

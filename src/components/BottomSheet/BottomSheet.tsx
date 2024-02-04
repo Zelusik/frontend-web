@@ -1,40 +1,38 @@
-"use client";
-import { forwardRef, useEffect } from "react";
-import styled from "@emotion/styled";
-import { css, keyframes } from "@emotion/react";
+'use client';
+import { forwardRef, useEffect } from 'react';
+import styled from '@emotion/styled';
+import { css, keyframes } from '@emotion/react';
 
-import useBottomSheet from "hooks/useBottomSheet";
-import { useAppSelector } from "hooks/useReduxHooks";
-import useDisplaySize from "hooks/useDisplaySize";
-import { colors } from "constants/colors";
-import { globalValue } from "constants/globalValue";
+import useBottomSheet from 'hooks/useBottomSheet';
+import { useAppSelector } from 'hooks/useReduxHooks';
+import useDisplaySize from 'hooks/useDisplaySize';
+import { colors } from 'constants/colors';
+import { globalValue } from 'constants/globalValue';
 
-import SelectMenu from "./children/SelectMenu";
-import RegisterMenu from "./children/RegisterMenu";
-import ReportStore from "./children/ReportStore";
-import DeleteEdit from "./children/DeleteEdit";
-import ShareReport from "./children/ShareReport";
+import SelectMenu from './children/SelectMenu';
+import RegisterMenu from './children/RegisterMenu';
+import ReportStore from './children/ReportStore';
+import DeleteEdit from './children/DeleteEdit';
+import ShareReport from './children/ShareReport';
 
 interface Props {
   children?: any;
 }
 
-const BottomSheet = forwardRef(function Div(
-  { children, ...props }: Props,
-  ref
-) {
+const BottomSheet = forwardRef(function Div({ children, ...props }: Props, ref) {
   const { height } = useDisplaySize();
   const COMPONENT_HEIGHT: any = {
-    "share-report": 146,
-    "delete-edit": 146,
-    "report-store": 100,
+    'share-report': 80,
+    // "share-report": 146,
+    'delete-edit': 146,
+    'report-store': 100,
     selectMenu: height * 0.8,
     registerMenu: 80,
   };
   const COMPONENT: any = {
-    "share-report": <ShareReport />,
-    "delete-edit": <DeleteEdit />,
-    "report-store": <ReportStore />,
+    'share-report': <ShareReport />,
+    'delete-edit': <DeleteEdit />,
+    'report-store': <ReportStore />,
     selectMenu: <SelectMenu />,
     registerMenu: <RegisterMenu />,
   };
@@ -46,7 +44,7 @@ const BottomSheet = forwardRef(function Div(
 
   const BOTTOMSHEET_HEIGHT = COMPONENT_HEIGHT[type];
   const { sheet, content } = useBottomSheet({
-    use: "use",
+    use: 'use',
     visible,
     BOTTOMSHEET_HEIGHT,
   });
@@ -84,10 +82,10 @@ const fade = (actionDelay: boolean) => keyframes`
 
 const slide = (actionDelay: number, height: number) => keyframes`
   from {
-    transform: translateY(${actionDelay ? 0 : -height + "px"});
+    transform: translateY(${actionDelay ? 0 : -height + 'px'});
   }
   to {
-    transform: translateY(${actionDelay ? -height + "px" : 0});
+    transform: translateY(${actionDelay ? -height + 'px' : 0});
   }
 `;
 
@@ -139,13 +137,13 @@ const BottomSheetWrapper = styled.div<{
 }>`
   width: 100%;
   max-width: ${globalValue.MAX_WIDTH}px;
-  height: ${({ height }) => height + "px"};
+  height: ${({ height }) => height + 'px'};
 
   display: flex;
   flex-direction: column;
 
   position: fixed;
-  bottom: ${({ height }) => -height + "px"}; // -height
+  bottom: ${({ height }) => -height + 'px'}; // -height
 
   border-radius: 16px 16px 0 0;
   color: ${({ color }) => color};
