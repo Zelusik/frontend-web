@@ -1,42 +1,42 @@
-import React from "react";
-import styled from "@emotion/styled";
-import BottomButton from "components/Button/BottomButton";
-import RoundButton from "components/Button/RoundButton";
-import Icon from "components/Icon/Icon";
-import BackTitle from "components/Title/BackTitle";
-import { colors } from "constants/colors";
-import { typography } from "constants/typography";
-import useGetMyInfo from "hooks/queries/user/useGetMyInfo";
-import { useAppDispatch, useAppSelector } from "hooks/useReduxHooks";
-import { changeUserInfo } from "reducer/slices/user/userSlice";
-import useEditMyInfo from "hooks/queries/user/useEditMyInfo";
-import { useDropzone } from "react-dropzone";
-import imageCompression from "browser-image-compression";
-import { AspectRatio, Image, Space, Text } from "components/core";
+import React from 'react';
+import styled from '@emotion/styled';
+import BottomButton from 'components/Button/BottomButton';
+import RoundButton from 'components/Button/RoundButton';
+import Icon from 'components/Icon/Icon';
+import BackTitle from 'components/Title/BackTitle';
+import { colors } from 'constants/colors';
+import { typography } from 'constants/typography';
+import useGetMyInfo from 'hooks/queries/user/useGetMyInfo';
+import { useAppDispatch, useAppSelector } from 'hooks/useReduxHooks';
+import { changeUserInfo } from 'reducer/slices/user/userSlice';
+import useEditMyInfo from 'hooks/queries/user/useEditMyInfo';
+import { useDropzone } from 'react-dropzone';
+import imageCompression from 'browser-image-compression';
+import { AspectRatio, Image, Space, Text } from 'components/core';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
   const { data } = useGetMyInfo();
-  const { mutate } = useEditMyInfo();
+  const { mutate, isLoading } = useEditMyInfo();
   const user = useAppSelector((state) => state.user);
   let heic2any: any;
 
-  if (typeof window !== "undefined") {
-    import("heic2any").then((module) => {
+  if (typeof window !== 'undefined') {
+    import('heic2any').then((module) => {
       heic2any = module.default;
     });
   }
 
   const genderData = [
-    { value: "FEMALE", text: "여성" },
-    { value: "MALE", text: "남성" },
-    { value: "ETC", text: "기타" },
+    { value: 'FEMALE', text: '여성' },
+    { value: 'MALE', text: '남성' },
+    { value: 'ETC', text: '기타' },
   ];
 
   const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       changeUserInfo({
-        type: "nickname",
+        type: 'nickname',
         value: e.target.value,
       })
     );
@@ -44,7 +44,7 @@ const EditProfile = () => {
   const handleChangeBirthday = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       changeUserInfo({
-        type: "birthDay",
+        type: 'birthDay',
         value: e.target.value,
       })
     );
@@ -52,7 +52,7 @@ const EditProfile = () => {
   const handleChangeGender = (gender: { value: string; text: string }) => {
     dispatch(
       changeUserInfo({
-        type: "gender",
+        type: 'gender',
         value: gender.text,
       })
     );
@@ -61,7 +61,7 @@ const EditProfile = () => {
     mutate({
       profileImage:
         data.profileImage.thumbnailImageUrl === user.image.thumbnailUrl
-          ? ""
+          ? ''
           : user.image.url,
       nickname: user.nickname,
       birthDay: user.birthDay,
@@ -71,7 +71,7 @@ const EditProfile = () => {
 
   const isHeicOrHeif = (fileName: string): boolean => {
     const lowercasedName = fileName.toLowerCase();
-    return lowercasedName.endsWith(".heic") || lowercasedName.endsWith(".heif");
+    return lowercasedName.endsWith('.heic') || lowercasedName.endsWith('.heif');
   };
 
   const convertHeicToJpeg = async (file: any): Promise<any> => {
@@ -79,7 +79,7 @@ const EditProfile = () => {
       if (isHeicOrHeif(file.name)) {
         return heic2any({
           blob: file,
-          toType: "image/jpeg",
+          toType: 'image/jpeg',
           quality: 0.8,
         });
       }
@@ -112,7 +112,7 @@ const EditProfile = () => {
 
       dispatch(
         changeUserInfo({
-          type: "image",
+          type: 'image',
           value: { url: image, thumbnailUrl: imageUrl },
         })
       );
@@ -122,7 +122,7 @@ const EditProfile = () => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: false,
-    accept: { "image/*": [".heic", ".heif"] },
+    accept: { 'image/*': ['.heic', '.heif'] },
   });
 
   return (
@@ -141,7 +141,7 @@ const EditProfile = () => {
             />
             <Icon
               icon="Camera"
-              style={{ position: "absolute", bottom: 0, right: 0 }}
+              style={{ position: 'absolute', bottom: 0, right: 0 }}
             />
           </AspectRatio>
           <Space h={20} />
@@ -172,7 +172,7 @@ const EditProfile = () => {
                   id="birth"
                   type="date"
                   required
-                  value={user.birthDay || ""}
+                  value={user.birthDay || ''}
                   onChange={handleChangeBirthday}
                 />
                 {!user.birthDay && (
@@ -209,10 +209,11 @@ const EditProfile = () => {
               height="54px"
               onClick={handleClickSaveBtn}
               disabled={
-                data.birthDay === user.birthDay &&
-                data.nickname === user.nickname &&
-                data.gender === user.gender &&
-                data.profileImage.thumbnailImageUrl === user.image.thumbnailUrl
+                (data.birthDay === user.birthDay &&
+                  data.nickname === user.nickname &&
+                  data.gender === user.gender &&
+                  data.profileImage.thumbnailImageUrl === user.image.thumbnailUrl) ||
+                isLoading
               }
             />
           </BottomWrapper>
@@ -264,10 +265,10 @@ const ProfileBox = styled.div`
         position: absolute;
         pointer-events: none;
       }
-      input[type="date"] {
+      input[type='date'] {
         color: transparent;
       }
-      input[type="date"]:valid {
+      input[type='date']:valid {
         color: ${colors.N100};
       }
     }
