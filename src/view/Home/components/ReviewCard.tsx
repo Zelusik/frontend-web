@@ -60,8 +60,8 @@ export default function ReviewCard({ feedData }: ReviewCardProps) {
         <AspectRatio ratio={8 / 9} radius={20} onClick={clickStore}>
           <Image
             src={
-              feedData?.reviewImage?.thumbnailUrl
-                ? feedData?.reviewImage?.thumbnailUrl
+              feedData?.reviewImage?.url
+                ? feedData?.reviewImage?.url
                 : globalValue.ERROR_IMAGE
             }
             alt="음식 사진"
