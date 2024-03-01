@@ -15,7 +15,7 @@ export default function ReportStore({}: Props) {
   const { closeBottomSheetQuick } = useBottomSheet({});
 
   const clickPrimary = () => {
-    router.push(Route.PLACE_SUGGESTION());
+    router.push(Route.REPORT());
     closeBottomSheetQuick();
   };
 

@@ -162,13 +162,13 @@ export const termsData = [
 
 // reportData.ts
 
-export const storeReportData = [
-  { key: '음식점의 위치', val: '음식점의 위치' },
-  { key: '운영 시간', val: '운영 시간' },
-  { key: '휴무일 정보', val: '휴무일 정보' },
-  { key: '전화번호', val: '전화번호' },
-  { key: 'sns 정보', val: 'sns 정보' },
-  { key: '기타', val: '기타' },
+export const storeReportData: { key: string; val: string }[] = [
+  { key: 'POSITION', val: '음식점의 위치' },
+  { key: 'TIME', val: '운영 시간' },
+  { key: 'CLOSED_DAYS', val: '휴무일 정보' },
+  { key: 'NUMBER', val: '전화번호' },
+  { key: 'SNS', val: 'sns 정보' },
+  { key: 'ETC', val: '기타' },
 ];
 
 export const reportData: { key: string; val: string }[] = [
@@ -178,15 +178,4 @@ export const reportData: { key: string; val: string }[] = [
   { key: 'UNAUTHORIZED', val: '무단 도용, 사칭, 저작권 침해가 의심됨' },
   { key: 'PRIVACY', val: '개인 정보 노출이 우려됨' },
   { key: 'ETC', val: '기타' },
-];
-
-// placeSuggestionData.ts
-
-export const placeSuggestionData = [
-  { val: '음식점의 위치' },
-  { val: '운영 시간' },
-  { val: '휴무일 정보' },
-  { val: '전화번호' },
-  { val: 'sns 정보' },
-  { val: '기타' },
 ];

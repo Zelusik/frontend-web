@@ -31,6 +31,7 @@ import { globalValue } from 'constants/globalValue';
 import { makeAddress } from 'utils/makeAddress';
 import useGetStoreInfo from 'hooks/queries/store-detail/useGetStoreInfo';
 import useGetReviews from 'hooks/queries/store-detail/useGetReviews';
+import { setPlaceId } from 'reducer/slices/review/reportPlaceSlice';
 
 const StoreDetail = () => {
   const dispatch = useAppDispatch();
@@ -102,6 +103,7 @@ const StoreDetail = () => {
                 ? 'N0'
                 : 'N100'
             }
+            onClick={() => dispatch(setPlaceId(Number(router.query.id)))}
           />
         }
       />
