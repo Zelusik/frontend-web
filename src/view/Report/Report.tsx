@@ -14,12 +14,14 @@ import { reportData, storeReportData } from 'constants/globalData';
 import Text from 'components/core/Text';
 import { Space } from 'components/core';
 import { reportReview } from 'api/review-report';
+import { reportPlace } from 'api/place-report';
 
 export default function Report() {
   const router = useRouter();
 
   const { type } = useAppSelector((state) => state.bottomSheet);
   const { reviewId } = useAppSelector((state) => state.reportReview);
+  const { placeId } = useAppSelector((state) => state.reportPlace);
 
   const ReportDatas = type === 'report-store' ? storeReportData : reportData;
   const [selected, setSelected] = useState<boolean[]>(
@@ -34,25 +36,44 @@ export default function Report() {
   };
 
   const handleClickReport = async () => {
-    const reportResult = await reportReview({
-      reviewId,
-      reasonOption: ReportDatas[selected.indexOf(true)].key,
-      reasonDetail,
-    });
-    if (reportResult.id) {
-      router.back();
+    // 장소 정보 수정 제안
+    if (type === 'report-store') {
+      const reportResult = await reportPlace({
+        placeId,
+        reasonOption: ReportDatas[selected.indexOf(true)].key,
+        reasonDetail,
+      });
+      if (reportResult.id) {
+        router.back();
+      }
+    } else {
+      const reportResult = await reportReview({
+        reviewId,
+        reasonOption: ReportDatas[selected.indexOf(true)].key,
+        reasonDetail,
+      });
+      if (reportResult.id) {
+        router.back();
+      }
     }
   };
 
   return (
     <>
       <ReportWrapper>
-        <BackTitle type="black-left-text" text="리뷰 신고하기" />
+        <BackTitle
+          type="black-left-text"
+          text={type === 'report-store' ? '정보 수정 제안하기' : '리뷰 신고하기'}
+        />
         <Space h={20} />
-        <Text typo="Headline3" c="N100">
-          이 리뷰를 신고하는 이유를 알려주세요.
-        </Text>
-        <Space h={20} />
+        {type !== 'report-store' && (
+          <>
+            <Text typo="Headline3" c="N100">
+              이 리뷰를 신고하는 이유를 알려주세요.
+            </Text>
+            <Space h={20} />
+          </>
+        )}
 
         {ReportDatas?.map((data: any, idx: number) => {
           return (
@@ -69,7 +90,11 @@ export default function Report() {
         <TextArea
           size={114}
           placeholder="신고 내용을 더 빠르게 해결할 수 있도록 추가 정보를 제공해주세요"
-          text="신고자 정보는 익명으로 처리되며, 신고된 포토리뷰는 검토 후 조치됩니다."
+          text={
+            type === 'report-store'
+              ? '신고자 정보는 익명으로 처리되며, 신고된 음식점 정보는 검토 후 조치됩니다.'
+              : '신고자 정보는 익명으로 처리되며, 신고된 포토리뷰는 검토 후 조치됩니다.'
+          }
           value={reasonDetail}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setReasonDetail(e.target.value)
@@ -79,11 +104,11 @@ export default function Report() {
       <BottomReportWrapper>
         <BottomButton
           type="primary"
-          text="신고하기"
+          text={type === 'report-store' ? '제안하기' : '신고하기'}
           disabled={
             selected.filter((data) => {
               return !data;
-            }).length === 6
+            }).length === 6 || reasonDetail.length === 0
           }
           onClick={handleClickReport}
         />
