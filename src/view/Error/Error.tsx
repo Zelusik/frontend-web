@@ -5,7 +5,7 @@ import Icon from 'components/Icon';
 import { Space, Text } from 'components/core';
 import { Route } from 'constants/Route';
 import { useRouter } from 'next/router';
-import ErrorIcon from 'assets/Error.svg';
+import ErrorIcon from 'assets/error.svg';
 import { colors } from 'constants/colors';
 
 const Error = () => {
