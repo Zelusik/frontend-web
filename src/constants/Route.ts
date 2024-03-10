@@ -35,4 +35,6 @@ export const Route: RouteType = {
 
   REVIEW_DETAIL: () => '/review-detail',
   IMAGE_DETAIL: () => '/image-detail',
+
+  ERROR: () => '/error',
 };
